@@ -1,5 +1,19 @@
-xcodeproj
-=======
+<p align="center">
+    <img src="Assets/logo.png" width="300" max-width="50%" alt=Startup />
+</p>
+
+<p align="center">
+    <a href="https://travis-ci.org/pepibumur/xcodeproj">
+        <img src="https://travis-ci.org/pepibumur/xcodeproj.svg?branch=master">
+    </a>
+    <a href="https://swift.org/package-manager">
+        <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+    </a>
+    <a href="https://twitter.com/pepibumur">
+        <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+    </a>
+</p>
+
 
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods Xcodeproj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
