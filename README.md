@@ -16,6 +16,16 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 2. Generate the project to work on the tool `swift package generate-xcodeproj`.
 3. Open the generated Xcode project.
 
+### References
+
+- [PathKit](https://github.com/kylef/PathKit)
+- [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
+- [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
+- [pbexplorer](https://github.com/mjmsmith/pbxplorer)
+- [pbxproj identifiers](https://pewpewthespells.com/blog/pbxproj_identifiers.html)
+- [mob-pbxproj](https://github.com/kronenthaler/mod-pbxproj)
+- [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
+
 ### License
 
 ```
