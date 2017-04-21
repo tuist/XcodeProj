@@ -1,4 +1,6 @@
-struct xcodeproj {
+import Foundation
 
-    var text = "Hello, World!"
+struct XCodeProj {
+    
+    
 }
