@@ -1,0 +1,9 @@
+included:
+  - Sources
+excluded:
+  - Assets
+  - Fixtures
+  - Tests
+  - .build
+disabled_rules:
+  - trailing_whitespace

@@ -24,4 +24,9 @@ final class XCBuildConfigurationSpec: XCTestCase {
         let got = subject.removingBuild(setting: "name")
         XCTAssertNil(got.buildSettings["name"])
     }
+    
+    func test_isa_hasTheCorrectValue() {
+        XCTAssertEqual(subject.isa, "XCBuildConfiguration")
+    }
+    
 }

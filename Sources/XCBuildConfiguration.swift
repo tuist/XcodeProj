@@ -13,7 +13,7 @@ public struct XCBuildConfiguration: Isa {
     let baseConfigurationReference: String?
     
     /// A map of build settings.
-    let buildSettings: Dictionary<String, String>
+    let buildSettings: [String: String]
     
     /// The configuration name.
     let name: String
@@ -22,7 +22,7 @@ public struct XCBuildConfiguration: Isa {
     
     public init(reference: String,
                 baseConfigurationReference: String? = nil,
-                buildSettings: Dictionary<String, String>,
+                buildSettings: [String: String],
                 name: String) {
         self.reference = reference
         self.baseConfigurationReference = baseConfigurationReference

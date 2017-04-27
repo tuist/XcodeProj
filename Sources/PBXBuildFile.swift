@@ -8,4 +8,6 @@ public struct PBXBuildFile {
     let reference: UUID
     let isa: String = "PBXBuildFile"
     let fileRef: PBXFileReference
+    let settings: [String: Any]
+    
 }

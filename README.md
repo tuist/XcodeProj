@@ -39,6 +39,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 - [pbxproj identifiers](https://pewpewthespells.com/blog/pbxproj_identifiers.html)
 - [mob-pbxproj](https://github.com/kronenthaler/mod-pbxproj)
 - [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
+- [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 
 ### License
 

@@ -11,5 +11,3 @@ public enum PBXObject {
     case xcBuildConfiguration
     case xcConfigurationList
 }
-
-
