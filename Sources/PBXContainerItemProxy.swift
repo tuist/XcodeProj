@@ -1,4 +1,5 @@
 import Foundation
+import Unbox
 
 // This is the element for to decorate a target item.
 public struct PBXContainerItemProxy: Isa {
@@ -37,4 +38,17 @@ public struct PBXContainerItemProxy: Isa {
         self.remoteInfo = remoteInfo
     }
     
+    /// Initializes the container with the reference and a dictionary that contains all its attributes.
+    ///
+    /// - Parameters:
+    ///   - reference: element reference.
+    ///   - dictionary: dictionary with the attributes.
+    init(reference: UUID, dictionary: [String: Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.containerPortal = try unboxer.unbox(key: "containerPortal")
+        self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
+        self.remoteInfo = try unboxer.unbox(key: "remoteInfo")
+    }
+
 }
