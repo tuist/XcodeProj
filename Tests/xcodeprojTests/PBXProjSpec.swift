@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import PathKit
 
 @testable import xcodeproj
 
@@ -9,7 +10,8 @@ final class PBXProjSpec: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        project = try! PBXProj(dictionary: iosProjectDictionary())
+        let (path, dictionary) = iosProjectDictionary()
+        project = try! PBXProj(path: path, dictionary: dictionary)
     }
     
     func test_initWithDictionary_hasTheCorrectArchiveVersion() {

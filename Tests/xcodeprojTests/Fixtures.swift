@@ -3,8 +3,8 @@ import PathKit
 
 @testable import xcodeproj
 
-func iosProjectDictionary() -> Dictionary<String, Any> {
+func iosProjectDictionary() -> (Path, Dictionary<String, Any>) {
     let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
     let iosProject = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
-    return loadPlist(path: iosProject.absolute().string)!
+    return (iosProject, loadPlist(path: iosProject.absolute().string)!)
 }
