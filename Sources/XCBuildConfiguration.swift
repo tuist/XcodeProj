@@ -1,4 +1,5 @@
 import Foundation
+import Unbox
 
 // This is the element for listing build configurations.
 public struct XCBuildConfiguration: Isa {
@@ -37,6 +38,21 @@ public struct XCBuildConfiguration: Isa {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
+    }
+
+    /// Initializes the build configuration with the reference
+    /// inside the plist file and a dictionary with its properties.
+    ///
+    /// - Parameters:
+    ///   - reference: element reference.
+    ///   - dictionary: dictionary with the element properties.
+    /// - Throws: an error in case any property is missing or the format is wrong.
+    public init(reference: UUID, dictionary: [String: Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
+        self.buildSettings = (dictionary["buildSettings"] as? [String: Any]) ?? [:]
+        self.name = try unboxer.unbox(key: "name")
     }
     
     // MARK: - Public
