@@ -50,6 +50,16 @@ final class PBXContainerItemProxySpec: XCTestCase {
         } catch {}
     }
     
+    func test_equal_shouldReturnTheCorrectValue() {
+        let one = PBXContainerItemProxy(reference: "reference", containerPortal: "portal", remoteGlobalIDString: "globalid", remoteInfo: "info")
+        let another = PBXContainerItemProxy(reference: "reference", containerPortal: "portal", remoteGlobalIDString: "globalid", remoteInfo: "info")
+        XCTAssertEqual(one, another)
+    }
+    
+    func test_hash_returnsTheRightValue() {
+        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
     private func testDictionary() -> [String: Any] {
         return [
             "containerPortal": "containerPortal",

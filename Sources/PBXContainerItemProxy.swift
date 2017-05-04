@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for to decorate a target item.
-public struct PBXContainerItemProxy: Isa {
+public struct PBXContainerItemProxy: Isa, Hashable {
     
     /// Element reference.
     public let reference: UUID
@@ -38,6 +38,8 @@ public struct PBXContainerItemProxy: Isa {
         self.remoteInfo = remoteInfo
     }
     
+    // MARK: - Init
+    
     /// Initializes the container with the reference and a dictionary that contains all its attributes.
     ///
     /// - Parameters:
@@ -50,5 +52,18 @@ public struct PBXContainerItemProxy: Isa {
         self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
         self.remoteInfo = try unboxer.unbox(key: "remoteInfo")
     }
-
+    
+    // MARK: - Hashable
+    
+    public static func == (lhs: PBXContainerItemProxy,
+                           rhs: PBXContainerItemProxy) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.isa == rhs.isa &&
+            lhs.proxyType == rhs.proxyType &&
+            lhs.containerPortal == rhs.containerPortal &&
+            lhs.remoteGlobalIDString == rhs.remoteGlobalIDString &&
+            lhs.remoteInfo == rhs.remoteInfo
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
 }
