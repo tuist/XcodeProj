@@ -10,14 +10,14 @@ final class XCBuildConfigurationSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = XCBuildConfiguration(reference: "reference",
-                                       baseConfigurationReference: nil,
-                                       buildSettings: ["name": "value"],
-                                       name: "Debug")
+                                       name: "Debug",
+                                       baseConfigurationReference: "base",
+                                       buildSettings: ["name": "value"])
     }
     
     func test_addingBuildSetting_returnsABuildConfigurationWithTheSettingAdded() {
         let got = subject.addingBuild(setting: "name2", value: "value2")
-        XCTAssertEqual(got.buildSettings["name2"], "value2")
+        XCTAssertEqual(got.buildSettings["name2"] as! String, "value2")
     }
     
     func test_removingBuildSetting_returnsABuildConfigurationWithTheSettingRemoved() {

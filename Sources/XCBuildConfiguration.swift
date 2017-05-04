@@ -5,12 +5,14 @@ public struct XCBuildConfiguration: Isa {
    
     // MARK: - Attributes
     
-    public let reference: String
+    /// Build configuration reference.
+    public let reference: UUID
     
+    // Build Configuration isa.
     public let isa: String = "XCBuildConfiguration"
     
     /// The path to a xcconfig file
-    public let baseConfigurationReference: String?
+    public let baseConfigurationReference: UUID?
     
     /// A map of build settings.
     public let buildSettings: [String: Any]
@@ -24,13 +26,13 @@ public struct XCBuildConfiguration: Isa {
     ///
     /// - Parameters:
     ///   - reference: build configuration reference.
+    ///   - name: build configuration name.
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    ///   - name: build configuration name.
-    public init(reference: String,
-                baseConfigurationReference: String? = nil,
-                buildSettings: [String: Any],
-                name: String) {
+    public init(reference: UUID,
+                name: String,
+                baseConfigurationReference: UUID? = nil,
+                buildSettings: [String: Any] = [:]) {
         self.reference = reference
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
@@ -49,9 +51,9 @@ public struct XCBuildConfiguration: Isa {
         var mutableSettings = self.buildSettings
         mutableSettings[setting] = value
         return XCBuildConfiguration(reference: self.reference,
+                                    name: self.name,
                                     baseConfigurationReference: self.baseConfigurationReference,
-                                    buildSettings: mutableSettings,
-                                    name: self.name)
+                                    buildSettings: mutableSettings)
     }
     
     /// Returns a build configuration by removing the given build setting.
@@ -62,8 +64,8 @@ public struct XCBuildConfiguration: Isa {
         var mutableSettings = self.buildSettings
         mutableSettings.removeValue(forKey: setting)
         return XCBuildConfiguration(reference: self.reference,
+                                    name: self.name,
                                     baseConfigurationReference: self.baseConfigurationReference,
-                                    buildSettings: mutableSettings,
-                                    name: self.name)
+                                    buildSettings: mutableSettings)
     }
 }
