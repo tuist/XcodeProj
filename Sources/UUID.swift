@@ -4,6 +4,10 @@ import CryptoSwift
 // Object reference
 public typealias UUID = String
 
-internal func generateUUID(path: String) -> String {
-    return path.md5().uppercased()
+/// Top level function that generates random UUID for referencing elements in the project files.
+///
+/// - Parameter reference: element reference.
+/// - Returns: the generated UUID
+func generateUUID(reference: String) -> String {
+    return reference.md5().uppercased()
 }
