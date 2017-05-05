@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // Specifies source trees for files
-public enum PBXSourceTree: String, UnboxableEnum {
+public enum PBXSourceTree: String, UnboxableEnum, Hashable {
     case none = ""
     case absolute = "<absolute>"
     case group = "<group>"
