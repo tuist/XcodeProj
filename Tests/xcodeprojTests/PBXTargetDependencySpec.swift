@@ -41,6 +41,16 @@ final class PBXTargetDependencySpec: XCTestCase {
         XCTAssertEqual(subject.isa, "PBXTargetDependency")
     }
     
+    func test_equals_shouldReturnTheRightValue() {
+        let one = PBXTargetDependency(reference: "reference", target: "target", targetProxy: "target_proxy")
+        let another = PBXTargetDependency(reference: "reference", target: "target", targetProxy: "target_proxy")
+        XCTAssertEqual(one, another)
+    }
+    
+    func test_hashValue_returnsTheReferenceHashValue() {
+        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
     private func testDictionary() -> [String: Any] {
         return [
             "target": "target",

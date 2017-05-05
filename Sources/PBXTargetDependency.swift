@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public struct PBXTargetDependency: Isa {
+public struct PBXTargetDependency: Isa, Hashable {
     
     // MARK: - Attributes
     
@@ -17,6 +17,8 @@ public struct PBXTargetDependency: Isa {
     
     /// Target proxy
     public let targetProxy: UUID
+    
+    // MARK: - Init
     
     /// Initializes the target dependency.
     ///
@@ -44,5 +46,17 @@ public struct PBXTargetDependency: Isa {
         self.target = try unboxer.unbox(key: "target")
         self.targetProxy = try unboxer.unbox(key: "targetProxy")
     }
+    
+    // MARK: - Hashable
+    
+    public static func == (lhs: PBXTargetDependency,
+                           rhs: PBXTargetDependency) -> Bool {
+        return lhs.reference == rhs.reference &&
+        lhs.isa == rhs.isa &&
+        lhs.target == rhs.target &&
+        lhs.targetProxy == rhs.targetProxy
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
     
 }
