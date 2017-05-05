@@ -46,6 +46,16 @@ final class XCBuildConfigurationSpec: XCTestCase {
         XCTAssertEqual(subject.isa, "XCBuildConfiguration")
     }
     
+    func test_equals_returnsTheCorrectValue() {
+        let one = XCBuildConfiguration(reference: "reference", name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
+        let another = XCBuildConfiguration(reference: "reference", name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
+        XCTAssertEqual(one, another)
+    }
+    
+    func test_hashValue_returnsTheReferenceHashValue() {
+        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
     private func testDictionary() -> [String: Any] {
         return [
             "baseConfigurationReference": "baseConfigurationReference",

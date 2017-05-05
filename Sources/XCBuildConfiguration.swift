@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCBuildConfiguration: Isa {
+public struct XCBuildConfiguration: Isa, Hashable {
    
     // MARK: - Attributes
     
@@ -83,5 +83,18 @@ public struct XCBuildConfiguration: Isa {
                                     name: self.name,
                                     baseConfigurationReference: self.baseConfigurationReference,
                                     buildSettings: mutableSettings)
+    }
+    
+    // MARK: - Hashable
+    
+    public var hashValue: Int { return self.reference.hashValue }
+
+    public static func == (lhs: XCBuildConfiguration,
+                           rhs: XCBuildConfiguration) -> Bool {
+        return lhs.reference == rhs.reference &&
+        lhs.isa == rhs.isa &&
+        lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
+        lhs.name == rhs.name &&
+        NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
 }
