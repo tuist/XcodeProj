@@ -72,6 +72,16 @@ final class PBXVariantGroupSpec: XCTestCase {
         XCTAssertFalse(newVariant.children.contains("child"))
     }
     
+    func test_equals_returnsTheCorrectValue() {
+        let one = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)
+        let another = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)
+        XCTAssertEqual(one, another)
+    }
+    
+    func test_hashValue_returnsTheReferenceHasValue() {
+        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
     private func testDictionary() -> [String: Any] {
         return [
             "children": ["child1", "child2"],

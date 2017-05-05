@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public struct PBXVariantGroup {
+public struct PBXVariantGroup: Hashable {
     
     // MARK: - Attributes
     
@@ -81,4 +81,18 @@ public struct PBXVariantGroup {
                                name: name,
                                sourceTree: sourceTree)
     }
+    
+    // MARK: - Hashable
+    
+    public static func == (lhs: PBXVariantGroup,
+                           rhs: PBXVariantGroup) -> Bool {
+        return lhs.reference == rhs.reference &&
+        lhs.isa == rhs.isa &&
+        lhs.children == rhs.children &&
+        lhs.name == rhs.name &&
+        lhs.sourceTree == rhs.sourceTree
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+
 }
