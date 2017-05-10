@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCBuildConfiguration: Isa, Hashable {
+public struct XCBuildConfiguration: ProjectElement, Hashable {
    
     // MARK: - Attributes
     
