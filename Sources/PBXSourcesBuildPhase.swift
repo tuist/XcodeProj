@@ -16,7 +16,7 @@ public struct PBXSourcesBuildPhase: Hashable {
     public let buildActionMask: Int = 2147483647
     
     /// Files.
-    public let files: [UUID]
+    public let files: Set<UUID>
     
     /// Run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: Int = 0
@@ -29,7 +29,7 @@ public struct PBXSourcesBuildPhase: Hashable {
     ///   - reference: build phase reference.
     ///   - files: build phase files.
     public init(reference: UUID,
-                files: [UUID]) {
+                files: Set<UUID>) {
         self.reference = reference
         self.files = files
     }
@@ -54,9 +54,7 @@ public struct PBXSourcesBuildPhase: Hashable {
     /// - Returns: build phase with the file removed.
     public func removing(file: UUID) -> PBXSourcesBuildPhase {
         var files = self.files
-        if let index = files.index(of: file) {
-            files.remove(at: index)
-        }
+        files.remove(file)
         return PBXSourcesBuildPhase(reference: self.reference, files: files)
     }
     
@@ -66,7 +64,7 @@ public struct PBXSourcesBuildPhase: Hashable {
     /// - Returns: new build phase with the file added.
     public func adding(file: UUID) -> PBXSourcesBuildPhase {
         var files = self.files
-        files.append(file)
+        files.update(with: file)
         return PBXSourcesBuildPhase(reference: self.reference, files: files)
     }
     

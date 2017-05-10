@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXShellScriptBuildPhase: Isa, Hashable {
+public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
 
     // MARK: - Attributes
     
@@ -16,13 +16,13 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     public let buildActionMask: Int = 2147483647
 
     /// Files references
-    public let files: [UUID]
+    public let files: Set<UUID>
 
     /// Input paths
-    public let inputPaths: [String]
+    public let inputPaths: Set<String>
 
     /// Output paths
-    public let outputPaths: [String]
+    public let outputPaths: Set<String>
 
     /// Run only for deployment post processing attribute.
     public let runOnlyForDeploymentPostprocessing: Int = 0
@@ -45,9 +45,9 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     init(reference: UUID,
-         files: [UUID],
-         inputPaths: [String],
-         outputPaths: [String],
+         files: Set<UUID>,
+         inputPaths: Set<String>,
+         outputPaths: Set<String>,
          shellPath: String,
          shellScript: String?) {
         self.reference = reference
@@ -82,7 +82,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new build phase with the file added.
     public func adding(file: UUID) -> PBXShellScriptBuildPhase {
         var files = self.files
-        files.append(file)
+        files.update(with: file)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,
@@ -97,9 +97,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new shell script build phase with the file removed.
     public func removing(file: UUID) -> PBXShellScriptBuildPhase {
         var files = self.files
-        if let index = files.index(of: file) {
-            files.remove(at: index)
-        }
+        files.remove(file)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,
@@ -114,7 +112,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new shell script build phase with the input path added.
     public func adding(inputPath: String) -> PBXShellScriptBuildPhase {
         var inputPaths = self.inputPaths
-        inputPaths.append(inputPath)
+        inputPaths.update(with: inputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,
@@ -129,9 +127,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new shell script build phase with the input path removed.
     public func removing(inputPath: String) -> PBXShellScriptBuildPhase {
         var inputPaths = self.inputPaths
-        if let index = inputPaths.index(of: inputPath) {
-            inputPaths.remove(at: index)
-        }
+        inputPaths.remove(inputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,
@@ -146,7 +142,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new shell script build phsae with the output path added.
     public func adding(outputPath: String) -> PBXShellScriptBuildPhase {
         var outputPaths = self.outputPaths
-        outputPaths.append(outputPath)
+        outputPaths.update(with: outputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,
@@ -161,9 +157,7 @@ public struct PBXShellScriptBuildPhase: Isa, Hashable {
     /// - Returns: new shell script build phsae with the output path removed.
     public func removing(outputPath: String) -> PBXShellScriptBuildPhase {
         var outputPaths = self.outputPaths
-        if let index = outputPaths.index(of: outputPath) {
-            outputPaths.remove(at: index)
-        }
+        outputPaths.remove(outputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
                                         inputPaths: inputPaths,

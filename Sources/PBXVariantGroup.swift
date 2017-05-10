@@ -13,7 +13,7 @@ public struct PBXVariantGroup: Hashable {
     public let isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
-    public let children: [UUID]
+    public let children: Set<UUID>
     
     // The filename
     public let name: String
@@ -31,7 +31,7 @@ public struct PBXVariantGroup: Hashable {
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
     public init(reference: UUID,
-                children: [UUID],
+                children: Set<UUID>,
                 name: String,
                 sourceTree: PBXSourceTree) {
         self.reference = reference
@@ -60,7 +60,7 @@ public struct PBXVariantGroup: Hashable {
     /// - Returns: new variant group with the child added.
     public func adding(child: UUID) -> PBXVariantGroup {
         var children = self.children
-        children.append(child)
+        children.insert(child)
         return PBXVariantGroup(reference: reference,
                                children: children,
                                name: name,
@@ -73,9 +73,7 @@ public struct PBXVariantGroup: Hashable {
     /// - Returns: new variant group with the child removed.
     public func removing(child: UUID) -> PBXVariantGroup {
         var children = self.children
-        if let index = children.index(of: child) {
-            children.remove(at: index)
-        }
+        children.remove(child)
         return PBXVariantGroup(reference: reference,
                                children: children,
                                name: name,

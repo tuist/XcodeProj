@@ -39,7 +39,7 @@ public struct PBXProject {
     public let projectRoot: String
     
     // The objects are a reference to a PBXTarget element.
-    public let targets: [UUID]
+    public let targets: Set<UUID>
 }
 
 // Example

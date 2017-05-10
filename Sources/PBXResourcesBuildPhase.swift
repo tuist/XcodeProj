@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXResourcesBuildPhase: Isa, Hashable {
+public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
     
     /// Element reference
     public let reference: UUID
@@ -14,7 +14,7 @@ public struct PBXResourcesBuildPhase: Isa, Hashable {
     public let buildActionMask: Int = 2147483647
     
     /// Element files.
-    public let files: [UUID]
+    public let files: Set<UUID>
     
     /// Element run only for deployment post processing value.
     public let runOnlyForDeploymentPostprocessing: Int = 0
@@ -25,7 +25,7 @@ public struct PBXResourcesBuildPhase: Isa, Hashable {
     ///   - reference: element reference.
     ///   - files: element files.
     public init(reference: String,
-                files: [UUID]) {
+                files: Set<UUID>) {
         self.reference = reference
         self.files = files
     }
@@ -50,7 +50,7 @@ public struct PBXResourcesBuildPhase: Isa, Hashable {
     /// - Returns: new resources build phase with the file added.
     public func adding(file: UUID) -> PBXResourcesBuildPhase {
         var files = self.files
-        files.append(file)
+        files.update(with: file)
         return PBXResourcesBuildPhase(reference: self.reference,
                                       files: files)
     }
@@ -61,9 +61,7 @@ public struct PBXResourcesBuildPhase: Isa, Hashable {
     /// - Returns: new resources build phase with the file removed.
     public func removing(file: UUID) -> PBXResourcesBuildPhase {
         var files = self.files
-        if let index = files.index(of: file) {
-            files.remove(at: index)
-        }
+        files.remove(file)
         return PBXResourcesBuildPhase(reference: self.reference,
                                       files: files)
     }
