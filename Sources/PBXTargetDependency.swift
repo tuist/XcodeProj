@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public struct PBXTargetDependency: Isa, Hashable {
+public struct PBXTargetDependency: ProjectElement, Hashable {
     
     // MARK: - Attributes
     
@@ -40,7 +40,7 @@ public struct PBXTargetDependency: Isa, Hashable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the attributes.
     /// - Throws: throws an error in case of any attribute is missing or the type is not the expected one.
-    public init(reference: String, dictionary: [String: Any]) throws {
+    public init(reference: UUID, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.target = try unboxer.unbox(key: "target")
