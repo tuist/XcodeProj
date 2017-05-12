@@ -3,7 +3,7 @@ import Unbox
 
 // This is the element for the framewrok link build phase.
 public struct PBXFrameworksBuildPhase: ProjectElement {
-
+    
     // MARK: - Properties
     
     /// Element isa.
@@ -17,7 +17,7 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     
     /// Build phase run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: UInt
-
+    
     // MARK: - Init
     
     /// Initializes the frameworks build phase with its attributes.
@@ -47,14 +47,40 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
     }
     
+    // MARK: - Public
+    
+    /// Returns a new frameworks build phase with a new file added.
+    ///
+    /// - Parameter file: file to be added.
+    /// - Returns: new build phase with the file added.
+    public func adding(file: UUID) -> PBXFrameworksBuildPhase {
+        var files = self.files
+        files.insert(file)
+        return PBXFrameworksBuildPhase(reference: reference,
+                                       files: files,
+                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
+    }
+    
+    /// Returns a new frameworks build phase with the file removed.
+    ///
+    /// - Parameter file: file to be removed.
+    /// - Returns: new frameworks build phase with the file removed.
+    public func removing(file: UUID) -> PBXFrameworksBuildPhase {
+        var files = self.files
+        files.remove(file)
+        return PBXFrameworksBuildPhase(reference: reference,
+                                       files: files,
+                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
+    }
+    
     // MARK: - Hashable
     
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
         return lhs.isa == rhs.isa &&
-        lhs.reference == rhs.reference &&
-        lhs.files == rhs.files &&
-        lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
+            lhs.reference == rhs.reference &&
+            lhs.files == rhs.files &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
     
     public var hashValue: Int { return self.reference.hashValue }
