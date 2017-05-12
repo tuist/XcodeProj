@@ -17,17 +17,20 @@ public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
     public let files: Set<UUID>
     
     /// Element run only for deployment post processing value.
-    public let runOnlyForDeploymentPostprocessing: Int = 0
+    public let runOnlyForDeploymentPostprocessing: Int
     
     /// Initializes the resources build phase with its attributes.
     ///
     /// - Parameters:
     ///   - reference: element reference.
     ///   - files: element files.
+    ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
     public init(reference: String,
-                files: Set<UUID>) {
+                files: Set<UUID>,
+                runOnlyForDeploymentPostprocessing: Int = 0) {
         self.reference = reference
         self.files = files
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
 
     /// Initializes the resources build phase with the element 
@@ -36,10 +39,11 @@ public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
     /// - Parameters:
     ///   - reference: element reference.
     ///   - dictionary: dictionary with its attributes
-    public init(reference: String, dictionary: [String: Any]) {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = (unboxer.unbox(key: "files")) ?? []
+        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
     }
     
     // MARK: - Public
