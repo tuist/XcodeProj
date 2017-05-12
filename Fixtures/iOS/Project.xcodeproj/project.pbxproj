@@ -25,6 +25,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		239688B71EBCD3B10014B321 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices/paga/asdgas";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		23766C121EAA3484007A9026 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23766C151EAA3484007A9026 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +118,7 @@
 				23766C0E1EAA3484007A9026 /* Sources */,
 				23766C0F1EAA3484007A9026 /* Frameworks */,
 				23766C101EAA3484007A9026 /* Resources */,
+				239688B71EBCD3B10014B321 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -406,6 +419,7 @@
 				23766C311EAA3484007A9026 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		23766C321EAA3484007A9026 /* Build configuration list for PBXNativeTarget "iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +428,7 @@
 				23766C341EAA3484007A9026 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
