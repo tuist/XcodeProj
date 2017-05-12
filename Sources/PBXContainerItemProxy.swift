@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for to decorate a target item.
-public struct PBXContainerItemProxy: Isa, Hashable {
+public struct PBXContainerItemProxy: ProjectElement, Hashable {
     
     /// Element reference.
     public let reference: UUID
@@ -45,7 +45,7 @@ public struct PBXContainerItemProxy: Isa, Hashable {
     /// - Parameters:
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the attributes.
-    init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: UUID, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.containerPortal = try unboxer.unbox(key: "containerPortal")
