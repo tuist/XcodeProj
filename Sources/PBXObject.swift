@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PBXObject {
+public enum PBXObject: Hashable {
     case pbxBuildFile
     case pbxBuildPhase
     case pbxContainerItemProxy
