@@ -65,6 +65,51 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
     
+    func test_init_fails_whenDstPathIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "dstPath")
+        do {
+            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_fails_whenBuildActionMaskIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "buildActionMask")
+        do {
+            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_fails_whenDstSubfolderSpecIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "dstSubfolderSpec")
+        do {
+            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_fails_whenFilesIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "files")
+        do {
+            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_fails_whenRunOnlyForDeploymentPostprocessingIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
+        do {
+            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
     func test_addingFile_returnsANewBuilPhaseWithTheFileAdded() {
         let got = subject.adding(file: "444")
         XCTAssertTrue(got.files.contains("444"))
@@ -73,6 +118,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_removingFile_returnsANewBuildPhaseWithTheFileRemoved() {
         let got = subject.removing(file: "33")
         XCTAssertFalse(got.files.contains("33"))
+    }
+    
+    func test_isa_returnsTheRightValue() {
+        XCTAssertEqual(subject.isa, "PBXCopyFilesBuildPhase")
     }
     
     func test_equals_returnsTheRightValue() {
@@ -87,5 +136,15 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
+    func testDictionary() -> [String: Any] {
+        return [
+            "dstPath": "dstPath",
+            "buildActionMask": 0,
+            "dstSubfolderSpec": 12,
+            "files": ["a", "b"],
+            "runOnlyForDeploymentPostprocessing": 0
+        ]
     }
 }
