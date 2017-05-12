@@ -7,12 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		233E350D1EAE575C00544F00 /* Isa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E350B1EAE573600544F00 /* Isa.swift */; };
+		233E350D1EAE575C00544F00 /* ProjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E350B1EAE573600544F00 /* ProjectClass.swift */; };
 		233E35101EAE596800544F00 /* XCBuildConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */; };
 		233E35121EAE5D8E00544F00 /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35111EAE5D8E00544F00 /* Validators.swift */; };
 		233E35141EAE607900544F00 /* XCConfigurationListSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */; };
 		233E35161EAE651000544F00 /* PBXVariantGroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */; };
 		233E35181EAE660400544F00 /* PBXTargetDependencySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */; };
+		23507A2D1EBCD86800617607 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */; };
+		23507A2F1EBCD92700617607 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A2E1EBCD92700617607 /* PBXLegacyTarget.swift */; };
+		23507A311EBCD99D00617607 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A301EBCD99D00617607 /* PBXNativeTarget.swift */; };
+		23507A331EBCDC8900617607 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A321EBCDC8900617607 /* PBXProductType.swift */; };
+		239688AE1EBB82EF0014B321 /* PBXContainerItemProxySec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688AD1EBB82EE0014B321 /* PBXContainerItemProxySec.swift */; };
+		239688B01EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */; };
+		239688B21EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */; };
+		239688B41EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */; };
+		239688B61EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */; };
+		239688BB1EBCD6580014B321 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BA1EBCD6580014B321 /* PBXFileElement.swift */; };
+		239688BD1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */; };
+		239688BF1EBCD7CF0014B321 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BE1EBCD7CF0014B321 /* PBXGroup.swift */; };
+		2399A83A1EB50BCC0041C2DE /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */; };
 		23ED29031EB1C68B005D6B0B /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */; };
 		23ED29051EB1C8CB005D6B0B /* PlistInitiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */; };
 		OBJ_127 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* Case.swift */; };
@@ -195,12 +208,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		233E350B1EAE573600544F00 /* Isa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Isa.swift; sourceTree = "<group>"; };
+		233E350B1EAE573600544F00 /* ProjectClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectClass.swift; sourceTree = "<group>"; };
 		233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCBuildConfigurationSpec.swift; sourceTree = "<group>"; };
 		233E35111EAE5D8E00544F00 /* Validators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
 		233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfigurationListSpec.swift; sourceTree = "<group>"; };
 		233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXVariantGroupSpec.swift; sourceTree = "<group>"; };
 		233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXTargetDependencySpec.swift; sourceTree = "<group>"; };
+		23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhase.swift; sourceTree = "<group>"; };
+		23507A2E1EBCD92700617607 /* PBXLegacyTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXLegacyTarget.swift; sourceTree = "<group>"; };
+		23507A301EBCD99D00617607 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
+		23507A321EBCDC8900617607 /* PBXProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
+		239688AD1EBB82EE0014B321 /* PBXContainerItemProxySec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxySec.swift; sourceTree = "<group>"; };
+		239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
+		239688BA1EBCD6580014B321 /* PBXFileElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileElement.swift; sourceTree = "<group>"; };
+		239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
+		239688BE1EBCD7CF0014B321 /* PBXGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
+		2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxy.swift; sourceTree = "<group>"; };
 		23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
 		23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistInitiatable.swift; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
@@ -364,6 +390,104 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		239688AA1EBB6F510014B321 /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Validators;
+			sourceTree = "<group>";
+		};
+		239688AB1EBB6F580014B321 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */,
+				OBJ_30 /* PBXProjSpec.swift */,
+				239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */,
+				239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */,
+				239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */,
+				OBJ_31 /* PBXSourceTreeSpec.swift */,
+				233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */,
+				233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */,
+				233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */,
+				239688AD1EBB82EE0014B321 /* PBXContainerItemProxySec.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		239688AC1EBB6F6D0014B321 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_28 /* Dictionary+ExtrasSpec.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		2399A8341EB5060B0041C2DE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* Dictionary+Extras.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		2399A8351EB506160041C2DE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				233E350B1EAE573600544F00 /* ProjectClass.swift */,
+				23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		2399A8361EB506240041C2DE /* Validators */ = {
+			isa = PBXGroup;
+			children = (
+				233E35111EAE5D8E00544F00 /* Validators.swift */,
+			);
+			name = Validators;
+			sourceTree = "<group>";
+		};
+		2399A8371EB5062D0041C2DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */,
+				OBJ_25 /* XCodeProj.swift */,
+				OBJ_13 /* PBXProj.swift */,
+				23507A321EBCDC8900617607 /* PBXProductType.swift */,
+				23507A2E1EBCD92700617607 /* PBXLegacyTarget.swift */,
+				23507A301EBCD99D00617607 /* PBXNativeTarget.swift */,
+				OBJ_24 /* XCConfigurationList.swift */,
+				OBJ_9 /* PBXAggregateTarget.swift */,
+				OBJ_10 /* PBXBuildFile.swift */,
+				OBJ_11 /* PBXFileReference.swift */,
+				OBJ_12 /* PBXObject.swift */,
+				OBJ_14 /* PBXProject.swift */,
+				239688BA1EBCD6580014B321 /* PBXFileElement.swift */,
+				239688BE1EBCD7CF0014B321 /* PBXGroup.swift */,
+				23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */,
+				239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */,
+				OBJ_15 /* PBXResourcesBuildPhase.swift */,
+				OBJ_16 /* PBXShellScriptBuildPhase.swift */,
+				OBJ_17 /* PBXSourcesBuildPhase.swift */,
+				OBJ_18 /* PBXSourceTree.swift */,
+				OBJ_19 /* PBXTarget.swift */,
+				OBJ_20 /* PBXTargetDependency.swift */,
+				OBJ_21 /* PBXVariantGroup.swift */,
+				OBJ_23 /* XCBuildConfiguration.swift */,
+				2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */,
+				239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		2399A8381EB5065F0041C2DE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_22 /* UUID.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		OBJ_102 /* Unbox 2.4.0 */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,14 +546,10 @@
 		OBJ_27 /* xcodeprojTests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_28 /* Dictionary+ExtrasSpec.swift */,
+				239688AC1EBB6F6D0014B321 /* Extensions */,
+				239688AB1EBB6F580014B321 /* Models */,
+				239688AA1EBB6F510014B321 /* Validators */,
 				OBJ_29 /* Fixtures.swift */,
-				OBJ_30 /* PBXProjSpec.swift */,
-				OBJ_31 /* PBXSourceTreeSpec.swift */,
-				233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */,
-				233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */,
-				233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */,
-				233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */,
 			);
 			name = xcodeprojTests;
 			path = Tests/xcodeprojTests;
@@ -521,28 +641,11 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_22 /* UUID.swift */,
-				OBJ_8 /* Dictionary+Extras.swift */,
-				OBJ_9 /* PBXAggregateTarget.swift */,
-				OBJ_10 /* PBXBuildFile.swift */,
-				OBJ_11 /* PBXFileReference.swift */,
-				OBJ_12 /* PBXObject.swift */,
-				OBJ_14 /* PBXProject.swift */,
-				OBJ_15 /* PBXResourcesBuildPhase.swift */,
-				OBJ_16 /* PBXShellScriptBuildPhase.swift */,
-				OBJ_17 /* PBXSourcesBuildPhase.swift */,
-				OBJ_18 /* PBXSourceTree.swift */,
-				OBJ_19 /* PBXTarget.swift */,
-				OBJ_20 /* PBXTargetDependency.swift */,
-				OBJ_21 /* PBXVariantGroup.swift */,
-				OBJ_23 /* XCBuildConfiguration.swift */,
-				OBJ_24 /* XCConfigurationList.swift */,
-				233E350B1EAE573600544F00 /* Isa.swift */,
-				233E35111EAE5D8E00544F00 /* Validators.swift */,
-				OBJ_13 /* PBXProj.swift */,
-				OBJ_25 /* XCodeProj.swift */,
-				23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */,
-				23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */,
+				2399A8381EB5065F0041C2DE /* Utils */,
+				2399A8371EB5062D0041C2DE /* Models */,
+				2399A8361EB506240041C2DE /* Validators */,
+				2399A8351EB506160041C2DE /* Protocols */,
+				2399A8341EB5060B0041C2DE /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -851,16 +954,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				23507A311EBCD99D00617607 /* PBXNativeTarget.swift in Sources */,
+				239688B61EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				OBJ_225 /* Dictionary+Extras.swift in Sources */,
+				239688BF1EBCD7CF0014B321 /* PBXGroup.swift in Sources */,
+				23507A331EBCDC8900617607 /* PBXProductType.swift in Sources */,
 				OBJ_226 /* PBXAggregateTarget.swift in Sources */,
-				233E350D1EAE575C00544F00 /* Isa.swift in Sources */,
+				233E350D1EAE575C00544F00 /* ProjectClass.swift in Sources */,
 				23ED29031EB1C68B005D6B0B /* XCWorkspace.swift in Sources */,
 				OBJ_227 /* PBXBuildFile.swift in Sources */,
 				OBJ_228 /* PBXFileReference.swift in Sources */,
 				OBJ_229 /* PBXObject.swift in Sources */,
+				23507A2F1EBCD92700617607 /* PBXLegacyTarget.swift in Sources */,
 				OBJ_230 /* PBXProj.swift in Sources */,
 				OBJ_231 /* PBXProject.swift in Sources */,
+				239688BB1EBCD6580014B321 /* PBXFileElement.swift in Sources */,
 				233E35121EAE5D8E00544F00 /* Validators.swift in Sources */,
+				239688BD1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift in Sources */,
 				OBJ_232 /* PBXResourcesBuildPhase.swift in Sources */,
 				OBJ_233 /* PBXShellScriptBuildPhase.swift in Sources */,
 				OBJ_234 /* PBXSourcesBuildPhase.swift in Sources */,
@@ -871,6 +981,8 @@
 				23ED29051EB1C8CB005D6B0B /* PlistInitiatable.swift in Sources */,
 				OBJ_239 /* UUID.swift in Sources */,
 				OBJ_240 /* XCBuildConfiguration.swift in Sources */,
+				23507A2D1EBCD86800617607 /* PBXHeadersBuildPhase.swift in Sources */,
+				2399A83A1EB50BCC0041C2DE /* PBXContainerItemProxy.swift in Sources */,
 				OBJ_241 /* XCConfigurationList.swift in Sources */,
 				OBJ_242 /* XCodeProj.swift in Sources */,
 			);
@@ -881,13 +993,17 @@
 			buildActionMask = 0;
 			files = (
 				233E35101EAE596800544F00 /* XCBuildConfigurationSpec.swift in Sources */,
+				239688B21EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift in Sources */,
 				OBJ_257 /* Dictionary+ExtrasSpec.swift in Sources */,
 				OBJ_258 /* Fixtures.swift in Sources */,
+				239688B41EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift in Sources */,
 				233E35181EAE660400544F00 /* PBXTargetDependencySpec.swift in Sources */,
 				OBJ_259 /* PBXProjSpec.swift in Sources */,
 				233E35161EAE651000544F00 /* PBXVariantGroupSpec.swift in Sources */,
 				233E35141EAE607900544F00 /* XCConfigurationListSpec.swift in Sources */,
+				239688B01EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift in Sources */,
 				OBJ_260 /* PBXSourceTreeSpec.swift in Sources */,
+				239688AE1EBB82EF0014B321 /* PBXContainerItemProxySec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
