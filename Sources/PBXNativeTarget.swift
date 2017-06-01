@@ -14,25 +14,25 @@ public struct PBXNativeTarget: PBXTarget {
     public let buildConfigurationList: UUID
     
     /// Target build phases.
-    public let buildPhases: Set<UUID>
+    public let buildPhases: [UUID]
     
     /// Target build rules.
-    public let buildRules: Set<UUID>
+    public let buildRules: [UUID]
     
     /// Target dependencies.
-    public let dependencies: Set<UUID>
+    public let dependencies: [UUID]
     
     /// Target name.
     public let name: String
     
     /// Target product name.
-    public let productName: String
+    public let productName: String?
     
     /// Target product reference.
-    public let productReference: UUID
+    public let productReference: UUID?
     
     /// Target product type.
-    public let productType: PBXProductType
+    public let productType: PBXProductType?
     
     // MARK: - Init
     
@@ -50,13 +50,13 @@ public struct PBXNativeTarget: PBXTarget {
     ///   - productType: target product type.
     public init(reference: UUID,
                 buildConfigurationList: UUID,
-                buildPhases: Set<UUID>,
-                buildRules: Set<UUID>,
-                dependencies: Set<UUID>,
+                buildPhases: [UUID],
+                buildRules: [UUID],
+                dependencies: [UUID],
                 name: String,
-                productName: String,
-                productReference: UUID,
-                productType: PBXProductType) {
+                productName: String? = nil,
+                productReference: UUID? = nil,
+                productType: PBXProductType? = nil) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
         self.buildPhases = buildPhases
@@ -82,9 +82,9 @@ public struct PBXNativeTarget: PBXTarget {
         self.buildRules = try unboxer.unbox(key: "buildRules")
         self.dependencies = try unboxer.unbox(key: "dependencies")
         self.name = try unboxer.unbox(key: "name")
-        self.productName = try unboxer.unbox(key: "productName")
-        self.productReference = try unboxer.unbox(key: "productReference")
-        self.productType = try unboxer.unbox(key: "productType")
+        self.productName = unboxer.unbox(key: "productName")
+        self.productReference = unboxer.unbox(key: "productReference")
+        self.productType = unboxer.unbox(key: "productType")
     }
     
     // MARK: - Public
@@ -95,7 +95,7 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the build phase added.
     public func adding(buildPhase: UUID) -> PBXNativeTarget {
         var buildPhases = self.buildPhases
-        buildPhases.insert(buildPhase)
+        buildPhases.append(buildPhase)
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,
@@ -113,7 +113,9 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the build phase removed.
     public func removing(buildPhase: UUID) -> PBXNativeTarget {
         var buildPhases = self.buildPhases
-        buildPhases.remove(buildPhase)
+        if let index = self.buildPhases.index(of: buildPhase) {
+            buildPhases.remove(at: index)
+        }
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,
@@ -131,7 +133,7 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the build rule added.
     public func adding(buildRule: UUID) -> PBXNativeTarget {
         var buildRules = self.buildRules
-        buildRules.insert(buildRule)
+        buildRules.append(buildRule)
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,
@@ -149,7 +151,9 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the build rule.
     public func removing(buildRule: UUID) -> PBXNativeTarget {
         var buildRules = self.buildRules
-        buildRules.remove(buildRule)
+        if let index = buildRules.index(of: buildRule) {
+            buildRules.remove(at: index)
+        }
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,
@@ -167,7 +171,7 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the dependency added.
     public func adding(dependency: UUID) -> PBXNativeTarget {
         var dependencies = self.dependencies
-        dependencies.insert(dependency)
+        dependencies.append(dependency)
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,
@@ -185,7 +189,9 @@ public struct PBXNativeTarget: PBXTarget {
     /// - Returns: native target with the dependency added.
     public func removing(dependency: UUID) -> PBXNativeTarget {
         var dependencies = self.dependencies
-        dependencies.remove(dependency)
+        if let index = dependencies.index(of: dependency) {
+            dependencies.remove(at: index)
+        }
         return PBXNativeTarget(reference: reference,
                                buildConfigurationList: buildConfigurationList,
                                buildPhases: buildPhases,

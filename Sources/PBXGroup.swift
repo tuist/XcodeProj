@@ -53,6 +53,34 @@ public struct PBXGroup: ProjectElement {
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
     }
     
+    // MARK: - Public
+    
+    /// Returns a new group adding a child.
+    ///
+    /// - Parameter child: new group with the child added.
+    /// - Returns: new group with the child added.
+    public func adding(child: UUID) -> PBXGroup {
+        var children = self.children
+        children.insert(child)
+        return PBXGroup(reference: reference,
+                        children: children,
+                        sourceTree: sourceTree,
+                        name: name)
+    }
+    
+    /// Returns a new group removing a child.
+    ///
+    /// - Parameter child: child to be removed.
+    /// - Returns: new group with the child added.
+    public func removing(child: UUID) -> PBXGroup {
+        var children = self.children
+        children.remove(child)
+        return PBXGroup(reference: reference,
+                        children: children,
+                        sourceTree: sourceTree,
+                        name: name)
+    }
+    
     // MARK: - Hashable
     
     public static func == (lhs: PBXGroup,

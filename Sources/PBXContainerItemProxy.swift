@@ -4,6 +4,10 @@ import Unbox
 // This is the element for to decorate a target item.
 public struct PBXContainerItemProxy: ProjectElement, Hashable {
     
+    public enum ProxyType: UInt, UnboxableEnum {
+        case targetReference = 1
+    }
+    
     /// Element reference.
     public let reference: UUID
     
@@ -13,13 +17,14 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     /// The object is a reference to a PBXProject element.
     public let containerPortal: UUID
     
-    public let proxyType: UInt = 1
+    /// Element proxy type.
+    public let proxyType: ProxyType
     
     /// Element remote global ID reference.
     public let remoteGlobalIDString: UUID
     
     /// Element remote info.
-    public let remoteInfo: String
+    public let remoteInfo: String?
     
     /// Initializes the container item proxy with its attributes.
     ///
@@ -31,11 +36,13 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     public init(reference: UUID,
                 containerPortal: UUID,
                 remoteGlobalIDString: UUID,
-                remoteInfo: String) {
+                proxyType: ProxyType = .targetReference,
+                remoteInfo: String? = nil) {
         self.reference = reference
         self.containerPortal = containerPortal
         self.remoteGlobalIDString = remoteGlobalIDString
         self.remoteInfo = remoteInfo
+        self.proxyType = proxyType
     }
     
     // MARK: - Init
@@ -50,7 +57,8 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
         let unboxer = Unboxer(dictionary: dictionary)
         self.containerPortal = try unboxer.unbox(key: "containerPortal")
         self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
-        self.remoteInfo = try unboxer.unbox(key: "remoteInfo")
+        self.remoteInfo = unboxer.unbox(key: "remoteInfo")
+        self.proxyType = try unboxer.unbox(key: "proxyType")
     }
     
     // MARK: - Hashable
