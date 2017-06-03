@@ -8,44 +8,83 @@ public extension XCWorkspace {
     
     public struct Data: Equatable {
         
-        /// Workspace file reference.
-        public struct FileRef: Hashable, ExpressibleByStringLiteral {
-            
-            /// Location of the file
-            public let location: String
+        public enum FileRef: Hashable, ExpressibleByStringLiteral {
+            case project(path: Path)
+            case file(path: Path)
+            case other(location: String)
             
             // MARK: - Init
             
-            /// Initializes the FileRef with the location.
-            ///
-            /// - Parameter location: location of the file reference.
-            public init(location: String) {
-                self.location = location
-            }
-            
-            // MARK: - Hashable
-            
-            public var hashValue: Int { return self.location.hashValue }
-            
-            public static func == (lhs: FileRef,
-                                   rhs: FileRef) -> Bool {
-                return lhs.location == rhs.location
+            init(string: String) {
+                var location = string
+                if location.contains("self:") {
+                    location = location.replacingOccurrences(of: "self:", with: "")
+                    let path = Path(location)
+                    if location.contains(".xcodeproj") {
+                        self = .project(path: path)
+                    } else {
+                        self = .file(path: path)
+                    }
+                } else {
+                    self = .other(location: string)
+                }
             }
             
             // MARK: - ExpressibleByStringLiteral
             
             public init(stringLiteral value: String) {
-                self.location = value
+                self.init(string: value)
             }
             
             public init(extendedGraphemeClusterLiteral value: String) {
-                self.location = value
+                self.init(string: value)
             }
             
             public init(unicodeScalarLiteral value: String) {
-                self.location = value
+                self.init(string: value)
             }
+            
+            // MARK: - Public
+            
+            public var project: XcodeProj? {
+                switch self {
+                case .project(let path):
+                    return try? XcodeProj(path: path)
+                default:
+                    return nil
+                }
+            }
+            
+            // MARK: - Hashable
+            
+            public var hashValue: Int {
+                switch self {
+                case .file(let path):
+                    return path.hashValue
+                case .project(let path):
+                    return path.hashValue
+                case .other(let location):
+                    return location.hashValue
+                }
+            }
+            
+            public static func == (lhs: FileRef,
+                                   rhs: FileRef) -> Bool {
+                switch (lhs, rhs) {
+                case (.file(let lhsPath), .file(let rhsPath)):
+                    return lhsPath == rhsPath
+                case (.project(let lhsPath), .project(let rhsPath)):
+                    return lhsPath == rhsPath
+                case (.other(let lhsLocation), .other(let rhsLocation)):
+                    return lhsLocation == rhsLocation
+                default:
+                    return false
+                }
+            }
+            
         }
+        
+        /// Workspace file reference.
         
         /// MARK: - Attributes
         
@@ -71,7 +110,7 @@ public extension XCWorkspace {
                 .all
                 .map { $0["FileRef"].element?.attribute(by: "location")?.text }
                 .filter { $0 != nil }
-                .map { FileRef(location: $0!) }
+                .map { FileRef(string: $0!) }
         }
         
         // MARK: - Public

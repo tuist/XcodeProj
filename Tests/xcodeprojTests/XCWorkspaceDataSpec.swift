@@ -34,6 +34,18 @@ final class XCWorkspaceDataSpec: XCTestCase {
     // MARK: - Integration
     
     func test_integration_init_returnsTheModelWithTheRightProperties() {
-        
+        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
+        let path = fixtures + Path("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata")
+        let got = try? XCWorkspace.Data(path: path)
+        XCTAssertEqual(got?.path, path)
+        XCTAssertNotNil(got?.references.first?.project)
     }
+    
+    func test_integration_init_throwsIfThePathIsWrong() {
+        do {
+            _ = try XCWorkspace.Data(path: Path("test"))
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
 }
