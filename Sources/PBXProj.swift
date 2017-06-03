@@ -60,7 +60,6 @@ extension PBXProj: PlistInitiatable {
         let unboxer = Unboxer(dictionary: dictionary)
         self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
-        //sss
         self.classes = []
 //        self.classes = (dictionary["classes"] as? [Any]) ?? []
         self.rootObject = try unboxer.unbox(key: "rootObject")

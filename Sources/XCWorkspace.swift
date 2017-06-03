@@ -28,7 +28,7 @@ public struct XCWorkspace {
         if xcworkspaceDataPaths.count == 0 {
             throw XCWorkspaceError.xcworkspaceDataNotFound(path: path)
         }
-        data = XCWorkspace.Data(path: xcworkspaceDataPaths.first!)        
+        data = try XCWorkspace.Data(path: xcworkspaceDataPaths.first!)
     }
     
     /// Initializes the workspace with its properties.

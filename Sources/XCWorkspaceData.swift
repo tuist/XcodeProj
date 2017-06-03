@@ -1,8 +1,9 @@
 import Foundation
 import Unbox
 import PathKit
-import AEXML
+import SWXMLHash
 
+// MARK: - XCWorkspace model
 public extension XCWorkspace {
     
     public struct Data: Equatable {
@@ -59,9 +60,18 @@ public extension XCWorkspace {
         /// Initializes the XCWorkspaceData reading the content from the file at the given path.
         ///
         /// - Parameter path: path where the .xcworkspacedata is.
-        public init(path: Path) {
+        public init(path: Path, fileManager: FileManager = .default) throws {
+            if !fileManager.fileExists(atPath: path.string) {
+                throw XCWorkspaceDataError.notFound(path: path)
+            }
             self.path = path
-            self.references = []
+            let data = try Foundation.Data(contentsOf: path.url)
+            let xml = SWXMLHash.parse(data)
+            self.references = xml["Workspace"]
+                .all
+                .map { $0["FileRef"].element?.attribute(by: "location")?.text }
+                .filter { $0 != nil }
+                .map { FileRef(location: $0!) }
         }
         
         // MARK: - Public
@@ -108,6 +118,19 @@ public extension XCWorkspace {
                 lhs.references == rhs.references
         }
         
+    }
+    
+}
+
+public enum XCWorkspaceDataError: Error, CustomStringConvertible {
+    
+    case notFound(path: Path)
+    
+    public var description: String {
+        switch self {
+        case .notFound(let path):
+            return "Workspace not found at \(path)"
+        }
     }
     
 }
