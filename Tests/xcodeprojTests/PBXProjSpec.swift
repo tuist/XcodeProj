@@ -6,24 +6,42 @@ import PathKit
 
 final class PBXProjSpec: XCTestCase {
     
-    var project: PBXProj!
+    var subject: PBXProj!
+    var object: PBXObject!
     
     override func setUp() {
         super.setUp()
-        let (path, dictionary) = iosProjectDictionary()
-        project = try! PBXProj(path: path, dictionary: dictionary)
+        object = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "333"))
+        subject = PBXProj(path: "test",
+                          archiveVersion: 1,
+                          objectVersion: 46,
+                          rootObject: "root",
+                          classes: [],
+                          objects: Set(arrayLiteral: object))
     }
     
     func test_initWithDictionary_hasTheCorrectArchiveVersion() {
-        XCTAssertEqual(project.archiveVersion, 1)
+        XCTAssertEqual(subject.archiveVersion, 1)
     }
     
     func test_initWithDictionary_hasTheCorrectObjectVersion() {
-        XCTAssertEqual(project.objectVersion, 46)
+        XCTAssertEqual(subject.objectVersion, 46)
     }
     
     func test_initWithDictionary_hasTheCorrectClasses() throws {
-        XCTAssertTrue(project.classes.isEmpty)
+        XCTAssertTrue(subject.classes.isEmpty)
+    }
+    
+    func test_addingObject_returnsAProjWithTheObjectAdded() {
+        let anotherObject = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "444"))
+        let got = subject.adding(object: anotherObject)
+        XCTAssertTrue(got.objects.contains(anotherObject))
+    }
+    
+    func test_removingObject_returnsAProjWithTheObjectRemoved() {
+        let got = subject.removing(object: object)
+        XCTAssertTrue(subject.objects.contains(object))
+        XCTAssertFalse(got.objects.contains(object))
     }
     
     // MARK: - Integration
