@@ -7,3 +7,4 @@ excluded:
   - .build
 disabled_rules:
   - trailing_whitespace
+  - nesting

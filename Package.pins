@@ -2,6 +2,12 @@
   "autoPin": true,
   "pins": [
     {
+      "package": "AEXML",
+      "reason": null,
+      "repositoryURL": "https://github.com/tadija/AEXML",
+      "version": "4.1.0"
+    },
+    {
       "package": "CryptoSwift",
       "reason": null,
       "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",

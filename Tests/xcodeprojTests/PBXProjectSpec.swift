@@ -10,7 +10,7 @@ final class PBXProjectSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXProject(reference: "uuid",
-                             buildConfigurationList: "uuid",
+                             buildConfigurationList: "config",
                              compatibilityVersion: "version",
                              mainGroup: "main",
                              developmentRegion: "region",
@@ -27,13 +27,51 @@ final class PBXProjectSpec: XCTestCase {
         XCTAssertEqual(subject.isa, "PBXProject")
     }
     
-    func test_continue() {
-        XCTAssertTrue(false, "write tests for this class")
+    func test_init_initializesTheProjectWithTheRightAttributes() {
+        XCTAssertEqual(subject.reference, "uuid")
+        XCTAssertEqual(subject.buildConfigurationList, "config")
+        XCTAssertEqual(subject.compatibilityVersion, "version")
+        XCTAssertEqual(subject.mainGroup, "main")
+        XCTAssertEqual(subject.developmentRegion, "region")
+        XCTAssertEqual(subject.hasScannedForEncodings, 1)
+        XCTAssertEqual(subject.knownRegions, ["region"])
+        XCTAssertEqual(subject.productRefGroup, "group")
+        XCTAssertEqual(subject.projectDirPath, "path")
+        XCTAssertEqual(subject.projectReferences as! [String], ["ref"])
+        XCTAssertEqual(subject.projectRoot, "root")
+        XCTAssertEqual(subject.targets, ["target"])
+    }
+    
+    func test_init_failsIfBuildConfigurationListIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "buildConfigurationList")
+        do {
+            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_failsIfCompatibilityVersionIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "compatibilityVersion")
+        do {
+            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+    
+    func test_init_failsIfMainGroupIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "mainGroup")
+        do {
+            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
     }
     
     func test_equal_returnsTheCorrectValue() {
         let another = PBXProject(reference: "uuid",
-                                 buildConfigurationList: "uuid",
+                                 buildConfigurationList: "config",
                                  compatibilityVersion: "version",
                                  mainGroup: "main",
                                  developmentRegion: "region",
@@ -49,5 +87,13 @@ final class PBXProjectSpec: XCTestCase {
     
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
+    private func testDictionary() -> [String: Any] {
+        return [
+            "buildConfigurationList": "buildConfigurationList",
+            "compatibilityVersion": "compatibilityVersion",
+            "mainGroup": "mainGroup"
+        ]
     }
 }

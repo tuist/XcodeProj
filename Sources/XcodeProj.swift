@@ -17,12 +17,15 @@ public struct XcodeProj {
     public init(path: Path, fileManager: FileManager = .default) throws {
         if !fileManager.fileExists(atPath: path.string) { throw XCodeProjError.notFound(path: path) }
         let pbxprojPaths = path.glob("*.pbxproj")
-        if pbxprojPaths.count == 0 { throw XCodeProjError.pbxprojNotFound(path: path) }
+        if pbxprojPaths.count == 0 {
+            throw XCodeProjError.pbxprojNotFound(path: path)
+        }
+        pbxproj = try PBXProj(path: pbxprojPaths.first!)
         let xcworkspacePaths = path.glob("*.xcworkspace")
-        if xcworkspacePaths.count == 0 { throw XCodeProjError.xcworkspaceNotFound(path: path) }
-        self.init(workspace: XCWorkspace(),
-                  pbxproj: PBXProj(path: "", archiveVersion: 1, objectVersion: 2, classes: [], rootObject: "333")
-        )
+        if xcworkspacePaths.count == 0 {
+            throw XCodeProjError.xcworkspaceNotFound(path: path)
+        }
+        workspace = try XCWorkspace(path: xcworkspacePaths.first!)
     }
     
     /// Initializes the XCodeProj
