@@ -10,7 +10,7 @@ public struct XCBuildConfiguration: ProjectElement, Hashable {
     public let reference: UUID
     
     // Build Configuration isa.
-    public let isa: String = "XCBuildConfiguration"
+    public static var isa: String = "XCBuildConfiguration"
     
     /// The path to a xcconfig file
     public let baseConfigurationReference: UUID?
@@ -92,7 +92,6 @@ public struct XCBuildConfiguration: ProjectElement, Hashable {
     public static func == (lhs: XCBuildConfiguration,
                            rhs: XCBuildConfiguration) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
         lhs.name == rhs.name &&
         NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)

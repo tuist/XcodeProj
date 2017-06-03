@@ -10,7 +10,7 @@ public struct XCConfigurationList: ProjectElement {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "XCConfigurationList"
+    public static var isa: String = "XCConfigurationList"
     
     /// Element build configurations.
     public let buildConfigurations: Set<UUID>
@@ -92,7 +92,6 @@ public struct XCConfigurationList: ProjectElement {
     public static func == (lhs: XCConfigurationList,
                            rhs: XCConfigurationList) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.buildConfigurations == rhs.buildConfigurations &&
         lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
     }

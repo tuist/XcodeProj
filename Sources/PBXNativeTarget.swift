@@ -5,7 +5,7 @@ import Unbox
 public struct PBXNativeTarget: PBXTarget {
 
     /// Element isa.
-    public let isa: String = "PBXNativeTarget"
+    public static var isa: String = "PBXNativeTarget"
     
     /// Element reference.
     public let reference: UUID
@@ -208,7 +208,6 @@ public struct PBXNativeTarget: PBXTarget {
     public static func == (lhs: PBXNativeTarget,
                            rhs: PBXNativeTarget) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.buildConfigurationList == rhs.buildConfigurationList &&
         lhs.buildPhases == rhs.buildPhases &&
         lhs.buildRules == rhs.buildRules &&

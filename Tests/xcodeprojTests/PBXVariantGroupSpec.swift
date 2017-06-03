@@ -59,7 +59,7 @@ final class PBXVariantGroupSpec: XCTestCase {
     }
     
     func test_itHasTheCorrectIsa() {
-        XCTAssertEqual(subject.isa, "PBXVariantGroup")
+        XCTAssertEqual(PBXVariantGroup.isa, "PBXVariantGroup")
     }
     
     func test_addingChild_returnsAVariantGroupWithTheChildAdded() {

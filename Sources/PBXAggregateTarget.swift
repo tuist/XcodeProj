@@ -11,7 +11,7 @@ public struct PBXAggregateTarget: PBXTarget {
     public let reference: UUID
 
     /// Element isa.
-    public let isa: String = "PBXAggregateTarget"
+    public static var isa: String = "PBXAggregateTarget"
     
     /// Target build configuration list.
     public var buildConfigurationList: UUID
@@ -259,7 +259,6 @@ public struct PBXAggregateTarget: PBXTarget {
     public static func == (lhs: PBXAggregateTarget,
                            rhs: PBXAggregateTarget) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.buildConfigurationList == rhs.buildConfigurationList
     }
     

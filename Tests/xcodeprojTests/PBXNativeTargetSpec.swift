@@ -21,7 +21,7 @@ final class PBXNativeTargetSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXNativeTarget")
+        XCTAssertEqual(PBXNativeTarget.isa, "PBXNativeTarget")
     }
     
     func test_init_initializesTheElementWithTheRightAttributes() {

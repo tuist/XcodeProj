@@ -110,6 +110,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		23BB67531EE326A800BE9E79 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		23766C111EAA3484007A9026 /* iOS */ = {
 			isa = PBXNativeTarget;
@@ -119,6 +129,8 @@
 				23766C0F1EAA3484007A9026 /* Frameworks */,
 				23766C101EAA3484007A9026 /* Resources */,
 				239688B71EBCD3B10014B321 /* CopyFiles */,
+				23BB67521EE325E600BE9E79 /* Run Script */,
+				23BB67531EE326A800BE9E79 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -206,6 +218,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23BB67521EE325E600BE9E79 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/myfile",
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = /test;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		23766C0E1EAA3484007A9026 /* Sources */ = {

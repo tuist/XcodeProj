@@ -22,7 +22,7 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     }
     
     func test_returnsTheCorrectIsa() {
-        XCTAssertEqual(subject.isa, "PBXShellScriptBuildPhase")
+        XCTAssertEqual(PBXShellScriptBuildPhase.isa, "PBXShellScriptBuildPhase")
     }
     
     func test_initFails_whenTheFilesAreMissing() {

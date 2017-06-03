@@ -10,7 +10,7 @@ public struct PBXFileElement: ProjectElement, Hashable {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXFileElement"
+    public static var isa: String = "PBXFileElement"
     
     /// Element source tree.
     public let sourceTree: PBXSourceTree
@@ -58,8 +58,7 @@ public struct PBXFileElement: ProjectElement, Hashable {
     
     public static func == (lhs: PBXFileElement,
                            rhs: PBXFileElement) -> Bool {
-        return lhs.isa == rhs.isa &&
-        lhs.reference == rhs.reference &&
+        return lhs.reference == rhs.reference &&
         lhs.sourceTree == rhs.sourceTree &&
         lhs.path == rhs.path &&
         lhs.name == rhs.name

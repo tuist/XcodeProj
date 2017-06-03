@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public struct PBXSourcesBuildPhase: Hashable {
+public struct PBXSourcesBuildPhase: ProjectElement {
     
     // MARK: - Attributes
     
@@ -10,7 +10,7 @@ public struct PBXSourcesBuildPhase: Hashable {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXSourcesBuildPhase"
+    public static var isa: String = "PBXSourcesBuildPhase"
     
     /// Build action mask.
     public let buildActionMask: Int = 2147483647
@@ -73,7 +73,6 @@ public struct PBXSourcesBuildPhase: Hashable {
     public static func == (lhs: PBXSourcesBuildPhase,
                            rhs: PBXSourcesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == lhs.isa &&
         lhs.buildActionMask == rhs.buildActionMask &&
         lhs.files == rhs.files &&
         lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing

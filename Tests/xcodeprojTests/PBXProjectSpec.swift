@@ -24,7 +24,7 @@ final class PBXProjectSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXProject")
+        XCTAssertEqual(PBXProject.isa, "PBXProject")
     }
     
     func test_init_initializesTheProjectWithTheRightAttributes() {

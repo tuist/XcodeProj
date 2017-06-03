@@ -13,7 +13,7 @@ final class PBXContainerItemProxySpec: XCTestCase {
     }
     
     func test_itHasTheCorrectIsa() {
-        XCTAssertEqual(subject.isa, "PBXContainerItemProxy")
+        XCTAssertEqual(PBXContainerItemProxy.isa, "PBXContainerItemProxy")
     }
     
     func test_init_shouldReturnTheCorrectEntity_ifAllTheParametersAreCorrect() {

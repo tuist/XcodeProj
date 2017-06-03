@@ -6,13 +6,14 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     
     public enum ProxyType: UInt, UnboxableEnum {
         case targetReference = 1
+        case other
     }
     
     /// Element reference.
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXContainerItemProxy"
+    public static var isa: String = "PBXContainerItemProxy"
     
     /// The object is a reference to a PBXProject element.
     public let containerPortal: UUID
@@ -58,7 +59,8 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
         self.containerPortal = try unboxer.unbox(key: "containerPortal")
         self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
         self.remoteInfo = unboxer.unbox(key: "remoteInfo")
-        self.proxyType = try unboxer.unbox(key: "proxyType")
+        let proxyTypeInt: UInt = try unboxer.unbox(key: "proxyType")
+        self.proxyType = ProxyType(rawValue: proxyTypeInt) ?? .other
     }
     
     // MARK: - Hashable
@@ -66,7 +68,6 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     public static func == (lhs: PBXContainerItemProxy,
                            rhs: PBXContainerItemProxy) -> Bool {
         return lhs.reference == rhs.reference &&
-            lhs.isa == rhs.isa &&
             lhs.proxyType == rhs.proxyType &&
             lhs.containerPortal == rhs.containerPortal &&
             lhs.remoteGlobalIDString == rhs.remoteGlobalIDString &&

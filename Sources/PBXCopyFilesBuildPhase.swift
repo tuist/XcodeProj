@@ -15,6 +15,7 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
         case sharedFrameworks = 11
         case sharedSupport = 12
         case plugins = 13
+        case other
     }
 
     // MARK: - Attributes
@@ -23,7 +24,7 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
     public let reference: UUID
     
     /// Element isa
-    public let isa: String = "PBXCopyFilesBuildPhase"
+    public static var isa: String = "PBXCopyFilesBuildPhase"
     
     /// Element destination path
     public let dstPath: String
@@ -76,7 +77,8 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
         let unboxer = Unboxer(dictionary: dictionary)
         self.dstPath = try unboxer.unbox(key: "dstPath")
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.dstSubfolderSpec = try unboxer.unbox(key: "dstSubfolderSpec")
+        let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
+        self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
         self.files = try unboxer.unbox(key: "files")
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
     }
@@ -110,7 +112,6 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
     public static func == (lhs: PBXCopyFilesBuildPhase,
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.dstPath == rhs.dstPath &&
         lhs.buildActionMask == rhs.buildActionMask &&
         lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&

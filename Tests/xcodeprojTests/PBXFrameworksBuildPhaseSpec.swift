@@ -15,7 +15,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
     }
     
     func test_isa_returnsTheRightValue() {
-        XCTAssertEqual(subject.isa, "PBXFrameworksBuildPhase")
+        XCTAssertEqual(PBXFrameworksBuildPhase.isa, "PBXFrameworksBuildPhase")
     }
     
     func test_init_initializesTheBuildPhaseWithTheCorrectAttributes() {

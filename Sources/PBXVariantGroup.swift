@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public struct PBXVariantGroup: Hashable {
+public struct PBXVariantGroup: ProjectElement {
     
     // MARK: - Attributes
     
@@ -10,7 +10,7 @@ public struct PBXVariantGroup: Hashable {
     public let reference: UUID
     
     // Variant group isa.
-    public let isa: String = "PBXVariantGroup"
+    public static var isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
     public let children: Set<UUID>
@@ -85,7 +85,6 @@ public struct PBXVariantGroup: Hashable {
     public static func == (lhs: PBXVariantGroup,
                            rhs: PBXVariantGroup) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.children == rhs.children &&
         lhs.name == rhs.name &&
         lhs.sourceTree == rhs.sourceTree

@@ -22,7 +22,7 @@ final class PBXSourceTreeSpec: XCTestCase {
     }
     
     func test_buildProductsDir_hasTheCorrectValue() {
-        XCTAssertEqual(PBXSourceTree.buildProductsDir.rawValue, "BUILD_PRODUCTS_DIR")
+        XCTAssertEqual(PBXSourceTree.buildProductsDir.rawValue, "BUILT_PRODUCTS_DIR")
     }
     
     func test_sdkRoot_hasTheCorrectValue() {

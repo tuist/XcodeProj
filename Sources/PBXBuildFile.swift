@@ -10,7 +10,7 @@ public struct PBXBuildFile: ProjectElement {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXBuildFile"
+    public static var isa: String = "PBXBuildFile"
     
     /// Element file reference.
     let fileRef: UUID
@@ -80,7 +80,6 @@ public struct PBXBuildFile: ProjectElement {
     public static func == (lhs: PBXBuildFile,
                            rhs: PBXBuildFile) -> Bool {
         return lhs.reference == rhs.reference &&
-            lhs.isa == rhs.isa &&
             lhs.fileRef == rhs.fileRef &&
             NSDictionary(dictionary: lhs.settings ?? [:]).isEqual(to: rhs.settings ?? [:])
     }

@@ -30,7 +30,7 @@ final class XCConfigurationListSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "XCConfigurationList")
+        XCTAssertEqual(XCConfigurationList.isa, "XCConfigurationList")
     }
     
 }

@@ -6,6 +6,9 @@ public struct XcodeProj {
     
     // MARK: - Properties
     
+    /// Project path
+    public let path: Path
+    
     // Project workspace
     public let workspace: XCWorkspace
     
@@ -26,14 +29,17 @@ public struct XcodeProj {
             throw XCodeProjError.xcworkspaceNotFound(path: path)
         }
         workspace = try XCWorkspace(path: xcworkspacePaths.first!)
+        self.path = path
     }
     
     /// Initializes the XCodeProj
     ///
     /// - Parameters:
+    ///   - path: project path
     ///   - workspace: project internal workspace.
     ///   - pbxproj: project .pbxproj.
-    public init(workspace: XCWorkspace, pbxproj: PBXProj) {
+    public init(path: Path, workspace: XCWorkspace, pbxproj: PBXProj) {
+        self.path = path
         self.workspace = workspace
         self.pbxproj = pbxproj
     }

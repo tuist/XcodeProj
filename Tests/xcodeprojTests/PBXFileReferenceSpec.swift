@@ -10,8 +10,8 @@ final class PBXFileReferenceSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXFileReference(reference: "ref",
-                                   name: "name",
                                    sourceTree: .absolute,
+                                   name: "name",
                                    fileEncoding: 1,
                                    explicitFileType: "type",
                                    lastKnownFileType: "last",
@@ -29,7 +29,7 @@ final class PBXFileReferenceSpec: XCTestCase {
     }
     
     func test_isa_hashTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXFileReference")
+        XCTAssertEqual(PBXFileReference.isa, "PBXFileReference")
     }
     
     func test_init_failsIfNameIsMissing() {
@@ -52,8 +52,8 @@ final class PBXFileReferenceSpec: XCTestCase {
     
     func test_equal_returnsTheCorrectValue() {
         let another = PBXFileReference(reference: "ref",
-                                       name: "name",
                                        sourceTree: .absolute,
+                                       name: "name",
                                        fileEncoding: 1,
                                        explicitFileType: "type",
                                        lastKnownFileType: "last",

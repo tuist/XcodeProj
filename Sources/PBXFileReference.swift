@@ -11,7 +11,7 @@ public struct PBXFileReference: ProjectElement {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXFileReference"
+    public static var isa: String = "PBXFileReference"
     
     /// Element file encoding.
     public let fileEncoding: Int?
@@ -23,7 +23,7 @@ public struct PBXFileReference: ProjectElement {
     public let lastKnownFileType: String?
     
     /// Element name.
-    public let name: String
+    public let name: String?
     
     /// Element path.
     public let path: String?
@@ -34,8 +34,8 @@ public struct PBXFileReference: ProjectElement {
     // MARK: - Init
     
     public init(reference: UUID,
-                name: String,
                 sourceTree: PBXSourceTree,
+                name: String? = nil,
                 fileEncoding: Int? = nil,
                 explicitFileType: String? = nil,
                 lastKnownFileType: String? = nil,
@@ -61,7 +61,7 @@ public struct PBXFileReference: ProjectElement {
         self.fileEncoding = unboxer.unbox(key: "fileEncoding")
         self.explicitFileType = unboxer.unbox(key: "explicitFileType")
         self.lastKnownFileType = unboxer.unbox(key: "lastKnownFileType")
-        self.name = try unboxer.unbox(key: "name")
+        self.name = unboxer.unbox(key: "name")
         self.path = unboxer.unbox(key: "path")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
     }
@@ -71,7 +71,6 @@ public struct PBXFileReference: ProjectElement {
     public static func == (lhs: PBXFileReference,
                            rhs: PBXFileReference) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.fileEncoding == rhs.fileEncoding &&
         lhs.explicitFileType == rhs.explicitFileType &&
         lhs.lastKnownFileType == rhs.lastKnownFileType &&

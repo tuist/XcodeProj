@@ -16,7 +16,7 @@ final class PBXFileElementSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXFileElement")
+        XCTAssertEqual(PBXFileElement.isa, "PBXFileElement")
     }
     
     func test_init_initializesTheFileElementWithTheRightAttributes() {

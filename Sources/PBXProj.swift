@@ -17,7 +17,10 @@ public struct PBXProj {
     public let objectVersion: Int
     
     /// Project classes.
-    public let classes: Set<PBXObject>
+    public let classes: [Any]
+    
+    /// Project objects
+    public let objects: [PBXObject]
     
     /// Project root object.
     public let rootObject: UUID
@@ -30,17 +33,20 @@ public struct PBXProj {
     ///   - path: project path.
     ///   - archiveVersion: project archive version.
     ///   - objectVersion: project object version.
-    ///   - classes: project classes.
     ///   - rootObject: project root object.
+    ///   - classes: project classes.
+    ///   - objects: project objects
     public init(path: Path,
                 archiveVersion: Int,
                 objectVersion: Int,
-                classes: Set<PBXObject>,
-                rootObject: UUID) {
+                rootObject: UUID,
+                classes: [Any] = [],
+                objects: [PBXObject] = []) {
         self.path = path
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
+        self.objects = objects
         self.rootObject = rootObject
     }
 }
@@ -60,8 +66,12 @@ extension PBXProj: PlistInitiatable {
         let unboxer = Unboxer(dictionary: dictionary)
         self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
-        self.classes = []
-//        self.classes = (dictionary["classes"] as? [Any]) ?? []
+        self.classes = (dictionary["classes"] as? [Any]) ?? []
+        let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
+        self.objects = objectsDictionary
+            .map { try? PBXObject(reference: $0.key, dictionary: $0.value) }
+            .filter { $0 != nil }
+            .map { $0! }
         self.rootObject = try unboxer.unbox(key: "rootObject")
     }
     
@@ -75,28 +85,15 @@ public extension PBXProj {
     ///
     /// - Parameter projectClass: class to be added.
     /// - Returns: project with the new class added.
-    public func adding(projectClass: PBXObject) -> PBXProj {
+    public func adding(projectClass: Any) -> PBXProj {
         var classes = self.classes
-        classes.insert(projectClass)
+        classes.append(projectClass)
         return PBXProj(path: path,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
+                       rootObject: rootObject,
                        classes: classes,
-                       rootObject: rootObject)
+                       objects: objects)
     }
-    
-    /// Returns a new project removing a class.
-    ///
-    /// - Parameter projectClass: class to be removed
-    /// - Returns: project with the classs added.
-    public func removing(projectClass: PBXObject) -> PBXProj {
-        var classes = self.classes
-        classes.remove(projectClass)
-        return PBXProj(path: path,
-                       archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       classes: classes,
-                       rootObject: rootObject)
-    }
-    
+
 }

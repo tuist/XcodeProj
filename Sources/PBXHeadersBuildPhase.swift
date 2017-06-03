@@ -8,7 +8,7 @@ public struct PBXHeadersBuildPhase: ProjectElement, Hashable {
     public let reference: UUID
     
     /// Element isa.
-    public let isa: String = "PBXHeadersBuildPhase"
+    public static var isa: String = "PBXHeadersBuildPhase"
     
     /// Element build action mask
     public let buildActionMask: UInt
@@ -84,7 +84,6 @@ public struct PBXHeadersBuildPhase: ProjectElement, Hashable {
     public static func == (lhs: PBXHeadersBuildPhase,
                            rhs: PBXHeadersBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.buildActionMask == rhs.buildActionMask &&
         lhs.files == rhs.files &&
         lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing

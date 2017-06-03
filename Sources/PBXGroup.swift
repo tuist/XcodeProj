@@ -6,7 +6,7 @@ public struct PBXGroup: ProjectElement {
     // MARK: - Attributes
     
     /// Element isa.
-    public let isa: String = "PBXGroup"
+    public static var isa: String = "PBXGroup"
     
     /// Element reference.
     public let reference: UUID
@@ -86,7 +86,6 @@ public struct PBXGroup: ProjectElement {
     public static func == (lhs: PBXGroup,
                            rhs: PBXGroup) -> Bool {
         return lhs.reference == rhs.reference &&
-            lhs.isa == rhs.isa &&
             lhs.children == rhs.children &&
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree

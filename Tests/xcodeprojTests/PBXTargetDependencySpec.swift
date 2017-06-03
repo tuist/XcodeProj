@@ -38,7 +38,7 @@ final class PBXTargetDependencySpec: XCTestCase {
     }
     
     func test_hasTheCorrectIsa() {
-        XCTAssertEqual(subject.isa, "PBXTargetDependency")
+        XCTAssertEqual(PBXTargetDependency.isa, "PBXTargetDependency")
     }
     
     func test_equals_shouldReturnTheRightValue() {

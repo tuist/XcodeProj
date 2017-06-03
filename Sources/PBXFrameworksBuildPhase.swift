@@ -7,7 +7,7 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     // MARK: - Properties
     
     /// Element isa.
-    public let isa: String = "PBXFrameworksBuildPhase"
+    public static var isa: String = "PBXFrameworksBuildPhase"
     
     /// Element reference.
     public let reference: UUID
@@ -77,8 +77,7 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
-        return lhs.isa == rhs.isa &&
-            lhs.reference == rhs.reference &&
+        return lhs.reference == rhs.reference &&
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }

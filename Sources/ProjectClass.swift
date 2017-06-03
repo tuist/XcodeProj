@@ -4,7 +4,7 @@ import Foundation
 public protocol ProjectElement: Hashable {
 
     /// String with the element name.
-    var isa: String { get }
+    static var isa: String { get }
 
     /// Element unique reference.
     var reference: UUID { get }

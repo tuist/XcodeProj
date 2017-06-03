@@ -41,7 +41,7 @@ final class PBXGroupSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXGroup")
+        XCTAssertEqual(PBXGroup.isa, "PBXGroup")
     }
     
     func test_equals_returnsTheCorretValue() {

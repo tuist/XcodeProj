@@ -8,3 +8,5 @@ excluded:
 disabled_rules:
   - trailing_whitespace
   - nesting
+  - cyclomatic_complexity
+  - file_length

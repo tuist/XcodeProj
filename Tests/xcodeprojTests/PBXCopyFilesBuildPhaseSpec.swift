@@ -121,7 +121,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     }
     
     func test_isa_returnsTheRightValue() {
-        XCTAssertEqual(subject.isa, "PBXCopyFilesBuildPhase")
+        XCTAssertEqual(PBXCopyFilesBuildPhase.isa, "PBXCopyFilesBuildPhase")
     }
     
     func test_equals_returnsTheRightValue() {

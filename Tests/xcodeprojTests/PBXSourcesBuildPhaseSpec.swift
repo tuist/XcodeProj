@@ -20,7 +20,7 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
     }
     
     func test_itHasTheCorrectIsa() {
-        XCTAssertEqual(subject.isa, "PBXSourcesBuildPhase")
+        XCTAssertEqual(PBXSourcesBuildPhase.isa, "PBXSourcesBuildPhase")
     }
     
     func test_removingFile_returnsANewBuildPhaseWithTheFileRemoved() {

@@ -8,7 +8,7 @@ public struct PBXProject: ProjectElement {
     
     public let reference: UUID
     
-    public let isa: String = "PBXProject"
+    public static var isa: String = "PBXProject"
     
     // The object is a reference to a XCConfigurationList element.
     public let buildConfigurationList: UUID
@@ -113,7 +113,6 @@ public struct PBXProject: ProjectElement {
     public static func == (lhs: PBXProject,
                            rhs: PBXProject) -> Bool {
         return lhs.reference == rhs.reference &&
-            lhs.isa == rhs.isa &&
             lhs.buildConfigurationList == rhs.buildConfigurationList &&
             lhs.compatibilityVersion == rhs.compatibilityVersion &&
             lhs.developmentRegion == rhs.developmentRegion &&

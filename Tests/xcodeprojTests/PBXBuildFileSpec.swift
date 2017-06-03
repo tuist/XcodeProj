@@ -40,7 +40,7 @@ final class PBXBuildFileSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXBuildFile")
+        XCTAssertEqual(PBXBuildFile.isa, "PBXBuildFile")
     }
     
     func test_hashValue_returnsTheReferenceHashValue() {

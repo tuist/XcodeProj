@@ -38,7 +38,7 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXResourcesBuildPhase")
+        XCTAssertEqual(PBXResourcesBuildPhase.isa, "PBXResourcesBuildPhase")
     }
     
     func test_addingFile_returnsANewBuildPhaseWithTheFileAdded() {

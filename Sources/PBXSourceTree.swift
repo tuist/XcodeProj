@@ -7,6 +7,6 @@ public enum PBXSourceTree: String, UnboxableEnum, Hashable {
     case absolute = "<absolute>"
     case group = "<group>"
     case sourceRoot = "SOURCE_ROOT"
-    case buildProductsDir = "BUILD_PRODUCTS_DIR"
+    case buildProductsDir = "BUILT_PRODUCTS_DIR"
     case sdkRoot = "SDKROOT"
 }

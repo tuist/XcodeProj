@@ -21,7 +21,7 @@ final class PBXAggregateTargetSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXAggregateTarget")
+        XCTAssertEqual(PBXAggregateTarget.isa, "PBXAggregateTarget")
     }
     
     func test_init_initializesWithTheCorrectValues() {

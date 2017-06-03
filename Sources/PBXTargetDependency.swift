@@ -10,7 +10,7 @@ public struct PBXTargetDependency: ProjectElement, Hashable {
     public let reference: UUID
     
     /// Target dependency isa.
-    public let isa: String = "PBXTargetDependency"
+    public static var isa: String = "PBXTargetDependency"
     
     /// Target reference.
     public let target: UUID
@@ -52,7 +52,6 @@ public struct PBXTargetDependency: ProjectElement, Hashable {
     public static func == (lhs: PBXTargetDependency,
                            rhs: PBXTargetDependency) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.isa == rhs.isa &&
         lhs.target == rhs.target &&
         lhs.targetProxy == rhs.targetProxy
     }

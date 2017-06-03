@@ -16,7 +16,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     }
     
     func test_isa_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "PBXHeadersBuildPhase")
+        XCTAssertEqual(PBXHeadersBuildPhase.isa, "PBXHeadersBuildPhase")
     }
     
     func test_init_initializesTheBuildPhaseWithTheRightAttributes() {

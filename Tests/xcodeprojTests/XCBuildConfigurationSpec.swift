@@ -43,7 +43,7 @@ final class XCBuildConfigurationSpec: XCTestCase {
     }
     
     func test_isa_hasTheCorrectValue() {
-        XCTAssertEqual(subject.isa, "XCBuildConfiguration")
+        XCTAssertEqual(XCBuildConfiguration.isa, "XCBuildConfiguration")
     }
     
     func test_equals_returnsTheCorrectValue() {
