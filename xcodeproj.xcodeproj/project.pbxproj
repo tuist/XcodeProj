@@ -7,746 +7,736 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		230B0EB11EC9F9060061B1A2 /* PBXGroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230B0EB01EC9F9060061B1A2 /* PBXGroupSpec.swift */; };
-		230B0EB31EC9FFC20061B1A2 /* PBXFileElementSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230B0EB21EC9FFC20061B1A2 /* PBXFileElementSpec.swift */; };
-		233E350D1EAE575C00544F00 /* ProjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E350B1EAE573600544F00 /* ProjectClass.swift */; };
-		233E35101EAE596800544F00 /* XCBuildConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */; };
-		233E35121EAE5D8E00544F00 /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35111EAE5D8E00544F00 /* Validators.swift */; };
-		233E35141EAE607900544F00 /* XCConfigurationListSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */; };
-		233E35161EAE651000544F00 /* PBXVariantGroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */; };
-		233E35181EAE660400544F00 /* PBXTargetDependencySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */; };
-		234313B91ED80AEA006BF5E7 /* PBXFileReferenceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234313B81ED80AEA006BF5E7 /* PBXFileReferenceSpec.swift */; };
-		2344E4811ED0B70D00B74FFB /* PBXBuildFileSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2344E4801ED0B70D00B74FFB /* PBXBuildFileSpec.swift */; };
-		23507A2D1EBCD86800617607 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */; };
-		23507A311EBCD99D00617607 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A301EBCD99D00617607 /* PBXNativeTarget.swift */; };
-		23507A331EBCDC8900617607 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23507A321EBCDC8900617607 /* PBXProductType.swift */; };
-		23624DA61ECF2750005D5125 /* PBXAggregateTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23624DA41ECF26B0005D5125 /* PBXAggregateTargetSpec.swift */; };
-		2386D1371EC5AF8E00EF3C82 /* PBXCopyFilesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2386D1361EC5AF8E00EF3C82 /* PBXCopyFilesBuildPhaseSpec.swift */; };
-		2386D1391EC5B82700EF3C82 /* PBXFrameworksBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2386D1381EC5B82700EF3C82 /* PBXFrameworksBuildPhaseSpec.swift */; };
-		2386D13B1EC5C16700EF3C82 /* PBXHeadersBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2386D13A1EC5C16700EF3C82 /* PBXHeadersBuildPhaseSpec.swift */; };
-		239688AE1EBB82EF0014B321 /* PBXContainerItemProxySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688AD1EBB82EE0014B321 /* PBXContainerItemProxySpec.swift */; };
-		239688B01EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */; };
-		239688B21EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */; };
-		239688B41EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */; };
-		239688B61EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */; };
-		239688BB1EBCD6580014B321 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BA1EBCD6580014B321 /* PBXFileElement.swift */; };
-		239688BD1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */; };
-		239688BF1EBCD7CF0014B321 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239688BE1EBCD7CF0014B321 /* PBXGroup.swift */; };
-		2399A83A1EB50BCC0041C2DE /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */; };
-		23E812481EE06D080072E141 /* PBXNativeTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E812471EE06D080072E141 /* PBXNativeTargetSpec.swift */; };
-		23E8124A1EE072450072E141 /* PBXProductTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E812491EE072440072E141 /* PBXProductTypeSpec.swift */; };
-		23E8124C1EE073480072E141 /* PBXObjectSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8124B1EE073480072E141 /* PBXObjectSpec.swift */; };
-		23E8124E1EE073EA0072E141 /* PBXProjectSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8124D1EE073EA0072E141 /* PBXProjectSpec.swift */; };
-		23E812501EE075240072E141 /* XcodeProjSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8124F1EE075240072E141 /* XcodeProjSpec.swift */; };
-		23E812521EE075C60072E141 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E812511EE075C60072E141 /* XCWorkspaceData.swift */; };
-		23E812541EE0771F0072E141 /* XCWorkspaceDataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E812531EE0771F0072E141 /* XCWorkspaceDataSpec.swift */; };
-		23E812561EE077520072E141 /* XCWorkspaceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E812551EE077520072E141 /* XCWorkspaceSpec.swift */; };
-		23ED29031EB1C68B005D6B0B /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */; };
-		23ED29051EB1C8CB005D6B0B /* PlistInitiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */; };
-		OBJ_127 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* Case.swift */; };
-		OBJ_128 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* Context.swift */; };
-		OBJ_129 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_109 /* Expectation.swift */; };
-		OBJ_130 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* Failure.swift */; };
-		OBJ_131 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* Global.swift */; };
-		OBJ_132 /* GlobalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* GlobalContext.swift */; };
-		OBJ_133 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* Reporter.swift */; };
-		OBJ_134 /* Reporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* Reporters.swift */; };
-		OBJ_141 /* PathKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* PathKit.swift */; };
-		OBJ_143 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* Spectre.framework */; };
-		OBJ_150 /* Unbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* Unbox.swift */; };
-		OBJ_157 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* AES.swift */; };
-		OBJ_158 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Array+Extension.swift */; };
-		OBJ_159 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* Authenticator.swift */; };
-		OBJ_160 /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* BatchedCollection.swift */; };
-		OBJ_161 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Bit.swift */; };
-		OBJ_162 /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* BlockCipher.swift */; };
-		OBJ_163 /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* Blowfish.swift */; };
-		OBJ_164 /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* ChaCha20.swift */; };
-		OBJ_165 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* Checksum.swift */; };
-		OBJ_166 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* Cipher.swift */; };
-		OBJ_167 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* Collection+Extension.swift */; };
-		OBJ_168 /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* Cryptors.swift */; };
-		OBJ_169 /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* CSArrayType+Extensions.swift */; };
-		OBJ_170 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* Digest.swift */; };
-		OBJ_171 /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* DigestType.swift */; };
-		OBJ_172 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Generics.swift */; };
-		OBJ_173 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* HMAC.swift */; };
-		OBJ_174 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* Int+Extension.swift */; };
-		OBJ_175 /* IntegerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* IntegerConvertible.swift */; };
-		OBJ_176 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* MD5.swift */; };
-		OBJ_177 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* NoPadding.swift */; };
-		OBJ_178 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Operators.swift */; };
-		OBJ_179 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Padding.swift */; };
-		OBJ_180 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* PKCS7.swift */; };
-		OBJ_181 /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* Poly1305.swift */; };
-		OBJ_182 /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Rabbit.swift */; };
-		OBJ_183 /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* RandomAccessCryptor.swift */; };
-		OBJ_184 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* RandomBytesSequence.swift */; };
-		OBJ_185 /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* SecureBytes.swift */; };
-		OBJ_186 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* SHA1.swift */; };
-		OBJ_187 /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* SHA2.swift */; };
-		OBJ_188 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* SHA3.swift */; };
-		OBJ_189 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* String+Extension.swift */; };
-		OBJ_190 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* UInt16+Extension.swift */; };
-		OBJ_191 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* UInt32+Extension.swift */; };
-		OBJ_192 /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* UInt64+Extension.swift */; };
-		OBJ_193 /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* UInt8+Extension.swift */; };
-		OBJ_194 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* Updatable.swift */; };
-		OBJ_195 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* Utils.swift */; };
-		OBJ_196 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* ZeroPadding.swift */; };
-		OBJ_197 /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* BlockMode.swift */; };
-		OBJ_198 /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* BlockModeOptions.swift */; };
-		OBJ_199 /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* BlockModeWorker.swift */; };
-		OBJ_200 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* CBC.swift */; };
-		OBJ_201 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* CFB.swift */; };
-		OBJ_202 /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* CTR.swift */; };
-		OBJ_203 /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* ECB.swift */; };
-		OBJ_204 /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* OFB.swift */; };
-		OBJ_205 /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* PCBC.swift */; };
-		OBJ_206 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* RandomAccessBlockModeWorker.swift */; };
-		OBJ_207 /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* AES+Foundation.swift */; };
-		OBJ_208 /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* Blowfish+Foundation.swift */; };
-		OBJ_209 /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* ChaCha20+Foundation.swift */; };
-		OBJ_210 /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* CSArrayType+Foundation.swift */; };
-		OBJ_211 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* Data+Extension.swift */; };
-		OBJ_212 /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* HMAC+Foundation.swift */; };
-		OBJ_213 /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* Rabbit+Foundation.swift */; };
-		OBJ_214 /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* String+FoundationExtension.swift */; };
-		OBJ_215 /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* Utils+Foundation.swift */; };
-		OBJ_216 /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* PBKDF1.swift */; };
-		OBJ_217 /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* PBKDF2.swift */; };
-		OBJ_218 /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* PKCS5.swift */; };
-		OBJ_225 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* Dictionary+Extras.swift */; };
-		OBJ_226 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* PBXAggregateTarget.swift */; };
-		OBJ_227 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* PBXBuildFile.swift */; };
-		OBJ_228 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* PBXFileReference.swift */; };
-		OBJ_229 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* PBXObject.swift */; };
-		OBJ_230 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* PBXProj.swift */; };
-		OBJ_231 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* PBXProject.swift */; };
-		OBJ_232 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* PBXResourcesBuildPhase.swift */; };
-		OBJ_233 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* PBXShellScriptBuildPhase.swift */; };
-		OBJ_234 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* PBXSourcesBuildPhase.swift */; };
-		OBJ_235 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* PBXSourceTree.swift */; };
-		OBJ_236 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* PBXTarget.swift */; };
-		OBJ_237 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* PBXTargetDependency.swift */; };
-		OBJ_238 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* PBXVariantGroup.swift */; };
-		OBJ_239 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* UUID.swift */; };
-		OBJ_240 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* XCBuildConfiguration.swift */; };
-		OBJ_241 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* XCConfigurationList.swift */; };
-		OBJ_242 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* XcodeProj.swift */; };
-		OBJ_244 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* Spectre.framework */; };
-		OBJ_245 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* PathKit.framework */; };
-		OBJ_246 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Unbox.framework */; };
-		OBJ_247 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* CryptoSwift.framework */; };
-		OBJ_257 /* Dictionary+ExtrasSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Dictionary+ExtrasSpec.swift */; };
-		OBJ_258 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Fixtures.swift */; };
-		OBJ_259 /* PBXProjSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* PBXProjSpec.swift */; };
-		OBJ_260 /* PBXSourceTreeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* PBXSourceTreeSpec.swift */; };
-		OBJ_262 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* Spectre.framework */; };
-		OBJ_263 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* PathKit.framework */; };
-		OBJ_264 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Unbox.framework */; };
-		OBJ_265 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* CryptoSwift.framework */; };
-		OBJ_266 /* xcodeproj.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* xcodeproj.framework */; };
+		OBJ_171 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_150 /* Case.swift */; };
+		OBJ_172 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_151 /* Context.swift */; };
+		OBJ_173 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_152 /* Expectation.swift */; };
+		OBJ_174 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_153 /* Failure.swift */; };
+		OBJ_175 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_154 /* Global.swift */; };
+		OBJ_176 /* GlobalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_155 /* GlobalContext.swift */; };
+		OBJ_177 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_156 /* Reporter.swift */; };
+		OBJ_178 /* Reporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_157 /* Reporters.swift */; };
+		OBJ_185 /* PathKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_148 /* PathKit.swift */; };
+		OBJ_187 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Spectre.framework */; };
+		OBJ_194 /* Unbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_146 /* Unbox.swift */; };
+		OBJ_201 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* AES.swift */; };
+		OBJ_202 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* Array+Extension.swift */; };
+		OBJ_203 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* Authenticator.swift */; };
+		OBJ_204 /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* BatchedCollection.swift */; };
+		OBJ_205 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* Bit.swift */; };
+		OBJ_206 /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* BlockCipher.swift */; };
+		OBJ_207 /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* Blowfish.swift */; };
+		OBJ_208 /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* ChaCha20.swift */; };
+		OBJ_209 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_88 /* Checksum.swift */; };
+		OBJ_210 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* Cipher.swift */; };
+		OBJ_211 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* Collection+Extension.swift */; };
+		OBJ_212 /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* Cryptors.swift */; };
+		OBJ_213 /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* CSArrayType+Extensions.swift */; };
+		OBJ_214 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* Digest.swift */; };
+		OBJ_215 /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* DigestType.swift */; };
+		OBJ_216 /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* Generics.swift */; };
+		OBJ_217 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* HMAC.swift */; };
+		OBJ_218 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* Int+Extension.swift */; };
+		OBJ_219 /* IntegerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* IntegerConvertible.swift */; };
+		OBJ_220 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* MD5.swift */; };
+		OBJ_221 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* NoPadding.swift */; };
+		OBJ_222 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* Operators.swift */; };
+		OBJ_223 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* Padding.swift */; };
+		OBJ_224 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* PKCS7.swift */; };
+		OBJ_225 /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* Poly1305.swift */; };
+		OBJ_226 /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* Rabbit.swift */; };
+		OBJ_227 /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* RandomAccessCryptor.swift */; };
+		OBJ_228 /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* RandomBytesSequence.swift */; };
+		OBJ_229 /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* SecureBytes.swift */; };
+		OBJ_230 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_109 /* SHA1.swift */; };
+		OBJ_231 /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* SHA2.swift */; };
+		OBJ_232 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* SHA3.swift */; };
+		OBJ_233 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_112 /* String+Extension.swift */; };
+		OBJ_234 /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* UInt16+Extension.swift */; };
+		OBJ_235 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* UInt32+Extension.swift */; };
+		OBJ_236 /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* UInt64+Extension.swift */; };
+		OBJ_237 /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* UInt8+Extension.swift */; };
+		OBJ_238 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* Updatable.swift */; };
+		OBJ_239 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* Utils.swift */; };
+		OBJ_240 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* ZeroPadding.swift */; };
+		OBJ_241 /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* BlockMode.swift */; };
+		OBJ_242 /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* BlockModeOptions.swift */; };
+		OBJ_243 /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* BlockModeWorker.swift */; };
+		OBJ_244 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_124 /* CBC.swift */; };
+		OBJ_245 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* CFB.swift */; };
+		OBJ_246 /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* CTR.swift */; };
+		OBJ_247 /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* ECB.swift */; };
+		OBJ_248 /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* OFB.swift */; };
+		OBJ_249 /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* PCBC.swift */; };
+		OBJ_250 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* RandomAccessBlockModeWorker.swift */; };
+		OBJ_251 /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_132 /* AES+Foundation.swift */; };
+		OBJ_252 /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_133 /* Blowfish+Foundation.swift */; };
+		OBJ_253 /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_134 /* ChaCha20+Foundation.swift */; };
+		OBJ_254 /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_135 /* CSArrayType+Foundation.swift */; };
+		OBJ_255 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_136 /* Data+Extension.swift */; };
+		OBJ_256 /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_137 /* HMAC+Foundation.swift */; };
+		OBJ_257 /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_138 /* Rabbit+Foundation.swift */; };
+		OBJ_258 /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_139 /* String+FoundationExtension.swift */; };
+		OBJ_259 /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_140 /* Utils+Foundation.swift */; };
+		OBJ_260 /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_142 /* PBKDF1.swift */; };
+		OBJ_261 /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_143 /* PBKDF2.swift */; };
+		OBJ_262 /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_144 /* PKCS5.swift */; };
+		OBJ_269 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* Document.swift */; };
+		OBJ_270 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* Element.swift */; };
+		OBJ_271 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* Error.swift */; };
+		OBJ_272 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* Options.swift */; };
+		OBJ_273 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* Parser.swift */; };
+		OBJ_280 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* Dictionary+Extras.swift */; };
+		OBJ_281 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* PBXAggregateTarget.swift */; };
+		OBJ_282 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* PBXBuildFile.swift */; };
+		OBJ_283 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* PBXContainerItemProxy.swift */; };
+		OBJ_284 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* PBXCopyFilesBuildPhase.swift */; };
+		OBJ_285 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* PBXFileElement.swift */; };
+		OBJ_286 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* PBXFileReference.swift */; };
+		OBJ_287 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* PBXFrameworksBuildPhase.swift */; };
+		OBJ_288 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* PBXGroup.swift */; };
+		OBJ_289 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* PBXHeadersBuildPhase.swift */; };
+		OBJ_290 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* PBXNativeTarget.swift */; };
+		OBJ_291 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* PBXObject.swift */; };
+		OBJ_292 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* PBXProductType.swift */; };
+		OBJ_293 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* PBXProj.swift */; };
+		OBJ_294 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* PBXProject.swift */; };
+		OBJ_295 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* PBXResourcesBuildPhase.swift */; };
+		OBJ_296 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* PBXShellScriptBuildPhase.swift */; };
+		OBJ_297 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* PBXSourcesBuildPhase.swift */; };
+		OBJ_298 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* PBXSourceTree.swift */; };
+		OBJ_299 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* PBXTarget.swift */; };
+		OBJ_300 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* PBXTargetDependency.swift */; };
+		OBJ_301 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* PBXVariantGroup.swift */; };
+		OBJ_302 /* PlistInitiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* PlistInitiatable.swift */; };
+		OBJ_303 /* ProjectClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* ProjectClass.swift */; };
+		OBJ_304 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* UUID.swift */; };
+		OBJ_305 /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* Validators.swift */; };
+		OBJ_306 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* XCBuildConfiguration.swift */; };
+		OBJ_307 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* XCConfigurationList.swift */; };
+		OBJ_308 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* XcodeProj.swift */; };
+		OBJ_309 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* XCWorkspace.swift */; };
+		OBJ_310 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* XCWorkspaceData.swift */; };
+		OBJ_312 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Spectre.framework */; };
+		OBJ_313 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_160 /* PathKit.framework */; };
+		OBJ_314 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_161 /* Unbox.framework */; };
+		OBJ_315 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_162 /* CryptoSwift.framework */; };
+		OBJ_316 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_163 /* AEXML.framework */; };
+		OBJ_327 /* Dictionary+ExtrasSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Dictionary+ExtrasSpec.swift */; };
+		OBJ_328 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* Fixtures.swift */; };
+		OBJ_329 /* PBXAggregateTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* PBXAggregateTargetSpec.swift */; };
+		OBJ_330 /* PBXBuildFileSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* PBXBuildFileSpec.swift */; };
+		OBJ_331 /* PBXContainerItemProxySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* PBXContainerItemProxySpec.swift */; };
+		OBJ_332 /* PBXCopyFilesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* PBXCopyFilesBuildPhaseSpec.swift */; };
+		OBJ_333 /* PBXFileElementSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* PBXFileElementSpec.swift */; };
+		OBJ_334 /* PBXFileReferenceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* PBXFileReferenceSpec.swift */; };
+		OBJ_335 /* PBXFrameworksBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* PBXFrameworksBuildPhaseSpec.swift */; };
+		OBJ_336 /* PBXGroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* PBXGroupSpec.swift */; };
+		OBJ_337 /* PBXHeadersBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* PBXHeadersBuildPhaseSpec.swift */; };
+		OBJ_338 /* PBXNativeTargetSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* PBXNativeTargetSpec.swift */; };
+		OBJ_339 /* PBXObjectSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* PBXObjectSpec.swift */; };
+		OBJ_340 /* PBXProductTypeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* PBXProductTypeSpec.swift */; };
+		OBJ_341 /* PBXProjectSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* PBXProjectSpec.swift */; };
+		OBJ_342 /* PBXProjSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* PBXProjSpec.swift */; };
+		OBJ_343 /* PBXResourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* PBXResourcesBuildPhaseSpec.swift */; };
+		OBJ_344 /* PBXShellScriptBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* PBXShellScriptBuildPhaseSpec.swift */; };
+		OBJ_345 /* PBXSourcesBuildPhaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* PBXSourcesBuildPhaseSpec.swift */; };
+		OBJ_346 /* PBXSourceTreeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* PBXSourceTreeSpec.swift */; };
+		OBJ_347 /* PBXTargetDependencySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* PBXTargetDependencySpec.swift */; };
+		OBJ_348 /* PBXVariantGroupSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* PBXVariantGroupSpec.swift */; };
+		OBJ_349 /* XCBuildConfigurationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* XCBuildConfigurationSpec.swift */; };
+		OBJ_350 /* XCConfigurationListSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* XCConfigurationListSpec.swift */; };
+		OBJ_351 /* XcodeProjSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* XcodeProjSpec.swift */; };
+		OBJ_352 /* XCWorkspaceDataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* XCWorkspaceDataSpec.swift */; };
+		OBJ_353 /* XCWorkspaceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* XCWorkspaceSpec.swift */; };
+		OBJ_355 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Spectre.framework */; };
+		OBJ_356 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_160 /* PathKit.framework */; };
+		OBJ_357 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_161 /* Unbox.framework */; };
+		OBJ_358 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_162 /* CryptoSwift.framework */; };
+		OBJ_359 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_163 /* AEXML.framework */; };
+		OBJ_360 /* xcodeproj.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_164 /* xcodeproj.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		233E35011EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB67381EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_122;
+			remoteGlobalIDString = OBJ_166;
 			remoteInfo = Spectre;
 		};
-		233E35021EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB67391EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_122;
+			remoteGlobalIDString = OBJ_166;
 			remoteInfo = Spectre;
 		};
-		233E35031EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB673A1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_136;
+			remoteGlobalIDString = OBJ_180;
 			remoteInfo = PathKit;
 		};
-		233E35041EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB673B1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_145;
+			remoteGlobalIDString = OBJ_189;
 			remoteInfo = Unbox;
 		};
-		233E35051EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB673C1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_152;
+			remoteGlobalIDString = OBJ_196;
 			remoteInfo = CryptoSwift;
 		};
-		233E35061EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB673D1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_122;
+			remoteGlobalIDString = OBJ_264;
+			remoteInfo = AEXML;
+		};
+		23BB673E1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_166;
 			remoteInfo = Spectre;
 		};
-		233E35071EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB673F1EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_136;
+			remoteGlobalIDString = OBJ_180;
 			remoteInfo = PathKit;
 		};
-		233E35081EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB67401EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_145;
+			remoteGlobalIDString = OBJ_189;
 			remoteInfo = Unbox;
 		};
-		233E35091EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB67411EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_152;
+			remoteGlobalIDString = OBJ_196;
 			remoteInfo = CryptoSwift;
 		};
-		233E350A1EAE55F700544F00 /* PBXContainerItemProxy */ = {
+		23BB67421EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_220;
+			remoteGlobalIDString = OBJ_264;
+			remoteInfo = AEXML;
+		};
+		23BB67431EE29A9F00BE9E79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_275;
 			remoteInfo = xcodeproj;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		230B0EB01EC9F9060061B1A2 /* PBXGroupSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXGroupSpec.swift; sourceTree = "<group>"; };
-		230B0EB21EC9FFC20061B1A2 /* PBXFileElementSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileElementSpec.swift; sourceTree = "<group>"; };
-		233E350B1EAE573600544F00 /* ProjectClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectClass.swift; sourceTree = "<group>"; };
-		233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCBuildConfigurationSpec.swift; sourceTree = "<group>"; };
-		233E35111EAE5D8E00544F00 /* Validators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
-		233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfigurationListSpec.swift; sourceTree = "<group>"; };
-		233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXVariantGroupSpec.swift; sourceTree = "<group>"; };
-		233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXTargetDependencySpec.swift; sourceTree = "<group>"; };
-		234313B81ED80AEA006BF5E7 /* PBXFileReferenceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileReferenceSpec.swift; sourceTree = "<group>"; };
-		2344E4801ED0B70D00B74FFB /* PBXBuildFileSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXBuildFileSpec.swift; sourceTree = "<group>"; };
-		23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhase.swift; sourceTree = "<group>"; };
-		23507A301EBCD99D00617607 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
-		23507A321EBCDC8900617607 /* PBXProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
-		23624DA41ECF26B0005D5125 /* PBXAggregateTargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXAggregateTargetSpec.swift; sourceTree = "<group>"; };
-		2386D1361EC5AF8E00EF3C82 /* PBXCopyFilesBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		2386D1381EC5B82700EF3C82 /* PBXFrameworksBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		2386D13A1EC5C16700EF3C82 /* PBXHeadersBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		239688AD1EBB82EE0014B321 /* PBXContainerItemProxySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxySpec.swift; sourceTree = "<group>"; };
-		239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
-		239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
-		239688BA1EBCD6580014B321 /* PBXFileElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileElement.swift; sourceTree = "<group>"; };
-		239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
-		239688BE1EBCD7CF0014B321 /* PBXGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
-		2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxy.swift; sourceTree = "<group>"; };
-		23E812471EE06D080072E141 /* PBXNativeTargetSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXNativeTargetSpec.swift; sourceTree = "<group>"; };
-		23E812491EE072440072E141 /* PBXProductTypeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProductTypeSpec.swift; sourceTree = "<group>"; };
-		23E8124B1EE073480072E141 /* PBXObjectSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXObjectSpec.swift; sourceTree = "<group>"; };
-		23E8124D1EE073EA0072E141 /* PBXProjectSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjectSpec.swift; sourceTree = "<group>"; };
-		23E8124F1EE075240072E141 /* XcodeProjSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeProjSpec.swift; sourceTree = "<group>"; };
-		23E812511EE075C60072E141 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
-		23E812531EE0771F0072E141 /* XCWorkspaceDataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataSpec.swift; sourceTree = "<group>"; };
-		23E812551EE077520072E141 /* XCWorkspaceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCWorkspaceSpec.swift; sourceTree = "<group>"; };
-		23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
-		23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistInitiatable.swift; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
-		OBJ_100 /* PBKDF2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
-		OBJ_101 /* PKCS5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
-		OBJ_103 /* Unbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unbox.swift; sourceTree = "<group>"; };
-		OBJ_105 /* PathKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathKit.swift; sourceTree = "<group>"; };
-		OBJ_107 /* Case.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
-		OBJ_108 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		OBJ_109 /* Expectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expectation.swift; sourceTree = "<group>"; };
-		OBJ_11 /* PBXFileReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
-		OBJ_110 /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
-		OBJ_111 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		OBJ_112 /* GlobalContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalContext.swift; sourceTree = "<group>"; };
-		OBJ_113 /* Reporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
-		OBJ_114 /* Reporters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporters.swift; sourceTree = "<group>"; };
-		OBJ_116 /* Spectre.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Spectre.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_117 /* PathKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_118 /* Unbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Unbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_119 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_12 /* PBXObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXObject.swift; sourceTree = "<group>"; };
-		OBJ_120 /* xcodeproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = xcodeproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_121 /* xcodeprojTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcodeprojTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_13 /* PBXProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProj.swift; sourceTree = "<group>"; };
-		OBJ_14 /* PBXProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProject.swift; sourceTree = "<group>"; };
-		OBJ_15 /* PBXResourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhase.swift; sourceTree = "<group>"; };
-		OBJ_16 /* PBXShellScriptBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhase.swift; sourceTree = "<group>"; };
-		OBJ_17 /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
-		OBJ_18 /* PBXSourceTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTree.swift; sourceTree = "<group>"; };
-		OBJ_19 /* PBXTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTarget.swift; sourceTree = "<group>"; };
-		OBJ_20 /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
-		OBJ_21 /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
-		OBJ_22 /* UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
-		OBJ_23 /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
-		OBJ_24 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
-		OBJ_25 /* XcodeProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProj.swift; sourceTree = "<group>"; };
-		OBJ_28 /* Dictionary+ExtrasSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+ExtrasSpec.swift"; sourceTree = "<group>"; };
-		OBJ_29 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
-		OBJ_30 /* PBXProjSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProjSpec.swift; sourceTree = "<group>"; };
-		OBJ_31 /* PBXSourceTreeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTreeSpec.swift; sourceTree = "<group>"; };
-		OBJ_32 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = SOURCE_ROOT; };
-		OBJ_33 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = SOURCE_ROOT; };
-		OBJ_37 /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
-		OBJ_38 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_39 /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
-		OBJ_40 /* BatchedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
-		OBJ_41 /* Bit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
-		OBJ_42 /* BlockCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
-		OBJ_43 /* Blowfish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
-		OBJ_44 /* ChaCha20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
-		OBJ_45 /* Checksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
-		OBJ_46 /* Cipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
-		OBJ_47 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_48 /* Cryptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
-		OBJ_49 /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
-		OBJ_50 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
-		OBJ_51 /* DigestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
-		OBJ_52 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
-		OBJ_53 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		OBJ_54 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_55 /* IntegerConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerConvertible.swift; sourceTree = "<group>"; };
-		OBJ_56 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		OBJ_57 /* NoPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
-		OBJ_58 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		OBJ_59 /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		OBJ_100 /* NoPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
+		OBJ_101 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		OBJ_102 /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		OBJ_103 /* PKCS7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
+		OBJ_104 /* Poly1305.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
+		OBJ_105 /* Rabbit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
+		OBJ_106 /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
+		OBJ_107 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
+		OBJ_108 /* SecureBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
+		OBJ_109 /* SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
+		OBJ_11 /* PBXContainerItemProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxy.swift; sourceTree = "<group>"; };
+		OBJ_110 /* SHA2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
+		OBJ_111 /* SHA3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
+		OBJ_112 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_113 /* UInt16+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_114 /* UInt32+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_115 /* UInt64+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_116 /* UInt8+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_117 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		OBJ_118 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		OBJ_119 /* ZeroPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
+		OBJ_12 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_121 /* BlockMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
+		OBJ_122 /* BlockModeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
+		OBJ_123 /* BlockModeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
+		OBJ_124 /* CBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
+		OBJ_125 /* CFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
+		OBJ_126 /* CTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
+		OBJ_127 /* ECB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
+		OBJ_128 /* OFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
+		OBJ_129 /* PCBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
+		OBJ_13 /* PBXFileElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileElement.swift; sourceTree = "<group>"; };
+		OBJ_130 /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
+		OBJ_132 /* AES+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_133 /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_134 /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_135 /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_136 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_137 /* HMAC+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_138 /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_139 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
+		OBJ_14 /* PBXFileReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
+		OBJ_140 /* Utils+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_142 /* PBKDF1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
+		OBJ_143 /* PBKDF2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBKDF2.swift; sourceTree = "<group>"; };
+		OBJ_144 /* PKCS5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS5.swift; sourceTree = "<group>"; };
+		OBJ_146 /* Unbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unbox.swift; sourceTree = "<group>"; };
+		OBJ_148 /* PathKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathKit.swift; sourceTree = "<group>"; };
+		OBJ_15 /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_150 /* Case.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
+		OBJ_151 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		OBJ_152 /* Expectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expectation.swift; sourceTree = "<group>"; };
+		OBJ_153 /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
+		OBJ_154 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		OBJ_155 /* GlobalContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalContext.swift; sourceTree = "<group>"; };
+		OBJ_156 /* Reporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
+		OBJ_157 /* Reporters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reporters.swift; sourceTree = "<group>"; };
+		OBJ_159 /* Spectre.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Spectre.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_16 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
+		OBJ_160 /* PathKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_161 /* Unbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Unbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_162 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_163 /* AEXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_164 /* xcodeproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = xcodeproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_165 /* xcodeprojTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = xcodeprojTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_17 /* PBXHeadersBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_18 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
+		OBJ_19 /* PBXObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXObject.swift; sourceTree = "<group>"; };
+		OBJ_20 /* PBXProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
+		OBJ_21 /* PBXProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProj.swift; sourceTree = "<group>"; };
+		OBJ_22 /* PBXProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProject.swift; sourceTree = "<group>"; };
+		OBJ_23 /* PBXResourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_24 /* PBXShellScriptBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_25 /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
+		OBJ_26 /* PBXSourceTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTree.swift; sourceTree = "<group>"; };
+		OBJ_27 /* PBXTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTarget.swift; sourceTree = "<group>"; };
+		OBJ_28 /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
+		OBJ_29 /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
+		OBJ_30 /* PlistInitiatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistInitiatable.swift; sourceTree = "<group>"; };
+		OBJ_31 /* ProjectClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectClass.swift; sourceTree = "<group>"; };
+		OBJ_32 /* UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
+		OBJ_33 /* Validators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
+		OBJ_34 /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
+		OBJ_35 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
+		OBJ_36 /* XcodeProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProj.swift; sourceTree = "<group>"; };
+		OBJ_37 /* XCWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
+		OBJ_38 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
+		OBJ_41 /* Dictionary+ExtrasSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+ExtrasSpec.swift"; sourceTree = "<group>"; };
+		OBJ_42 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
+		OBJ_43 /* PBXAggregateTargetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTargetSpec.swift; sourceTree = "<group>"; };
+		OBJ_44 /* PBXBuildFileSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFileSpec.swift; sourceTree = "<group>"; };
+		OBJ_45 /* PBXContainerItemProxySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxySpec.swift; sourceTree = "<group>"; };
+		OBJ_46 /* PBXCopyFilesBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		OBJ_47 /* PBXFileElementSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileElementSpec.swift; sourceTree = "<group>"; };
+		OBJ_48 /* PBXFileReferenceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileReferenceSpec.swift; sourceTree = "<group>"; };
+		OBJ_49 /* PBXFrameworksBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		OBJ_50 /* PBXGroupSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroupSpec.swift; sourceTree = "<group>"; };
+		OBJ_51 /* PBXHeadersBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		OBJ_52 /* PBXNativeTargetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTargetSpec.swift; sourceTree = "<group>"; };
+		OBJ_53 /* PBXObjectSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXObjectSpec.swift; sourceTree = "<group>"; };
+		OBJ_54 /* PBXProductTypeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProductTypeSpec.swift; sourceTree = "<group>"; };
+		OBJ_55 /* PBXProjectSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProjectSpec.swift; sourceTree = "<group>"; };
+		OBJ_56 /* PBXProjSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProjSpec.swift; sourceTree = "<group>"; };
+		OBJ_57 /* PBXResourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		OBJ_58 /* PBXShellScriptBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhaseSpec.swift; sourceTree = "<group>"; };
+		OBJ_59 /* PBXSourcesBuildPhaseSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhaseSpec.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_60 /* PKCS7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
-		OBJ_61 /* Poly1305.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poly1305.swift; sourceTree = "<group>"; };
-		OBJ_62 /* Rabbit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rabbit.swift; sourceTree = "<group>"; };
-		OBJ_63 /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAccessCryptor.swift; sourceTree = "<group>"; };
-		OBJ_64 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomBytesSequence.swift; sourceTree = "<group>"; };
-		OBJ_65 /* SecureBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBytes.swift; sourceTree = "<group>"; };
-		OBJ_66 /* SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
-		OBJ_67 /* SHA2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA2.swift; sourceTree = "<group>"; };
-		OBJ_68 /* SHA3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA3.swift; sourceTree = "<group>"; };
-		OBJ_69 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_70 /* UInt16+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt16+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_71 /* UInt32+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt32+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_72 /* UInt64+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_73 /* UInt8+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt8+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_74 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
-		OBJ_75 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		OBJ_76 /* ZeroPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroPadding.swift; sourceTree = "<group>"; };
-		OBJ_78 /* BlockMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMode.swift; sourceTree = "<group>"; };
-		OBJ_79 /* BlockModeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModeOptions.swift; sourceTree = "<group>"; };
+		OBJ_60 /* PBXSourceTreeSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTreeSpec.swift; sourceTree = "<group>"; };
+		OBJ_61 /* PBXTargetDependencySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependencySpec.swift; sourceTree = "<group>"; };
+		OBJ_62 /* PBXVariantGroupSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroupSpec.swift; sourceTree = "<group>"; };
+		OBJ_63 /* XCBuildConfigurationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfigurationSpec.swift; sourceTree = "<group>"; };
+		OBJ_64 /* XCConfigurationListSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationListSpec.swift; sourceTree = "<group>"; };
+		OBJ_65 /* XcodeProjSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProjSpec.swift; sourceTree = "<group>"; };
+		OBJ_66 /* XCWorkspaceDataSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataSpec.swift; sourceTree = "<group>"; };
+		OBJ_67 /* XCWorkspaceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceSpec.swift; sourceTree = "<group>"; };
+		OBJ_68 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = SOURCE_ROOT; };
+		OBJ_69 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = SOURCE_ROOT; };
+		OBJ_70 /* node_modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = node_modules; sourceTree = SOURCE_ROOT; };
+		OBJ_73 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		OBJ_74 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		OBJ_75 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		OBJ_76 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		OBJ_77 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		OBJ_8 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
-		OBJ_80 /* BlockModeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModeWorker.swift; sourceTree = "<group>"; };
-		OBJ_81 /* CBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBC.swift; sourceTree = "<group>"; };
-		OBJ_82 /* CFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFB.swift; sourceTree = "<group>"; };
-		OBJ_83 /* CTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTR.swift; sourceTree = "<group>"; };
-		OBJ_84 /* ECB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECB.swift; sourceTree = "<group>"; };
-		OBJ_85 /* OFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFB.swift; sourceTree = "<group>"; };
-		OBJ_86 /* PCBC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCBC.swift; sourceTree = "<group>"; };
-		OBJ_87 /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
-		OBJ_89 /* AES+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AES+Foundation.swift"; sourceTree = "<group>"; };
+		OBJ_80 /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		OBJ_81 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_82 /* Authenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
+		OBJ_83 /* BatchedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchedCollection.swift; sourceTree = "<group>"; };
+		OBJ_84 /* Bit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
+		OBJ_85 /* BlockCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCipher.swift; sourceTree = "<group>"; };
+		OBJ_86 /* Blowfish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blowfish.swift; sourceTree = "<group>"; };
+		OBJ_87 /* ChaCha20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaCha20.swift; sourceTree = "<group>"; };
+		OBJ_88 /* Checksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checksum.swift; sourceTree = "<group>"; };
+		OBJ_89 /* Cipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cipher.swift; sourceTree = "<group>"; };
 		OBJ_9 /* PBXAggregateTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTarget.swift; sourceTree = "<group>"; };
-		OBJ_90 /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blowfish+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_91 /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_92 /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_93 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
-		OBJ_94 /* HMAC+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMAC+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_95 /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rabbit+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_96 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FoundationExtension.swift"; sourceTree = "<group>"; };
-		OBJ_97 /* Utils+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Foundation.swift"; sourceTree = "<group>"; };
-		OBJ_99 /* PBKDF1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBKDF1.swift; sourceTree = "<group>"; };
+		OBJ_90 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_91 /* Cryptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cryptors.swift; sourceTree = "<group>"; };
+		OBJ_92 /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
+		OBJ_93 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
+		OBJ_94 /* DigestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
+		OBJ_95 /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
+		OBJ_96 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
+		OBJ_97 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		OBJ_98 /* IntegerConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerConvertible.swift; sourceTree = "<group>"; };
+		OBJ_99 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_135 /* Frameworks */ = {
+		OBJ_179 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_142 /* Frameworks */ = {
+		OBJ_186 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_143 /* Spectre.framework in Frameworks */,
+				OBJ_187 /* Spectre.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_151 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_219 /* Frameworks */ = {
+		OBJ_195 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_243 /* Frameworks */ = {
+		OBJ_263 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_244 /* Spectre.framework in Frameworks */,
-				OBJ_245 /* PathKit.framework in Frameworks */,
-				OBJ_246 /* Unbox.framework in Frameworks */,
-				OBJ_247 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_261 /* Frameworks */ = {
+		OBJ_274 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_262 /* Spectre.framework in Frameworks */,
-				OBJ_263 /* PathKit.framework in Frameworks */,
-				OBJ_264 /* Unbox.framework in Frameworks */,
-				OBJ_265 /* CryptoSwift.framework in Frameworks */,
-				OBJ_266 /* xcodeproj.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_311 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_312 /* Spectre.framework in Frameworks */,
+				OBJ_313 /* PathKit.framework in Frameworks */,
+				OBJ_314 /* Unbox.framework in Frameworks */,
+				OBJ_315 /* CryptoSwift.framework in Frameworks */,
+				OBJ_316 /* AEXML.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_354 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_355 /* Spectre.framework in Frameworks */,
+				OBJ_356 /* PathKit.framework in Frameworks */,
+				OBJ_357 /* Unbox.framework in Frameworks */,
+				OBJ_358 /* CryptoSwift.framework in Frameworks */,
+				OBJ_359 /* AEXML.framework in Frameworks */,
+				OBJ_360 /* xcodeproj.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		239688AA1EBB6F510014B321 /* Validators */ = {
+		OBJ_120 /* BlockMode */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_121 /* BlockMode.swift */,
+				OBJ_122 /* BlockModeOptions.swift */,
+				OBJ_123 /* BlockModeWorker.swift */,
+				OBJ_124 /* CBC.swift */,
+				OBJ_125 /* CFB.swift */,
+				OBJ_126 /* CTR.swift */,
+				OBJ_127 /* ECB.swift */,
+				OBJ_128 /* OFB.swift */,
+				OBJ_129 /* PCBC.swift */,
+				OBJ_130 /* RandomAccessBlockModeWorker.swift */,
 			);
-			name = Validators;
+			path = BlockMode;
 			sourceTree = "<group>";
 		};
-		239688AB1EBB6F580014B321 /* Models */ = {
+		OBJ_131 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				23624DA41ECF26B0005D5125 /* PBXAggregateTargetSpec.swift */,
-				2344E4801ED0B70D00B74FFB /* PBXBuildFileSpec.swift */,
-				239688AD1EBB82EE0014B321 /* PBXContainerItemProxySpec.swift */,
-				2386D1361EC5AF8E00EF3C82 /* PBXCopyFilesBuildPhaseSpec.swift */,
-				230B0EB21EC9FFC20061B1A2 /* PBXFileElementSpec.swift */,
-				234313B81ED80AEA006BF5E7 /* PBXFileReferenceSpec.swift */,
-				2386D1381EC5B82700EF3C82 /* PBXFrameworksBuildPhaseSpec.swift */,
-				230B0EB01EC9F9060061B1A2 /* PBXGroupSpec.swift */,
-				2386D13A1EC5C16700EF3C82 /* PBXHeadersBuildPhaseSpec.swift */,
-				23E812471EE06D080072E141 /* PBXNativeTargetSpec.swift */,
-				23E8124B1EE073480072E141 /* PBXObjectSpec.swift */,
-				23E812491EE072440072E141 /* PBXProductTypeSpec.swift */,
-				23E8124D1EE073EA0072E141 /* PBXProjectSpec.swift */,
-				OBJ_30 /* PBXProjSpec.swift */,
-				239688B31EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift */,
-				239688B11EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift */,
-				239688AF1EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift */,
-				OBJ_31 /* PBXSourceTreeSpec.swift */,
-				233E35171EAE660400544F00 /* PBXTargetDependencySpec.swift */,
-				233E35151EAE651000544F00 /* PBXVariantGroupSpec.swift */,
-				233E350E1EAE58D700544F00 /* XCBuildConfigurationSpec.swift */,
-				233E35131EAE607900544F00 /* XCConfigurationListSpec.swift */,
-				23E8124F1EE075240072E141 /* XcodeProjSpec.swift */,
-				23E812531EE0771F0072E141 /* XCWorkspaceDataSpec.swift */,
-				23E812551EE077520072E141 /* XCWorkspaceSpec.swift */,
+				OBJ_132 /* AES+Foundation.swift */,
+				OBJ_133 /* Blowfish+Foundation.swift */,
+				OBJ_134 /* ChaCha20+Foundation.swift */,
+				OBJ_135 /* CSArrayType+Foundation.swift */,
+				OBJ_136 /* Data+Extension.swift */,
+				OBJ_137 /* HMAC+Foundation.swift */,
+				OBJ_138 /* Rabbit+Foundation.swift */,
+				OBJ_139 /* String+FoundationExtension.swift */,
+				OBJ_140 /* Utils+Foundation.swift */,
 			);
-			name = Models;
+			path = Foundation;
 			sourceTree = "<group>";
 		};
-		239688AC1EBB6F6D0014B321 /* Extensions */ = {
+		OBJ_141 /* PKCS5 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_28 /* Dictionary+ExtrasSpec.swift */,
+				OBJ_142 /* PBKDF1.swift */,
+				OBJ_143 /* PBKDF2.swift */,
+				OBJ_144 /* PKCS5.swift */,
 			);
-			name = Extensions;
+			path = PKCS5;
 			sourceTree = "<group>";
 		};
-		2399A8341EB5060B0041C2DE /* Extensions */ = {
+		OBJ_145 /* Unbox 2.4.0 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_8 /* Dictionary+Extras.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
-		2399A8351EB506160041C2DE /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				233E350B1EAE573600544F00 /* ProjectClass.swift */,
-				23ED29041EB1C8CB005D6B0B /* PlistInitiatable.swift */,
-			);
-			name = Protocols;
-			sourceTree = "<group>";
-		};
-		2399A8361EB506240041C2DE /* Validators */ = {
-			isa = PBXGroup;
-			children = (
-				233E35111EAE5D8E00544F00 /* Validators.swift */,
-			);
-			name = Validators;
-			sourceTree = "<group>";
-		};
-		2399A8371EB5062D0041C2DE /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_9 /* PBXAggregateTarget.swift */,
-				OBJ_10 /* PBXBuildFile.swift */,
-				2399A8391EB50BCC0041C2DE /* PBXContainerItemProxy.swift */,
-				239688B51EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift */,
-				239688BA1EBCD6580014B321 /* PBXFileElement.swift */,
-				OBJ_11 /* PBXFileReference.swift */,
-				239688BC1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift */,
-				239688BE1EBCD7CF0014B321 /* PBXGroup.swift */,
-				23507A2C1EBCD86800617607 /* PBXHeadersBuildPhase.swift */,
-				23507A301EBCD99D00617607 /* PBXNativeTarget.swift */,
-				OBJ_12 /* PBXObject.swift */,
-				23507A321EBCDC8900617607 /* PBXProductType.swift */,
-				OBJ_13 /* PBXProj.swift */,
-				OBJ_14 /* PBXProject.swift */,
-				OBJ_15 /* PBXResourcesBuildPhase.swift */,
-				OBJ_16 /* PBXShellScriptBuildPhase.swift */,
-				OBJ_17 /* PBXSourcesBuildPhase.swift */,
-				OBJ_18 /* PBXSourceTree.swift */,
-				OBJ_19 /* PBXTarget.swift */,
-				OBJ_20 /* PBXTargetDependency.swift */,
-				OBJ_21 /* PBXVariantGroup.swift */,
-				OBJ_23 /* XCBuildConfiguration.swift */,
-				OBJ_24 /* XCConfigurationList.swift */,
-				OBJ_25 /* XcodeProj.swift */,
-				23ED29021EB1C68B005D6B0B /* XCWorkspace.swift */,
-				23E812511EE075C60072E141 /* XCWorkspaceData.swift */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		2399A8381EB5065F0041C2DE /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_22 /* UUID.swift */,
-			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
-		OBJ_102 /* Unbox 2.4.0 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_103 /* Unbox.swift */,
+				OBJ_146 /* Unbox.swift */,
 			);
 			name = "Unbox 2.4.0";
 			path = ".build/checkouts/Unbox-1452311871038889150/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_104 /* PathKit 0.8.0 */ = {
+		OBJ_147 /* PathKit 0.8.0 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_105 /* PathKit.swift */,
+				OBJ_148 /* PathKit.swift */,
 			);
 			name = "PathKit 0.8.0";
 			path = ".build/checkouts/PathKit.git--1865447967743163058/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_106 /* Spectre 0.7.2 */ = {
+		OBJ_149 /* Spectre 0.7.2 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_107 /* Case.swift */,
-				OBJ_108 /* Context.swift */,
-				OBJ_109 /* Expectation.swift */,
-				OBJ_110 /* Failure.swift */,
-				OBJ_111 /* Global.swift */,
-				OBJ_112 /* GlobalContext.swift */,
-				OBJ_113 /* Reporter.swift */,
-				OBJ_114 /* Reporters.swift */,
+				OBJ_150 /* Case.swift */,
+				OBJ_151 /* Context.swift */,
+				OBJ_152 /* Expectation.swift */,
+				OBJ_153 /* Failure.swift */,
+				OBJ_154 /* Global.swift */,
+				OBJ_155 /* GlobalContext.swift */,
+				OBJ_156 /* Reporter.swift */,
+				OBJ_157 /* Reporters.swift */,
 			);
 			name = "Spectre 0.7.2";
 			path = ".build/checkouts/Spectre.git--7655155069707042687/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_115 /* Products */ = {
+		OBJ_158 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_116 /* Spectre.framework */,
-				OBJ_117 /* PathKit.framework */,
-				OBJ_118 /* Unbox.framework */,
-				OBJ_119 /* CryptoSwift.framework */,
-				OBJ_120 /* xcodeproj.framework */,
-				OBJ_121 /* xcodeprojTests.xctest */,
+				OBJ_159 /* Spectre.framework */,
+				OBJ_160 /* PathKit.framework */,
+				OBJ_161 /* Unbox.framework */,
+				OBJ_162 /* CryptoSwift.framework */,
+				OBJ_163 /* AEXML.framework */,
+				OBJ_164 /* xcodeproj.framework */,
+				OBJ_165 /* xcodeprojTests.xctest */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_26 /* Tests */ = {
+		OBJ_39 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_27 /* xcodeprojTests */,
+				OBJ_40 /* xcodeprojTests */,
 			);
 			name = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_27 /* xcodeprojTests */ = {
+		OBJ_40 /* xcodeprojTests */ = {
 			isa = PBXGroup;
 			children = (
-				239688AC1EBB6F6D0014B321 /* Extensions */,
-				239688AB1EBB6F580014B321 /* Models */,
-				239688AA1EBB6F510014B321 /* Validators */,
-				OBJ_29 /* Fixtures.swift */,
+				OBJ_41 /* Dictionary+ExtrasSpec.swift */,
+				OBJ_42 /* Fixtures.swift */,
+				OBJ_43 /* PBXAggregateTargetSpec.swift */,
+				OBJ_44 /* PBXBuildFileSpec.swift */,
+				OBJ_45 /* PBXContainerItemProxySpec.swift */,
+				OBJ_46 /* PBXCopyFilesBuildPhaseSpec.swift */,
+				OBJ_47 /* PBXFileElementSpec.swift */,
+				OBJ_48 /* PBXFileReferenceSpec.swift */,
+				OBJ_49 /* PBXFrameworksBuildPhaseSpec.swift */,
+				OBJ_50 /* PBXGroupSpec.swift */,
+				OBJ_51 /* PBXHeadersBuildPhaseSpec.swift */,
+				OBJ_52 /* PBXNativeTargetSpec.swift */,
+				OBJ_53 /* PBXObjectSpec.swift */,
+				OBJ_54 /* PBXProductTypeSpec.swift */,
+				OBJ_55 /* PBXProjectSpec.swift */,
+				OBJ_56 /* PBXProjSpec.swift */,
+				OBJ_57 /* PBXResourcesBuildPhaseSpec.swift */,
+				OBJ_58 /* PBXShellScriptBuildPhaseSpec.swift */,
+				OBJ_59 /* PBXSourcesBuildPhaseSpec.swift */,
+				OBJ_60 /* PBXSourceTreeSpec.swift */,
+				OBJ_61 /* PBXTargetDependencySpec.swift */,
+				OBJ_62 /* PBXVariantGroupSpec.swift */,
+				OBJ_63 /* XCBuildConfigurationSpec.swift */,
+				OBJ_64 /* XCConfigurationListSpec.swift */,
+				OBJ_65 /* XcodeProjSpec.swift */,
+				OBJ_66 /* XCWorkspaceDataSpec.swift */,
+				OBJ_67 /* XCWorkspaceSpec.swift */,
 			);
 			name = xcodeprojTests;
 			path = Tests/xcodeprojTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_34 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_35 /* CryptoSwift 0.6.8 */,
-				OBJ_102 /* Unbox 2.4.0 */,
-				OBJ_104 /* PathKit 0.8.0 */,
-				OBJ_106 /* Spectre 0.7.2 */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		OBJ_35 /* CryptoSwift 0.6.8 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_36 /* CryptoSwift */,
-			);
-			name = "CryptoSwift 0.6.8";
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_36 /* CryptoSwift */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_37 /* AES.swift */,
-				OBJ_38 /* Array+Extension.swift */,
-				OBJ_39 /* Authenticator.swift */,
-				OBJ_40 /* BatchedCollection.swift */,
-				OBJ_41 /* Bit.swift */,
-				OBJ_42 /* BlockCipher.swift */,
-				OBJ_43 /* Blowfish.swift */,
-				OBJ_44 /* ChaCha20.swift */,
-				OBJ_45 /* Checksum.swift */,
-				OBJ_46 /* Cipher.swift */,
-				OBJ_47 /* Collection+Extension.swift */,
-				OBJ_48 /* Cryptors.swift */,
-				OBJ_49 /* CSArrayType+Extensions.swift */,
-				OBJ_50 /* Digest.swift */,
-				OBJ_51 /* DigestType.swift */,
-				OBJ_52 /* Generics.swift */,
-				OBJ_53 /* HMAC.swift */,
-				OBJ_54 /* Int+Extension.swift */,
-				OBJ_55 /* IntegerConvertible.swift */,
-				OBJ_56 /* MD5.swift */,
-				OBJ_57 /* NoPadding.swift */,
-				OBJ_58 /* Operators.swift */,
-				OBJ_59 /* Padding.swift */,
-				OBJ_60 /* PKCS7.swift */,
-				OBJ_61 /* Poly1305.swift */,
-				OBJ_62 /* Rabbit.swift */,
-				OBJ_63 /* RandomAccessCryptor.swift */,
-				OBJ_64 /* RandomBytesSequence.swift */,
-				OBJ_65 /* SecureBytes.swift */,
-				OBJ_66 /* SHA1.swift */,
-				OBJ_67 /* SHA2.swift */,
-				OBJ_68 /* SHA3.swift */,
-				OBJ_69 /* String+Extension.swift */,
-				OBJ_70 /* UInt16+Extension.swift */,
-				OBJ_71 /* UInt32+Extension.swift */,
-				OBJ_72 /* UInt64+Extension.swift */,
-				OBJ_73 /* UInt8+Extension.swift */,
-				OBJ_74 /* Updatable.swift */,
-				OBJ_75 /* Utils.swift */,
-				OBJ_76 /* ZeroPadding.swift */,
-				OBJ_77 /* BlockMode */,
-				OBJ_88 /* Foundation */,
-				OBJ_98 /* PKCS5 */,
-			);
-			name = CryptoSwift;
-			path = ".build/checkouts/CryptoSwift.git--6440749087414195235/Sources/CryptoSwift";
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_5 = {
+		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_26 /* Tests */,
-				OBJ_32 /* Assets */,
-				OBJ_33 /* Fixtures */,
-				OBJ_34 /* Dependencies */,
-				OBJ_115 /* Products */,
+				OBJ_39 /* Tests */,
+				OBJ_68 /* Assets */,
+				OBJ_69 /* Fixtures */,
+				OBJ_70 /* node_modules */,
+				OBJ_71 /* Dependencies */,
+				OBJ_158 /* Products */,
 			);
+			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2399A8381EB5065F0041C2DE /* Utils */,
-				2399A8371EB5062D0041C2DE /* Models */,
-				2399A8361EB506240041C2DE /* Validators */,
-				2399A8351EB506160041C2DE /* Protocols */,
-				2399A8341EB5060B0041C2DE /* Extensions */,
+				OBJ_8 /* Dictionary+Extras.swift */,
+				OBJ_9 /* PBXAggregateTarget.swift */,
+				OBJ_10 /* PBXBuildFile.swift */,
+				OBJ_11 /* PBXContainerItemProxy.swift */,
+				OBJ_12 /* PBXCopyFilesBuildPhase.swift */,
+				OBJ_13 /* PBXFileElement.swift */,
+				OBJ_14 /* PBXFileReference.swift */,
+				OBJ_15 /* PBXFrameworksBuildPhase.swift */,
+				OBJ_16 /* PBXGroup.swift */,
+				OBJ_17 /* PBXHeadersBuildPhase.swift */,
+				OBJ_18 /* PBXNativeTarget.swift */,
+				OBJ_19 /* PBXObject.swift */,
+				OBJ_20 /* PBXProductType.swift */,
+				OBJ_21 /* PBXProj.swift */,
+				OBJ_22 /* PBXProject.swift */,
+				OBJ_23 /* PBXResourcesBuildPhase.swift */,
+				OBJ_24 /* PBXShellScriptBuildPhase.swift */,
+				OBJ_25 /* PBXSourcesBuildPhase.swift */,
+				OBJ_26 /* PBXSourceTree.swift */,
+				OBJ_27 /* PBXTarget.swift */,
+				OBJ_28 /* PBXTargetDependency.swift */,
+				OBJ_29 /* PBXVariantGroup.swift */,
+				OBJ_30 /* PlistInitiatable.swift */,
+				OBJ_31 /* ProjectClass.swift */,
+				OBJ_32 /* UUID.swift */,
+				OBJ_33 /* Validators.swift */,
+				OBJ_34 /* XCBuildConfiguration.swift */,
+				OBJ_35 /* XCConfigurationList.swift */,
+				OBJ_36 /* XcodeProj.swift */,
+				OBJ_37 /* XCWorkspace.swift */,
+				OBJ_38 /* XCWorkspaceData.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_77 /* BlockMode */ = {
+		OBJ_71 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_78 /* BlockMode.swift */,
-				OBJ_79 /* BlockModeOptions.swift */,
-				OBJ_80 /* BlockModeWorker.swift */,
-				OBJ_81 /* CBC.swift */,
-				OBJ_82 /* CFB.swift */,
-				OBJ_83 /* CTR.swift */,
-				OBJ_84 /* ECB.swift */,
-				OBJ_85 /* OFB.swift */,
-				OBJ_86 /* PCBC.swift */,
-				OBJ_87 /* RandomAccessBlockModeWorker.swift */,
+				OBJ_72 /* AEXML 4.1.0 */,
+				OBJ_78 /* CryptoSwift 0.6.8 */,
+				OBJ_145 /* Unbox 2.4.0 */,
+				OBJ_147 /* PathKit 0.8.0 */,
+				OBJ_149 /* Spectre 0.7.2 */,
 			);
-			path = BlockMode;
+			name = Dependencies;
 			sourceTree = "<group>";
 		};
-		OBJ_88 /* Foundation */ = {
+		OBJ_72 /* AEXML 4.1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_89 /* AES+Foundation.swift */,
-				OBJ_90 /* Blowfish+Foundation.swift */,
-				OBJ_91 /* ChaCha20+Foundation.swift */,
-				OBJ_92 /* CSArrayType+Foundation.swift */,
-				OBJ_93 /* Data+Extension.swift */,
-				OBJ_94 /* HMAC+Foundation.swift */,
-				OBJ_95 /* Rabbit+Foundation.swift */,
-				OBJ_96 /* String+FoundationExtension.swift */,
-				OBJ_97 /* Utils+Foundation.swift */,
+				OBJ_73 /* Document.swift */,
+				OBJ_74 /* Element.swift */,
+				OBJ_75 /* Error.swift */,
+				OBJ_76 /* Options.swift */,
+				OBJ_77 /* Parser.swift */,
 			);
-			path = Foundation;
-			sourceTree = "<group>";
+			name = "AEXML 4.1.0";
+			path = ".build/checkouts/AEXML-1512176926192846141/Sources";
+			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_98 /* PKCS5 */ = {
+		OBJ_78 /* CryptoSwift 0.6.8 */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_99 /* PBKDF1.swift */,
-				OBJ_100 /* PBKDF2.swift */,
-				OBJ_101 /* PKCS5.swift */,
+				OBJ_79 /* CryptoSwift */,
 			);
-			path = PKCS5;
-			sourceTree = "<group>";
+			name = "CryptoSwift 0.6.8";
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_79 /* CryptoSwift */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_80 /* AES.swift */,
+				OBJ_81 /* Array+Extension.swift */,
+				OBJ_82 /* Authenticator.swift */,
+				OBJ_83 /* BatchedCollection.swift */,
+				OBJ_84 /* Bit.swift */,
+				OBJ_85 /* BlockCipher.swift */,
+				OBJ_86 /* Blowfish.swift */,
+				OBJ_87 /* ChaCha20.swift */,
+				OBJ_88 /* Checksum.swift */,
+				OBJ_89 /* Cipher.swift */,
+				OBJ_90 /* Collection+Extension.swift */,
+				OBJ_91 /* Cryptors.swift */,
+				OBJ_92 /* CSArrayType+Extensions.swift */,
+				OBJ_93 /* Digest.swift */,
+				OBJ_94 /* DigestType.swift */,
+				OBJ_95 /* Generics.swift */,
+				OBJ_96 /* HMAC.swift */,
+				OBJ_97 /* Int+Extension.swift */,
+				OBJ_98 /* IntegerConvertible.swift */,
+				OBJ_99 /* MD5.swift */,
+				OBJ_100 /* NoPadding.swift */,
+				OBJ_101 /* Operators.swift */,
+				OBJ_102 /* Padding.swift */,
+				OBJ_103 /* PKCS7.swift */,
+				OBJ_104 /* Poly1305.swift */,
+				OBJ_105 /* Rabbit.swift */,
+				OBJ_106 /* RandomAccessCryptor.swift */,
+				OBJ_107 /* RandomBytesSequence.swift */,
+				OBJ_108 /* SecureBytes.swift */,
+				OBJ_109 /* SHA1.swift */,
+				OBJ_110 /* SHA2.swift */,
+				OBJ_111 /* SHA3.swift */,
+				OBJ_112 /* String+Extension.swift */,
+				OBJ_113 /* UInt16+Extension.swift */,
+				OBJ_114 /* UInt32+Extension.swift */,
+				OBJ_115 /* UInt64+Extension.swift */,
+				OBJ_116 /* UInt8+Extension.swift */,
+				OBJ_117 /* Updatable.swift */,
+				OBJ_118 /* Utils.swift */,
+				OBJ_119 /* ZeroPadding.swift */,
+				OBJ_120 /* BlockMode */,
+				OBJ_131 /* Foundation */,
+				OBJ_141 /* PKCS5 */,
+			);
+			name = CryptoSwift;
+			path = ".build/checkouts/CryptoSwift.git--6440749087414195235/Sources/CryptoSwift";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		OBJ_122 /* Spectre */ = {
+		OBJ_166 /* Spectre */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_123 /* Build configuration list for PBXNativeTarget "Spectre" */;
+			buildConfigurationList = OBJ_167 /* Build configuration list for PBXNativeTarget "Spectre" */;
 			buildPhases = (
-				OBJ_126 /* Sources */,
-				OBJ_135 /* Frameworks */,
+				OBJ_170 /* Sources */,
+				OBJ_179 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -754,32 +744,32 @@
 			);
 			name = Spectre;
 			productName = Spectre;
-			productReference = OBJ_116 /* Spectre.framework */;
+			productReference = OBJ_159 /* Spectre.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_136 /* PathKit */ = {
+		OBJ_180 /* PathKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_137 /* Build configuration list for PBXNativeTarget "PathKit" */;
+			buildConfigurationList = OBJ_181 /* Build configuration list for PBXNativeTarget "PathKit" */;
 			buildPhases = (
-				OBJ_140 /* Sources */,
-				OBJ_142 /* Frameworks */,
+				OBJ_184 /* Sources */,
+				OBJ_186 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_144 /* PBXTargetDependency */,
+				OBJ_188 /* PBXTargetDependency */,
 			);
 			name = PathKit;
 			productName = PathKit;
-			productReference = OBJ_117 /* PathKit.framework */;
+			productReference = OBJ_160 /* PathKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_145 /* Unbox */ = {
+		OBJ_189 /* Unbox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_146 /* Build configuration list for PBXNativeTarget "Unbox" */;
+			buildConfigurationList = OBJ_190 /* Build configuration list for PBXNativeTarget "Unbox" */;
 			buildPhases = (
-				OBJ_149 /* Sources */,
-				OBJ_151 /* Frameworks */,
+				OBJ_193 /* Sources */,
+				OBJ_195 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -787,15 +777,15 @@
 			);
 			name = Unbox;
 			productName = Unbox;
-			productReference = OBJ_118 /* Unbox.framework */;
+			productReference = OBJ_161 /* Unbox.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_152 /* CryptoSwift */ = {
+		OBJ_196 /* CryptoSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_153 /* Build configuration list for PBXNativeTarget "CryptoSwift" */;
+			buildConfigurationList = OBJ_197 /* Build configuration list for PBXNativeTarget "CryptoSwift" */;
 			buildPhases = (
-				OBJ_156 /* Sources */,
-				OBJ_219 /* Frameworks */,
+				OBJ_200 /* Sources */,
+				OBJ_263 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -803,49 +793,67 @@
 			);
 			name = CryptoSwift;
 			productName = CryptoSwift;
-			productReference = OBJ_119 /* CryptoSwift.framework */;
+			productReference = OBJ_162 /* CryptoSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_220 /* xcodeproj */ = {
+		OBJ_264 /* AEXML */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_221 /* Build configuration list for PBXNativeTarget "xcodeproj" */;
+			buildConfigurationList = OBJ_265 /* Build configuration list for PBXNativeTarget "AEXML" */;
 			buildPhases = (
-				OBJ_224 /* Sources */,
-				OBJ_243 /* Frameworks */,
-				23ED29061EB1CBB4005D6B0B /* ShellScript */,
+				OBJ_268 /* Sources */,
+				OBJ_274 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_248 /* PBXTargetDependency */,
-				OBJ_249 /* PBXTargetDependency */,
-				OBJ_250 /* PBXTargetDependency */,
-				OBJ_251 /* PBXTargetDependency */,
+			);
+			name = AEXML;
+			productName = AEXML;
+			productReference = OBJ_163 /* AEXML.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		OBJ_275 /* xcodeproj */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_276 /* Build configuration list for PBXNativeTarget "xcodeproj" */;
+			buildPhases = (
+				OBJ_279 /* Sources */,
+				OBJ_311 /* Frameworks */,
+				23BB67441EE29AD100BE9E79 /* Linting */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_317 /* PBXTargetDependency */,
+				OBJ_318 /* PBXTargetDependency */,
+				OBJ_319 /* PBXTargetDependency */,
+				OBJ_320 /* PBXTargetDependency */,
+				OBJ_321 /* PBXTargetDependency */,
 			);
 			name = xcodeproj;
 			productName = xcodeproj;
-			productReference = OBJ_120 /* xcodeproj.framework */;
+			productReference = OBJ_164 /* xcodeproj.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_252 /* xcodeprojTests */ = {
+		OBJ_322 /* xcodeprojTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_253 /* Build configuration list for PBXNativeTarget "xcodeprojTests" */;
+			buildConfigurationList = OBJ_323 /* Build configuration list for PBXNativeTarget "xcodeprojTests" */;
 			buildPhases = (
-				OBJ_256 /* Sources */,
-				OBJ_261 /* Frameworks */,
+				OBJ_326 /* Sources */,
+				OBJ_354 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_267 /* PBXTargetDependency */,
-				OBJ_268 /* PBXTargetDependency */,
-				OBJ_269 /* PBXTargetDependency */,
-				OBJ_270 /* PBXTargetDependency */,
-				OBJ_271 /* PBXTargetDependency */,
+				OBJ_361 /* PBXTargetDependency */,
+				OBJ_362 /* PBXTargetDependency */,
+				OBJ_363 /* PBXTargetDependency */,
+				OBJ_364 /* PBXTargetDependency */,
+				OBJ_365 /* PBXTargetDependency */,
+				OBJ_366 /* PBXTargetDependency */,
 			);
 			name = xcodeprojTests;
 			productName = xcodeprojTests;
-			productReference = OBJ_121 /* xcodeprojTests.xctest */;
+			productReference = OBJ_165 /* xcodeprojTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -863,29 +871,31 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5;
-			productRefGroup = OBJ_115 /* Products */;
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_158 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				OBJ_122 /* Spectre */,
-				OBJ_136 /* PathKit */,
-				OBJ_145 /* Unbox */,
-				OBJ_152 /* CryptoSwift */,
-				OBJ_220 /* xcodeproj */,
-				OBJ_252 /* xcodeprojTests */,
+				OBJ_166 /* Spectre */,
+				OBJ_180 /* PathKit */,
+				OBJ_189 /* Unbox */,
+				OBJ_196 /* CryptoSwift */,
+				OBJ_264 /* AEXML */,
+				OBJ_275 /* xcodeproj */,
+				OBJ_322 /* xcodeprojTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23ED29061EB1CBB4005D6B0B /* ShellScript */ = {
+		23BB67441EE29AD100BE9E79 /* Linting */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Linting;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -895,235 +905,257 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_126 /* Sources */ = {
+		OBJ_170 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_127 /* Case.swift in Sources */,
-				OBJ_128 /* Context.swift in Sources */,
-				OBJ_129 /* Expectation.swift in Sources */,
-				OBJ_130 /* Failure.swift in Sources */,
-				OBJ_131 /* Global.swift in Sources */,
-				OBJ_132 /* GlobalContext.swift in Sources */,
-				OBJ_133 /* Reporter.swift in Sources */,
-				OBJ_134 /* Reporters.swift in Sources */,
+				OBJ_171 /* Case.swift in Sources */,
+				OBJ_172 /* Context.swift in Sources */,
+				OBJ_173 /* Expectation.swift in Sources */,
+				OBJ_174 /* Failure.swift in Sources */,
+				OBJ_175 /* Global.swift in Sources */,
+				OBJ_176 /* GlobalContext.swift in Sources */,
+				OBJ_177 /* Reporter.swift in Sources */,
+				OBJ_178 /* Reporters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_140 /* Sources */ = {
+		OBJ_184 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_141 /* PathKit.swift in Sources */,
+				OBJ_185 /* PathKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_149 /* Sources */ = {
+		OBJ_193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_150 /* Unbox.swift in Sources */,
+				OBJ_194 /* Unbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_156 /* Sources */ = {
+		OBJ_200 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_157 /* AES.swift in Sources */,
-				OBJ_158 /* Array+Extension.swift in Sources */,
-				OBJ_159 /* Authenticator.swift in Sources */,
-				OBJ_160 /* BatchedCollection.swift in Sources */,
-				OBJ_161 /* Bit.swift in Sources */,
-				OBJ_162 /* BlockCipher.swift in Sources */,
-				OBJ_163 /* Blowfish.swift in Sources */,
-				OBJ_164 /* ChaCha20.swift in Sources */,
-				OBJ_165 /* Checksum.swift in Sources */,
-				OBJ_166 /* Cipher.swift in Sources */,
-				OBJ_167 /* Collection+Extension.swift in Sources */,
-				OBJ_168 /* Cryptors.swift in Sources */,
-				OBJ_169 /* CSArrayType+Extensions.swift in Sources */,
-				OBJ_170 /* Digest.swift in Sources */,
-				OBJ_171 /* DigestType.swift in Sources */,
-				OBJ_172 /* Generics.swift in Sources */,
-				OBJ_173 /* HMAC.swift in Sources */,
-				OBJ_174 /* Int+Extension.swift in Sources */,
-				OBJ_175 /* IntegerConvertible.swift in Sources */,
-				OBJ_176 /* MD5.swift in Sources */,
-				OBJ_177 /* NoPadding.swift in Sources */,
-				OBJ_178 /* Operators.swift in Sources */,
-				OBJ_179 /* Padding.swift in Sources */,
-				OBJ_180 /* PKCS7.swift in Sources */,
-				OBJ_181 /* Poly1305.swift in Sources */,
-				OBJ_182 /* Rabbit.swift in Sources */,
-				OBJ_183 /* RandomAccessCryptor.swift in Sources */,
-				OBJ_184 /* RandomBytesSequence.swift in Sources */,
-				OBJ_185 /* SecureBytes.swift in Sources */,
-				OBJ_186 /* SHA1.swift in Sources */,
-				OBJ_187 /* SHA2.swift in Sources */,
-				OBJ_188 /* SHA3.swift in Sources */,
-				OBJ_189 /* String+Extension.swift in Sources */,
-				OBJ_190 /* UInt16+Extension.swift in Sources */,
-				OBJ_191 /* UInt32+Extension.swift in Sources */,
-				OBJ_192 /* UInt64+Extension.swift in Sources */,
-				OBJ_193 /* UInt8+Extension.swift in Sources */,
-				OBJ_194 /* Updatable.swift in Sources */,
-				OBJ_195 /* Utils.swift in Sources */,
-				OBJ_196 /* ZeroPadding.swift in Sources */,
-				OBJ_197 /* BlockMode.swift in Sources */,
-				OBJ_198 /* BlockModeOptions.swift in Sources */,
-				OBJ_199 /* BlockModeWorker.swift in Sources */,
-				OBJ_200 /* CBC.swift in Sources */,
-				OBJ_201 /* CFB.swift in Sources */,
-				OBJ_202 /* CTR.swift in Sources */,
-				OBJ_203 /* ECB.swift in Sources */,
-				OBJ_204 /* OFB.swift in Sources */,
-				OBJ_205 /* PCBC.swift in Sources */,
-				OBJ_206 /* RandomAccessBlockModeWorker.swift in Sources */,
-				OBJ_207 /* AES+Foundation.swift in Sources */,
-				OBJ_208 /* Blowfish+Foundation.swift in Sources */,
-				OBJ_209 /* ChaCha20+Foundation.swift in Sources */,
-				OBJ_210 /* CSArrayType+Foundation.swift in Sources */,
-				OBJ_211 /* Data+Extension.swift in Sources */,
-				OBJ_212 /* HMAC+Foundation.swift in Sources */,
-				OBJ_213 /* Rabbit+Foundation.swift in Sources */,
-				OBJ_214 /* String+FoundationExtension.swift in Sources */,
-				OBJ_215 /* Utils+Foundation.swift in Sources */,
-				OBJ_216 /* PBKDF1.swift in Sources */,
-				OBJ_217 /* PBKDF2.swift in Sources */,
-				OBJ_218 /* PKCS5.swift in Sources */,
+				OBJ_201 /* AES.swift in Sources */,
+				OBJ_202 /* Array+Extension.swift in Sources */,
+				OBJ_203 /* Authenticator.swift in Sources */,
+				OBJ_204 /* BatchedCollection.swift in Sources */,
+				OBJ_205 /* Bit.swift in Sources */,
+				OBJ_206 /* BlockCipher.swift in Sources */,
+				OBJ_207 /* Blowfish.swift in Sources */,
+				OBJ_208 /* ChaCha20.swift in Sources */,
+				OBJ_209 /* Checksum.swift in Sources */,
+				OBJ_210 /* Cipher.swift in Sources */,
+				OBJ_211 /* Collection+Extension.swift in Sources */,
+				OBJ_212 /* Cryptors.swift in Sources */,
+				OBJ_213 /* CSArrayType+Extensions.swift in Sources */,
+				OBJ_214 /* Digest.swift in Sources */,
+				OBJ_215 /* DigestType.swift in Sources */,
+				OBJ_216 /* Generics.swift in Sources */,
+				OBJ_217 /* HMAC.swift in Sources */,
+				OBJ_218 /* Int+Extension.swift in Sources */,
+				OBJ_219 /* IntegerConvertible.swift in Sources */,
+				OBJ_220 /* MD5.swift in Sources */,
+				OBJ_221 /* NoPadding.swift in Sources */,
+				OBJ_222 /* Operators.swift in Sources */,
+				OBJ_223 /* Padding.swift in Sources */,
+				OBJ_224 /* PKCS7.swift in Sources */,
+				OBJ_225 /* Poly1305.swift in Sources */,
+				OBJ_226 /* Rabbit.swift in Sources */,
+				OBJ_227 /* RandomAccessCryptor.swift in Sources */,
+				OBJ_228 /* RandomBytesSequence.swift in Sources */,
+				OBJ_229 /* SecureBytes.swift in Sources */,
+				OBJ_230 /* SHA1.swift in Sources */,
+				OBJ_231 /* SHA2.swift in Sources */,
+				OBJ_232 /* SHA3.swift in Sources */,
+				OBJ_233 /* String+Extension.swift in Sources */,
+				OBJ_234 /* UInt16+Extension.swift in Sources */,
+				OBJ_235 /* UInt32+Extension.swift in Sources */,
+				OBJ_236 /* UInt64+Extension.swift in Sources */,
+				OBJ_237 /* UInt8+Extension.swift in Sources */,
+				OBJ_238 /* Updatable.swift in Sources */,
+				OBJ_239 /* Utils.swift in Sources */,
+				OBJ_240 /* ZeroPadding.swift in Sources */,
+				OBJ_241 /* BlockMode.swift in Sources */,
+				OBJ_242 /* BlockModeOptions.swift in Sources */,
+				OBJ_243 /* BlockModeWorker.swift in Sources */,
+				OBJ_244 /* CBC.swift in Sources */,
+				OBJ_245 /* CFB.swift in Sources */,
+				OBJ_246 /* CTR.swift in Sources */,
+				OBJ_247 /* ECB.swift in Sources */,
+				OBJ_248 /* OFB.swift in Sources */,
+				OBJ_249 /* PCBC.swift in Sources */,
+				OBJ_250 /* RandomAccessBlockModeWorker.swift in Sources */,
+				OBJ_251 /* AES+Foundation.swift in Sources */,
+				OBJ_252 /* Blowfish+Foundation.swift in Sources */,
+				OBJ_253 /* ChaCha20+Foundation.swift in Sources */,
+				OBJ_254 /* CSArrayType+Foundation.swift in Sources */,
+				OBJ_255 /* Data+Extension.swift in Sources */,
+				OBJ_256 /* HMAC+Foundation.swift in Sources */,
+				OBJ_257 /* Rabbit+Foundation.swift in Sources */,
+				OBJ_258 /* String+FoundationExtension.swift in Sources */,
+				OBJ_259 /* Utils+Foundation.swift in Sources */,
+				OBJ_260 /* PBKDF1.swift in Sources */,
+				OBJ_261 /* PBKDF2.swift in Sources */,
+				OBJ_262 /* PKCS5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_224 /* Sources */ = {
+		OBJ_268 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				23507A311EBCD99D00617607 /* PBXNativeTarget.swift in Sources */,
-				239688B61EBCD35E0014B321 /* PBXCopyFilesBuildPhase.swift in Sources */,
-				OBJ_225 /* Dictionary+Extras.swift in Sources */,
-				239688BF1EBCD7CF0014B321 /* PBXGroup.swift in Sources */,
-				23507A331EBCDC8900617607 /* PBXProductType.swift in Sources */,
-				OBJ_226 /* PBXAggregateTarget.swift in Sources */,
-				233E350D1EAE575C00544F00 /* ProjectClass.swift in Sources */,
-				23ED29031EB1C68B005D6B0B /* XCWorkspace.swift in Sources */,
-				OBJ_227 /* PBXBuildFile.swift in Sources */,
-				OBJ_228 /* PBXFileReference.swift in Sources */,
-				OBJ_229 /* PBXObject.swift in Sources */,
-				OBJ_230 /* PBXProj.swift in Sources */,
-				OBJ_231 /* PBXProject.swift in Sources */,
-				239688BB1EBCD6580014B321 /* PBXFileElement.swift in Sources */,
-				233E35121EAE5D8E00544F00 /* Validators.swift in Sources */,
-				239688BD1EBCD7520014B321 /* PBXFrameworksBuildPhase.swift in Sources */,
-				OBJ_232 /* PBXResourcesBuildPhase.swift in Sources */,
-				OBJ_233 /* PBXShellScriptBuildPhase.swift in Sources */,
-				OBJ_234 /* PBXSourcesBuildPhase.swift in Sources */,
-				OBJ_235 /* PBXSourceTree.swift in Sources */,
-				OBJ_236 /* PBXTarget.swift in Sources */,
-				OBJ_237 /* PBXTargetDependency.swift in Sources */,
-				OBJ_238 /* PBXVariantGroup.swift in Sources */,
-				23ED29051EB1C8CB005D6B0B /* PlistInitiatable.swift in Sources */,
-				OBJ_239 /* UUID.swift in Sources */,
-				OBJ_240 /* XCBuildConfiguration.swift in Sources */,
-				23507A2D1EBCD86800617607 /* PBXHeadersBuildPhase.swift in Sources */,
-				2399A83A1EB50BCC0041C2DE /* PBXContainerItemProxy.swift in Sources */,
-				OBJ_241 /* XCConfigurationList.swift in Sources */,
-				OBJ_242 /* XcodeProj.swift in Sources */,
-				23E812521EE075C60072E141 /* XCWorkspaceData.swift in Sources */,
+				OBJ_269 /* Document.swift in Sources */,
+				OBJ_270 /* Element.swift in Sources */,
+				OBJ_271 /* Error.swift in Sources */,
+				OBJ_272 /* Options.swift in Sources */,
+				OBJ_273 /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_256 /* Sources */ = {
+		OBJ_279 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				233E35101EAE596800544F00 /* XCBuildConfigurationSpec.swift in Sources */,
-				239688B21EBCC2050014B321 /* PBXShellScriptBuildPhaseSpec.swift in Sources */,
-				2344E4811ED0B70D00B74FFB /* PBXBuildFileSpec.swift in Sources */,
-				23E8124A1EE072450072E141 /* PBXProductTypeSpec.swift in Sources */,
-				23624DA61ECF2750005D5125 /* PBXAggregateTargetSpec.swift in Sources */,
-				23E8124C1EE073480072E141 /* PBXObjectSpec.swift in Sources */,
-				2386D13B1EC5C16700EF3C82 /* PBXHeadersBuildPhaseSpec.swift in Sources */,
-				2386D1371EC5AF8E00EF3C82 /* PBXCopyFilesBuildPhaseSpec.swift in Sources */,
-				OBJ_257 /* Dictionary+ExtrasSpec.swift in Sources */,
-				OBJ_258 /* Fixtures.swift in Sources */,
-				239688B41EBCCA480014B321 /* PBXResourcesBuildPhaseSpec.swift in Sources */,
-				23E8124E1EE073EA0072E141 /* PBXProjectSpec.swift in Sources */,
-				233E35181EAE660400544F00 /* PBXTargetDependencySpec.swift in Sources */,
-				2386D1391EC5B82700EF3C82 /* PBXFrameworksBuildPhaseSpec.swift in Sources */,
-				23E812501EE075240072E141 /* XcodeProjSpec.swift in Sources */,
-				OBJ_259 /* PBXProjSpec.swift in Sources */,
-				233E35161EAE651000544F00 /* PBXVariantGroupSpec.swift in Sources */,
-				233E35141EAE607900544F00 /* XCConfigurationListSpec.swift in Sources */,
-				239688B01EBC78E90014B321 /* PBXSourcesBuildPhaseSpec.swift in Sources */,
-				OBJ_260 /* PBXSourceTreeSpec.swift in Sources */,
-				239688AE1EBB82EF0014B321 /* PBXContainerItemProxySpec.swift in Sources */,
-				23E812541EE0771F0072E141 /* XCWorkspaceDataSpec.swift in Sources */,
-				23E812481EE06D080072E141 /* PBXNativeTargetSpec.swift in Sources */,
-				234313B91ED80AEA006BF5E7 /* PBXFileReferenceSpec.swift in Sources */,
-				230B0EB11EC9F9060061B1A2 /* PBXGroupSpec.swift in Sources */,
-				23E812561EE077520072E141 /* XCWorkspaceSpec.swift in Sources */,
-				230B0EB31EC9FFC20061B1A2 /* PBXFileElementSpec.swift in Sources */,
+				OBJ_280 /* Dictionary+Extras.swift in Sources */,
+				OBJ_281 /* PBXAggregateTarget.swift in Sources */,
+				OBJ_282 /* PBXBuildFile.swift in Sources */,
+				OBJ_283 /* PBXContainerItemProxy.swift in Sources */,
+				OBJ_284 /* PBXCopyFilesBuildPhase.swift in Sources */,
+				OBJ_285 /* PBXFileElement.swift in Sources */,
+				OBJ_286 /* PBXFileReference.swift in Sources */,
+				OBJ_287 /* PBXFrameworksBuildPhase.swift in Sources */,
+				OBJ_288 /* PBXGroup.swift in Sources */,
+				OBJ_289 /* PBXHeadersBuildPhase.swift in Sources */,
+				OBJ_290 /* PBXNativeTarget.swift in Sources */,
+				OBJ_291 /* PBXObject.swift in Sources */,
+				OBJ_292 /* PBXProductType.swift in Sources */,
+				OBJ_293 /* PBXProj.swift in Sources */,
+				OBJ_294 /* PBXProject.swift in Sources */,
+				OBJ_295 /* PBXResourcesBuildPhase.swift in Sources */,
+				OBJ_296 /* PBXShellScriptBuildPhase.swift in Sources */,
+				OBJ_297 /* PBXSourcesBuildPhase.swift in Sources */,
+				OBJ_298 /* PBXSourceTree.swift in Sources */,
+				OBJ_299 /* PBXTarget.swift in Sources */,
+				OBJ_300 /* PBXTargetDependency.swift in Sources */,
+				OBJ_301 /* PBXVariantGroup.swift in Sources */,
+				OBJ_302 /* PlistInitiatable.swift in Sources */,
+				OBJ_303 /* ProjectClass.swift in Sources */,
+				OBJ_304 /* UUID.swift in Sources */,
+				OBJ_305 /* Validators.swift in Sources */,
+				OBJ_306 /* XCBuildConfiguration.swift in Sources */,
+				OBJ_307 /* XCConfigurationList.swift in Sources */,
+				OBJ_308 /* XcodeProj.swift in Sources */,
+				OBJ_309 /* XCWorkspace.swift in Sources */,
+				OBJ_310 /* XCWorkspaceData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_326 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_327 /* Dictionary+ExtrasSpec.swift in Sources */,
+				OBJ_328 /* Fixtures.swift in Sources */,
+				OBJ_329 /* PBXAggregateTargetSpec.swift in Sources */,
+				OBJ_330 /* PBXBuildFileSpec.swift in Sources */,
+				OBJ_331 /* PBXContainerItemProxySpec.swift in Sources */,
+				OBJ_332 /* PBXCopyFilesBuildPhaseSpec.swift in Sources */,
+				OBJ_333 /* PBXFileElementSpec.swift in Sources */,
+				OBJ_334 /* PBXFileReferenceSpec.swift in Sources */,
+				OBJ_335 /* PBXFrameworksBuildPhaseSpec.swift in Sources */,
+				OBJ_336 /* PBXGroupSpec.swift in Sources */,
+				OBJ_337 /* PBXHeadersBuildPhaseSpec.swift in Sources */,
+				OBJ_338 /* PBXNativeTargetSpec.swift in Sources */,
+				OBJ_339 /* PBXObjectSpec.swift in Sources */,
+				OBJ_340 /* PBXProductTypeSpec.swift in Sources */,
+				OBJ_341 /* PBXProjectSpec.swift in Sources */,
+				OBJ_342 /* PBXProjSpec.swift in Sources */,
+				OBJ_343 /* PBXResourcesBuildPhaseSpec.swift in Sources */,
+				OBJ_344 /* PBXShellScriptBuildPhaseSpec.swift in Sources */,
+				OBJ_345 /* PBXSourcesBuildPhaseSpec.swift in Sources */,
+				OBJ_346 /* PBXSourceTreeSpec.swift in Sources */,
+				OBJ_347 /* PBXTargetDependencySpec.swift in Sources */,
+				OBJ_348 /* PBXVariantGroupSpec.swift in Sources */,
+				OBJ_349 /* XCBuildConfigurationSpec.swift in Sources */,
+				OBJ_350 /* XCConfigurationListSpec.swift in Sources */,
+				OBJ_351 /* XcodeProjSpec.swift in Sources */,
+				OBJ_352 /* XCWorkspaceDataSpec.swift in Sources */,
+				OBJ_353 /* XCWorkspaceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_144 /* PBXTargetDependency */ = {
+		OBJ_188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_122 /* Spectre */;
-			targetProxy = 233E35011EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_166 /* Spectre */;
+			targetProxy = 23BB67381EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_248 /* PBXTargetDependency */ = {
+		OBJ_317 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_122 /* Spectre */;
-			targetProxy = 233E35021EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_166 /* Spectre */;
+			targetProxy = 23BB67391EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_249 /* PBXTargetDependency */ = {
+		OBJ_318 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_136 /* PathKit */;
-			targetProxy = 233E35031EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_180 /* PathKit */;
+			targetProxy = 23BB673A1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_250 /* PBXTargetDependency */ = {
+		OBJ_319 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_145 /* Unbox */;
-			targetProxy = 233E35041EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_189 /* Unbox */;
+			targetProxy = 23BB673B1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_251 /* PBXTargetDependency */ = {
+		OBJ_320 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_152 /* CryptoSwift */;
-			targetProxy = 233E35051EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_196 /* CryptoSwift */;
+			targetProxy = 23BB673C1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_267 /* PBXTargetDependency */ = {
+		OBJ_321 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_122 /* Spectre */;
-			targetProxy = 233E35061EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_264 /* AEXML */;
+			targetProxy = 23BB673D1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_268 /* PBXTargetDependency */ = {
+		OBJ_361 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_136 /* PathKit */;
-			targetProxy = 233E35071EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_166 /* Spectre */;
+			targetProxy = 23BB673E1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_269 /* PBXTargetDependency */ = {
+		OBJ_362 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_145 /* Unbox */;
-			targetProxy = 233E35081EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_180 /* PathKit */;
+			targetProxy = 23BB673F1EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_270 /* PBXTargetDependency */ = {
+		OBJ_363 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_152 /* CryptoSwift */;
-			targetProxy = 233E35091EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_189 /* Unbox */;
+			targetProxy = 23BB67401EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
-		OBJ_271 /* PBXTargetDependency */ = {
+		OBJ_364 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_220 /* xcodeproj */;
-			targetProxy = 233E350A1EAE55F700544F00 /* PBXContainerItemProxy */;
+			target = OBJ_196 /* CryptoSwift */;
+			targetProxy = 23BB67411EE29A9F00BE9E79 /* PBXContainerItemProxy */;
+		};
+		OBJ_365 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = OBJ_264 /* AEXML */;
+			targetProxy = 23BB67421EE29A9F00BE9E79 /* PBXContainerItemProxy */;
+		};
+		OBJ_366 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = OBJ_275 /* xcodeproj */;
+			targetProxy = 23BB67431EE29A9F00BE9E79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		OBJ_124 /* Debug */ = {
+		OBJ_168 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1144,7 +1176,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_125 /* Release */ = {
+		OBJ_169 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1165,7 +1197,7 @@
 			};
 			name = Release;
 		};
-		OBJ_138 /* Debug */ = {
+		OBJ_182 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1186,7 +1218,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_139 /* Release */ = {
+		OBJ_183 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1207,7 +1239,7 @@
 			};
 			name = Release;
 		};
-		OBJ_147 /* Debug */ = {
+		OBJ_191 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1228,7 +1260,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_148 /* Release */ = {
+		OBJ_192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1249,7 +1281,7 @@
 			};
 			name = Release;
 		};
-		OBJ_154 /* Debug */ = {
+		OBJ_198 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1270,7 +1302,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_155 /* Release */ = {
+		OBJ_199 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1291,7 +1323,7 @@
 			};
 			name = Release;
 		};
-		OBJ_222 /* Debug */ = {
+		OBJ_266 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1300,19 +1332,19 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeproj_Info.plist;
+				INFOPLIST_FILE = xcodeproj.xcodeproj/AEXML_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = xcodeproj;
+				PRODUCT_BUNDLE_IDENTIFIER = AEXML;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGET_NAME = xcodeproj;
+				TARGET_NAME = AEXML;
 			};
 			name = Debug;
 		};
-		OBJ_223 /* Release */ = {
+		OBJ_267 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -1321,49 +1353,57 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeproj_Info.plist;
+				INFOPLIST_FILE = xcodeproj.xcodeproj/AEXML_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = xcodeproj;
+				PRODUCT_BUNDLE_IDENTIFIER = AEXML;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGET_NAME = xcodeproj;
+				TARGET_NAME = AEXML;
 			};
 			name = Release;
 		};
-		OBJ_254 /* Debug */ = {
+		OBJ_277 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeprojTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeproj_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				TARGET_NAME = xcodeprojTests;
+				PRODUCT_BUNDLE_IDENTIFIER = xcodeproj;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGET_NAME = xcodeproj;
 			};
 			name = Debug;
 		};
-		OBJ_255 /* Release */ = {
+		OBJ_278 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeprojTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeproj_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				TARGET_NAME = xcodeprojTests;
+				PRODUCT_BUNDLE_IDENTIFIER = xcodeproj;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGET_NAME = xcodeproj;
 			};
 			name = Release;
 		};
@@ -1390,6 +1430,40 @@
 			};
 			name = Debug;
 		};
+		OBJ_324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeprojTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				TARGET_NAME = xcodeprojTests;
+			};
+			name = Debug;
+		};
+		OBJ_325 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = xcodeproj.xcodeproj/xcodeprojTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				TARGET_NAME = xcodeprojTests;
+			};
+			name = Release;
+		};
 		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1414,38 +1488,38 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		OBJ_123 /* Build configuration list for PBXNativeTarget "Spectre" */ = {
+		OBJ_167 /* Build configuration list for PBXNativeTarget "Spectre" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_124 /* Debug */,
-				OBJ_125 /* Release */,
+				OBJ_168 /* Debug */,
+				OBJ_169 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_137 /* Build configuration list for PBXNativeTarget "PathKit" */ = {
+		OBJ_181 /* Build configuration list for PBXNativeTarget "PathKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_138 /* Debug */,
-				OBJ_139 /* Release */,
+				OBJ_182 /* Debug */,
+				OBJ_183 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_146 /* Build configuration list for PBXNativeTarget "Unbox" */ = {
+		OBJ_190 /* Build configuration list for PBXNativeTarget "Unbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_147 /* Debug */,
-				OBJ_148 /* Release */,
+				OBJ_191 /* Debug */,
+				OBJ_192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_153 /* Build configuration list for PBXNativeTarget "CryptoSwift" */ = {
+		OBJ_197 /* Build configuration list for PBXNativeTarget "CryptoSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_154 /* Debug */,
-				OBJ_155 /* Release */,
+				OBJ_198 /* Debug */,
+				OBJ_199 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -1459,20 +1533,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_221 /* Build configuration list for PBXNativeTarget "xcodeproj" */ = {
+		OBJ_265 /* Build configuration list for PBXNativeTarget "AEXML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_222 /* Debug */,
-				OBJ_223 /* Release */,
+				OBJ_266 /* Debug */,
+				OBJ_267 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_253 /* Build configuration list for PBXNativeTarget "xcodeprojTests" */ = {
+		OBJ_276 /* Build configuration list for PBXNativeTarget "xcodeproj" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_254 /* Debug */,
-				OBJ_255 /* Release */,
+				OBJ_277 /* Debug */,
+				OBJ_278 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		OBJ_323 /* Build configuration list for PBXNativeTarget "xcodeprojTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_324 /* Debug */,
+				OBJ_325 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -1,6 +1,7 @@
 import Foundation
 import Unbox
 import PathKit
+import AEXML
 
 public extension XCWorkspace {
     
