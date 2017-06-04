@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "xcodeproj",
+    swiftLanguageVersions: [3],
     targets: [
         Target(
             name: "Extensions",
@@ -15,7 +16,6 @@ let package = Package(
             name: "Models",
             dependencies: ["Extensions", "Protocols"])
     ],
-    swiftLanguageVersions: [3],
     dependencies: [
         .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
         .Package(url: "https://github.com/JohnSundell/Unbox", majorVersion: 2, minor: 4),
