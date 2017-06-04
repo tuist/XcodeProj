@@ -1,5 +1,6 @@
 import Foundation
 import PathKit
+import Extensions
 
 /// Protocol that indicates that the entity can be initialized passing a path where the plist 
 //  file is and the dictionary that represents the content in that plist.

@@ -4,6 +4,6 @@ import Foundation
 ///
 /// - Parameter path: the path of the .plist file.
 /// - Returns: initialized dictionary.
-func loadPlist(path: String) -> [String: AnyObject]? {
+public func loadPlist(path: String) -> [String: AnyObject]? {
     return NSDictionary(contentsOfFile: path) as? [String: AnyObject]
 }
