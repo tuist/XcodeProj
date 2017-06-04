@@ -42,15 +42,24 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
 
-### TODO
-- Support schemes.
-- Make models printable.
-- Support writing the models back to disk.
-    - pbxproj (plist)
-    - xcworkspacedata (xml)
-    - xcworkspace (forwarding)
-    - xcodeproj (forwarding)
-- Support validation of the projects.
+### How to
+
+#### Reading
+
+You can read the Xcode project files as shown in the examples below:
+
+```swift
+// Read a project
+let project = try! XcodeProj(path: "myproject.xcodeproj")
+let pbxproj = project pbxproj
+let buildFiles = pbxproj.objects.buildFiles
+let buildConfigurations = pbxproj.objects.buildConfigurations
+
+// Read a workspace
+let workspace = try! XCWorkspace(path: "myworkspace.workspace")
+let projects = workspace.data.references.map { $0.project }
+```
+
 
 ### License
 

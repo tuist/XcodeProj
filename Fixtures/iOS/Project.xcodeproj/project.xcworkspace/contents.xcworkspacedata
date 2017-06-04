@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/pedropinerabuendia/code/xcodeproj/Fixtures/iOS/Project.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
