@@ -29,19 +29,6 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 1. Git clone the repository `git@github.com:cartagoproject/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
-### References
-
-- [PathKit](https://github.com/kylef/PathKit)
-- [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
-- [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
-- [pbexplorer](https://github.com/mjmsmith/pbxplorer)
-- [pbxproj identifiers](https://pewpewthespells.com/blog/pbxproj_identifiers.html)
-- [mob-pbxproj](https://github.com/kronenthaler/mod-pbxproj)
-- [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
-- [Nanaimo](https://github.com/CocoaPods/Nanaimo)
-- [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
-- [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
-
 ### How to
 
 #### Reading
@@ -60,6 +47,18 @@ let workspace = try! XCWorkspace(path: "myworkspace.workspace")
 let projects = workspace.data.references.map { $0.project }
 ```
 
+### References
+
+- [PathKit](https://github.com/kylef/PathKit)
+- [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
+- [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
+- [pbexplorer](https://github.com/mjmsmith/pbxplorer)
+- [pbxproj identifiers](https://pewpewthespells.com/blog/pbxproj_identifiers.html)
+- [mob-pbxproj](https://github.com/kronenthaler/mod-pbxproj)
+- [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
+- [Nanaimo](https://github.com/CocoaPods/Nanaimo)
+- [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
+- [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
 
 ### License
 
