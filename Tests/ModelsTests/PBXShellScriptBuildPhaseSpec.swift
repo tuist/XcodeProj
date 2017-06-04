@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-@testable import xcodeproj
+@testable import Models
 
 final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     

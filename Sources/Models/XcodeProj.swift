@@ -15,6 +15,9 @@ public struct XcodeProj {
     /// .pbxproj representatino
     public let pbxproj: PBXProj
     
+    /// Shared data.
+    public let sharedData: XCSharedData?
+    
     // MARK: - Init
     
     public init(path: Path, fileManager: FileManager = .default) throws {
@@ -30,6 +33,8 @@ public struct XcodeProj {
         }
         workspace = try XCWorkspace(path: xcworkspacePaths.first!)
         self.path = path
+        let sharedDataPath = path + Path("xcshareddata")
+        self.sharedData = try? XCSharedData(path: sharedDataPath)
     }
     
     /// Initializes the XCodeProj
@@ -38,10 +43,11 @@ public struct XcodeProj {
     ///   - path: project path
     ///   - workspace: project internal workspace.
     ///   - pbxproj: project .pbxproj.
-    public init(path: Path, workspace: XCWorkspace, pbxproj: PBXProj) {
+    public init(path: Path, workspace: XCWorkspace, pbxproj: PBXProj, sharedData: XCSharedData? = nil) {
         self.path = path
         self.workspace = workspace
         self.pbxproj = pbxproj
+        self.sharedData = sharedData
     }
     
 }

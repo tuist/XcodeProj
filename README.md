@@ -43,8 +43,8 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
 
 ### TODO
+- Support schemes.
 - Make models printable.
-- Organize Swift files in different folders.
 - Support writing the models back to disk.
     - pbxproj (plist)
     - xcworkspacedata (xml)

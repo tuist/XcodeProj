@@ -2,6 +2,7 @@ import Foundation
 import Unbox
 import PathKit
 import Protocols
+import Extensions
 
 /// It represents a .pbxproj file
 public struct PBXProj {

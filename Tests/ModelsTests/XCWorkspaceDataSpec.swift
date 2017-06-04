@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 import PathKit
 
-@testable import xcodeproj
+@testable import Models
 
 final class XCWorkspaceDataSpec: XCTestCase {
 

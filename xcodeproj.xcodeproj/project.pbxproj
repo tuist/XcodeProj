@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23BB67CD1EE3E4B800BE9E79 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB67CB1EE3E4B400BE9E79 /* XCSharedData.swift */; };
+		23BB67CF1EE3E4ED00BE9E79 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB67CE1EE3E4ED00BE9E79 /* XCScheme.swift */; };
+		23FB57951EE3EA7200B863BE /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* XcodeProj.swift */; };
+		23FB57971EE3EAD600B863BE /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FB57961EE3EAD600B863BE /* Dictionary+Extras.swift */; };
 		OBJ_176 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_151 /* Case.swift */; };
 		OBJ_177 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_152 /* Context.swift */; };
 		OBJ_178 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_153 /* Expectation.swift */; };
@@ -107,7 +111,6 @@
 		OBJ_304 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* UUID.swift */; };
 		OBJ_305 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* XCBuildConfiguration.swift */; };
 		OBJ_306 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* XCConfigurationList.swift */; };
-		OBJ_307 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* XcodeProj.swift */; };
 		OBJ_308 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* XCWorkspace.swift */; };
 		OBJ_309 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* XCWorkspaceData.swift */; };
 		OBJ_311 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_160 /* Spectre.framework */; };
@@ -124,7 +127,6 @@
 		OBJ_336 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_163 /* CryptoSwift.framework */; };
 		OBJ_337 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_164 /* SWXMLHash.framework */; };
 		OBJ_338 /* Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_167 /* Extensions.framework */; };
-		OBJ_349 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Dictionary+Extras.swift */; };
 		OBJ_351 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_160 /* Spectre.framework */; };
 		OBJ_352 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_161 /* PathKit.framework */; };
 		OBJ_353 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_162 /* Unbox.framework */; };
@@ -449,6 +451,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23BB67CB1EE3E4B400BE9E79 /* XCSharedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCSharedData.swift; sourceTree = "<group>"; };
+		23BB67CE1EE3E4ED00BE9E79 /* XCScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
+		23FB57961EE3EAD600B863BE /* Dictionary+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		OBJ_100 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		OBJ_101 /* NoPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPadding.swift; sourceTree = "<group>"; };
@@ -541,7 +546,6 @@
 		OBJ_35 /* XCWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
 		OBJ_36 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
 		OBJ_38 /* PlistInitiatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistInitiatable.swift; sourceTree = "<group>"; };
-		OBJ_40 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_42 /* Validators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
 		OBJ_45 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		OBJ_46 /* PBXAggregateTargetSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTargetSpec.swift; sourceTree = "<group>"; };
@@ -823,7 +827,7 @@
 		OBJ_39 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_40 /* Dictionary+Extras.swift */,
+				23FB57961EE3EAD600B863BE /* Dictionary+Extras.swift */,
 			);
 			name = Extensions;
 			path = Sources/Extensions;
@@ -881,7 +885,7 @@
 			path = Tests/ModelsTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -892,7 +896,6 @@
 				OBJ_75 /* Dependencies */,
 				OBJ_159 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -976,6 +979,8 @@
 				OBJ_34 /* XcodeProj.swift */,
 				OBJ_35 /* XCWorkspace.swift */,
 				OBJ_36 /* XCWorkspaceData.swift */,
+				23BB67CB1EE3E4B400BE9E79 /* XCSharedData.swift */,
+				23BB67CE1EE3E4ED00BE9E79 /* XCScheme.swift */,
 			);
 			name = Models;
 			path = Sources/Models;
@@ -1264,7 +1269,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_159 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1413,17 +1418,19 @@
 				OBJ_294 /* PBXProj.swift in Sources */,
 				OBJ_295 /* PBXProject.swift in Sources */,
 				OBJ_296 /* PBXResourcesBuildPhase.swift in Sources */,
+				23BB67CF1EE3E4ED00BE9E79 /* XCScheme.swift in Sources */,
+				23BB67CD1EE3E4B800BE9E79 /* XCSharedData.swift in Sources */,
 				OBJ_297 /* PBXShellScriptBuildPhase.swift in Sources */,
 				OBJ_298 /* PBXSourcesBuildPhase.swift in Sources */,
 				OBJ_299 /* PBXSourceTree.swift in Sources */,
 				OBJ_300 /* PBXTarget.swift in Sources */,
 				OBJ_301 /* PBXTargetDependency.swift in Sources */,
+				23FB57951EE3EA7200B863BE /* XcodeProj.swift in Sources */,
 				OBJ_302 /* PBXVariantGroup.swift in Sources */,
 				OBJ_303 /* ProjectClass.swift in Sources */,
 				OBJ_304 /* UUID.swift in Sources */,
 				OBJ_305 /* XCBuildConfiguration.swift in Sources */,
 				OBJ_306 /* XCConfigurationList.swift in Sources */,
-				OBJ_307 /* XcodeProj.swift in Sources */,
 				OBJ_308 /* XCWorkspace.swift in Sources */,
 				OBJ_309 /* XCWorkspaceData.swift in Sources */,
 			);
@@ -1441,7 +1448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_349 /* Dictionary+Extras.swift in Sources */,
+				23FB57971EE3EAD600B863BE /* Dictionary+Extras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

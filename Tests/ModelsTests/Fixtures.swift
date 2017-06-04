@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-@testable import xcodeproj
+@testable import Extensions
 
 func iosProjectDictionary() -> (Path, Dictionary<String, Any>) {
     let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")

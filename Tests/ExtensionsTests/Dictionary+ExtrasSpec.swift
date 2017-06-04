@@ -3,7 +3,7 @@ import Spectre
 import PathKit
 import XCTest
 
-@testable import xcodeproj
+@testable import Extensions
 
 class DictionaryExtrasSpec: XCTestCase {
     

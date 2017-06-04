@@ -1,4 +1,5 @@
 import Foundation
+import Extensions
 
 public enum PBXObject: Hashable {
     case pbxNativeTarget(PBXNativeTarget)
