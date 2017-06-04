@@ -15,9 +15,12 @@ public extension XCWorkspace {
             
             // MARK: - Init
             
-            init(string: String) {
+            init(string: String, path: Path? = nil) {
                 var location = string
-                if location.contains("self:") {
+                if location == "self:",
+                    let path = path, (path + Path("..")).parent().string.contains(".xcodeproj") {
+                    self = .project(path: (path + Path("..")).parent())
+                } else if location.contains("self:") {
                     location = location.replacingOccurrences(of: "self:", with: "")
                     let path = Path(location)
                     if location.contains(".xcodeproj") {
@@ -110,7 +113,7 @@ public extension XCWorkspace {
                 .all
                 .map { $0["FileRef"].element?.attribute(by: "location")?.text }
                 .filter { $0 != nil }
-                .map { FileRef(string: $0!) }
+                .map { FileRef(string: $0!, path: path) }
         }
         
         // MARK: - Public
