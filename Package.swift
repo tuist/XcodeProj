@@ -4,7 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "xcodeproj",
-    swiftLanguageVersions: [3],
     targets: [
         Target(
             name: "Extensions",
