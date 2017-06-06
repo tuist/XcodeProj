@@ -1,7 +1,7 @@
 import Foundation
 import Unbox
 import PathKit
-import SWXMLHash
+import AEXML
 
 // MARK: - XCWorkspace model
 public extension XCWorkspace {
@@ -108,10 +108,11 @@ public extension XCWorkspace {
             }
             self.path = path
             let data = try Foundation.Data(contentsOf: path.url)
-            let xml = SWXMLHash.parse(data)
-            self.references = xml["Workspace"]
-                .all
-                .map { $0["FileRef"].element?.attribute(by: "location")?.text }
+            let xml = try AEXMLDocument(xml: data)
+            self.references = xml
+                .root
+                .all!
+                .map { $0["FileRef"].attributes["location"] }
                 .filter { $0 != nil }
                 .map { FileRef(string: $0!, path: path) }
         }

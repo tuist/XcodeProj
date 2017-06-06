@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import PathKit
-import SWXMLHash
+import AEXML
 
 public struct XCScheme {
     
@@ -24,12 +24,12 @@ public struct XCScheme {
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
         }
-        init(indexer: XMLIndexer) {
-            self.buildableIdentifier = indexer.element!.attribute(by: "BuildableIdentifier")!.text
-            self.blueprintIdentifier = indexer.element!.attribute(by: "BlueprintIdentifier")!.text
-            self.buildableName = indexer.element!.attribute(by: "BuildableName")!.text
-            self.blueprintName = indexer.element!.attribute(by: "BlueprintName")!.text
-            self.referencedContainer = indexer.element!.attribute(by: "ReferencedContainer")!.text
+        init(element: AEXMLElement) {
+            self.buildableIdentifier = element.attributes["BuildableIdentifier"]!
+            self.blueprintIdentifier = element.attributes["BlueprintIdentifier"]!
+            self.buildableName = element.attributes["BuildableName"]!
+            self.blueprintName = element.attributes["BlueprintName"]!
+            self.referencedContainer = element.attributes["ReferencedContainer"]!
         }
     }
     
@@ -41,9 +41,9 @@ public struct XCScheme {
             self.skipped = skipped
             self.buildableReference = buildableReference
         }
-        public init(indexer: XMLIndexer) {
-            self.skipped = indexer.element!.attribute(by: "skipped")!.text == "YES"
-            self.buildableReference = BuildableReference(indexer: indexer["BuildableReference"])
+        public init(element: AEXMLElement) {
+            self.skipped = element.attributes["skipped"] == "YES"
+            self.buildableReference = BuildableReference(element: element["BuildableReference"])
         }
     }
     
@@ -54,9 +54,9 @@ public struct XCScheme {
             self.identifier = identifier
             self.referenceType = referenceType
         }
-        public init(indexer: XMLIndexer) {
-            self.identifier = indexer.element!.attribute(by: "identifier")!.text
-            self.referenceType = indexer.element!.attribute(by: "referenceType")!.text
+        public init(element: AEXMLElement) {
+            self.identifier = element.attributes["identifier"]!
+            self.referenceType = element.attributes["referenceType"]!
         }
     }
     
@@ -68,9 +68,9 @@ public struct XCScheme {
             self.runnableDebuggingMode = runnableDebuggingMode
             self.buildableReference = buildableReference
         }
-        public init(indexer: XMLIndexer) {
-            self.runnableDebuggingMode = indexer.element!.attribute(by: "runnableDebuggingMode")!.text
-            self.buildableReference = BuildableReference(indexer: indexer["BuildableReference"])
+        public init(element: AEXMLElement) {
+            self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"]!
+            self.buildableReference = BuildableReference(element:  element["BuildableReference"])
         }
     }
     
@@ -95,25 +95,25 @@ public struct XCScheme {
                 self.buildableReference = buildableReference
                 self.buildFor = buildFor
             }
-            public init(indexer: XMLIndexer) {
+            public init(element: AEXMLElement) {
                 var buildFor: [BuildFor] = []
-                if indexer.element?.attribute(by: "buildForTesting")?.text == "YES" {
+                if element.attributes["buildForTesting"] == "YES" {
                     buildFor.append(.testing)
                 }
-                if indexer.element?.attribute(by: "buildForRunning")?.text == "YES" {
+                if element.attributes["buildForRunning"] == "YES" {
                     buildFor.append(.running)
                 }
-                if indexer.element?.attribute(by: "buildForProfiling")?.text == "YES" {
+                if element.attributes["buildForProfiling"] == "YES" {
                     buildFor.append(.profiling)
                 }
-                if indexer.element?.attribute(by: "buildForArchiving")?.text == "YES" {
+                if element.attributes["buildForArchiving"] == "YES" {
                     buildFor.append(.archiving)
                 }
-                if indexer.element?.attribute(by: "buildForAnalyzing")?.text == "YES" {
+                if element.attributes["buildForAnalyzing"] == "YES" {
                     buildFor.append(.analyzing)
                 }
                 self.buildFor = buildFor
-                self.buildableReference = BuildableReference(indexer: indexer["BuildableReference"])
+                self.buildableReference = BuildableReference(element: element["BuildableReference"])
             }
         }
 
@@ -129,13 +129,12 @@ public struct XCScheme {
             self.buildImplicitDependencies = buildImplicitDependencies
         }
         
-        public init(indexer: XMLIndexer) {
-            let element = indexer.element!
-            parallelizeBuild = element.attribute(by: "parallelizeBuildables")?.text == "YES"
-            buildImplicitDependencies = element.attribute(by: "buildImplicitDependencies")?.text == "YES"
-            self.buildActionEntries = indexer["BuildActionEntries"]["BuildActionEntry"]
-                .all
-                .map(Entry.init)
+        public init(element: AEXMLElement) {
+            parallelizeBuild = element.attributes["parallelizeBuildables"]! == "YES"
+            buildImplicitDependencies = element.attributes["buildImplicitDependencies"]! == "YES"
+            self.buildActionEntries = element["BuildActionEntries"]["BuildActionEntry"]
+                .all?
+                .map(Entry.init) ?? []
         }
     
         public func add(buildActionEntry: Entry) -> BuildAction {
@@ -189,19 +188,19 @@ public struct XCScheme {
             self.locationScenarioReference = locationScenarioReference
         }
         
-        public init(indexer: XMLIndexer) {
-            self.buildConfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
-            self.selectedDebuggerIdentifier = indexer.element!.attribute(by: "selectedDebuggerIdentifier")!.text
-            self.selectedLauncherIdentifier = indexer.element!.attribute(by: "selectedLauncherIdentifier")!.text
-            self.launchStyle = Style(rawValue: indexer.element!.attribute(by: "launchStyle")!.text) ?? .auto
-            self.useCustomWorkingDirectory = indexer.element!.attribute(by: "useCustomWorkingDirectory")!.text == "YES"
-            self.ignoresPersistentStateOnLaunch = indexer.element!.attribute(by: "ignoresPersistentStateOnLaunch")!.text == "YES"
-            self.debugDocumentVersioning = indexer.element!.attribute(by: "debugDocumentVersioning")!.text == "YES"
-            self.debugServiceExtension = indexer.element!.attribute(by: "debugServiceExtension")!.text
-            self.allowLocationSimulation = indexer.element!.attribute(by: "allowLocationSimulation")!.text == "YES"
-            self.buildableProductRunnable = BuildableProductRunnable(indexer: indexer["BuildableProductRunnable"])
-            if let _ = indexer["LocationScenarioReference"].element {
-                self.locationScenarioReference = LocationScenarioReference(indexer: indexer["LocationScenarioReference"])
+        public init(element: AEXMLElement) {
+            self.buildConfiguration = element.attributes["buildConfiguration"]!
+            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"]!
+            self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"]!
+            self.launchStyle = Style(rawValue: element.attributes["launchStyle"]!) ?? .auto
+            self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
+            self.ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
+            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
+            self.debugServiceExtension = element.attributes["debugServiceExtension"]!
+            self.allowLocationSimulation = element.attributes["allowLocationSimulation"] == "YES"
+            self.buildableProductRunnable = BuildableProductRunnable(element:  element["BuildableProductRunnable"])
+            if let _ = element["LocationScenarioReference"].all?.first {
+                self.locationScenarioReference = LocationScenarioReference(element: element["LocationScenarioReference"])
             } else {
                 self.locationScenarioReference = nil
             }
@@ -229,13 +228,13 @@ public struct XCScheme {
             self.debugDocumentVersioning = debugDocumentVersioning
         }
         
-        public init(indexer: XMLIndexer) {
-            self.buildconfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
-            self.shouldUseLaunchSchemeArgsEnv = indexer.element!.attribute(by: "shouldUseLaunchSchemeArgsEnv")!.text == "YES"
-            self.savedToolIdentifier = indexer.element!.attribute(by: "savedToolIdentifier")!.text
-            self.useCustomWorkingDirectory = indexer.element!.attribute(by: "useCustomWorkingDirectory")!.text == "YES"
-            self.debugDocumentVersioning = indexer.element!.attribute(by: "debugDocumentVersioning")!.text == "YES"
-            self.buildableProductRunnable = BuildableProductRunnable(indexer: indexer["BuildableProductRunnable"])
+        public init(element: AEXMLElement) {
+            self.buildconfiguration = element.attributes["buildConfiguration"]!
+            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
+            self.savedToolIdentifier = element.attributes["savedToolIdentifier"]!
+            self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
+            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
+            self.buildableProductRunnable = BuildableProductRunnable(element: element["BuildableProductRunnable"])
         }
     }
     
@@ -257,14 +256,14 @@ public struct XCScheme {
             self.macroExpansion = macroExpansion
         }
         
-        public init(indexer: XMLIndexer) {
-            self.buildConfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
-            self.selectedDebuggerIdentifier = indexer.element!.attribute(by: "selectedDebuggerIdentifier")!.text
-            self.shouldUseLaunchSchemeArgsEnv = indexer.element!.attribute(by: "shouldUseLaunchSchemeArgsEnv")!.text == "YES"
-            self.testables = indexer["Testables"]["TestableReference"]
-                .all
-                .map(TestableReference.init)
-            self.macroExpansion = BuildableReference(indexer: indexer["MacroExpansion"]["BuildableReference"])
+        public init(element: AEXMLElement) {
+            self.buildConfiguration = element.attributes["buildConfiguration"]!
+            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"]!
+            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
+            self.testables = element["Testables"]["TestableReference"]
+                .all?
+                .map(TestableReference.init) ?? []
+            self.macroExpansion = BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
         }
 
     }
@@ -274,8 +273,8 @@ public struct XCScheme {
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
         }
-        public init(indexer: XMLIndexer) {
-            self.buildConfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
+        public init(element: AEXMLElement) {
+            self.buildConfiguration = element.attributes["buildConfiguration"]!
         }
     }
     
@@ -290,10 +289,10 @@ public struct XCScheme {
             self.revealArchiveInOrganizer = revealArchiveInOrganizer
             self.customArchiveName = customArchiveName
         }
-        public init(indexer: XMLIndexer) {
-            self.buildConfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
-            self.revealArchiveInOrganizer = indexer.element!.attribute(by: "revealArchiveInOrganizer")!.text == "YES"
-            self.customArchiveName = indexer.element!.attribute(by: "customArchiveName")?.text
+        public init(element: AEXMLElement) {
+            self.buildConfiguration = element.attributes["buildConfiguration"]!
+            self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"] == "YES"
+            self.customArchiveName = element.attributes["customArchiveName"]!
         }
     }
     
@@ -321,16 +320,16 @@ public struct XCScheme {
         }
         self.path = path
         let data = try Data(contentsOf: path.url)
-        let xml = SWXMLHash.parse(data)
-        let scheme = xml["Scheme"]
-        lastUpgradeVersion = scheme.element?.attribute(by: "LastUpgradeVersion")?.text
-        version = scheme.element?.attribute(by: "version")?.text
-        buildAction = BuildAction(indexer: scheme["BuildAction"])
-        testAction = TestAction(indexer: scheme["TestAction"])
-        launchAction = LaunchAction(indexer: scheme["LaunchAction"])
-        analyzeAction = AnalyzeAction(indexer: scheme["AnalyzeAction"])
-        archiveAction = ArchiveAction(indexer: scheme["ArchiveAction"])
-        profileAction = ProfileAction(indexer: scheme["ProfileAction"])
+        let document = try AEXMLDocument(xml: data)
+        let scheme = document["Scheme"]
+        lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
+        version = scheme.attributes["version"]
+        buildAction = BuildAction(element: scheme["BuildAction"])
+        testAction = TestAction(element: scheme["TestAction"])
+        launchAction = LaunchAction(element: scheme["LaunchAction"])
+        analyzeAction = AnalyzeAction(element: scheme["AnalyzeAction"])
+        archiveAction = ArchiveAction(element: scheme["ArchiveAction"])
+        profileAction = ProfileAction(element: scheme["ProfileAction"])
     }
     
     public init(path: Path,
