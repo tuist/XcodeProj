@@ -47,6 +47,19 @@ public struct XCScheme {
         }
     }
     
+    public struct LocationScenarioReference {
+        public let identifier: String
+        public let referenceType: String
+        public init(identifier: String, referenceType: String) {
+            self.identifier = identifier
+            self.referenceType = referenceType
+        }
+        public init(indexer: XMLIndexer) {
+            self.identifier = indexer.element!.attribute(by: "identifier")!.text
+            self.referenceType = indexer.element!.attribute(by: "referenceType")!.text
+        }
+    }
+    
     public struct BuildableProductRunnable {
         public let runnableDebuggingMode: String
         public let buildableReference: BuildableReference
@@ -150,7 +163,8 @@ public struct XCScheme {
         public let debugDocumentVersioning: Bool
         public let debugServiceExtension: String
         public let allowLocationSimulation: Bool
-
+        public let locationScenarioReference: LocationScenarioReference?
+        
         public init(buildableProductRunnable: BuildableProductRunnable,
                     selectedDebuggerIdentifier: String,
                     selectedLauncherIdentifier: String,
@@ -160,7 +174,8 @@ public struct XCScheme {
                     ignoresPersistentStateOnLaunch: Bool,
                     debugDocumentVersioning: Bool,
                     debugServiceExtension: String,
-                    allowLocationSimulation: Bool) {
+                    allowLocationSimulation: Bool,
+                    locationScenarioReference: LocationScenarioReference? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.launchStyle = launchStyle
@@ -171,6 +186,7 @@ public struct XCScheme {
             self.debugDocumentVersioning = debugDocumentVersioning
             self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = allowLocationSimulation
+            self.locationScenarioReference = locationScenarioReference
         }
         
         public init(indexer: XMLIndexer) {
@@ -184,17 +200,42 @@ public struct XCScheme {
             self.debugServiceExtension = indexer.element!.attribute(by: "debugServiceExtension")!.text
             self.allowLocationSimulation = indexer.element!.attribute(by: "allowLocationSimulation")!.text == "YES"
             self.buildableProductRunnable = BuildableProductRunnable(indexer: indexer["BuildableProductRunnable"])
+            if let _ = indexer["LocationScenarioReference"].element {
+                self.locationScenarioReference = LocationScenarioReference(indexer: indexer["LocationScenarioReference"])
+            } else {
+                self.locationScenarioReference = nil
+            }
         }
     }
     
     public struct ProfileAction {
-        public let buildableReference: BuildableReference
+        public let buildableProductRunnable: BuildableProductRunnable
         public let buildconfiguration: String
-        
-        public init(buildableReference: BuildableReference,
-                    buildConfiguration: String) {
-            self.buildableReference = buildableReference
+        public let shouldUseLaunchSchemeArgsEnv: Bool
+        public let savedToolIdentifier: String
+        public let useCustomWorkingDirectory: Bool
+        public let debugDocumentVersioning: Bool
+        public init(buildableProductRunnable: BuildableProductRunnable,
+                    buildConfiguration: String,
+                    shouldUseLaunchSchemeArgsEnv: Bool,
+                    savedToolIdentifier: String,
+                    useCustomWorkingDirectory: Bool,
+                    debugDocumentVersioning: Bool) {
+            self.buildableProductRunnable = buildableProductRunnable
             self.buildconfiguration = buildConfiguration
+            self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
+            self.savedToolIdentifier = savedToolIdentifier
+            self.useCustomWorkingDirectory = useCustomWorkingDirectory
+            self.debugDocumentVersioning = debugDocumentVersioning
+        }
+        
+        public init(indexer: XMLIndexer) {
+            self.buildconfiguration = indexer.element!.attribute(by: "buildConfiguration")!.text
+            self.shouldUseLaunchSchemeArgsEnv = indexer.element!.attribute(by: "shouldUseLaunchSchemeArgsEnv")!.text == "YES"
+            self.savedToolIdentifier = indexer.element!.attribute(by: "savedToolIdentifier")!.text
+            self.useCustomWorkingDirectory = indexer.element!.attribute(by: "useCustomWorkingDirectory")!.text == "YES"
+            self.debugDocumentVersioning = indexer.element!.attribute(by: "debugDocumentVersioning")!.text == "YES"
+            self.buildableProductRunnable = BuildableProductRunnable(indexer: indexer["BuildableProductRunnable"])
         }
     }
     
@@ -261,7 +302,7 @@ public struct XCScheme {
     public let buildAction: BuildAction?
     public let testAction: TestAction?
     public let launchAction: LaunchAction?
-//    public let profileAction: ProfileAction?
+    public let profileAction: ProfileAction?
     public let analyzeAction: AnalyzeAction?
     public let archiveAction: ArchiveAction?
     public let lastUpgradeVersion: String?
@@ -289,7 +330,7 @@ public struct XCScheme {
         launchAction = LaunchAction(indexer: scheme["LaunchAction"])
         analyzeAction = AnalyzeAction(indexer: scheme["AnalyzeAction"])
         archiveAction = ArchiveAction(indexer: scheme["ArchiveAction"])
-
+        profileAction = ProfileAction(indexer: scheme["ProfileAction"])
     }
     
     public init(path: Path,
@@ -307,7 +348,7 @@ public struct XCScheme {
         self.buildAction = buildAction
         self.testAction = testAction
         self.launchAction = launchAction
-//        self.profileAction = profileAction
+        self.profileAction = profileAction
         self.analyzeAction = analyzeAction
         self.archiveAction = archiveAction
     }

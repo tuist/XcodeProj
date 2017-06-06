@@ -13,7 +13,7 @@ final class XCSchemeSpec: XCTestCase {
     }
     
     func test_integration_shouldHaveTheRightVersion() {
-        XCTAssertEqual(subject?.version, "1.3")
+        XCTAssertEqual(subject?.version, "1.7")
     }
     
     func test_integration_shouldHaveTheRightLastUpgradeVersion() {
@@ -70,6 +70,22 @@ final class XCSchemeSpec: XCTestCase {
         XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
         XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
         XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(subject?.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
+        XCTAssertEqual(subject?.launchAction?.locationScenarioReference?.referenceType, "1")
+    }
+
+    func test_integration_shouldHaveTheCorrectProfileAction() {
+        XCTAssertEqual(subject?.profileAction?.buildconfiguration, "Release")
+        XCTAssertEqual(subject?.profileAction?.shouldUseLaunchSchemeArgsEnv, true)
+        XCTAssertEqual(subject?.profileAction?.savedToolIdentifier, "")
+        XCTAssertEqual(subject?.profileAction?.useCustomWorkingDirectory, false)
+        XCTAssertEqual(subject?.profileAction?.debugDocumentVersioning, true)
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.runnableDebuggingMode, "0")
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
+        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
     }
     
     func test_integration_shouldHaveTheCorrectAnalyzeAction() {
