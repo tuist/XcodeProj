@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23A6F72C1EE6197F0075C262 /* XCSchemeSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A6F72B1EE6197F0075C262 /* XCSchemeSpec.swift */; };
 		23BB67CD1EE3E4B800BE9E79 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB67CB1EE3E4B400BE9E79 /* XCSharedData.swift */; };
 		23BB67CF1EE3E4ED00BE9E79 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BB67CE1EE3E4ED00BE9E79 /* XCScheme.swift */; };
 		23FB57951EE3EA7200B863BE /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* XcodeProj.swift */; };
@@ -451,6 +452,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23A6F72B1EE6197F0075C262 /* XCSchemeSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCSchemeSpec.swift; sourceTree = "<group>"; };
 		23BB67CB1EE3E4B400BE9E79 /* XCSharedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCSharedData.swift; sourceTree = "<group>"; };
 		23BB67CE1EE3E4ED00BE9E79 /* XCScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
 		23FB57961EE3EAD600B863BE /* Dictionary+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
@@ -880,6 +882,7 @@
 				OBJ_68 /* XcodeProjSpec.swift */,
 				OBJ_69 /* XCWorkspaceDataSpec.swift */,
 				OBJ_70 /* XCWorkspaceSpec.swift */,
+				23A6F72B1EE6197F0075C262 /* XCSchemeSpec.swift */,
 			);
 			name = ModelsTests;
 			path = Tests/ModelsTests;
@@ -1487,6 +1490,7 @@
 				OBJ_403 /* PBXVariantGroupSpec.swift in Sources */,
 				OBJ_404 /* XCBuildConfigurationSpec.swift in Sources */,
 				OBJ_405 /* XCConfigurationListSpec.swift in Sources */,
+				23A6F72C1EE6197F0075C262 /* XCSchemeSpec.swift in Sources */,
 				OBJ_406 /* XcodeProjSpec.swift in Sources */,
 				OBJ_407 /* XCWorkspaceDataSpec.swift in Sources */,
 				OBJ_408 /* XCWorkspaceSpec.swift in Sources */,
