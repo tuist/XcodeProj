@@ -2,13 +2,14 @@ import Foundation
 import Unbox
 import PathKit
 import AEXML
+import Protocols
 
 // MARK: - XCWorkspace model
 public extension XCWorkspace {
     
-    public struct Data: Equatable {
+    public struct Data: Equatable, Writable {
         
-        public enum FileRef: Hashable, ExpressibleByStringLiteral {
+        public enum FileRef: Hashable, ExpressibleByStringLiteral, CustomStringConvertible {
             case project(path: Path)
             case file(path: Path)
             case other(location: String)
@@ -33,7 +34,17 @@ public extension XCWorkspace {
                 }
             }
             
-            // MARK: - ExpressibleByStringLiteral
+            // MARK: - <CustomStringConvertible>
+            
+            public var description: String {
+                switch self {
+                case .project(let path): return "self:\(path.string)"
+                case .file(let path): return "self:\(path.string)"
+                case .other(let location): return location
+                }
+            }
+            
+            // MARK: - <ExpressibleByStringLiteral>
             
             public init(stringLiteral value: String) {
                 self.init(string: value)
@@ -159,6 +170,23 @@ public extension XCWorkspace {
                                rhs: XCWorkspace.Data) -> Bool {
             return lhs.path == rhs.path &&
                 lhs.references == rhs.references
+        }
+        
+        // MARK: - <Writable>
+        
+        public func write(override: Bool = true) throws {
+            let document = AEXMLDocument()
+            let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
+            references.forEach { (reference) in
+                workspace.addChild(name: "FileRef",
+                                   value: nil,
+                                   attributes: ["location": "\(reference)"])
+            }
+            let fm = FileManager.default
+            if override && fm.fileExists(atPath: path.string) {
+                try fm.removeItem(atPath: path.string)
+            }
+            try Foundation.Data(base64Encoded: document.string)?.write(to: path.url)
         }
         
     }

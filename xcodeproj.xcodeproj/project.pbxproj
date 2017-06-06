@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23CDBF4C1EE775EC00C67431 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4B1EE775EC00C67431 /* Writable.swift */; };
 		OBJ_182 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_157 /* Case.swift */; };
 		OBJ_183 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_158 /* Context.swift */; };
 		OBJ_184 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Expectation.swift */; };
@@ -455,6 +456,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23CDBF4B1EE775EC00C67431 /* Writable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Writable.swift; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		OBJ_101 /* DigestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_40 /* PlistInitiatable.swift */,
+				23CDBF4B1EE775EC00C67431 /* Writable.swift */,
 			);
 			name = Protocols;
 			path = Sources/Protocols;
@@ -1457,6 +1460,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_342 /* PlistInitiatable.swift in Sources */,
+				23CDBF4C1EE775EC00C67431 /* Writable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
