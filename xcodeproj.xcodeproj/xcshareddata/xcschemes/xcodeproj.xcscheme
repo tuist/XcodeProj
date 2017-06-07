@@ -85,22 +85,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "OBJ_286"
-               BuildableName = "Models.framework"
-               BlueprintName = "Models"
-               ReferencedContainer = "container:xcodeproj.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_337"
-               BuildableName = "Protocols.framework"
-               BlueprintName = "Protocols"
+               BuildableName = "xcodeproj.framework"
+               BlueprintName = "xcodeproj"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -113,8 +99,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "OBJ_335"
-               BuildableName = "Extensions.framework"
-               BlueprintName = "Extensions"
+               BuildableName = "xcodeprojextensions.framework"
+               BlueprintName = "xcodeprojextensions"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -126,9 +112,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_372"
-               BuildableName = "Validators.framework"
-               BlueprintName = "Validators"
+               BlueprintIdentifier = "OBJ_337"
+               BuildableName = "xcodeprojprotocols.framework"
+               BlueprintName = "xcodeprojprotocols"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -144,9 +130,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_389"
-               BuildableName = "ModelsTests.xctest"
-               BlueprintName = "ModelsTests"
+               BlueprintIdentifier = "OBJ_374"
+               BuildableName = "xcodeprojextensionsTests.xctest"
+               BlueprintName = "xcodeprojextensionsTests"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -154,9 +140,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_438"
-               BuildableName = "ExtensionsTests.xctest"
-               BlueprintName = "ExtensionsTests"
+               BlueprintIdentifier = "OBJ_393"
+               BuildableName = "xcodeprojTests.xctest"
+               BlueprintName = "xcodeprojTests"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </TestableReference>

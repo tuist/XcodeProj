@@ -6,14 +6,14 @@ let package = Package(
     name: "xcodeproj",
     targets: [
         Target(
-            name: "Extensions",
+            name: "xcodeprojextensions",
             dependencies: []),
         Target(
-            name: "Protocols",
-            dependencies: ["Extensions"]),
+            name: "xcodeprojprotocols",
+            dependencies: ["xcodeprojextensions"]),
         Target(
-            name: "Models",
-            dependencies: ["Extensions", "Protocols"])
+            name: "xcodeproj",
+            dependencies: ["xcodeprojextensions", "xcodeprojprotocols"])
     ],
     dependencies: [
         .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
