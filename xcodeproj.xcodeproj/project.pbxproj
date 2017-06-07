@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23CDBF4C1EE775EC00C67431 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4B1EE775EC00C67431 /* Writable.swift */; };
+		23CDBF4E1EE782FB00C67431 /* testWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4D1EE782FB00C67431 /* testWrite.swift */; };
 		OBJ_182 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_157 /* Case.swift */; };
 		OBJ_183 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_158 /* Context.swift */; };
 		OBJ_184 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Expectation.swift */; };
@@ -457,6 +458,7 @@
 
 /* Begin PBXFileReference section */
 		23CDBF4B1EE775EC00C67431 /* Writable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Writable.swift; sourceTree = "<group>"; };
+		23CDBF4D1EE782FB00C67431 /* testWrite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testWrite.swift; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		OBJ_101 /* DigestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 				OBJ_71 /* XCSchemeSpec.swift */,
 				OBJ_72 /* XCWorkspaceDataSpec.swift */,
 				OBJ_73 /* XCWorkspaceSpec.swift */,
+				23CDBF4D1EE782FB00C67431 /* testWrite.swift */,
 			);
 			name = ModelsTests;
 			path = Tests/ModelsTests;
@@ -1509,6 +1512,7 @@
 				OBJ_416 /* XCConfigurationListSpec.swift in Sources */,
 				OBJ_417 /* XcodeProjSpec.swift in Sources */,
 				OBJ_418 /* XCSchemeSpec.swift in Sources */,
+				23CDBF4E1EE782FB00C67431 /* testWrite.swift in Sources */,
 				OBJ_419 /* XCWorkspaceDataSpec.swift in Sources */,
 				OBJ_420 /* XCWorkspaceSpec.swift in Sources */,
 			);

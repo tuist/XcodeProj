@@ -122,8 +122,8 @@ public extension XCWorkspace {
             let xml = try AEXMLDocument(xml: data)
             self.references = xml
                 .root
-                .all!
-                .map { $0["FileRef"].attributes["location"] }
+                .children
+                .map { $0.attributes["location"] }
                 .filter { $0 != nil }
                 .map { FileRef(string: $0!, path: path) }
         }
@@ -186,7 +186,7 @@ public extension XCWorkspace {
             if override && fm.fileExists(atPath: path.string) {
                 try fm.removeItem(atPath: path.string)
             }
-            try Foundation.Data(base64Encoded: document.string)?.write(to: path.url)
+            try  document.xml.data(using: .utf8)?.write(to: path.url)
         }
         
     }
