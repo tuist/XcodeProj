@@ -358,12 +358,12 @@ public struct XCScheme: Writable {
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
             attributes["selectedLauncherIdentifier"] = selectedLauncherIdentifier
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
-            let element = AEXMLElement(name: "AnalyzeAction", value: nil, attributes: attributes)
+            let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             let testablesElement = element.addChild(name: "Testables")
             testables.forEach { (testable) in
                 testablesElement.addChild(testable.xmlElement())
             }
-            let macro = element.addChild(name: "MscroExpansion")
+            let macro = element.addChild(name: "MacroExpansion")
             macro.addChild(macroExpansion.xmlElement())
             return element
         }
