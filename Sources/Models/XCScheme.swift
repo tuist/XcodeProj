@@ -26,12 +26,18 @@ public struct XCScheme: Writable {
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
         }
-        init(element: AEXMLElement) {
-            self.buildableIdentifier = element.attributes["BuildableIdentifier"]!
-            self.blueprintIdentifier = element.attributes["BlueprintIdentifier"]!
-            self.buildableName = element.attributes["BuildableName"]!
-            self.blueprintName = element.attributes["BlueprintName"]!
-            self.referencedContainer = element.attributes["ReferencedContainer"]!
+        init(element: AEXMLElement) throws {
+            guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else { throw XCSchemeError.missing(property: "BuildableIdentifier") }
+            guard let blueprintIdentifier = element.attributes["BlueprintIdentifier"] else { throw XCSchemeError.missing(property: "BlueprintIdentifier") }
+            guard let buildableName = element.attributes["BuildableName"] else { throw XCSchemeError.missing(property: "BuildableName") }
+            guard let blueprintName = element.attributes["BlueprintName"] else { throw XCSchemeError.missing(property: "BlueprintName") }
+            guard let referencedContainer = element.attributes["ReferencedContainer"] else { throw XCSchemeError.missing(property: "ReferencedContainer") }
+
+            self.buildableIdentifier = buildableIdentifier
+            self.blueprintIdentifier = blueprintIdentifier
+            self.buildableName = buildableName
+            self.blueprintName = blueprintName
+            self.referencedContainer = referencedContainer
         }
         public func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "BuildableReference",
@@ -52,9 +58,9 @@ public struct XCScheme: Writable {
             self.skipped = skipped
             self.buildableReference = buildableReference
         }
-        public init(element: AEXMLElement) {
+        public init(element: AEXMLElement) throws {
             self.skipped = element.attributes["skipped"] == "YES"
-            self.buildableReference = BuildableReference(element: element["BuildableReference"])
+            self.buildableReference = try BuildableReference(element: element["BuildableReference"])
         }
         public func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "TestableReference",
@@ -72,7 +78,7 @@ public struct XCScheme: Writable {
             self.identifier = identifier
             self.referenceType = referenceType
         }
-        public init(element: AEXMLElement) {
+        public init(element: AEXMLElement) throws {
             self.identifier = element.attributes["identifier"]!
             self.referenceType = element.attributes["referenceType"]!
         }
@@ -92,9 +98,9 @@ public struct XCScheme: Writable {
             self.runnableDebuggingMode = runnableDebuggingMode
             self.buildableReference = buildableReference
         }
-        public init(element: AEXMLElement) {
+        public init(element: AEXMLElement) throws {
             self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"]!
-            self.buildableReference = BuildableReference(element:  element["BuildableReference"])
+            self.buildableReference = try BuildableReference(element:  element["BuildableReference"])
         }
         public func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildableProductRunnable",
@@ -126,7 +132,7 @@ public struct XCScheme: Writable {
                 self.buildableReference = buildableReference
                 self.buildFor = buildFor
             }
-            public init(element: AEXMLElement) {
+            public init(element: AEXMLElement) throws {
                 var buildFor: [BuildFor] = []
                 if element.attributes["buildForTesting"] == "YES" {
                     buildFor.append(.testing)
@@ -144,7 +150,7 @@ public struct XCScheme: Writable {
                     buildFor.append(.analyzing)
                 }
                 self.buildFor = buildFor
-                self.buildableReference = BuildableReference(element: element["BuildableReference"])
+                self.buildableReference = try BuildableReference(element: element["BuildableReference"])
             }
             public func xmlElement() -> AEXMLElement {
                 var attributes: [String: String] = [:]
@@ -173,10 +179,10 @@ public struct XCScheme: Writable {
             self.buildImplicitDependencies = buildImplicitDependencies
         }
         
-        public init(element: AEXMLElement) {
+        public init(element: AEXMLElement) throws {
             parallelizeBuild = element.attributes["parallelizeBuildables"]! == "YES"
-            buildImplicitDependencies = element.attributes["buildImplicitDependencies"]! == "YES"
-            self.buildActionEntries = element["BuildActionEntries"]["BuildActionEntry"]
+            buildImplicitDependencies = element.attributes["buildImplicitDependencies"] == "YES"
+            self.buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
         }
@@ -244,19 +250,24 @@ public struct XCScheme: Writable {
             self.locationScenarioReference = locationScenarioReference
         }
         
-        public init(element: AEXMLElement) {
-            self.buildConfiguration = element.attributes["buildConfiguration"]!
-            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"]!
-            self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"]!
-            self.launchStyle = Style(rawValue: element.attributes["launchStyle"]!) ?? .auto
+        public init(element: AEXMLElement) throws {
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else { throw XCSchemeError.missing(property: "selectedDebuggerIdentifier") }
+            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else { throw XCSchemeError.missing(property: "selectedLauncherIdentifier") }
+            guard let launchStyle = element.attributes["launchStyle"] else { throw XCSchemeError.missing(property: "launchStyle") }
+            guard let debugServiceExtension = element.attributes["debugServiceExtension"] else { throw XCSchemeError.missing(property: "debugServiceExtension") }
+            self.buildConfiguration = buildConfiguration
+            self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
+            self.selectedLauncherIdentifier = selectedLauncherIdentifier
+            self.launchStyle = Style(rawValue: launchStyle) ?? .auto
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             self.ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
             self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
-            self.debugServiceExtension = element.attributes["debugServiceExtension"]!
+            self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = element.attributes["allowLocationSimulation"] == "YES"
-            self.buildableProductRunnable = BuildableProductRunnable(element:  element["BuildableProductRunnable"])
+            self.buildableProductRunnable = try BuildableProductRunnable(element:  element["BuildableProductRunnable"])
             if let _ = element["LocationScenarioReference"].all?.first {
-                self.locationScenarioReference = LocationScenarioReference(element: element["LocationScenarioReference"])
+                self.locationScenarioReference = try LocationScenarioReference(element: element["LocationScenarioReference"])
             } else {
                 self.locationScenarioReference = nil
             }
@@ -301,13 +312,15 @@ public struct XCScheme: Writable {
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.debugDocumentVersioning = debugDocumentVersioning
         }
-        public init(element: AEXMLElement) {
-            self.buildConfiguration = element.attributes["buildConfiguration"]!
+        public init(element: AEXMLElement) throws {
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            guard let savedToolIdentifier = element.attributes["savedToolIdentifier"] else { throw XCSchemeError.missing(property: "savedToolIdentifier") }
+            self.buildConfiguration = buildConfiguration
             self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
-            self.savedToolIdentifier = element.attributes["savedToolIdentifier"]!
+            self.savedToolIdentifier = savedToolIdentifier
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
-            self.buildableProductRunnable = BuildableProductRunnable(element: element["BuildableProductRunnable"])
+            self.buildableProductRunnable = try BuildableProductRunnable(element: element["BuildableProductRunnable"])
         }
         public func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "ProfileAction",
@@ -342,15 +355,18 @@ public struct XCScheme: Writable {
             self.testables = testables
             self.macroExpansion = macroExpansion
         }
-        public init(element: AEXMLElement) {
-            self.buildConfiguration = element.attributes["buildConfiguration"]!
-            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"]!
-            self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"]!
+        public init(element: AEXMLElement) throws {
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else { throw XCSchemeError.missing(property: "selectedDebuggerIdentifier") }
+            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else { throw XCSchemeError.missing(property: "selectedLauncherIdentifier") }
+            self.buildConfiguration = buildConfiguration
+            self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
+            self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
-            self.testables = element["Testables"]["TestableReference"]
+            self.testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
-            self.macroExpansion = BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
+            self.macroExpansion = try BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
         }
         public func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
@@ -374,8 +390,9 @@ public struct XCScheme: Writable {
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
         }
-        public init(element: AEXMLElement) {
-            self.buildConfiguration = element.attributes["buildConfiguration"]!
+        public init(element: AEXMLElement) throws {
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            self.buildConfiguration = buildConfiguration
         }
         public func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
@@ -395,10 +412,12 @@ public struct XCScheme: Writable {
             self.revealArchiveInOrganizer = revealArchiveInOrganizer
             self.customArchiveName = customArchiveName
         }
-        public init(element: AEXMLElement) {
-            self.buildConfiguration = element.attributes["buildConfiguration"]!
+        public init(element: AEXMLElement) throws {
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            guard let customArchiveName = element.attributes["customArchiveName"] else { throw XCSchemeError.missing(property: "customArchiveName") }
+            self.buildConfiguration = buildConfiguration
             self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"] == "YES"
-            self.customArchiveName = element.attributes["customArchiveName"]!
+            self.customArchiveName = customArchiveName
         }
         public func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
@@ -437,12 +456,12 @@ public struct XCScheme: Writable {
         let scheme = document["Scheme"]
         lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
         version = scheme.attributes["version"]
-        buildAction = BuildAction(element: scheme["BuildAction"])
-        testAction = TestAction(element: scheme["TestAction"])
-        launchAction = LaunchAction(element: scheme["LaunchAction"])
-        analyzeAction = AnalyzeAction(element: scheme["AnalyzeAction"])
-        archiveAction = ArchiveAction(element: scheme["ArchiveAction"])
-        profileAction = ProfileAction(element: scheme["ProfileAction"])
+        buildAction = try BuildAction(element: scheme["BuildAction"])
+        testAction = try TestAction(element: scheme["TestAction"])
+        launchAction = try LaunchAction(element: scheme["LaunchAction"])
+        analyzeAction = try AnalyzeAction(element: scheme["AnalyzeAction"])
+        archiveAction = try ArchiveAction(element: scheme["ArchiveAction"])
+        profileAction = try ProfileAction(element: scheme["ProfileAction"])
     }
     
     public init(path: Path,
@@ -502,11 +521,14 @@ public struct XCScheme: Writable {
 
 public enum XCSchemeError: Error, CustomStringConvertible {
     case notFound(path: Path)
+    case missing(property: String)
     
     public var description: String {
         switch self {
         case .notFound(let path):
             return ".xcscheme couldn't be found at path \(path)"
+        case .missing(let property):
+            return "Property \(property) missing"
         }
     }
 }
