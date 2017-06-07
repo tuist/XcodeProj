@@ -12,96 +12,101 @@ final class XCSchemeSpec: XCTestCase {
         subject = integrationModel()
     }
     
-    func test_integration_shouldHaveTheRightVersion() {
-        XCTAssertEqual(subject?.version, "1.7")
+    func test_integration() {
+        XCTAssertNotNil(subject)
+        if let subject = subject {
+            assert(scheme: subject)
+        }
     }
     
-    func test_integration_shouldHaveTheRightLastUpgradeVersion() {
-        XCTAssertEqual(subject?.lastUpgradeVersion, "0830")
+    func test_integration_write() {
+        testWrite(from: fixturePath(),
+                  initModel: { try? XCScheme(path: $0) },
+                  modify: { $0 },
+                  assertion: assert)
     }
     
-    func test_integration_shouldHaveTheCorrectBuildAction() {
-        XCTAssertTrue(subject?.buildAction?.parallelizeBuild == true)
-        XCTAssertTrue(subject?.buildAction?.buildImplicitDependencies == true)
-        XCTAssertTrue(subject?.buildAction?.buildActionEntries.first?.buildFor.contains(.testing) == true)
-        XCTAssertTrue(subject?.buildAction?.buildActionEntries.first?.buildFor.contains(.running) == true)
-        XCTAssertTrue(subject?.buildAction?.buildActionEntries.first?.buildFor.contains(.profiling) == true)
-        XCTAssertTrue(subject?.buildAction?.buildActionEntries.first?.buildFor.contains(.archiving) == true)
-        XCTAssertTrue(subject?.buildAction?.buildActionEntries.first?.buildFor.contains(.analyzing) == true)
-        XCTAssertEqual(subject?.buildAction?.buildActionEntries.first?.buildableReference.buildableIdentifier, "primary")
-        XCTAssertEqual(subject?.buildAction?.buildActionEntries.first?.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
-        XCTAssertEqual(subject?.buildAction?.buildActionEntries.first?.buildableReference.buildableName, "iOS.app")
-        XCTAssertEqual(subject?.buildAction?.buildActionEntries.first?.buildableReference.blueprintName, "iOS")
-        XCTAssertEqual(subject?.buildAction?.buildActionEntries.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
-    }
-
-    func test_integration_shouldHaveTheCorrectTestAction() {
-        XCTAssertEqual(subject?.testAction?.buildConfiguration, "Debug")
-        XCTAssertEqual(subject?.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
-        XCTAssertEqual(subject?.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
-        XCTAssertEqual(subject?.testAction?.shouldUseLaunchSchemeArgsEnv, true)
-        XCTAssertEqual(subject?.testAction?.testables.first?.skipped, false)
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.buildableName, "iOSTests.xctest")
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.blueprintName, "iOSTests")
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertEqual(subject?.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertEqual(subject?.testAction?.macroExpansion.blueprintIdentifier, "23766C111EAA3484007A9026")
-        XCTAssertEqual(subject?.testAction?.macroExpansion.buildableName, "iOS.app")
-        XCTAssertEqual(subject?.testAction?.macroExpansion.blueprintName, "iOS")
-        XCTAssertEqual(subject?.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertEqual(subject?.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
+    func assert(scheme: XCScheme) {
+        XCTAssertEqual(scheme.version, "1.7")
+        XCTAssertEqual(scheme.lastUpgradeVersion, "0830")
+        // Build action
+        XCTAssertTrue(scheme.buildAction?.parallelizeBuild == true)
+        XCTAssertTrue(scheme.buildAction?.buildImplicitDependencies == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.testing) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.running) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.profiling) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.archiving) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.analyzing) == true)
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.buildableName, "iOS.app")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintName, "iOS")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        // Test action
+        XCTAssertEqual(scheme.testAction?.buildConfiguration, "Debug")
+        XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
+        XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
+        XCTAssertEqual(scheme.testAction?.shouldUseLaunchSchemeArgsEnv, true)
+        XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableName, "iOSTests.xctest")
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintName, "iOSTests")
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.testAction?.macroExpansion.blueprintIdentifier, "23766C111EAA3484007A9026")
+        XCTAssertEqual(scheme.testAction?.macroExpansion.buildableName, "iOS.app")
+        XCTAssertEqual(scheme.testAction?.macroExpansion.blueprintName, "iOS")
+        XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
+        // Archive action
+        XCTAssertEqual(scheme.archiveAction?.buildConfiguration, "Release")
+        XCTAssertEqual(scheme.archiveAction?.revealArchiveInOrganizer, true)
+        XCTAssertEqual(scheme.archiveAction?.customArchiveName, "TestName")
+        // Analyze action
+        XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
+        // Profile action
+        XCTAssertEqual(scheme.profileAction?.buildConfiguration, "Release")
+        XCTAssertEqual(scheme.profileAction?.shouldUseLaunchSchemeArgsEnv, true)
+        XCTAssertEqual(scheme.profileAction?.savedToolIdentifier, "")
+        XCTAssertEqual(scheme.profileAction?.useCustomWorkingDirectory, false)
+        XCTAssertEqual(scheme.profileAction?.debugDocumentVersioning, true)
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.runnableDebuggingMode, "0")
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
+        XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        // Launch action
+        XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
+        XCTAssertEqual(scheme.launchAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
+        XCTAssertEqual(scheme.launchAction?.selectedLauncherIdentifier, "Xcode.DebuggerFoundation.Launcher.LLDB")
+        XCTAssertEqual(scheme.launchAction?.launchStyle, .auto)
+        XCTAssertEqual(scheme.launchAction?.useCustomWorkingDirectory, false)
+        XCTAssertEqual(scheme.launchAction?.ignoresPersistentStateOnLaunch, false)
+        XCTAssertEqual(scheme.launchAction?.debugDocumentVersioning, true)
+        XCTAssertEqual(scheme.launchAction?.debugServiceExtension, "internal")
+        XCTAssertEqual(scheme.launchAction?.allowLocationSimulation, true)
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.runnableDebuggingMode, "0")
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
+        XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
+        XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.referenceType, "1")
     }
     
-    func test_integration_shouldHaveTheCorrectLaunchAction() {
-        XCTAssertEqual(subject?.launchAction?.buildConfiguration, "Debug")
-        XCTAssertEqual(subject?.launchAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
-        XCTAssertEqual(subject?.launchAction?.selectedLauncherIdentifier, "Xcode.DebuggerFoundation.Launcher.LLDB")
-        XCTAssertEqual(subject?.launchAction?.launchStyle, .auto)
-        XCTAssertEqual(subject?.launchAction?.useCustomWorkingDirectory, false)
-        XCTAssertEqual(subject?.launchAction?.ignoresPersistentStateOnLaunch, false)
-        XCTAssertEqual(subject?.launchAction?.debugDocumentVersioning, true)
-        XCTAssertEqual(subject?.launchAction?.debugServiceExtension, "internal")
-        XCTAssertEqual(subject?.launchAction?.allowLocationSimulation, true)
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.runnableDebuggingMode, "0")
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.buildableIdentifier, "primary")
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
-        XCTAssertEqual(subject?.launchAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertEqual(subject?.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
-        XCTAssertEqual(subject?.launchAction?.locationScenarioReference?.referenceType, "1")
-    }
-
-    func test_integration_shouldHaveTheCorrectProfileAction() {
-        XCTAssertEqual(subject?.profileAction?.buildconfiguration, "Release")
-        XCTAssertEqual(subject?.profileAction?.shouldUseLaunchSchemeArgsEnv, true)
-        XCTAssertEqual(subject?.profileAction?.savedToolIdentifier, "")
-        XCTAssertEqual(subject?.profileAction?.useCustomWorkingDirectory, false)
-        XCTAssertEqual(subject?.profileAction?.debugDocumentVersioning, true)
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.runnableDebuggingMode, "0")
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.buildableIdentifier, "primary")
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
-        XCTAssertEqual(subject?.profileAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
-    }
-    
-    func test_integration_shouldHaveTheCorrectAnalyzeAction() {
-        XCTAssertEqual(subject?.analyzeAction?.buildConfiguration, "Debug")
-    }
-    
-    func test_integration_shouldHaveTheCorrectArchiveAction() {
-        XCTAssertEqual(subject?.archiveAction?.buildConfiguration, "Release")
-        XCTAssertEqual(subject?.archiveAction?.revealArchiveInOrganizer, true)
-        XCTAssertEqual(subject?.archiveAction?.customArchiveName, "TestName")
-    }
+    // MARK: - Private
     
     private func integrationModel() -> XCScheme? {
+        return try? XCScheme(path: fixturePath())
+    }
+    
+    private func fixturePath() -> Path {
         let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
         let path = fixtures + Path("iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme")
-        return try? XCScheme(path: path)
+        return path
     }
     
 }

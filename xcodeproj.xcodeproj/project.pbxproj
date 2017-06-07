@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		23CDBF4C1EE775EC00C67431 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4B1EE775EC00C67431 /* Writable.swift */; };
 		23CDBF4E1EE782FB00C67431 /* testWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4D1EE782FB00C67431 /* testWrite.swift */; };
+		23CDBF501EE7877D00C67431 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CDBF4F1EE7877D00C67431 /* Bool+Extras.swift */; };
 		OBJ_182 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_157 /* Case.swift */; };
 		OBJ_183 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_158 /* Context.swift */; };
 		OBJ_184 /* Expectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_159 /* Expectation.swift */; };
@@ -459,6 +460,7 @@
 /* Begin PBXFileReference section */
 		23CDBF4B1EE775EC00C67431 /* Writable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Writable.swift; sourceTree = "<group>"; };
 		23CDBF4D1EE782FB00C67431 /* testWrite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testWrite.swift; sourceTree = "<group>"; };
+		23CDBF4F1EE7877D00C67431 /* Bool+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_10 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Digest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		OBJ_101 /* DigestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestType.swift; sourceTree = "<group>"; };
@@ -841,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_42 /* Dictionary+Extras.swift */,
+				23CDBF4F1EE7877D00C67431 /* Bool+Extras.swift */,
 			);
 			name = Extensions;
 			path = Sources/Extensions;
@@ -900,7 +903,7 @@
 			path = Tests/ModelsTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -911,7 +914,6 @@
 				OBJ_78 /* Dependencies */,
 				OBJ_165 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -1288,7 +1290,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_165 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1471,6 +1473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				23CDBF501EE7877D00C67431 /* Bool+Extras.swift in Sources */,
 				OBJ_360 /* Dictionary+Extras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
