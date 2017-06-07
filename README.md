@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/pepibumur/xcodeproj">
-        <img src="https://travis-ci.org/pepibumur/xcodeproj.svg?branch=master">
+    <a href="https://travis-ci.org/cartagoproject/xcodeproj">
+        <img src="https://travis-ci.org/cartagoproject/xcodeproj.svg?branch=master">
     </a>
     <a href="https://swift.org/package-manager">
         <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
