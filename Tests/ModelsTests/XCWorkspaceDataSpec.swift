@@ -34,8 +34,7 @@ final class XCWorkspaceDataSpec: XCTestCase {
     // MARK: - Integration
     
     func test_integration_init_returnsTheModelWithTheRightProperties() {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata")
+        let path = fixturePath()
         let got = try? XCWorkspace.Data(path: path)
         XCTAssertEqual(got?.path, path)
         XCTAssertNotNil(got?.references.first?.project)
@@ -48,4 +47,19 @@ final class XCWorkspaceDataSpec: XCTestCase {
         } catch {}
     }
     
+    func test_integration_write() {
+        testWrite(from: fixturePath(),
+                  initModel: { try? XCWorkspace.Data(path: $0) },
+                  modify: { return $0.adding(reference: .file(path: "shakira")) }) { (data) in
+                    XCTAssertTrue(data.references.filter{ $0.description.contains("shakira")}.count == 1)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func fixturePath() -> Path {
+        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
+        let path = fixtures + Path("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata")
+        return path
+    }
 }
