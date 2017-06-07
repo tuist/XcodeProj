@@ -75,7 +75,7 @@ final class XCSchemeSpec: XCTestCase {
     }
 
     func test_integration_shouldHaveTheCorrectProfileAction() {
-        XCTAssertEqual(subject?.profileAction?.buildconfiguration, "Release")
+        XCTAssertEqual(subject?.profileAction?.buildConfiguration, "Release")
         XCTAssertEqual(subject?.profileAction?.shouldUseLaunchSchemeArgsEnv, true)
         XCTAssertEqual(subject?.profileAction?.savedToolIdentifier, "")
         XCTAssertEqual(subject?.profileAction?.useCustomWorkingDirectory, false)
