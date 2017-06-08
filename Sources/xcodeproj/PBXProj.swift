@@ -117,7 +117,13 @@ extension PBXProj: PlistInitiatable {
 extension PBXProj: Writable {
     
     public func write(override: Bool) throws {
-        
+        let writer = PBXProjWriter()
+        let output = writer.write(proj: self)
+        let fm = FileManager.default
+        if override && fm.fileExists(atPath: path.string) {
+            try fm.removeItem(atPath: path.string)
+        }
+        try  output.data(using: .utf8)?.write(to: path.url)
     }
     
 }

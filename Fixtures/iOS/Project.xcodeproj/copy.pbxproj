@@ -1,0 +1,49 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = (
+	);
+	objectVersion = 46;
+	objects = {
+/* Begin PBXNativeTarget section */
+		23766C251EAA3484007A9026 /* iOSTests */ = {
+			isa = PBXNativeTarget;
+			name = iOSTests;
+			buildRules = (
+			);
+			productName = iOSTests;
+			productReference = 23766C261EAA3484007A9026 /* iOSTests.xctest */;
+			dependencies = (
+				23766C281EAA3484007A9026,
+			);
+			buildPhases = (
+				23766C221EAA3484007A9026 /* Sources */,
+				23766C231EAA3484007A9026 /* Frameworks */,
+				23766C241EAA3484007A9026 /* Resources */,
+			);
+			buildConfigurationList = PBXNativeTarget /* Build configuration list for PBXNativeTarget "iOSTests" */;
+		};
+		23766C111EAA3484007A9026 /* iOS */ = {
+			isa = PBXNativeTarget;
+			name = iOS;
+			buildRules = (
+			);
+			productName = iOS;
+			productType = com.apple.product-type.application;
+			productReference = 23766C121EAA3484007A9026 /* iOS.app */;
+			dependencies = (
+			);
+			buildPhases = (
+				23766C0E1EAA3484007A9026 /* Sources */,
+				23766C0F1EAA3484007A9026 /* Frameworks */,
+				23766C101EAA3484007A9026 /* Resources */,
+				239688B71EBCD3B10014B321 /* Copy Files */,
+				23BB67521EE325E600BE9E79 /* Run Script */,
+				23BB67531EE326A800BE9E79 /* Headers */,
+			);
+			buildConfigurationList = PBXNativeTarget /* Build configuration list for PBXNativeTarget "iOS" */;
+		};
+/* End PBXNativeTarget section */
+	};
+	archiveVersion = 23766C0A1EAA3484007A9026 /* Project object */;
+}

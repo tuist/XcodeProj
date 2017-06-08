@@ -46,115 +46,56 @@ final class PBXProjSpec: XCTestCase {
     
     // MARK: - Integration
     
-    func test_integration_init_hasTheCorrectArchiveVersion() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.archiveVersion, 1)
+    func test_integration() {
+        let proj = integrationSubject()
+        XCTAssertNotNil(proj)
+        if let proj = proj{
+            assert(proj: proj)
+        }
     }
     
-    func test_integration_init_hasTheCorrectObjectVersion() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objectVersion, 46)
+    func assert(proj: PBXProj) {
+        XCTAssertEqual(proj.archiveVersion, 1)
+        XCTAssertEqual(proj.objectVersion, 46)
+        XCTAssertEqual(proj.classes.count, 0)
+        XCTAssertEqual(proj.objects.buildFiles.count, 6)
+        XCTAssertEqual(proj.objects.aggregateTargets.count, 0)
+        XCTAssertEqual(proj.objects.containerItemProxies.count, 1)
+        XCTAssertEqual(proj.objects.copyFilesBuildPhases.count, 1)
+        XCTAssertEqual(proj.objects.groups.count, 4)
+        XCTAssertEqual(proj.objects.fileElements.count, 0)
+        XCTAssertEqual(proj.objects.configurationLists.count, 3)
+        XCTAssertEqual(proj.objects.buildConfigurations.count, 6)
+        XCTAssertEqual(proj.objects.variantGroups.count, 2)
+        XCTAssertEqual(proj.objects.targetDependencies.count, 1)
+        XCTAssertEqual(proj.objects.sourcesBuildPhases.count, 2)
+        XCTAssertEqual(proj.objects.shellScriptBuildPhases.count, 1)
+        XCTAssertEqual(proj.objects.resourcesBuildPhases.count, 2)
+        XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
+        XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
+        XCTAssertEqual(proj.objects.nativeTargets.count, 2)
+        XCTAssertEqual(proj.objects.fileReferences.count, 10)
+        XCTAssertEqual(proj.objects.projects.count, 1)
     }
     
-    func test_integration_init_hasTheCorrectClasses() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.classes.count, 0)
+    func test_integration_write() {
+        testWrite(from: fixturePath(),
+                  initModel: { try? PBXProj(path: $0) },
+                  modify: { $0 },
+                  assertion: assert)
     }
-    
-    func test_integration_init_hasTheCorrectBuildFiles() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.buildFiles.count, 6)
-    }
-    
-    func test_integration_init_hasTheCorrectAggregateTargets() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.aggregateTargets.count, 0)
-    }
-    
-    func test_integration_init_hasTheCorrectContainerItemProxies() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.containerItemProxies.count, 1)
-    }
-    
-    func test_integration_init_hasTheCorrectCopyFilesBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.copyFilesBuildPhases.count, 1)
-    }
-    
-    func test_integration_init_hasTheCorrectGroups() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.groups.count, 4)
-    }
-    
-    func test_integration_init_hasTheCorrectFileElements() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.fileElements.count, 0)
-    }
-    
-    func test_integration_init_hasTheCorrectConfigurationLists() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.configurationLists.count, 3)
-    }
-    
-    func test_integration_init_hasTheCorrectBuildConfigurations() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.buildConfigurations.count, 6)
-    }
-    
-    func test_integration_init_hasTheCorrectVariantGroups() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.variantGroups.count, 2)
-    }
-    
-    func test_integration_init_hasTheCorrectTargetDependencies() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.targetDependencies.count, 1)
-    }
-    
-    func test_integration_init_hasTheCorrectSourcesBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.sourcesBuildPhases.count, 2)
-    }
-    
-    func test_integration_init_hasTheCorrectShellScriptBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.shellScriptBuildPhases.count, 1)
-    }
-    
-    func test_integration_init_hasTheCorrectResourcesBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.resourcesBuildPhases.count, 2)
-    }
-    
-    func test_integration_init_hasTheCorrectFrameworksBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.frameworksBuildPhases.count, 2)
-    }
-    
-    func test_integration_init_hasTheCorrectHeadersBuildPhases() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.headersBuildPhases.count, 1)
-    }
-    
-    func test_integration_init_hasTheCorrectNativeTargets() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.nativeTargets.count, 2)
-    }
-    
-    func test_integration_init_hasTheCorrectFileReferences() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.fileReferences.count, 10)
-    }
-    
-    func test_integration_init_hasTheCorrectProjects() {
-        let got = integrationSubject()
-        XCTAssertEqual(got?.objects.projects.count, 1)
-    }
+
+    // MARK: - Private
     
     private func integrationSubject() -> PBXProj? {
+        return try? PBXProj(path: fixturePath())
+    }
+    
+    private func fixturePath() -> Path {
         let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
         let path = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
-        return try? PBXProj(path: path)
+        return path
     }
+
     
 }
