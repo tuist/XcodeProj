@@ -75,4 +75,5 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+    
 }

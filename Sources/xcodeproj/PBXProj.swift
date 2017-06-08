@@ -111,3 +111,13 @@ extension PBXProj: PlistInitiatable {
     }
     
 }
+
+// MARK: - PBXProj extension (Writable)
+
+extension PBXProj: Writable {
+    
+    public func write(override: Bool) throws {
+        
+    }
+    
+}
