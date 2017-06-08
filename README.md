@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/cartagoproject/xcodeproj">
-        <img src="https://travis-ci.org/cartagoproject/xcodeproj.svg?branch=master">
+    <a href="https://travis-ci.org/carambalabs/xcodeproj">
+        <img src="https://travis-ci.org/carambalabs/xcodeproj.svg?branch=master">
     </a>
     <a href="https://swift.org/package-manager">
         <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
@@ -26,7 +26,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 
 ### Contribute
 
-1. Git clone the repository `git@github.com:cartagoproject/xcodeproj.git`.
+1. Git clone the repository `git@github.com:carambalabs/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
 ### How to
@@ -65,7 +65,7 @@ let projects = workspace.data.references.map { $0.project }
 ```
 MIT License
 
-Copyright (c) 2017 Pedro Piñera Buendía
+Copyright (c) 2017 Caramba
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
