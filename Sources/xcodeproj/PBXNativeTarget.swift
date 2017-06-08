@@ -235,7 +235,8 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
                 return .string(PBXProjPlistCommentedString(buildPhase, comment: comment))
             })
         dictionary["buildRules"] = .array(buildRules.map {.string(PBXProjPlistCommentedString($0))})
-        dictionary["dependencies"] = .array(dependencies.map {.string(PBXProjPlistCommentedString($0))})
+        dictionary["dependencies"] = .array(dependencies.map {.string(PBXProjPlistCommentedString($0,
+                                                                                                  comment: "PBXTargetDependency"))})
         dictionary["name"] = .string(PBXProjPlistCommentedString(name))
         if let productName = productName {
             dictionary["productName"] = .string(PBXProjPlistCommentedString(productName))

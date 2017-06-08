@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCConfigurationList: ProjectElement {
+public struct XCConfigurationList: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - Attributes
     
@@ -97,5 +97,39 @@ public struct XCConfigurationList: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+    
+    // MARK: - PBXProjPlistSerializable
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
+        dictionary["buildConfigurations"] = .array(buildConfigurations
+            .map { configuration in
+                let comment: String? = config(from: configuration, proj: proj)
+                return .string(PBXProjPlistCommentedString(configuration, comment: comment))
+        })
+        dictionary["defaultConfigurationIsVisible"] = .string(PBXProjPlistCommentedString("\(defaultConfigurationIsVisible)"))
+        dictionary["defaultConfigurationName"] = .string(PBXProjPlistCommentedString(defaultConfigurationName))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: plistComment(proj: proj)),
+                value: .dictionary(dictionary))
+    }
 
+    private func config(from reference: UUID, proj: PBXProj) -> String? {
+        return proj.objects.buildConfigurations
+            .filter { $0.reference == reference }
+            .map { $0.name }
+            .first
+    }
+    
+    private func plistComment(proj: PBXProj) -> String? {
+        let project = proj.objects.projects.filter { $0.buildConfigurationList == self.reference }.first
+        let target = proj.objects.nativeTargets.filter { $0.buildConfigurationList == self.reference }.first
+        if let _ = project {
+            return "Build configuration list for PBXProject \"\(proj.name)\""
+        } else if let target = target {
+            return "Build configuration list for PBXNativeTarget \"\(target.name)\""
+        }
+        return nil
+    }
 }

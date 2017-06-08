@@ -14,7 +14,7 @@
 			productName = iOSTests;
 			productReference = 23766C261EAA3484007A9026 /* iOSTests.xctest */;
 			dependencies = (
-				23766C281EAA3484007A9026,
+				23766C281EAA3484007A9026 /* PBXTargetDependency */,
 			);
 			buildPhases = (
 				23766C221EAA3484007A9026 /* Sources */,
@@ -44,6 +44,35 @@
 			buildConfigurationList = PBXNativeTarget /* Build configuration list for PBXNativeTarget "iOS" */;
 		};
 /* End PBXNativeTarget section */
+/* Begin XCConfigurationList section */
+		23766C321EAA3484007A9026 /* Build configuration list for PBXNativeTarget "iOSTests" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				23766C331EAA3484007A9026 /* Debug */,
+				23766C341EAA3484007A9026 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		23766C2F1EAA3484007A9026 /* Build configuration list for PBXNativeTarget "iOS" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				23766C301EAA3484007A9026 /* Debug */,
+				23766C311EAA3484007A9026 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "Project" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				23766C2E1EAA3484007A9026 /* Release */,
+				23766C2D1EAA3484007A9026 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
 	};
 	archiveVersion = 23766C0A1EAA3484007A9026 /* Project object */;
 }

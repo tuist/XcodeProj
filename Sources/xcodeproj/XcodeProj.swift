@@ -1,5 +1,6 @@
 import Foundation
 import PathKit
+import xcodeprojextensions
 
 /// Model that represents a Xcodeproj
 public struct XcodeProj {
@@ -26,7 +27,8 @@ public struct XcodeProj {
         if pbxprojPaths.count == 0 {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        pbxproj = try PBXProj(path: pbxprojPaths.first!)
+        pbxproj = try PBXProj(path: pbxprojPaths.first!,
+                              name: path.lastComponentWithoutExtension)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
             throw XCodeProjError.xcworkspaceNotFound(path: path)

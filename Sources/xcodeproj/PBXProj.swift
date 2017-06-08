@@ -12,6 +12,9 @@ public struct PBXProj {
     /// Project path.
     public let path: Path
     
+    /// Project name
+    public let name: String
+    
     /// Project archive version.
     public let archiveVersion: Int
     
@@ -33,18 +36,21 @@ public struct PBXProj {
     ///
     /// - Parameters:
     ///   - path: project path.
+    ///   - name: project name.
     ///   - archiveVersion: project archive version.
     ///   - objectVersion: project object version.
     ///   - rootObject: project root object.
     ///   - classes: project classes.
     ///   - objects: project objects
     public init(path: Path,
+                name: String,
                 archiveVersion: Int,
                 objectVersion: Int,
                 rootObject: UUID,
                 classes: [Any] = [],
                 objects: Set<PBXObject> = Set()) {
         self.path = path
+        self.name = name
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
@@ -52,7 +58,39 @@ public struct PBXProj {
         self.rootObject = rootObject
     }
     
-    // MARK: - Public
+    /// Initializes the .pbxproj reading the file from the given path.
+    ///
+    /// - Parameters:
+    ///   - path: path where the .pbxproj is.
+    ///   - name: project name.
+    /// - Throws: an error if the project cannot be found or the format is wrong.
+    public init(path: Path, name: String) throws {
+        guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
+        try self.init(path: path, name: name, dictionary: dictionary)
+    }
+    
+    /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
+    ///
+    /// - Parameters:
+    ///   - path: path where the .pbxproj file is.
+    ///   - name: project name.
+    ///   - dictionary: dictionary with the file content.
+    /// - Throws: throws an error if the content cannot be parsed properly.
+    public init(path: Path, name: String, dictionary: [String: Any]) throws {
+        self.path = path
+        self.name = name
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
+        self.objectVersion = try unboxer.unbox(key: "objectVersion")
+        self.classes = (dictionary["classes"] as? [Any]) ?? []
+        let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
+        let objectsArray = objectsDictionary
+            .map { try? PBXObject(reference: $0.key, dictionary: $0.value) }
+            .filter { $0 != nil }
+            .map { $0! }
+        self.objects = Set(objectsArray)
+        self.rootObject = try unboxer.unbox(key: "rootObject")
+    }
     
     /// Returns a new PBXProj removing an object.
     ///
@@ -62,6 +100,7 @@ public struct PBXProj {
         var objects = self.objects
         objects.remove(object)
         return PBXProj(path: path,
+                       name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
@@ -77,6 +116,7 @@ public struct PBXProj {
         var objects = self.objects
         objects.insert(object)
         return PBXProj(path: path,
+                       name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
@@ -85,31 +125,16 @@ public struct PBXProj {
     }
 }
 
-// MARK: - PBXProj Extension (Dictionary Initialization)
+// MARK: - PBXProj Error
 
-extension PBXProj: PlistInitiatable {
-    
-    /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
-    ///
-    /// - Parameters:
-    ///   - path: path where the .pbxproj file is.
-    ///   - dictionary: dictionary with the file content.
-    /// - Throws: throws an error if the content cannot be parsed properly.
-    public init(path: Path, dictionary: [String: Any]) throws {
-        self.path = path
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
-        self.objectVersion = try unboxer.unbox(key: "objectVersion")
-        self.classes = (dictionary["classes"] as? [Any]) ?? []
-        let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
-        let objectsArray = objectsDictionary
-            .map { try? PBXObject(reference: $0.key, dictionary: $0.value) }
-            .filter { $0 != nil }
-            .map { $0! }
-        self.objects = Set(objectsArray)
-        self.rootObject = try unboxer.unbox(key: "rootObject")
+enum PBXProjError: Error, CustomStringConvertible {
+    case notFound(path: Path)
+    var description: String {
+        switch self {
+        case .notFound(let path):
+            return ".pbxproj not found at path \(path)"
+        }
     }
-    
 }
 
 // MARK: - PBXProj extension (Writable)

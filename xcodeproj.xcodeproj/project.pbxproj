@@ -130,7 +130,6 @@
 		OBJ_347 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_169 /* Unbox.framework */; };
 		OBJ_348 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_170 /* CryptoSwift.framework */; };
 		OBJ_349 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_171 /* AEXML.framework */; };
-		OBJ_359 /* PlistInitiatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* PlistInitiatable.swift */; };
 		OBJ_360 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* Writable.swift */; };
 		OBJ_362 /* Spectre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_167 /* Spectre.framework */; };
 		OBJ_363 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_168 /* PathKit.framework */; };
@@ -520,7 +519,6 @@
 		OBJ_38 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
 		OBJ_40 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
 		OBJ_41 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
-		OBJ_43 /* PlistInitiatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistInitiatable.swift; sourceTree = "<group>"; };
 		OBJ_44 /* Writable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Writable.swift; sourceTree = "<group>"; };
 		OBJ_47 /* Dictionary+ExtrasSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+ExtrasSpec.swift"; sourceTree = "<group>"; };
 		OBJ_49 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
@@ -788,7 +786,6 @@
 		OBJ_42 /* xcodeprojprotocols */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_43 /* PlistInitiatable.swift */,
 				OBJ_44 /* Writable.swift */,
 			);
 			name = xcodeprojprotocols;
@@ -1389,7 +1386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_359 /* PlistInitiatable.swift in Sources */,
 				OBJ_360 /* Writable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

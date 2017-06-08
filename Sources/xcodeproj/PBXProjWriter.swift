@@ -121,6 +121,7 @@ class PBXProjWriter {
         increaseIndent()
         writeNewLine()
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
+        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
         decreaseIndent()
         writeIndent()
         write(string: "};")

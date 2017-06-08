@@ -13,6 +13,7 @@ final class PBXProjSpec: XCTestCase {
         super.setUp()
         object = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "333"))
         subject = PBXProj(path: "test",
+                          name: "name",
                           archiveVersion: 1,
                           objectVersion: 46,
                           rootObject: "root",
@@ -80,7 +81,7 @@ final class PBXProjSpec: XCTestCase {
     
     func test_integration_write() {
         testWrite(from: fixturePath(),
-                  initModel: { try? PBXProj(path: $0) },
+                  initModel: { try? PBXProj(path: $0, name: "Project") },
                   modify: { $0 },
                   assertion: assert)
     }
@@ -88,7 +89,7 @@ final class PBXProjSpec: XCTestCase {
     // MARK: - Private
     
     private func integrationSubject() -> PBXProj? {
-        return try? PBXProj(path: fixturePath())
+        return try? PBXProj(path: fixturePath(), name: "Test")
     }
     
     private func fixturePath() -> Path {
