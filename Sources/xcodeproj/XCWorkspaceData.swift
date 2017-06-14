@@ -98,8 +98,6 @@ public extension XCWorkspace {
             
         }
         
-        /// Workspace file reference.
-        
         /// MARK: - Attributes
         
         /// Path to the .xcworkspacedata file
@@ -193,6 +191,11 @@ public extension XCWorkspace {
     
 }
 
+// MARK: - XCWorkspaceData Errors
+
+/// XCWorkspaceData Errors.
+///
+/// - notFound: returned when the .xcworkspacedata cannot be found.
 public enum XCWorkspaceDataError: Error, CustomStringConvertible {
     
     case notFound(path: Path)
