@@ -131,10 +131,6 @@ final class PBXNativeTargetSpec: XCTestCase {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
     
-    func test_pbxProjPlistElement_returnsTheCorrectDictionary() {
-        XCTAssertTrue(false, "Unit test that the dictionary is properly generated")
-    }
-    
     private func testDictionary() -> [String: Any] {
         return [
             "buildConfigurationList": "test",

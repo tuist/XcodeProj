@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-import Models
+import xcodeproj
 import xcodeprojprotocols
 
 func testWrite<T: Writable>(from path: Path,
