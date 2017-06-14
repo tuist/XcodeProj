@@ -242,7 +242,7 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
             dictionary["productName"] = .string(PBXProjPlistCommentedString(productName))
         }
         if let productType = productType {
-            dictionary["productType"] = .string(PBXProjPlistCommentedString(productType.rawValue))
+            dictionary["productType"] = .string(PBXProjPlistCommentedString("\"\(productType.rawValue)\""))
         }
         if let productReference = productReference {
             let productReferenceComment = fileName(from: productReference, proj: proj)
