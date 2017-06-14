@@ -5,7 +5,7 @@ import AEXML
 import xcodeprojprotocols
 import xcodeprojextensions
 
-public struct XCScheme: Writable {
+public struct XCScheme {
     
     // MARK: - BuildableReference
     
@@ -484,7 +484,12 @@ public struct XCScheme: Writable {
         self.archiveAction = archiveAction
     }
     
-    // MARK: - <Writable>
+}
+
+
+// MARK: - XCScheme Extension (Writable)
+
+extension XCScheme: Writable {
     
     public func write(override: Bool) throws {
         let document = AEXMLDocument()
@@ -519,6 +524,13 @@ public struct XCScheme: Writable {
     
 }
 
+
+// MARK: - XCScheme Errors.
+
+/// XCScheme Errors.
+///
+/// - notFound: returned when the .xcscheme cannot be found.
+/// - missing: returned when there's a property missing in the .xcscheme.
 public enum XCSchemeError: Error, CustomStringConvertible {
     case notFound(path: Path)
     case missing(property: String)
