@@ -2,8 +2,8 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
-
+public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSerializable {
+    
     // MARK: - Attributes
     
     /// Element reference.
@@ -14,25 +14,28 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
     
     /// Build action mask
     public let buildActionMask: Int = 2147483647
-
+    
     /// Files references
     public let files: Set<UUID>
-
+    
+    /// Build phase name.
+    public let name: String
+    
     /// Input paths
     public let inputPaths: Set<String>
-
+    
     /// Output paths
     public let outputPaths: Set<String>
-
+    
     /// Run only for deployment post processing attribute.
     public let runOnlyForDeploymentPostprocessing: Int = 0
-
+    
     /// Path to the shell.
     public let shellPath: String
-
+    
     /// Shell script.
     public let shellScript: String?
-
+    
     // MARK: - Init
     
     /// Initializes the shell script build phase with its attributes.
@@ -45,13 +48,15 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     public init(reference: UUID,
-         files: Set<UUID>,
-         inputPaths: Set<String>,
-         outputPaths: Set<String>,
-         shellPath: String,
-         shellScript: String?) {
+                files: Set<UUID>,
+                name: String,
+                inputPaths: Set<String>,
+                outputPaths: Set<String>,
+                shellPath: String,
+                shellScript: String?) {
         self.reference = reference
         self.files = files
+        self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
         self.shellPath = shellPath
@@ -68,6 +73,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
+        self.name = try unboxer.unbox(key: "name")
         self.inputPaths = (unboxer.unbox(key: "inputPaths")) ?? []
         self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
         self.shellPath = try unboxer.unbox(key: "shellPath")
@@ -85,6 +91,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         files.update(with: file)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
@@ -100,6 +107,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         files.remove(file)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
@@ -115,6 +123,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         inputPaths.update(with: inputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
@@ -130,6 +139,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         inputPaths.remove(inputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
@@ -145,6 +155,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         outputPaths.update(with: outputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
@@ -160,26 +171,62 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable {
         outputPaths.remove(outputPath)
         return PBXShellScriptBuildPhase(reference: reference,
                                         files: files,
+                                        name: name,
                                         inputPaths: inputPaths,
                                         outputPaths: outputPaths,
                                         shellPath: shellPath,
                                         shellScript: shellScript)
     }
-
+    
     // MARK: - Hashable
     
     public static func == (lhs: PBXShellScriptBuildPhase,
                            rhs: PBXShellScriptBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.buildActionMask == rhs.buildActionMask &&
-        lhs.files == rhs.files &&
-        lhs.inputPaths == rhs.inputPaths &&
-        lhs.outputPaths == rhs.outputPaths &&
-        lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
-        lhs.shellPath == rhs.shellPath &&
-        lhs.shellScript == rhs.shellScript
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.name == rhs.name &&
+            lhs.inputPaths == rhs.inputPaths &&
+            lhs.outputPaths == rhs.outputPaths &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
+            lhs.shellPath == rhs.shellPath &&
+            lhs.shellScript == rhs.shellScript
     }
     
     public var hashValue: Int { return self.reference.hashValue }
-
+    
+    // MARK: - PBXProjPlistSerializable
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXShellScriptBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+        // files
+        // inputPaths
+        dictionary["name"] = .string(PBXProjPlistCommentedString("\"\(name)\""))
+        // outputPaths
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        if let shellScript = shellScript {
+            dictionary["shellScript"] = .string(PBXProjPlistCommentedString(shellScript))
+        }
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "Run Script"),
+                value: .dictionary(dictionary))
+    }
+    
+    //    23BB67521EE325E600BE9E79 /* Run Script */ = {
+    //    isa = PBXShellScriptBuildPhase;
+    //    buildActionMask = 2147483647;
+    //    files = (
+    //    );
+    //    inputPaths = (
+    //				"$(SRCROOT)/myfile",
+    //    );
+    //    name = "Run Script";
+    //    outputPaths = (
+    //    );
+    //    runOnlyForDeploymentPostprocessing = 0;
+    //    shellPath = /bin/sh;
+    //    shellScript = /test;
+    //    };
 }

@@ -9,12 +9,13 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.subject = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        self.subject = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
     }
 
     func test_init_initializesTheBuildPhaseWithTheCorrectValues() {
         XCTAssertEqual(subject.reference, "reference")
         XCTAssertEqual(subject.files, ["file"])
+        XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.inputPaths, ["input"])
         XCTAssertEqual(subject.outputPaths, ["output"])
         XCTAssertEqual(subject.shellPath, "shell")
@@ -39,6 +40,15 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         dictionary.removeValue(forKey: "shellPath")
         do {
             _ = try PBXShellScriptBuildPhase(reference: "reference", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didnt'")
+        } catch {}
+    }
+    
+    func test_initFails_whenNameIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "name")
+        do {
+            _ = try PBXShellScriptBuildPhase(reference: "name", dictionary: dictionary)
             XCTAssertTrue(false, "Expected to throw an error but it didnt'")
         } catch {}
     }
@@ -74,8 +84,8 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     }
     
     func test_equals_returnsTheCorrectValue() {
-        let one = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
-        let another = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        let one = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        let another = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
         XCTAssertEqual(one, another)
     }
     
