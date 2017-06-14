@@ -2,10 +2,7 @@ import Foundation
 import Unbox
 
 /// This is the element for a build target that produces a binary content (application or library).
-public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
-
-    /// Element isa.
-    public static var isa: String = "PBXNativeTarget"
+public struct PBXNativeTarget: PBXTarget {
     
     /// Element reference.
     public let reference: UUID
@@ -68,12 +65,29 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
         self.productType = productType
     }
     
-    /// Initializes the native target with a reference and the dictionary that contains the element properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: an error in case of any of the properties is missing or the type is incorrect.
+}
+
+// MARK: - PBXNativeTarget Extension (ProjectElement)
+
+extension PBXNativeTarget: ProjectElement {
+    
+    public static var isa: String = "PBXNativeTarget"
+    
+    public static func == (lhs: PBXNativeTarget,
+                           rhs: PBXNativeTarget) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildConfigurationList == rhs.buildConfigurationList &&
+            lhs.buildPhases == rhs.buildPhases &&
+            lhs.buildRules == rhs.buildRules &&
+            lhs.dependencies == rhs.dependencies &&
+            lhs.name == rhs.name &&
+            lhs.productName == rhs.productName &&
+            lhs.productReference == rhs.productReference &&
+            lhs.productType == rhs.productType
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
     public init(reference: UUID, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -86,8 +100,11 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
         self.productReference = unboxer.unbox(key: "productReference")
         self.productType = unboxer.unbox(key: "productType")
     }
-    
-    // MARK: - Public
+}
+
+// MARK: - PBXNativeTarget Extension (Extras)
+
+extension PBXNativeTarget {
     
     /// Returns a new native target by adding a new build phase.
     ///
@@ -203,24 +220,11 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
                                productType: productType)
     }
     
-    // MARK: - Hashable
-    
-    public static func == (lhs: PBXNativeTarget,
-                           rhs: PBXNativeTarget) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.buildConfigurationList == rhs.buildConfigurationList &&
-        lhs.buildPhases == rhs.buildPhases &&
-        lhs.buildRules == rhs.buildRules &&
-        lhs.dependencies == rhs.dependencies &&
-        lhs.name == rhs.name &&
-        lhs.productName == rhs.productName &&
-        lhs.productReference == rhs.productReference &&
-        lhs.productType == rhs.productType
-    }
-    
-    public var hashValue: Int { return self.reference.hashValue }
+}
 
-    // MARK: - PBXProjPlistSerializable
+// MARK: - PBXNativeTarget Extension (PBXProjPlistSerializable)
+
+extension PBXNativeTarget: PBXProjPlistSerializable {
     
     func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
@@ -233,7 +237,7 @@ public struct PBXNativeTarget: PBXTarget, PBXProjPlistSerializable {
             .map { buildPhase in
                 let comment: String? = buildPhaseType(from: buildPhase, proj: proj)
                 return .string(PBXProjPlistCommentedString(buildPhase, comment: comment))
-            })
+        })
         dictionary["buildRules"] = .array(buildRules.map {.string(PBXProjPlistCommentedString($0))})
         dictionary["dependencies"] = .array(dependencies.map {.string(PBXProjPlistCommentedString($0,
                                                                                                   comment: "PBXTargetDependency"))})
