@@ -36,6 +36,23 @@ final class XCConfigSpec: XCTestCase {
         }
     }
     
+    func test_flattened_flattensTheConfigCorrectly() {
+        let configA = XCConfig(path: Path("testA"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "1"]))
+        let configB = XCConfig(path: Path("testB"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "2"]))
+        let config = XCConfig(path: Path("test"),
+                              includes: [(Path("testA"), configA),
+                                         (Path("testB"), configB)],
+                              buildSettings: BuildSettings(dictionary: ["b": "3"]))
+        let buildSettings = config.flattenedBuildSettings()
+        XCTAssertEqual(buildSettings["a"], "2")
+        XCTAssertEqual(buildSettings["b"], "3")
+    }
+    
+    func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {
+        let error = XCConfigError.notFound(path: Path("test"))
+        XCTAssertEqual(error.description, ".xcconfig file not found at test")
+    }
+    
     // MARK: - Private
     
     private func assert(config: XCConfig) {

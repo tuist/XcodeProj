@@ -215,7 +215,7 @@ public enum XCConfigError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case .notFound(let path):
-            return "XCConfig file not found at \(path)"
+            return ".xcconfig file not found at \(path)"
         }
     }
 }
