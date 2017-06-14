@@ -38,7 +38,7 @@ You can read the Xcode project files as shown in the examples below:
 ```swift
 // Read a project
 let project = try! XcodeProj(path: "myproject.xcodeproj")
-let pbxproj = project pbxproj
+let pbxproj = project.pbxproj
 let buildFiles = pbxproj.objects.buildFiles
 let buildConfigurations = pbxproj.objects.buildConfigurations
 
