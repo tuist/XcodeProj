@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public struct PBXTargetDependency: ProjectElement, Hashable {
+public struct PBXTargetDependency: ProjectElement, Hashable, PBXProjPlistSerializable {
     
     // MARK: - Attributes
     
@@ -58,4 +58,22 @@ public struct PBXTargetDependency: ProjectElement, Hashable {
     
     public var hashValue: Int { return self.reference.hashValue }
     
+    // MARK: - PBXProjPlistSerializable
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXTargetDependency.isa))
+        dictionary["target"] = .string(PBXProjPlistCommentedString(target, comment: target(from: target, proj: proj)))
+        dictionary["targetProxy"] = .string(PBXProjPlistCommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "PBXTargetDependency"),
+                value: .dictionary(dictionary))
+    }
+    
+    private func target(from reference: UUID, proj: PBXProj) -> String? {
+        return proj.objects.nativeTargets
+            .filter { $0.reference == reference }
+            .map { $0.name }
+            .first
+    }
 }

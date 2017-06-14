@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public struct PBXSourcesBuildPhase: ProjectElement {
+public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - Attributes
     
@@ -79,5 +79,35 @@ public struct PBXSourcesBuildPhase: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+    
+    // MARK: - PBXProjPlistSerializable
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXSourcesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+        dictionary["files"] = .array(files.map{ file in
+            var comment: String? = nil
+            if let fileString = fileName(from: file, proj: proj) {
+                comment = "\(fileString) in Sources"
+            }
+            return PBXProjPlistValue.string(PBXProjPlistCommentedString(file, comment: comment))
+        })
+        
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "Sources"),
+                value: .dictionary(dictionary))
+    }
+    
+    private func fileName(from reference: UUID, proj: PBXProj) -> String? {
+        return proj.objects.buildFiles
+            .filter { $0.reference == reference }
+            .flatMap { buildFile in
+                return proj.objects.fileReferences.filter { $0.reference == buildFile.fileRef }.first?.path
+            }
+            .first
+    }
+    
     
 }

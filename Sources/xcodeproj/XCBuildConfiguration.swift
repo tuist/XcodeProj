@@ -2,21 +2,18 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCBuildConfiguration: ProjectElement, Hashable {
+public struct XCBuildConfiguration {
    
     // MARK: - Attributes
     
     /// Build configuration reference.
     public let reference: UUID
     
-    // Build Configuration isa.
-    public static var isa: String = "XCBuildConfiguration"
-    
     /// The path to a xcconfig file
     public let baseConfigurationReference: UUID?
     
     /// A map of build settings.
-    public let buildSettings: [String: Any]
+    public let buildSettings: BuildSettings
     
     /// The configuration name.
     public let name: String
@@ -33,29 +30,18 @@ public struct XCBuildConfiguration: ProjectElement, Hashable {
     public init(reference: UUID,
                 name: String,
                 baseConfigurationReference: UUID? = nil,
-                buildSettings: [String: Any] = [:]) {
+                buildSettings: BuildSettings = [:]) {
         self.reference = reference
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
     }
-
-    /// Initializes the build configuration with the reference
-    /// inside the plist file and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: an error in case any property is missing or the format is wrong.
-    public init(reference: UUID, dictionary: [String: Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = (dictionary["buildSettings"] as? [String: Any]) ?? [:]
-        self.name = try unboxer.unbox(key: "name")
-    }
     
-    // MARK: - Public
+}
+
+// MARK: - XCBuildConfiguration Extension (Extras)
+
+extension XCBuildConfiguration {
     
     /// Returns a new build configuration adding the given setting.
     ///
@@ -63,7 +49,7 @@ public struct XCBuildConfiguration: ProjectElement, Hashable {
     ///   - setting: setting to be added (key)
     ///   - value: setting to be added (value)
     /// - Returns: new build configuration after adding the value.
-    public func addingBuild(setting: String, value: Any) -> XCBuildConfiguration {
+    public func addingBuild(setting: String, value: String) -> XCBuildConfiguration {
         var mutableSettings = self.buildSettings
         mutableSettings[setting] = value
         return XCBuildConfiguration(reference: self.reference,
@@ -78,22 +64,56 @@ public struct XCBuildConfiguration: ProjectElement, Hashable {
     /// - Returns: new build configuration after removing the build setting.
     public func removingBuild(setting: String) -> XCBuildConfiguration {
         var mutableSettings = self.buildSettings
-        mutableSettings.removeValue(forKey: setting)
+        mutableSettings[setting] = nil
         return XCBuildConfiguration(reference: self.reference,
                                     name: self.name,
                                     baseConfigurationReference: self.baseConfigurationReference,
                                     buildSettings: mutableSettings)
     }
     
-    // MARK: - Hashable
+}
+
+
+// MARK: - XCBuildConfiguration Extension (ProjectElement)
+
+extension XCBuildConfiguration: ProjectElement {
+    
+    public static var isa: String = "XCBuildConfiguration"
     
     public var hashValue: Int { return self.reference.hashValue }
-
+    
     public static func == (lhs: XCBuildConfiguration,
                            rhs: XCBuildConfiguration) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
-        lhs.name == rhs.name &&
-        NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
+            lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
+            lhs.name == rhs.name &&
+            NSDictionary(dictionary: lhs.buildSettings.dictionary).isEqual(to: rhs.buildSettings.dictionary)
     }
+    
+    public init(reference: UUID, dictionary: [String: Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
+        self.buildSettings = (dictionary["buildSettings"] as? BuildSettings) ?? [:]
+        self.name = try unboxer.unbox(key: "name")
+    }
+    
+}
+
+// MARK: - XCBuildConfiguration Extension (PBXProjPlistSerializable)
+
+extension XCBuildConfiguration: PBXProjPlistSerializable {
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCBuildConfiguration.isa))
+        dictionary["name"] = .string(PBXProjPlistCommentedString(name))
+        var buildSettingsDictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        buildSettings.dictionary.forEach { buildSettingsDictionary[PBXProjPlistCommentedString($0.key)] = .string(PBXProjPlistCommentedString($0.value)) }
+        dictionary["buildSettings"] = .dictionary(buildSettingsDictionary)
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: name),
+                value: .dictionary(dictionary))
+    }
+    
 }
