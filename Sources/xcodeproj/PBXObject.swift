@@ -390,6 +390,14 @@ public extension Set where Element == PBXObject {
             .map { $0! }
     }
     
+    func fileName(from reference: UUID) -> String? {
+        return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name }.first
+    }
+    
+    func configName(from reference: UUID) -> String? {
+        return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
+    }
+    
     var projects: [PBXProject] {
         return self
             .map { element in
