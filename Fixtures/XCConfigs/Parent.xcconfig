@@ -1,0 +1,2 @@
+OTHER_SWIFT_FLAGS_XCODE_0821 = $(inherited)
+OTHER_SWIFT_FLAGS_XCODE_0830 = $(inherited) -enable-bridging-pch
