@@ -2,15 +2,12 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCConfigurationList: ProjectElement, PBXProjPlistSerializable {
+public struct XCConfigurationList {
     
     // MARK: - Attributes
     
     /// Element reference.
     public let reference: UUID
-    
-    /// Element isa.
-    public static var isa: String = "XCConfigurationList"
     
     /// Element build configurations.
     public let buildConfigurations: Set<UUID>
@@ -39,22 +36,10 @@ public struct XCConfigurationList: ProjectElement, PBXProjPlistSerializable {
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
     }
-    
-    /// Initializes the element with the reference and a dictionary that contains its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary that contains its properties.
-    /// - Throws: an error if any of the attributes is missing or the type is wrong.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")
-        self.defaultConfigurationIsVisible = try unboxer.unbox(key: "defaultConfigurationIsVisible")
-        self.defaultConfigurationName = try unboxer.unbox(key: "defaultConfigurationName")
-    }
-    
-    // MARK: - Public
+
+}
+
+extension XCConfigurationList {
     
     /// Returns a new configuration list adding a configuration.
     ///
@@ -78,48 +63,38 @@ public struct XCConfigurationList: ProjectElement, PBXProjPlistSerializable {
         return XCConfigurationList(reference: self.reference,
                                    buildConfigurations: buildConfigurations,
                                    defaultConfigurationName: self.defaultConfigurationName)
-
+        
     }
     
+    /// Returns a new XCConfigurationList with a given configuration name.
+    ///
+    /// - Parameter name: configuration name.
+    /// - Returns: new configuration list with the given configuration name.
     public func withDefaultConfigurationName(name: String) -> XCConfigurationList {
         return XCConfigurationList(reference: self.reference,
                                    buildConfigurations: self.buildConfigurations,
                                    defaultConfigurationName: name)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - XCConfigurationList Extension (PBXProjPlistSerializable)
+
+extension XCConfigurationList: PBXProjPlistSerializable {
     
-    public static func == (lhs: XCConfigurationList,
-                           rhs: XCConfigurationList) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.buildConfigurations == rhs.buildConfigurations &&
-        lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
-    }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    // MARK: - PBXProjPlistSerializable
+    public static var isa: String = "XCConfigurationList"
     
     func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
         dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { configuration in
-                let comment: String? = config(from: configuration, proj: proj)
-                return .string(PBXProjPlistCommentedString(configuration, comment: comment))
+            .map { .string(PBXProjPlistCommentedString($0, comment: proj.objects.configName(from: $0)))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(PBXProjPlistCommentedString("\(defaultConfigurationIsVisible)"))
         dictionary["defaultConfigurationName"] = .string(PBXProjPlistCommentedString(defaultConfigurationName))
         return (key: PBXProjPlistCommentedString(self.reference,
                                                  comment: plistComment(proj: proj)),
                 value: .dictionary(dictionary))
-    }
-
-    private func config(from reference: UUID, proj: PBXProj) -> String? {
-        return proj.objects.buildConfigurations
-            .filter { $0.reference == reference }
-            .map { $0.name }
-            .first
     }
     
     private func plistComment(proj: PBXProj) -> String? {
@@ -132,4 +107,28 @@ public struct XCConfigurationList: ProjectElement, PBXProjPlistSerializable {
         }
         return nil
     }
+
+}
+
+// MARK: - XCConfigurationList Extension (ProjectElement)
+
+extension XCConfigurationList: ProjectElement {
+    
+    public static func == (lhs: XCConfigurationList,
+                           rhs: XCConfigurationList) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildConfigurations == rhs.buildConfigurations &&
+            lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
+    public init(reference: UUID, dictionary: [String : Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")
+        self.defaultConfigurationIsVisible = try unboxer.unbox(key: "defaultConfigurationIsVisible")
+        self.defaultConfigurationName = try unboxer.unbox(key: "defaultConfigurationName")
+    }
+    
 }
