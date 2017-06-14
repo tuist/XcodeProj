@@ -45,6 +45,10 @@ let buildConfigurations = pbxproj.objects.buildConfigurations
 // Read a workspace
 let workspace = try! XCWorkspace(path: "myworkspace.workspace")
 let projects = workspace.data.references.map { $0.project }
+
+// Read a config file
+let config = try! XCConfig(path: "MyConfig.xcconfig")
+let buildDir = config.buildSettings("CONFIGURATION_BUILD_DIR")
 ```
 
 ### References
