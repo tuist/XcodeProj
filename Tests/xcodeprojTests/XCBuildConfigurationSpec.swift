@@ -20,7 +20,7 @@ final class XCBuildConfigurationSpec: XCTestCase {
         XCTAssertEqual(subject.reference, "reference")
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.baseConfigurationReference, "build_reference")
-        XCTAssertEqual(subject.buildSettings as! [String: String], [:])
+        XCTAssertEqual(subject.buildSettings.dictionary, [:])
     }
     
     func test_initFails_ifNameIsMissing() {

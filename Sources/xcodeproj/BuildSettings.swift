@@ -5,7 +5,7 @@ public struct BuildSettings {
     
     // MARK: - Attributes
     
-    var dictionary: [String: String]
+    public var dictionary: [String: String]
     
     // MARK: - Init
     
