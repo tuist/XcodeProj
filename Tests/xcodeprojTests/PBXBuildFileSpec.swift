@@ -1,6 +1,5 @@
 import Foundation
 import XCTest
-
 import xcodeproj
 
 final class PBXBuildFileSpec: XCTestCase {
