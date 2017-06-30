@@ -3,7 +3,7 @@ import XCTest
 import PathKit
 import xcodeproj
 
-final class XCSchemeSpec: XCTestCase {
+final class XCSchemeIntegrationSpec: XCTestCase {
     
     var subject: XCScheme?
     
