@@ -8,24 +8,26 @@ final class XCSchemeIntegrationSpec: XCTestCase {
     var subject: XCScheme?
     
     override func setUp() {
-        subject = integrationModel()
+        subject = try? XCScheme(path: fixturePath())
     }
     
-    func test_integration() {
+    func test_init_initializesTheSchemeCorrectly() {
         XCTAssertNotNil(subject)
         if let subject = subject {
             assert(scheme: subject)
         }
     }
     
-    func test_integration_write() {
+    func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { try? XCScheme(path: $0) },
                   modify: { $0 },
                   assertion: assert)
     }
     
-    func assert(scheme: XCScheme) {
+    // MARK: - Private
+    
+    private func assert(scheme: XCScheme) {
         XCTAssertEqual(scheme.version, "1.7")
         XCTAssertEqual(scheme.lastUpgradeVersion, "0830")
         // Build action
@@ -94,12 +96,6 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.referenceType, "1")
-    }
-    
-    // MARK: - Private
-    
-    private func integrationModel() -> XCScheme? {
-        return try? XCScheme(path: fixturePath())
     }
     
     private func fixturePath() -> Path {
