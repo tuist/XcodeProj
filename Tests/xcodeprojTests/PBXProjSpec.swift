@@ -1,7 +1,6 @@
 import Foundation
 import XCTest
 import PathKit
-
 import xcodeproj
 
 final class PBXProjSpec: XCTestCase {
@@ -45,17 +44,32 @@ final class PBXProjSpec: XCTestCase {
         XCTAssertFalse(got.objects.contains(object))
     }
     
-    // MARK: - Integration
+}
+
+final class PBXProjIntegrationSpec: XCTestCase {
     
-    func test_integration() {
-        let proj = integrationSubject()
+    func test_init_initializesTheProjCorrectly() {
+        let proj = try? PBXProj(path: fixturePath(), name: "Test")
         XCTAssertNotNil(proj)
         if let proj = proj{
             assert(proj: proj)
         }
     }
     
-    func assert(proj: PBXProj) {
+    func test_write() {
+        testWrite(from: fixturePath(),
+                  initModel: { try? PBXProj(path: $0, name: "Project") },
+                  modify: { $0 },
+                  assertion: assert)
+    }
+    
+    private func fixturePath() -> Path {
+        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
+        let path = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
+        return path
+    }
+    
+    private func assert(proj: PBXProj) {
         XCTAssertEqual(proj.archiveVersion, 1)
         XCTAssertEqual(proj.objectVersion, 46)
         XCTAssertEqual(proj.classes.count, 0)
@@ -78,25 +92,5 @@ final class PBXProjSpec: XCTestCase {
         XCTAssertEqual(proj.objects.fileReferences.count, 10)
         XCTAssertEqual(proj.objects.projects.count, 1)
     }
-    
-    func test_integration_write() {
-//        testWrite(from: fixturePath(),
-//                  initModel: { try? PBXProj(path: $0, name: "Project") },
-//                  modify: { $0 },
-//                  assertion: assert)
-    }
-
-    // MARK: - Private
-    
-    private func integrationSubject() -> PBXProj? {
-        return try? PBXProj(path: fixturePath(), name: "Test")
-    }
-    
-    private func fixturePath() -> Path {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
-        return path
-    }
-
     
 }
