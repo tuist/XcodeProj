@@ -1,21 +1,18 @@
 import Foundation
 import XCTest
 import PathKit
-
 import xcodeproj
 
-final class XcodeProjSpec: XCTestCase {
+final class XcodeProjIntegrationSpec: XCTestCase {
     
-    // MARK: - Integration
-    
-    func test_integration_init_throwsIfThePathIsWrong() {
+    func test_init_throwsIfThePathIsWrong() {
         do {
             _ = try XcodeProj(path: Path("test"))
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
     
-    func test_integration_init_hasTheASharedData() {
+    func test_init_hasTheASharedData() {
         let got = project()
         XCTAssertNotNil(got?.sharedData)
     }
