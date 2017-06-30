@@ -30,23 +30,25 @@ final class XCWorkspaceDataSpec: XCTestCase {
         XCTAssertFalse(got.references.contains("path"))
     }
     
-    // MARK: - Integration
+}
+
+final class XCWorkspaceDataIntegrationSpec: XCTestCase {
     
-    func test_integration_init_returnsTheModelWithTheRightProperties() {
+    func test_init_returnsTheModelWithTheRightProperties() {
         let path = fixturePath()
         let got = try? XCWorkspace.Data(path: path)
         XCTAssertEqual(got?.path, path)
         XCTAssertNotNil(got?.references.first?.project)
     }
     
-    func test_integration_init_throwsIfThePathIsWrong() {
+    func test_init_throwsIfThePathIsWrong() {
         do {
             _ = try XCWorkspace.Data(path: Path("test"))
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
     
-    func test_integration_write() {
+    func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { try? XCWorkspace.Data(path: $0) },
                   modify: { return $0.adding(reference: .file(path: "shakira")) }) { (data) in
@@ -61,4 +63,5 @@ final class XCWorkspaceDataSpec: XCTestCase {
         let path = fixtures + Path("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata")
         return path
     }
+    
 }
