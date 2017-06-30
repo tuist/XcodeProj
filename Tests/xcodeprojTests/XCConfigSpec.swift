@@ -20,22 +20,6 @@ final class XCConfigSpec: XCTestCase {
         XCTAssertEqual(config.includes[1].config, configB)
     }
     
-    func test_integration_initsTheXCConfigWithTheRightProperties() {
-        subject = try? XCConfig(path: childrenPath())
-        XCTAssertNotNil(subject)
-        if let subject = subject {
-            assert(config: subject)
-        }
-    }
-    
-    func test_write_writesTheContentProperly() {
-        testWrite(from: childrenPath(),
-                  initModel: { try? XCConfig(path: $0) },
-                  modify: { $0 }) { (config) in
-                    assert(config: config)
-        }
-    }
-    
     func test_flattened_flattensTheConfigCorrectly() {
         let configA = XCConfig(path: Path("testA"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "1"]))
         let configB = XCConfig(path: Path("testB"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "2"]))
@@ -53,7 +37,33 @@ final class XCConfigSpec: XCTestCase {
         XCTAssertEqual(error.description, ".xcconfig file not found at test")
     }
     
-    // MARK: - Private
+}
+
+final class XCConfigIntegrationSpec: XCTestCase {
+    
+    func test_init_initializesXCConfigWithTheRightProperties() {
+        let subject = try? XCConfig(path: childrenPath())
+        XCTAssertNotNil(subject)
+        if let subject = subject {
+            assert(config: subject)
+        }
+    }
+    
+    func test_write_writesTheContentProperly() {
+        testWrite(from: childrenPath(),
+                  initModel: { try? XCConfig(path: $0) },
+                  modify: { $0 }) { (config) in
+                    assert(config: config)
+        }
+    }
+    
+    private func childrenPath() -> Path {
+        return fixturesPath() + Path("XCConfigs/Children.xcconfig")
+    }
+    
+    private func parentPath() -> Path {
+        return fixturesPath() + Path("XCConfigs/Parent.xcconfig")
+    }
     
     private func assert(config: XCConfig) {
         XCTAssertEqual(config.buildSettings["CONFIGURATION_BUILD_DIR"], "Test/")
@@ -67,11 +77,5 @@ final class XCConfigSpec: XCTestCase {
         XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0830"], "$(inherited) -enable-bridging-pch")
     }
     
-    private func childrenPath() -> Path {
-        return fixturesPath() + Path("XCConfigs/Children.xcconfig")
-    }
-    
-    private func parentPath() -> Path {
-        return fixturesPath() + Path("XCConfigs/Parent.xcconfig")
-    }
 }
+
