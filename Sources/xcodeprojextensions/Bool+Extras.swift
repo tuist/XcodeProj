@@ -1,6 +1,5 @@
 import Foundation
 
-
 // MARK: - Bool Extension (Extras)
 
 public extension Bool {

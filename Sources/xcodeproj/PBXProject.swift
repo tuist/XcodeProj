@@ -133,8 +133,10 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
         dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXProject.isa))
-        dictionary["buildConfigurationList"] = .string(PBXProjPlistCommentedString(buildConfigurationList,
-                                                                                   comment: "Build configuration list for PBXProject \"\(proj.name)\""))
+        let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""
+        let buildConfigurationListCommentedString = PBXProjPlistCommentedString(buildConfigurationList,
+                                                                                comment: buildConfigurationListComment)
+        dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
         dictionary["compatibilityVersion"] = .string(PBXProjPlistCommentedString("\"\(compatibilityVersion)\""))
         if let developmentRegion = developmentRegion {
             dictionary["developmentRegion"] = .string(PBXProjPlistCommentedString(developmentRegion))
@@ -144,7 +146,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         }
         dictionary["knownRegions"] = PBXProjPlistValue.array(knownRegions
             .map {.string(PBXProjPlistCommentedString("\($0)")) })
-
+        
         dictionary["mainGroup"] = .string(PBXProjPlistCommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
             dictionary["productRefGroup"] = .string(PBXProjPlistCommentedString(productRefGroup,
@@ -160,7 +162,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
             .map { target in
                 return .string(PBXProjPlistCommentedString(target,
                                                            comment: nativeTarget(from: target, proj: proj)))
-            })
+        })
         return (key: PBXProjPlistCommentedString(self.reference,
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))

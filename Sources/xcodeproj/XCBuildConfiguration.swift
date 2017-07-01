@@ -73,7 +73,6 @@ extension XCBuildConfiguration {
     
 }
 
-
 // MARK: - XCBuildConfiguration Extension (ProjectElement)
 
 extension XCBuildConfiguration: ProjectElement {
@@ -109,7 +108,9 @@ extension XCBuildConfiguration: PBXProjPlistSerializable {
         dictionary["isa"] = .string(PBXProjPlistCommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(PBXProjPlistCommentedString(name))
         var buildSettingsDictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        buildSettings.dictionary.forEach { buildSettingsDictionary[PBXProjPlistCommentedString($0.key)] = .string(PBXProjPlistCommentedString($0.value)) }
+        buildSettings.dictionary.forEach {
+            buildSettingsDictionary[PBXProjPlistCommentedString($0.key)] = .string(PBXProjPlistCommentedString($0.value))
+        }
         dictionary["buildSettings"] = .dictionary(buildSettingsDictionary)
         return (key: PBXProjPlistCommentedString(self.reference,
                                                  comment: name),

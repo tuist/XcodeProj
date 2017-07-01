@@ -100,7 +100,7 @@ extension XCConfigurationList: PBXProjPlistSerializable {
     private func plistComment(proj: PBXProj) -> String? {
         let project = proj.objects.projects.filter { $0.buildConfigurationList == self.reference }.first
         let target = proj.objects.nativeTargets.filter { $0.buildConfigurationList == self.reference }.first
-        if let _ = project {
+        if project != nil {
             return "Build configuration list for PBXProject \"\(proj.name)\""
         } else if let target = target {
             return "Build configuration list for PBXNativeTarget \"\(target.name)\""

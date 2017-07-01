@@ -5,6 +5,7 @@ import AEXML
 import xcodeprojprotocols
 import xcodeprojextensions
 
+// swiftlint:disable:next type_body_length
 public struct XCScheme {
     
     // MARK: - BuildableReference
@@ -27,12 +28,21 @@ public struct XCScheme {
             self.blueprintName = blueprintName
         }
         init(element: AEXMLElement) throws {
-            guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else { throw XCSchemeError.missing(property: "BuildableIdentifier") }
-            guard let blueprintIdentifier = element.attributes["BlueprintIdentifier"] else { throw XCSchemeError.missing(property: "BlueprintIdentifier") }
-            guard let buildableName = element.attributes["BuildableName"] else { throw XCSchemeError.missing(property: "BuildableName") }
-            guard let blueprintName = element.attributes["BlueprintName"] else { throw XCSchemeError.missing(property: "BlueprintName") }
-            guard let referencedContainer = element.attributes["ReferencedContainer"] else { throw XCSchemeError.missing(property: "ReferencedContainer") }
-
+            guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else {
+                throw XCSchemeError.missing(property: "BuildableIdentifier")
+            }
+            guard let blueprintIdentifier = element.attributes["BlueprintIdentifier"] else {
+                throw XCSchemeError.missing(property: "BlueprintIdentifier")
+            }
+            guard let buildableName = element.attributes["BuildableName"] else {
+                throw XCSchemeError.missing(property: "BuildableName")
+            }
+            guard let blueprintName = element.attributes["BlueprintName"] else {
+                throw XCSchemeError.missing(property: "BlueprintName")
+            }
+            guard let referencedContainer = element.attributes["ReferencedContainer"] else {
+                throw XCSchemeError.missing(property: "ReferencedContainer")
+            }
             self.buildableIdentifier = buildableIdentifier
             self.blueprintIdentifier = blueprintIdentifier
             self.buildableName = buildableName
@@ -251,11 +261,21 @@ public struct XCScheme {
         }
         
         public init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
-            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else { throw XCSchemeError.missing(property: "selectedDebuggerIdentifier") }
-            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else { throw XCSchemeError.missing(property: "selectedLauncherIdentifier") }
-            guard let launchStyle = element.attributes["launchStyle"] else { throw XCSchemeError.missing(property: "launchStyle") }
-            guard let debugServiceExtension = element.attributes["debugServiceExtension"] else { throw XCSchemeError.missing(property: "debugServiceExtension") }
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
+                throw XCSchemeError.missing(property: "buildConfiguration")
+            }
+            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else {
+                throw XCSchemeError.missing(property: "selectedDebuggerIdentifier")
+            }
+            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else {
+                throw XCSchemeError.missing(property: "selectedLauncherIdentifier")
+            }
+            guard let launchStyle = element.attributes["launchStyle"] else {
+                throw XCSchemeError.missing(property: "launchStyle")
+            }
+            guard let debugServiceExtension = element.attributes["debugServiceExtension"] else {
+                throw XCSchemeError.missing(property: "debugServiceExtension")
+            }
             self.buildConfiguration = buildConfiguration
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
@@ -266,7 +286,7 @@ public struct XCScheme {
             self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = element.attributes["allowLocationSimulation"] == "YES"
             self.buildableProductRunnable = try BuildableProductRunnable(element:  element["BuildableProductRunnable"])
-            if let _ = element["LocationScenarioReference"].all?.first {
+            if element["LocationScenarioReference"].all?.first != nil {
                 self.locationScenarioReference = try LocationScenarioReference(element: element["LocationScenarioReference"])
             } else {
                 self.locationScenarioReference = nil
@@ -313,8 +333,12 @@ public struct XCScheme {
             self.debugDocumentVersioning = debugDocumentVersioning
         }
         public init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
-            guard let savedToolIdentifier = element.attributes["savedToolIdentifier"] else { throw XCSchemeError.missing(property: "savedToolIdentifier") }
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
+                throw XCSchemeError.missing(property: "buildConfiguration")
+            }
+            guard let savedToolIdentifier = element.attributes["savedToolIdentifier"] else {
+                throw XCSchemeError.missing(property: "savedToolIdentifier")
+            }
             self.buildConfiguration = buildConfiguration
             self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
             self.savedToolIdentifier = savedToolIdentifier
@@ -356,9 +380,15 @@ public struct XCScheme {
             self.macroExpansion = macroExpansion
         }
         public init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
-            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else { throw XCSchemeError.missing(property: "selectedDebuggerIdentifier") }
-            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else { throw XCSchemeError.missing(property: "selectedLauncherIdentifier") }
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
+                throw XCSchemeError.missing(property: "buildConfiguration")
+            }
+            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else {
+                throw XCSchemeError.missing(property: "selectedDebuggerIdentifier")
+            }
+            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else {
+                throw XCSchemeError.missing(property: "selectedLauncherIdentifier")
+            }
             self.buildConfiguration = buildConfiguration
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
@@ -391,7 +421,9 @@ public struct XCScheme {
             self.buildConfiguration = buildConfiguration
         }
         public init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
+                throw XCSchemeError.missing(property: "buildConfiguration")
+            }
             self.buildConfiguration = buildConfiguration
         }
         public func xmlElement() -> AEXMLElement {
@@ -413,8 +445,12 @@ public struct XCScheme {
             self.customArchiveName = customArchiveName
         }
         public init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else { throw XCSchemeError.missing(property: "buildConfiguration") }
-            guard let customArchiveName = element.attributes["customArchiveName"] else { throw XCSchemeError.missing(property: "customArchiveName") }
+            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
+                throw XCSchemeError.missing(property: "buildConfiguration")
+            }
+            guard let customArchiveName = element.attributes["customArchiveName"] else {
+                throw XCSchemeError.missing(property: "customArchiveName")
+            }
             self.buildConfiguration = buildConfiguration
             self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"] == "YES"
             self.customArchiveName = customArchiveName
@@ -486,7 +522,6 @@ public struct XCScheme {
     
 }
 
-
 // MARK: - XCScheme Extension (Writable)
 
 extension XCScheme: Writable {
@@ -523,7 +558,6 @@ extension XCScheme: Writable {
     }
     
 }
-
 
 // MARK: - XCScheme Errors.
 

@@ -36,8 +36,8 @@ public struct BuildSettings {
 
 extension BuildSettings: Equatable {
     
-    public static func ==(lhs: BuildSettings,
-                   rhs: BuildSettings) -> Bool {
+    public static func == (lhs: BuildSettings,
+                           rhs: BuildSettings) -> Bool {
         return NSDictionary(dictionary: lhs.dictionary)
             .isEqual(to: NSDictionary(dictionary: rhs.dictionary))
     }

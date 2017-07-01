@@ -10,3 +10,6 @@ disabled_rules:
   - nesting
   - cyclomatic_complexity
   - file_length
+line_length:
+  warning: 150
+  error: 170

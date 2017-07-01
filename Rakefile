@@ -34,6 +34,22 @@ end
 
 ### TASKS ###
 
+desc "Removes the build folder"
+task :clean do
+  print "> Cleaning build/ folder"
+  `rm -rf build`
+end
+
+desc "Executes all the validation steps for CI"
+task :ci => [:clean] do
+  print "> Linting project"
+  sh "swiftlint"
+  print "> Building the project"
+  sh "swift build"
+  print "> Executing tests"
+  sh "swift test"
+end
+
 desc "Bumps the version of xcodeprojlint. It creates a new tagged commit and archives the binary to be published with the release"
 task :release => [:clean] do
   abort '> Commit all your changes before starting the release' unless !any_git_changes?

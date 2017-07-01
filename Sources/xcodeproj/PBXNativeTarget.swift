@@ -230,9 +230,9 @@ extension PBXNativeTarget: PBXProjPlistSerializable {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
         
         dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXNativeTarget.isa))
+        let buildConfigurationListComment = "Build configuration list for PBXNativeTarget \"\(name)\""
         dictionary["buildConfigurationList"] = .string(PBXProjPlistCommentedString(PBXNativeTarget.isa,
-                                                                                   comment: "Build configuration list for PBXNativeTarget \"\(name)\""))
-        
+                                                                                   comment: buildConfigurationListComment))
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
                 let comment: String? = buildPhaseType(from: buildPhase, proj: proj)
@@ -258,12 +258,12 @@ extension PBXNativeTarget: PBXProjPlistSerializable {
     }
     
     private func buildPhaseType(from reference: UUID, proj: PBXProj) -> String? {
-        let sources = proj.objects.sourcesBuildPhases.map{return $0.reference}
-        let frameworks = proj.objects.frameworksBuildPhases.map{return $0.reference}
-        let resources = proj.objects.resourcesBuildPhases.map{return $0.reference}
-        let copyFiles = proj.objects.copyFilesBuildPhases.map{return $0.reference}
-        let runScript = proj.objects.shellScriptBuildPhases.map{return $0.reference}
-        let headers = proj.objects.headersBuildPhases.map{return $0.reference}
+        let sources = proj.objects.sourcesBuildPhases.map {return $0.reference}
+        let frameworks = proj.objects.frameworksBuildPhases.map {return $0.reference}
+        let resources = proj.objects.resourcesBuildPhases.map {return $0.reference}
+        let copyFiles = proj.objects.copyFilesBuildPhases.map {return $0.reference}
+        let runScript = proj.objects.shellScriptBuildPhases.map {return $0.reference}
+        let headers = proj.objects.headersBuildPhases.map {return $0.reference}
         if sources.contains(reference) {
             return "Sources"
         } else if frameworks.contains(reference) {
@@ -282,7 +282,7 @@ extension PBXNativeTarget: PBXProjPlistSerializable {
     
     private func fileName(from reference: UUID, proj: PBXProj) -> String? {
         return proj.objects.fileReferences
-            .filter{$0.reference == reference}
+            .filter {$0.reference == reference}
             .flatMap { $0.path }
             .first
     }

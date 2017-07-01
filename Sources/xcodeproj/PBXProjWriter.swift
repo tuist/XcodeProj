@@ -97,7 +97,6 @@ enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLitera
     }
 }
 
-
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PBXProjPlistSerializable {
     func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue)

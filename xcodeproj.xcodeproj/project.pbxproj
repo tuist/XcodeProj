@@ -1091,6 +1091,7 @@
 			buildPhases = (
 				OBJ_290 /* Sources */,
 				OBJ_321 /* Frameworks */,
+				04A5B5841F08011B00504B4F /* Linting */,
 			);
 			buildRules = (
 			);
@@ -1230,6 +1231,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04A5B5841F08011B00504B4F /* Linting */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Linting;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_181 /* Sources */ = {

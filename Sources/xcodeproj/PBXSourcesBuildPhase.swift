@@ -46,7 +46,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
         self.files = try unboxer.unbox(key: "files")
     }
     
-    // MARK - Public
+    // MARK: - Public
     
     /// Returns a new build phase removing the given file.
     ///
@@ -86,7 +86,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
         dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXSourcesBuildPhase.isa))
         dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
-        dictionary["files"] = .array(files.map{ file in
+        dictionary["files"] = .array(files.map { file in
             var comment: String? = nil
             if let fileString = fileName(from: file, proj: proj) {
                 comment = "\(fileString) in Sources"
@@ -108,6 +108,5 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
             }
             .first
     }
-    
     
 }
