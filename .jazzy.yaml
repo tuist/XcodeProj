@@ -1,0 +1,51 @@
+author: Caramba
+author_url: https://twitter.com/carambalabsEng
+module: xcodeproj
+module_version: 0.0.1
+github_url: https://github.com/carambalabs/xcodeproj
+copyright: 'Copyright © 2017 Caramba. All rights reserved.'
+readme: ABOUT.md
+documentation: guides/*.md
+custom_categories:
+  - name: Models
+    children:
+      - BuildSettings
+      - XCConfig
+      - XCWorkspace
+      - XcodeProj
+      - XCBuildConfiguration
+      - XCConfigurationList
+      - XCScheme
+      - XCSharedData
+      - PBXProductType
+      - PBXNativeTarget
+      - PBXProj
+      - PBXObject
+      - PBXSourceTree
+      - PBXAggregateTarget
+      - PBXBuildFile
+      - PBXContainerItemProxy
+      - PBXFileElement
+      - PBXFileReference
+      - PBXGroup
+      - PBXProject
+      - PBXFrameworksBuildPhase
+      - PBXHeadersBuildPhase
+      - PBXResourcesBuildPhase
+      - PBXCopyFilesBuildPhase
+      - PBXShellScriptBuildPhase
+      - PBXSourcesBuildPhase
+      - PBXTargetDependency
+      - PBXVariantGroup
+  - name: Protocols
+    children:
+      - ProjectElement
+  - name: Errors
+    children:
+      - XCConfigError
+      - XCSchemeError
+      - XCSharedDataError
+      - XCWorkspaceDataError
+      - XCWorkspaceError
+      - XCodeProjError
+      - PBXObjectError

@@ -2,7 +2,6 @@
 /.build
 /Packages
 
-
 # Created by https://www.gitignore.io/api/macos,swift,xcode,appcode,swiftpm
 
 ### AppCode ###
@@ -180,3 +179,5 @@ xcuserdata
 # End of https://www.gitignore.io/api/macos,swift,xcode,appcode,swiftpm
 
 .vscode
+
+build/

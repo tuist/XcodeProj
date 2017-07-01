@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>xcodeproj  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="xcodeproj  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">xcodeproj Docs</a> (54% documented)</p>
+        <p class="header-right"><a href="https://github.com/carambalabs/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">xcodeproj Reference</a>
+        <img id="carat" src="img/carat.png" />
+        xcodeproj  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Models.html">Models</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/BuildSettings.html">BuildSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/XCConfig.html">XCConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/XCWorkspace.html">XCWorkspace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/XcodeProj.html">XcodeProj</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Models.html#/s:O9xcodeproj14PBXProductType">PBXProductType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PBXNativeTarget.html">PBXNativeTarget</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PBXProj.html">PBXProj</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/ProjectElement.html">ProjectElement</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Errors.html">Errors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/XCConfigError.html">XCConfigError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XCSchemeError.html">XCSchemeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XCSharedDataError.html">XCSharedDataError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XCWorkspaceDataError.html">XCWorkspaceDataError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XCWorkspaceError.html">XCWorkspaceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XCodeProjError.html">XCodeProjError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other Extensions.html#/s:Vs3Set">Set</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='xcodeproj' class='heading'>xcodeproj</h1>
+
+<p><a href="https://travis-ci.org/carambalabs/xcodeproj">
+    <img src="https://travis-ci.org/carambalabs/xcodeproj.svg?branch=master">
+</a>
+<a href="https://swift.org/package-manager">
+    <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+</a>
+<a href="https://twitter.com/pepibumur">
+    <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+</a></p>
+
+<p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods Xcodeproj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
+<h3 id='motivation' class='heading'>Motivation</h3>
+
+<p>Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:</p>
+
+<ul>
+<li>Add new <code>Build phases</code>.</li>
+<li>Update the project <code>Build Settings</code>.</li>
+<li>Create new <code>Schemes</code>.</li>
+</ul>
+<h3 id='contribute' class='heading'>Contribute</h3>
+
+<ol>
+<li>Git clone the repository <code>git@github.com:carambalabs/xcodeproj.git</code>.</li>
+<li>Open <code>xcodeproj.xcodeproj</code></li>
+</ol>
+<h3 id='how-to' class='heading'>How to</h3>
+<h4 id='reading' class='heading'>Reading</h4>
+
+<p>You can read the Xcode project files as shown in the examples below:</p>
+<pre class="highlight swift"><code><span class="c1">// Read a project</span>
+<span class="k">let</span> <span class="nv">project</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XcodeProj</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myproject.xcodeproj"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">pbxproj</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span>
+<span class="k">let</span> <span class="nv">buildFiles</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">buildFiles</span>
+<span class="k">let</span> <span class="nv">buildConfigurations</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">buildConfigurations</span>
+
+<span class="c1">// Read a workspace</span>
+<span class="k">let</span> <span class="nv">workspace</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCWorkspace</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myworkspace.workspace"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">projects</span> <span class="o">=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">project</span> <span class="p">}</span>
+
+<span class="c1">// Read a config file</span>
+<span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCConfig</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyConfig.xcconfig"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">buildDir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="nf">buildSettings</span><span class="p">(</span><span class="s">"CONFIGURATION_BUILD_DIR"</span><span class="p">)</span>
+</code></pre>
+<h3 id='references' class='heading'>References</h3>
+
+<ul>
+<li><a href="https://github.com/kylef/PathKit">PathKit</a></li>
+<li><a href="http://www.monobjc.net/xcode-project-file-format.html">Xcode Project File Format</a></li>
+<li><a href="http://danwright.info/blog/2010/10/xcode-pbxproject-files/">A brief look at the Xcode project format</a></li>
+<li><a href="https://github.com/mjmsmith/pbxplorer">pbexplorer</a></li>
+<li><a href="https://pewpewthespells.com/blog/pbxproj_identifiers.html">pbxproj identifiers</a></li>
+<li><a href="https://github.com/kronenthaler/mod-pbxproj">mob-pbxproj</a></li>
+<li><a href="https://github.com/CocoaPods/Xcodeproj">Xcodeproj</a></li>
+<li><a href="https://github.com/CocoaPods/Nanaimo">Nanaimo</a></li>
+<li><a href="https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html">Facebook Buck</a></li>
+<li><a href="https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj">Swift Package Manager - Xcodeproj</a></li>
+</ul>
+<h2 id='about' class='heading'>About</h2>
+
+<p><img src="https://github.com/carambalabs/Foundation/blob/master/ASSETS/logo-salmon.png?raw=true" width="200" /></p>
+
+<p>This project is funded and maintained by <a href="http://caramba.io">Caramba</a>. We 💛 open source software!</p>
+
+<p>Check out our other <a href="https://github.com/carambalabs/">open source projects</a>, read our <a href="http://blog.caramba.io">blog</a> or say :wave: on twitter <a href="http://twitter.com/carambalabs">@carambalabs</a>.</p>
+<h2 id='contribute' class='heading'>Contribute</h2>
+
+<p>Contributions are welcome :metal: We encourage developers like you to help us improve the projects we&rsquo;ve shared with the community. Please see the <a href="https://github.com/carambalabs/Foundation/blob/master/CONTRIBUTING.md">Contributing Guide</a> and the <a href="https://github.com/carambalabs/Foundation/blob/master/CONDUCT.md">Code of Conduct</a>.</p>
+<h3 id='license' class='heading'>License</h3>
+<pre class="highlight plaintext"><code>MIT License
+
+Copyright (c) 2017 Caramba
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>Copyright © 2017 Caramba. All rights reserved.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
