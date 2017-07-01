@@ -50,6 +50,9 @@ let config = try! XCConfig(path: "MyConfig.xcconfig")
 let buildDir = config.buildSettings("CONFIGURATION_BUILD_DIR")
 ```
 
+### Documentation
+You can check out the documentation on the following [link](https://carambalabs.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+
 ### References
 
 - [PathKit](https://github.com/kylef/PathKit)
