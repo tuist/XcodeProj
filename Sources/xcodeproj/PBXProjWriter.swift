@@ -136,7 +136,7 @@ class PBXProjWriter {
         write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
         write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
         // PBXCopyFilesBuildPhase
-        // PBXContainerItemProxy
+        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
         decreaseIndent()
         writeIndent()
         write(string: "};")

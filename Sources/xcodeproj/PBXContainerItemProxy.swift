@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for to decorate a target item.
-public struct PBXContainerItemProxy: ProjectElement, Hashable {
+public struct PBXContainerItemProxy {
     
     public enum ProxyType: UInt, UnboxableEnum {
         case targetReference = 1
@@ -11,9 +11,6 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     
     /// Element reference.
     public let reference: UUID
-    
-    /// Element isa.
-    public static var isa: String = "PBXContainerItemProxy"
     
     /// The object is a reference to a PBXProject element.
     public let containerPortal: UUID
@@ -46,24 +43,11 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
         self.proxyType = proxyType
     }
     
-    // MARK: - Init
-    
-    /// Initializes the container with the reference and a dictionary that contains all its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the attributes.
-    public init(reference: UUID, dictionary: [String: Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.containerPortal = try unboxer.unbox(key: "containerPortal")
-        self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
-        self.remoteInfo = unboxer.unbox(key: "remoteInfo")
-        let proxyTypeInt: UInt = try unboxer.unbox(key: "proxyType")
-        self.proxyType = ProxyType(rawValue: proxyTypeInt) ?? .other
-    }
-    
-    // MARK: - Hashable
+}
+
+// MARK: - PBXContainerItemProxy Extension (ProjectElement)
+
+extension PBXContainerItemProxy: ProjectElement {
     
     public static func == (lhs: PBXContainerItemProxy,
                            rhs: PBXContainerItemProxy) -> Bool {
@@ -76,4 +60,36 @@ public struct PBXContainerItemProxy: ProjectElement, Hashable {
     
     public var hashValue: Int { return self.reference.hashValue }
     
+    public init(reference: UUID, dictionary: [String: Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.containerPortal = try unboxer.unbox(key: "containerPortal")
+        self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
+        self.remoteInfo = unboxer.unbox(key: "remoteInfo")
+        let proxyTypeInt: UInt = try unboxer.unbox(key: "proxyType")
+        self.proxyType = ProxyType(rawValue: proxyTypeInt) ?? .other
+    }
+    
+}
+
+// MARK: - PBXContainerItemProxy Extension (PBXProjPlistSerializable)
+
+extension PBXContainerItemProxy: PBXProjPlistSerializable {
+    
+    public static var isa: String = "PBXContainerItemProxy"
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
+        dictionary["containerPortal"] = .string(PBXProjPlistCommentedString(containerPortal, comment: "Project object"))
+        dictionary["proxyType"] = .string(PBXProjPlistCommentedString("\(proxyType.rawValue)"))
+        dictionary["remoteGlobalIDString"] = .string(PBXProjPlistCommentedString(remoteGlobalIDString))
+        if let remoteInfo = remoteInfo {
+            dictionary["remoteInfo"] = .string(PBXProjPlistCommentedString(remoteInfo))
+        }
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "PBXContainerItemProxy"),
+                value: .dictionary(dictionary))
+    }
+
 }
