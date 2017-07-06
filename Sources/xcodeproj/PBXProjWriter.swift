@@ -120,13 +120,23 @@ class PBXProjWriter {
         increaseIndent()
         writeNewLine()
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
-        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
+        // PBXAggregateTarget
+        // PBXBuildFile
+        // PBXFileReference
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
-        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
-        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
-        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
-        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        // PBXFileElement
+        // PBXGroup
+        // PBXHeadersBuildPhase
+        // PBXFrameworksBuildPhase
+        // PBXResourcesBuildPhase
         write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
+        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
+        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
+        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
+        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
+        // PBXCopyFilesBuildPhase
+        // PBXContainerItemProxy
         decreaseIndent()
         writeIndent()
         write(string: "};")
