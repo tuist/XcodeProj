@@ -25,7 +25,7 @@ public struct PBXProj {
     public let classes: [Any]
     
     /// Project objects
-    public let objects: Set<PBXObject>
+    public let objects: [PBXObject]
     
     /// Project root object.
     public let rootObject: UUID
@@ -48,7 +48,7 @@ public struct PBXProj {
                 objectVersion: Int,
                 rootObject: UUID,
                 classes: [Any] = [],
-                objects: Set<PBXObject> = Set()) {
+                objects: [PBXObject] = []) {
         self.path = path
         self.name = name
         self.archiveVersion = archiveVersion
@@ -84,11 +84,10 @@ public struct PBXProj {
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
         self.classes = (dictionary["classes"] as? [Any]) ?? []
         let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
-        let objectsArray = objectsDictionary
+        self.objects = objectsDictionary
             .map { try? PBXObject(reference: $0.key, dictionary: $0.value) }
             .filter { $0 != nil }
             .map { $0! }
-        self.objects = Set(objectsArray)
         self.rootObject = try unboxer.unbox(key: "rootObject")
     }
     
@@ -98,7 +97,9 @@ public struct PBXProj {
     /// - Returns: a new PBXProj object with the object removed.
     public func removing(object: PBXObject) -> PBXProj {
         var objects = self.objects
-        objects.remove(object)
+        if let index = objects.index(of: object) {
+            objects.remove(at: index)
+        }
         return PBXProj(path: path,
                        name: name,
                        archiveVersion: archiveVersion,
@@ -114,7 +115,7 @@ public struct PBXProj {
     /// - Returns: a new PBXProj object with the object added.
     public func adding(object: PBXObject) -> PBXProj {
         var objects = self.objects
-        objects.insert(object)
+        objects.append(object)
         return PBXProj(path: path,
                        name: name,
                        archiveVersion: archiveVersion,

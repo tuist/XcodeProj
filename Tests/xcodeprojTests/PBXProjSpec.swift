@@ -17,7 +17,7 @@ final class PBXProjSpec: XCTestCase {
                           objectVersion: 46,
                           rootObject: "root",
                           classes: [],
-                          objects: Set(arrayLiteral: object))
+                          objects: [object])
     }
     
     func test_initWithDictionary_hasTheCorrectArchiveVersion() {

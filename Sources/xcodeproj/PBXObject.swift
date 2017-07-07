@@ -150,7 +150,7 @@ public enum PBXObjectError: Error, CustomStringConvertible {
     }
 }
 
-public extension Set where Element == PBXObject {
+public extension Array where Element == PBXObject {
     
     var buildFiles: [PBXBuildFile] {
         return self
