@@ -3,21 +3,18 @@ import Unbox
 import xcodeprojextensions
 
 // This is the element for the resources copy build phase.
-public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSerializable {
+public struct PBXShellScriptBuildPhase {
     
     // MARK: - Attributes
     
     /// Element reference.
     public let reference: UUID
     
-    /// Element isa.
-    public static var isa: String = "PBXShellScriptBuildPhase"
-    
-    /// Build action mask
-    public let buildActionMask: Int = 2147483647
-    
-    /// Files references
+    /// Files references.
     public let files: Set<UUID>
+    
+    /// Build action mask.
+    public let buildActionMask: Int
     
     /// Build phase name.
     public let name: String
@@ -48,13 +45,15 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSe
     ///   - outputPaths: output paths.
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
+    ///   - buildActionMask: build action mask.
     public init(reference: UUID,
                 files: Set<UUID>,
                 name: String,
                 inputPaths: Set<String>,
                 outputPaths: Set<String>,
                 shellPath: String,
-                shellScript: String?) {
+                shellScript: String?,
+                buildActionMask: Int = 2147483647) {
         self.reference = reference
         self.files = files
         self.name = name
@@ -62,14 +61,40 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSe
         self.outputPaths = outputPaths
         self.shellPath = shellPath
         self.shellScript = shellScript
+        self.buildActionMask = buildActionMask
+    }
+
+}
+
+// MARK: - PBXShellScriptBuildPhase Extension (PBXProjPlistSerializable)
+
+extension PBXShellScriptBuildPhase: PBXProjPlistSerializable {
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXShellScriptBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+        // files
+        // inputPaths
+        dictionary["name"] = .string(PBXProjPlistCommentedString(name.quoted))
+        // outputPaths
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        if let shellScript = shellScript {
+            dictionary["shellScript"] = .string(PBXProjPlistCommentedString(shellScript))
+        }
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "Run Script"),
+                value: .dictionary(dictionary))
     }
     
-    /// Initializes the shell script build phase with its reference and a dictionary that contains its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: build phase reference.
-    ///   - dictionary: dictionary with the build phase attributes.
-    /// - Throws: throws an error in case any of the parameters is missing or it has the wrong type.
+}
+
+// MARK: - PBXShellScriptBuildPhase Extension (ProjectElement)
+
+extension PBXShellScriptBuildPhase: ProjectElement {
+    
+    public static var isa: String = "PBXShellScriptBuildPhase"
+    
     public init(reference: UUID, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -79,9 +104,29 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSe
         self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
         self.shellPath = try unboxer.unbox(key: "shellPath")
         self.shellScript = unboxer.unbox(key: "shellScript")
+        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
     }
     
-    // MARK: - Public
+    public static func == (lhs: PBXShellScriptBuildPhase,
+                           rhs: PBXShellScriptBuildPhase) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.name == rhs.name &&
+            lhs.inputPaths == rhs.inputPaths &&
+            lhs.outputPaths == rhs.outputPaths &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
+            lhs.shellPath == rhs.shellPath &&
+            lhs.shellScript == rhs.shellScript
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
+}
+
+// MARK: - PBXShellScriptBuildPhase Extension (Extras)
+
+extension PBXShellScriptBuildPhase {
     
     /// Returns a new shell script build phase with a new file added.
     ///
@@ -179,55 +224,4 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSe
                                         shellScript: shellScript)
     }
     
-    // MARK: - Hashable
-    
-    public static func == (lhs: PBXShellScriptBuildPhase,
-                           rhs: PBXShellScriptBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.name == rhs.name &&
-            lhs.inputPaths == rhs.inputPaths &&
-            lhs.outputPaths == rhs.outputPaths &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
-            lhs.shellPath == rhs.shellPath &&
-            lhs.shellScript == rhs.shellScript
-    }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    // MARK: - PBXProjPlistSerializable
-    
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXShellScriptBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
-        // files
-        // inputPaths
-        dictionary["name"] = .string(PBXProjPlistCommentedString(name.quoted))
-        // outputPaths
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        if let shellScript = shellScript {
-            dictionary["shellScript"] = .string(PBXProjPlistCommentedString(shellScript))
-        }
-        return (key: PBXProjPlistCommentedString(self.reference,
-                                                 comment: "Run Script"),
-                value: .dictionary(dictionary))
-    }
-    
-    //    23BB67521EE325E600BE9E79 /* Run Script */ = {
-    //    isa = PBXShellScriptBuildPhase;
-    //    buildActionMask = 2147483647;
-    //    files = (
-    //    );
-    //    inputPaths = (
-    //				"$(SRCROOT)/myfile",
-    //    );
-    //    name = "Run Script";
-    //    outputPaths = (
-    //    );
-    //    runOnlyForDeploymentPostprocessing = 0;
-    //    shellPath = /bin/sh;
-    //    shellScript = /test;
-    //    };
 }
