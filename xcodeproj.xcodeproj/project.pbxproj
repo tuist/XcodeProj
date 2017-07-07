@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */; };
 		23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */; };
 		237C6E8E1EEC82A300EB8F39 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */; };
 		237C6E901EEC8A0F00EB8F39 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */; };
@@ -420,6 +421,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriter.swift; sourceTree = "<group>"; };
 		237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfig.swift; sourceTree = "<group>"; };
 		237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 			children = (
 				OBJ_40 /* Bool+Extras.swift */,
 				OBJ_41 /* Dictionary+Extras.swift */,
+				04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */,
 			);
 			name = xcodeprojextensions;
 			path = Sources/xcodeprojextensions;
@@ -1407,6 +1410,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_342 /* Bool+Extras.swift in Sources */,
+				04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */,
 				OBJ_343 /* Dictionary+Extras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

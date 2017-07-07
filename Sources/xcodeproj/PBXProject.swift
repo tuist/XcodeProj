@@ -1,5 +1,6 @@
 import Foundation
 import Unbox
+import xcodeprojextensions
 
 // This is the element for a build target that produces a binary content (application or library).
 public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
@@ -137,7 +138,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         let buildConfigurationListCommentedString = PBXProjPlistCommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
-        dictionary["compatibilityVersion"] = .string(PBXProjPlistCommentedString("\"\(compatibilityVersion)\""))
+        dictionary["compatibilityVersion"] = .string(PBXProjPlistCommentedString(compatibilityVersion.quoted))
         if let developmentRegion = developmentRegion {
             dictionary["developmentRegion"] = .string(PBXProjPlistCommentedString(developmentRegion))
         }
@@ -153,10 +154,10 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
                                                                                 comment: "Products"))
         }
         if let projectDirPath = projectDirPath {
-            dictionary["projectDirPath"] = .string(PBXProjPlistCommentedString("\"\(projectDirPath)\""))
+            dictionary["projectDirPath"] = .string(PBXProjPlistCommentedString(projectDirPath.quoted))
         }
         if let projectRoot = projectRoot {
-            dictionary["projectRoot"] = .string(PBXProjPlistCommentedString("\"\(projectRoot)\""))
+            dictionary["projectRoot"] = .string(PBXProjPlistCommentedString(projectRoot.quoted))
         }
         dictionary["targets"] = PBXProjPlistValue.array(targets
             .map { target in

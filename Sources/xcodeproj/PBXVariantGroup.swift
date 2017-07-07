@@ -98,7 +98,7 @@ public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
         var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
         dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(PBXProjPlistCommentedString(name))
-        dictionary["sourceTree"] = .string(PBXProjPlistCommentedString("\"\(sourceTree.rawValue)\""))
+        dictionary["sourceTree"] = .string(PBXProjPlistCommentedString("\(sourceTree.rawValue)".quoted))
         dictionary["children"] = .array(children
             .map({PBXProjPlistValue.string(PBXProjPlistCommentedString($0,
                                                                        comment: proj.objects.fileName(from: $0)))}))

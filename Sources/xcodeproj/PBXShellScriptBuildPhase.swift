@@ -1,5 +1,6 @@
 import Foundation
 import Unbox
+import xcodeprojextensions
 
 // This is the element for the resources copy build phase.
 public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSerializable {
@@ -203,7 +204,7 @@ public struct PBXShellScriptBuildPhase: ProjectElement, Hashable, PBXProjPlistSe
         dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
         // files
         // inputPaths
-        dictionary["name"] = .string(PBXProjPlistCommentedString("\"\(name)\""))
+        dictionary["name"] = .string(PBXProjPlistCommentedString(name.quoted))
         // outputPaths
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
         if let shellScript = shellScript {
