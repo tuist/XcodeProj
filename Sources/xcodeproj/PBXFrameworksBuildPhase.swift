@@ -12,6 +12,9 @@ public struct PBXFrameworksBuildPhase {
     /// Framework build phase files.
     public let files: Set<UUID>
     
+    /// Build phase build action mask.
+    public let buildActionMask: Int
+    
     /// Build phase run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: UInt
     
@@ -25,10 +28,12 @@ public struct PBXFrameworksBuildPhase {
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment pos processing value.
     public init(reference: UUID,
                 files: Set<UUID>,
-                runOnlyForDeploymentPostprocessing: UInt) {
+                runOnlyForDeploymentPostprocessing: UInt,
+                buildActionMask: Int = 2147483647) {
         self.reference = reference
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+        self.buildActionMask = buildActionMask
     }
     
 }
@@ -83,5 +88,26 @@ extension PBXFrameworksBuildPhase: ProjectElement {
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
     }
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (PBXProjPlistSerializable)
+
+extension PBXFrameworksBuildPhase: PBXProjPlistSerializable {
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXFrameworksBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+        dictionary["files"] = .array(files.map({ (fileReference) -> PBXProjPlistValue in
+            let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Frameworks"})
+            return .string(PBXProjPlistCommentedString(fileReference, comment: comment))
+        }))
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "Frameworks"),
+                value: .dictionary(dictionary))
+    }
+    
 }
