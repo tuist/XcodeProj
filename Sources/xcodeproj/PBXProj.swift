@@ -30,7 +30,11 @@ public struct PBXProj {
     /// Project root object.
     public let rootObject: UUID
     
-    // MARK: - Init
+}
+
+// MARK: - PBXProj Extension (Init)
+
+extension PBXProj {
     
     /// Initializes the project with its attributes.
     ///
@@ -89,6 +93,22 @@ public struct PBXProj {
             .filter { $0 != nil }
             .map { $0! }
         self.rootObject = try unboxer.unbox(key: "rootObject")
+    }
+    
+}
+
+// MARK: - PBXProj Extension (Equatable)
+
+extension PBXProj: Equatable {
+    
+    public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
+        return lhs.path == rhs.path &&
+        lhs.name == rhs.name &&
+        lhs.archiveVersion == rhs.archiveVersion &&
+        lhs.objectVersion == rhs.objectVersion &&
+        NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
+        lhs.objects == rhs.objects &&
+        lhs.rootObject == rhs.rootObject
     }
     
 }
