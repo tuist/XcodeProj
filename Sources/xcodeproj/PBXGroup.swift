@@ -1,12 +1,10 @@
 import Foundation
 import Unbox
+import xcodeprojextensions
 
-public struct PBXGroup: ProjectElement {
+public struct PBXGroup {
     
     // MARK: - Attributes
-    
-    /// Element isa.
-    public static var isa: String = "PBXGroup"
     
     /// Element reference.
     public let reference: UUID
@@ -39,21 +37,11 @@ public struct PBXGroup: ProjectElement {
         self.sourceTree = sourceTree
     }
     
-    /// Constructor that initializes the project element with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.children = try unboxer.unbox(key: "children")
-        self.name = unboxer.unbox(key: "name")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-    }
-    
-    // MARK: - Public
+}
+
+// MARK: - PBXGroup Extension (Extras)
+
+extension PBXGroup {
     
     /// Returns a new group adding a child.
     ///
@@ -81,8 +69,14 @@ public struct PBXGroup: ProjectElement {
                         name: name)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXGroup Extension (ProjectElement)
+
+extension PBXGroup: ProjectElement {
     
+    public static var isa: String = "PBXGroup"
+
     public static func == (lhs: PBXGroup,
                            rhs: PBXGroup) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -92,5 +86,45 @@ public struct PBXGroup: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+   
+    public init(reference: UUID, dictionary: [String : Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.children = try unboxer.unbox(key: "children")
+        self.name = unboxer.unbox(key: "name")
+        self.sourceTree = try unboxer.unbox(key: "sourceTree")
+    }
+}
+
+// MARK: - PBXGroup Extension (PBXProjPlistSerializable)
+
+extension PBXGroup: PBXProjPlistSerializable {
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXGroup.isa))
+        dictionary["children"] = .array(children.map({ (fileReference) -> PBXProjPlistValue in
+            let comment = name(reference: fileReference, proj: proj)
+            return .string(PBXProjPlistCommentedString(fileReference, comment: comment))
+        }))
+        if let name = name {
+            dictionary["name"] = .string(PBXProjPlistCommentedString(name))
+        }
+        dictionary["sourceTree"] = .string(PBXProjPlistCommentedString(sourceTree.rawValue.quoted))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: self.name),
+                value: .dictionary(dictionary))
+    }
+    
+    fileprivate func name(reference: UUID, proj: PBXProj) -> String? {
+        let group = proj.objects.groups.filter({ $0.reference == reference }).first
+        let file = proj.objects.fileReferences.filter({ $0.reference == reference }).first
+        if let group = group, let groupName = group.name {
+            return groupName
+        } else if let file = file {
+            return file.path ?? file.path
+        }
+        return nil
+    }
     
 }

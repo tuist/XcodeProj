@@ -125,7 +125,7 @@ class PBXProjWriter {
         // PBXFileReference
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
         // PBXFileElement
-        // PBXGroup
+        write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
         write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
         write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
         write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
