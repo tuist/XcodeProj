@@ -43,6 +43,16 @@ public struct XCWorkspace {
 
 }
 
+// MARK: - XCWorkspace Extension (Equatable)
+
+extension XCWorkspace: Equatable {
+    
+    public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
+        return lhs.path == rhs.path && rhs.data == rhs.data
+    }
+    
+}
+
 /// XCWorkspace Errors
 ///
 /// - notFound: the project cannot be found.
