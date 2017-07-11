@@ -153,3 +153,19 @@ extension PBXProj: Writable {
     }
     
 }
+
+// MARK: - PBXProj Extension (Extras)
+
+extension PBXProj {
+    
+    func buildFileName(reference: UUID) -> String? {
+        guard let fileRef = objects.buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
+        if let variantGroup = objects.variantGroups.filter({ $0.reference == fileRef }).first {
+            return variantGroup.name
+        } else if let fileReference = objects.fileReferences.filter({ $0.reference == fileRef}).first {
+            return fileReference.path ?? fileReference.name
+        }
+        return nil
+    }
+    
+}

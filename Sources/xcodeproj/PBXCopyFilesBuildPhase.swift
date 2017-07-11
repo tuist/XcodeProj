@@ -137,23 +137,14 @@ extension PBXCopyFilesBuildPhase: PBXProjPlistSerializable {
         dictionary["dstSubfolderSpec"] = .string(PBXProjPlistCommentedString("\(dstSubfolderSpec)"))
         dictionary["files"] = .array(self.files
             .map { reference in
-                let fileName = buildFileName(reference: reference, proj: proj).flatMap { "\($0) in CopyFiles" }
+                
+                let fileName = proj.buildFileName(reference: reference).flatMap { "\($0) in CopyFiles" }
                 return PBXProjPlistValue.string(PBXProjPlistCommentedString(reference, comment: fileName))
             })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
         return (key: PBXProjPlistCommentedString(self.reference,
                                                  comment: "CopyFiles"),
                 value: .dictionary(dictionary))
-    }
-    
-    func buildFileName(reference: UUID, proj: PBXProj) -> String? {
-        guard let fileRef = proj.objects.buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
-        if let variantGroup = proj.objects.variantGroups.filter({ $0.reference == fileRef }).first {
-            return variantGroup.name
-        } else if let fileReference = proj.objects.fileReferences.filter({ $0.reference == fileRef}).first {
-            return fileReference.path ?? fileReference.name
-        }
-        return nil
     }
     
 }

@@ -2,16 +2,13 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
+public struct PBXResourcesBuildPhase {
     
     /// Element reference
     public let reference: UUID
     
-    /// Element isa.
-    public static var isa: String = "PBXResourcesBuildPhase"
-    
     /// Element build action mask.
-    public let buildActionMask: Int = 2147483647
+    public let buildActionMask: Int
     
     /// Element files.
     public let files: Set<UUID>
@@ -27,26 +24,45 @@ public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
     public init(reference: String,
                 files: Set<UUID>,
-                runOnlyForDeploymentPostprocessing: Int = 0) {
+                runOnlyForDeploymentPostprocessing: Int = 0,
+                buildActionMask: Int = 2147483647) {
         self.reference = reference
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+        self.buildActionMask = buildActionMask
     }
+    
+}
 
-    /// Initializes the resources build phase with the element 
-    /// reference and the dictionary that contains its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with its attributes
+// MARK: - PBXResourcesBuildPhase Extension (ProjectElement)
+
+extension PBXResourcesBuildPhase: ProjectElement {
+    
+    public static var isa: String = "PBXResourcesBuildPhase"
+
     public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = (unboxer.unbox(key: "files")) ?? []
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
     }
     
-    // MARK: - Public
+    public static func == (lhs: PBXResourcesBuildPhase,
+                           rhs: PBXResourcesBuildPhase) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
+}
+
+// MARK: - PBXResourcesBuildPhase Extension (Extras)
+
+extension PBXResourcesBuildPhase {
     
     /// It returns a new resources build phase with a file added.
     ///
@@ -70,16 +86,24 @@ public struct PBXResourcesBuildPhase: ProjectElement, Hashable {
                                       files: files)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXResourcesBuildPhase Extension (PBXProjPlistSerializable)
+
+extension PBXResourcesBuildPhase: PBXProjPlistSerializable {
     
-    public static func == (lhs: PBXResourcesBuildPhase,
-                           rhs: PBXResourcesBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.buildActionMask == rhs.buildActionMask &&
-        lhs.files == rhs.files &&
-        lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXResourcesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+        dictionary["files"] = .array(files.map({ (fileReference) -> PBXProjPlistValue in
+            let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Resources"})
+            return .string(PBXProjPlistCommentedString(fileReference, comment: comment))
+        }))
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: PBXProjPlistCommentedString(self.reference,
+                                                 comment: "Resources"),
+                value: .dictionary(dictionary))
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-
 }
