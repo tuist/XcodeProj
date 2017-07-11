@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for the framewrok link build phase.
-public struct PBXFrameworksBuildPhase: ProjectElement {
+public struct PBXFrameworksBuildPhase {
     
     // MARK: - Properties
-    
-    /// Element isa.
-    public static var isa: String = "PBXFrameworksBuildPhase"
     
     /// Element reference.
     public let reference: UUID
@@ -34,20 +31,11 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
     
-    /// Initializes the frameworks build phase with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the attributes.
-    /// - Throws: an error in case any of the attributes is missing or it has the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-    }
-    
-    // MARK: - Public
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (Extras)
+
+extension PBXFrameworksBuildPhase {
     
     /// Returns a new frameworks build phase with a new file added.
     ///
@@ -73,8 +61,14 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
                                        runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (ProjectElement)
+
+extension PBXFrameworksBuildPhase: ProjectElement {
     
+    public static var isa: String = "PBXFrameworksBuildPhase"
+
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -84,4 +78,10 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
+    public init(reference: UUID, dictionary: [String : Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.files = try unboxer.unbox(key: "files")
+        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+    }
 }
