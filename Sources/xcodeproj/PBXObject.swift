@@ -134,6 +134,29 @@ public enum PBXObject: Hashable {
         case .pbxProject(let element): return element.hashValue
         }
     }
+    
+    public var reference: UUID {
+        switch self {
+        case .pbxBuildFile(let element): return element.reference
+        case .pbxAggregateTarget(let element): return element.reference
+        case .pbxContainerItemProxy(let element): return element.reference
+        case .pbxCopyFilesBuildPhase(let element): return element.reference
+        case .pbxGroup(let element): return element.reference
+        case .pbxFileElement(let element): return element.reference
+        case .xcConfigurationList(let element): return element.reference
+        case .xcBuildConfiguration(let element): return element.reference
+        case .pbxVariantGroup(let element): return element.reference
+        case .pbxTargetDependency(let element): return element.reference
+        case .pbxSourcesBuildPhase(let element): return element.reference
+        case .pbxShellScriptBuildPhase(let element): return element.reference
+        case .pbxResourcesBuildPhase(let element): return element.reference
+        case .pbxFrameworksBuildPhase(let element): return element.reference
+        case .pbxHeadersBuildPhase(let element): return element.reference
+        case .pbxNativeTarget(let element): return element.reference
+        case .pbxFileReference(let element): return element.reference
+        case .pbxProject(let element): return element.reference
+        }
+    }
 }
 
 public enum PBXObjectError: Error, CustomStringConvertible {

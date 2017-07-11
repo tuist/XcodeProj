@@ -91,39 +91,6 @@ public struct PBXProj {
         self.rootObject = try unboxer.unbox(key: "rootObject")
     }
     
-    /// Returns a new PBXProj removing an object.
-    ///
-    /// - Parameter object: object to be removed.
-    /// - Returns: a new PBXProj object with the object removed.
-    public func removing(object: PBXObject) -> PBXProj {
-        var objects = self.objects
-        if let index = objects.index(of: object) {
-            objects.remove(at: index)
-        }
-        return PBXProj(path: path,
-                       name: name,
-                       archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
-    }
-    
-    /// Returns a new PBXProj adding an object.
-    ///
-    /// - Parameter object: object to be added.
-    /// - Returns: a new PBXProj object with the object added.
-    public func adding(object: PBXObject) -> PBXProj {
-        var objects = self.objects
-        objects.append(object)
-        return PBXProj(path: path,
-                       name: name,
-                       archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
-    }
 }
 
 // MARK: - PBXProj Error
@@ -166,6 +133,76 @@ extension PBXProj {
             return fileReference.path ?? fileReference.name
         }
         return nil
+    }
+    
+    /// Returns a new PBXProj updating an object.
+    ///
+    /// - Parameter object: object to be updated. The object reference is used to find the object in the project list of objects.
+    /// - Returns: a new PBXProj object with the object udpated.
+    public func updating(object: PBXObject) -> PBXProj {
+        var objects = self.objects
+        if let index = objects.index(of: object) {
+            objects.replaceSubrange(index..<index+1, with: [object])
+        }
+        return PBXProj(path: path,
+                       name: name,
+                       archiveVersion: archiveVersion,
+                       objectVersion: objectVersion,
+                       rootObject: rootObject,
+                       classes: classes,
+                       objects: objects)
+    }
+    
+    /// Returns a new PBXProj removing an object.
+    ///
+    /// - Parameter object: object to be removed.
+    /// - Returns: a new PBXProj object with the object removed.
+    public func removing(object: PBXObject) -> PBXProj {
+        var objects = self.objects
+        if let index = objects.index(of: object) {
+            objects.remove(at: index)
+        }
+        return PBXProj(path: path,
+                       name: name,
+                       archiveVersion: archiveVersion,
+                       objectVersion: objectVersion,
+                       rootObject: rootObject,
+                       classes: classes,
+                       objects: objects)
+    }
+    
+    /// Returns a new PBXProj removing the object with the given reference.
+    ///
+    /// - Parameter objectReference: reference that identifies the object to be removed.
+    /// - Returns: a new PBXProj object with the object removed.
+    public func removing(objectReference: UUID) -> PBXProj {
+        var objects = self.objects
+        if let index = objects.index(where: {$0.reference == objectReference}) {
+            objects.remove(at: index)
+        }
+        return PBXProj(path: path,
+                       name: name,
+                       archiveVersion: archiveVersion,
+                       objectVersion: objectVersion,
+                       rootObject: rootObject,
+                       classes: classes,
+                       objects: objects)
+    }
+    
+    /// Returns a new PBXProj adding an object.
+    ///
+    /// - Parameter object: object to be added.
+    /// - Returns: a new PBXProj object with the object added.
+    public func adding(object: PBXObject) -> PBXProj {
+        var objects = self.objects
+        objects.append(object)
+        return PBXProj(path: path,
+                       name: name,
+                       archiveVersion: archiveVersion,
+                       objectVersion: objectVersion,
+                       rootObject: rootObject,
+                       classes: classes,
+                       objects: objects)
     }
     
 }
