@@ -87,11 +87,11 @@ public struct PBXBuildFile: ProjectElement {
     public var hashValue: Int { return self.reference.hashValue }
 }
 
-// MARK: - PBXBuildFile Extension (PBXProjPlistSerializable)
+// MARK: - PBXBuildFile Extension (PlistSerializable)
 
-extension PBXBuildFile: PBXProjPlistSerializable {
+extension PBXBuildFile: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         let fileName = proj.buildFileName(reference: fileRef)

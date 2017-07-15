@@ -66,11 +66,11 @@ public struct PBXShellScriptBuildPhase {
 
 }
 
-// MARK: - PBXShellScriptBuildPhase Extension (PBXProjPlistSerializable)
+// MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)
 
-extension PBXShellScriptBuildPhase: PBXProjPlistSerializable {
+extension PBXShellScriptBuildPhase: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))

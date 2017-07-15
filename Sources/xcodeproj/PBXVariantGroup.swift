@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
+public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -92,9 +92,9 @@ public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
     
     public var hashValue: Int { return self.reference.hashValue }
 
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(CommentedString(name))

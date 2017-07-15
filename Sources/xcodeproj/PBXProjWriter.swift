@@ -1,8 +1,8 @@
 import Foundation
 
 /// Protocol that defines that the element can return a plist element that represents itself.
-protocol PBXProjPlistSerializable {
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue)
+protocol PlistSerializable {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue)
 }
 
 /// Writes your PBXProj files
@@ -88,11 +88,11 @@ class PBXProjWriter {
         output.append("/* \(comment) */")
     }
     
-    private func write(section: String, proj: PBXProj, object: [PBXProjPlistSerializable]) {
+    private func write(section: String, proj: PBXProj, object: [PlistSerializable]) {
         write(string: "/* Begin \(section) section */")
         writeNewLine()
         object.forEach { (serializable) in
-            let element = serializable.pbxProjPlistElement(proj: proj)
+            let element = serializable.plistKeyAndValue(proj: proj)
             write(dictionaryKey: element.key, dictionaryValue: element.value)
         }
         write(string: "/* End \(section) section */")

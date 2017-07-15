@@ -96,11 +96,11 @@ extension PBXGroup: ProjectElement {
     }
 }
 
-// MARK: - PBXGroup Extension (PBXProjPlistSerializable)
+// MARK: - PBXGroup Extension (PlistSerializable)
 
-extension PBXGroup: PBXProjPlistSerializable {
+extension PBXGroup: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
         dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in

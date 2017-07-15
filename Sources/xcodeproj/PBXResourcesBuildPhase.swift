@@ -88,11 +88,11 @@ extension PBXResourcesBuildPhase {
     
 }
 
-// MARK: - PBXResourcesBuildPhase Extension (PBXProjPlistSerializable)
+// MARK: - PBXResourcesBuildPhase Extension (PlistSerializable)
 
-extension PBXResourcesBuildPhase: PBXProjPlistSerializable {
+extension PBXResourcesBuildPhase: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXResourcesBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))

@@ -222,11 +222,11 @@ extension PBXNativeTarget {
     
 }
 
-// MARK: - PBXNativeTarget Extension (PBXProjPlistSerializable)
+// MARK: - PBXNativeTarget Extension (PlistSerializable)
 
-extension PBXNativeTarget: PBXProjPlistSerializable {
+extension PBXNativeTarget: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         
         dictionary["isa"] = .string(CommentedString(PBXNativeTarget.isa))

@@ -92,11 +92,11 @@ extension PBXFrameworksBuildPhase: ProjectElement {
     }
 }
 
-// MARK: - PBXFrameworksBuildPhase Extension (PBXProjPlistSerializable)
+// MARK: - PBXFrameworksBuildPhase Extension (PlistSerializable)
 
-extension PBXFrameworksBuildPhase: PBXProjPlistSerializable {
+extension PBXFrameworksBuildPhase: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFrameworksBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))

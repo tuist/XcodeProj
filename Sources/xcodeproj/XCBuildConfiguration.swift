@@ -99,11 +99,11 @@ extension XCBuildConfiguration: ProjectElement {
     
 }
 
-// MARK: - XCBuildConfiguration Extension (PBXProjPlistSerializable)
+// MARK: - XCBuildConfiguration Extension (PlistSerializable)
 
-extension XCBuildConfiguration: PBXProjPlistSerializable {
+extension XCBuildConfiguration: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))

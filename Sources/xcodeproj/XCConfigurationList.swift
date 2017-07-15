@@ -78,13 +78,13 @@ extension XCConfigurationList {
     
 }
 
-// MARK: - XCConfigurationList Extension (PBXProjPlistSerializable)
+// MARK: - XCConfigurationList Extension (PlistSerializable)
 
-extension XCConfigurationList: PBXProjPlistSerializable {
+extension XCConfigurationList: PlistSerializable {
     
     public static var isa: String = "XCConfigurationList"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
+public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -80,9 +80,9 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))

@@ -3,7 +3,7 @@ import Unbox
 import xcodeprojextensions
 
 // This is the element for a build target that produces a binary content (application or library).
-public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
+public struct PBXProject: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -129,9 +129,9 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""

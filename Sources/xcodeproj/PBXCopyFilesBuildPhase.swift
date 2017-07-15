@@ -123,13 +123,13 @@ extension PBXCopyFilesBuildPhase: ProjectElement {
     
 }
 
-// MARK: - PBXCopyFilesBuildPhase Extension (PBXProjPlistSerializable)
+// MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
 
-extension PBXCopyFilesBuildPhase: PBXProjPlistSerializable {
+extension PBXCopyFilesBuildPhase: PlistSerializable {
     
     public static var isa: String = "PBXCopyFilesBuildPhase"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
