@@ -5,14 +5,14 @@ public struct BuildSettings {
     
     // MARK: - Attributes
     
-    public var dictionary: [String: String]
+    public var dictionary: [String: Any]
     
     // MARK: - Init
     
     /// Initializes the build settings with the dictionary that contains all the settings.
     ///
     /// - Parameter dictionary: build settings dictionary.
-    public init(dictionary: [String: String]) {
+    public init(dictionary: [String: Any]) {
         self.dictionary = dictionary
     }
     
@@ -21,7 +21,7 @@ public struct BuildSettings {
     /// Returns the value for a given setting.
     ///
     /// - Parameter key: setting whose value will be returned.
-    public subscript(key: String) -> String? {
+    public subscript(key: String) -> Any? {
         get {
             return self.dictionary[key]
         }

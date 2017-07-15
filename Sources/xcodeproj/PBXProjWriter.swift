@@ -54,6 +54,7 @@ class PBXProjWriter {
               dictionaryValue: .string(CommentedString(proj.rootObject,
                                                                    comment: "Project object")))
         writeDictionaryEnd()
+        writeNewLine()
         return output
     }
     

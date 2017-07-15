@@ -93,7 +93,7 @@ extension XCBuildConfiguration: ProjectElement {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: String]) ?? [:])
+        self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: Any]) ?? [:])
         self.name = try unboxer.unbox(key: "name")
     }
     

@@ -44,6 +44,9 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     // The objects are a reference to a PBXTarget element.
     public let targets: [UUID]
     
+    /// Project attributes.
+    public let attributes: [String: Any]
+    
     // MARK: - Init
     
     /// Initializes the project with its attributes
@@ -61,6 +64,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     ///   - projectReferences: project references.
     ///   - projectRoot: project root.
     ///   - targets: project targets.
+    ///   - attributes: project attributes.
     public init(reference: UUID,
                 buildConfigurationList: UUID,
                 compatibilityVersion: String,
@@ -72,7 +76,8 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                 projectDirPath: String? = nil,
                 projectReferences: [Any] = [],
                 projectRoot: String? = nil,
-                targets: [UUID] = []) {
+                targets: [UUID] = [],
+                attributes: [String: Any] = [:]) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
         self.compatibilityVersion = compatibilityVersion
@@ -85,6 +90,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.projectReferences = projectReferences
         self.projectRoot = projectRoot
         self.targets = targets
+        self.attributes = attributes
     }
     
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
@@ -107,6 +113,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.projectReferences = (unboxer.unbox(key: "projectReferences")) ?? []
         self.projectRoot = unboxer.unbox(key: "projectRoot")
         self.targets = (unboxer.unbox(key: "targets")) ?? []
+        self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
     }
     
     // MARK: - Hashable
@@ -124,7 +131,8 @@ public struct PBXProject: ProjectElement, PlistSerializable {
             lhs.projectDirPath == rhs.projectDirPath &&
             NSArray(array: lhs.projectReferences).isEqual(to: NSArray(array: rhs.projectReferences)) &&
             lhs.projectRoot == rhs.projectRoot &&
-            lhs.targets == rhs.targets
+            lhs.targets == rhs.targets &&
+            NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
     }
     
     public var hashValue: Int { return self.reference.hashValue }
@@ -164,6 +172,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                 return .string(CommentedString(target,
                                                            comment: nativeTarget(from: target, proj: proj)))
         })
+        dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(self.reference,
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))
