@@ -110,7 +110,7 @@ extension PBXGroup: PlistSerializable {
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        dictionary["sourceTree"] = .string(CommentedString(sourceTree.rawValue.quoted))
+        dictionary["sourceTree"] = sourceTree.plist()
         return (key: CommentedString(self.reference,
                                                  comment: self.name),
                 value: .dictionary(dictionary))

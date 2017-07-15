@@ -98,7 +98,7 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(CommentedString(name))
-        dictionary["sourceTree"] = .string(CommentedString("\(sourceTree.rawValue)".quoted))
+        dictionary["sourceTree"] = sourceTree.plist()
         dictionary["children"] = .array(children
             .map({PlistValue.string(CommentedString($0,
                                                                        comment: proj.objects.fileName(from: $0)))}))

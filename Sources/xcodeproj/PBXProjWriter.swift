@@ -25,7 +25,7 @@ class PBXProjWriter {
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
         // PBXAggregateTarget
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
-        // PBXFileReference
+        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
         // PBXFileElement
         write(section: "PBXGroup", proj: proj, object: proj.objects.groups)

@@ -10,3 +10,18 @@ public enum PBXSourceTree: String, UnboxableEnum, Hashable {
     case buildProductsDir = "BUILT_PRODUCTS_DIR"
     case sdkRoot = "SDKROOT"
 }
+
+// MARK: - PBXSourceTree Extension (PlistValue)
+
+extension PBXSourceTree {
+    
+    func plist() -> PlistValue {
+        switch self {
+        case .absolute, .group, .none:
+            return .string(CommentedString(self.rawValue.quoted))
+        default:
+            return .string(CommentedString(self.rawValue))
+        }
+    }
+
+}
