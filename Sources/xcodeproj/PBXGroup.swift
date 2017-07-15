@@ -100,10 +100,10 @@ extension PBXGroup: ProjectElement {
 
 extension PBXGroup: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
-        dictionary["children"] = .array(children.map({ (fileReference) -> PBXProjPlistValue in
+        dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
             let comment = name(reference: fileReference, proj: proj)
             return .string(CommentedString(fileReference, comment: comment))
         }))

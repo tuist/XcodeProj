@@ -129,8 +129,8 @@ extension PBXCopyFilesBuildPhase: PBXProjPlistSerializable {
     
     public static var isa: String = "PBXCopyFilesBuildPhase"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["dstPath"] = .string(CommentedString(dstPath.quoted))
@@ -139,7 +139,7 @@ extension PBXCopyFilesBuildPhase: PBXProjPlistSerializable {
             .map { reference in
                 
                 let fileName = proj.buildFileName(reference: reference).flatMap { "\($0) in CopyFiles" }
-                return PBXProjPlistValue.string(CommentedString(reference, comment: fileName))
+                return PlistValue.string(CommentedString(reference, comment: fileName))
             })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
         return (key: CommentedString(self.reference,

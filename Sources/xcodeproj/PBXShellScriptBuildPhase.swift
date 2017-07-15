@@ -70,8 +70,8 @@ public struct PBXShellScriptBuildPhase {
 
 extension PBXShellScriptBuildPhase: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         // files

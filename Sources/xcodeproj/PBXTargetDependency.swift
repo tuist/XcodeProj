@@ -60,8 +60,8 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PBXProjPlistSeriali
     
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         dictionary["target"] = .string(CommentedString(target, comment: target(from: target, proj: proj)))
         dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))

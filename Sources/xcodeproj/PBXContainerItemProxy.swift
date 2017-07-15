@@ -78,8 +78,8 @@ extension PBXContainerItemProxy: PBXProjPlistSerializable {
     
     public static var isa: String = "PBXContainerItemProxy"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
         dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))

@@ -97,11 +97,11 @@ extension PBXHeadersBuildPhase: ProjectElement {
 
 extension PBXHeadersBuildPhase: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFrameworksBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["files"] = .array(files.map({ (fileReference) -> PBXProjPlistValue in
+        dictionary["files"] = .array(files.map({ (fileReference) -> PlistValue in
             let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Headers"})
             return .string(CommentedString(fileReference, comment: comment))
         }))

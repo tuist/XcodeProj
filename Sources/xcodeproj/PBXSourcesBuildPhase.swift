@@ -82,8 +82,8 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { file in
@@ -91,7 +91,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
             if let fileString = fileName(from: file, proj: proj) {
                 comment = "\(fileString) in Sources"
             }
-            return PBXProjPlistValue.string(CommentedString(file, comment: comment))
+            return PlistValue.string(CommentedString(file, comment: comment))
         })
         
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))

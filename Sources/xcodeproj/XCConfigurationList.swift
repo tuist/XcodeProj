@@ -84,8 +84,8 @@ extension XCConfigurationList: PBXProjPlistSerializable {
     
     public static var isa: String = "XCConfigurationList"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
             .map { .string(CommentedString($0, comment: proj.objects.configName(from: $0)))

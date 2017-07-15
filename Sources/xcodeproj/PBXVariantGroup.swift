@@ -94,13 +94,13 @@ public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
 
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["sourceTree"] = .string(CommentedString("\(sourceTree.rawValue)".quoted))
         dictionary["children"] = .array(children
-            .map({PBXProjPlistValue.string(CommentedString($0,
+            .map({PlistValue.string(CommentedString($0,
                                                                        comment: proj.objects.fileName(from: $0)))}))
         return (key: CommentedString(self.reference,
                                                  comment: name),

@@ -103,11 +103,11 @@ extension XCBuildConfiguration: ProjectElement {
 
 extension XCBuildConfiguration: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
-        var buildSettingsDictionary: [CommentedString: PBXProjPlistValue] = [:]
+        var buildSettingsDictionary: [CommentedString: PlistValue] = [:]
         buildSettings.dictionary.forEach {
             buildSettingsDictionary[CommentedString($0.key)] = .string(CommentedString($0.value))
         }

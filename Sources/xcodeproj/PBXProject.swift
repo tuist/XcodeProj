@@ -131,8 +131,8 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
-        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""
         let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
@@ -145,7 +145,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         if let hasScannedForEncodings = hasScannedForEncodings {
             dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
         }
-        dictionary["knownRegions"] = PBXProjPlistValue.array(knownRegions
+        dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
         
         dictionary["mainGroup"] = .string(CommentedString(mainGroup))
@@ -159,7 +159,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         if let projectRoot = projectRoot {
             dictionary["projectRoot"] = .string(CommentedString(projectRoot.quoted))
         }
-        dictionary["targets"] = PBXProjPlistValue.array(targets
+        dictionary["targets"] = PlistValue.array(targets
             .map { target in
                 return .string(CommentedString(target,
                                                            comment: nativeTarget(from: target, proj: proj)))
