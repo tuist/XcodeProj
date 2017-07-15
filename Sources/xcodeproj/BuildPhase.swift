@@ -13,6 +13,6 @@ public enum BuildPhase: String {
     case frameworks = "Frameworks"
     case resources = "Resources"
     case copyFiles = "Copy Files"
-    case runScript = "Run script"
+    case runScript = "Run Script"
     case headers = "Headers"
 }
