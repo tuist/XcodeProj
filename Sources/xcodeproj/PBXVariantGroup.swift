@@ -94,15 +94,15 @@ public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
 
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXVariantGroup.isa))
-        dictionary["name"] = .string(PBXProjPlistCommentedString(name))
-        dictionary["sourceTree"] = .string(PBXProjPlistCommentedString("\(sourceTree.rawValue)".quoted))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
+        dictionary["name"] = .string(CommentedString(name))
+        dictionary["sourceTree"] = .string(CommentedString("\(sourceTree.rawValue)".quoted))
         dictionary["children"] = .array(children
-            .map({PBXProjPlistValue.string(PBXProjPlistCommentedString($0,
+            .map({PBXProjPlistValue.string(CommentedString($0,
                                                                        comment: proj.objects.fileName(from: $0)))}))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
     }

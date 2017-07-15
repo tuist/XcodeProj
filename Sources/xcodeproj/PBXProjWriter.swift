@@ -1,57 +1,15 @@
 import Foundation
 
-/// PBXProjPlist string that contains a comment.
-struct PBXProjPlistCommentedString: Hashable, ExpressibleByStringLiteral {
-
-    /// Entity string value.
-    let string: String
-
-    /// String comment.
-    let comment: String?
-    
-    /// Initializes the commented string with the value and the comment.
-    ///
-    /// - Parameters:
-    ///   - string: string value.
-    ///   - comment: comment.
-    init(_ string: String, comment: String? = nil) {
-        self.string = string
-        self.comment = comment
-    }
-    
-    // MARK: - Hashable
-    
-    var hashValue: Int { return string.hashValue }
-    static func == (lhs: PBXProjPlistCommentedString, rhs: PBXProjPlistCommentedString) -> Bool {
-        return lhs.string == rhs.string && lhs.comment == rhs.comment
-    }
-    
-    // MARK: - ExpressibleByStringLiteral
-    
-    public init(stringLiteral value: String) {
-        self.init(value)
-    }
-
-    public init(extendedGraphemeClusterLiteral value: String) {
-        self.init(value)
-    }
-    
-    public init(unicodeScalarLiteral value: String) {
-        self.init(value)
-    }
-    
-}
-
 /// It represents a PBXProj Plist valid value.
 ///
 /// - string: commented string.
 /// - array: array of plist values.
 /// - dictionary: dictionary where the keys are a commented strings and the values are a plist values.
 enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLiteral, ExpressibleByStringLiteral {
-    case string(PBXProjPlistCommentedString)
+    case string(CommentedString)
     case array([PBXProjPlistValue])
-    case dictionary([PBXProjPlistCommentedString: PBXProjPlistValue])
-    var string: (PBXProjPlistCommentedString)? {
+    case dictionary([CommentedString: PBXProjPlistValue])
+    var string: (CommentedString)? {
         switch self {
         case .string(let string): return string
         default: return nil
@@ -63,7 +21,7 @@ enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLitera
         default: return nil
         }
     }
-    var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue]? {
+    var dictionary: [CommentedString: PBXProjPlistValue]? {
         switch self {
         case .dictionary(let dictionary): return dictionary
         default: return nil
@@ -78,8 +36,8 @@ enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLitera
     
     // MARK: - ExpressibleByDictionaryLiteral
     
-    public init(dictionaryLiteral elements: (PBXProjPlistCommentedString, PBXProjPlistValue)...) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+    public init(dictionaryLiteral elements: (CommentedString, PBXProjPlistValue)...) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
         elements.forEach { dictionary[$0.0] = $0.1 }
         self = .dictionary(dictionary)
     }
@@ -87,13 +45,13 @@ enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLitera
     // MARK: - ExpressibleByStringLiteral
     
     public init(stringLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
+        self = .string(CommentedString(value))
     }
     public init(extendedGraphemeClusterLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
+        self = .string(CommentedString(value))
     }
     public init(unicodeScalarLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
+        self = .string(CommentedString(value))
     }
 }
 
@@ -118,7 +76,7 @@ extension PBXProjPlistValue: Equatable {
 
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PBXProjPlistSerializable {
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue)
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue)
 }
 
 // MARK: - Dictionary Extension (PBXProjPlistValue)
@@ -126,14 +84,14 @@ protocol PBXProjPlistSerializable {
 extension Dictionary where Key == String {
     
     func pbxProjPlistValue() -> PBXProjPlistValue {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
         self.forEach { (key, value) in
             if let array = value as? [Any] {
-                dictionary[PBXProjPlistCommentedString(key)] = array.pbxProjPlistValue()
+                dictionary[CommentedString(key)] = array.pbxProjPlistValue()
             } else if let subDictionary = value as? [String: Any] {
-                dictionary[PBXProjPlistCommentedString(key)] = subDictionary.pbxProjPlistValue()
+                dictionary[CommentedString(key)] = subDictionary.pbxProjPlistValue()
             } else if let string = value as? CustomStringConvertible {
-                dictionary[PBXProjPlistCommentedString(key)] = .string(PBXProjPlistCommentedString(string.description))
+                dictionary[CommentedString(key)] = .string(CommentedString(string.description))
             }
         }
         return .dictionary(dictionary)
@@ -152,7 +110,7 @@ extension Array {
             } else if let dictionary = element as? [String: Any] {
                 return dictionary.pbxProjPlistValue()
             } else if let string = element as? CustomStringConvertible {
-                return PBXProjPlistValue.string(PBXProjPlistCommentedString(string.description))
+                return PBXProjPlistValue.string(CommentedString(string.description))
             }
             return nil
         }))
@@ -170,9 +128,9 @@ class PBXProjWriter {
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
-        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(PBXProjPlistCommentedString("\(proj.archiveVersion)")))
+        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")))
         write(dictionaryKey: "classes", dictionaryValue: .array([]))
-        write(dictionaryKey: "objectVersion", dictionaryValue: .string(PBXProjPlistCommentedString("\(proj.objectVersion)")))
+        write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")))
         writeIndent()
         write(string: "objects = {")
         increaseIndent()
@@ -200,7 +158,7 @@ class PBXProjWriter {
         write(string: "};")
         writeNewLine()
         write(dictionaryKey: "rootObject",
-              dictionaryValue: .string(PBXProjPlistCommentedString(proj.rootObject,
+              dictionaryValue: .string(CommentedString(proj.rootObject,
                                                                    comment: "Project object")))
         writeDictionaryEnd()
         return output
@@ -227,7 +185,7 @@ class PBXProjWriter {
         }
     }
     
-    private func write(commentedString: PBXProjPlistCommentedString) {
+    private func write(commentedString: CommentedString) {
         write(string: commentedString.string)
         if let comment = commentedString.comment {
             write(string: " ")
@@ -254,13 +212,13 @@ class PBXProjWriter {
         writeNewLine()
     }
     
-    private func write(dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue], newLines: Bool = true) {
+    private func write(dictionary: [CommentedString: PBXProjPlistValue], newLines: Bool = true) {
         writeDictionaryStart()
         dictionary.forEach { write(dictionaryKey: $0.key, dictionaryValue: $0.value) }
         writeDictionaryEnd()
     }
     
-    private func write(dictionaryKey: PBXProjPlistCommentedString, dictionaryValue: PBXProjPlistValue) {
+    private func write(dictionaryKey: CommentedString, dictionaryValue: PBXProjPlistValue) {
         writeIndent()
         write(commentedString: dictionaryKey)
         output.append(" = ")

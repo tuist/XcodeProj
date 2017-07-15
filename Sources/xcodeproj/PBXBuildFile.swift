@@ -91,15 +91,15 @@ public struct PBXBuildFile: ProjectElement {
 
 extension PBXBuildFile: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXBuildFile.isa))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         let fileName = proj.buildFileName(reference: fileRef)
-        dictionary["fileRef"] = .string(PBXProjPlistCommentedString(fileRef, comment: fileName))
+        dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
         let fileType = proj.fileType(reference: fileRef)
         // Settings
         let comment = fileName.flatMap({ fileName -> String? in return fileType.flatMap({"\(fileName) in \($0)"})})
-        return (key: PBXProjPlistCommentedString(self.reference, comment: comment),
+        return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
     }
     

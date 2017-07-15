@@ -92,16 +92,16 @@ extension PBXResourcesBuildPhase {
 
 extension PBXResourcesBuildPhase: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXResourcesBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXResourcesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map({ (fileReference) -> PBXProjPlistValue in
             let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Resources"})
-            return .string(PBXProjPlistCommentedString(fileReference, comment: comment))
+            return .string(CommentedString(fileReference, comment: comment))
         }))
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
                                                  comment: "Resources"),
                 value: .dictionary(dictionary))
     }

@@ -15,9 +15,9 @@ class PBXProjWriterSpecs: XCTestCase {
             ]
         ]
         let plist = dictionary.pbxProjPlistValue()
-        XCTAssertEqual(plist.dictionary?[PBXProjPlistCommentedString("a")], .string(PBXProjPlistCommentedString("b")))
-        XCTAssertEqual(plist.dictionary?[PBXProjPlistCommentedString("c")], .array([.string(PBXProjPlistCommentedString("d")), .string(PBXProjPlistCommentedString("e"))]))
-        XCTAssertEqual(plist.dictionary?[PBXProjPlistCommentedString("f")], .dictionary([PBXProjPlistCommentedString("g"): .string(PBXProjPlistCommentedString("h"))]))
+        XCTAssertEqual(plist.dictionary?[CommentedString("a")], .string(CommentedString("b")))
+        XCTAssertEqual(plist.dictionary?[CommentedString("c")], .array([.string(CommentedString("d")), .string(CommentedString("e"))]))
+        XCTAssertEqual(plist.dictionary?[CommentedString("f")], .dictionary([CommentedString("g"): .string(CommentedString("h"))]))
     }
     
     func test_arrayPBXProjPlistValue_returnsTheCorrectValue() {
@@ -27,9 +27,9 @@ class PBXProjWriterSpecs: XCTestCase {
             ["d": "e"]
         ]
         let plist = array.pbxProjPlistValue()
-        XCTAssertEqual(plist.array?[0], .string(PBXProjPlistCommentedString("a")))
-        XCTAssertEqual(plist.array?[1], .array([.string(PBXProjPlistCommentedString("b")), .string(PBXProjPlistCommentedString("c"))]))
-        XCTAssertEqual(plist.array?[2], .dictionary([PBXProjPlistCommentedString("d"): .string(PBXProjPlistCommentedString("e"))]))
+        XCTAssertEqual(plist.array?[0], .string(CommentedString("a")))
+        XCTAssertEqual(plist.array?[1], .array([.string(CommentedString("b")), .string(CommentedString("c"))]))
+        XCTAssertEqual(plist.array?[2], .dictionary([CommentedString("d"): .string(CommentedString("e"))]))
     }
     
     

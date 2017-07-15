@@ -78,16 +78,16 @@ extension PBXContainerItemProxy: PBXProjPlistSerializable {
     
     public static var isa: String = "PBXContainerItemProxy"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
-        dictionary["containerPortal"] = .string(PBXProjPlistCommentedString(containerPortal, comment: "Project object"))
-        dictionary["proxyType"] = .string(PBXProjPlistCommentedString("\(proxyType.rawValue)"))
-        dictionary["remoteGlobalIDString"] = .string(PBXProjPlistCommentedString(remoteGlobalIDString))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
+        dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
+        dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
+        dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalIDString))
         if let remoteInfo = remoteInfo {
-            dictionary["remoteInfo"] = .string(PBXProjPlistCommentedString(remoteInfo))
+            dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
         }
-        return (key: PBXProjPlistCommentedString(self.reference,
+        return (key: CommentedString(self.reference,
                                                  comment: "PBXContainerItemProxy"),
                 value: .dictionary(dictionary))
     }

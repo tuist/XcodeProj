@@ -129,20 +129,20 @@ extension PBXCopyFilesBuildPhase: PBXProjPlistSerializable {
     
     public static var isa: String = "PBXCopyFilesBuildPhase"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
-        dictionary["dstPath"] = .string(PBXProjPlistCommentedString(dstPath.quoted))
-        dictionary["dstSubfolderSpec"] = .string(PBXProjPlistCommentedString("\(dstSubfolderSpec)"))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        dictionary["dstPath"] = .string(CommentedString(dstPath.quoted))
+        dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec)"))
         dictionary["files"] = .array(self.files
             .map { reference in
                 
                 let fileName = proj.buildFileName(reference: reference).flatMap { "\($0) in CopyFiles" }
-                return PBXProjPlistValue.string(PBXProjPlistCommentedString(reference, comment: fileName))
+                return PBXProjPlistValue.string(CommentedString(reference, comment: fileName))
             })
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
                                                  comment: "CopyFiles"),
                 value: .dictionary(dictionary))
     }

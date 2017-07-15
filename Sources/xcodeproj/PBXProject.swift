@@ -131,40 +131,40 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXProject.isa))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""
-        let buildConfigurationListCommentedString = PBXProjPlistCommentedString(buildConfigurationList,
+        let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
-        dictionary["compatibilityVersion"] = .string(PBXProjPlistCommentedString(compatibilityVersion.quoted))
+        dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion.quoted))
         if let developmentRegion = developmentRegion {
-            dictionary["developmentRegion"] = .string(PBXProjPlistCommentedString(developmentRegion))
+            dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         if let hasScannedForEncodings = hasScannedForEncodings {
-            dictionary["hasScannedForEncodings"] = .string(PBXProjPlistCommentedString("\(hasScannedForEncodings)"))
+            dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
         }
         dictionary["knownRegions"] = PBXProjPlistValue.array(knownRegions
-            .map {.string(PBXProjPlistCommentedString("\($0)")) })
+            .map {.string(CommentedString("\($0)")) })
         
-        dictionary["mainGroup"] = .string(PBXProjPlistCommentedString(mainGroup))
+        dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
-            dictionary["productRefGroup"] = .string(PBXProjPlistCommentedString(productRefGroup,
+            dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
                                                                                 comment: "Products"))
         }
         if let projectDirPath = projectDirPath {
-            dictionary["projectDirPath"] = .string(PBXProjPlistCommentedString(projectDirPath.quoted))
+            dictionary["projectDirPath"] = .string(CommentedString(projectDirPath.quoted))
         }
         if let projectRoot = projectRoot {
-            dictionary["projectRoot"] = .string(PBXProjPlistCommentedString(projectRoot.quoted))
+            dictionary["projectRoot"] = .string(CommentedString(projectRoot.quoted))
         }
         dictionary["targets"] = PBXProjPlistValue.array(targets
             .map { target in
-                return .string(PBXProjPlistCommentedString(target,
+                return .string(CommentedString(target,
                                                            comment: nativeTarget(from: target, proj: proj)))
         })
-        return (key: PBXProjPlistCommentedString(self.reference,
+        return (key: CommentedString(self.reference,
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))
     }

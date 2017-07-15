@@ -82,20 +82,20 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
     
     // MARK: - PBXProjPlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXSourcesBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { file in
             var comment: String? = nil
             if let fileString = fileName(from: file, proj: proj) {
                 comment = "\(fileString) in Sources"
             }
-            return PBXProjPlistValue.string(PBXProjPlistCommentedString(file, comment: comment))
+            return PBXProjPlistValue.string(CommentedString(file, comment: comment))
         })
         
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
                                                  comment: "Sources"),
                 value: .dictionary(dictionary))
     }

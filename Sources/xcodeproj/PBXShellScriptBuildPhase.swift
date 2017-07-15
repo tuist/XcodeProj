@@ -70,19 +70,19 @@ public struct PBXShellScriptBuildPhase {
 
 extension PBXShellScriptBuildPhase: PBXProjPlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXShellScriptBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+    func pbxProjPlistElement(proj: PBXProj) -> (key: CommentedString, value: PBXProjPlistValue) {
+        var dictionary: [CommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         // files
         // inputPaths
-        dictionary["name"] = .string(PBXProjPlistCommentedString(name.quoted))
+        dictionary["name"] = .string(CommentedString(name.quoted))
         // outputPaths
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
         if let shellScript = shellScript {
-            dictionary["shellScript"] = .string(PBXProjPlistCommentedString(shellScript))
+            dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        return (key: PBXProjPlistCommentedString(self.reference,
+        return (key: CommentedString(self.reference,
                                                  comment: "Run Script"),
                 value: .dictionary(dictionary))
     }
