@@ -8,9 +8,6 @@ public struct PBXAggregateTarget: PBXTarget {
 
     /// Element reference.
     public let reference: UUID
-
-    /// Element isa.
-    public static var isa: String = "PBXAggregateTarget"
     
     /// Target build configuration list.
     public var buildConfigurationList: UUID
@@ -70,12 +67,20 @@ public struct PBXAggregateTarget: PBXTarget {
         self.productType = productType
     }
     
-    /// Constructor that initializes the project element with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
+}
+
+extension PBXAggregateTarget: ProjectElement {
+    
+    public static var isa: String = "PBXAggregateTarget"
+    
+    public static func == (lhs: PBXAggregateTarget,
+                           rhs: PBXAggregateTarget) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildConfigurationList == rhs.buildConfigurationList
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
     public init(reference: UUID, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -88,8 +93,12 @@ public struct PBXAggregateTarget: PBXTarget {
         self.productReference = unboxer.unbox(key: "productReference")
         self.productType = unboxer.unbox(key: "productType")
     }
-    
-    // MARK: - Public
+
+}
+
+// MARK: - PBXAggregateTarget Extension (Extras)
+
+extension PBXAggregateTarget {
     
     /// Returns a new aggregate target with the build phase added.
     ///
@@ -253,13 +262,39 @@ public struct PBXAggregateTarget: PBXTarget {
                                   productType: productType)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXAggregateTarget Extension (PlistSerializable)
+
+extension PBXAggregateTarget: PlistSerializable {
     
-    public static func == (lhs: PBXAggregateTarget,
-                           rhs: PBXAggregateTarget) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.buildConfigurationList == rhs.buildConfigurationList
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXAggregateTarget.isa))
+        let buildConfigurationListComment = "Build configuration list for PBXAggregateTarget \"\(name)\""
+        dictionary["buildConfigurationList"] = .string(CommentedString(PBXNativeTarget.isa,
+                                                                       comment: buildConfigurationListComment))
+        dictionary["buildPhases"] = .array(buildPhases
+            .map { buildPhase in
+                let comment: String? = proj.buildPhaseType(from: buildPhase)
+                return .string(CommentedString(buildPhase, comment: comment))
+        })
+        dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
+        dictionary["dependencies"] = .array(dependencies.map {.string(CommentedString($0,
+                                                                                      comment: "PBXTargetDependency"))})
+        dictionary["name"] = .string(CommentedString(name))
+        if let productName = productName {
+            dictionary["productName"] = .string(CommentedString(productName))
+        }
+        if let productType = productType {
+            dictionary["productType"] = .string(CommentedString("\"\(productType.rawValue)\""))
+        }
+        if let productReference = productReference {
+            let productReferenceComment = proj.buildFileName(reference: productReference)
+            dictionary["productReference"] = .string(CommentedString(productReference,
+                                                                     comment: productReferenceComment))
+        }
+        return (key: CommentedString(self.reference, comment: name),
+                value: .dictionary(dictionary))
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
 }

@@ -10,6 +10,7 @@
 		04AD65251F1A3123005403E8 /* PBXProjWriterSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */; };
 		04AD65271F1A346E005403E8 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65261F1A346E005403E8 /* CommentedString.swift */; };
 		04AD65291F1A35CD005403E8 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65281F1A35CD005403E8 /* PlistValue.swift */; };
+		04AD652B1F1A3DFC005403E8 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */; };
 		04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */; };
 		23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */; };
 		237C6E8E1EEC82A300EB8F39 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */; };
@@ -427,6 +428,7 @@
 		04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriterSpecs.swift; sourceTree = "<group>"; };
 		04AD65261F1A346E005403E8 /* CommentedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentedString.swift; sourceTree = "<group>"; };
 		04AD65281F1A35CD005403E8 /* PlistValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistValue.swift; sourceTree = "<group>"; };
+		04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPhase.swift; sourceTree = "<group>"; };
 		04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriter.swift; sourceTree = "<group>"; };
 		237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfig.swift; sourceTree = "<group>"; };
@@ -936,6 +938,7 @@
 				237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */,
 				04AD65261F1A346E005403E8 /* CommentedString.swift */,
 				04AD65281F1A35CD005403E8 /* PlistValue.swift */,
+				04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */,
 			);
 			name = xcodeproj;
 			path = Sources/xcodeproj;
@@ -1402,6 +1405,7 @@
 				OBJ_310 /* PBXTargetDependency.swift in Sources */,
 				OBJ_311 /* PBXVariantGroup.swift in Sources */,
 				OBJ_312 /* ProjectElement.swift in Sources */,
+				04AD652B1F1A3DFC005403E8 /* BuildPhase.swift in Sources */,
 				23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */,
 				OBJ_313 /* UUID.swift in Sources */,
 				OBJ_314 /* XCBuildConfiguration.swift in Sources */,

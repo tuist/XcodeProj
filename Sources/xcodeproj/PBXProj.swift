@@ -165,13 +165,40 @@ extension PBXProj {
     /// - Returns: String with the type of file.
     func fileType(reference: UUID) -> String? {
         if objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Frameworks"
+            return BuildPhase.frameworks.rawValue
         } else if objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Headers"
+            return BuildPhase.headers.rawValue
         } else if objects.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Sources"
+            return BuildPhase.sources.rawValue
         } else if objects.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Resources"
+            return BuildPhase.resources.rawValue
+        }
+        return nil
+    }
+    
+    /// Returns the build phase type from its reference.
+    ///
+    /// - Parameter reference: build phase reference.
+    /// - Returns: string with the build phase type.
+    func buildPhaseType(from reference: UUID) -> String? {
+        let sources = objects.sourcesBuildPhases.map {return $0.reference}
+        let frameworks = objects.frameworksBuildPhases.map {return $0.reference}
+        let resources = objects.resourcesBuildPhases.map {return $0.reference}
+        let copyFiles = objects.copyFilesBuildPhases.map {return $0.reference}
+        let runScript = objects.shellScriptBuildPhases.map {return $0.reference}
+        let headers = objects.headersBuildPhases.map {return $0.reference}
+        if sources.contains(reference) {
+            return BuildPhase.sources.rawValue
+        } else if frameworks.contains(reference) {
+            return BuildPhase.frameworks.rawValue
+        } else if resources.contains(reference) {
+            return BuildPhase.resources.rawValue
+        } else if copyFiles.contains(reference) {
+            return BuildPhase.copyFiles.rawValue
+        } else if runScript.contains(reference) {
+            return BuildPhase.runScript.rawValue
+        } else if headers.contains(reference) {
+            return BuildPhase.headers.rawValue
         }
         return nil
     }

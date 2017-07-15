@@ -235,7 +235,7 @@ extension PBXNativeTarget: PlistSerializable {
                                                                                    comment: buildConfigurationListComment))
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
-                let comment: String? = buildPhaseType(from: buildPhase, proj: proj)
+                let comment: String? = proj.buildPhaseType(from: buildPhase)
                 return .string(CommentedString(buildPhase, comment: comment))
         })
         dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
@@ -249,42 +249,12 @@ extension PBXNativeTarget: PlistSerializable {
             dictionary["productType"] = .string(CommentedString("\"\(productType.rawValue)\""))
         }
         if let productReference = productReference {
-            let productReferenceComment = fileName(from: productReference, proj: proj)
+            let productReferenceComment = proj.buildFileName(reference: productReference)
             dictionary["productReference"] = .string(CommentedString(productReference,
                                                                                  comment: productReferenceComment))
         }
         return (key: CommentedString(self.reference, comment: name),
                 value: .dictionary(dictionary))
-    }
-    
-    private func buildPhaseType(from reference: UUID, proj: PBXProj) -> String? {
-        let sources = proj.objects.sourcesBuildPhases.map {return $0.reference}
-        let frameworks = proj.objects.frameworksBuildPhases.map {return $0.reference}
-        let resources = proj.objects.resourcesBuildPhases.map {return $0.reference}
-        let copyFiles = proj.objects.copyFilesBuildPhases.map {return $0.reference}
-        let runScript = proj.objects.shellScriptBuildPhases.map {return $0.reference}
-        let headers = proj.objects.headersBuildPhases.map {return $0.reference}
-        if sources.contains(reference) {
-            return "Sources"
-        } else if frameworks.contains(reference) {
-            return "Frameworks"
-        } else if resources.contains(reference) {
-            return "Resources"
-        } else if copyFiles.contains(reference) {
-            return "Copy Files"
-        } else if runScript.contains(reference) {
-            return "Run Script"
-        } else if headers.contains(reference) {
-            return "Headers"
-        }
-        return nil
-    }
-    
-    private func fileName(from reference: UUID, proj: PBXProj) -> String? {
-        return proj.objects.fileReferences
-            .filter {$0.reference == reference}
-            .flatMap { $0.path }
-            .first
     }
     
 }

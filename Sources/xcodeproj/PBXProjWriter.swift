@@ -23,7 +23,7 @@ class PBXProjWriter {
         increaseIndent()
         writeNewLine()
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
-        // PBXAggregateTarget
+        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
         write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
