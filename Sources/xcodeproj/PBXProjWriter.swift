@@ -97,9 +97,67 @@ enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLitera
     }
 }
 
+// MARK: PBXProjPlistValue Extension (Equatable)
+
+extension PBXProjPlistValue: Equatable {
+    
+    static func == (lhs: PBXProjPlistValue, rhs: PBXProjPlistValue) -> Bool {
+        switch (lhs, rhs) {
+        case (.string(let lhsString), .string(let rhsString)):
+            return lhsString == rhsString
+        case (.array(let lhsArray), .array(let rhsArray)):
+            return lhsArray == rhsArray
+        case (.dictionary(let lhsDictionary), .dictionary(let rhsDictionary)):
+            return lhsDictionary == rhsDictionary
+        default:
+            return false
+        }
+    }
+    
+}
+
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PBXProjPlistSerializable {
     func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue)
+}
+
+// MARK: - Dictionary Extension (PBXProjPlistValue)
+
+extension Dictionary where Key == String {
+    
+    func pbxProjPlistValue() -> PBXProjPlistValue {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        self.forEach { (key, value) in
+            if let array = value as? [Any] {
+                dictionary[PBXProjPlistCommentedString(key)] = array.pbxProjPlistValue()
+            } else if let subDictionary = value as? [String: Any] {
+                dictionary[PBXProjPlistCommentedString(key)] = subDictionary.pbxProjPlistValue()
+            } else if let string = value as? CustomStringConvertible {
+                dictionary[PBXProjPlistCommentedString(key)] = .string(PBXProjPlistCommentedString(string.description))
+            }
+        }
+        return .dictionary(dictionary)
+    }
+
+}
+
+// MARK: - Array Extension (PBXProjPlistValue)
+
+extension Array {
+    
+    func pbxProjPlistValue() -> PBXProjPlistValue {
+        return .array(self.flatMap({ (element) -> PBXProjPlistValue? in
+            if let array = element as? [Any] {
+                return array.pbxProjPlistValue()
+            } else if let dictionary = element as? [String: Any] {
+                return dictionary.pbxProjPlistValue()
+            } else if let string = element as? CustomStringConvertible {
+                return PBXProjPlistValue.string(PBXProjPlistCommentedString(string.description))
+            }
+            return nil
+        }))
+    }
+    
 }
 
 /// Writes your PBXProj files
@@ -121,7 +179,7 @@ class PBXProjWriter {
         writeNewLine()
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
         // PBXAggregateTarget
-        // PBXBuildFile
+        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
         // PBXFileReference
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
         // PBXFileElement

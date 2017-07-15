@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04AD65251F1A3123005403E8 /* PBXProjWriterSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */; };
 		04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */; };
 		23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */; };
 		237C6E8E1EEC82A300EB8F39 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */; };
@@ -421,6 +422,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriterSpecs.swift; sourceTree = "<group>"; };
 		04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriter.swift; sourceTree = "<group>"; };
 		237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfig.swift; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 				OBJ_75 /* XCWorkspaceDataSpec.swift */,
 				OBJ_76 /* XCWorkspaceSpec.swift */,
 				238E24D51EF0C925006E6A1B /* XCConfigSpec.swift */,
+				04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */,
 			);
 			name = xcodeprojTests;
 			path = Tests/xcodeprojTests;
@@ -1446,6 +1449,7 @@
 				OBJ_405 /* PBXFrameworksBuildPhaseSpec.swift in Sources */,
 				OBJ_406 /* PBXGroupSpec.swift in Sources */,
 				OBJ_407 /* PBXHeadersBuildPhaseSpec.swift in Sources */,
+				04AD65251F1A3123005403E8 /* PBXProjWriterSpecs.swift in Sources */,
 				OBJ_408 /* PBXNativeTargetSpec.swift in Sources */,
 				OBJ_409 /* PBXObjectSpec.swift in Sources */,
 				OBJ_410 /* PBXProductTypeSpec.swift in Sources */,

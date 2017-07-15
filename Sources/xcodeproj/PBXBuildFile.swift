@@ -86,3 +86,45 @@ public struct PBXBuildFile: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
 }
+
+// MARK: - PBXBuildFile Extension (PBXProjPlistSerializable)
+
+extension PBXBuildFile: PBXProjPlistSerializable {
+    
+    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
+        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
+        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXBuildFile.isa))
+        let fileName = proj.buildFileName(reference: fileRef)
+        dictionary["fileRef"] = .string(PBXProjPlistCommentedString(fileRef, comment: fileName))
+        let fileType = proj.fileType(reference: fileRef)
+        // Settings
+        let comment = fileName.flatMap({ fileName -> String? in return fileType.flatMap({"\(fileName) in \($0)"})})
+        return (key: PBXProjPlistCommentedString(self.reference, comment: comment),
+                value: .dictionary(dictionary))
+    }
+    
+    private func name(fileRef: UUID, proj: PBXProj) -> String? {
+        let fileReference = proj.objects.fileReferences.filter({$0.reference == fileRef}).first
+        let variantGroup = proj.objects.variantGroups.filter({$0.reference == fileRef}).first
+        if let fileReference = fileReference {
+            return fileReference.path ?? fileReference.name
+        } else if let variantGroup = variantGroup {
+            return variantGroup.name
+        }
+        return nil
+    }
+    
+    private func fileType(reference: UUID, proj: PBXProj) -> String? {
+        if proj.objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+           return "Frameworks"
+        } else if proj.objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Headers"
+        } else if proj.objects.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Sources"
+        } else if proj.objects.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Resources"
+        }
+        return nil
+    }
+    
+}

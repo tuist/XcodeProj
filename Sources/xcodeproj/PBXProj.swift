@@ -145,12 +145,33 @@ extension PBXProj: Writable {
 
 extension PBXProj {
     
+    /// Returns the build file name.
+    ///
+    /// - Parameter reference: file reference.
+    /// - Returns: build file name.
     func buildFileName(reference: UUID) -> String? {
         guard let fileRef = objects.buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
         if let variantGroup = objects.variantGroups.filter({ $0.reference == fileRef }).first {
             return variantGroup.name
         } else if let fileReference = objects.fileReferences.filter({ $0.reference == fileRef}).first {
             return fileReference.path ?? fileReference.name
+        }
+        return nil
+    }
+    
+    /// Returns the type of file whose reference is given.
+    ///
+    /// - Parameter reference: reference of the file whose type will be returned.
+    /// - Returns: String with the type of file.
+    func fileType(reference: UUID) -> String? {
+        if objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Frameworks"
+        } else if objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Headers"
+        } else if objects.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Sources"
+        } else if objects.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+            return "Resources"
         }
         return nil
     }
