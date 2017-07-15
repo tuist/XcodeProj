@@ -27,7 +27,7 @@ class PBXProjWriter {
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
         write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
-        // PBXFileElement
+        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements)
         write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
         write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
         write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
@@ -89,6 +89,7 @@ class PBXProjWriter {
     }
     
     private func write(section: String, proj: PBXProj, object: [PlistSerializable]) {
+        if object.count == 0 { return }
         write(string: "/* Begin \(section) section */")
         writeNewLine()
         object.forEach { (serializable) in

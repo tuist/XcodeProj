@@ -80,7 +80,7 @@ extension PBXContainerItemProxy: PlistSerializable {
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
-        dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
+        dictionary["isa"] = .string(CommentedString(PBXContainerItemProxy.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
         dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
         dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalIDString))
