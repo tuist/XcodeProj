@@ -97,7 +97,9 @@ extension PBXBuildFile: PBXProjPlistSerializable {
         let fileName = proj.buildFileName(reference: fileRef)
         dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
         let fileType = proj.fileType(reference: fileRef)
-        // Settings
+        if let settings = settings {
+            dictionary["settings"] = settings.pbxProjPlistValue()
+        }
         let comment = fileName.flatMap({ fileName -> String? in return fileType.flatMap({"\(fileName) in \($0)"})})
         return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
