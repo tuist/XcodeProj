@@ -91,6 +91,8 @@ extension PBXFileReference: ProjectElement {
 
 extension PBXFileReference: PlistSerializable {
     
+    var multiline: Bool { return false }
+    
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))

@@ -3,6 +3,11 @@ import Foundation
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue)
+    var multiline: Bool { get }
+}
+
+extension PlistSerializable {
+    var multiline: Bool { return true }
 }
 
 /// Writes your PBXProj files
@@ -10,6 +15,7 @@ class PBXProjWriter {
     
     var indent: UInt = 0
     var output: String = ""
+    var multiline: Bool = true
     
     func write(proj: PBXProj) -> String {
         writeUtf8()
@@ -22,15 +28,17 @@ class PBXProjWriter {
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
-        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
         write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
-        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
-        write(section: "PBXProject", proj: proj, object: proj.objects.projects)
+        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
+        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
         write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements)
+        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
+        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
         write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
         write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
-        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
+        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
+        write(section: "PBXProject", proj: proj, object: proj.objects.projects)
         write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
         write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
         write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
@@ -38,8 +46,6 @@ class PBXProjWriter {
         write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
         write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
         write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
-        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
-        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
         decreaseIndent()
         writeIndent()
         write(string: "};")
@@ -58,7 +64,11 @@ class PBXProjWriter {
     }
     
     private func writeNewLine() {
-        output.append("\n")
+        if multiline {
+            output.append("\n")
+        } else {
+            output.append(" ")
+        }
     }
     
     private func write(value: PlistValue) {
@@ -88,13 +98,16 @@ class PBXProjWriter {
         output.append("/* \(comment) */")
     }
     
-    private func write(section: String, proj: PBXProj, object: [PlistSerializable]) {
+    private func write<T: ProjectElement & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
         if object.count == 0 { return }
+        writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object.forEach { (serializable) in
+        object
+            .sorted(by: { $0.0.reference < $0.1.reference})
+            .forEach { (serializable) in
             let element = serializable.plistKeyAndValue(proj: proj)
-            write(dictionaryKey: element.key, dictionaryValue: element.value)
+            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
         }
         write(string: "/* End \(section) section */")
         writeNewLine()
@@ -102,22 +115,34 @@ class PBXProjWriter {
     
     private func write(dictionary: [CommentedString: PlistValue], newLines: Bool = true) {
         writeDictionaryStart()
-        dictionary.forEach { write(dictionaryKey: $0.key, dictionaryValue: $0.value) }
+        dictionary.sorted(by: { (left, right) -> Bool in
+                if left.key == "isa" {
+                    return true
+                } else if right.key == "isa" {
+                    return false
+                } else {
+                    return left.key.string < right.key.string
+                }
+            })
+            .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
         writeDictionaryEnd()
     }
     
-    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue) {
+    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true) {
         writeIndent()
+        let beforeMultiline = self.multiline
+        self.multiline = multiline
         write(commentedString: dictionaryKey)
         output.append(" = ")
         write(value: dictionaryValue)
         output.append(";")
+        self.multiline = beforeMultiline
         writeNewLine()
     }
     
     private func writeDictionaryStart() {
         output.append("{")
-        writeNewLine()
+        if multiline { writeNewLine() }
         increaseIndent()
     }
     
@@ -127,7 +152,7 @@ class PBXProjWriter {
         output.append("}")
     }
     
-    private func write(array: [PlistValue], newlines: Bool = true) {
+    private func write(array: [PlistValue]) {
         writeArrayStart()
         array.forEach { write(arrayValue: $0) }
         writeArrayEnd()
@@ -140,9 +165,9 @@ class PBXProjWriter {
         writeNewLine()
     }
     
-    private func writeArrayStart(newLines: Bool = true) {
+    private func writeArrayStart() {
         output.append("(")
-        if newLines { writeNewLine() }
+        if multiline { writeNewLine() }
         increaseIndent()
     }
     
@@ -153,7 +178,9 @@ class PBXProjWriter {
     }
     
     private func writeIndent() {
-        output.append(String(repeating: "\t", count: Int(indent)))
+        if multiline {
+            output.append(String(repeating: "\t", count: Int(indent)))
+        }
     }
     
     private func increaseIndent() {

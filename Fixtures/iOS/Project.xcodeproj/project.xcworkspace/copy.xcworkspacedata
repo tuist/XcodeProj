@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Workspace version="1.0">
+	<FileRef location="self:/Users/pedro.pinera.buendia/code/xcodeproj/Fixtures/iOS/Project.xcodeproj" />
+	<FileRef location="self:shakira" />
+</Workspace>

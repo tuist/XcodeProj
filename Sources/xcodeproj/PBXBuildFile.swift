@@ -91,12 +91,14 @@ public struct PBXBuildFile: ProjectElement {
 
 extension PBXBuildFile: PlistSerializable {
     
+    var multiline: Bool { return false }
+    
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
-        let fileName = proj.buildFileName(reference: fileRef)
+        let fileName = name(fileRef: fileRef, proj: proj)
         dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
-        let fileType = proj.fileType(reference: fileRef)
+        let fileType = proj.fileType(reference: reference)
         if let settings = settings {
             dictionary["settings"] = settings.plist()
         }
@@ -109,7 +111,7 @@ extension PBXBuildFile: PlistSerializable {
         let fileReference = proj.objects.fileReferences.filter({$0.reference == fileRef}).first
         let variantGroup = proj.objects.variantGroups.filter({$0.reference == fileRef}).first
         if let fileReference = fileReference {
-            return fileReference.path ?? fileReference.name
+            return fileReference.name ?? fileReference.path
         } else if let variantGroup = variantGroup {
             return variantGroup.name
         }

@@ -93,7 +93,7 @@ extension XCBuildConfiguration: ProjectElement {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = (dictionary["buildSettings"] as? BuildSettings) ?? [:]
+        self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: String]) ?? [:])
         self.name = try unboxer.unbox(key: "name")
     }
     
@@ -107,11 +107,7 @@ extension XCBuildConfiguration: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
-        var buildSettingsDictionary: [CommentedString: PlistValue] = [:]
-        buildSettings.dictionary.forEach {
-            buildSettingsDictionary[CommentedString($0.key)] = .string(CommentedString($0.value))
-        }
-        dictionary["buildSettings"] = .dictionary(buildSettingsDictionary)
+        dictionary["buildSettings"] = buildSettings.dictionary.plist()
         return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))

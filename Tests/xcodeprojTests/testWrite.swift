@@ -33,5 +33,5 @@ func testWrite<T: Writable>(from path: Path,
             XCTAssertTrue(false, "It shouldn't throw an error writing the project")
         }
     }
-    try? fm.removeItem(at: copyPath.url)
+//    try? fm.removeItem(at: copyPath.url)
 }
