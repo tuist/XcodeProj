@@ -5,7 +5,6 @@ import XCTest
 
 class PBXProjWriterSpecs: XCTestCase {
     
-    
     func test_dictionaryPlistValue_returnsTheCorrectValue() {
         let dictionary: [String: Any] = [
             "a": "b",

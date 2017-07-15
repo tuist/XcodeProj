@@ -52,9 +52,7 @@ final class XCConfigIntegrationSpec: XCTestCase {
     func test_write_writesTheContentProperly() {
         testWrite(from: childrenPath(),
                   initModel: { try? XCConfig(path: $0) },
-                  modify: { $0 }) { (config) in
-                    assert(config: config)
-        }
+                  modify: { $0 }) { assert(config: $1) }
     }
     
     private func childrenPath() -> Path {

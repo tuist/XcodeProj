@@ -22,7 +22,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         testWrite(from: fixturePath(),
                   initModel: { try? XCScheme(path: $0) },
                   modify: { $0 },
-                  assertion: assert)
+                  assertion: { assert(scheme: $1) })
     }
     
     // MARK: - Private

@@ -59,8 +59,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
     func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { try? PBXProj(path: $0, name: "Project") },
-                  modify: { $0 },
-                  assertion: assert)
+                  modify: { $0 })
     }
     
     private func fixturePath() -> Path {

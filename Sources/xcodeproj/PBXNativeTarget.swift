@@ -231,7 +231,7 @@ extension PBXNativeTarget: PlistSerializable {
         
         dictionary["isa"] = .string(CommentedString(PBXNativeTarget.isa))
         let buildConfigurationListComment = "Build configuration list for PBXNativeTarget \"\(name)\""
-        dictionary["buildConfigurationList"] = .string(CommentedString(PBXNativeTarget.isa,
+        dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList,
                                                                                    comment: buildConfigurationListComment))
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
