@@ -74,10 +74,11 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        // files
-        // inputPaths
+        dictionary["shellPath"] = .string(CommentedString("\(shellPath)"))
+        dictionary["files"] = .array(files.map({.string(CommentedString($0.quoted))}))
+        dictionary["inputPaths"] = .array(inputPaths.map({.string(CommentedString($0.quoted))}))
         dictionary["name"] = .string(CommentedString(name.quoted))
-        // outputPaths
+        dictionary["outputPaths"] = .array(outputPaths.map({.string(CommentedString($0.quoted))}))
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
