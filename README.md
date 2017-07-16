@@ -46,8 +46,16 @@ let workspace = try! XCWorkspace(path: "myworkspace.workspace")
 let projects = workspace.data.references.map { $0.project }
 
 // Read a config file
-let config = try! XCConfig(path: "MyConfig.xcconfig")
-let buildDir = config.buildSettings("CONFIGURATION_BUILD_DIR")
+let xcconfig = try! XCConfig(path: "MyConfig.xcconfig")
+let buildDir = xcconfig.buildSettings("CONFIGURATION_BUILD_DIR")
+```
+
+#### Writing
+All models above are also writable. After modifying them you can write them back to disk:
+
+````
+pbxproj.write(override: true)
+xcconfig.write(override: true)
 ```
 
 ### Documentation
