@@ -1,8 +1,9 @@
 import Foundation
 import Unbox
+import xcodeprojextensions
 
 // This is the element for a build target that produces a binary content (application or library).
-public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
+public struct PBXProject: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -43,6 +44,9 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     // The objects are a reference to a PBXTarget element.
     public let targets: [UUID]
     
+    /// Project attributes.
+    public let attributes: [String: Any]
+    
     // MARK: - Init
     
     /// Initializes the project with its attributes
@@ -60,6 +64,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
     ///   - projectReferences: project references.
     ///   - projectRoot: project root.
     ///   - targets: project targets.
+    ///   - attributes: project attributes.
     public init(reference: UUID,
                 buildConfigurationList: UUID,
                 compatibilityVersion: String,
@@ -71,7 +76,8 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
                 projectDirPath: String? = nil,
                 projectReferences: [Any] = [],
                 projectRoot: String? = nil,
-                targets: [UUID] = []) {
+                targets: [UUID] = [],
+                attributes: [String: Any] = [:]) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
         self.compatibilityVersion = compatibilityVersion
@@ -84,6 +90,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         self.projectReferences = projectReferences
         self.projectRoot = projectRoot
         self.targets = targets
+        self.attributes = attributes
     }
     
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
@@ -106,6 +113,7 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
         self.projectReferences = (unboxer.unbox(key: "projectReferences")) ?? []
         self.projectRoot = unboxer.unbox(key: "projectRoot")
         self.targets = (unboxer.unbox(key: "targets")) ?? []
+        self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
     }
     
     // MARK: - Hashable
@@ -123,47 +131,49 @@ public struct PBXProject: ProjectElement, PBXProjPlistSerializable {
             lhs.projectDirPath == rhs.projectDirPath &&
             NSArray(array: lhs.projectReferences).isEqual(to: NSArray(array: rhs.projectReferences)) &&
             lhs.projectRoot == rhs.projectRoot &&
-            lhs.targets == rhs.targets
+            lhs.targets == rhs.targets &&
+            NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
     }
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXProject.isa))
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""
-        let buildConfigurationListCommentedString = PBXProjPlistCommentedString(buildConfigurationList,
+        let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
-        dictionary["compatibilityVersion"] = .string(PBXProjPlistCommentedString("\"\(compatibilityVersion)\""))
+        dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion.quoted))
         if let developmentRegion = developmentRegion {
-            dictionary["developmentRegion"] = .string(PBXProjPlistCommentedString(developmentRegion))
+            dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         if let hasScannedForEncodings = hasScannedForEncodings {
-            dictionary["hasScannedForEncodings"] = .string(PBXProjPlistCommentedString("\(hasScannedForEncodings)"))
+            dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
         }
-        dictionary["knownRegions"] = PBXProjPlistValue.array(knownRegions
-            .map {.string(PBXProjPlistCommentedString("\($0)")) })
+        dictionary["knownRegions"] = PlistValue.array(knownRegions
+            .map {.string(CommentedString("\($0)")) })
         
-        dictionary["mainGroup"] = .string(PBXProjPlistCommentedString(mainGroup))
+        dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
-            dictionary["productRefGroup"] = .string(PBXProjPlistCommentedString(productRefGroup,
+            dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
                                                                                 comment: "Products"))
         }
         if let projectDirPath = projectDirPath {
-            dictionary["projectDirPath"] = .string(PBXProjPlistCommentedString("\"\(projectDirPath)\""))
+            dictionary["projectDirPath"] = .string(CommentedString(projectDirPath.quoted))
         }
         if let projectRoot = projectRoot {
-            dictionary["projectRoot"] = .string(PBXProjPlistCommentedString("\"\(projectRoot)\""))
+            dictionary["projectRoot"] = .string(CommentedString(projectRoot.quoted))
         }
-        dictionary["targets"] = PBXProjPlistValue.array(targets
+        dictionary["targets"] = PlistValue.array(targets
             .map { target in
-                return .string(PBXProjPlistCommentedString(target,
+                return .string(CommentedString(target,
                                                            comment: nativeTarget(from: target, proj: proj)))
         })
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["attributes"] = attributes.plist()
+        return (key: CommentedString(self.reference,
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))
     }

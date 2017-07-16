@@ -36,7 +36,6 @@ public struct XCSharedData {
             .map { try? XCScheme(path: $0) }
             .filter { $0 != nil }
             .map { $0! }
-        
     }
     
 }

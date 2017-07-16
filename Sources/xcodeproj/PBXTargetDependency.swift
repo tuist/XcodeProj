@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public struct PBXTargetDependency: ProjectElement, Hashable, PBXProjPlistSerializable {
+public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -58,14 +58,14 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PBXProjPlistSeriali
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXTargetDependency.isa))
-        dictionary["target"] = .string(PBXProjPlistCommentedString(target, comment: target(from: target, proj: proj)))
-        dictionary["targetProxy"] = .string(PBXProjPlistCommentedString(targetProxy, comment: "PBXContainerItemProxy"))
-        return (key: PBXProjPlistCommentedString(self.reference,
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
+        dictionary["target"] = .string(CommentedString(target, comment: target(from: target, proj: proj)))
+        dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        return (key: CommentedString(self.reference,
                                                  comment: "PBXTargetDependency"),
                 value: .dictionary(dictionary))
     }

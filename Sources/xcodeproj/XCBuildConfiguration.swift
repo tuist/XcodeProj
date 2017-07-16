@@ -93,26 +93,22 @@ extension XCBuildConfiguration: ProjectElement {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = (dictionary["buildSettings"] as? BuildSettings) ?? [:]
+        self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: Any]) ?? [:])
         self.name = try unboxer.unbox(key: "name")
     }
     
 }
 
-// MARK: - XCBuildConfiguration Extension (PBXProjPlistSerializable)
+// MARK: - XCBuildConfiguration Extension (PlistSerializable)
 
-extension XCBuildConfiguration: PBXProjPlistSerializable {
+extension XCBuildConfiguration: PlistSerializable {
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCBuildConfiguration.isa))
-        dictionary["name"] = .string(PBXProjPlistCommentedString(name))
-        var buildSettingsDictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        buildSettings.dictionary.forEach {
-            buildSettingsDictionary[PBXProjPlistCommentedString($0.key)] = .string(PBXProjPlistCommentedString($0.value))
-        }
-        dictionary["buildSettings"] = .dictionary(buildSettingsDictionary)
-        return (key: PBXProjPlistCommentedString(self.reference,
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
+        dictionary["name"] = .string(CommentedString(name))
+        dictionary["buildSettings"] = buildSettings.dictionary.plist()
+        return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
     }

@@ -1,7 +1,8 @@
 import Foundation
 import xcodeprojextensions
 
-public enum PBXObject: Hashable {
+public enum PBXObject {
+    
     case pbxNativeTarget(PBXNativeTarget)
     case pbxAggregateTarget(PBXAggregateTarget)
     case pbxBuildFile(PBXBuildFile)
@@ -21,7 +22,11 @@ public enum PBXObject: Hashable {
     case pbxCopyFilesBuildPhase(PBXCopyFilesBuildPhase)
     case pbxContainerItemProxy(PBXContainerItemProxy)
     
-    // MARK: - Init
+}
+
+// MARK: - PBXObject Extension (Init)
+
+extension PBXObject {
     
     public init(reference: String, dictionary: [String: Any]) throws {
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
@@ -67,7 +72,63 @@ public enum PBXObject: Hashable {
         }
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXObject Extension (Extras)
+
+extension PBXObject {
+    
+    public var reference: UUID {
+        switch self {
+        case .pbxBuildFile(let element): return element.reference
+        case .pbxAggregateTarget(let element): return element.reference
+        case .pbxContainerItemProxy(let element): return element.reference
+        case .pbxCopyFilesBuildPhase(let element): return element.reference
+        case .pbxGroup(let element): return element.reference
+        case .pbxFileElement(let element): return element.reference
+        case .xcConfigurationList(let element): return element.reference
+        case .xcBuildConfiguration(let element): return element.reference
+        case .pbxVariantGroup(let element): return element.reference
+        case .pbxTargetDependency(let element): return element.reference
+        case .pbxSourcesBuildPhase(let element): return element.reference
+        case .pbxShellScriptBuildPhase(let element): return element.reference
+        case .pbxResourcesBuildPhase(let element): return element.reference
+        case .pbxFrameworksBuildPhase(let element): return element.reference
+        case .pbxHeadersBuildPhase(let element): return element.reference
+        case .pbxNativeTarget(let element): return element.reference
+        case .pbxFileReference(let element): return element.reference
+        case .pbxProject(let element): return element.reference
+        }
+    }
+    
+}
+
+// MARK: - PBXObject
+
+extension PBXObject: Hashable {
+    
+    public var hashValue: Int {
+        switch self {
+        case .pbxBuildFile(let element): return element.hashValue
+        case .pbxAggregateTarget(let element): return element.hashValue
+        case .pbxContainerItemProxy(let element): return element.hashValue
+        case .pbxCopyFilesBuildPhase(let element): return element.hashValue
+        case .pbxGroup(let element): return element.hashValue
+        case .pbxFileElement(let element): return element.hashValue
+        case .xcConfigurationList(let element): return element.hashValue
+        case .xcBuildConfiguration(let element): return element.hashValue
+        case .pbxVariantGroup(let element): return element.hashValue
+        case .pbxTargetDependency(let element): return element.hashValue
+        case .pbxSourcesBuildPhase(let element): return element.hashValue
+        case .pbxShellScriptBuildPhase(let element): return element.hashValue
+        case .pbxResourcesBuildPhase(let element): return element.hashValue
+        case .pbxFrameworksBuildPhase(let element): return element.hashValue
+        case .pbxHeadersBuildPhase(let element): return element.hashValue
+        case .pbxNativeTarget(let element): return element.hashValue
+        case .pbxFileReference(let element): return element.hashValue
+        case .pbxProject(let element): return element.hashValue
+        }
+    }
     
     public static func == (lhs: PBXObject, rhs: PBXObject) -> Bool {
         switch (lhs, rhs) {
@@ -112,30 +173,12 @@ public enum PBXObject: Hashable {
         }
     }
     
-    public var hashValue: Int {
-        switch self {
-        case .pbxBuildFile(let element): return element.hashValue
-        case .pbxAggregateTarget(let element): return element.hashValue
-        case .pbxContainerItemProxy(let element): return element.hashValue
-        case .pbxCopyFilesBuildPhase(let element): return element.hashValue
-        case .pbxGroup(let element): return element.hashValue
-        case .pbxFileElement(let element): return element.hashValue
-        case .xcConfigurationList(let element): return element.hashValue
-        case .xcBuildConfiguration(let element): return element.hashValue
-        case .pbxVariantGroup(let element): return element.hashValue
-        case .pbxTargetDependency(let element): return element.hashValue
-        case .pbxSourcesBuildPhase(let element): return element.hashValue
-        case .pbxShellScriptBuildPhase(let element): return element.hashValue
-        case .pbxResourcesBuildPhase(let element): return element.hashValue
-        case .pbxFrameworksBuildPhase(let element): return element.hashValue
-        case .pbxHeadersBuildPhase(let element): return element.hashValue
-        case .pbxNativeTarget(let element): return element.hashValue
-        case .pbxFileReference(let element): return element.hashValue
-        case .pbxProject(let element): return element.hashValue
-        }
-    }
 }
 
+/// PBXObjectError
+///
+/// - missingIsa: the isa attribute is missing.
+/// - unknownElement: the object type is not supported.
 public enum PBXObjectError: Error, CustomStringConvertible {
     case missingIsa
     case unknownElement(String)
@@ -149,6 +192,8 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         }
     }
 }
+
+// MARK: - Array Extension (PBXObject)
 
 public extension Array where Element == PBXObject {
     

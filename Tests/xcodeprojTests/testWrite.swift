@@ -4,10 +4,16 @@ import XCTest
 import xcodeproj
 import xcodeprojprotocols
 
+func testWrite<T: Writable & Equatable>(from path: Path,
+               initModel: (Path) -> T?,
+               modify: (T) -> (T)) {
+    testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
+}
+
 func testWrite<T: Writable>(from path: Path,
                        initModel: (Path) -> T?,
                        modify: (T) -> (T),
-                       assertion: (T) -> ()) {
+                       assertion: (_ before: T, _ after: T) -> ()) {
     let fm = FileManager.default
     let copyPath = path.parent() + Path("copy.\(path.extension!)")
     try? fm.removeItem(at: copyPath.url)
@@ -21,7 +27,7 @@ func testWrite<T: Writable>(from path: Path,
             let gotAfterWriting = initModel(copyPath)
             XCTAssertNotNil(gotAfterWriting)
             if let gotAfterWriting = gotAfterWriting {
-                assertion(gotAfterWriting)
+                assertion(got, gotAfterWriting)
             }
         } catch {
             XCTAssertTrue(false, "It shouldn't throw an error writing the project")

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
+public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -92,17 +92,17 @@ public struct PBXVariantGroup: ProjectElement, PBXProjPlistSerializable {
     
     public var hashValue: Int { return self.reference.hashValue }
 
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXVariantGroup.isa))
-        dictionary["name"] = .string(PBXProjPlistCommentedString(name))
-        dictionary["sourceTree"] = .string(PBXProjPlistCommentedString("\"\(sourceTree.rawValue)\""))
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
+        dictionary["name"] = .string(CommentedString(name))
+        dictionary["sourceTree"] = sourceTree.plist()
         dictionary["children"] = .array(children
-            .map({PBXProjPlistValue.string(PBXProjPlistCommentedString($0,
+            .map({PlistValue.string(CommentedString($0,
                                                                        comment: proj.objects.fileName(from: $0)))}))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
     }

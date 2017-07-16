@@ -2,18 +2,18 @@ import Foundation
 import Unbox
 
 // This is the element for the framewrok link build phase.
-public struct PBXFrameworksBuildPhase: ProjectElement {
+public struct PBXFrameworksBuildPhase {
     
     // MARK: - Properties
-    
-    /// Element isa.
-    public static var isa: String = "PBXFrameworksBuildPhase"
     
     /// Element reference.
     public let reference: UUID
     
     /// Framework build phase files.
     public let files: Set<UUID>
+    
+    /// Build phase build action mask.
+    public let buildActionMask: Int
     
     /// Build phase run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: UInt
@@ -28,26 +28,19 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment pos processing value.
     public init(reference: UUID,
                 files: Set<UUID>,
-                runOnlyForDeploymentPostprocessing: UInt) {
+                runOnlyForDeploymentPostprocessing: UInt,
+                buildActionMask: Int = 2147483647) {
         self.reference = reference
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+        self.buildActionMask = buildActionMask
     }
     
-    /// Initializes the frameworks build phase with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the attributes.
-    /// - Throws: an error in case any of the attributes is missing or it has the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-    }
-    
-    // MARK: - Public
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (Extras)
+
+extension PBXFrameworksBuildPhase {
     
     /// Returns a new frameworks build phase with a new file added.
     ///
@@ -73,8 +66,14 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
                                        runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (ProjectElement)
+
+extension PBXFrameworksBuildPhase: ProjectElement {
     
+    public static var isa: String = "PBXFrameworksBuildPhase"
+
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -83,5 +82,32 @@ public struct PBXFrameworksBuildPhase: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+    
+    public init(reference: UUID, dictionary: [String : Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.files = try unboxer.unbox(key: "files")
+        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+    }
+}
+
+// MARK: - PBXFrameworksBuildPhase Extension (PlistSerializable)
+
+extension PBXFrameworksBuildPhase: PlistSerializable {
+    
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXFrameworksBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        dictionary["files"] = .array(files.map({ (fileReference) -> PlistValue in
+            let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Frameworks"})
+            return .string(CommentedString(fileReference, comment: comment))
+        }))
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
+                                                 comment: "Frameworks"),
+                value: .dictionary(dictionary))
+    }
     
 }

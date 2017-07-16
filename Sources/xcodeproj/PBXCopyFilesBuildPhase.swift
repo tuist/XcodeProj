@@ -1,8 +1,9 @@
 import Foundation
 import Unbox
+import xcodeprojextensions
 
 // This is the element for the copy file build phase.
-public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
+public struct PBXCopyFilesBuildPhase {
     
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0
@@ -22,9 +23,6 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
     
     /// Element reference
     public let reference: UUID
-    
-    /// Element isa
-    public static var isa: String = "PBXCopyFilesBuildPhase"
     
     /// Element destination path
     public let dstPath: String
@@ -66,24 +64,11 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
     
-    /// Initializes the element with the reference an a dictionary that contains the element attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary that contains the element attributes
-    /// - Throws: throws an error if any of the attributes is missing or they have the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.dstPath = try unboxer.unbox(key: "dstPath")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
-        self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-    }
-    
-    // MARK: - Public
+}
+
+// MARK: - PBXCopyFilesBuildPhase Extension (Public)
+
+extension PBXCopyFilesBuildPhase {
     
     public func adding(file: UUID) -> PBXCopyFilesBuildPhase {
         var files = self.files
@@ -107,18 +92,58 @@ public struct PBXCopyFilesBuildPhase: ProjectElement, Hashable {
                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
-    // MARK: - Hashable
+}
+
+// MARK: - PBXCopyFilesBuildPhase Extension (ProjectElement)
+
+extension PBXCopyFilesBuildPhase: ProjectElement {
+    
+    public init(reference: UUID, dictionary: [String : Any]) throws {
+        self.reference = reference
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.dstPath = try unboxer.unbox(key: "dstPath")
+        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+        let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
+        self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
+        self.files = try unboxer.unbox(key: "files")
+        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+    }
     
     public static func == (lhs: PBXCopyFilesBuildPhase,
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
-        lhs.dstPath == rhs.dstPath &&
-        lhs.buildActionMask == rhs.buildActionMask &&
-        lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
-        lhs.files == rhs.files &&
-        lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
+            lhs.dstPath == rhs.dstPath &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
+            lhs.files == rhs.files &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
     
     public var hashValue: Int { return self.reference.hashValue }
+    
+}
 
+// MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
+
+extension PBXCopyFilesBuildPhase: PlistSerializable {
+    
+    public static var isa: String = "PBXCopyFilesBuildPhase"
+    
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        dictionary["dstPath"] = .string(CommentedString(dstPath.quoted))
+        dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
+        dictionary["files"] = .array(self.files
+            .map { reference in
+                let fileName = proj.buildFileName(reference: reference).flatMap { "\($0) in CopyFiles" }
+                return PlistValue.string(CommentedString(reference, comment: fileName))
+            })
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
+                                                 comment: "CopyFiles"),
+                value: .dictionary(dictionary))
+    }
+    
 }

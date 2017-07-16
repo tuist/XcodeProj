@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
-import xcodeproj
+
+@testable import xcodeproj
 
 final class PBXSourceTreeSpec: XCTestCase {
     
@@ -26,5 +27,35 @@ final class PBXSourceTreeSpec: XCTestCase {
     
     func test_sdkRoot_hasTheCorrectValue() {
         XCTAssertEqual(PBXSourceTree.sdkRoot.rawValue, "SDKROOT")
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsNone() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.none.rawValue.quoted))
+        XCTAssertEqual(PBXSourceTree.none.plist(), expected)
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsAbsolute() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.absolute.rawValue.quoted))
+        XCTAssertEqual(PBXSourceTree.absolute.plist(), expected)
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsGroup() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.group.rawValue.quoted))
+        XCTAssertEqual(PBXSourceTree.group.plist(), expected)
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsSourceRoot() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.sourceRoot.rawValue))
+        XCTAssertEqual(PBXSourceTree.sourceRoot.plist(), expected)
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsBuildProductsDir() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.buildProductsDir.rawValue))
+        XCTAssertEqual(PBXSourceTree.buildProductsDir.plist(), expected)
+    }
+    
+    func test_plistReturnsTheRightValue_whenItsSdkRoot() {
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.sdkRoot.rawValue))
+        XCTAssertEqual(PBXSourceTree.sdkRoot.plist(), expected)
     }
 }

@@ -60,6 +60,7 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "files": ["file1"],
+            "buildActionMask": 333,
             "runOnlyForDeploymentPostprocessing": 3
         ]
     }

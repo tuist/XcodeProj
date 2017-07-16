@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
+public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
@@ -80,22 +80,22 @@ public struct PBXSourcesBuildPhase: ProjectElement, PBXProjPlistSerializable {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    // MARK: - PBXProjPlistSerializable
+    // MARK: - PlistSerializable
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(PBXSourcesBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(PBXProjPlistCommentedString("\(buildActionMask)"))
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { file in
             var comment: String? = nil
             if let fileString = fileName(from: file, proj: proj) {
                 comment = "\(fileString) in Sources"
             }
-            return PBXProjPlistValue.string(PBXProjPlistCommentedString(file, comment: comment))
+            return PlistValue.string(CommentedString(file, comment: comment))
         })
         
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(PBXProjPlistCommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return (key: CommentedString(self.reference,
                                                  comment: "Sources"),
                 value: .dictionary(dictionary))
     }

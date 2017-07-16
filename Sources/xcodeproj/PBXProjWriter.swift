@@ -1,105 +1,13 @@
 import Foundation
 
-/// PBXProjPlist string that contains a comment.
-struct PBXProjPlistCommentedString: Hashable, ExpressibleByStringLiteral {
-
-    /// Entity string value.
-    let string: String
-
-    /// String comment.
-    let comment: String?
-    
-    /// Initializes the commented string with the value and the comment.
-    ///
-    /// - Parameters:
-    ///   - string: string value.
-    ///   - comment: comment.
-    init(_ string: String, comment: String? = nil) {
-        self.string = string
-        self.comment = comment
-    }
-    
-    // MARK: - Hashable
-    
-    var hashValue: Int { return string.hashValue }
-    static func == (lhs: PBXProjPlistCommentedString, rhs: PBXProjPlistCommentedString) -> Bool {
-        return lhs.string == rhs.string && lhs.comment == rhs.comment
-    }
-    
-    // MARK: - ExpressibleByStringLiteral
-    
-    public init(stringLiteral value: String) {
-        self.init(value)
-    }
-
-    public init(extendedGraphemeClusterLiteral value: String) {
-        self.init(value)
-    }
-    
-    public init(unicodeScalarLiteral value: String) {
-        self.init(value)
-    }
-    
-}
-
-/// It represents a PBXProj Plist valid value.
-///
-/// - string: commented string.
-/// - array: array of plist values.
-/// - dictionary: dictionary where the keys are a commented strings and the values are a plist values.
-enum PBXProjPlistValue: ExpressibleByArrayLiteral, ExpressibleByDictionaryLiteral, ExpressibleByStringLiteral {
-    case string(PBXProjPlistCommentedString)
-    case array([PBXProjPlistValue])
-    case dictionary([PBXProjPlistCommentedString: PBXProjPlistValue])
-    var string: (PBXProjPlistCommentedString)? {
-        switch self {
-        case .string(let string): return string
-        default: return nil
-        }
-    }
-    var array: [PBXProjPlistValue]? {
-        switch self {
-        case .array(let array): return array
-        default: return nil
-        }
-    }
-    var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue]? {
-        switch self {
-        case .dictionary(let dictionary): return dictionary
-        default: return nil
-        }
-    }
-    
-    // MARK: - ExpressibleByArrayLiteral
-    
-    public init(arrayLiteral elements: PBXProjPlistValue...) {
-        self = .array(elements)
-    }
-    
-    // MARK: - ExpressibleByDictionaryLiteral
-    
-    public init(dictionaryLiteral elements: (PBXProjPlistCommentedString, PBXProjPlistValue)...) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        elements.forEach { dictionary[$0.0] = $0.1 }
-        self = .dictionary(dictionary)
-    }
-    
-    // MARK: - ExpressibleByStringLiteral
-    
-    public init(stringLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
-    }
-    public init(extendedGraphemeClusterLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
-    }
-    public init(unicodeScalarLiteral value: String) {
-        self = .string(PBXProjPlistCommentedString(value))
-    }
-}
-
 /// Protocol that defines that the element can return a plist element that represents itself.
-protocol PBXProjPlistSerializable {
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue)
+protocol PlistSerializable {
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue)
+    var multiline: Bool { get }
+}
+
+extension PlistSerializable {
+    var multiline: Bool { return true }
 }
 
 /// Writes your PBXProj files
@@ -107,34 +15,46 @@ class PBXProjWriter {
     
     var indent: UInt = 0
     var output: String = ""
+    var multiline: Bool = true
     
     func write(proj: PBXProj) -> String {
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
-        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(PBXProjPlistCommentedString("\(proj.archiveVersion)")))
+        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")))
         write(dictionaryKey: "classes", dictionaryValue: .array([]))
-        write(dictionaryKey: "objectVersion", dictionaryValue: .string(PBXProjPlistCommentedString("\(proj.objectVersion)")))
+        write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")))
         writeIndent()
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
+        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
+        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
+        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
+        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
+        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements)
+        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
+        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
+        write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
+        write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
-        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
-        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
-        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
-        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
-        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
         write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
+        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
+        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
+        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
+        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
         decreaseIndent()
         writeIndent()
         write(string: "};")
         writeNewLine()
         write(dictionaryKey: "rootObject",
-              dictionaryValue: .string(PBXProjPlistCommentedString(proj.rootObject,
+              dictionaryValue: .string(CommentedString(proj.rootObject,
                                                                    comment: "Project object")))
         writeDictionaryEnd()
+        writeNewLine()
         return output
     }
     
@@ -145,10 +65,14 @@ class PBXProjWriter {
     }
     
     private func writeNewLine() {
-        output.append("\n")
+        if multiline {
+            output.append("\n")
+        } else {
+            output.append(" ")
+        }
     }
     
-    private func write(value: PBXProjPlistValue) {
+    private func write(value: PlistValue) {
         switch value {
         case .array(let array):
             write(array: array)
@@ -159,7 +83,7 @@ class PBXProjWriter {
         }
     }
     
-    private func write(commentedString: PBXProjPlistCommentedString) {
+    private func write(commentedString: CommentedString) {
         write(string: commentedString.string)
         if let comment = commentedString.comment {
             write(string: " ")
@@ -175,35 +99,51 @@ class PBXProjWriter {
         output.append("/* \(comment) */")
     }
     
-    private func write(section: String, proj: PBXProj, object: [PBXProjPlistSerializable]) {
+    private func write<T: ProjectElement & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
+        if object.count == 0 { return }
+        writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object.forEach { (serializable) in
-            let element = serializable.pbxProjPlistElement(proj: proj)
-            write(dictionaryKey: element.key, dictionaryValue: element.value)
+        object
+            .sorted(by: { $0.0.reference < $0.1.reference})
+            .forEach { (serializable) in
+            let element = serializable.plistKeyAndValue(proj: proj)
+            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
         }
         write(string: "/* End \(section) section */")
         writeNewLine()
     }
     
-    private func write(dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue], newLines: Bool = true) {
+    private func write(dictionary: [CommentedString: PlistValue], newLines: Bool = true) {
         writeDictionaryStart()
-        dictionary.forEach { write(dictionaryKey: $0.key, dictionaryValue: $0.value) }
+        dictionary.sorted(by: { (left, right) -> Bool in
+                if left.key == "isa" {
+                    return true
+                } else if right.key == "isa" {
+                    return false
+                } else {
+                    return left.key.string < right.key.string
+                }
+            })
+            .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
         writeDictionaryEnd()
     }
     
-    private func write(dictionaryKey: PBXProjPlistCommentedString, dictionaryValue: PBXProjPlistValue) {
+    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true) {
         writeIndent()
+        let beforeMultiline = self.multiline
+        self.multiline = multiline
         write(commentedString: dictionaryKey)
         output.append(" = ")
         write(value: dictionaryValue)
         output.append(";")
+        self.multiline = beforeMultiline
         writeNewLine()
     }
     
     private func writeDictionaryStart() {
         output.append("{")
-        writeNewLine()
+        if multiline { writeNewLine() }
         increaseIndent()
     }
     
@@ -213,22 +153,22 @@ class PBXProjWriter {
         output.append("}")
     }
     
-    private func write(array: [PBXProjPlistValue], newlines: Bool = true) {
+    private func write(array: [PlistValue]) {
         writeArrayStart()
         array.forEach { write(arrayValue: $0) }
         writeArrayEnd()
     }
     
-    private func write(arrayValue: PBXProjPlistValue) {
+    private func write(arrayValue: PlistValue) {
         writeIndent()
         write(value: arrayValue)
         output.append(",")
         writeNewLine()
     }
     
-    private func writeArrayStart(newLines: Bool = true) {
+    private func writeArrayStart() {
         output.append("(")
-        if newLines { writeNewLine() }
+        if multiline { writeNewLine() }
         increaseIndent()
     }
     
@@ -239,7 +179,9 @@ class PBXProjWriter {
     }
     
     private func writeIndent() {
-        output.append(String(repeating: "\t", count: Int(indent)))
+        if multiline {
+            output.append(String(repeating: "\t", count: Int(indent)))
+        }
     }
     
     private func increaseIndent() {

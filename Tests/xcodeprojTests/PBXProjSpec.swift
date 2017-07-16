@@ -57,10 +57,9 @@ final class PBXProjIntegrationSpec: XCTestCase {
     }
     
     func test_write() {
-//        testWrite(from: fixturePath(),
-//                  initModel: { try? PBXProj(path: $0, name: "Project") },
-//                  modify: { $0 },
-//                  assertion: assert)
+        testWrite(from: fixturePath(),
+                  initModel: { try? PBXProj(path: $0, name: "Project") },
+                  modify: { $0 })
     }
     
     private func fixturePath() -> Path {
@@ -73,11 +72,11 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.archiveVersion, 1)
         XCTAssertEqual(proj.objectVersion, 46)
         XCTAssertEqual(proj.classes.count, 0)
-        XCTAssertEqual(proj.objects.buildFiles.count, 6)
+        XCTAssertEqual(proj.objects.buildFiles.count, 10)
         XCTAssertEqual(proj.objects.aggregateTargets.count, 0)
         XCTAssertEqual(proj.objects.containerItemProxies.count, 1)
         XCTAssertEqual(proj.objects.copyFilesBuildPhases.count, 1)
-        XCTAssertEqual(proj.objects.groups.count, 4)
+        XCTAssertEqual(proj.objects.groups.count, 5)
         XCTAssertEqual(proj.objects.fileElements.count, 0)
         XCTAssertEqual(proj.objects.configurationLists.count, 3)
         XCTAssertEqual(proj.objects.buildConfigurations.count, 6)
@@ -89,7 +88,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
         XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
         XCTAssertEqual(proj.objects.nativeTargets.count, 2)
-        XCTAssertEqual(proj.objects.fileReferences.count, 10)
+        XCTAssertEqual(proj.objects.fileReferences.count, 14)
         XCTAssertEqual(proj.objects.projects.count, 1)
     }
     

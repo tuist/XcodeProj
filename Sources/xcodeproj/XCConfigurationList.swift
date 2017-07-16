@@ -78,21 +78,21 @@ extension XCConfigurationList {
     
 }
 
-// MARK: - XCConfigurationList Extension (PBXProjPlistSerializable)
+// MARK: - XCConfigurationList Extension (PlistSerializable)
 
-extension XCConfigurationList: PBXProjPlistSerializable {
+extension XCConfigurationList: PlistSerializable {
     
     public static var isa: String = "XCConfigurationList"
     
-    func pbxProjPlistElement(proj: PBXProj) -> (key: PBXProjPlistCommentedString, value: PBXProjPlistValue) {
-        var dictionary: [PBXProjPlistCommentedString: PBXProjPlistValue] = [:]
-        dictionary["isa"] = .string(PBXProjPlistCommentedString(XCConfigurationList.isa))
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { .string(PBXProjPlistCommentedString($0, comment: proj.objects.configName(from: $0)))
+            .map { .string(CommentedString($0, comment: proj.objects.configName(from: $0)))
         })
-        dictionary["defaultConfigurationIsVisible"] = .string(PBXProjPlistCommentedString("\(defaultConfigurationIsVisible)"))
-        dictionary["defaultConfigurationName"] = .string(PBXProjPlistCommentedString(defaultConfigurationName))
-        return (key: PBXProjPlistCommentedString(self.reference,
+        dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
+        dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
+        return (key: CommentedString(self.reference,
                                                  comment: plistComment(proj: proj)),
                 value: .dictionary(dictionary))
     }

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04AD65251F1A3123005403E8 /* PBXProjWriterSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */; };
+		04AD65271F1A346E005403E8 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65261F1A346E005403E8 /* CommentedString.swift */; };
+		04AD65291F1A35CD005403E8 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD65281F1A35CD005403E8 /* PlistValue.swift */; };
+		04AD652B1F1A3DFC005403E8 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */; };
+		04AD652E1F1A48BE005403E8 /* BuildPhaseSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AD652C1F1A48B9005403E8 /* BuildPhaseSpecs.swift */; };
+		04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */; };
 		23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */; };
 		237C6E8E1EEC82A300EB8F39 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */; };
 		237C6E901EEC8A0F00EB8F39 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */; };
@@ -420,6 +426,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriterSpecs.swift; sourceTree = "<group>"; };
+		04AD65261F1A346E005403E8 /* CommentedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentedString.swift; sourceTree = "<group>"; };
+		04AD65281F1A35CD005403E8 /* PlistValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistValue.swift; sourceTree = "<group>"; };
+		04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPhase.swift; sourceTree = "<group>"; };
+		04AD652C1F1A48B9005403E8 /* BuildPhaseSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPhaseSpecs.swift; sourceTree = "<group>"; };
+		04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXProjWriter.swift; sourceTree = "<group>"; };
 		237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCConfig.swift; sourceTree = "<group>"; };
 		237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
@@ -784,6 +796,7 @@
 			children = (
 				OBJ_40 /* Bool+Extras.swift */,
 				OBJ_41 /* Dictionary+Extras.swift */,
+				04BC19EA1F0F8F4D004031D7 /* String+Extras.swift */,
 			);
 			name = xcodeprojextensions;
 			path = Sources/xcodeprojextensions;
@@ -848,6 +861,8 @@
 				OBJ_75 /* XCWorkspaceDataSpec.swift */,
 				OBJ_76 /* XCWorkspaceSpec.swift */,
 				238E24D51EF0C925006E6A1B /* XCConfigSpec.swift */,
+				04AD65241F1A3123005403E8 /* PBXProjWriterSpecs.swift */,
+				04AD652C1F1A48B9005403E8 /* BuildPhaseSpecs.swift */,
 			);
 			name = xcodeprojTests;
 			path = Tests/xcodeprojTests;
@@ -924,6 +939,9 @@
 				23760C261EE8DDBB00A9EC87 /* PBXProjWriter.swift */,
 				237C6E8D1EEC82A300EB8F39 /* XCConfig.swift */,
 				237C6E8F1EEC8A0F00EB8F39 /* BuildSettings.swift */,
+				04AD65261F1A346E005403E8 /* CommentedString.swift */,
+				04AD65281F1A35CD005403E8 /* PlistValue.swift */,
+				04AD652A1F1A3DFC005403E8 /* BuildPhase.swift */,
 			);
 			name = xcodeproj;
 			path = Sources/xcodeproj;
@@ -1385,10 +1403,12 @@
 				237C6E901EEC8A0F00EB8F39 /* BuildSettings.swift in Sources */,
 				OBJ_307 /* PBXSourcesBuildPhase.swift in Sources */,
 				OBJ_308 /* PBXSourceTree.swift in Sources */,
+				04AD65271F1A346E005403E8 /* CommentedString.swift in Sources */,
 				OBJ_309 /* PBXTarget.swift in Sources */,
 				OBJ_310 /* PBXTargetDependency.swift in Sources */,
 				OBJ_311 /* PBXVariantGroup.swift in Sources */,
 				OBJ_312 /* ProjectElement.swift in Sources */,
+				04AD652B1F1A3DFC005403E8 /* BuildPhase.swift in Sources */,
 				23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */,
 				OBJ_313 /* UUID.swift in Sources */,
 				OBJ_314 /* XCBuildConfiguration.swift in Sources */,
@@ -1399,6 +1419,7 @@
 				OBJ_318 /* XCSharedData.swift in Sources */,
 				OBJ_319 /* XCWorkspace.swift in Sources */,
 				OBJ_320 /* XCWorkspaceData.swift in Sources */,
+				04AD65291F1A35CD005403E8 /* PlistValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,6 +1428,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_342 /* Bool+Extras.swift in Sources */,
+				04BC19EB1F0F8F4D004031D7 /* String+Extras.swift in Sources */,
 				OBJ_343 /* Dictionary+Extras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1435,6 +1457,7 @@
 				OBJ_398 /* Fixtures.swift in Sources */,
 				OBJ_399 /* PBXAggregateTargetSpec.swift in Sources */,
 				OBJ_400 /* PBXBuildFileSpec.swift in Sources */,
+				04AD652E1F1A48BE005403E8 /* BuildPhaseSpecs.swift in Sources */,
 				OBJ_401 /* PBXContainerItemProxySpec.swift in Sources */,
 				OBJ_402 /* PBXCopyFilesBuildPhaseSpec.swift in Sources */,
 				OBJ_403 /* PBXFileElementSpec.swift in Sources */,
@@ -1442,6 +1465,7 @@
 				OBJ_405 /* PBXFrameworksBuildPhaseSpec.swift in Sources */,
 				OBJ_406 /* PBXGroupSpec.swift in Sources */,
 				OBJ_407 /* PBXHeadersBuildPhaseSpec.swift in Sources */,
+				04AD65251F1A3123005403E8 /* PBXProjWriterSpecs.swift in Sources */,
 				OBJ_408 /* PBXNativeTargetSpec.swift in Sources */,
 				OBJ_409 /* PBXObjectSpec.swift in Sources */,
 				OBJ_410 /* PBXProductTypeSpec.swift in Sources */,

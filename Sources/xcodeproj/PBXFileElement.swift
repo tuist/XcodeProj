@@ -2,15 +2,12 @@ import Foundation
 import Unbox
 
 // This element is an abstract parent for file and group elements.
-public struct PBXFileElement: ProjectElement, Hashable {
+public struct PBXFileElement {
     
     // MARK: - Attributes
 
     /// Element reference.
     public let reference: UUID
-    
-    /// Element isa.
-    public static var isa: String = "PBXFileElement"
     
     /// Element source tree.
     public let sourceTree: PBXSourceTree
@@ -40,12 +37,24 @@ public struct PBXFileElement: ProjectElement, Hashable {
         self.name = name
     }
     
-    /// Initializes the file element with its reference and a dictionary that contains its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: element dictionary.
-    /// - Throws: an error in case any of the attributes are missing or it has the wrong type.
+}
+
+// MARK: - PBXFileElement Extension (ProjectElement)
+
+extension PBXFileElement: ProjectElement {
+    
+    public static var isa: String = "PBXFileElement"
+    
+    public static func == (lhs: PBXFileElement,
+                           rhs: PBXFileElement) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.sourceTree == rhs.sourceTree &&
+            lhs.path == rhs.path &&
+            lhs.name == rhs.name
+    }
+    
+    public var hashValue: Int { return self.reference.hashValue }
+    
     public init(reference: UUID, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -53,17 +62,21 @@ public struct PBXFileElement: ProjectElement, Hashable {
         self.path = try unboxer.unbox(key: "path")
         self.name = try unboxer.unbox(key: "name")
     }
+}
+
+// MARK: - PBXFileElement Extension (PlistSerializable)
+
+extension PBXFileElement: PlistSerializable {
     
-    // MARK: - Hashable
-    
-    public static func == (lhs: PBXFileElement,
-                           rhs: PBXFileElement) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.sourceTree == rhs.sourceTree &&
-        lhs.path == rhs.path &&
-        lhs.name == rhs.name
+    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(PBXFileElement.isa))
+        dictionary["name"] = .string(CommentedString(name))
+        dictionary["path"] = .string(CommentedString(path))
+        dictionary["sourceTree"] = sourceTree.plist()
+        return (key: CommentedString(self.reference,
+                                     comment: self.name),
+                value: .dictionary(dictionary))
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
     
 }
