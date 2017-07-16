@@ -21,4 +21,31 @@ public enum PBXProductType: String, UnboxableEnum {
     case messagesExtension = "com.apple.product-type.app-extension.messages"
     case stickerPack = "com.apple.product-type.app-extension.messages-sticker-pack"
     case xpcService = "com.apple.product-type.xpc-service"
+    
+    /// Returns the file extension for the given product type.
+    var fileExtension: String? {
+        switch self {
+        case .application, .watchApp, .watch2App, .messagesApplication:
+            return "app"
+        case .framework:
+            return "framework"
+        case .dynamicLibrary:
+            return "dylib"
+        case .staticLibrary:
+            return "a"
+        case .bundle:
+            return "bundle"
+        case .unitTestBundle, .uiTestBundle:
+            return "xctest"
+        case .appExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack:
+            return "appex"
+        case .commandLineTool:
+            return ""
+        case .xpcService:
+            return "xpc"
+        case .none:
+            return nil
+        }
+    }
 }
+
