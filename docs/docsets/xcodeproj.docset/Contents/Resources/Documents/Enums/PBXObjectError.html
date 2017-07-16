@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>XCSchemeError Enum Reference</title>
+    <title>PBXObjectError Enum Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/XCSchemeError" class="dashAnchor"></a>
-    <a title="XCSchemeError Enum Reference"></a>
+    <a name="//apple_ref/swift/Enum/PBXObjectError" class="dashAnchor"></a>
+    <a title="PBXObjectError Enum Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcodeproj Docs</a> (53% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcodeproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        XCSchemeError Enum Reference
+        PBXObjectError Enum Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -112,18 +112,18 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>XCSchemeError</h1>
+            <h1>PBXObjectError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">XCSchemeError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PBXObjectError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>XCScheme Errors.</p>
+            <p>PBXObjectError</p>
 
 <ul>
-<li>notFound: returned when the .xcscheme cannot be found.</li>
-<li>missing: returned when there&rsquo;s a property missing in the .xcscheme.</li>
+<li>missingIsa: the isa attribute is missing.</li>
+<li>unknownElement: the object type is not supported.</li>
 </ul>
 
           </section>

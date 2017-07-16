@@ -14,7 +14,7 @@
     <a title="PBXProj Struct Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (54% documented)</p>
+        <p><a href="../index.html">xcodeproj Docs</a> (53% documented)</p>
         <p class="header-right"><a href="https://github.com/carambalabs/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -42,9 +42,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/XcodeProj.html">XcodeProj</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Models.html#/s:O9xcodeproj14PBXProductType">PBXProductType</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/PBXNativeTarget.html">PBXNativeTarget</a>
@@ -83,13 +80,30 @@
               <li class="nav-group-task">
                 <a href="../Enums/XCodeProjError.html">XCodeProjError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PBXObjectError.html">PBXObjectError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other Enums.html">Other Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other Enums.html#/s:O9xcodeproj10BuildPhase">BuildPhase</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Other Extensions.html#/s:Vs3Set">Set</a>
+                <a href="../Other Extensions.html#/s:Sa">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CommentedString.html">CommentedString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/PlistValue.html">PlistValue</a>
               </li>
             </ul>
           </li>
@@ -256,9 +270,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV9xcodeproj7PBXProj7objectsGVs3SetOS_9PBXObject_"></a>
+                    <a name="/s:vV9xcodeproj7PBXProj7objectsGSaOS_9PBXObject_"></a>
                     <a name="//apple_ref/swift/Property/objects" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV9xcodeproj7PBXProj7objectsGVs3SetOS_9PBXObject_">objects</a>
+                    <a class="token" href="#/s:vV9xcodeproj7PBXProj7objectsGSaOS_9PBXObject_">objects</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -273,7 +287,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">objects</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">PBXObject</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBXObject</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -310,20 +324,13 @@
               </ul>
             </div>
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Init"></a>
-                <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
-                <a href="#/Init">
-                  <h3 class="section-name">Init</h3>
-                </a>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV9xcodeproj7PBXProjcFT4pathV7PathKit4Path4nameSS14archiveVersionSi13objectVersionSi10rootObjectSS7classesGSaP__7objectsGVs3SetOS_9PBXObject__S0_"></a>
+                    <a name="/s:FV9xcodeproj7PBXProjcFT4pathV7PathKit4Path4nameSS14archiveVersionSi13objectVersionSi10rootObjectSS7classesGSaP__7objectsGSaOS_9PBXObject__S0_"></a>
                     <a name="//apple_ref/swift/Method/init(path:name:archiveVersion:objectVersion:rootObject:classes:objects:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV9xcodeproj7PBXProjcFT4pathV7PathKit4Path4nameSS14archiveVersionSi13objectVersionSi10rootObjectSS7classesGSaP__7objectsGVs3SetOS_9PBXObject__S0_">init(path:name:archiveVersion:objectVersion:rootObject:classes:objects:)</a>
+                    <a class="token" href="#/s:FV9xcodeproj7PBXProjcFT4pathV7PathKit4Path4nameSS14archiveVersionSi13objectVersionSi10rootObjectSS7classesGSaP__7objectsGSaOS_9PBXObject__S0_">init(path:name:archiveVersion:objectVersion:rootObject:classes:objects:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -344,7 +351,7 @@
                 <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                 <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">,</span>
                 <span class="nv">classes</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-                <span class="nv">objects</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">PBXObject</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">Set</span><span class="p">())</span></code></pre>
+                <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBXObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
 
                         </div>
                       </div>
@@ -580,6 +587,170 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFPs9Equatableoi2eeFTxx_Sb"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFPs9Equatableoi2eeFTxx_Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">PBXProj</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">PBXProj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP18xcodeprojprotocols8Writable5writeFzT8overrideSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/write(override:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP18xcodeprojprotocols8Writable5writeFzT8overrideSb_T_">write(override:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>override</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV9xcodeproj7PBXProj8updatingFT6objectOS_9PBXObject_S0_"></a>
+                    <a name="//apple_ref/swift/Method/updating(object:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV9xcodeproj7PBXProj8updatingFT6objectOS_9PBXObject_S0_">updating(object:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new PBXProj updating an object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updating</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">PBXObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PBXProj</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>object to be updated. The object reference is used to find the object in the project list of objects.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a new PBXProj object with the object udpated.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -617,6 +788,56 @@
                               <td>
                                 <div>
                                   <p>object to be removed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a new PBXProj object with the object removed.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV9xcodeproj7PBXProj8removingFT15objectReferenceSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/removing(objectReference:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV9xcodeproj7PBXProj8removingFT15objectReferenceSS_S0_">removing(objectReference:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new PBXProj removing the object with the given reference.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removing</span><span class="p">(</span><span class="nv">objectReference</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PBXProj</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objectReference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>reference that identifies the object to be removed.</p>
                                 </div>
                               </td>
                             </tr>
@@ -676,55 +897,6 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>a new PBXProj object with the object added.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FP18xcodeprojprotocols8Writable5writeFzT8overrideSb_T_"></a>
-                    <a name="//apple_ref/swift/Method/write(override:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP18xcodeprojprotocols8Writable5writeFzT8overrideSb_T_">write(override:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>override</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>

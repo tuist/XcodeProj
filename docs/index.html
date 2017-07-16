@@ -13,7 +13,7 @@
     <a title="xcodeproj  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcodeproj Docs</a> (54% documented)</p>
+        <p><a href="index.html">xcodeproj Docs</a> (53% documented)</p>
         <p class="header-right"><a href="https://github.com/carambalabs/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -41,9 +41,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/XcodeProj.html">XcodeProj</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Models.html#/s:O9xcodeproj14PBXProductType">PBXProductType</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/PBXNativeTarget.html">PBXNativeTarget</a>
@@ -82,13 +79,30 @@
               <li class="nav-group-task">
                 <a href="Enums/XCodeProjError.html">XCodeProjError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/PBXObjectError.html">PBXObjectError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other Enums.html">Other Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other Enums.html#/s:O9xcodeproj10BuildPhase">BuildPhase</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Other Extensions.html#/s:Vs3Set">Set</a>
+                <a href="Other Extensions.html#/s:Sa">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CommentedString.html">CommentedString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/PlistValue.html">PlistValue</a>
               </li>
             </ul>
           </li>
@@ -108,6 +122,9 @@
 </a>
 <a href="https://twitter.com/pepibumur">
     <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+</a>
+<a href="https://opensource.org/licenses/MIT">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a></p>
 
 <p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods Xcodeproj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
@@ -141,9 +158,18 @@
 <span class="k">let</span> <span class="nv">projects</span> <span class="o">=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">project</span> <span class="p">}</span>
 
 <span class="c1">// Read a config file</span>
-<span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCConfig</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyConfig.xcconfig"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">buildDir</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="nf">buildSettings</span><span class="p">(</span><span class="s">"CONFIGURATION_BUILD_DIR"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">xcconfig</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCConfig</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyConfig.xcconfig"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">buildDir</span> <span class="o">=</span> <span class="n">xcconfig</span><span class="o">.</span><span class="nf">buildSettings</span><span class="p">(</span><span class="s">"CONFIGURATION_BUILD_DIR"</span><span class="p">)</span>
 </code></pre>
+<h4 id='writing' class='heading'>Writing</h4>
+
+<p>All models above are also writable. After modifying them you can write them back to disk:</p>
+<pre class="highlight plaintext"><code>pbxproj.write(override: true)
+xcconfig.write(override: true)
+</code></pre>
+<h3 id='documentation' class='heading'>Documentation</h3>
+
+<p>You can check out the documentation on the following <a href="https://carambalabs.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
 <h3 id='references' class='heading'>References</h3>
 
 <ul>
