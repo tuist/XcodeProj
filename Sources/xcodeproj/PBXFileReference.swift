@@ -1,5 +1,6 @@
 import Foundation
 import Unbox
+import PathKit
 
 //  A PBXFileReference is used to track every external file referenced by 
 //  the project: source files, resource files, libraries, generated application files, and so on.
@@ -83,6 +84,55 @@ extension PBXFileReference: ProjectElement {
         self.path = unboxer.unbox(key: "path")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.includeInIndex = unboxer.unbox(key: "includeInIndex")
+    }
+    
+}
+
+fileprivate let fileTypeHash: [String: String] = [
+    "a": "archive.ar",
+    "apns": "text",
+    "app": "wrapper.application",
+    "appex": "wrapper.app-extension",
+    "bundle": "wrapper.plug-in",
+    "dylib": "compiled.mach-o.dylib",
+    "entitlements": "text.plist.entitlements",
+    "framework": "wrapper.framework",
+    "gif": "image.gif",
+    "gpx": "text.xml",
+    "h": "sourcecode.c.h",
+    "m": "sourcecode.c.objc",
+    "markdown": "text",
+    "mdimporter": "wrapper.cfbundle",
+    "mov": "video.quicktime",
+    "mp3": "audio.mp3",
+    "octest": "wrapper.cfbundle",
+    "pch": "sourcecode.c.h",
+    "plist": "text.plist.xml",
+    "png": "image.png",
+    "sh": "text.script.sh",
+    "sks": "file.sks",
+    "storyboard": "file.storyboard",
+    "strings": "text.plist.strings",
+    "swift": "sourcecode.swift",
+    "xcassets": "folder.assetcatalog",
+    "xcconfig": "text.xcconfig",
+    "xcdatamodel": "wrapper.xcdatamodel",
+    "xcodeproj": "wrapper.pb-project",
+    "xctest": "wrapper.cfbundle",
+    "xib": "file.xib",
+    "zip": "archive.zip"
+]
+
+// MARK: - PBXFileReference Extension (Extras)
+
+extension PBXFileReference {
+    
+    /// Returns the file type for a given path.
+    ///
+    /// - Parameter path: path whose file type will be returned.
+    /// - Returns: file type (if supported).
+    static func fileType(path: Path) -> String? {
+        return path.extension.flatMap({fileTypeHash[$0]})
     }
     
 }

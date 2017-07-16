@@ -5,7 +5,8 @@ import Unbox
 public struct PBXContainerItemProxy {
     
     public enum ProxyType: UInt, UnboxableEnum {
-        case targetReference = 1
+        case nativeTarget = 1
+        case reference = 2
         case other
     }
     
@@ -34,7 +35,7 @@ public struct PBXContainerItemProxy {
     public init(reference: UUID,
                 containerPortal: UUID,
                 remoteGlobalIDString: UUID,
-                proxyType: ProxyType = .targetReference,
+                proxyType: ProxyType = .nativeTarget,
                 remoteInfo: String? = nil) {
         self.reference = reference
         self.containerPortal = containerPortal
