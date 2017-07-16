@@ -10,6 +10,7 @@ In this documents you'll find all the necessary steps to release a new version o
 4. Generate the release with `bundle exec rake release`.
 5. Create a new release on [GitHub](https://github.com/carambalabs/xcodeproj) including the information from the last entry in the `CHANGELOG.md`.
 6. Close the GitHub Milestone associated to that release and open a new one for the next release.
+7. Rebase the `release/x.x.x` branch into `master`.
 
 ### Notes
 - If any of the steps above is not clear above do not hesitate to propose improvements.
