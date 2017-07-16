@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
-import xcodeproj
+
+@testable import xcodeproj
 
 final class PBXHeadersBuildPhaseSpec: XCTestCase {
     
@@ -72,6 +73,17 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+    
+    func test_isHeader_returnsTheCorrectValue() {
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "h"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "hh"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "hpp"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "ipp"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "tpp"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "hxx"))
+        XCTAssertTrue(PBXHeadersBuildPhase.isHeader(fileExtension: "def"))
+        XCTAssertFalse(PBXHeadersBuildPhase.isHeader(fileExtension: "uuu"))
     }
     
     private func testDictionary() -> [String: Any] {
