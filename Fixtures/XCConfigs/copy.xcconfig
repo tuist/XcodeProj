@@ -1,7 +1,0 @@
-#include "Parent.xcconfig"
-
-
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
-CONFIGURATION_BUILD_DIR = Test/
-WARNING_CFLAGS = -Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded
-
