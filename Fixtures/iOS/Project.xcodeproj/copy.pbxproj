@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		04D5C09F1F153824008A2F98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D5C09E1F153824008A2F98 /* CoreData.framework */; };
 		04D5C0A31F153924008A2F98 /* Public.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A01F153915008A2F98 /* Public.h */; };
-		04D5C0A41F153924008A2F98 /* Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A11F15391B008A2F98 /* Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		04D5C0A51F153924008A2F98 /* Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A21F153921008A2F98 /* Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		04D5C0A41F153924008A2F98 /* Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A11F15391B008A2F98 /* Protected.h */; settings = {ATTRIBUTES = ("Public", ); }; };
+		04D5C0A51F153924008A2F98 /* Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A21F153921008A2F98 /* Private.h */; settings = {ATTRIBUTES = ("Private", ); }; };
 		23766C161EAA3484007A9026 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23766C151EAA3484007A9026 /* AppDelegate.swift */; };
 		23766C181EAA3484007A9026 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23766C171EAA3484007A9026 /* ViewController.swift */; };
 		23766C1B1EAA3484007A9026 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23766C191EAA3484007A9026 /* Main.storyboard */; };
@@ -189,18 +189,18 @@
 		23766C0A1EAA3484007A9026 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = es.ppinera;
+				LastSwiftUpdateCheck = "0830";
+				LastUpgradeCheck = "0830";
+				ORGANIZATIONNAME = "es.ppinera";
 				TargetAttributes = {
 					23766C111EAA3484007A9026 = {
-						CreatedOnToolsVersion = 8.3.1;
-						ProvisioningStyle = Automatic;
+						CreatedOnToolsVersion = "8.3.1";
+						ProvisioningStyle = "Automatic";
 					};
 					23766C251EAA3484007A9026 = {
-						CreatedOnToolsVersion = 8.3.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 23766C111EAA3484007A9026;
+						CreatedOnToolsVersion = "8.3.1";
+						ProvisioningStyle = "Automatic";
+						TestTargetID = "23766C111EAA3484007A9026";
 					};
 				};
 			};
@@ -312,11 +312,12 @@
 		23766C2D1EAA3484007A9026 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = gnu++0x;
-				CLANG_CXX_LIBRARY = libc++;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -331,18 +332,17 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY[sdk=iphoneos*] = iPhone Developer;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "gnu99";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = "0";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG=1,
-					$(inherited),
+					"DEBUG=1",
+					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -350,23 +350,24 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = "10.3";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = -Onone;
+				SDKROOT = "iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		23766C2E1EAA3484007A9026 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = gnu++0x;
-				CLANG_CXX_LIBRARY = libc++;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -381,12 +382,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY[sdk=iphoneos*] = iPhone Developer;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "gnu99";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -394,10 +394,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = "10.3";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = -Owholemodule;
+				SDKROOT = "iphoneos";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -405,24 +405,24 @@
 		23766C301EAA3484007A9026 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = iOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks;
-				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS;
-				PRODUCT_NAME = $(TARGET_NAME);
-				SWIFT_VERSION = 3.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				INFOPLIST_FILE = "iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "es.ppinera.iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "3.0";
 			};
 			name = Debug;
 		};
 		23766C311EAA3484007A9026 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = iOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks;
-				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS;
-				PRODUCT_NAME = $(TARGET_NAME);
-				SWIFT_VERSION = 3.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				INFOPLIST_FILE = "iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "es.ppinera.iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "3.0";
 			};
 			name = Release;
 		};
@@ -430,13 +430,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = $(TEST_HOST);
-				INFOPLIST_FILE = iOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks;
-				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOSTests;
-				PRODUCT_NAME = $(TARGET_NAME);
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = $(BUILT_PRODUCTS_DIR)/Project.app/Project;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "es.ppinera.iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "3.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Project.app/Project";
 			};
 			name = Debug;
 		};
@@ -444,13 +444,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = $(TEST_HOST);
-				INFOPLIST_FILE = iOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks;
-				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOSTests;
-				PRODUCT_NAME = $(TARGET_NAME);
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = $(BUILT_PRODUCTS_DIR)/Project.app/Project;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "es.ppinera.iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "3.0";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Project.app/Project";
 			};
 			name = Release;
 		};
