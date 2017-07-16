@@ -53,7 +53,7 @@ let buildDir = xcconfig.buildSettings("CONFIGURATION_BUILD_DIR")
 #### Writing
 All models above are also writable. After modifying them you can write them back to disk:
 
-````
+```swit
 pbxproj.write(override: true)
 xcconfig.write(override: true)
 ```
