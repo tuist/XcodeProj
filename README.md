@@ -16,19 +16,19 @@ xcodeproj
 
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods Xcodeproj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
-### Motivation
+### Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
 
 - Add new `Build phases`.
 - Update the project `Build Settings`.
 - Create new `Schemes`.
 
-### Contribute
+### Contribute 👨‍👩‍👧
 
 1. Git clone the repository `git@github.com:carambalabs/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
-### Setup
+### Setup 🦋
 
 #### Using Swift Package Manager
 
@@ -52,7 +52,7 @@ Edit your `Marathonfile` and specify the dependency in there:
 https://github.com/carambalabs/xcodeproj.git
 ```
 
-### How to
+### How to 🐒
 
 #### Read
 
@@ -82,10 +82,10 @@ pbxproj.write(override: true)
 xcconfig.write(override: true)
 ```
 
-### Documentation
+### Documentation 📄
 You can check out the documentation on the following [link](https://carambalabs.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
-### References
+### References 📚
 
 - [PathKit](https://github.com/kylef/PathKit)
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
