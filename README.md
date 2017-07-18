@@ -28,9 +28,33 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 1. Git clone the repository `git@github.com:carambalabs/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
+### Setup
+
+#### Using Swift Package Manager
+
+Add the dependency in your `Package.swift` file:
+
+```swift
+let package = Package(
+    name: "myproject",
+    dependencies: [
+        .Package(url: "https://github.com/carambalabs/xcodeproj.git", majorVersion: 0, minor: 0)
+    ]
+)
+
+```
+
+#### Using [Marathon](https://github.com/JohnSundell/Marathon)
+
+Edit your `Marathonfile` and specify the dependency in there:
+
+```bash
+https://github.com/carambalabs/xcodeproj.git
+```
+
 ### How to
 
-#### Reading
+#### Read
 
 You can read the Xcode project files as shown in the examples below:
 
@@ -50,7 +74,7 @@ let xcconfig = try! XCConfig(path: "MyConfig.xcconfig")
 let buildDir = xcconfig.buildSettings("CONFIGURATION_BUILD_DIR")
 ```
 
-#### Writing
+#### Write
 All models above are also writable. After modifying them you can write them back to disk:
 
 ```swit
