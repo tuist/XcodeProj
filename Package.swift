@@ -1,24 +1,24 @@
-// swift-tools-version:3.1
+// swift-tools-version:4.0
 
 import PackageDescription
 
 let package = Package(
     name: "xcodeproj",
+    dependencies: [
+        .package(url: "https://github.com/kylef/PathKit.git", .upToNextMinor(from: "0.8.0")),
+        .package(url: "https://github.com/JohnSundell/Unbox", .upToNextMinor(from: "2.4.0")),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .branch("swift4")),
+        .package(url: "https://github.com/tadija/AEXML.git", .upToNextMinor(from: "4.0.0"))
+    ],
     targets: [
-        Target(
+        .target(
             name: "xcodeprojextensions",
             dependencies: []),
-        Target(
+        .target(
             name: "xcodeprojprotocols",
             dependencies: ["xcodeprojextensions"]),
-        Target(
+        .target(
             name: "xcodeproj",
             dependencies: ["xcodeprojextensions", "xcodeprojprotocols"])
-    ],
-    dependencies: [
-        .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
-        .Package(url: "https://github.com/JohnSundell/Unbox", majorVersion: 2, minor: 4),
-        .Package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", majorVersion: 0, minor: 6),
-        .Package(url: "https://github.com/tadija/AEXML.git", majorVersion: 4)
     ]
 )
