@@ -1,5 +1,4 @@
-xcodeproj
-==============
+<img width="300" src="https://github.com/carambalabs/xcodeproj/blob/master/Assets/logo.png?raw=true"/>
 
 <a href="https://travis-ci.org/carambalabs/xcodeproj">
     <img src="https://travis-ci.org/carambalabs/xcodeproj.svg?branch=master">
