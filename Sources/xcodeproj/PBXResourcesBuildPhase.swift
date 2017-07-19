@@ -5,13 +5,13 @@ import Unbox
 public struct PBXResourcesBuildPhase {
     
     /// Element reference
-    public let reference: UUID
+    public let reference: String
     
     /// Element build action mask.
     public let buildActionMask: Int
     
     /// Element files.
-    public let files: Set<UUID>
+    public let files: Set<String>
     
     /// Element run only for deployment post processing value.
     public let runOnlyForDeploymentPostprocessing: Int
@@ -23,7 +23,7 @@ public struct PBXResourcesBuildPhase {
     ///   - files: element files.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
     public init(reference: String,
-                files: Set<UUID>,
+                files: Set<String>,
                 runOnlyForDeploymentPostprocessing: Int = 0,
                 buildActionMask: Int = 2147483647) {
         self.reference = reference
@@ -68,7 +68,7 @@ extension PBXResourcesBuildPhase {
     ///
     /// - Parameter file: reference to the file.
     /// - Returns: new resources build phase with the file added.
-    public func adding(file: UUID) -> PBXResourcesBuildPhase {
+    public func adding(file: String) -> PBXResourcesBuildPhase {
         var files = self.files
         files.update(with: file)
         return PBXResourcesBuildPhase(reference: self.reference,
@@ -79,7 +79,7 @@ extension PBXResourcesBuildPhase {
     ///
     /// - Parameter file: reference to the fil eto be removed.
     /// - Returns: new resources build phase with the file removed.
-    public func removing(file: UUID) -> PBXResourcesBuildPhase {
+    public func removing(file: String) -> PBXResourcesBuildPhase {
         var files = self.files
         files.remove(file)
         return PBXResourcesBuildPhase(reference: self.reference,

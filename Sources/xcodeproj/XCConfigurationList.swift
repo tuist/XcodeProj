@@ -7,10 +7,10 @@ public struct XCConfigurationList {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element build configurations.
-    public let buildConfigurations: Set<UUID>
+    public let buildConfigurations: Set<String>
     
     /// Element default configuration is visible.
     public let defaultConfigurationIsVisible: UInt
@@ -27,8 +27,8 @@ public struct XCConfigurationList {
     ///   - buildConfigurations: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(reference: UUID,
-                buildConfigurations: Set<UUID>,
+    public init(reference: String,
+                buildConfigurations: Set<String>,
                 defaultConfigurationName: String,
                 defaultConfigurationIsVisible: UInt = 0) {
         self.reference = reference
@@ -45,7 +45,7 @@ extension XCConfigurationList {
     ///
     /// - Parameter configuration: refrence to the configuration to be added.
     /// - Returns: new configuration list with the configuration added.
-    public func adding(configuration: UUID) -> XCConfigurationList {
+    public func adding(configuration: String) -> XCConfigurationList {
         var buildConfigurations = self.buildConfigurations
         buildConfigurations.update(with: configuration)
         return XCConfigurationList(reference: self.reference,
@@ -57,7 +57,7 @@ extension XCConfigurationList {
     ///
     /// - Parameter configuration: reference to the configuration to be removed.
     /// - Returns: new configuration list with the configuration removed.
-    public func removing(configuration: UUID) -> XCConfigurationList {
+    public func removing(configuration: String) -> XCConfigurationList {
         var buildConfigurations = self.buildConfigurations
         buildConfigurations.remove(configuration)
         return XCConfigurationList(reference: self.reference,
@@ -123,7 +123,7 @@ extension XCConfigurationList: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")

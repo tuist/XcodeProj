@@ -4,16 +4,16 @@ import Foundation
 public protocol PBXTarget: ProjectElement {
     
     /// Target build configuration list.
-    var buildConfigurationList: UUID { get }
+    var buildConfigurationList: String { get }
     
     /// Target build phases.
-    var buildPhases: [UUID] { get }
+    var buildPhases: [String] { get }
     
     /// Target build rules.
-    var buildRules: [UUID] { get }
+    var buildRules: [String] { get }
     
     /// Target dependencies.
-    var dependencies: [UUID] { get }
+    var dependencies: [String] { get }
     
     /// Target name.
     var name: String { get }
@@ -22,7 +22,7 @@ public protocol PBXTarget: ProjectElement {
     var productName: String? { get }
     
     /// Target product reference.
-    var productReference: UUID? { get }
+    var productReference: String? { get }
     
     /// Target product type.
     var productType: PBXProductType? { get }

@@ -7,7 +7,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     /// Reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element isa.
     public static var isa: String = "PBXSourcesBuildPhase"
@@ -16,7 +16,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     public let buildActionMask: Int = 2147483647
     
     /// Files.
-    public let files: Set<UUID>
+    public let files: Set<String>
     
     /// Run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: Int = 0
@@ -28,8 +28,8 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     /// - Parameters:
     ///   - reference: build phase reference.
     ///   - files: build phase files.
-    public init(reference: UUID,
-                files: Set<UUID>) {
+    public init(reference: String,
+                files: Set<String>) {
         self.reference = reference
         self.files = files
     }
@@ -40,7 +40,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the build phase attributes.
     /// - Throws: throws an error in case any of the attributes is missing or it has the wrong type.
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
@@ -52,7 +52,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     ///
     /// - Parameter file: file to be removed.
     /// - Returns: build phase with the file removed.
-    public func removing(file: UUID) -> PBXSourcesBuildPhase {
+    public func removing(file: String) -> PBXSourcesBuildPhase {
         var files = self.files
         files.remove(file)
         return PBXSourcesBuildPhase(reference: self.reference, files: files)
@@ -62,7 +62,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     ///
     /// - Parameter file: file to be added.
     /// - Returns: new build phase with the file added.
-    public func adding(file: UUID) -> PBXSourcesBuildPhase {
+    public func adding(file: String) -> PBXSourcesBuildPhase {
         var files = self.files
         files.update(with: file)
         return PBXSourcesBuildPhase(reference: self.reference, files: files)
@@ -100,7 +100,7 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
                 value: .dictionary(dictionary))
     }
     
-    private func fileName(from reference: UUID, proj: PBXProj) -> String? {
+    private func fileName(from reference: String, proj: PBXProj) -> String? {
         return proj.objects.buildFiles
             .filter { $0.reference == reference }
             .flatMap { buildFile in

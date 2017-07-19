@@ -7,19 +7,19 @@ public struct PBXAggregateTarget: PBXTarget {
     // MARK: - Attributes
 
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Target build configuration list.
-    public var buildConfigurationList: UUID
+    public var buildConfigurationList: String
     
     /// Target build phases.
-    public var buildPhases: [UUID]
+    public var buildPhases: [String]
     
     /// Target build rules.
-    public var buildRules: [UUID]
+    public var buildRules: [String]
     
     /// Target dependencies.
-    public var dependencies: [UUID]
+    public var dependencies: [String]
     
     /// Target name.
     public var name: String
@@ -28,7 +28,7 @@ public struct PBXAggregateTarget: PBXTarget {
     public var productName: String?
     
     /// Target product reference.
-    public var productReference: UUID?
+    public var productReference: String?
     
     /// Target product type.
     public var productType: PBXProductType?
@@ -47,14 +47,14 @@ public struct PBXAggregateTarget: PBXTarget {
     ///   - productName: target product name.
     ///   - productReference: target product reference.
     ///   - productType: target product type.
-    public init(reference: UUID,
-                buildConfigurationList: UUID,
-                buildPhases: [UUID],
-                buildRules: [UUID],
-                dependencies: [UUID],
+    public init(reference: String,
+                buildConfigurationList: String,
+                buildPhases: [String],
+                buildRules: [String],
+                dependencies: [String],
                 name: String,
                 productName: String? = nil,
-                productReference: UUID? = nil,
+                productReference: String? = nil,
                 productType: PBXProductType? = nil) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
@@ -81,7 +81,7 @@ extension PBXAggregateTarget: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
@@ -104,7 +104,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildPhase: build phase to be added.
     /// - Returns: new aggregate target with the build phase added.
-    public func adding(buildPhase: UUID) -> PBXAggregateTarget {
+    public func adding(buildPhase: String) -> PBXAggregateTarget {
         var buildPhases = self.buildPhases
         buildPhases.append(buildPhase)
         return PBXAggregateTarget(reference: reference,
@@ -122,7 +122,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildPhase: build phase to be removed.
     /// - Returns: a new aggregate target with the build phase removed.
-    public func removing(buildPhase: UUID) -> PBXAggregateTarget {
+    public func removing(buildPhase: String) -> PBXAggregateTarget {
         var buildPhases = self.buildPhases
         if let index = buildPhases.index(of: buildPhase) {
             buildPhases.remove(at: index)
@@ -142,7 +142,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildPhases: build phases for the new aggregate target.
     /// - Returns: new aggregate target with the given build phases.
-    public func with(buildPhases: [UUID]) -> PBXAggregateTarget {
+    public func with(buildPhases: [String]) -> PBXAggregateTarget {
         return PBXAggregateTarget(reference: reference,
                                   buildConfigurationList: buildConfigurationList,
                                   buildPhases: buildPhases,
@@ -158,7 +158,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildRule: build rule to be added.
     /// - Returns: new aggregate target with the build rule added.
-    public func adding(buildRule: UUID) -> PBXAggregateTarget {
+    public func adding(buildRule: String) -> PBXAggregateTarget {
         var buildRules = self.buildRules
         buildRules.append(buildRule)
         return PBXAggregateTarget(reference: reference,
@@ -176,7 +176,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildRule: build rule to be removed.
     /// - Returns: new aggregate target with the build rule removed.
-    public func removing(buildRule: UUID) -> PBXAggregateTarget {
+    public func removing(buildRule: String) -> PBXAggregateTarget {
         var buildRules = self.buildRules
         if let index = buildRules.index(of: buildRule) {
             buildRules.remove(at: index)
@@ -196,7 +196,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter buildRules: build rules for the new aggregate target.
     /// - Returns: new aggregate target with the given build rules.
-    public func with(buildRules: [UUID]) -> PBXAggregateTarget {
+    public func with(buildRules: [String]) -> PBXAggregateTarget {
         return PBXAggregateTarget(reference: reference,
                                   buildConfigurationList: buildConfigurationList,
                                   buildPhases: buildPhases,
@@ -212,7 +212,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter dependency: dependency to be added.
     /// - Returns: new aggregate target with the dependency added.
-    public func adding(dependency: UUID) -> PBXAggregateTarget {
+    public func adding(dependency: String) -> PBXAggregateTarget {
         var dependencies = self.dependencies
         dependencies.append(dependency)
         return PBXAggregateTarget(reference: reference,
@@ -230,7 +230,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter dependency: dependency to be removed.
     /// - Returns: new aggregate target with the dependency removed.
-    public func removing(dependency: UUID) -> PBXAggregateTarget {
+    public func removing(dependency: String) -> PBXAggregateTarget {
         var dependencies = self.dependencies
         if let index = dependencies.index(of: dependency) {
             dependencies.remove(at: index)
@@ -250,7 +250,7 @@ extension PBXAggregateTarget {
     ///
     /// - Parameter dependencies: dependencies for the new aggregate target.
     /// - Returns: new aggregate target with the dependencies.
-    public func with(dependencies: [UUID]) -> PBXAggregateTarget {
+    public func with(dependencies: [String]) -> PBXAggregateTarget {
         return PBXAggregateTarget(reference: reference,
                                   buildConfigurationList: buildConfigurationList,
                                   buildPhases: buildPhases,

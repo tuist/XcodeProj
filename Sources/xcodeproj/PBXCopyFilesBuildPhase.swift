@@ -22,7 +22,7 @@ public struct PBXCopyFilesBuildPhase {
     // MARK: - Attributes
     
     /// Element reference
-    public let reference: UUID
+    public let reference: String
     
     /// Element destination path
     public let dstPath: String
@@ -34,7 +34,7 @@ public struct PBXCopyFilesBuildPhase {
     public let dstSubfolderSpec: SubFolder
  
     /// Element files
-    public let files: Set<UUID>
+    public let files: Set<String>
  
     /// element run only for deployment post processing.
     public let runOnlyForDeploymentPostprocessing: UInt
@@ -50,11 +50,11 @@ public struct PBXCopyFilesBuildPhase {
     ///   - buildActionMask: build action mask.
     ///   - files: files to copy.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing.
-    public init(reference: UUID,
+    public init(reference: String,
                 dstPath: String,
                 dstSubfolderSpec: SubFolder,
                 buildActionMask: UInt = 2147483647,
-                files: Set<UUID> = [],
+                files: Set<String> = [],
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.reference = reference
         self.dstPath = dstPath
@@ -70,7 +70,7 @@ public struct PBXCopyFilesBuildPhase {
 
 extension PBXCopyFilesBuildPhase {
     
-    public func adding(file: UUID) -> PBXCopyFilesBuildPhase {
+    public func adding(file: String) -> PBXCopyFilesBuildPhase {
         var files = self.files
         files.update(with: file)
         return PBXCopyFilesBuildPhase(reference: reference,
@@ -81,7 +81,7 @@ extension PBXCopyFilesBuildPhase {
                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
-    public func removing(file: UUID) -> PBXCopyFilesBuildPhase {
+    public func removing(file: String) -> PBXCopyFilesBuildPhase {
         var files = self.files
         files.remove(file)
         return PBXCopyFilesBuildPhase(reference: reference,
@@ -98,7 +98,7 @@ extension PBXCopyFilesBuildPhase {
 
 extension PBXCopyFilesBuildPhase: ProjectElement {
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.dstPath = try unboxer.unbox(key: "dstPath")

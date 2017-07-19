@@ -9,7 +9,7 @@ public struct PBXFileReference {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element file encoding.
     public let fileEncoding: Int?
@@ -34,7 +34,7 @@ public struct PBXFileReference {
     
     // MARK: - Init
     
-    public init(reference: UUID,
+    public init(reference: String,
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 fileEncoding: Int? = nil,
@@ -74,7 +74,7 @@ extension PBXFileReference: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.fileEncoding = unboxer.unbox(key: "fileEncoding")

@@ -7,10 +7,10 @@ public struct PBXFrameworksBuildPhase {
     // MARK: - Properties
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Framework build phase files.
-    public let files: Set<UUID>
+    public let files: Set<String>
     
     /// Build phase build action mask.
     public let buildActionMask: Int
@@ -26,8 +26,8 @@ public struct PBXFrameworksBuildPhase {
     ///   - reference: element reference.
     ///   - files: frameworks build phase files.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment pos processing value.
-    public init(reference: UUID,
-                files: Set<UUID>,
+    public init(reference: String,
+                files: Set<String>,
                 runOnlyForDeploymentPostprocessing: UInt,
                 buildActionMask: Int = 2147483647) {
         self.reference = reference
@@ -46,7 +46,7 @@ extension PBXFrameworksBuildPhase {
     ///
     /// - Parameter file: file to be added.
     /// - Returns: new build phase with the file added.
-    public func adding(file: UUID) -> PBXFrameworksBuildPhase {
+    public func adding(file: String) -> PBXFrameworksBuildPhase {
         var files = self.files
         files.insert(file)
         return PBXFrameworksBuildPhase(reference: reference,
@@ -58,7 +58,7 @@ extension PBXFrameworksBuildPhase {
     ///
     /// - Parameter file: file to be removed.
     /// - Returns: new frameworks build phase with the file removed.
-    public func removing(file: UUID) -> PBXFrameworksBuildPhase {
+    public func removing(file: String) -> PBXFrameworksBuildPhase {
         var files = self.files
         files.remove(file)
         return PBXFrameworksBuildPhase(reference: reference,
@@ -83,7 +83,7 @@ extension PBXFrameworksBuildPhase: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")

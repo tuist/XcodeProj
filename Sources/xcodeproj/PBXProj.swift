@@ -29,7 +29,7 @@ public struct PBXProj {
     public let objects: [PBXObject]
     
     /// Project root object.
-    public let rootObject: UUID
+    public let rootObject: String
     
 }
 
@@ -51,7 +51,7 @@ extension PBXProj {
                 name: String,
                 archiveVersion: Int,
                 objectVersion: Int,
-                rootObject: UUID,
+                rootObject: String,
                 classes: [Any] = [],
                 objects: [PBXObject] = []) {
         self.path = path
@@ -104,12 +104,12 @@ extension PBXProj: Equatable {
     
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
         return lhs.path == rhs.path &&
-        lhs.name == rhs.name &&
-        lhs.archiveVersion == rhs.archiveVersion &&
-        lhs.objectVersion == rhs.objectVersion &&
-        NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
-        lhs.objects == rhs.objects &&
-        lhs.rootObject == rhs.rootObject
+            lhs.name == rhs.name &&
+            lhs.archiveVersion == rhs.archiveVersion &&
+            lhs.objectVersion == rhs.objectVersion &&
+            NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
+            lhs.objects == rhs.objects &&
+            lhs.rootObject == rhs.rootObject
     }
     
 }
@@ -150,7 +150,7 @@ extension PBXProj {
     ///
     /// - Parameter reference: file reference.
     /// - Returns: build file name.
-    func buildFileName(reference: UUID) -> String? {
+    func buildFileName(reference: String) -> String? {
         guard let fileRef = objects.buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
         if let variantGroup = objects.variantGroups.filter({ $0.reference == fileRef }).first {
             return variantGroup.name
@@ -164,7 +164,7 @@ extension PBXProj {
     ///
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
-    func fileType(reference: UUID) -> String? {
+    func fileType(reference: String) -> String? {
         if objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return BuildPhase.frameworks.rawValue
         } else if objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
@@ -181,7 +181,7 @@ extension PBXProj {
     ///
     /// - Parameter reference: build phase reference.
     /// - Returns: string with the build phase type.
-    func buildPhaseType(from reference: UUID) -> String? {
+    func buildPhaseType(from reference: String) -> String? {
         let sources = objects.sourcesBuildPhases.map {return $0.reference}
         let frameworks = objects.frameworksBuildPhases.map {return $0.reference}
         let resources = objects.resourcesBuildPhases.map {return $0.reference}
@@ -244,7 +244,7 @@ extension PBXProj {
     ///
     /// - Parameter objectReference: reference that identifies the object to be removed.
     /// - Returns: a new PBXProj object with the object removed.
-    public func removing(objectReference: UUID) -> PBXProj {
+    public func removing(objectReference: String) -> PBXProj {
         var objects = self.objects
         if let index = objects.index(where: {$0.reference == objectReference}) {
             objects.remove(at: index)
@@ -279,19 +279,19 @@ extension PBXProj {
 // MARK: - PBXProj Extension (UUID Generation)
 
 public extension PBXProj {
-
+    
     /// Returns a valid UUID for new elements.
     ///
     /// - Parameter element: project element class.
     /// - Returns: UUID available to be used.
-    public func generateUUID<T: ProjectElement>(for element: T.Type) -> UUID {
-        var uuid: UUID = ""
+    public func generateUUID<T: ProjectElement>(for element: T.Type) -> String {
+        var uuid: String = ""
         var counter: UInt = 0
         let random: String = String.random()
         let className: String = String(describing: T.self)
         repeat {
             counter += 1
-           uuid = String(format: "%08X%08X%08X", className, random, counter)
+            uuid = String(format: "%08X%08X%08X", className, random, counter)
         } while(self.objects.map({$0.reference}).contains(uuid))
         return uuid
     }

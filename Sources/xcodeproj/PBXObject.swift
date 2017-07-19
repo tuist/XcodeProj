@@ -78,7 +78,7 @@ extension PBXObject {
 
 extension PBXObject {
     
-    public var reference: UUID {
+    public var reference: String {
         switch self {
         case .pbxBuildFile(let element): return element.reference
         case .pbxAggregateTarget(let element): return element.reference
@@ -435,11 +435,11 @@ public extension Array where Element == PBXObject {
             .map { $0! }
     }
     
-    func fileName(from reference: UUID) -> String? {
+    func fileName(from reference: String) -> String? {
         return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name }.first
     }
     
-    func configName(from reference: UUID) -> String? {
+    func configName(from reference: String) -> String? {
         return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
     }
     

@@ -7,7 +7,7 @@ public struct PBXFileElement {
     // MARK: - Attributes
 
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element source tree.
     public let sourceTree: PBXSourceTree
@@ -27,7 +27,7 @@ public struct PBXFileElement {
     ///   - sourceTree: file source tree.
     ///   - path: file path.
     ///   - name: file name.
-    public init(reference: UUID,
+    public init(reference: String,
                 sourceTree: PBXSourceTree,
                 path: String,
                 name: String) {
@@ -55,7 +55,7 @@ extension PBXFileElement: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.sourceTree = try unboxer.unbox(key: "sourceTree")

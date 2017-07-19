@@ -5,19 +5,19 @@ import Unbox
 public struct PBXNativeTarget: PBXTarget {
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
 
     /// Target build configuration list.
-    public let buildConfigurationList: UUID
+    public let buildConfigurationList: String
     
     /// Target build phases.
-    public let buildPhases: [UUID]
+    public let buildPhases: [String]
     
     /// Target build rules.
-    public let buildRules: [UUID]
+    public let buildRules: [String]
     
     /// Target dependencies.
-    public let dependencies: [UUID]
+    public let dependencies: [String]
     
     /// Target name.
     public let name: String
@@ -26,7 +26,7 @@ public struct PBXNativeTarget: PBXTarget {
     public let productName: String?
     
     /// Target product reference.
-    public let productReference: UUID?
+    public let productReference: String?
     
     /// Target product type.
     public let productType: PBXProductType?
@@ -45,14 +45,14 @@ public struct PBXNativeTarget: PBXTarget {
     ///   - productName: target product name.
     ///   - productReference: target product reference.
     ///   - productType: target product type.
-    public init(reference: UUID,
-                buildConfigurationList: UUID,
-                buildPhases: [UUID],
-                buildRules: [UUID],
-                dependencies: [UUID],
+    public init(reference: String,
+                buildConfigurationList: String,
+                buildPhases: [String],
+                buildRules: [String],
+                dependencies: [String],
                 name: String,
                 productName: String? = nil,
-                productReference: UUID? = nil,
+                productReference: String? = nil,
                 productType: PBXProductType? = nil) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
@@ -88,7 +88,7 @@ extension PBXNativeTarget: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
@@ -110,7 +110,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter buildPhase: build phase to be added.
     /// - Returns: native target with the build phase added.
-    public func adding(buildPhase: UUID) -> PBXNativeTarget {
+    public func adding(buildPhase: String) -> PBXNativeTarget {
         var buildPhases = self.buildPhases
         buildPhases.append(buildPhase)
         return PBXNativeTarget(reference: reference,
@@ -128,7 +128,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter buildPhase: build phase to be removed.
     /// - Returns: native target with the build phase removed.
-    public func removing(buildPhase: UUID) -> PBXNativeTarget {
+    public func removing(buildPhase: String) -> PBXNativeTarget {
         var buildPhases = self.buildPhases
         if let index = self.buildPhases.index(of: buildPhase) {
             buildPhases.remove(at: index)
@@ -148,7 +148,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter buildRule: build rule to be added.
     /// - Returns: native target with the build rule added.
-    public func adding(buildRule: UUID) -> PBXNativeTarget {
+    public func adding(buildRule: String) -> PBXNativeTarget {
         var buildRules = self.buildRules
         buildRules.append(buildRule)
         return PBXNativeTarget(reference: reference,
@@ -166,7 +166,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter buildRule: build rule to be added.
     /// - Returns: native target with the build rule.
-    public func removing(buildRule: UUID) -> PBXNativeTarget {
+    public func removing(buildRule: String) -> PBXNativeTarget {
         var buildRules = self.buildRules
         if let index = buildRules.index(of: buildRule) {
             buildRules.remove(at: index)
@@ -186,7 +186,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter dependency: dependency to be added.
     /// - Returns: native target with the dependency added.
-    public func adding(dependency: UUID) -> PBXNativeTarget {
+    public func adding(dependency: String) -> PBXNativeTarget {
         var dependencies = self.dependencies
         dependencies.append(dependency)
         return PBXNativeTarget(reference: reference,
@@ -204,7 +204,7 @@ extension PBXNativeTarget {
     ///
     /// - Parameter dependency: dependency to be removed.
     /// - Returns: native target with the dependency added.
-    public func removing(dependency: UUID) -> PBXNativeTarget {
+    public func removing(dependency: String) -> PBXNativeTarget {
         var dependencies = self.dependencies
         if let index = dependencies.index(of: dependency) {
             dependencies.remove(at: index)

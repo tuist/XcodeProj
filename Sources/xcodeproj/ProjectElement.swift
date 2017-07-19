@@ -7,7 +7,7 @@ public protocol ProjectElement: Hashable {
     static var isa: String { get }
 
     /// Element unique reference.
-    var reference: UUID { get }
+    var reference: String { get }
 
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
     ///
@@ -15,5 +15,5 @@ public protocol ProjectElement: Hashable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    init(reference: UUID, dictionary: [String: Any]) throws
+    init(reference: String, dictionary: [String: Any]) throws
 }

@@ -7,13 +7,13 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     // Variant group reference.
-    public let reference: UUID
+    public let reference: String
     
     // Variant group isa.
     public static var isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
-    public let children: Set<UUID>
+    public let children: Set<String>
     
     // The filename
     public let name: String
@@ -30,8 +30,8 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     ///   - children: group children references.
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
-    public init(reference: UUID,
-                children: Set<UUID>,
+    public init(reference: String,
+                children: Set<String>,
                 name: String,
                 sourceTree: PBXSourceTree) {
         self.reference = reference
@@ -46,7 +46,7 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: an error in case any property is missing or the format is wrong.
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.children = try unboxer.unbox(key: "children")
@@ -58,7 +58,7 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     ///
     /// - Parameter child: child to be added.
     /// - Returns: new variant group with the child added.
-    public func adding(child: UUID) -> PBXVariantGroup {
+    public func adding(child: String) -> PBXVariantGroup {
         var children = self.children
         children.insert(child)
         return PBXVariantGroup(reference: reference,
@@ -71,7 +71,7 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     ///
     /// - Parameter child: child to be removed.
     /// - Returns: new variant group with the child removed.
-    public func removing(child: UUID) -> PBXVariantGroup {
+    public func removing(child: String) -> PBXVariantGroup {
         var children = self.children
         children.remove(child)
         return PBXVariantGroup(reference: reference,
