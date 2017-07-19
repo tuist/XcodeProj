@@ -3,6 +3,7 @@ import Unbox
 import PathKit
 import xcodeprojprotocols
 import xcodeprojextensions
+import CryptoSwift
 
 /// It represents a .pbxproj file
 public struct PBXProj {
@@ -271,6 +272,28 @@ extension PBXProj {
                        rootObject: rootObject,
                        classes: classes,
                        objects: objects)
+    }
+    
+}
+
+// MARK: - PBXProj Extension (UUID Generation)
+
+public extension PBXProj {
+
+    /// Returns a valid UUID for new elements.
+    ///
+    /// - Parameter element: project element class.
+    /// - Returns: UUID available to be used.
+    public func generateUUID<T: ProjectElement>(for element: T.Type) -> UUID {
+        var uuid: UUID = ""
+        var counter: UInt = 0
+        let random: String = String.random()
+        let className: String = String(describing: T.self)
+        repeat {
+            counter += 1
+           uuid = String(format: "%08X%08X%08X", className, random, counter)
+        } while(self.objects.map({$0.reference}).contains(uuid))
+        return uuid
     }
     
 }
