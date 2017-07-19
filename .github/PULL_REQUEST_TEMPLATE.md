@@ -10,7 +10,7 @@
 > Detail in a checklist the steps that you took to implement the PR.
 
 - [ ] Step 1
-- [ ] Setp 2
+- [ ] Step 2
 
 ### GIF
 > Find a descriptive GIF for your PR. Because we :heart: fun at Carambalabs.
