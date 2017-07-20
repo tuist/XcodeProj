@@ -112,7 +112,7 @@
         <section>
           <section class="section">
             
-            <h1 id='xcodeproj' class='heading'>xcodeproj</h1>
+            <p><img width="300" src="https://github.com/carambalabs/xcodeproj/blob/master/Assets/logo.png?raw=true"/></p>
 
 <p><a href="https://travis-ci.org/carambalabs/xcodeproj">
     <img src="https://travis-ci.org/carambalabs/xcodeproj.svg?branch=master">
@@ -128,7 +128,7 @@
 </a></p>
 
 <p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods Xcodeproj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
-<h3 id='motivation' class='heading'>Motivation</h3>
+<h3 id='motivation' class='heading'>Motivation 💅</h3>
 
 <p>Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:</p>
 
@@ -137,14 +137,31 @@
 <li>Update the project <code>Build Settings</code>.</li>
 <li>Create new <code>Schemes</code>.</li>
 </ul>
-<h3 id='contribute' class='heading'>Contribute</h3>
+<h3 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h3>
 
 <ol>
 <li>Git clone the repository <code>git@github.com:carambalabs/xcodeproj.git</code>.</li>
 <li>Open <code>xcodeproj.xcodeproj</code></li>
 </ol>
-<h3 id='how-to' class='heading'>How to</h3>
-<h4 id='reading' class='heading'>Reading</h4>
+<h3 id='setup' class='heading'>Setup 🦋</h3>
+<h4 id='using-swift-package-manager' class='heading'>Using Swift Package Manager</h4>
+
+<p>Add the dependency in your <code>Package.swift</code> file:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
+    <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="kt">Package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/carambalabs/xcodeproj.git"</span><span class="p">,</span> <span class="nv">majorVersion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">minor</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+</code></pre>
+<h4 id='using-a-href-https-github-com-johnsundell-marathon-marathon-a' class='heading'>Using <a href="https://github.com/JohnSundell/Marathon">Marathon</a></h4>
+
+<p>Edit your <code>Marathonfile</code> and specify the dependency in there:</p>
+<pre class="highlight shell"><code>https://github.com/carambalabs/xcodeproj.git
+</code></pre>
+<h3 id='how-to' class='heading'>How to 🐒</h3>
+<h4 id='read' class='heading'>Read</h4>
 
 <p>You can read the Xcode project files as shown in the examples below:</p>
 <pre class="highlight swift"><code><span class="c1">// Read a project</span>
@@ -161,16 +178,16 @@
 <span class="k">let</span> <span class="nv">xcconfig</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCConfig</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyConfig.xcconfig"</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">buildDir</span> <span class="o">=</span> <span class="n">xcconfig</span><span class="o">.</span><span class="nf">buildSettings</span><span class="p">(</span><span class="s">"CONFIGURATION_BUILD_DIR"</span><span class="p">)</span>
 </code></pre>
-<h4 id='writing' class='heading'>Writing</h4>
+<h4 id='write' class='heading'>Write</h4>
 
 <p>All models above are also writable. After modifying them you can write them back to disk:</p>
 <pre class="highlight plaintext"><code>pbxproj.write(override: true)
 xcconfig.write(override: true)
 </code></pre>
-<h3 id='documentation' class='heading'>Documentation</h3>
+<h3 id='documentation' class='heading'>Documentation 📄</h3>
 
 <p>You can check out the documentation on the following <a href="https://carambalabs.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
-<h3 id='references' class='heading'>References</h3>
+<h3 id='references' class='heading'>References 📚</h3>
 
 <ul>
 <li><a href="https://github.com/kylef/PathKit">PathKit</a></li>

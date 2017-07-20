@@ -314,7 +314,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -349,7 +349,7 @@
                 <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                 <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                 <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">,</span>
+                <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
                 <span class="nv">classes</span><span class="p">:</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
                 <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">PBXObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
 
@@ -821,7 +821,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removing</span><span class="p">(</span><span class="nv">objectReference</span><span class="p">:</span> <span class="kt">UUID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PBXProj</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removing</span><span class="p">(</span><span class="nv">objectReference</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">PBXProj</span></code></pre>
 
                         </div>
                       </div>
@@ -897,6 +897,60 @@
                       <div>
                         <h4>Return Value</h4>
                         <p>a new PBXProj object with the object added.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV9xcodeproj7PBXProj12generateUUIDuRxS_14ProjectElementrFT3forMx_SS"></a>
+                    <a name="//apple_ref/swift/Method/generateUUID(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV9xcodeproj7PBXProj12generateUUIDuRxS_14ProjectElementrFT3forMx_SS">generateUUID(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a valid UUID for new elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">generateUUID</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProjectElement.html">ProjectElement</a></span><span class="o">&gt;</span><span class="p">(</span><span class="k">for</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>project element class.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>UUID available to be used.</p>
                       </div>
                     </section>
                   </div>
