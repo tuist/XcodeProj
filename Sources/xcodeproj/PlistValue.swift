@@ -89,14 +89,13 @@ extension PlistValue: Equatable {
 }
 
 fileprivate func plistKey(_ string: String) -> String {
-    // swiftlint:disable force_try legacy_constructor
+    // swiftlint:disable next force_try legacy_constructor
     let regex = try! NSRegularExpression(pattern: "\\[.+\\]", options: [])
     if regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) != nil {
         return string.quoted
     } else {
         return string
     }
-    // swiftlint:enable force_try legacy_constructor
 }
 
 // MARK: - Dictionary Extension (PlistValue)
