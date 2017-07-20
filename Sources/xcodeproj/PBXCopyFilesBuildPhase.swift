@@ -133,7 +133,7 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["dstPath"] = .string(CommentedString(dstPath.quoted))
+        dictionary["dstPath"] = .string(CommentedString(dstPath))
         dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
         dictionary["files"] = .array(self.files
             .map { reference in

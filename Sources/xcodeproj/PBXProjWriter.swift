@@ -85,7 +85,7 @@ class PBXProjWriter {
     
     private func write(commentedString: CommentedString) {
         var string = commentedString.string
-        if (string == "" || string.contains(" ")) && !(string.hasPrefix("\"") && string.hasSuffix("\"")) {
+        if (string == "" || string.contains(" ") || string.contains("<") || string.contains(">")) && !(string.hasPrefix("\"") && string.hasSuffix("\"")) {
             string = string.quoted
         }
         write(string: string)
