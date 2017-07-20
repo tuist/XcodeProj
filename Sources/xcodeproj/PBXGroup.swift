@@ -7,10 +7,10 @@ public struct PBXGroup {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element children.
-    public let children: Set<UUID>
+    public let children: Set<String>
     
     /// Element name.
     public let name: String?
@@ -31,8 +31,8 @@ public struct PBXGroup {
     ///   - sourceTree: group source tree.
     ///   - name: group name.
     ///   - path: group path.
-    public init(reference: UUID,
-                children: Set<UUID>,
+    public init(reference: String,
+                children: Set<String>,
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 path: String? = nil) {
@@ -53,7 +53,7 @@ extension PBXGroup {
     ///
     /// - Parameter child: new group with the child added.
     /// - Returns: new group with the child added.
-    public func adding(child: UUID) -> PBXGroup {
+    public func adding(child: String) -> PBXGroup {
         var children = self.children
         children.insert(child)
         return PBXGroup(reference: reference,
@@ -66,7 +66,7 @@ extension PBXGroup {
     ///
     /// - Parameter child: child to be removed.
     /// - Returns: new group with the child added.
-    public func removing(child: UUID) -> PBXGroup {
+    public func removing(child: String) -> PBXGroup {
         var children = self.children
         children.remove(child)
         return PBXGroup(reference: reference,
@@ -94,7 +94,7 @@ extension PBXGroup: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
    
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.children = try unboxer.unbox(key: "children")
@@ -127,7 +127,7 @@ extension PBXGroup: PlistSerializable {
                 value: .dictionary(dictionary))
     }
     
-    fileprivate func name(reference: UUID, proj: PBXProj) -> String? {
+    fileprivate func name(reference: String, proj: PBXProj) -> String? {
         let group = proj.objects.groups.filter({ $0.reference == reference }).first
         let variantGroup = proj.objects.variantGroups.filter({ $0.reference == reference }).first
         let file = proj.objects.fileReferences.filter({ $0.reference == reference }).first

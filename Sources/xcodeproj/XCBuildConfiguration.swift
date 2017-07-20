@@ -7,10 +7,10 @@ public struct XCBuildConfiguration {
     // MARK: - Attributes
     
     /// Build configuration reference.
-    public let reference: UUID
+    public let reference: String
     
     /// The path to a xcconfig file
-    public let baseConfigurationReference: UUID?
+    public let baseConfigurationReference: String?
     
     /// A map of build settings.
     public let buildSettings: BuildSettings
@@ -27,9 +27,9 @@ public struct XCBuildConfiguration {
     ///   - name: build configuration name.
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    public init(reference: UUID,
+    public init(reference: String,
                 name: String,
-                baseConfigurationReference: UUID? = nil,
+                baseConfigurationReference: String? = nil,
                 buildSettings: BuildSettings = [:]) {
         self.reference = reference
         self.baseConfigurationReference = baseConfigurationReference
@@ -89,7 +89,7 @@ extension XCBuildConfiguration: ProjectElement {
             NSDictionary(dictionary: lhs.buildSettings.dictionary).isEqual(to: rhs.buildSettings.dictionary)
     }
     
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")

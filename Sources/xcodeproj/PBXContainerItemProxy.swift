@@ -11,16 +11,16 @@ public struct PBXContainerItemProxy {
     }
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// The object is a reference to a PBXProject element.
-    public let containerPortal: UUID
+    public let containerPortal: String
     
     /// Element proxy type.
     public let proxyType: ProxyType
     
     /// Element remote global ID reference.
-    public let remoteGlobalIDString: UUID
+    public let remoteGlobalIDString: String
     
     /// Element remote info.
     public let remoteInfo: String?
@@ -32,9 +32,9 @@ public struct PBXContainerItemProxy {
     ///   - containerPortal: reference to the container portal.
     ///   - remoteGlobalIDString: reference to the remote global ID.
     ///   - remoteInfo: remote info.
-    public init(reference: UUID,
-                containerPortal: UUID,
-                remoteGlobalIDString: UUID,
+    public init(reference: String,
+                containerPortal: String,
+                remoteGlobalIDString: String,
                 proxyType: ProxyType = .nativeTarget,
                 remoteInfo: String? = nil) {
         self.reference = reference
@@ -61,7 +61,7 @@ extension PBXContainerItemProxy: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.containerPortal = try unboxer.unbox(key: "containerPortal")

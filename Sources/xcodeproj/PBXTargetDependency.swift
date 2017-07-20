@@ -7,16 +7,16 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     // MARK: - Attributes
     
     /// Target dependency reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Target dependency isa.
     public static var isa: String = "PBXTargetDependency"
     
     /// Target reference.
-    public let target: UUID
+    public let target: String
     
     /// Target proxy
-    public let targetProxy: UUID
+    public let targetProxy: String
     
     // MARK: - Init
     
@@ -26,9 +26,9 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     ///   - reference: element reference.
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
-    public init(reference: UUID,
-                target: UUID,
-                targetProxy: UUID) {
+    public init(reference: String,
+                target: String,
+                targetProxy: String) {
         self.reference = reference
         self.target = target
         self.targetProxy = targetProxy
@@ -40,7 +40,7 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the attributes.
     /// - Throws: throws an error in case of any attribute is missing or the type is not the expected one.
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.target = try unboxer.unbox(key: "target")
@@ -70,7 +70,7 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
                 value: .dictionary(dictionary))
     }
     
-    private func target(from reference: UUID, proj: PBXProj) -> String? {
+    private func target(from reference: String, proj: PBXProj) -> String? {
         return proj.objects.nativeTargets
             .filter { $0.reference == reference }
             .map { $0.name }

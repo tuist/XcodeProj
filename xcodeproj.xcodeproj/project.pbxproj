@@ -117,7 +117,6 @@
 		OBJ_310 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* PBXTargetDependency.swift */; };
 		OBJ_311 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* PBXVariantGroup.swift */; };
 		OBJ_312 /* ProjectElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* ProjectElement.swift */; };
-		OBJ_313 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* UUID.swift */; };
 		OBJ_314 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* XCBuildConfiguration.swift */; };
 		OBJ_315 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* XCConfigurationList.swift */; };
 		OBJ_316 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* XcodeProj.swift */; };
@@ -527,7 +526,6 @@
 		OBJ_28 /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
 		OBJ_29 /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
 		OBJ_30 /* ProjectElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectElement.swift; sourceTree = "<group>"; };
-		OBJ_31 /* UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 		OBJ_32 /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
 		OBJ_33 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
 		OBJ_34 /* XcodeProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProj.swift; sourceTree = "<group>"; };
@@ -928,7 +926,6 @@
 				OBJ_28 /* PBXTargetDependency.swift */,
 				OBJ_29 /* PBXVariantGroup.swift */,
 				OBJ_30 /* ProjectElement.swift */,
-				OBJ_31 /* UUID.swift */,
 				OBJ_32 /* XCBuildConfiguration.swift */,
 				OBJ_33 /* XCConfigurationList.swift */,
 				OBJ_34 /* XcodeProj.swift */,
@@ -1410,7 +1407,6 @@
 				OBJ_312 /* ProjectElement.swift in Sources */,
 				04AD652B1F1A3DFC005403E8 /* BuildPhase.swift in Sources */,
 				23760C271EE8DDBB00A9EC87 /* PBXProjWriter.swift in Sources */,
-				OBJ_313 /* UUID.swift in Sources */,
 				OBJ_314 /* XCBuildConfiguration.swift in Sources */,
 				OBJ_315 /* XCConfigurationList.swift in Sources */,
 				237C6E8E1EEC82A300EB8F39 /* XCConfig.swift in Sources */,

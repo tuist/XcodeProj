@@ -7,13 +7,13 @@ public struct PBXBuildFile: ProjectElement {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Element isa.
     public static var isa: String = "PBXBuildFile"
     
     /// Element file reference.
-    public let fileRef: UUID
+    public let fileRef: String
     
     /// Element settings
     public let settings: [String: Any]?
@@ -26,8 +26,8 @@ public struct PBXBuildFile: ProjectElement {
     ///   - reference: element reference.
     ///   - fileRef: build file reference.
     ///   - settings: build file settings.
-    public init(reference: UUID,
-                fileRef: UUID,
+    public init(reference: String,
+                fileRef: String,
                 settings: [String: Any]? = nil) {
         self.reference = reference
         self.fileRef = fileRef
@@ -40,7 +40,7 @@ public struct PBXBuildFile: ProjectElement {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.fileRef = try unboxer.unbox(key: "fileRef")
@@ -107,7 +107,7 @@ extension PBXBuildFile: PlistSerializable {
                 value: .dictionary(dictionary))
     }
     
-    private func name(fileRef: UUID, proj: PBXProj) -> String? {
+    private func name(fileRef: String, proj: PBXProj) -> String? {
         let fileReference = proj.objects.fileReferences.filter({$0.reference == fileRef}).first
         let variantGroup = proj.objects.variantGroups.filter({$0.reference == fileRef}).first
         if let fileReference = fileReference {
@@ -118,7 +118,7 @@ extension PBXBuildFile: PlistSerializable {
         return nil
     }
     
-    private func fileType(reference: UUID, proj: PBXProj) -> String? {
+    private func fileType(reference: String, proj: PBXProj) -> String? {
         if proj.objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
            return "Frameworks"
         } else if proj.objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {

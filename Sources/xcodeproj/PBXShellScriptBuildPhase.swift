@@ -8,10 +8,10 @@ public struct PBXShellScriptBuildPhase {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: UUID
+    public let reference: String
     
     /// Files references.
-    public let files: Set<UUID>
+    public let files: Set<String>
     
     /// Build action mask.
     public let buildActionMask: Int
@@ -46,8 +46,8 @@ public struct PBXShellScriptBuildPhase {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
-    public init(reference: UUID,
-                files: Set<UUID>,
+    public init(reference: String,
+                files: Set<String>,
                 name: String,
                 inputPaths: Set<String>,
                 outputPaths: Set<String>,
@@ -96,7 +96,7 @@ extension PBXShellScriptBuildPhase: ProjectElement {
     
     public static var isa: String = "PBXShellScriptBuildPhase"
     
-    public init(reference: UUID, dictionary: [String: Any]) throws {
+    public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
@@ -133,7 +133,7 @@ extension PBXShellScriptBuildPhase {
     ///
     /// - Parameter file: reference file to be added.
     /// - Returns: new build phase with the file added.
-    public func adding(file: UUID) -> PBXShellScriptBuildPhase {
+    public func adding(file: String) -> PBXShellScriptBuildPhase {
         var files = self.files
         files.update(with: file)
         return PBXShellScriptBuildPhase(reference: reference,
@@ -149,7 +149,7 @@ extension PBXShellScriptBuildPhase {
     ///
     /// - Parameter file: reference to the file to be removed.
     /// - Returns: new shell script build phase with the file removed.
-    public func removing(file: UUID) -> PBXShellScriptBuildPhase {
+    public func removing(file: String) -> PBXShellScriptBuildPhase {
         var files = self.files
         files.remove(file)
         return PBXShellScriptBuildPhase(reference: reference,

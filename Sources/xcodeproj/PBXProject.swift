@@ -7,12 +7,12 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
-    public let reference: UUID
+    public let reference: String
     
     public static var isa: String = "PBXProject"
     
     // The object is a reference to a XCConfigurationList element.
-    public let buildConfigurationList: UUID
+    public let buildConfigurationList: String
     
     // A string representation of the XcodeCompatibilityVersion.
     public let compatibilityVersion: String
@@ -27,10 +27,10 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     public let knownRegions: [String]
     
     // The object is a reference to a PBXGroup element.
-    public let mainGroup: UUID
+    public let mainGroup: String
     
     // The object is a reference to a PBXGroup element.
-    public let productRefGroup: UUID?
+    public let productRefGroup: String?
     
     // The relative path of the project.
     public let projectDirPath: String?
@@ -42,7 +42,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     public let projectRoot: String?
     
     // The objects are a reference to a PBXTarget element.
-    public let targets: [UUID]
+    public let targets: [String]
     
     /// Project attributes.
     public let attributes: [String: Any]
@@ -65,18 +65,18 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     ///   - projectRoot: project root.
     ///   - targets: project targets.
     ///   - attributes: project attributes.
-    public init(reference: UUID,
-                buildConfigurationList: UUID,
+    public init(reference: String,
+                buildConfigurationList: String,
                 compatibilityVersion: String,
-                mainGroup: UUID,
+                mainGroup: String,
                 developmentRegion: String? = nil,
                 hasScannedForEncodings: Int? = nil,
                 knownRegions: [String] = [],
-                productRefGroup: UUID? = nil,
+                productRefGroup: String? = nil,
                 projectDirPath: String? = nil,
                 projectReferences: [Any] = [],
                 projectRoot: String? = nil,
-                targets: [UUID] = [],
+                targets: [String] = [],
                 attributes: [String: Any] = [:]) {
         self.reference = reference
         self.buildConfigurationList = buildConfigurationList
@@ -99,7 +99,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public init(reference: UUID, dictionary: [String : Any]) throws {
+    public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
@@ -178,7 +178,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                 value: .dictionary(dictionary))
     }
     
-    private func nativeTarget(from reference: UUID, proj: PBXProj) -> String? {
+    private func nativeTarget(from reference: String, proj: PBXProj) -> String? {
         return proj.objects.nativeTargets
             .filter { $0.reference == reference }
             .map { $0.name }
