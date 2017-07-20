@@ -84,7 +84,11 @@ class PBXProjWriter {
     }
     
     private func write(commentedString: CommentedString) {
-        write(string: commentedString.string)
+        var string = commentedString.string
+        if (string == "" || string.contains(" ")) && !(string.hasPrefix("\"") && string.hasSuffix("\"")) {
+            string = string.quoted
+        }
+        write(string: string)
         if let comment = commentedString.comment {
             write(string: " ")
             write(comment: comment)
