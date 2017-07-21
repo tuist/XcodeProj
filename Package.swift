@@ -26,7 +26,15 @@ let package = Package(
                           "Unbox",
                           "PathKit",
                           "AEXML"],
-            path: "Sources/xcodeproj")
+            path: "Sources/xcodeproj"),
+        .testTarget(
+            name: "xcodeprojextensionsTests",
+            dependencies: ["xcodeprojextensions"],
+            path: "Tests/xcodeprojextensionsTests"),
+        .testTarget(
+            name: "xcodeprojTests",
+            dependencies: ["xcodeproj"],
+            path: "Tests/xcodeprojTests")
     ],
     swiftLanguageVersions: [3]
 )
