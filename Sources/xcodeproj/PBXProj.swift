@@ -3,7 +3,6 @@ import Unbox
 import PathKit
 import xcodeprojprotocols
 import xcodeprojextensions
-import CryptoSwift
 
 /// It represents a .pbxproj file
 public struct PBXProj {
@@ -288,7 +287,7 @@ public extension PBXProj {
         var uuid: String = ""
         var counter: UInt = 0
         let random: String = String.random()
-        let className: String = String(describing: T.self)
+        let className: String = String(describing: T.self).md5()
         repeat {
             counter += 1
             uuid = String(format: "%08X%08X%08X", className, random, counter)

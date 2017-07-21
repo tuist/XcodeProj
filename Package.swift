@@ -1,24 +1,32 @@
-// swift-tools-version:3.1
+// swift-tools-version:4.0
 
 import PackageDescription
 
 let package = Package(
     name: "xcodeproj",
-    targets: [
-        Target(
-            name: "xcodeprojextensions",
-            dependencies: []),
-        Target(
-            name: "xcodeprojprotocols",
-            dependencies: ["xcodeprojextensions"]),
-        Target(
-            name: "xcodeproj",
-            dependencies: ["xcodeprojextensions", "xcodeprojprotocols"])
-    ],
     dependencies: [
-        .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
-        .Package(url: "https://github.com/JohnSundell/Unbox", majorVersion: 2, minor: 4),
-        .Package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", majorVersion: 0, minor: 6),
-        .Package(url: "https://github.com/tadija/AEXML.git", majorVersion: 4)
-    ]
+        .package(url: "https://github.com/kylef/PathKit.git", .exact("0.8.0")),
+        .package(url: "https://github.com/JohnSundell/Unbox", .exact("2.5.0")),
+        .package(url: "https://github.com/tadija/AEXML.git", .exact("4.1.0")),
+        .package(url: "https://github.com/Bouke/CCommonCrypto", .exact("1.0.0"))
+    ],
+    targets: [
+        .target(
+            name: "xcodeprojextensions",
+            dependencies: [],
+            path: "Sources/xcodeprojextensions"),
+        .target(
+            name: "xcodeprojprotocols",
+            dependencies: ["xcodeprojextensions"],
+            path: "Sources/xcodeprojprotocols"),
+        .target(
+            name: "xcodeproj",
+            dependencies: ["xcodeprojextensions",
+                          "xcodeprojprotocols",
+                          "Unbox",
+                          "PathKit",
+                          "AEXML"],
+            path: "Sources/xcodeproj")
+    ],
+    swiftLanguageVersions: [3]
 )
