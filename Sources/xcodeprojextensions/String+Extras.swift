@@ -5,6 +5,10 @@ extension String {
     public var quoted: String {
         return "\"\(self)\""
     }
+
+    public var isQuoted: Bool {
+        return hasPrefix("\"") && hasSuffix("\"")
+    }
     
     public static func random(length: Int = 20) -> String {
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

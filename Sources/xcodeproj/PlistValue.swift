@@ -88,22 +88,14 @@ extension PlistValue: Equatable {
     
 }
 
-fileprivate func plistValue(_ value: String) -> String {
-    if value.contains("YES") || value.contains("NO") {
-        return value
-    }
-    return value.quoted
-}
-
 fileprivate func plistKey(_ string: String) -> String {
-    // swiftlint:disable force_try legacy_constructor
+    // swiftlint:disable next force_try legacy_constructor
     let regex = try! NSRegularExpression(pattern: "\\[.+\\]", options: [])
     if regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) != nil {
         return string.quoted
     } else {
         return string
     }
-    // swiftlint:enable force_try legacy_constructor
 }
 
 // MARK: - Dictionary Extension (PlistValue)
@@ -118,8 +110,7 @@ extension Dictionary where Key == String {
             } else if let subDictionary = value as? [String: Any] {
                 dictionary[CommentedString(plistKey(key))] = subDictionary.plist()
             } else if let string = value as? CustomStringConvertible {
-                let stringValue = plistValue(string.description)
-                dictionary[CommentedString(plistKey(key))] = .string(CommentedString(stringValue))
+                dictionary[CommentedString(plistKey(key))] = .string(CommentedString(string.description))
             }
         }
         return .dictionary(dictionary)
@@ -138,8 +129,7 @@ extension Array {
             } else if let dictionary = element as? [String: Any] {
                 return dictionary.plist()
             } else if let string = element as? CustomStringConvertible {
-                let stringValue = plistValue(string.description)
-                return PlistValue.string(CommentedString(stringValue))
+                return PlistValue.string(CommentedString(string.description))
             }
             return nil
         }))

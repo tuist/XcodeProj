@@ -30,17 +30,17 @@ final class PBXSourceTreeSpec: XCTestCase {
     }
     
     func test_plistReturnsTheRightValue_whenItsNone() {
-        let expected = PlistValue.string(CommentedString(PBXSourceTree.none.rawValue.quoted))
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.none.rawValue))
         XCTAssertEqual(PBXSourceTree.none.plist(), expected)
     }
     
     func test_plistReturnsTheRightValue_whenItsAbsolute() {
-        let expected = PlistValue.string(CommentedString(PBXSourceTree.absolute.rawValue.quoted))
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.absolute.rawValue))
         XCTAssertEqual(PBXSourceTree.absolute.plist(), expected)
     }
     
     func test_plistReturnsTheRightValue_whenItsGroup() {
-        let expected = PlistValue.string(CommentedString(PBXSourceTree.group.rawValue.quoted))
+        let expected = PlistValue.string(CommentedString(PBXSourceTree.group.rawValue))
         XCTAssertEqual(PBXSourceTree.group.plist(), expected)
     }
     

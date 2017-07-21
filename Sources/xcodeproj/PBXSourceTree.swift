@@ -16,12 +16,7 @@ public enum PBXSourceTree: String, UnboxableEnum, Hashable {
 extension PBXSourceTree {
     
     func plist() -> PlistValue {
-        switch self {
-        case .absolute, .group, .none:
-            return .string(CommentedString(self.rawValue.quoted))
-        default:
-            return .string(CommentedString(self.rawValue))
-        }
+        return .string(CommentedString(self.rawValue))
     }
 
 }

@@ -146,7 +146,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
-        dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion.quoted))
+        dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion))
         if let developmentRegion = developmentRegion {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
@@ -162,10 +162,10 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                                                                                 comment: "Products"))
         }
         if let projectDirPath = projectDirPath {
-            dictionary["projectDirPath"] = .string(CommentedString(projectDirPath.quoted))
+            dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
         }
         if let projectRoot = projectRoot {
-            dictionary["projectRoot"] = .string(CommentedString(projectRoot.quoted))
+            dictionary["projectRoot"] = .string(CommentedString(projectRoot))
         }
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
