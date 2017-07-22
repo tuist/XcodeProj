@@ -17,7 +17,8 @@ let package = Package(
             path: "Sources/xcodeprojextensions"),
         .target(
             name: "xcodeprojprotocols",
-            dependencies: ["xcodeprojextensions"],
+            dependencies: ["xcodeprojextensions",
+                          "PathKit"],
             path: "Sources/xcodeprojprotocols"),
         .target(
             name: "xcodeproj",
@@ -29,7 +30,8 @@ let package = Package(
             path: "Sources/xcodeproj"),
         .testTarget(
             name: "xcodeprojextensionsTests",
-            dependencies: ["xcodeprojextensions"],
+            dependencies: ["xcodeprojextensions",
+                          "PathKit"],
             path: "Tests/xcodeprojextensionsTests"),
         .testTarget(
             name: "xcodeprojTests",
