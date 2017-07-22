@@ -6,10 +6,10 @@ import PathKit
 public struct XCWorkspace {
 
     /// Workspace path
-    let path: Path
+    public let path: Path
     
     /// Workspace data
-    let data: XCWorkspace.Data
+    public let data: XCWorkspace.Data
     
     // MARK: - Init
     

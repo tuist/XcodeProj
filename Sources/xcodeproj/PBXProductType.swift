@@ -23,7 +23,7 @@ public enum PBXProductType: String, UnboxableEnum {
     case xpcService = "com.apple.product-type.xpc-service"
     
     /// Returns the file extension for the given product type.
-    var fileExtension: String? {
+    public var fileExtension: String? {
         switch self {
         case .application, .watchApp, .watch2App, .messagesApplication:
             return "app"
