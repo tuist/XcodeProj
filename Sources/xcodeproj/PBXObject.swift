@@ -198,243 +198,131 @@ public enum PBXObjectError: Error, CustomStringConvertible {
 public extension Array where Element == PBXObject {
     
     var buildFiles: [PBXBuildFile] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxBuildFile(let buildFile):
-                    return buildFile
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxBuildFile(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var aggregateTargets: [PBXAggregateTarget] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxAggregateTarget(let target):
-                    return target
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxAggregateTarget(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var containerItemProxies: [PBXContainerItemProxy] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxContainerItemProxy(let proxy):
-                    return proxy
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxContainerItemProxy(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxCopyFilesBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxCopyFilesBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var groups: [PBXGroup] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxGroup(let group):
-                    return group
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxGroup(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var fileElements: [PBXFileElement] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxFileElement(let fileElement):
-                    return fileElement
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxFileElement(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var configurationLists: [XCConfigurationList] {
-        return self
-            .map { element in
-                switch element {
-                case .xcConfigurationList(let configurationList):
-                    return configurationList
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .xcConfigurationList(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var buildConfigurations: [XCBuildConfiguration] {
-        return self
-            .map { element in
-                switch element {
-                case .xcBuildConfiguration(let buildConfiguration):
-                    return buildConfiguration
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .xcBuildConfiguration(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var variantGroups: [PBXVariantGroup] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxVariantGroup(let variantGroup):
-                    return variantGroup
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxVariantGroup(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var targetDependencies: [PBXTargetDependency] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxTargetDependency(let targetDependency):
-                    return targetDependency
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxTargetDependency(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var sourcesBuildPhases: [PBXSourcesBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxSourcesBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxSourcesBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var shellScriptBuildPhases: [PBXShellScriptBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxShellScriptBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxShellScriptBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var resourcesBuildPhases: [PBXResourcesBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxResourcesBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxResourcesBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var frameworksBuildPhases: [PBXFrameworksBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxFrameworksBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxFrameworksBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var headersBuildPhases: [PBXHeadersBuildPhase] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxHeadersBuildPhase(let buildPhase):
-                    return buildPhase
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxHeadersBuildPhase(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var nativeTargets: [PBXNativeTarget] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxNativeTarget(let target):
-                    return target
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxNativeTarget(let object) = $0 else { return nil }
+            return object
+        }
     }
     
     var fileReferences: [PBXFileReference] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxFileReference(let fileReference):
-                    return fileReference
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
+        return flatMap {
+            guard case .pbxFileReference(let object) = $0 else { return nil }
+            return object
+        }
     }
-    
+
+    var projects: [PBXProject] {
+        return flatMap {
+            guard case .pbxProject(let object) = $0 else { return nil }
+            return object
+        }
+    }
+
     func fileName(from reference: String) -> String? {
         return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name }.first
     }
@@ -442,19 +330,5 @@ public extension Array where Element == PBXObject {
     func configName(from reference: String) -> String? {
         return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
     }
-    
-    var projects: [PBXProject] {
-        return self
-            .map { element in
-                switch element {
-                case .pbxProject(let project):
-                    return project
-                default:
-                    return nil
-                }
-            }
-            .filter { $0 != nil }
-            .map { $0! }
-    }
-    
+
 }
