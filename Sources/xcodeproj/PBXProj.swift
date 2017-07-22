@@ -123,11 +123,10 @@ extension PBXProj: Writable {
     public func write(path: Path, override: Bool) throws {
         let writer = PBXProjWriter()
         let output = writer.write(proj: self)
-        let fm = FileManager.default
-        if override && fm.fileExists(atPath: path.string) {
-            try fm.removeItem(atPath: path.string)
+        if override && path.exists {
+            try path.delete()
         }
-        try  output.data(using: .utf8)?.write(to: path.url)
+        try path.write(output)
     }
     
 }

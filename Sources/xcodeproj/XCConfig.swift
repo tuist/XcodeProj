@@ -168,11 +168,10 @@ extension XCConfig: Writable {
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        let fm = FileManager.default
-        if override && fm.fileExists(atPath: path.string) {
-            try fm.removeItem(atPath: path.string)
+        if override && path.exists {
+            try path.delete()
         }
-        try content.data(using: .utf8)?.write(to: path.url)
+        try path.write(content)
     }
     
     private func writeIncludes() -> String {

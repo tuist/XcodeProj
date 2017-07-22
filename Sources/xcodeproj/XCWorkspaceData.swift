@@ -171,11 +171,10 @@ public extension XCWorkspace {
                                    value: nil,
                                    attributes: ["location": "\(reference)"])
             }
-            let fm = FileManager.default
-            if override && fm.fileExists(atPath: path.string) {
-                try fm.removeItem(atPath: path.string)
+            if override && path.exists {
+                try path.delete()
             }
-            try  document.xml.data(using: .utf8)?.write(to: path.url)
+            try path.write(document.xml)
         }
         
     }
