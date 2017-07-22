@@ -62,8 +62,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
     }
     
     private func fixturePath() -> Path {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
+        let path = fixturesPath() + Path("iOS/Project.xcodeproj/project.pbxproj")
         return path
     }
     

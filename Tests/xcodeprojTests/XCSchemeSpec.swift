@@ -99,9 +99,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
     }
     
     private func fixturePath() -> Path {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme")
-        return path
+        return fixturesPath() + Path("iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme")
     }
     
 }
