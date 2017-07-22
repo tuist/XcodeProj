@@ -1,6 +1,7 @@
 import Foundation
 import Unbox
 import PathKit
+import xcodeprojprotocols
 
 /// Model that represents a Xcode workspace.
 public struct XCWorkspace {
@@ -39,6 +40,21 @@ public struct XCWorkspace {
     public init(path: Path, data: XCWorkspace.Data) {
         self.path = path
         self.data = data
+    }
+
+}
+
+// MARK: - <Writable>
+
+extension XCWorkspace: Writable {
+
+    public func write(path: Path, override: Bool = true) throws {
+        if override && path.exists {
+            try path.delete()
+        }
+        let dataPath = path + "contents.xcworkspacedata"
+        try dataPath.mkpath()
+        try data.write(path: dataPath)
     }
 
 }

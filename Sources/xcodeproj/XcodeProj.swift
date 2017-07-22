@@ -1,6 +1,7 @@
 import Foundation
 import PathKit
 import xcodeprojextensions
+import xcodeprojprotocols
 
 /// Model that represents a .xcodeproj project.
 public struct XcodeProj {
@@ -46,6 +47,49 @@ public struct XcodeProj {
         self.sharedData = sharedData
     }
     
+}
+
+// MARK: - <Writable>
+
+extension XcodeProj: Writable {
+
+    public func write(path: Path, override: Bool = true) throws {
+        if override && path.exists {
+            try path.delete()
+        }
+
+        try path.mkpath()
+
+        // write workspace
+        let workspacePath = path + "project.xcworkspace"
+        try workspace.write(path: workspacePath, override: override)
+
+        // write pbxproj
+        let pbxprojPath = path + "project.pbxproj"
+        try pbxproj.write(path: pbxprojPath, override: override)
+
+        // write shared data
+        if let sharedData = sharedData {
+            let schemesPath = path + "xcshareddata/xcschemes"
+            try schemesPath.mkpath()
+            for scheme in sharedData.schemes {
+                try scheme.write(path: schemesPath + scheme.name, override: override)
+            }
+        }
+    }
+
+}
+
+// MARK: - XcodeProj Extension (Equatable)
+
+extension XcodeProj: Equatable {
+
+    public static func == (lhs: XcodeProj, rhs: XcodeProj) -> Bool {
+        return lhs.workspace == rhs.workspace &&
+            lhs.pbxproj == rhs.pbxproj
+            //TODO: make SharedData equatable: lhs.sharedData == rhs.sharedData
+    }
+
 }
 
 /// XcodeProj Errors
