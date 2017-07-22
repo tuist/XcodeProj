@@ -11,8 +11,7 @@ final class PBXProjSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         object = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "333"))
-        subject = PBXProj(path: "test",
-                          name: "name",
+        subject = PBXProj(name: "name",
                           archiveVersion: 1,
                           objectVersion: 46,
                           rootObject: "root",

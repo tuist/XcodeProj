@@ -23,7 +23,7 @@ func testWrite<T: Writable>(from path: Path,
     if let got = got {
         let modified = modify(got)
         do {
-            try modified.write(override: true)
+            try modified.write(path: copyPath, override: true)
             let gotAfterWriting = initModel(copyPath)
             XCTAssertNotNil(gotAfterWriting)
             if let gotAfterWriting = gotAfterWriting {

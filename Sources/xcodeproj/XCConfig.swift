@@ -163,7 +163,7 @@ extension XCConfig {
 
 extension XCConfig: Writable {
     
-    public func write(override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")

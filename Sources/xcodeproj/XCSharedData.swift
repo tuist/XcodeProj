@@ -9,18 +9,13 @@ public struct XCSharedData {
     /// Shared data schemes.
     public let schemes: [XCScheme]
     
-    /// Shared data path.
-    public let path: Path
-    
     // MARK: - Init
     
     /// Initializes the shared data with its properties.
     ///
     /// - Parameters:
-    ///   - path: shared data path.
     ///   - schemes: shared data schemes.
-    public init(path: Path, schemes: [XCScheme]) {
-        self.path = path
+    public init(schemes: [XCScheme]) {
         self.schemes = schemes
     }
     
@@ -31,7 +26,6 @@ public struct XCSharedData {
         if !fileManager.fileExists(atPath: path.string) {
             throw XCSharedDataError.notFound(path: path)
         }
-        self.path = path
         self.schemes = path.glob("xcschemes/*.xcscheme")
             .map { try? XCScheme(path: $0) }
             .filter { $0 != nil }

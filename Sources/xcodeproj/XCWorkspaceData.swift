@@ -100,9 +100,6 @@ public extension XCWorkspace {
         
         /// MARK: - Attributes
         
-        /// Path to the .xcworkspacedata file
-        public let path: Path
-        
         /// References to the workspace projects
         public let references: [FileRef]
         
@@ -115,7 +112,6 @@ public extension XCWorkspace {
             if !fileManager.fileExists(atPath: path.string) {
                 throw XCWorkspaceDataError.notFound(path: path)
             }
-            self.path = path
             let data = try Foundation.Data(contentsOf: path.url)
             let xml = try AEXMLDocument(xml: data)
             self.references = xml
@@ -135,8 +131,7 @@ public extension XCWorkspace {
         public func adding(reference: FileRef) -> XCWorkspace.Data {
             var references = self.references
             references.append(reference)
-            return Data(path: path,
-                        references: references)
+            return Data(references: references)
         }
         
         /// Returns a new XCWorkspaceData removing a reference.
@@ -148,17 +143,14 @@ public extension XCWorkspace {
             if let index = references.index(of: reference) {
                 references.remove(at: index)
             }
-            return Data(path: path,
-                        references: references)
+            return Data(references: references)
         }
         
         /// Initializes the XCWorkspaceData with its attributes.
         ///
         /// - Parameters:
-        ///   - path: path where the .xcworkspacedata is.
         ///   - references: references to the files in the workspace.
-        public init(path: Path, references: [FileRef]) {
-            self.path = path
+        public init(references: [FileRef]) {
             self.references = references
         }
         
@@ -166,13 +158,12 @@ public extension XCWorkspace {
         
         public static func == (lhs: XCWorkspace.Data,
                                rhs: XCWorkspace.Data) -> Bool {
-            return lhs.path == rhs.path &&
-                lhs.references == rhs.references
+            return lhs.references == rhs.references
         }
         
         // MARK: - <Writable>
         
-        public func write(override: Bool = true) throws {
+        public func write(path: Path, override: Bool = true) throws {
             let document = AEXMLDocument()
             let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
             references.forEach { (reference) in

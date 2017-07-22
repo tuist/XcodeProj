@@ -474,7 +474,7 @@ public struct XCScheme {
     public let archiveAction: ArchiveAction?
     public let lastUpgradeVersion: String?
     public let version: String?
-    public let path: Path
+    public let name: String
     
     // MARK: - Init
     
@@ -486,7 +486,7 @@ public struct XCScheme {
         if !fileManager.fileExists(atPath: path.string) {
             throw XCSchemeError.notFound(path: path)
         }
-        self.path = path
+        name = path.lastComponent
         let data = try Data(contentsOf: path.url)
         let document = try AEXMLDocument(xml: data)
         let scheme = document["Scheme"]
@@ -500,7 +500,7 @@ public struct XCScheme {
         profileAction = try ProfileAction(element: scheme["ProfileAction"])
     }
     
-    public init(path: Path,
+    public init(name: String,
                 lastUpgradeVersion: String?,
                 version: String?,
                 buildAction: BuildAction? = nil,
@@ -509,7 +509,7 @@ public struct XCScheme {
                 profileAction: ProfileAction? = nil,
                 analyzeAction: AnalyzeAction? = nil,
                 archiveAction: ArchiveAction? = nil) {
-        self.path = path
+        self.name = name
         self.lastUpgradeVersion = lastUpgradeVersion
         self.version = version
         self.buildAction = buildAction
@@ -526,7 +526,7 @@ public struct XCScheme {
 
 extension XCScheme: Writable {
     
-    public func write(override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion

@@ -11,12 +11,12 @@ final class XCWorkspaceDataSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         fileRef = "path"
-        subject = XCWorkspace.Data(path: Path("test"), references: [])
+        subject = XCWorkspace.Data(references: [])
     }
     
     
     func test_equal_returnsTheCorrectValue() {
-        let another = XCWorkspace.Data(path: Path("test"), references: [])
+        let another = XCWorkspace.Data(references: [])
         XCTAssertEqual(subject, another)
     }
     
@@ -37,7 +37,6 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
     func test_init_returnsTheModelWithTheRightProperties() {
         let path = fixturePath()
         let got = try? XCWorkspace.Data(path: path)
-        XCTAssertEqual(got?.path, path)
         XCTAssertNotNil(got?.references.first?.project)
     }
     

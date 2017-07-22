@@ -9,9 +9,6 @@ public struct PBXProj {
     
     // MARK: - Properties
     
-    /// Project path.
-    public let path: Path
-    
     /// Project name
     public let name: String
     
@@ -39,21 +36,18 @@ extension PBXProj {
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
-    ///   - path: project path.
     ///   - name: project name.
     ///   - archiveVersion: project archive version.
     ///   - objectVersion: project object version.
     ///   - rootObject: project root object.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(path: Path,
-                name: String,
+    public init(name: String,
                 archiveVersion: Int,
                 objectVersion: Int,
                 rootObject: String,
                 classes: [Any] = [],
                 objects: [PBXObject] = []) {
-        self.path = path
         self.name = name
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
@@ -70,18 +64,16 @@ extension PBXProj {
     /// - Throws: an error if the project cannot be found or the format is wrong.
     public init(path: Path, name: String) throws {
         guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
-        try self.init(path: path, name: name, dictionary: dictionary)
+        try self.init(name: name, dictionary: dictionary)
     }
     
     /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
     ///
     /// - Parameters:
-    ///   - path: path where the .pbxproj file is.
     ///   - name: project name.
     ///   - dictionary: dictionary with the file content.
     /// - Throws: throws an error if the content cannot be parsed properly.
-    public init(path: Path, name: String, dictionary: [String: Any]) throws {
-        self.path = path
+    public init(name: String, dictionary: [String: Any]) throws {
         self.name = name
         let unboxer = Unboxer(dictionary: dictionary)
         self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
@@ -102,8 +94,7 @@ extension PBXProj {
 extension PBXProj: Equatable {
     
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
-        return lhs.path == rhs.path &&
-            lhs.name == rhs.name &&
+        return lhs.name == rhs.name &&
             lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
             NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
@@ -129,7 +120,7 @@ enum PBXProjError: Error, CustomStringConvertible {
 
 extension PBXProj: Writable {
     
-    public func write(override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         let writer = PBXProjWriter()
         let output = writer.write(proj: self)
         let fm = FileManager.default
@@ -212,8 +203,7 @@ extension PBXProj {
         if let index = objects.index(of: object) {
             objects.replaceSubrange(index..<index+1, with: [object])
         }
-        return PBXProj(path: path,
-                       name: name,
+        return PBXProj(name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
@@ -230,8 +220,7 @@ extension PBXProj {
         if let index = objects.index(of: object) {
             objects.remove(at: index)
         }
-        return PBXProj(path: path,
-                       name: name,
+        return PBXProj(name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
@@ -248,8 +237,7 @@ extension PBXProj {
         if let index = objects.index(where: {$0.reference == objectReference}) {
             objects.remove(at: index)
         }
-        return PBXProj(path: path,
-                       name: name,
+        return PBXProj(name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
@@ -264,8 +252,7 @@ extension PBXProj {
     public func adding(object: PBXObject) -> PBXProj {
         var objects = self.objects
         objects.append(object)
-        return PBXProj(path: path,
-                       name: name,
+        return PBXProj(name: name,
                        archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
