@@ -95,6 +95,12 @@ class PBXProjWriter {
             }
         }
 
+        if string == "false" {
+            string = "NO"
+        } else if string == "true" {
+            string = "YES"
+        }
+
         write(string: string)
         if let comment = commentedString.comment {
             write(string: " ")
