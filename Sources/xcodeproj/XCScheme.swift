@@ -129,9 +129,9 @@ public struct XCScheme {
             
             public enum BuildFor {
                 case running, testing, profiling, archiving, analyzing
-                static var `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
-                static var indexing: [BuildFor] = [.testing, .analyzing, .archiving]
-                static var testOnly: [BuildFor] = [.testing, .analyzing]
+                public static var `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
+                public static var indexing: [BuildFor] = [.testing, .analyzing, .archiving]
+                public static var testOnly: [BuildFor] = [.testing, .analyzing]
             }
             
             public let buildableReference: BuildableReference
