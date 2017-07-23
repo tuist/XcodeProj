@@ -17,7 +17,7 @@ class PBXProjWriter {
     var output: String = ""
     var multiline: Bool = true
     // swiftlint:disable next force_try legacy_constructor
-    let quotesRequireRegEx = try! NSRegularExpression(pattern: "[<>;&${}\\+\\-= ]", options: [])
+    let quotesRequireRegEx = try! NSRegularExpression(pattern: "[<>;&${}\\+\\-=, ]", options: [])
     
     func write(proj: PBXProj) -> String {
         writeUtf8()
