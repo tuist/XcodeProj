@@ -9,9 +9,6 @@ public struct PBXProj {
     
     // MARK: - Properties
     
-    /// Project name
-    public let name: String
-    
     /// Project archive version.
     public let archiveVersion: Int
     
@@ -36,19 +33,16 @@ extension PBXProj {
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
-    ///   - name: project name.
     ///   - archiveVersion: project archive version.
     ///   - objectVersion: project object version.
     ///   - rootObject: project root object.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(name: String,
-                archiveVersion: Int,
+    public init(archiveVersion: Int,
                 objectVersion: Int,
                 rootObject: String,
                 classes: [Any] = [],
                 objects: [PBXObject] = []) {
-        self.name = name
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
@@ -60,21 +54,18 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path where the .pbxproj is.
-    ///   - name: project name.
     /// - Throws: an error if the project cannot be found or the format is wrong.
-    public init(path: Path, name: String) throws {
+    public init(path: Path) throws {
         guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
-        try self.init(name: name, dictionary: dictionary)
+        try self.init(dictionary: dictionary)
     }
     
     /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
     ///
     /// - Parameters:
-    ///   - name: project name.
     ///   - dictionary: dictionary with the file content.
     /// - Throws: throws an error if the content cannot be parsed properly.
-    public init(name: String, dictionary: [String: Any]) throws {
-        self.name = name
+    public init(dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
@@ -94,8 +85,7 @@ extension PBXProj {
 extension PBXProj: Equatable {
     
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
-        return lhs.name == rhs.name &&
-            lhs.archiveVersion == rhs.archiveVersion &&
+        return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
             NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
             lhs.objects == rhs.objects &&
@@ -202,8 +192,7 @@ extension PBXProj {
         if let index = objects.index(of: object) {
             objects.replaceSubrange(index..<index+1, with: [object])
         }
-        return PBXProj(name: name,
-                       archiveVersion: archiveVersion,
+        return PBXProj(archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
                        classes: classes,
@@ -219,8 +208,7 @@ extension PBXProj {
         if let index = objects.index(of: object) {
             objects.remove(at: index)
         }
-        return PBXProj(name: name,
-                       archiveVersion: archiveVersion,
+        return PBXProj(archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
                        classes: classes,
@@ -236,8 +224,7 @@ extension PBXProj {
         if let index = objects.index(where: {$0.reference == objectReference}) {
             objects.remove(at: index)
         }
-        return PBXProj(name: name,
-                       archiveVersion: archiveVersion,
+        return PBXProj(archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
                        classes: classes,
@@ -251,8 +238,7 @@ extension PBXProj {
     public func adding(object: PBXObject) -> PBXProj {
         var objects = self.objects
         objects.append(object)
-        return PBXProj(name: name,
-                       archiveVersion: archiveVersion,
+        return PBXProj(archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
                        rootObject: rootObject,
                        classes: classes,

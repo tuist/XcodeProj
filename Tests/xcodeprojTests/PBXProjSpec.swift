@@ -11,8 +11,7 @@ final class PBXProjSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         object = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "333"))
-        subject = PBXProj(name: "name",
-                          archiveVersion: 1,
+        subject = PBXProj(archiveVersion: 1,
                           objectVersion: 46,
                           rootObject: "root",
                           classes: [],
@@ -48,7 +47,7 @@ final class PBXProjSpec: XCTestCase {
 final class PBXProjIntegrationSpec: XCTestCase {
     
     func test_init_initializesTheProjCorrectly() {
-        let proj = try? PBXProj(path: fixturePath(), name: "Test")
+        let proj = try? PBXProj(path: fixturePath())
         XCTAssertNotNil(proj)
         if let proj = proj{
             assert(proj: proj)
@@ -57,7 +56,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
     
     func test_write() {
         testWrite(from: fixturePath(),
-                  initModel: { try? PBXProj(path: $0, name: "Project") },
+                  initModel: { try? PBXProj(path: $0) },
                   modify: { $0 })
     }
     

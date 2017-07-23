@@ -25,8 +25,7 @@ public struct XcodeProj {
         if pbxprojPaths.count == 0 {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        pbxproj = try PBXProj(path: pbxprojPaths.first!,
-                              name: path.lastComponentWithoutExtension)
+        pbxproj = try PBXProj(path: pbxprojPaths.first!)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
             throw XCodeProjError.xcworkspaceNotFound(path: path)
