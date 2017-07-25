@@ -72,9 +72,7 @@ extension PBXProj {
         self.classes = (dictionary["classes"] as? [Any]) ?? []
         let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
         self.objects = objectsDictionary
-            .map { try? PBXObject(reference: $0.key, dictionary: $0.value) }
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap { try? PBXObject(reference: $0.key, dictionary: $0.value) }
         self.rootObject = try unboxer.unbox(key: "rootObject")
     }
     

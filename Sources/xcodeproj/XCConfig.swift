@@ -59,14 +59,10 @@ extension XCConfig {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
-            .map(XCConfig.configFrom(path: path))
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap(XCConfig.configFrom(path: path))
         var buildSettings: [String: String] = [:]
         fileLines
-            .map(XCConfig.settingFrom)
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap(XCConfig.settingFrom)
             .forEach { buildSettings[$0.key] = $0.value }
         self.buildSettings = BuildSettings(dictionary: buildSettings)
     }

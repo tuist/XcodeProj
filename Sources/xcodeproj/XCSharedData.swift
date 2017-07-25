@@ -27,9 +27,7 @@ public struct XCSharedData {
             throw XCSharedDataError.notFound(path: path)
         }
         self.schemes = path.glob("xcschemes/*.xcscheme")
-            .map { try? XCScheme(path: $0) }
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap { try? XCScheme(path: $0) }
     }
     
 }

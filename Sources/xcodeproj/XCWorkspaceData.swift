@@ -116,8 +116,7 @@ public extension XCWorkspace {
             self.references = xml
                 .root
                 .children
-                .map { $0.attributes["location"] }
-                .filter { $0 != nil }
+                .flatMap { $0.attributes["location"] }
                 .map { FileRef(string: $0!, path: path) }
         }
         
