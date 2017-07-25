@@ -53,10 +53,6 @@ public struct XcodeProj {
 extension XcodeProj: Writable {
 
     public func write(path: Path, override: Bool = true) throws {
-        if override && path.exists {
-            try path.delete()
-        }
-
         try path.mkpath()
 
         // write workspace

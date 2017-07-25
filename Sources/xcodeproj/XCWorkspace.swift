@@ -43,9 +43,6 @@ public struct XCWorkspace {
 extension XCWorkspace: Writable {
 
     public func write(path: Path, override: Bool = true) throws {
-        if override && path.exists {
-            try path.delete()
-        }
         let dataPath = path + "contents.xcworkspacedata"
         try dataPath.mkpath()
         try data.write(path: dataPath)
