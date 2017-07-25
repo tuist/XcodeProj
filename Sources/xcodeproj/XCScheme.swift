@@ -16,12 +16,12 @@ public struct XCScheme {
         public let buildableName: String
         public let buildableIdentifier: String
         public let blueprintName: String
-             blueprintIdentifier: String,
-             buildableName: String,
-             buildableIdentifier: String,
-             blueprintName: String) {
 
         public init(referencedContainer: String,
+                    blueprintIdentifier: String,
+                    buildableName: String,
+                    blueprintName: String,
+                    buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
             self.blueprintIdentifier = blueprintIdentifier
             self.buildableName = buildableName
@@ -106,10 +106,10 @@ public struct XCScheme {
     public struct BuildableProductRunnable {
         public let runnableDebuggingMode: String
         public let buildableReference: BuildableReference
-        public init(runnableDebuggingMode: String,
-                    buildableReference: BuildableReference) {
-            self.runnableDebuggingMode = runnableDebuggingMode
+        public init(buildableReference: BuildableReference,
+                    runnableDebuggingMode: String = "0") {
             self.buildableReference = buildableReference
+            self.runnableDebuggingMode = runnableDebuggingMode
         }
         public init(element: AEXMLElement) throws {
             self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"]!
@@ -240,15 +240,15 @@ public struct XCScheme {
         public let locationScenarioReference: LocationScenarioReference?
         
         public init(buildableProductRunnable: BuildableProductRunnable,
-                    selectedDebuggerIdentifier: String,
-                    selectedLauncherIdentifier: String,
                     buildConfiguration: String,
-                    launchStyle: Style,
-                    useCustomWorkingDirectory: Bool,
-                    ignoresPersistentStateOnLaunch: Bool,
-                    debugDocumentVersioning: Bool,
-                    debugServiceExtension: String,
-                    allowLocationSimulation: Bool,
+                    selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
+                    selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
+                    launchStyle: Style = .auto,
+                    useCustomWorkingDirectory: Bool = false,
+                    ignoresPersistentStateOnLaunch: Bool = false,
+                    debugDocumentVersioning: Bool = true,
+                    debugServiceExtension: String = "internal",
+                    allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
@@ -324,10 +324,10 @@ public struct XCScheme {
         public let debugDocumentVersioning: Bool
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
-                    shouldUseLaunchSchemeArgsEnv: Bool,
-                    savedToolIdentifier: String,
-                    useCustomWorkingDirectory: Bool,
-                    debugDocumentVersioning: Bool) {
+                    shouldUseLaunchSchemeArgsEnv: Bool = true,
+                    savedToolIdentifier: String = "",
+                    useCustomWorkingDirectory: Bool = false,
+                    debugDocumentVersioning: Bool = true) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
@@ -370,17 +370,17 @@ public struct XCScheme {
         public let shouldUseLaunchSchemeArgsEnv: Bool
         public let macroExpansion: BuildableReference
         public init(buildConfiguration: String,
-                    selectedDebuggerIdentifier: String,
-                    selectedLauncherIdentifier: String,
-                    shouldUseLaunchSchemeArgsEnv: Bool,
                     macroExpansion: BuildableReference,
-                    testables: [TestableReference] = []) {
+                    testables: [TestableReference] = [],
+                    selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
+                    selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
+                    shouldUseLaunchSchemeArgsEnv: Bool = true) {
             self.buildConfiguration = buildConfiguration
+            self.macroExpansion = macroExpansion
+            self.testables = testables
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
-            self.testables = testables
-            self.macroExpansion = macroExpansion
         }
         public init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
