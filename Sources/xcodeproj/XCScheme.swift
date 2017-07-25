@@ -482,13 +482,12 @@ public struct XCScheme {
     ///
     /// - Parameters:
     ///   - path: scheme path.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCSchemeError.notFound(path: path)
         }
         name = path.lastComponent
-        let data = try Data(contentsOf: path.url)
-        let document = try AEXMLDocument(xml: data)
+        let document = try AEXMLDocument(xml: try path.read())
         let scheme = document["Scheme"]
         lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
         version = scheme.attributes["version"]

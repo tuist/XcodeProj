@@ -108,12 +108,11 @@ public extension XCWorkspace {
         /// Initializes the XCWorkspaceData reading the content from the file at the given path.
         ///
         /// - Parameter path: path where the .xcworkspacedata is.
-        public init(path: Path, fileManager: FileManager = .default) throws {
-            if !fileManager.fileExists(atPath: path.string) {
+        public init(path: Path) throws {
+            if !path.exists {
                 throw XCWorkspaceDataError.notFound(path: path)
             }
-            let data = try Foundation.Data(contentsOf: path.url)
-            let xml = try AEXMLDocument(xml: data)
+            let xml = try AEXMLDocument(xml: path.read())
             self.references = xml
                 .root
                 .children

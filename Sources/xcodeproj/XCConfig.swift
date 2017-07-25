@@ -56,10 +56,8 @@ extension XCConfig {
     /// - Parameter path: path where the .xcconfig file is.
     /// - Throws: an error if the config file cannot be found or it has an invalid format.
     public init(path: Path) throws {
-        let fm = FileManager.default
-        if !fm.fileExists(atPath: path.string) { throw XCConfigError.notFound(path: path) }
-        let fileContent = try String(contentsOf: path.url)
-        let fileLines = fileContent.components(separatedBy: "\n")
+        if !path.exists { throw XCConfigError.notFound(path: path) }
+        let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
             .map(XCConfig.configFrom(path: path))
             .filter { $0 != nil }

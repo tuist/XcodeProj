@@ -19,8 +19,8 @@ public struct XcodeProj {
     
     // MARK: - Init
     
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) { throw XCodeProjError.notFound(path: path) }
+    public init(path: Path) throws {
+        if !path.exists { throw XCodeProjError.notFound(path: path) }
         let pbxprojPaths = path.glob("*.pbxproj")
         if pbxprojPaths.count == 0 {
             throw XCodeProjError.pbxprojNotFound(path: path)

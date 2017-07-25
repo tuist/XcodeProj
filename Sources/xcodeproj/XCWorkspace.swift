@@ -17,8 +17,8 @@ public struct XCWorkspace {
     ///
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCWorkspaceError.notFound(path: path)
         }
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")

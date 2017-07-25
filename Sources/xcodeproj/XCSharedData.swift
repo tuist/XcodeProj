@@ -22,8 +22,8 @@ public struct XCSharedData {
     /// Initializes the XCSharedData reading the content from the disk.
     ///
     /// - Parameter path: path where the .xcshareddata is.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
         self.schemes = path.glob("xcschemes/*.xcscheme")
