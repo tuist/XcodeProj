@@ -16,18 +16,20 @@ public struct XCScheme {
         public let buildableName: String
         public let buildableIdentifier: String
         public let blueprintName: String
-        init(referencedContainer: String,
              blueprintIdentifier: String,
              buildableName: String,
              buildableIdentifier: String,
              blueprintName: String) {
+
+        public init(referencedContainer: String,
             self.referencedContainer = referencedContainer
             self.blueprintIdentifier = blueprintIdentifier
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
         }
-        init(element: AEXMLElement) throws {
+
+        public init(element: AEXMLElement) throws {
             guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else {
                 throw XCSchemeError.missing(property: "BuildableIdentifier")
             }
@@ -49,6 +51,7 @@ public struct XCScheme {
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
         }
+
         public func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "BuildableReference",
                                 value: nil,
