@@ -9,9 +9,6 @@ public struct XCConfig {
     
     // MARK: - Attributes
     
-    /// Configuration file path.
-    public let path: Path
-    
     /// Configuration file includes.
     public let includes: [XCConfigInclude]
     
@@ -23,11 +20,9 @@ public struct XCConfig {
     /// Initializes the XCConfig file with its attributes.
     ///
     /// - Parameters:
-    ///   - path: path where the .xcconfig file is.
     ///   - includes: all the .xcconfig file includes. The order determines how the values get overriden.
     ///   - dictionary: dictionary that contains the config.
-    public init(path: Path, includes: [XCConfigInclude], buildSettings: BuildSettings) {
-        self.path = path
+    public init(includes: [XCConfigInclude], buildSettings: BuildSettings) {
         self.includes = includes
         self.buildSettings = buildSettings
     }
@@ -47,8 +42,7 @@ extension XCConfig: Equatable {
                 return false
             }
         }
-        return lhs.path == rhs.path &&
-            lhs.buildSettings == rhs.buildSettings
+        return lhs.buildSettings == rhs.buildSettings
     }
     
 }
@@ -62,20 +56,13 @@ extension XCConfig {
     /// - Parameter path: path where the .xcconfig file is.
     /// - Throws: an error if the config file cannot be found or it has an invalid format.
     public init(path: Path) throws {
-        let fm = FileManager.default
-        if !fm.fileExists(atPath: path.string) { throw XCConfigError.notFound(path: path) }
-        self.path = path
-        let fileContent = try String(contentsOf: path.url)
-        let fileLines = fileContent.components(separatedBy: "\n")
+        if !path.exists { throw XCConfigError.notFound(path: path) }
+        let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
-            .map(XCConfig.configFrom(path: path))
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap(XCConfig.configFrom(path: path))
         var buildSettings: [String: String] = [:]
         fileLines
-            .map(XCConfig.settingFrom)
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap(XCConfig.settingFrom)
             .forEach { buildSettings[$0.key] = $0.value }
         self.buildSettings = BuildSettings(dictionary: buildSettings)
     }
@@ -163,16 +150,15 @@ extension XCConfig {
 
 extension XCConfig: Writable {
     
-    public func write(override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        let fm = FileManager.default
-        if override && fm.fileExists(atPath: path.string) {
-            try fm.removeItem(atPath: path.string)
+        if override && path.exists {
+            try path.delete()
         }
-        try content.data(using: .utf8)?.write(to: path.url)
+        try path.write(content)
     }
     
     private func writeIncludes() -> String {
@@ -205,7 +191,7 @@ extension Array where Element == XCConfig {
     func flattened() -> [XCConfig] {
         let reversed = self.reversed()
             .flatMap { (config) -> [XCConfig] in
-                var configs = [XCConfig(path: config.path, includes: [], buildSettings: config.buildSettings)]
+                var configs = [XCConfig(includes: [], buildSettings: config.buildSettings)]
                 configs.append(contentsOf: config.includes.map { $0.1 }.flattened())
                 return configs
         }

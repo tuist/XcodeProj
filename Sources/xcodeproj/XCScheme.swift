@@ -474,7 +474,7 @@ public struct XCScheme {
     public let archiveAction: ArchiveAction?
     public let lastUpgradeVersion: String?
     public let version: String?
-    public let path: Path
+    public let name: String
     
     // MARK: - Init
     
@@ -482,13 +482,12 @@ public struct XCScheme {
     ///
     /// - Parameters:
     ///   - path: scheme path.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCSchemeError.notFound(path: path)
         }
-        self.path = path
-        let data = try Data(contentsOf: path.url)
-        let document = try AEXMLDocument(xml: data)
+        name = path.lastComponent
+        let document = try AEXMLDocument(xml: try path.read())
         let scheme = document["Scheme"]
         lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
         version = scheme.attributes["version"]
@@ -500,7 +499,7 @@ public struct XCScheme {
         profileAction = try ProfileAction(element: scheme["ProfileAction"])
     }
     
-    public init(path: Path,
+    public init(name: String,
                 lastUpgradeVersion: String?,
                 version: String?,
                 buildAction: BuildAction? = nil,
@@ -509,7 +508,7 @@ public struct XCScheme {
                 profileAction: ProfileAction? = nil,
                 analyzeAction: AnalyzeAction? = nil,
                 archiveAction: ArchiveAction? = nil) {
-        self.path = path
+        self.name = name
         self.lastUpgradeVersion = lastUpgradeVersion
         self.version = version
         self.buildAction = buildAction
@@ -526,7 +525,7 @@ public struct XCScheme {
 
 extension XCScheme: Writable {
     
-    public func write(override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
@@ -550,11 +549,10 @@ extension XCScheme: Writable {
         if let launchAction = launchAction {
             scheme.addChild(launchAction.xmlElement())
         }
-        let fm = FileManager.default
-        if override && fm.fileExists(atPath: path.string) {
-            try fm.removeItem(atPath: path.string)
+        if override && path.exists {
+            try path.delete()
         }
-        try  document.xml.data(using: .utf8)?.write(to: path.url)
+        try path.write(document.xml)
     }
     
 }

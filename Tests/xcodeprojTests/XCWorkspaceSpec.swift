@@ -6,8 +6,7 @@ import xcodeproj
 final class XCWorkspaceIntegrationSpec: XCTestCase {
     
     func test_initTheWorkspaceWithTheRightPropeties() {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj/project.xcworkspace")
+        let path = fixturesPath() + Path("iOS/Project.xcodeproj/project.xcworkspace")
         let got = try? XCWorkspace(path: path)
         XCTAssertNotNil(got)
     }

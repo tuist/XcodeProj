@@ -9,33 +9,25 @@ public struct XCSharedData {
     /// Shared data schemes.
     public let schemes: [XCScheme]
     
-    /// Shared data path.
-    public let path: Path
-    
     // MARK: - Init
     
     /// Initializes the shared data with its properties.
     ///
     /// - Parameters:
-    ///   - path: shared data path.
     ///   - schemes: shared data schemes.
-    public init(path: Path, schemes: [XCScheme]) {
-        self.path = path
+    public init(schemes: [XCScheme]) {
         self.schemes = schemes
     }
     
     /// Initializes the XCSharedData reading the content from the disk.
     ///
     /// - Parameter path: path where the .xcshareddata is.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
-        self.path = path
         self.schemes = path.glob("xcschemes/*.xcscheme")
-            .map { try? XCScheme(path: $0) }
-            .filter { $0 != nil }
-            .map { $0! }
+            .flatMap { try? XCScheme(path: $0) }
     }
     
 }

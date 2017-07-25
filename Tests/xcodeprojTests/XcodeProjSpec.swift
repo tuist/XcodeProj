@@ -16,12 +16,20 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let got = project()
         XCTAssertNotNil(got?.sharedData)
     }
+
+    func test_write() {
+        testWrite(from: fixturePath(),
+                  initModel: { try? XcodeProj(path: $0) },
+                  modify: { $0 })
+    }
+
+    private func fixturePath() -> Path {
+        return fixturesPath() + "iOS/Project.xcodeproj"
+    }
     
     // MARK: - Private
     
     private func project() -> XcodeProj? {
-        let fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
-        let path = fixtures + Path("iOS/Project.xcodeproj")
-        return try? XcodeProj(path: path)
+        return try? XcodeProj(path: fixturePath())
     }
 }

@@ -142,7 +142,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
-        let buildConfigurationListComment = "Build configuration list for PBXProject \"\(proj.name)\""
+        let buildConfigurationListComment = "Build configuration list for PBXProject"
         let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)

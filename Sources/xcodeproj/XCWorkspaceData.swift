@@ -100,9 +100,6 @@ public extension XCWorkspace {
         
         /// MARK: - Attributes
         
-        /// Path to the .xcworkspacedata file
-        public let path: Path
-        
         /// References to the workspace projects
         public let references: [FileRef]
         
@@ -111,18 +108,15 @@ public extension XCWorkspace {
         /// Initializes the XCWorkspaceData reading the content from the file at the given path.
         ///
         /// - Parameter path: path where the .xcworkspacedata is.
-        public init(path: Path, fileManager: FileManager = .default) throws {
-            if !fileManager.fileExists(atPath: path.string) {
+        public init(path: Path) throws {
+            if !path.exists {
                 throw XCWorkspaceDataError.notFound(path: path)
             }
-            self.path = path
-            let data = try Foundation.Data(contentsOf: path.url)
-            let xml = try AEXMLDocument(xml: data)
+            let xml = try AEXMLDocument(xml: path.read())
             self.references = xml
                 .root
                 .children
-                .map { $0.attributes["location"] }
-                .filter { $0 != nil }
+                .flatMap { $0.attributes["location"] }
                 .map { FileRef(string: $0!, path: path) }
         }
         
@@ -135,8 +129,7 @@ public extension XCWorkspace {
         public func adding(reference: FileRef) -> XCWorkspace.Data {
             var references = self.references
             references.append(reference)
-            return Data(path: path,
-                        references: references)
+            return Data(references: references)
         }
         
         /// Returns a new XCWorkspaceData removing a reference.
@@ -148,17 +141,14 @@ public extension XCWorkspace {
             if let index = references.index(of: reference) {
                 references.remove(at: index)
             }
-            return Data(path: path,
-                        references: references)
+            return Data(references: references)
         }
         
         /// Initializes the XCWorkspaceData with its attributes.
         ///
         /// - Parameters:
-        ///   - path: path where the .xcworkspacedata is.
         ///   - references: references to the files in the workspace.
-        public init(path: Path, references: [FileRef]) {
-            self.path = path
+        public init(references: [FileRef]) {
             self.references = references
         }
         
@@ -166,13 +156,12 @@ public extension XCWorkspace {
         
         public static func == (lhs: XCWorkspace.Data,
                                rhs: XCWorkspace.Data) -> Bool {
-            return lhs.path == rhs.path &&
-                lhs.references == rhs.references
+            return lhs.references == rhs.references
         }
         
         // MARK: - <Writable>
         
-        public func write(override: Bool = true) throws {
+        public func write(path: Path, override: Bool = true) throws {
             let document = AEXMLDocument()
             let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
             references.forEach { (reference) in
@@ -180,11 +169,10 @@ public extension XCWorkspace {
                                    value: nil,
                                    attributes: ["location": "\(reference)"])
             }
-            let fm = FileManager.default
-            if override && fm.fileExists(atPath: path.string) {
-                try fm.removeItem(atPath: path.string)
+            if override && path.exists {
+                try path.delete()
             }
-            try  document.xml.data(using: .utf8)?.write(to: path.url)
+            try path.write(document.xml)
         }
         
     }

@@ -25,7 +25,6 @@ public struct PBXFileElement {
     /// - Parameters:
     ///   - reference: element reference.
     ///   - sourceTree: file source tree.
-    ///   - path: file path.
     ///   - name: file name.
     public init(reference: String,
                 sourceTree: PBXSourceTree,

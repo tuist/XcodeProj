@@ -1,12 +1,10 @@
 import Foundation
 import Unbox
 import PathKit
+import xcodeprojprotocols
 
 /// Model that represents a Xcode workspace.
 public struct XCWorkspace {
-
-    /// Workspace path
-    public let path: Path
     
     /// Workspace data
     public let data: XCWorkspace.Data
@@ -19,11 +17,10 @@ public struct XCWorkspace {
     ///
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
-    public init(path: Path, fileManager: FileManager = .default) throws {
-        if !fileManager.fileExists(atPath: path.string) {
+    public init(path: Path) throws {
+        if !path.exists {
             throw XCWorkspaceError.notFound(path: path)
         }
-        self.path = path
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
         if xcworkspaceDataPaths.count == 0 {
             throw XCWorkspaceError.xcworkspaceDataNotFound(path: path)
@@ -34,11 +31,24 @@ public struct XCWorkspace {
     /// Initializes the workspace with its properties.
     ///
     /// - Parameters:
-    ///   - path: path where the workspace is.
     ///   - data: workspace data.
-    public init(path: Path, data: XCWorkspace.Data) {
-        self.path = path
+    public init(data: XCWorkspace.Data) {
         self.data = data
+    }
+
+}
+
+// MARK: - <Writable>
+
+extension XCWorkspace: Writable {
+
+    public func write(path: Path, override: Bool = true) throws {
+        let dataPath = path + "contents.xcworkspacedata"
+        if override && path.exists {
+            try dataPath.delete()
+        }
+        try dataPath.mkpath()
+        try data.write(path: dataPath)
     }
 
 }
@@ -48,7 +58,7 @@ public struct XCWorkspace {
 extension XCWorkspace: Equatable {
     
     public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
-        return lhs.path == rhs.path && rhs.data == rhs.data
+        return rhs.data == rhs.data
     }
     
 }

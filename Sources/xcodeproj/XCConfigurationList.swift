@@ -101,7 +101,7 @@ extension XCConfigurationList: PlistSerializable {
         let project = proj.objects.projects.filter { $0.buildConfigurationList == self.reference }.first
         let target = proj.objects.nativeTargets.filter { $0.buildConfigurationList == self.reference }.first
         if project != nil {
-            return "Build configuration list for PBXProject \"\(proj.name)\""
+            return "Build configuration list for PBXProject"
         } else if let target = target {
             return "Build configuration list for PBXNativeTarget \"\(target.name)\""
         }
