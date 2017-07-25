@@ -324,7 +324,7 @@ public extension Array where Element == PBXObject {
     }
 
     func fileName(from reference: String) -> String? {
-        return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name }.first
+        return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name ?? $0.path }.first
     }
     
     func configName(from reference: String) -> String? {
