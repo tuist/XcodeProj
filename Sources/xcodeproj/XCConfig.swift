@@ -9,9 +9,6 @@ public struct XCConfig {
     
     // MARK: - Attributes
     
-    /// Configuration file path.
-    public let path: Path
-    
     /// Configuration file includes.
     public let includes: [XCConfigInclude]
     
@@ -23,11 +20,9 @@ public struct XCConfig {
     /// Initializes the XCConfig file with its attributes.
     ///
     /// - Parameters:
-    ///   - path: path where the .xcconfig file is.
     ///   - includes: all the .xcconfig file includes. The order determines how the values get overriden.
     ///   - dictionary: dictionary that contains the config.
-    public init(path: Path, includes: [XCConfigInclude], buildSettings: BuildSettings) {
-        self.path = path
+    public init(includes: [XCConfigInclude], buildSettings: BuildSettings) {
         self.includes = includes
         self.buildSettings = buildSettings
     }
@@ -47,8 +42,7 @@ extension XCConfig: Equatable {
                 return false
             }
         }
-        return lhs.path == rhs.path &&
-            lhs.buildSettings == rhs.buildSettings
+        return lhs.buildSettings == rhs.buildSettings
     }
     
 }
@@ -64,7 +58,6 @@ extension XCConfig {
     public init(path: Path) throws {
         let fm = FileManager.default
         if !fm.fileExists(atPath: path.string) { throw XCConfigError.notFound(path: path) }
-        self.path = path
         let fileContent = try String(contentsOf: path.url)
         let fileLines = fileContent.components(separatedBy: "\n")
         self.includes = fileLines
@@ -204,7 +197,7 @@ extension Array where Element == XCConfig {
     func flattened() -> [XCConfig] {
         let reversed = self.reversed()
             .flatMap { (config) -> [XCConfig] in
-                var configs = [XCConfig(path: config.path, includes: [], buildSettings: config.buildSettings)]
+                var configs = [XCConfig(includes: [], buildSettings: config.buildSettings)]
                 configs.append(contentsOf: config.includes.map { $0.1 }.flattened())
                 return configs
         }

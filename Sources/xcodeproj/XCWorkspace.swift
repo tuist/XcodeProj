@@ -5,9 +5,6 @@ import xcodeprojprotocols
 
 /// Model that represents a Xcode workspace.
 public struct XCWorkspace {
-
-    /// Workspace path
-    public let path: Path
     
     /// Workspace data
     public let data: XCWorkspace.Data
@@ -24,7 +21,6 @@ public struct XCWorkspace {
         if !fileManager.fileExists(atPath: path.string) {
             throw XCWorkspaceError.notFound(path: path)
         }
-        self.path = path
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
         if xcworkspaceDataPaths.count == 0 {
             throw XCWorkspaceError.xcworkspaceDataNotFound(path: path)
@@ -35,10 +31,8 @@ public struct XCWorkspace {
     /// Initializes the workspace with its properties.
     ///
     /// - Parameters:
-    ///   - path: path where the workspace is.
     ///   - data: workspace data.
-    public init(path: Path, data: XCWorkspace.Data) {
-        self.path = path
+    public init(data: XCWorkspace.Data) {
         self.data = data
     }
 
@@ -64,7 +58,7 @@ extension XCWorkspace: Writable {
 extension XCWorkspace: Equatable {
     
     public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
-        return lhs.path == rhs.path && rhs.data == rhs.data
+        return rhs.data == rhs.data
     }
     
 }

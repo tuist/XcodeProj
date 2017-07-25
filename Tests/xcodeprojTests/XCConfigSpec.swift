@@ -8,23 +8,20 @@ final class XCConfigSpec: XCTestCase {
     var subject: XCConfig?
     
     func test_init_initializesTheConfigWithTheRightAttributes() {
-        let configA = XCConfig(path: Path("testA"), includes: [], buildSettings: BuildSettings(dictionary: [:]))
-        let configB = XCConfig(path: Path("testB"), includes: [], buildSettings: BuildSettings(dictionary: [:]))
-        let config = XCConfig(path: Path("test"),
-                              includes: [(Path("testA"), configA),
+        let configA = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: [:]))
+        let configB = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: [:]))
+        let config = XCConfig(includes: [(Path("testA"), configA),
                                          (Path("testB"), configB)],
                               buildSettings: BuildSettings(dictionary: ["a": "b"]))
-        XCTAssertEqual(config.path, Path("test"))
         XCTAssertEqual(config.buildSettings.dictionary as! [String: String], ["a": "b"])
         XCTAssertEqual(config.includes[0].config, configA)
         XCTAssertEqual(config.includes[1].config, configB)
     }
     
     func test_flattened_flattensTheConfigCorrectly() {
-        let configA = XCConfig(path: Path("testA"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "1"]))
-        let configB = XCConfig(path: Path("testB"), includes: [], buildSettings: BuildSettings(dictionary: ["a": "2"]))
-        let config = XCConfig(path: Path("test"),
-                              includes: [(Path("testA"), configA),
+        let configA = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: ["a": "1"]))
+        let configB = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: ["a": "2"]))
+        let config = XCConfig(includes: [(Path("testA"), configA),
                                          (Path("testB"), configB)],
                               buildSettings: BuildSettings(dictionary: ["b": "3"]))
         let buildSettings = config.flattenedBuildSettings()
