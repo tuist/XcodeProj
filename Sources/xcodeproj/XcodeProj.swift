@@ -54,16 +54,20 @@ extension XcodeProj: Writable {
 
     public func write(path: Path, override: Bool = true) throws {
         try path.mkpath()
+        try writeWorkSpace(path: path, override: override)
+        try writePBXProj(path: path, override: override)
+        try writeSharedData(path: path, override: override)
+    }
 
-        // write workspace
-        let workspacePath = path + "project.xcworkspace"
-        try workspace.write(path: workspacePath, override: override)
+    fileprivate func writeWorkSpace(path: Path, override: Bool) throws {
+        try workspace.write(path: path + "project.xcworkspace", override: override)
+    }
 
-        // write pbxproj
-        let pbxprojPath = path + "project.pbxproj"
-        try pbxproj.write(path: pbxprojPath, override: override)
+    fileprivate func writePBXProj(path: Path, override: Bool) throws {
+        try pbxproj.write(path: path + "project.pbxproj", override: override)
+    }
 
-        // write shared data
+    fileprivate func writeSharedData(path: Path, override: Bool) throws {
         if let sharedData = sharedData {
             let schemesPath = path + "xcshareddata/xcschemes"
             try schemesPath.mkpath()
