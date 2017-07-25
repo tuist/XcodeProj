@@ -30,7 +30,7 @@ func testWrite<T: Writable>(from path: Path,
                 assertion(got, gotAfterWriting)
             }
         } catch {
-            XCTAssertTrue(false, "It shouldn't throw an error writing the project")
+            XCTFail("It shouldn't throw an error writing the project: \(error.localizedDescription)")
         }
     }
     try? fm.removeItem(at: copyPath.url)
