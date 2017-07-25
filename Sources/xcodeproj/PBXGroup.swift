@@ -10,7 +10,7 @@ public struct PBXGroup {
     public let reference: String
     
     /// Element children.
-    public let children: Set<String>
+    public let children: [String]
     
     /// Element name.
     public let name: String?
@@ -32,7 +32,7 @@ public struct PBXGroup {
     ///   - name: group name.
     ///   - path: group path.
     public init(reference: String,
-                children: Set<String>,
+                children: [String],
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 path: String? = nil) {
@@ -55,7 +55,7 @@ extension PBXGroup {
     /// - Returns: new group with the child added.
     public func adding(child: String) -> PBXGroup {
         var children = self.children
-        children.insert(child)
+        children.append(child)
         return PBXGroup(reference: reference,
                         children: children,
                         sourceTree: sourceTree,
@@ -68,7 +68,9 @@ extension PBXGroup {
     /// - Returns: new group with the child added.
     public func removing(child: String) -> PBXGroup {
         var children = self.children
-        children.remove(child)
+        if let index = children.index(of: child) {
+            children.remove(at: index)
+        }
         return PBXGroup(reference: reference,
                         children: children,
                         sourceTree: sourceTree,

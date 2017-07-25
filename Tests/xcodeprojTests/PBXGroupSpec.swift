@@ -9,14 +9,14 @@ final class PBXGroupSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         self.subject = PBXGroup(reference: "ref",
-                                children: Set(arrayLiteral: "333"),
+                                children: ["333"],
                                 sourceTree: .group,
                                 name: "name")
     }
     
     func test_init_initializesTheGroupWithTheRightProperties() {
         XCTAssertEqual(subject.reference, "ref")
-        XCTAssertEqual(subject.children, Set(arrayLiteral: "333"))
+        XCTAssertEqual(subject.children, ["333"])
         XCTAssertEqual(subject.sourceTree, .group)
         XCTAssertEqual(subject.name, "name")
     }
@@ -45,7 +45,7 @@ final class PBXGroupSpec: XCTestCase {
     
     func test_equals_returnsTheCorretValue() {
         let another = PBXGroup(reference: "ref",
-                               children: Set(arrayLiteral: "333"),
+                               children: ["333"],
                                sourceTree: .group,
                                name: "name")
         XCTAssertEqual(subject, another)
