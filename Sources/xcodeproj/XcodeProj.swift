@@ -71,7 +71,7 @@ extension XcodeProj: Writable {
         if let sharedData = sharedData {
             let schemesPath = path + "xcshareddata/xcschemes"
             if override && schemesPath.exists {
-                try path.delete()
+                try schemesPath.delete()
             }
             try schemesPath.mkpath()
             for scheme in sharedData.schemes {
