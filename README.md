@@ -24,9 +24,9 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 
 ### Projects that benefit from xcodeproj ❤️
 
-| **Project** | **Description** | **Icon** |
-|---------|-------------|------|
-| [Cartago](https://github.com/carambalabs/cartago)     | Generate Xcode projects dynamically from a specification file `Project.swift` | <img width="100" src="https://github.com/carambalabs/cartago/raw/master/assets/logo.png?raw=true"/>  |
+| **Project** | **Description** |
+|---------|-------------|
+| [XcodeGen](https://github.com/yonaskolb/XcodeGen)     | Generate Xcode projects dynamically from a YAML file |
 
 ### Contribute 👨‍👩‍👧
 
