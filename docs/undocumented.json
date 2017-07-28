@@ -268,135 +268,135 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 214,
+      "line": 207,
       "symbol": "Array.aggregateTargets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 228,
+      "line": 214,
       "symbol": "Array.containerItemProxies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 242,
+      "line": 221,
       "symbol": "Array.copyFilesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 256,
+      "line": 228,
       "symbol": "Array.groups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 270,
+      "line": 235,
       "symbol": "Array.fileElements",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 284,
+      "line": 242,
       "symbol": "Array.configurationLists",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 298,
+      "line": 249,
       "symbol": "Array.buildConfigurations",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 312,
+      "line": 256,
       "symbol": "Array.variantGroups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 326,
+      "line": 263,
       "symbol": "Array.targetDependencies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 340,
+      "line": 270,
       "symbol": "Array.sourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 354,
+      "line": 277,
       "symbol": "Array.shellScriptBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 368,
+      "line": 284,
       "symbol": "Array.resourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 382,
+      "line": 291,
       "symbol": "Array.frameworksBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 396,
+      "line": 298,
       "symbol": "Array.headersBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 410,
+      "line": 305,
       "symbol": "Array.nativeTargets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 424,
+      "line": 312,
       "symbol": "Array.fileReferences",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 438,
+      "line": 319,
+      "symbol": "Array.projects",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
+      "line": 326,
       "symbol": "Array.fileName(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 442,
+      "line": 330,
       "symbol": "Array.configName(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 446,
-      "symbol": "Array.projects",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -513,7 +513,7 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfig.swift",
-      "line": 223,
+      "line": 209,
       "symbol": "XCConfigError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -562,14 +562,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
-      "line": 569,
+      "line": 570,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
-      "line": 570,
+      "line": 571,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -583,21 +583,21 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCSharedData.swift",
-      "line": 47,
+      "line": 39,
       "symbol": "XCSharedDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspace.swift",
-      "line": 61,
+      "line": 71,
       "symbol": "XCWorkspaceError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspace.swift",
-      "line": 62,
+      "line": 72,
       "symbol": "XCWorkspaceError.xcworkspaceDataNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -611,42 +611,42 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
-      "line": 201,
+      "line": 189,
       "symbol": "XCWorkspaceDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 14,
+      "line": 12,
       "symbol": "XcodeProj.workspace",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 24,
-      "symbol": "XcodeProj.init(path:fileManager:)",
+      "line": 22,
+      "symbol": "XcodeProj.init(path:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 63,
+      "line": 103,
       "symbol": "XCodeProjError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 64,
+      "line": 104,
       "symbol": "XCodeProjError.pbxprojNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 65,
+      "line": 105,
       "symbol": "XCodeProjError.xcworkspaceNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
