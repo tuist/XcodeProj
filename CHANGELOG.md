@@ -1,3 +1,13 @@
+## 0.0.7
+- Downgrade Swift Tools versions to 4.0 https://github.com/carambalabs/xcodeproj/pull/27 by @yonaskolb
+- Make Scheme intializers public https://github.com/carambalabs/xcodeproj/pull/28 by @yonaskolb
+- Change PBXGroup.children to be an array https://github.com/carambalabs/xcodeproj/pull/26 by @yonaskolb
+- Make XcodeProj writable https://github.com/carambalabs/xcodeproj/pull/20 by @yonaskolb
+- Write baseConfigurationReference https://github.com/carambalabs/xcodeproj/pull/24 by @yonaskolb
+- Convert booleans to YES or NO https://github.com/carambalabs/xcodeproj/pull/23 by @yonaskolb
+- Make more properties public https://github.com/carambalabs/xcodeproj/pull/19 by @yonaskolb
+
+
 ## 0.0.6
 - Fix an issue with unescaped strings by @yonaskolb https://github.com/carambalabs/xcodeproj/issues/16
 - Update Swift Tools Version to 4.0 https://github.com/carambalabs/xcodeproj/commit/f0f5ffe58ce0d29bb986189abf6391c6552fd347
