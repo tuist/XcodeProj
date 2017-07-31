@@ -28,16 +28,16 @@ public struct PBXContainerItemProxy {
     /// Initializes the container item proxy with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: reference to the element.
+    ///   - reference: reference to the element. Will be automatically generated if not specified
     ///   - containerPortal: reference to the container portal.
     ///   - remoteGlobalIDString: reference to the remote global ID.
     ///   - remoteInfo: remote info.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 containerPortal: String,
                 remoteGlobalIDString: String,
                 proxyType: ProxyType = .nativeTarget,
                 remoteInfo: String? = nil) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXContainerItemProxy.self, containerPortal + remoteGlobalIDString)
         self.containerPortal = containerPortal
         self.remoteGlobalIDString = remoteGlobalIDString
         self.remoteInfo = remoteInfo

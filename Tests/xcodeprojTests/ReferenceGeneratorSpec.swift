@@ -31,7 +31,7 @@ final class ReferenceGeneratorSpec: XCTestCase {
         XCTAssert(reference1 == reference2)
     }
 
-    func test_generates_unique_ids() {
+    func test_generates_unique_references() {
         let generator = ReferenceGenerator()
         let reference1 = generator.generateReference(PBXBuildFile.self, "file1.swift")
         let reference2 = generator.generateReference(PBXBuildFile.self, "file2.swift")
@@ -40,6 +40,21 @@ final class ReferenceGeneratorSpec: XCTestCase {
         XCTAssert(reference1 != reference2)
         XCTAssert(reference1 != reference3)
         XCTAssert(reference2 != reference3)
+    }
+
+    func test_generates_automatic_references() {
+
+        let fileRef = PBXFileReference(sourceTree: .group, name: "File", path: "file.swift")
+        let buildFile1 = PBXBuildFile(fileRef: fileRef.reference)
+        let buildFile2 = PBXBuildFile(fileRef: fileRef.reference)
+
+        XCTAssert(fileRef.reference.characters.count == 20)
+        XCTAssert(buildFile1.reference.characters.count == 20)
+        XCTAssert(buildFile2.reference.characters.count == 20)
+        XCTAssert(fileRef.reference.hasPrefix("FR"))
+        XCTAssert(buildFile1.reference.hasPrefix("BF"))
+        XCTAssert(buildFile2.reference.hasPrefix("BF"))
+        XCTAssert(buildFile1.reference != buildFile2.reference)
     }
 
 }

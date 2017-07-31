@@ -23,15 +23,15 @@ public struct XCBuildConfiguration {
     /// Initializes a build configuration.
     ///
     /// - Parameters:
-    ///   - reference: build configuration reference.
+    ///   - reference: build configuration reference. Will be automatically generated if not specified
     ///   - name: build configuration name.
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 name: String,
                 baseConfigurationReference: String? = nil,
                 buildSettings: BuildSettings = [:]) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(XCBuildConfiguration.self, name)
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name

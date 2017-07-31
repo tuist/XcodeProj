@@ -52,7 +52,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
     ///   - mainGroup: project main group.
@@ -65,7 +65,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     ///   - projectRoot: project root.
     ///   - targets: project targets.
     ///   - attributes: project attributes.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 buildConfigurationList: String,
                 compatibilityVersion: String,
                 mainGroup: String,
@@ -78,7 +78,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                 projectRoot: String? = nil,
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXProject.self, "project")
         self.buildConfigurationList = buildConfigurationList
         self.compatibilityVersion = compatibilityVersion
         self.mainGroup = mainGroup

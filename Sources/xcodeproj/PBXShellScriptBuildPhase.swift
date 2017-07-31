@@ -39,14 +39,14 @@ public struct PBXShellScriptBuildPhase {
     /// Initializes the shell script build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: references.
+    ///   - reference: reference. Will be automatically generated if not specified
     ///   - files: shell script files.
     ///   - inputPaths: input paths.
     ///   - outputPaths: output paths.
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 files: Set<String>,
                 name: String,
                 inputPaths: Set<String>,
@@ -54,7 +54,7 @@ public struct PBXShellScriptBuildPhase {
                 shellPath: String,
                 shellScript: String?,
                 buildActionMask: Int = 2147483647) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXShellScriptBuildPhase.self, name)
         self.files = files
         self.name = name
         self.inputPaths = inputPaths

@@ -23,13 +23,13 @@ public struct PBXBuildFile: ProjectElement {
     /// Initiazlies the build file with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - fileRef: build file reference.
     ///   - settings: build file settings.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 fileRef: String,
                 settings: [String: Any]? = nil) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXBuildFile.self, fileRef)
         self.fileRef = fileRef
         self.settings = settings
     }

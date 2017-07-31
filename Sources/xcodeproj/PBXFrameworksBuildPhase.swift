@@ -23,14 +23,14 @@ public struct PBXFrameworksBuildPhase {
     /// Initializes the frameworks build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - files: frameworks build phase files.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment pos processing value.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 files: Set<String>,
                 runOnlyForDeploymentPostprocessing: UInt,
                 buildActionMask: Int = 2147483647) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXFrameworksBuildPhase.self, files.joined())
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         self.buildActionMask = buildActionMask

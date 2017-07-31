@@ -19,14 +19,14 @@ public struct PBXResourcesBuildPhase {
     /// Initializes the resources build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - files: element files.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 files: Set<String>,
                 runOnlyForDeploymentPostprocessing: Int = 0,
                 buildActionMask: Int = 2147483647) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXResourcesBuildPhase.self, files.joined())
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         self.buildActionMask = buildActionMask
