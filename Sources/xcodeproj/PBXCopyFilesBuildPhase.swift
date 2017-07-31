@@ -22,22 +22,22 @@ public struct PBXCopyFilesBuildPhase {
     // MARK: - Attributes
     
     /// Element reference
-    public let reference: String
+    public var reference: String
     
     /// Element destination path
-    public let dstPath: String
+    public var dstPath: String
     
     /// Element build action mask.
-    public let buildActionMask: UInt
+    public var buildActionMask: UInt
     
     /// Element destination subfolder spec
-    public let dstSubfolderSpec: SubFolder
+    public var dstSubfolderSpec: SubFolder
  
     /// Element files
-    public let files: Set<String>
+    public var files: Set<String>
  
     /// element run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     
@@ -62,34 +62,6 @@ public struct PBXCopyFilesBuildPhase {
         self.dstSubfolderSpec = dstSubfolderSpec
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-    }
-    
-}
-
-// MARK: - PBXCopyFilesBuildPhase Extension (Public)
-
-extension PBXCopyFilesBuildPhase {
-    
-    public func adding(file: String) -> PBXCopyFilesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXCopyFilesBuildPhase(reference: reference,
-                                      dstPath: dstPath,
-                                      dstSubfolderSpec: dstSubfolderSpec,
-                                      buildActionMask: buildActionMask,
-                                      files: files,
-                                      runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-    public func removing(file: String) -> PBXCopyFilesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXCopyFilesBuildPhase(reference: reference,
-                                      dstPath: dstPath,
-                                      dstSubfolderSpec: dstSubfolderSpec,
-                                      buildActionMask: buildActionMask,
-                                      files: files,
-                                      runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
 }

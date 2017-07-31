@@ -6,16 +6,16 @@ import PathKit
 public struct PBXHeadersBuildPhase {
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element build action mask
-    public let buildActionMask: UInt
+    public var buildActionMask: UInt
     
     /// Element files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Element runOnlyForDeploymentPostprocessing
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     
@@ -54,32 +54,6 @@ extension PBXHeadersBuildPhase {
     static func isHeader(fileExtension: String) -> Bool {
         let headersExtensions = ["h", "hh", "hpp", "ipp", "tpp", "hxx", "def"]
         return headersExtensions.contains(fileExtension)
-    }
-    
-    /// Returns a new headers build phase with a file added.
-    ///
-    /// - Parameter file: file to be added.
-    /// - Returns: new headers build phase with the file added.
-    public func adding(file: String) -> PBXHeadersBuildPhase {
-        var files = self.files
-        files.insert(file)
-        return PBXHeadersBuildPhase(reference: reference,
-                                    buildActionMask: buildActionMask,
-                                    files: files,
-                                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-    /// Returns a new headers build phase with the file removed.
-    ///
-    /// - Parameter file: file to be removed.
-    /// - Returns: new headers build phase with the file removed.
-    public func removing(file: String) -> PBXHeadersBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXHeadersBuildPhase(reference: reference,
-                                    buildActionMask: buildActionMask,
-                                    files: files,
-                                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
 }

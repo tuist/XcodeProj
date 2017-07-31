@@ -7,19 +7,19 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     // Variant group reference.
-    public let reference: String
+    public var reference: String
     
     // Variant group isa.
     public static var isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
-    public let children: Set<String>
+    public var children: Set<String>
     
     // The filename
-    public let name: String
+    public var name: String
     
     // Variant group source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     // MARK: - Init
     
@@ -52,32 +52,6 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
         self.children = try unboxer.unbox(key: "children")
         self.name = try unboxer.unbox(key: "name")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
-    }
-    
-    /// Returns a new variant group by adding a new children.
-    ///
-    /// - Parameter child: child to be added.
-    /// - Returns: new variant group with the child added.
-    public func adding(child: String) -> PBXVariantGroup {
-        var children = self.children
-        children.insert(child)
-        return PBXVariantGroup(reference: reference,
-                               children: children,
-                               name: name,
-                               sourceTree: sourceTree)
-    }
-    
-    /// Returns a new new variant group removing one of its children.
-    ///
-    /// - Parameter child: child to be removed.
-    /// - Returns: new variant group with the child removed.
-    public func removing(child: String) -> PBXVariantGroup {
-        var children = self.children
-        children.remove(child)
-        return PBXVariantGroup(reference: reference,
-                               children: children,
-                               name: name,
-                               sourceTree: sourceTree)
     }
     
     // MARK: - Hashable

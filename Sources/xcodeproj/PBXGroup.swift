@@ -7,19 +7,19 @@ public struct PBXGroup {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element children.
-    public let children: [String]
+    public var children: [String]
     
     /// Element name.
-    public let name: String?
+    public var name: String?
     
     /// Element path.
-    public let path: String?
+    public var path: String?
     
     /// Element source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     // MARK: - Init
     
@@ -41,40 +41,6 @@ public struct PBXGroup {
         self.name = name
         self.sourceTree = sourceTree
         self.path = path
-    }
-    
-}
-
-// MARK: - PBXGroup Extension (Extras)
-
-extension PBXGroup {
-    
-    /// Returns a new group adding a child.
-    ///
-    /// - Parameter child: new group with the child added.
-    /// - Returns: new group with the child added.
-    public func adding(child: String) -> PBXGroup {
-        var children = self.children
-        children.append(child)
-        return PBXGroup(reference: reference,
-                        children: children,
-                        sourceTree: sourceTree,
-                        name: name)
-    }
-    
-    /// Returns a new group removing a child.
-    ///
-    /// - Parameter child: child to be removed.
-    /// - Returns: new group with the child added.
-    public func removing(child: String) -> PBXGroup {
-        var children = self.children
-        if let index = children.index(of: child) {
-            children.remove(at: index)
-        }
-        return PBXGroup(reference: reference,
-                        children: children,
-                        sourceTree: sourceTree,
-                        name: name)
     }
     
 }

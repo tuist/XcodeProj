@@ -7,16 +7,16 @@ public struct PBXBuildFile: ProjectElement {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXBuildFile"
     
     /// Element file reference.
-    public let fileRef: String
+    public var fileRef: String
     
     /// Element settings
-    public let settings: [String: Any]?
+    public var settings: [String: Any]?
     
     // MARK: - Init
     
@@ -45,34 +45,6 @@ public struct PBXBuildFile: ProjectElement {
         let unboxer = Unboxer(dictionary: dictionary)
         self.fileRef = try unboxer.unbox(key: "fileRef")
         self.settings = unboxer.unbox(key: "settings")
-    }
-    
-    // MARK: - Public
-    
-    /// Returns a new build file adding a new setting.
-    ///
-    /// - Parameters:
-    ///   - setting: setting key.
-    ///   - value: setting value.
-    /// - Returns: new build file with the setting added.
-    public func adding(setting: String, value: Any) -> PBXBuildFile {
-        var settings = self.settings ?? [:]
-        settings[setting] = value
-        return PBXBuildFile(reference: reference,
-                            fileRef: fileRef,
-                            settings: settings)
-    }
-    
-    /// Returns a new build file removing a setting.
-    ///
-    /// - Parameter setting: setting to be removed.
-    /// - Returns: new build file with the setting removed.
-    public func removing(setting: String) -> PBXBuildFile {
-        var settings = self.settings ?? [:]
-        settings.removeValue(forKey: setting)
-        return PBXBuildFile(reference: reference,
-                            fileRef: fileRef,
-                            settings: settings)
     }
     
     // MARK: - Hashable

@@ -61,16 +61,6 @@ final class PBXVariantGroupSpec: XCTestCase {
         XCTAssertEqual(PBXVariantGroup.isa, "PBXVariantGroup")
     }
     
-    func test_addingChild_returnsAVariantGroupWithTheChildAdded() {
-        let newVariant = subject.adding(child: "444")
-        XCTAssertTrue(newVariant.children.contains("444"))
-    }
-    
-    func test_removingChild_returnsAVariantGroupWithTheChildRemoved() {
-        let newVariant = subject.removing(child: "child")
-        XCTAssertFalse(newVariant.children.contains("child"))
-    }
-    
     func test_equals_returnsTheCorrectValue() {
         let one = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)
         let another = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)

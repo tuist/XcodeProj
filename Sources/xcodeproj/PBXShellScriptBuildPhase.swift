@@ -8,31 +8,31 @@ public struct PBXShellScriptBuildPhase {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Files references.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Build phase name.
-    public let name: String
+    public var name: String
     
     /// Input paths
-    public let inputPaths: Set<String>
+    public var inputPaths: Set<String>
     
     /// Output paths
-    public let outputPaths: Set<String>
+    public var outputPaths: Set<String>
     
     /// Run only for deployment post processing attribute.
-    public let runOnlyForDeploymentPostprocessing: Int = 0
+    public var runOnlyForDeploymentPostprocessing: Int = 0
     
     /// Path to the shell.
-    public let shellPath: String
+    public var shellPath: String
     
     /// Shell script.
-    public let shellScript: String?
+    public var shellScript: String?
     
     // MARK: - Init
     
@@ -122,107 +122,5 @@ extension PBXShellScriptBuildPhase: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
-    
-}
-
-// MARK: - PBXShellScriptBuildPhase Extension (Extras)
-
-extension PBXShellScriptBuildPhase {
-    
-    /// Returns a new shell script build phase with a new file added.
-    ///
-    /// - Parameter file: reference file to be added.
-    /// - Returns: new build phase with the file added.
-    public func adding(file: String) -> PBXShellScriptBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
-    
-    /// Returns a new shell script build phase removing a file.
-    ///
-    /// - Parameter file: reference to the file to be removed.
-    /// - Returns: new shell script build phase with the file removed.
-    public func removing(file: String) -> PBXShellScriptBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
-    
-    /// Returns a new shell script build phase adding a new input path.
-    ///
-    /// - Parameter inputPath: input path to be added.
-    /// - Returns: new shell script build phase with the input path added.
-    public func adding(inputPath: String) -> PBXShellScriptBuildPhase {
-        var inputPaths = self.inputPaths
-        inputPaths.update(with: inputPath)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
-    
-    /// Returns a new shell script build phase removing an input path/
-    ///
-    /// - Parameter inputPath: input path to be removed.
-    /// - Returns: new shell script build phase with the input path removed.
-    public func removing(inputPath: String) -> PBXShellScriptBuildPhase {
-        var inputPaths = self.inputPaths
-        inputPaths.remove(inputPath)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
-    
-    /// Returns a new shell script build phase adding an output path.
-    ///
-    /// - Parameter outputPath: output path to be added.
-    /// - Returns: new shell script build phsae with the output path added.
-    public func adding(outputPath: String) -> PBXShellScriptBuildPhase {
-        var outputPaths = self.outputPaths
-        outputPaths.update(with: outputPath)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
-    
-    /// Returns a new shell script build phase removing an output path.
-    ///
-    /// - Parameter outputPath: output path to be removed.
-    /// - Returns: new shell script build phsae with the output path removed.
-    public func removing(outputPath: String) -> PBXShellScriptBuildPhase {
-        var outputPaths = self.outputPaths
-        outputPaths.remove(outputPath)
-        return PBXShellScriptBuildPhase(reference: reference,
-                                        files: files,
-                                        name: name,
-                                        inputPaths: inputPaths,
-                                        outputPaths: outputPaths,
-                                        shellPath: shellPath,
-                                        shellScript: shellScript)
-    }
     
 }

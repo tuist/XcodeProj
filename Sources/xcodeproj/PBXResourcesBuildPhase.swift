@@ -5,16 +5,16 @@ import Unbox
 public struct PBXResourcesBuildPhase {
     
     /// Element reference
-    public let reference: String
+    public var reference: String
     
     /// Element build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Element files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Element run only for deployment post processing value.
-    public let runOnlyForDeploymentPostprocessing: Int
+    public var runOnlyForDeploymentPostprocessing: Int
     
     /// Initializes the resources build phase with its attributes.
     ///
@@ -57,34 +57,6 @@ extension PBXResourcesBuildPhase: ProjectElement {
     }
     
     public var hashValue: Int { return self.reference.hashValue }
-    
-}
-
-// MARK: - PBXResourcesBuildPhase Extension (Extras)
-
-extension PBXResourcesBuildPhase {
-    
-    /// It returns a new resources build phase with a file added.
-    ///
-    /// - Parameter file: reference to the file.
-    /// - Returns: new resources build phase with the file added.
-    public func adding(file: String) -> PBXResourcesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXResourcesBuildPhase(reference: self.reference,
-                                      files: files)
-    }
-    
-    /// It returns a new resources build phase with a file removed.
-    ///
-    /// - Parameter file: reference to the fil eto be removed.
-    /// - Returns: new resources build phase with the file removed.
-    public func removing(file: String) -> PBXResourcesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXResourcesBuildPhase(reference: self.reference,
-                                      files: files)
-    }
     
 }
 

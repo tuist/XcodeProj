@@ -41,16 +41,6 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingFile_returnsANewBuildPhaseWithTheFileAdded() {
-        let got = subject.adding(file: "222")
-        XCTAssertTrue(got.files.contains("222"))
-    }
-    
-    func test_removingFile_returnsANewBuildPhaseWithTheFileRemoved() {
-        let got = subject.removing(file: "33")
-        XCTAssertFalse(got.files.contains("33"))
-    }
-    
     func test_equals_returnsTheCorrectValue() {
         let another = PBXFrameworksBuildPhase(reference: "ref",
                                               files: Set(arrayLiteral: "33"),

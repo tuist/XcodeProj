@@ -109,16 +109,6 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingFile_returnsANewBuilPhaseWithTheFileAdded() {
-        let got = subject.adding(file: "444")
-        XCTAssertTrue(got.files.contains("444"))
-    }
-    
-    func test_removingFile_returnsANewBuildPhaseWithTheFileRemoved() {
-        let got = subject.removing(file: "33")
-        XCTAssertFalse(got.files.contains("33"))
-    }
-    
     func test_isa_returnsTheRightValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.isa, "PBXCopyFilesBuildPhase")
     }

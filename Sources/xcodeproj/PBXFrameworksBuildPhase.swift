@@ -7,16 +7,16 @@ public struct PBXFrameworksBuildPhase {
     // MARK: - Properties
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Framework build phase files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Build phase build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Build phase run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     
@@ -34,36 +34,6 @@ public struct PBXFrameworksBuildPhase {
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         self.buildActionMask = buildActionMask
-    }
-    
-}
-
-// MARK: - PBXFrameworksBuildPhase Extension (Extras)
-
-extension PBXFrameworksBuildPhase {
-    
-    /// Returns a new frameworks build phase with a new file added.
-    ///
-    /// - Parameter file: file to be added.
-    /// - Returns: new build phase with the file added.
-    public func adding(file: String) -> PBXFrameworksBuildPhase {
-        var files = self.files
-        files.insert(file)
-        return PBXFrameworksBuildPhase(reference: reference,
-                                       files: files,
-                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-    /// Returns a new frameworks build phase with the file removed.
-    ///
-    /// - Parameter file: file to be removed.
-    /// - Returns: new frameworks build phase with the file removed.
-    public func removing(file: String) -> PBXFrameworksBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXFrameworksBuildPhase(reference: reference,
-                                       files: files,
-                                       runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
     
 }

@@ -61,16 +61,6 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
     
-    func test_addingFile_returnsANewBuildPhaseWithTheFileAdded() {
-        let got = subject.adding(file: "555")
-        XCTAssertTrue(got.files.contains("555"))
-    }
-    
-    func test_removingFile_returnsANewBuildPhaseWiththeFileRemoved() {
-        let got = subject.removing(file: "333")
-        XCTAssertFalse(got.files.contains("333"))
-    }
-    
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }

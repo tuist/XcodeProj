@@ -7,19 +7,19 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     /// Reference.
-    public let reference: String
+    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXSourcesBuildPhase"
     
     /// Build action mask.
-    public let buildActionMask: Int = 2147483647
+    public var buildActionMask: Int = 2147483647
     
     /// Files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: Int = 0
+    public var runOnlyForDeploymentPostprocessing: Int = 0
     
     // MARK: - Init
     
@@ -44,28 +44,6 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
-    }
-    
-    // MARK: - Public
-    
-    /// Returns a new build phase removing the given file.
-    ///
-    /// - Parameter file: file to be removed.
-    /// - Returns: build phase with the file removed.
-    public func removing(file: String) -> PBXSourcesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXSourcesBuildPhase(reference: self.reference, files: files)
-    }
-    
-    /// Returns a new build phase adding a file.
-    ///
-    /// - Parameter file: file to be added.
-    /// - Returns: new build phase with the file added.
-    public func adding(file: String) -> PBXSourcesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXSourcesBuildPhase(reference: self.reference, files: files)
     }
     
     // MARK: - Hashable

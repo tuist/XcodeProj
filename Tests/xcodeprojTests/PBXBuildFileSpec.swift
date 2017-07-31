@@ -28,16 +28,6 @@ final class PBXBuildFileSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingSetting_returnsANewBuildFileWithTheSettingAdded() {
-        let got = subject.adding(setting: "c", value: "d")
-        XCTAssertEqual(got.settings?["c"] as! String, "d")
-    }
-    
-    func test_removingSetting_returnsANewBuildFileWithTheSettingRemoved() {
-        let got = subject.removing(setting: "a")
-        XCTAssertNil(got.settings?["a"])
-    }
-    
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXBuildFile.isa, "PBXBuildFile")
     }

@@ -11,11 +11,11 @@ public struct XCScheme {
     // MARK: - BuildableReference
     
     public struct BuildableReference {
-        public let referencedContainer: String
-        public let blueprintIdentifier: String
-        public let buildableName: String
-        public let buildableIdentifier: String
-        public let blueprintName: String
+        public var referencedContainer: String
+        public var blueprintIdentifier: String
+        public var buildableName: String
+        public var buildableIdentifier: String
+        public var blueprintName: String
 
         public init(referencedContainer: String,
                     blueprintIdentifier: String,
@@ -64,8 +64,8 @@ public struct XCScheme {
     }
     
     public struct TestableReference {
-        public let skipped: Bool
-        public let buildableReference: BuildableReference
+        public var skipped: Bool
+        public var buildableReference: BuildableReference
         public init(skipped: Bool,
                     buildableReference: BuildableReference) {
             self.skipped = skipped
@@ -85,8 +85,8 @@ public struct XCScheme {
     }
     
     public struct LocationScenarioReference {
-        public let identifier: String
-        public let referenceType: String
+        public var identifier: String
+        public var referenceType: String
         public init(identifier: String, referenceType: String) {
             self.identifier = identifier
             self.referenceType = referenceType
@@ -104,8 +104,8 @@ public struct XCScheme {
     }
     
     public struct BuildableProductRunnable {
-        public let runnableDebuggingMode: String
-        public let buildableReference: BuildableReference
+        public var runnableDebuggingMode: String
+        public var buildableReference: BuildableReference
         public init(buildableReference: BuildableReference,
                     runnableDebuggingMode: String = "0") {
             self.buildableReference = buildableReference
@@ -137,8 +137,8 @@ public struct XCScheme {
                 public static var testOnly: [BuildFor] = [.testing, .analyzing]
             }
             
-            public let buildableReference: BuildableReference
-            public let buildFor: [BuildFor]
+            public var buildableReference: BuildableReference
+            public var buildFor: [BuildFor]
 
             public init(buildableReference: BuildableReference,
                         buildFor: [BuildFor]) {
@@ -180,9 +180,9 @@ public struct XCScheme {
             }
         }
 
-        public let buildActionEntries: [Entry]
-        public let parallelizeBuild: Bool
-        public let buildImplicitDependencies: Bool
+        public var buildActionEntries: [Entry]
+        public var parallelizeBuild: Bool
+        public var buildImplicitDependencies: Bool
     
         public init(buildActionEntries: [Entry] = [],
                     parallelizeBuild: Bool = false,
@@ -227,17 +227,17 @@ public struct XCScheme {
             case wait = "1"
         }
 
-        public let buildableProductRunnable: BuildableProductRunnable
-        public let selectedDebuggerIdentifier: String
-        public let selectedLauncherIdentifier: String
-        public let buildConfiguration: String
-        public let launchStyle: Style
-        public let useCustomWorkingDirectory: Bool
-        public let ignoresPersistentStateOnLaunch: Bool
-        public let debugDocumentVersioning: Bool
-        public let debugServiceExtension: String
-        public let allowLocationSimulation: Bool
-        public let locationScenarioReference: LocationScenarioReference?
+        public var buildableProductRunnable: BuildableProductRunnable
+        public var selectedDebuggerIdentifier: String
+        public var selectedLauncherIdentifier: String
+        public var buildConfiguration: String
+        public var launchStyle: Style
+        public var useCustomWorkingDirectory: Bool
+        public var ignoresPersistentStateOnLaunch: Bool
+        public var debugDocumentVersioning: Bool
+        public var debugServiceExtension: String
+        public var allowLocationSimulation: Bool
+        public var locationScenarioReference: LocationScenarioReference?
         
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
@@ -316,12 +316,12 @@ public struct XCScheme {
     }
     
     public struct ProfileAction {
-        public let buildableProductRunnable: BuildableProductRunnable
-        public let buildConfiguration: String
-        public let shouldUseLaunchSchemeArgsEnv: Bool
-        public let savedToolIdentifier: String
-        public let useCustomWorkingDirectory: Bool
-        public let debugDocumentVersioning: Bool
+        public var buildableProductRunnable: BuildableProductRunnable
+        public var buildConfiguration: String
+        public var shouldUseLaunchSchemeArgsEnv: Bool
+        public var savedToolIdentifier: String
+        public var useCustomWorkingDirectory: Bool
+        public var debugDocumentVersioning: Bool
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
@@ -363,12 +363,12 @@ public struct XCScheme {
     }
     
     public struct TestAction {
-        public let testables: [TestableReference]
-        public let buildConfiguration: String
-        public let selectedDebuggerIdentifier: String
-        public let selectedLauncherIdentifier: String
-        public let shouldUseLaunchSchemeArgsEnv: Bool
-        public let macroExpansion: BuildableReference
+        public var testables: [TestableReference]
+        public var buildConfiguration: String
+        public var selectedDebuggerIdentifier: String
+        public var selectedLauncherIdentifier: String
+        public var shouldUseLaunchSchemeArgsEnv: Bool
+        public var macroExpansion: BuildableReference
         public init(buildConfiguration: String,
                     macroExpansion: BuildableReference,
                     testables: [TestableReference] = [],
@@ -419,7 +419,7 @@ public struct XCScheme {
     }
     
     public struct AnalyzeAction {
-        public let buildConfiguration: String
+        public var buildConfiguration: String
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
         }
@@ -437,9 +437,9 @@ public struct XCScheme {
     }
     
     public struct ArchiveAction {
-        public let buildConfiguration: String
-        public let revealArchiveInOrganizer: Bool
-        public let customArchiveName: String?
+        public var buildConfiguration: String
+        public var revealArchiveInOrganizer: Bool
+        public var customArchiveName: String?
         public init(buildConfiguration: String,
                     revealArchiveInOrganizer: Bool,
                     customArchiveName: String? = nil) {
@@ -469,15 +469,15 @@ public struct XCScheme {
     
     // MARK: - Properties
     
-    public let buildAction: BuildAction?
-    public let testAction: TestAction?
-    public let launchAction: LaunchAction?
-    public let profileAction: ProfileAction?
-    public let analyzeAction: AnalyzeAction?
-    public let archiveAction: ArchiveAction?
-    public let lastUpgradeVersion: String?
-    public let version: String?
-    public let name: String
+    public var buildAction: BuildAction?
+    public var testAction: TestAction?
+    public var launchAction: LaunchAction?
+    public var profileAction: ProfileAction?
+    public var analyzeAction: AnalyzeAction?
+    public var archiveAction: ArchiveAction?
+    public var lastUpgradeVersion: String?
+    public var version: String?
+    public var name: String
     
     // MARK: - Init
     

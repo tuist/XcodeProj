@@ -5,31 +5,31 @@ import Unbox
 public struct PBXNativeTarget: PBXTarget {
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
 
     /// Target build configuration list.
-    public let buildConfigurationList: String
+    public var buildConfigurationList: String
     
     /// Target build phases.
-    public let buildPhases: [String]
+    public var buildPhases: [String]
     
     /// Target build rules.
-    public let buildRules: [String]
+    public var buildRules: [String]
     
     /// Target dependencies.
-    public let dependencies: [String]
+    public var dependencies: [String]
     
     /// Target name.
-    public let name: String
+    public var name: String
     
     /// Target product name.
-    public let productName: String?
+    public var productName: String?
     
     /// Target product reference.
-    public let productReference: String?
+    public var productReference: String?
     
     /// Target product type.
-    public let productType: PBXProductType?
+    public var productType: PBXProductType?
     
     // MARK: - Init
     
@@ -100,126 +100,6 @@ extension PBXNativeTarget: ProjectElement {
         self.productReference = unboxer.unbox(key: "productReference")
         self.productType = unboxer.unbox(key: "productType")
     }
-}
-
-// MARK: - PBXNativeTarget Extension (Extras)
-
-extension PBXNativeTarget {
-    
-    /// Returns a new native target by adding a new build phase.
-    ///
-    /// - Parameter buildPhase: build phase to be added.
-    /// - Returns: native target with the build phase added.
-    public func adding(buildPhase: String) -> PBXNativeTarget {
-        var buildPhases = self.buildPhases
-        buildPhases.append(buildPhase)
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
-    /// Returns a new native target by removing a new build phase.
-    ///
-    /// - Parameter buildPhase: build phase to be removed.
-    /// - Returns: native target with the build phase removed.
-    public func removing(buildPhase: String) -> PBXNativeTarget {
-        var buildPhases = self.buildPhases
-        if let index = self.buildPhases.index(of: buildPhase) {
-            buildPhases.remove(at: index)
-        }
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
-    /// Returns a new native target by adding a new build rule.
-    ///
-    /// - Parameter buildRule: build rule to be added.
-    /// - Returns: native target with the build rule added.
-    public func adding(buildRule: String) -> PBXNativeTarget {
-        var buildRules = self.buildRules
-        buildRules.append(buildRule)
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
-    /// Returns a new native target with the build rule added.
-    ///
-    /// - Parameter buildRule: build rule to be added.
-    /// - Returns: native target with the build rule.
-    public func removing(buildRule: String) -> PBXNativeTarget {
-        var buildRules = self.buildRules
-        if let index = buildRules.index(of: buildRule) {
-            buildRules.remove(at: index)
-        }
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
-    /// Returns a new native target with a dependency added.
-    ///
-    /// - Parameter dependency: dependency to be added.
-    /// - Returns: native target with the dependency added.
-    public func adding(dependency: String) -> PBXNativeTarget {
-        var dependencies = self.dependencies
-        dependencies.append(dependency)
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
-    /// Returns a new native target with the dependency removed.
-    ///
-    /// - Parameter dependency: dependency to be removed.
-    /// - Returns: native target with the dependency added.
-    public func removing(dependency: String) -> PBXNativeTarget {
-        var dependencies = self.dependencies
-        if let index = dependencies.index(of: dependency) {
-            dependencies.remove(at: index)
-        }
-        return PBXNativeTarget(reference: reference,
-                               buildConfigurationList: buildConfigurationList,
-                               buildPhases: buildPhases,
-                               buildRules: buildRules,
-                               dependencies: dependencies,
-                               name: name,
-                               productName: productName,
-                               productReference: productReference,
-                               productType: productType)
-    }
-    
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)

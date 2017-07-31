@@ -7,16 +7,16 @@ public struct PBXFileElement {
     // MARK: - Attributes
 
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     /// Element path.
-    public let path: String
+    public var path: String
     
     /// Element name.
-    public let name: String
+    public var name: String
     
     // MARK: - Init
     

@@ -10,19 +10,19 @@ public struct PBXProj {
     // MARK: - Properties
     
     /// Project archive version.
-    public let archiveVersion: Int
+    public var archiveVersion: Int
     
     /// Project object version.
-    public let objectVersion: Int
+    public var objectVersion: Int
     
     /// Project classes.
-    public let classes: [Any]
+    public var classes: [Any]
     
     /// Project objects
-    public let objects: [PBXObject]
+    public var objects: [PBXObject]
     
     /// Project root object.
-    public let rootObject: String
+    public var rootObject: String
     
 }
 
@@ -179,68 +179,6 @@ extension PBXProj {
             return BuildPhase.headers.rawValue
         }
         return nil
-    }
-    
-    /// Returns a new PBXProj updating an object.
-    ///
-    /// - Parameter object: object to be updated. The object reference is used to find the object in the project list of objects.
-    /// - Returns: a new PBXProj object with the object udpated.
-    public func updating(object: PBXObject) -> PBXProj {
-        var objects = self.objects
-        if let index = objects.index(of: object) {
-            objects.replaceSubrange(index..<index+1, with: [object])
-        }
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
-    }
-    
-    /// Returns a new PBXProj removing an object.
-    ///
-    /// - Parameter object: object to be removed.
-    /// - Returns: a new PBXProj object with the object removed.
-    public func removing(object: PBXObject) -> PBXProj {
-        var objects = self.objects
-        if let index = objects.index(of: object) {
-            objects.remove(at: index)
-        }
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
-    }
-    
-    /// Returns a new PBXProj removing the object with the given reference.
-    ///
-    /// - Parameter objectReference: reference that identifies the object to be removed.
-    /// - Returns: a new PBXProj object with the object removed.
-    public func removing(objectReference: String) -> PBXProj {
-        var objects = self.objects
-        if let index = objects.index(where: {$0.reference == objectReference}) {
-            objects.remove(at: index)
-        }
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
-    }
-    
-    /// Returns a new PBXProj adding an object.
-    ///
-    /// - Parameter object: object to be added.
-    /// - Returns: a new PBXProj object with the object added.
-    public func adding(object: PBXObject) -> PBXProj {
-        var objects = self.objects
-        objects.append(object)
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
-                       rootObject: rootObject,
-                       classes: classes,
-                       objects: objects)
     }
     
 }

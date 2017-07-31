@@ -51,16 +51,6 @@ final class PBXGroupSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_addingChild_returnsANewGroupWithTheFileAdded() {
-        let got = subject.adding(child: "444")
-        XCTAssertTrue(got.children.contains("444"))
-    }
-    
-    func test_removingChild_returnsANewGroupWithTheFileRemoved() {
-        let got = subject.removing(child: "333")
-        XCTAssertFalse(got.children.contains("333"))
-    }
-    
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }

@@ -7,45 +7,45 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
-    public let reference: String
+    public var reference: String
     
     public static var isa: String = "PBXProject"
     
     // The object is a reference to a XCConfigurationList element.
-    public let buildConfigurationList: String
+    public var buildConfigurationList: String
     
     // A string representation of the XcodeCompatibilityVersion.
-    public let compatibilityVersion: String
+    public var compatibilityVersion: String
     
     // The region of development.
-    public let developmentRegion: String?
+    public var developmentRegion: String?
     
     // Whether file encodings have been scanned.
-    public let hasScannedForEncodings: Int?
+    public var hasScannedForEncodings: Int?
     
     // The known regions for localized files.
-    public let knownRegions: [String]
+    public var knownRegions: [String]
     
     // The object is a reference to a PBXGroup element.
-    public let mainGroup: String
+    public var mainGroup: String
     
     // The object is a reference to a PBXGroup element.
-    public let productRefGroup: String?
+    public var productRefGroup: String?
     
     // The relative path of the project.
-    public let projectDirPath: String?
+    public var projectDirPath: String?
     
     /// Project references.
-    public let projectReferences: [Any]
+    public var projectReferences: [Any]
     
     // The relative root path of the project.
-    public let projectRoot: String?
+    public var projectRoot: String?
     
     // The objects are a reference to a PBXTarget element.
-    public let targets: [String]
+    public var targets: [String]
     
     /// Project attributes.
-    public let attributes: [String: Any]
+    public var attributes: [String: Any]
     
     // MARK: - Init
     

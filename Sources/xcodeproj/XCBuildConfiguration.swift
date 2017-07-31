@@ -7,16 +7,16 @@ public struct XCBuildConfiguration {
     // MARK: - Attributes
     
     /// Build configuration reference.
-    public let reference: String
+    public var reference: String
     
     /// The path to a xcconfig file
-    public let baseConfigurationReference: String?
+    public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    public let buildSettings: BuildSettings
+    public var buildSettings: BuildSettings
     
     /// The configuration name.
-    public let name: String
+    public var name: String
     
     // MARK: - Init
     
@@ -35,40 +35,6 @@ public struct XCBuildConfiguration {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
-    }
-    
-}
-
-// MARK: - XCBuildConfiguration Extension (Extras)
-
-extension XCBuildConfiguration {
-    
-    /// Returns a new build configuration adding the given setting.
-    ///
-    /// - Parameters:
-    ///   - setting: setting to be added (key)
-    ///   - value: setting to be added (value)
-    /// - Returns: new build configuration after adding the value.
-    public func addingBuild(setting: String, value: String) -> XCBuildConfiguration {
-        var mutableSettings = self.buildSettings
-        mutableSettings[setting] = value
-        return XCBuildConfiguration(reference: self.reference,
-                                    name: self.name,
-                                    baseConfigurationReference: self.baseConfigurationReference,
-                                    buildSettings: mutableSettings)
-    }
-    
-    /// Returns a build configuration by removing the given build setting.
-    ///
-    /// - Parameter setting: build setting to be removed.
-    /// - Returns: new build configuration after removing the build setting.
-    public func removingBuild(setting: String) -> XCBuildConfiguration {
-        var mutableSettings = self.buildSettings
-        mutableSettings[setting] = nil
-        return XCBuildConfiguration(reference: self.reference,
-                                    name: self.name,
-                                    baseConfigurationReference: self.baseConfigurationReference,
-                                    buildSettings: mutableSettings)
     }
     
 }
