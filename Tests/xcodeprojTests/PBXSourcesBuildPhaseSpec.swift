@@ -22,16 +22,6 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(PBXSourcesBuildPhase.isa, "PBXSourcesBuildPhase")
     }
     
-    func test_removingFile_returnsANewBuildPhaseWithTheFileRemoved() {
-        let got = subject.removing(file: "file")
-        XCTAssertFalse(got.files.contains("file"))
-    }
-    
-    func test_addingFile_returnsANewBuildPhaseWithTheFileAdded() {
-        let got = subject.adding(file: "file2")
-        XCTAssertTrue(got.files.contains("file2"))
-    }
-    
     func test_equals_returnsTheCorrectValue() {
         let one = PBXSourcesBuildPhase(reference: "refrence", files: ["file"])
         let another =  PBXSourcesBuildPhase(reference: "refrence", files: ["file"])

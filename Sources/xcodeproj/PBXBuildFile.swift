@@ -47,34 +47,6 @@ public struct PBXBuildFile: ProjectElement {
         self.settings = unboxer.unbox(key: "settings")
     }
     
-    // MARK: - Public
-    
-    /// Returns a new build file adding a new setting.
-    ///
-    /// - Parameters:
-    ///   - setting: setting key.
-    ///   - value: setting value.
-    /// - Returns: new build file with the setting added.
-    public func adding(setting: String, value: Any) -> PBXBuildFile {
-        var settings = self.settings ?? [:]
-        settings[setting] = value
-        return PBXBuildFile(reference: reference,
-                            fileRef: fileRef,
-                            settings: settings)
-    }
-    
-    /// Returns a new build file removing a setting.
-    ///
-    /// - Parameter setting: setting to be removed.
-    /// - Returns: new build file with the setting removed.
-    public func removing(setting: String) -> PBXBuildFile {
-        var settings = self.settings ?? [:]
-        settings.removeValue(forKey: setting)
-        return PBXBuildFile(reference: reference,
-                            fileRef: fileRef,
-                            settings: settings)
-    }
-    
     // MARK: - Hashable
     
     public static func == (lhs: PBXBuildFile,

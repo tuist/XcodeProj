@@ -120,30 +120,6 @@ public extension XCWorkspace {
                 .map { FileRef(string: $0!, path: path) }
         }
         
-        // MARK: - Public
-        
-        /// Returns a new XCWorkspaceData adding a reference.
-        ///
-        /// - Parameter reference: reference to be added.
-        /// - Returns: XCWorkspaceData with the reference addeed.
-        public func adding(reference: FileRef) -> XCWorkspace.Data {
-            var references = self.references
-            references.append(reference)
-            return Data(references: references)
-        }
-        
-        /// Returns a new XCWorkspaceData removing a reference.
-        ///
-        /// - Parameter reference: reference to be removed.
-        /// - Returns: new XCWorkspaceData with the reference removed.
-        public func removing(reference: FileRef) -> XCWorkspace.Data {
-            var references = self.references
-            if let index = references.index(of: reference) {
-                references.remove(at: index)
-            }
-            return Data(references: references)
-        }
-        
         /// Initializes the XCWorkspaceData with its attributes.
         ///
         /// - Parameters:

@@ -52,36 +52,6 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingFile_returnsABuildPhaseWithTheFileAdded() {
-        let got = subject.adding(file: "file2")
-        XCTAssertTrue(got.files.contains("file2"))
-    }
-    
-    func test_removingFile_returnsABuildPhaseWithTheFileRemoved() {
-        let got = subject.removing(file: "file")
-        XCTAssertFalse(got.files.contains("file"))
-    }
-    
-    func test_addingInputFile_returnsABuildPhaseAddingTheInputFile() {
-        let got = subject.adding(inputPath: "input2")
-        XCTAssertTrue(got.inputPaths.contains("input2"))
-    }
-    
-    func test_removingInputFile_returnsABuildPhaseRemovingTheInputFile() {
-        let got = subject.removing(inputPath: "input")
-        XCTAssertFalse(got.inputPaths.contains("input"))
-    }
-    
-    func test_addingOutputFile_returnsABuildPhaseAddingTheOutputFile() {
-        let got = subject.adding(outputPath: "output2")
-        XCTAssertTrue(got.outputPaths.contains("output2"))
-    }
-    
-    func test_removingOutputFile_returnsABuildPhaseRemovingTheOutputFile() {
-        let got = subject.removing(outputPath: "output")
-        XCTAssertFalse(got.outputPaths.contains("output"))
-    }
-    
     func test_equals_returnsTheCorrectValue() {
         let one = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
         let another = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")

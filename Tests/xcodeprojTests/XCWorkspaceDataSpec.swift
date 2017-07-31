@@ -20,16 +20,6 @@ final class XCWorkspaceDataSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
     
-    func test_addingReference_returnsANewWorkspaceDatawithTheReferenceAdded() {
-        let got = subject.adding(reference: "path2")
-        XCTAssertTrue(got.references.contains("path2"))
-    }
-    
-    func test_removingReference_returnsANewWorkspaceDataWithTheReferenceRemoved() {
-        let got = subject.removing(reference: "path")
-        XCTAssertFalse(got.references.contains("path"))
-    }
-    
 }
 
 final class XCWorkspaceDataIntegrationSpec: XCTestCase {
@@ -50,7 +40,10 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
     func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { try? XCWorkspace.Data(path: $0) },
-                  modify: { return $0.adding(reference: .file(path: "shakira")) }) { (before, after) in
+                  modify: { var modified = $0
+                    modified.references.append( .file(path: "shakira"))
+                    return modified
+                    }) { (before, after) in
                     XCTAssertTrue(after.references.filter{ $0.description.contains("shakira")}.count == 1)
         }
     }

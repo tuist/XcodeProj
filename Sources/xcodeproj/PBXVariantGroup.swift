@@ -54,32 +54,6 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
     }
     
-    /// Returns a new variant group by adding a new children.
-    ///
-    /// - Parameter child: child to be added.
-    /// - Returns: new variant group with the child added.
-    public func adding(child: String) -> PBXVariantGroup {
-        var children = self.children
-        children.insert(child)
-        return PBXVariantGroup(reference: reference,
-                               children: children,
-                               name: name,
-                               sourceTree: sourceTree)
-    }
-    
-    /// Returns a new new variant group removing one of its children.
-    ///
-    /// - Parameter child: child to be removed.
-    /// - Returns: new variant group with the child removed.
-    public func removing(child: String) -> PBXVariantGroup {
-        var children = self.children
-        children.remove(child)
-        return PBXVariantGroup(reference: reference,
-                               children: children,
-                               name: name,
-                               sourceTree: sourceTree)
-    }
-    
     // MARK: - Hashable
     
     public static func == (lhs: PBXVariantGroup,

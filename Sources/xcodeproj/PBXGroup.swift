@@ -45,40 +45,6 @@ public struct PBXGroup {
     
 }
 
-// MARK: - PBXGroup Extension (Extras)
-
-extension PBXGroup {
-    
-    /// Returns a new group adding a child.
-    ///
-    /// - Parameter child: new group with the child added.
-    /// - Returns: new group with the child added.
-    public func adding(child: String) -> PBXGroup {
-        var children = self.children
-        children.append(child)
-        return PBXGroup(reference: reference,
-                        children: children,
-                        sourceTree: sourceTree,
-                        name: name)
-    }
-    
-    /// Returns a new group removing a child.
-    ///
-    /// - Parameter child: child to be removed.
-    /// - Returns: new group with the child added.
-    public func removing(child: String) -> PBXGroup {
-        var children = self.children
-        if let index = children.index(of: child) {
-            children.remove(at: index)
-        }
-        return PBXGroup(reference: reference,
-                        children: children,
-                        sourceTree: sourceTree,
-                        name: name)
-    }
-    
-}
-
 // MARK: - PBXGroup Extension (ProjectElement)
 
 extension PBXGroup: ProjectElement {

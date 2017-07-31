@@ -66,34 +66,6 @@ public struct PBXCopyFilesBuildPhase {
     
 }
 
-// MARK: - PBXCopyFilesBuildPhase Extension (Public)
-
-extension PBXCopyFilesBuildPhase {
-    
-    public func adding(file: String) -> PBXCopyFilesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXCopyFilesBuildPhase(reference: reference,
-                                      dstPath: dstPath,
-                                      dstSubfolderSpec: dstSubfolderSpec,
-                                      buildActionMask: buildActionMask,
-                                      files: files,
-                                      runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-    public func removing(file: String) -> PBXCopyFilesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXCopyFilesBuildPhase(reference: reference,
-                                      dstPath: dstPath,
-                                      dstSubfolderSpec: dstSubfolderSpec,
-                                      buildActionMask: buildActionMask,
-                                      files: files,
-                                      runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-}
-
 // MARK: - PBXCopyFilesBuildPhase Extension (ProjectElement)
 
 extension PBXCopyFilesBuildPhase: ProjectElement {

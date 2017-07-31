@@ -29,19 +29,7 @@ final class PBXProjSpec: XCTestCase {
     func test_initWithDictionary_hasTheCorrectClasses() throws {
         XCTAssertTrue(subject.classes.isEmpty)
     }
-    
-    func test_addingObject_returnsAProjWithTheObjectAdded() {
-        let anotherObject = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "444"))
-        let got = subject.adding(object: anotherObject)
-        XCTAssertTrue(got.objects.contains(anotherObject))
-    }
-    
-    func test_removingObject_returnsAProjWithTheObjectRemoved() {
-        let got = subject.removing(object: object)
-        XCTAssertTrue(subject.objects.contains(object))
-        XCTAssertFalse(got.objects.contains(object))
-    }
-    
+
 }
 
 final class PBXProjIntegrationSpec: XCTestCase {

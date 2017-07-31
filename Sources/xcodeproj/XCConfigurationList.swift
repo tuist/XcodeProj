@@ -39,45 +39,6 @@ public struct XCConfigurationList {
 
 }
 
-extension XCConfigurationList {
-    
-    /// Returns a new configuration list adding a configuration.
-    ///
-    /// - Parameter configuration: refrence to the configuration to be added.
-    /// - Returns: new configuration list with the configuration added.
-    public func adding(configuration: String) -> XCConfigurationList {
-        var buildConfigurations = self.buildConfigurations
-        buildConfigurations.update(with: configuration)
-        return XCConfigurationList(reference: self.reference,
-                                   buildConfigurations: buildConfigurations,
-                                   defaultConfigurationName: self.defaultConfigurationName)
-    }
-    
-    /// Returns a new configuration list removing a configuration.
-    ///
-    /// - Parameter configuration: reference to the configuration to be removed.
-    /// - Returns: new configuration list with the configuration removed.
-    public func removing(configuration: String) -> XCConfigurationList {
-        var buildConfigurations = self.buildConfigurations
-        buildConfigurations.remove(configuration)
-        return XCConfigurationList(reference: self.reference,
-                                   buildConfigurations: buildConfigurations,
-                                   defaultConfigurationName: self.defaultConfigurationName)
-        
-    }
-    
-    /// Returns a new XCConfigurationList with a given configuration name.
-    ///
-    /// - Parameter name: configuration name.
-    /// - Returns: new configuration list with the given configuration name.
-    public func withDefaultConfigurationName(name: String) -> XCConfigurationList {
-        return XCConfigurationList(reference: self.reference,
-                                   buildConfigurations: self.buildConfigurations,
-                                   defaultConfigurationName: name)
-    }
-    
-}
-
 // MARK: - XCConfigurationList Extension (PlistSerializable)
 
 extension XCConfigurationList: PlistSerializable {

@@ -80,39 +80,6 @@ final class PBXNativeTargetSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingBuildPhase_returnsATargetWithTheBuildPhaseAdded() {
-        let got = subject.adding(buildPhase: "uuu")
-        XCTAssertTrue(got.buildPhases.contains("uuu"))
-    }
-    
-    func test_removingBuildPhase_returnsATargetWithTheBuildPhaseRemoved() {
-        let got = subject.removing(buildPhase: "phase")
-        XCTAssertTrue(subject.buildPhases.contains("phase"))
-        XCTAssertFalse(got.buildPhases.contains("phase"))
-    }
-    
-    func test_addingBuildRule_returnsATargetWithTheBuildRuleAdded() {
-        let got = subject.adding(buildRule: "uuu")
-        XCTAssertTrue(got.buildRules.contains("uuu"))
-    }
-    
-    func test_removingBuildRule_returnsATArgetWithTheBuildRuleRemoved() {
-        let got = subject.removing(buildRule: "rule")
-        XCTAssertTrue(subject.buildRules.contains("rule"))
-        XCTAssertFalse(got.buildRules.contains("rule"))
-    }
-    
-    func test_addingDependency_returnsATargetWithTheDependencyAdded() {
-        let got = subject.adding(dependency: "uuu")
-        XCTAssertTrue(got.dependencies.contains("uuu"))
-    }
-    
-    func test_removingDependency_returnsATargetWithTheDependencyRemoved() {
-        let got = subject.removing(dependency: "dependency")
-        XCTAssertTrue(subject.dependencies.contains("dependency"))
-        XCTAssertFalse(got.dependencies.contains("dependency"))
-    }
-    
     func test_equal_returnsTheCorrectValue() {
         let another = PBXNativeTarget(reference: "ref",
                                       buildConfigurationList: "list",

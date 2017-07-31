@@ -46,28 +46,6 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
         self.files = try unboxer.unbox(key: "files")
     }
     
-    // MARK: - Public
-    
-    /// Returns a new build phase removing the given file.
-    ///
-    /// - Parameter file: file to be removed.
-    /// - Returns: build phase with the file removed.
-    public func removing(file: String) -> PBXSourcesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXSourcesBuildPhase(reference: self.reference, files: files)
-    }
-    
-    /// Returns a new build phase adding a file.
-    ///
-    /// - Parameter file: file to be added.
-    /// - Returns: new build phase with the file added.
-    public func adding(file: String) -> PBXSourcesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXSourcesBuildPhase(reference: self.reference, files: files)
-    }
-    
     // MARK: - Hashable
     
     public static func == (lhs: PBXSourcesBuildPhase,

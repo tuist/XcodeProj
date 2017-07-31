@@ -13,21 +13,6 @@ final class XCConfigurationListSpec: XCTestCase {
                                            defaultConfigurationName: "Debug")
     }
     
-    func test_addingConfiguration_addsTheConfiguration() {
-        let got = subject.adding(configuration: "3333")
-        XCTAssertTrue(got.buildConfigurations.contains("3333"))
-    }
-    
-    func test_removingConfiguration_removesTheConfiguration() {
-        let got = subject.removing(configuration: "12345")
-        XCTAssertFalse(got.buildConfigurations.contains("12345"))
-    }
-    
-    func test_withDefaultConfigurationName_usesThePassedName() {
-        let got = subject.withDefaultConfigurationName(name: "teeest")
-        XCTAssertEqual(got.defaultConfigurationName, "teeest")
-    }
-    
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(XCConfigurationList.isa, "XCConfigurationList")
     }

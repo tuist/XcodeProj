@@ -56,32 +56,6 @@ extension PBXHeadersBuildPhase {
         return headersExtensions.contains(fileExtension)
     }
     
-    /// Returns a new headers build phase with a file added.
-    ///
-    /// - Parameter file: file to be added.
-    /// - Returns: new headers build phase with the file added.
-    public func adding(file: String) -> PBXHeadersBuildPhase {
-        var files = self.files
-        files.insert(file)
-        return PBXHeadersBuildPhase(reference: reference,
-                                    buildActionMask: buildActionMask,
-                                    files: files,
-                                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
-    /// Returns a new headers build phase with the file removed.
-    ///
-    /// - Parameter file: file to be removed.
-    /// - Returns: new headers build phase with the file removed.
-    public func removing(file: String) -> PBXHeadersBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXHeadersBuildPhase(reference: reference,
-                                    buildActionMask: buildActionMask,
-                                    files: files,
-                                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
-    }
-    
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (ProjectElement)

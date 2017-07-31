@@ -80,52 +80,6 @@ final class PBXAggregateTargetSpec: XCTestCase {
         } catch {}
     }
     
-    func test_addingBuildPhase_addsTheBuildPhaseToTheReturnedObject() {
-        let got = subject.adding(buildPhase: "abcd")
-        XCTAssertTrue(got.buildPhases.contains("abcd"))
-    }
-    
-    func test_removingBuildPhase_removesTheBuildPhaseFromTheReturnedObject() {
-        let got = subject.removing(buildPhase: "build")
-        XCTAssertFalse(got.buildPhases.contains("build"))
-    }
-    
-    func test_withBuildPhases_returnsATargetWithTheGivenBuildPhases() {
-        let got = subject.with(buildPhases: ["a", "b"])
-        XCTAssertEqual(got.buildPhases, ["a", "b"])
-    }
-    
-    func test_addingBuildRule_addsTheBuildRuleToTheReturnedObject() {
-        let got = subject.adding(buildRule: "uuu")
-        XCTAssertTrue(got.buildRules.contains("uuu"))
-    }
-    
-    func test_removingBuildRule_removesTheBuildRuleFromTheRegurnedObject() {
-        let got = subject.removing(buildRule: "rule")
-        XCTAssertFalse(got.buildRules.contains("rule"))
-    }
-    
-    func test_withBuildRules_returnsATargetWithTheGivenRules() {
-        let got = subject.with(buildRules: ["ruleA", "ruleB"])
-        XCTAssertEqual(got.buildRules, ["ruleA", "ruleB"])
-    }
-    
-    func test_addingDependency_returnsATargetWithTheDependencyAdded() {
-        let got = subject.adding(dependency: "deppp")
-        XCTAssertTrue(got.dependencies.contains("deppp"))
-    }
-    
-    func test_removingDependency_returnsATargetWithTheDependencyRemoved() {
-        let got = subject.removing(dependency: "dep")
-        XCTAssertFalse(got.dependencies.contains("dep"))
-    }
-    
-    func test_withDependencies_returnsATargetWithTheDependencies() {
-        let got = subject.with(dependencies: ["a"])
-        XCTAssertEqual(got.dependencies, ["a"])
-    }
-    
-    
     func test_equal_returnsTheCorrectValue() {
         let another = PBXAggregateTarget(reference: "ref",
                                          buildConfigurationList: "333",

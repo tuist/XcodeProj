@@ -60,34 +60,6 @@ extension PBXResourcesBuildPhase: ProjectElement {
     
 }
 
-// MARK: - PBXResourcesBuildPhase Extension (Extras)
-
-extension PBXResourcesBuildPhase {
-    
-    /// It returns a new resources build phase with a file added.
-    ///
-    /// - Parameter file: reference to the file.
-    /// - Returns: new resources build phase with the file added.
-    public func adding(file: String) -> PBXResourcesBuildPhase {
-        var files = self.files
-        files.update(with: file)
-        return PBXResourcesBuildPhase(reference: self.reference,
-                                      files: files)
-    }
-    
-    /// It returns a new resources build phase with a file removed.
-    ///
-    /// - Parameter file: reference to the fil eto be removed.
-    /// - Returns: new resources build phase with the file removed.
-    public func removing(file: String) -> PBXResourcesBuildPhase {
-        var files = self.files
-        files.remove(file)
-        return PBXResourcesBuildPhase(reference: self.reference,
-                                      files: files)
-    }
-    
-}
-
 // MARK: - PBXResourcesBuildPhase Extension (PlistSerializable)
 
 extension PBXResourcesBuildPhase: PlistSerializable {
