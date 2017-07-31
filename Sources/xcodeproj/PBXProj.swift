@@ -10,19 +10,19 @@ public struct PBXProj {
     // MARK: - Properties
     
     /// Project archive version.
-    public let archiveVersion: Int
+    public var archiveVersion: Int
     
     /// Project object version.
-    public let objectVersion: Int
+    public var objectVersion: Int
     
     /// Project classes.
-    public let classes: [Any]
+    public var classes: [Any]
     
     /// Project objects
-    public let objects: [PBXObject]
+    public var objects: [PBXObject]
     
     /// Project root object.
-    public let rootObject: String
+    public var rootObject: String
     
 }
 

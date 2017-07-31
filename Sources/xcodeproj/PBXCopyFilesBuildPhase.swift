@@ -22,22 +22,22 @@ public struct PBXCopyFilesBuildPhase {
     // MARK: - Attributes
     
     /// Element reference
-    public let reference: String
+    public var reference: String
     
     /// Element destination path
-    public let dstPath: String
+    public var dstPath: String
     
     /// Element build action mask.
-    public let buildActionMask: UInt
+    public var buildActionMask: UInt
     
     /// Element destination subfolder spec
-    public let dstSubfolderSpec: SubFolder
+    public var dstSubfolderSpec: SubFolder
  
     /// Element files
-    public let files: Set<String>
+    public var files: Set<String>
  
     /// element run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     

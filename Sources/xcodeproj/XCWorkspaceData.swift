@@ -101,7 +101,7 @@ public extension XCWorkspace {
         /// MARK: - Attributes
         
         /// References to the workspace projects
-        public let references: [FileRef]
+        public var references: [FileRef]
         
         // MARK: - Init
         

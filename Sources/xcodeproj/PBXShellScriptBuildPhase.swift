@@ -8,31 +8,31 @@ public struct PBXShellScriptBuildPhase {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Files references.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Build phase name.
-    public let name: String
+    public var name: String
     
     /// Input paths
-    public let inputPaths: Set<String>
+    public var inputPaths: Set<String>
     
     /// Output paths
-    public let outputPaths: Set<String>
+    public var outputPaths: Set<String>
     
     /// Run only for deployment post processing attribute.
-    public let runOnlyForDeploymentPostprocessing: Int = 0
+    public var runOnlyForDeploymentPostprocessing: Int = 0
     
     /// Path to the shell.
-    public let shellPath: String
+    public var shellPath: String
     
     /// Shell script.
-    public let shellScript: String?
+    public var shellScript: String?
     
     // MARK: - Init
     

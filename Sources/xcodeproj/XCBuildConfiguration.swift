@@ -7,16 +7,16 @@ public struct XCBuildConfiguration {
     // MARK: - Attributes
     
     /// Build configuration reference.
-    public let reference: String
+    public var reference: String
     
     /// The path to a xcconfig file
-    public let baseConfigurationReference: String?
+    public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    public let buildSettings: BuildSettings
+    public var buildSettings: BuildSettings
     
     /// The configuration name.
-    public let name: String
+    public var name: String
     
     // MARK: - Init
     

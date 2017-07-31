@@ -11,19 +11,19 @@ public struct PBXContainerItemProxy {
     }
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// The object is a reference to a PBXProject element.
-    public let containerPortal: String
+    public var containerPortal: String
     
     /// Element proxy type.
-    public let proxyType: ProxyType
+    public var proxyType: ProxyType
     
     /// Element remote global ID reference.
-    public let remoteGlobalIDString: String
+    public var remoteGlobalIDString: String
     
     /// Element remote info.
-    public let remoteInfo: String?
+    public var remoteInfo: String?
     
     /// Initializes the container item proxy with its attributes.
     ///

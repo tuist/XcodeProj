@@ -5,16 +5,16 @@ import Unbox
 public struct PBXResourcesBuildPhase {
     
     /// Element reference
-    public let reference: String
+    public var reference: String
     
     /// Element build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Element files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Element run only for deployment post processing value.
-    public let runOnlyForDeploymentPostprocessing: Int
+    public var runOnlyForDeploymentPostprocessing: Int
     
     /// Initializes the resources build phase with its attributes.
     ///

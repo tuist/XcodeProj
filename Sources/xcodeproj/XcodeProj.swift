@@ -9,13 +9,13 @@ public struct XcodeProj {
     // MARK: - Properties
     
     // Project workspace
-    public let workspace: XCWorkspace
+    public var workspace: XCWorkspace
     
     /// .pbxproj representatino
-    public let pbxproj: PBXProj
+    public var pbxproj: PBXProj
     
     /// Shared data.
-    public let sharedData: XCSharedData?
+    public var sharedData: XCSharedData?
     
     // MARK: - Init
     

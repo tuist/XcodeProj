@@ -9,28 +9,28 @@ public struct PBXFileReference {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element file encoding.
-    public let fileEncoding: Int?
+    public var fileEncoding: Int?
     
     /// Element explicit file type.
-    public let explicitFileType: String?
+    public var explicitFileType: String?
     
     /// Element last known file type.
-    public let lastKnownFileType: String?
+    public var lastKnownFileType: String?
     
     /// Element include in index.
-    public let includeInIndex: Int?
+    public var includeInIndex: Int?
     
     /// Element name.
-    public let name: String?
+    public var name: String?
     
     /// Element path.
-    public let path: String?
+    public var path: String?
  
     /// Element source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     // MARK: - Init
     

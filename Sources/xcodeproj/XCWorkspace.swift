@@ -7,7 +7,7 @@ import xcodeprojprotocols
 public struct XCWorkspace {
     
     /// Workspace data
-    public let data: XCWorkspace.Data
+    public var data: XCWorkspace.Data
     
     // MARK: - Init
     

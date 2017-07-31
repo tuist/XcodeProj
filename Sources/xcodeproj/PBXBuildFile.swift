@@ -7,16 +7,16 @@ public struct PBXBuildFile: ProjectElement {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXBuildFile"
     
     /// Element file reference.
-    public let fileRef: String
+    public var fileRef: String
     
     /// Element settings
-    public let settings: [String: Any]?
+    public var settings: [String: Any]?
     
     // MARK: - Init
     

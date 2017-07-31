@@ -7,19 +7,19 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     /// Reference.
-    public let reference: String
+    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXSourcesBuildPhase"
     
     /// Build action mask.
-    public let buildActionMask: Int = 2147483647
+    public var buildActionMask: Int = 2147483647
     
     /// Files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: Int = 0
+    public var runOnlyForDeploymentPostprocessing: Int = 0
     
     // MARK: - Init
     

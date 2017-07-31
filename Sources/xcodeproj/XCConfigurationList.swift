@@ -7,16 +7,16 @@ public struct XCConfigurationList {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element build configurations.
-    public let buildConfigurations: Set<String>
+    public var buildConfigurations: Set<String>
     
     /// Element default configuration is visible.
-    public let defaultConfigurationIsVisible: UInt
+    public var defaultConfigurationIsVisible: UInt
     
     /// Element default configuration name
-    public let defaultConfigurationName: String
+    public var defaultConfigurationName: String
     
     // MARK: - Init
     

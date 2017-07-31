@@ -7,16 +7,16 @@ public struct PBXFrameworksBuildPhase {
     // MARK: - Properties
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Framework build phase files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Build phase build action mask.
-    public let buildActionMask: Int
+    public var buildActionMask: Int
     
     /// Build phase run only for deployment post processing.
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     

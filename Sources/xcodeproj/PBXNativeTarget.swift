@@ -5,31 +5,31 @@ import Unbox
 public struct PBXNativeTarget: PBXTarget {
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
 
     /// Target build configuration list.
-    public let buildConfigurationList: String
+    public var buildConfigurationList: String
     
     /// Target build phases.
-    public let buildPhases: [String]
+    public var buildPhases: [String]
     
     /// Target build rules.
-    public let buildRules: [String]
+    public var buildRules: [String]
     
     /// Target dependencies.
-    public let dependencies: [String]
+    public var dependencies: [String]
     
     /// Target name.
-    public let name: String
+    public var name: String
     
     /// Target product name.
-    public let productName: String?
+    public var productName: String?
     
     /// Target product reference.
-    public let productReference: String?
+    public var productReference: String?
     
     /// Target product type.
-    public let productType: PBXProductType?
+    public var productType: PBXProductType?
     
     // MARK: - Init
     

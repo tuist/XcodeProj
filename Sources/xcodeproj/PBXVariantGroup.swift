@@ -7,19 +7,19 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     // MARK: - Attributes
     
     // Variant group reference.
-    public let reference: String
+    public var reference: String
     
     // Variant group isa.
     public static var isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
-    public let children: Set<String>
+    public var children: Set<String>
     
     // The filename
-    public let name: String
+    public var name: String
     
     // Variant group source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     // MARK: - Init
     

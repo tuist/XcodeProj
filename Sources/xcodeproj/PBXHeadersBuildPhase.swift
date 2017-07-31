@@ -6,16 +6,16 @@ import PathKit
 public struct PBXHeadersBuildPhase {
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element build action mask
-    public let buildActionMask: UInt
+    public var buildActionMask: UInt
     
     /// Element files.
-    public let files: Set<String>
+    public var files: Set<String>
     
     /// Element runOnlyForDeploymentPostprocessing
-    public let runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: UInt
     
     // MARK: - Init
     

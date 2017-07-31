@@ -7,7 +7,7 @@ public struct XCSharedData {
     // MARK: - Attributes
     
     /// Shared data schemes.
-    public let schemes: [XCScheme]
+    public var schemes: [XCScheme]
     
     // MARK: - Init
     

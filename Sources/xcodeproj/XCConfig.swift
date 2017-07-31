@@ -10,10 +10,10 @@ public struct XCConfig {
     // MARK: - Attributes
     
     /// Configuration file includes.
-    public let includes: [XCConfigInclude]
+    public var includes: [XCConfigInclude]
     
     /// Build settings
-    public let buildSettings: BuildSettings
+    public var buildSettings: BuildSettings
     
     // MARK: - Init
     

@@ -7,7 +7,7 @@ public struct PBXAggregateTarget: PBXTarget {
     // MARK: - Attributes
 
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Target build configuration list.
     public var buildConfigurationList: String

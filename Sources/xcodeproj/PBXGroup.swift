@@ -7,19 +7,19 @@ public struct PBXGroup {
     // MARK: - Attributes
     
     /// Element reference.
-    public let reference: String
+    public var reference: String
     
     /// Element children.
-    public let children: [String]
+    public var children: [String]
     
     /// Element name.
-    public let name: String?
+    public var name: String?
     
     /// Element path.
-    public let path: String?
+    public var path: String?
     
     /// Element source tree.
-    public let sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree
     
     // MARK: - Init
     

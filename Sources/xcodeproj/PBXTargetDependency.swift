@@ -7,16 +7,16 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     // MARK: - Attributes
     
     /// Target dependency reference.
-    public let reference: String
+    public var reference: String
     
     /// Target dependency isa.
     public static var isa: String = "PBXTargetDependency"
     
     /// Target reference.
-    public let target: String
+    public var target: String
     
     /// Target proxy
-    public let targetProxy: String
+    public var targetProxy: String
     
     // MARK: - Init
     
