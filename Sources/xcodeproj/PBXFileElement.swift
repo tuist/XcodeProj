@@ -23,14 +23,14 @@ public struct PBXFileElement {
     /// Initializes the file element with its properties.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - sourceTree: file source tree.
     ///   - name: file name.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 sourceTree: PBXSourceTree,
                 path: String,
                 name: String) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXFileElement.self, sourceTree.rawValue + path + name)
         self.sourceTree = sourceTree
         self.path = path
         self.name = name

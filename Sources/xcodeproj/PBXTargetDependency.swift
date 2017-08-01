@@ -23,13 +23,13 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     /// Initializes the target dependency.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 target: String,
                 targetProxy: String) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXTargetDependency.self, target + targetProxy)
         self.target = target
         self.targetProxy = targetProxy
     }

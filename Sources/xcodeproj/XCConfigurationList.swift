@@ -23,15 +23,15 @@ public struct XCConfigurationList {
     /// Initializes the element with its properties.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - buildConfigurations: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 buildConfigurations: Set<String>,
                 defaultConfigurationName: String,
                 defaultConfigurationIsVisible: UInt = 0) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(XCConfigurationList.self, buildConfigurations.joined())
         self.buildConfigurations = buildConfigurations
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible

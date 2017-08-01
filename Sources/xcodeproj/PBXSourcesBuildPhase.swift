@@ -26,11 +26,11 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     /// Initializes the build phase with the reference and the files.
     ///
     /// - Parameters:
-    ///   - reference: build phase reference.
+    ///   - reference: build phase reference. Will be automatically generated if not specified
     ///   - files: build phase files.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 files: Set<String>) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXSourcesBuildPhase.self, files.joined())
         self.files = files
     }
     

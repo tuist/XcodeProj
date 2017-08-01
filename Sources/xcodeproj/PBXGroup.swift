@@ -26,17 +26,17 @@ public struct PBXGroup {
     /// Initializes the group with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - children: group children.
     ///   - sourceTree: group source tree.
     ///   - name: group name.
     ///   - path: group path.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 children: [String],
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 path: String? = nil) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXGroup.self, String(describing: name) + String(describing: path))
         self.children = children
         self.name = name
         self.sourceTree = sourceTree

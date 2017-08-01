@@ -36,7 +36,7 @@ public struct PBXNativeTarget: PBXTarget {
     /// Initializes the native target with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - buildConfigurationList: target build configuration list.
     ///   - buildPhases: target build phases.
     ///   - buildRules: target build rules.
@@ -45,7 +45,7 @@ public struct PBXNativeTarget: PBXTarget {
     ///   - productName: target product name.
     ///   - productReference: target product reference.
     ///   - productType: target product type.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 buildConfigurationList: String,
                 buildPhases: [String],
                 buildRules: [String],
@@ -54,7 +54,7 @@ public struct PBXNativeTarget: PBXTarget {
                 productName: String? = nil,
                 productReference: String? = nil,
                 productType: PBXProductType? = nil) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXNativeTarget.self, name + String(describing: productType))
         self.buildConfigurationList = buildConfigurationList
         self.buildPhases = buildPhases
         self.buildRules = buildRules

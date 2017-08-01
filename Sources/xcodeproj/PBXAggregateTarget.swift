@@ -38,7 +38,7 @@ public struct PBXAggregateTarget: PBXTarget {
     /// Initializes the aggregate target with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
+    ///   - reference: element reference. Will be automatically generated if not specified
     ///   - buildConfigurationList: target build configuration list (reference).
     ///   - buildPhases: target build phases.
     ///   - buildRules: target build rules.
@@ -47,7 +47,7 @@ public struct PBXAggregateTarget: PBXTarget {
     ///   - productName: target product name.
     ///   - productReference: target product reference.
     ///   - productType: target product type.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 buildConfigurationList: String,
                 buildPhases: [String],
                 buildRules: [String],
@@ -56,7 +56,7 @@ public struct PBXAggregateTarget: PBXTarget {
                 productName: String? = nil,
                 productReference: String? = nil,
                 productType: PBXProductType? = nil) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXAggregateTarget.self, name)
         self.buildConfigurationList = buildConfigurationList
         self.buildPhases = buildPhases
         self.buildRules = buildRules

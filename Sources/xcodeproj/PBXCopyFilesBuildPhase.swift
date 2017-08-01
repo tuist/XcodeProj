@@ -44,19 +44,21 @@ public struct PBXCopyFilesBuildPhase {
     /// Initializes the copy files build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: reference.
+    ///   - reference: reference. Will be automatically generated if not specified
     ///   - dstPath: destination path.
     ///   - dstSubfolderSpec: destination subfolder spec.
     ///   - buildActionMask: build action mask.
     ///   - files: files to copy.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 dstPath: String,
                 dstSubfolderSpec: SubFolder,
                 buildActionMask: UInt = 2147483647,
                 files: Set<String> = [],
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.reference = reference
+        self.reference = reference ??
+            ReferenceGenerator.shared.generateReference(PBXCopyFilesBuildPhase.self,
+                                                        dstPath + dstSubfolderSpec.hashValue.description + files.joined())
         self.dstPath = dstPath
         self.buildActionMask = buildActionMask
         self.dstSubfolderSpec = dstSubfolderSpec

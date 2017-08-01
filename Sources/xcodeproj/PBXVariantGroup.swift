@@ -26,15 +26,15 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     /// Initializes the PBXVariantGroup with its values.
     ///
     /// - Parameters:
-    ///   - reference: variant group reference.
+    ///   - reference: variant group reference. Will be automatically generated if not specified
     ///   - children: group children references.
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
-    public init(reference: String,
+    public init(reference: String? = nil,
                 children: Set<String>,
                 name: String,
                 sourceTree: PBXSourceTree) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXVariantGroup.self, name)
         self.children = children
         self.name = name
         self.sourceTree = sourceTree

@@ -74,11 +74,11 @@ extension PBXHeadersBuildPhase: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String,
+    public init(reference: String? = nil,
                 buildActionMask: UInt = 2147483647,
                 files: Set<String> = Set(),
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.reference = reference
+        self.reference = reference ?? ReferenceGenerator.shared.generateReference(PBXHeadersBuildPhase.self, files.joined())
         self.buildActionMask = buildActionMask
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing

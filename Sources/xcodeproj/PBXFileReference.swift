@@ -34,7 +34,7 @@ public struct PBXFileReference {
     
     // MARK: - Init
     
-    public init(reference: String,
+    public init(reference: String? = nil,
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 fileEncoding: Int? = nil,
@@ -43,6 +43,8 @@ public struct PBXFileReference {
                 path: String? = nil,
                 includeInIndex: Int? = nil) {
         self.reference = reference
+            ?? ReferenceGenerator.shared.generateReference(PBXFileReference.self,
+                                                           sourceTree.rawValue + String(describing: name) + String(describing: path))
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
