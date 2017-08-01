@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "xcodeproj"
-  s.version          = "0.0.7"
+  s.version          = "0.0.8"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/carambalabs/xcodeproj"
   s.license          = 'MIT'
@@ -14,17 +14,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = "2.0"
   s.tvos.deployment_target = "9.0"
 
-  s.subspec "xcodeproj" do |ss|
-    ss.source_files = "Sources/xcodeproj/**/*.{swift}"
-  end
-
-  s.subspec "subs" do |ss|
-    ss.source_files = "Sources/xcodeprojextensions/**/*.{swift}"
-  end
-
-  s.subspec do |ss|
-    ss.source_files = "Sources/xcodeprojprotocols/**/*.{swift}"
-  end
+  s.source_files = "Sources/**/*.{swift}"
 
   s.dependency "PathKit", "~> 0.8"
   s.dependency "Unbox", "~> 2.5"
