@@ -18,7 +18,6 @@ let package = Package(
     dependencies: [
         .Package(url: "https://github.com/kylef/PathKit.git", majorVersion: 0, minor: 8),
         .Package(url: "https://github.com/JohnSundell/Unbox", majorVersion: 2, minor: 5),
-        .Package(url: "https://github.com/Bouke/CCommonCrypto.git", majorVersion: 1, minor: 0),
         .Package(url: "https://github.com/tadija/AEXML.git", majorVersion: 4, minor: 1)
     ]
 )
