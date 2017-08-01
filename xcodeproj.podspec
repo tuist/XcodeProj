@@ -18,6 +18,5 @@ Pod::Spec.new do |s|
 
   s.dependency "PathKit", "~> 0.8"
   s.dependency "Unbox", "~> 2.5"
-  s.dependency "CCommonCrypto", "~> 1.0"
   s.dependency "AEXML", "~> 4.1"
 end
