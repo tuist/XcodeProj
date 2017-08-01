@@ -1,35 +1,33 @@
 import Foundation
 import Unbox
 import PathKit
-import xcodeprojprotocols
-import xcodeprojextensions
 
 /// It represents a .pbxproj file
 public struct PBXProj {
-    
+
     // MARK: - Properties
-    
+
     /// Project archive version.
     public var archiveVersion: Int
-    
+
     /// Project object version.
     public var objectVersion: Int
-    
+
     /// Project classes.
     public var classes: [Any]
-    
+
     /// Project objects
     public var objects: [PBXObject]
-    
+
     /// Project root object.
     public var rootObject: String
-    
+
 }
 
 // MARK: - PBXProj Extension (Init)
 
 extension PBXProj {
-    
+
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
@@ -49,7 +47,7 @@ extension PBXProj {
         self.objects = objects
         self.rootObject = rootObject
     }
-    
+
     /// Initializes the .pbxproj reading the file from the given path.
     ///
     /// - Parameters:
@@ -59,7 +57,7 @@ extension PBXProj {
         guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
         try self.init(dictionary: dictionary)
     }
-    
+
     /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
     ///
     /// - Parameters:
@@ -75,13 +73,13 @@ extension PBXProj {
             .flatMap { try? PBXObject(reference: $0.key, dictionary: $0.value) }
         self.rootObject = try unboxer.unbox(key: "rootObject")
     }
-    
+
 }
 
 // MARK: - PBXProj Extension (Equatable)
 
 extension PBXProj: Equatable {
-    
+
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
         return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
@@ -89,7 +87,7 @@ extension PBXProj: Equatable {
             lhs.objects == rhs.objects &&
             lhs.rootObject == rhs.rootObject
     }
-    
+
 }
 
 // MARK: - PBXProj Error
@@ -107,7 +105,7 @@ enum PBXProjError: Error, CustomStringConvertible {
 // MARK: - PBXProj extension (Writable)
 
 extension PBXProj: Writable {
-    
+
     public func write(path: Path, override: Bool) throws {
         let writer = PBXProjWriter()
         let output = writer.write(proj: self)
@@ -116,13 +114,13 @@ extension PBXProj: Writable {
         }
         try path.write(output)
     }
-    
+
 }
 
 // MARK: - PBXProj Extension (Extras)
 
 extension PBXProj {
-    
+
     /// Returns the build file name.
     ///
     /// - Parameter reference: file reference.
@@ -136,7 +134,7 @@ extension PBXProj {
         }
         return nil
     }
-    
+
     /// Returns the type of file whose reference is given.
     ///
     /// - Parameter reference: reference of the file whose type will be returned.
@@ -153,7 +151,7 @@ extension PBXProj {
         }
         return nil
     }
-    
+
     /// Returns the build phase type from its reference.
     ///
     /// - Parameter reference: build phase reference.
@@ -180,13 +178,13 @@ extension PBXProj {
         }
         return nil
     }
-    
+
 }
 
 // MARK: - PBXProj Extension (UUID Generation)
 
 public extension PBXProj {
-    
+
     /// Returns a valid UUID for new elements.
     ///
     /// - Parameter element: project element class.
@@ -202,5 +200,5 @@ public extension PBXProj {
         } while(self.objects.map({$0.reference}).contains(uuid))
         return uuid
     }
-    
+
 }

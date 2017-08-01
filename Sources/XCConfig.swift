@@ -1,22 +1,21 @@
 import Foundation
 import PathKit
-import xcodeprojprotocols
 
 public typealias XCConfigInclude = (include: Path, config: XCConfig)
 
 /// .xcconfig configuration file.
 public struct XCConfig {
-    
+
     // MARK: - Attributes
-    
+
     /// Configuration file includes.
     public var includes: [XCConfigInclude]
-    
+
     /// Build settings
     public var buildSettings: BuildSettings
-    
+
     // MARK: - Init
-    
+
     /// Initializes the XCConfig file with its attributes.
     ///
     /// - Parameters:
@@ -26,13 +25,13 @@ public struct XCConfig {
         self.includes = includes
         self.buildSettings = buildSettings
     }
-    
+
 }
 
 // MARK: - XCConfig Extension (Equatable)
 
 extension XCConfig: Equatable {
-    
+
     public static func == (lhs: XCConfig, rhs: XCConfig) -> Bool {
         if lhs.includes.count != rhs.includes.count { return false }
         for i in 0..<lhs.includes.count {
@@ -44,13 +43,13 @@ extension XCConfig: Equatable {
         }
         return lhs.buildSettings == rhs.buildSettings
     }
-    
+
 }
 
 // MARK: - XCConfig Extension (Init)
 
 extension XCConfig {
-    
+
     /// Initializes the XCConfig reading the content from the file at the given path and parsing it.
     ///
     /// - Parameter path: path where the .xcconfig file is.
@@ -66,8 +65,8 @@ extension XCConfig {
             .forEach { buildSettings[$0.key] = $0.value }
         self.buildSettings = BuildSettings(dictionary: buildSettings)
     }
-    
-    /// Given the path the line is being parsed from, it returns a function that parses a line, 
+
+    /// Given the path the line is being parsed from, it returns a function that parses a line,
     /// and returns the include path and the config that the include is pointing to.
     ///
     /// - Parameter path: path of the config file that the line belongs to.
@@ -97,7 +96,7 @@ extension XCConfig {
                 .first
         }
     }
-    
+
     private static func settingFrom(line: String) -> (key: String, value: String)? {
         return XCConfig.settingRegex.matches(in: line,
                                              options: NSRegularExpression.MatchingOptions(rawValue: 0),
@@ -113,20 +112,20 @@ extension XCConfig {
             }
             .first
     }
-    
+
     // swiftlint:disable:next force_try line_length
     private static var includeRegex: NSRegularExpression = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"",
                                                                                     options: .caseInsensitive)
     // swiftlint:disable:next force_try line_length
     private static var settingRegex: NSRegularExpression = try! NSRegularExpression(pattern: "(.+)\\s+=\\s+(\"?.[^\"]+\"?)",
                                                                                     options: .caseInsensitive)
-    
+
 }
 
 // MARK: - XCConfig Extension (Helpers)
 
 extension XCConfig {
-    
+
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
@@ -143,13 +142,13 @@ extension XCConfig {
         }
         return BuildSettings(dictionary: content)
     }
-    
+
 }
 
 // MARK: - XCConfig Extension (Writable)
 
 extension XCConfig: Writable {
-    
+
     public func write(path: Path, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
@@ -160,7 +159,7 @@ extension XCConfig: Writable {
         }
         try path.write(content)
     }
-    
+
     private func writeIncludes() -> String {
         var content = ""
         includes.forEach { (include) in
@@ -169,7 +168,7 @@ extension XCConfig: Writable {
         content.append("\n")
         return content
     }
-    
+
     private func writeBuildSettings() -> String {
         var content = ""
         buildSettings.dictionary.forEach { (key, value) in
@@ -178,13 +177,13 @@ extension XCConfig: Writable {
         content.append("\n")
         return content
     }
-    
+
 }
 
 // MARK: - Array Extension (XCConfig)
 
 extension Array where Element == XCConfig {
-    
+
     /// It returns an array with the XCConfig reversely flattened. It's useful for resolving the build settings.
     ///
     /// - Returns: flattened configurations array.
@@ -197,7 +196,7 @@ extension Array where Element == XCConfig {
         }
         return reversed
     }
-    
+
 }
 
 // MARK: - XCConfigError

@@ -1,24 +1,22 @@
 import Foundation
 import PathKit
-import xcodeprojextensions
-import xcodeprojprotocols
 
 /// Model that represents a .xcodeproj project.
 public struct XcodeProj {
-    
+
     // MARK: - Properties
-    
+
     // Project workspace
     public var workspace: XCWorkspace
-    
+
     /// .pbxproj representatino
     public var pbxproj: PBXProj
-    
+
     /// Shared data.
     public var sharedData: XCSharedData?
-    
+
     // MARK: - Init
-    
+
     public init(path: Path) throws {
         if !path.exists { throw XCodeProjError.notFound(path: path) }
         let pbxprojPaths = path.glob("*.pbxproj")
@@ -34,7 +32,7 @@ public struct XcodeProj {
         let sharedDataPath = path + Path("xcshareddata")
         self.sharedData = try? XCSharedData(path: sharedDataPath)
     }
-    
+
     /// Initializes the XCodeProj
     ///
     /// - Parameters:
@@ -45,7 +43,7 @@ public struct XcodeProj {
         self.pbxproj = pbxproj
         self.sharedData = sharedData
     }
-    
+
 }
 
 // MARK: - <Writable>
@@ -99,11 +97,11 @@ extension XcodeProj: Equatable {
 /// - notFound: the project cannot be found.
 /// - pbxProjNotFound: the .pbxproj file couldn't be found inside the project folder.
 public enum XCodeProjError: Error, CustomStringConvertible {
-    
+
     case notFound(path: Path)
     case pbxprojNotFound(path: Path)
     case xcworkspaceNotFound(path: Path)
-    
+
     public var description: String {
         switch self {
         case .notFound(let path):

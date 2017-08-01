@@ -2,14 +2,12 @@ import Foundation
 import PathKit
 import PathKit
 import AEXML
-import xcodeprojprotocols
-import xcodeprojextensions
 
 // swiftlint:disable:next type_body_length
 public struct XCScheme {
-    
+
     // MARK: - BuildableReference
-    
+
     public struct BuildableReference {
         public var referencedContainer: String
         public var blueprintIdentifier: String
@@ -62,7 +60,7 @@ public struct XCScheme {
                                              "ReferencedContainer": referencedContainer])
         }
     }
-    
+
     public struct TestableReference {
         public var skipped: Bool
         public var buildableReference: BuildableReference
@@ -83,7 +81,7 @@ public struct XCScheme {
             return element
         }
     }
-    
+
     public struct LocationScenarioReference {
         public var identifier: String
         public var referenceType: String
@@ -102,7 +100,7 @@ public struct XCScheme {
                                              "referenceType": referenceType])
         }
     }
-    
+
     public struct BuildableProductRunnable {
         public var runnableDebuggingMode: String
         public var buildableReference: BuildableReference
@@ -123,20 +121,20 @@ public struct XCScheme {
             return element
         }
     }
-    
+
     // MARK: - Build Action
-    
+
     public struct BuildAction {
-        
+
         public struct Entry {
-            
+
             public enum BuildFor {
                 case running, testing, profiling, archiving, analyzing
                 public static var `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
                 public static var indexing: [BuildFor] = [.testing, .analyzing, .archiving]
                 public static var testOnly: [BuildFor] = [.testing, .analyzing]
             }
-            
+
             public var buildableReference: BuildableReference
             public var buildFor: [BuildFor]
 
@@ -183,7 +181,7 @@ public struct XCScheme {
         public var buildActionEntries: [Entry]
         public var parallelizeBuild: Bool
         public var buildImplicitDependencies: Bool
-    
+
         public init(buildActionEntries: [Entry] = [],
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false) {
@@ -191,7 +189,7 @@ public struct XCScheme {
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
         }
-        
+
         public init(element: AEXMLElement) throws {
             parallelizeBuild = element.attributes["parallelizeBuildables"]! == "YES"
             buildImplicitDependencies = element.attributes["buildImplicitDependencies"] == "YES"
@@ -199,7 +197,7 @@ public struct XCScheme {
                 .all?
                 .map(Entry.init) ?? []
         }
-        
+
         public func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildAction",
                                        value: nil,
@@ -211,7 +209,7 @@ public struct XCScheme {
             }
             return element
         }
-    
+
         public func add(buildActionEntry: Entry) -> BuildAction {
             var buildActionEntries = self.buildActionEntries
             buildActionEntries.append(buildActionEntry)
@@ -219,9 +217,9 @@ public struct XCScheme {
                                parallelizeBuild: parallelizeBuild)
         }
     }
-    
+
     public struct LaunchAction {
-        
+
         public enum Style: String {
             case auto = "0"
             case wait = "1"
@@ -238,7 +236,7 @@ public struct XCScheme {
         public var debugServiceExtension: String
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
-        
+
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
                     selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
@@ -262,7 +260,7 @@ public struct XCScheme {
             self.allowLocationSimulation = allowLocationSimulation
             self.locationScenarioReference = locationScenarioReference
         }
-        
+
         public init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
@@ -314,7 +312,7 @@ public struct XCScheme {
             return element
         }
     }
-    
+
     public struct ProfileAction {
         public var buildableProductRunnable: BuildableProductRunnable
         public var buildConfiguration: String
@@ -361,7 +359,7 @@ public struct XCScheme {
             return element
         }
     }
-    
+
     public struct TestAction {
         public var testables: [TestableReference]
         public var buildConfiguration: String
@@ -417,7 +415,7 @@ public struct XCScheme {
             return element
         }
     }
-    
+
     public struct AnalyzeAction {
         public var buildConfiguration: String
         public init(buildConfiguration: String) {
@@ -435,7 +433,7 @@ public struct XCScheme {
             return AEXMLElement(name: "AnalyzeAction", value: nil, attributes: attributes)
         }
     }
-    
+
     public struct ArchiveAction {
         public var buildConfiguration: String
         public var revealArchiveInOrganizer: Bool
@@ -466,9 +464,9 @@ public struct XCScheme {
             return AEXMLElement(name: "ArchiveAction", value: nil, attributes: attributes)
         }
     }
-    
+
     // MARK: - Properties
-    
+
     public var buildAction: BuildAction?
     public var testAction: TestAction?
     public var launchAction: LaunchAction?
@@ -478,9 +476,9 @@ public struct XCScheme {
     public var lastUpgradeVersion: String?
     public var version: String?
     public var name: String
-    
+
     // MARK: - Init
-    
+
     /// Initializes the scheme reading the content from the disk.
     ///
     /// - Parameters:
@@ -501,7 +499,7 @@ public struct XCScheme {
         archiveAction = try ArchiveAction(element: scheme["ArchiveAction"])
         profileAction = try ProfileAction(element: scheme["ProfileAction"])
     }
-    
+
     public init(name: String,
                 lastUpgradeVersion: String?,
                 version: String?,
@@ -521,13 +519,13 @@ public struct XCScheme {
         self.analyzeAction = analyzeAction
         self.archiveAction = archiveAction
     }
-    
+
 }
 
 // MARK: - XCScheme Extension (Writable)
 
 extension XCScheme: Writable {
-    
+
     public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
@@ -557,7 +555,7 @@ extension XCScheme: Writable {
         }
         try path.write(document.xml)
     }
-    
+
 }
 
 // MARK: - XCScheme Errors.
@@ -569,7 +567,7 @@ extension XCScheme: Writable {
 public enum XCSchemeError: Error, CustomStringConvertible {
     case notFound(path: Path)
     case missing(property: String)
-    
+
     public var description: String {
         switch self {
         case .notFound(let path):

@@ -1,28 +1,27 @@
 import Foundation
 import Unbox
-import xcodeprojextensions
 
 public struct PBXGroup {
-    
+
     // MARK: - Attributes
-    
+
     /// Element reference.
     public var reference: String
-    
+
     /// Element children.
     public var children: [String]
-    
+
     /// Element name.
     public var name: String?
-    
+
     /// Element path.
     public var path: String?
-    
+
     /// Element source tree.
     public var sourceTree: PBXSourceTree
-    
+
     // MARK: - Init
-    
+
     /// Initializes the group with its attributes.
     ///
     /// - Parameters:
@@ -42,13 +41,13 @@ public struct PBXGroup {
         self.sourceTree = sourceTree
         self.path = path
     }
-    
+
 }
 
 // MARK: - PBXGroup Extension (ProjectElement)
 
 extension PBXGroup: ProjectElement {
-    
+
     public static var isa: String = "PBXGroup"
 
     public static func == (lhs: PBXGroup,
@@ -59,9 +58,9 @@ extension PBXGroup: ProjectElement {
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path
     }
-    
+
     public var hashValue: Int { return self.reference.hashValue }
-   
+
     public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -75,7 +74,7 @@ extension PBXGroup: ProjectElement {
 // MARK: - PBXGroup Extension (PlistSerializable)
 
 extension PBXGroup: PlistSerializable {
-    
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
@@ -94,7 +93,7 @@ extension PBXGroup: PlistSerializable {
                                                  comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
     }
-    
+
     fileprivate func name(reference: String, proj: PBXProj) -> String? {
         let group = proj.objects.groups.filter({ $0.reference == reference }).first
         let variantGroup = proj.objects.variantGroups.filter({ $0.reference == reference }).first
@@ -108,5 +107,5 @@ extension PBXGroup: PlistSerializable {
         }
         return nil
     }
-    
+
 }

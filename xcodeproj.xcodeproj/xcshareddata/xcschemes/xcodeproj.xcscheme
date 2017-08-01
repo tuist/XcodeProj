@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_160"
+               BlueprintIdentifier = "OBJ_154"
                BuildableName = "Spectre.framework"
                BlueprintName = "Spectre"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_174"
+               BlueprintIdentifier = "OBJ_168"
                BuildableName = "PathKit.framework"
                BlueprintName = "PathKit"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_183"
+               BlueprintIdentifier = "OBJ_177"
                BuildableName = "Unbox.framework"
                BlueprintName = "Unbox"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_231"
+               BlueprintIdentifier = "OBJ_225"
                BuildableName = "AEXML.framework"
                BlueprintName = "AEXML"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
@@ -70,37 +70,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_242"
+               BlueprintIdentifier = "OBJ_236"
                BuildableName = "xcodeproj.framework"
                BlueprintName = "xcodeproj"
-               ReferencedContainer = "container:xcodeproj.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_294"
-               BuildableName = "xcodeprojextensions.framework"
-               BlueprintName = "xcodeprojextensions"
-               ReferencedContainer = "container:xcodeproj.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_296"
-               BuildableName = "xcodeprojprotocols.framework"
-               BlueprintName = "xcodeprojprotocols"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -116,17 +88,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_329"
-               BuildableName = "xcodeprojextensionsTests.xctest"
-               BlueprintName = "xcodeprojextensionsTests"
-               ReferencedContainer = "container:xcodeproj.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_346"
+               BlueprintIdentifier = "OBJ_289"
                BuildableName = "xcodeprojTests.xctest"
                BlueprintName = "xcodeprojTests"
                ReferencedContainer = "container:xcodeproj.xcodeproj">
@@ -149,7 +111,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_160"
+            BlueprintIdentifier = "OBJ_154"
             BuildableName = "Spectre.framework"
             BlueprintName = "Spectre"
             ReferencedContainer = "container:xcodeproj.xcodeproj">

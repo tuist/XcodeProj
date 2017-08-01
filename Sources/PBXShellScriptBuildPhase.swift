@@ -1,41 +1,40 @@
 import Foundation
 import Unbox
-import xcodeprojextensions
 
 // This is the element for the resources copy build phase.
 public struct PBXShellScriptBuildPhase {
-    
+
     // MARK: - Attributes
-    
+
     /// Element reference.
     public var reference: String
-    
+
     /// Files references.
     public var files: Set<String>
-    
+
     /// Build action mask.
     public var buildActionMask: Int
-    
+
     /// Build phase name.
     public var name: String
-    
+
     /// Input paths
     public var inputPaths: Set<String>
-    
+
     /// Output paths
     public var outputPaths: Set<String>
-    
+
     /// Run only for deployment post processing attribute.
     public var runOnlyForDeploymentPostprocessing: Int = 0
-    
+
     /// Path to the shell.
     public var shellPath: String
-    
+
     /// Shell script.
     public var shellScript: String?
-    
+
     // MARK: - Init
-    
+
     /// Initializes the shell script build phase with its attributes.
     ///
     /// - Parameters:
@@ -69,7 +68,7 @@ public struct PBXShellScriptBuildPhase {
 // MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)
 
 extension PBXShellScriptBuildPhase: PlistSerializable {
-    
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
@@ -87,15 +86,15 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
                                                  comment: "Run Script"),
                 value: .dictionary(dictionary))
     }
-    
+
 }
 
 // MARK: - PBXShellScriptBuildPhase Extension (ProjectElement)
 
 extension PBXShellScriptBuildPhase: ProjectElement {
-    
+
     public static var isa: String = "PBXShellScriptBuildPhase"
-    
+
     public init(reference: String, dictionary: [String: Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -107,7 +106,7 @@ extension PBXShellScriptBuildPhase: ProjectElement {
         self.shellScript = unboxer.unbox(key: "shellScript")
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
     }
-    
+
     public static func == (lhs: PBXShellScriptBuildPhase,
                            rhs: PBXShellScriptBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -120,7 +119,7 @@ extension PBXShellScriptBuildPhase: ProjectElement {
             lhs.shellPath == rhs.shellPath &&
             lhs.shellScript == rhs.shellScript
     }
-    
+
     public var hashValue: Int { return self.reference.hashValue }
-    
+
 }

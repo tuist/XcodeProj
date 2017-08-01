@@ -1,10 +1,9 @@
 import Foundation
 import Unbox
-import xcodeprojextensions
 
 // This is the element for the copy file build phase.
 public struct PBXCopyFilesBuildPhase {
-    
+
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0
         case productsDirectory = 16
@@ -20,27 +19,27 @@ public struct PBXCopyFilesBuildPhase {
     }
 
     // MARK: - Attributes
-    
+
     /// Element reference
     public var reference: String
-    
+
     /// Element destination path
     public var dstPath: String
-    
+
     /// Element build action mask.
     public var buildActionMask: UInt
-    
+
     /// Element destination subfolder spec
     public var dstSubfolderSpec: SubFolder
- 
+
     /// Element files
     public var files: Set<String>
- 
+
     /// element run only for deployment post processing.
     public var runOnlyForDeploymentPostprocessing: UInt
-    
+
     // MARK: - Init
-    
+
     /// Initializes the copy files build phase with its attributes.
     ///
     /// - Parameters:
@@ -63,13 +62,13 @@ public struct PBXCopyFilesBuildPhase {
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
-    
+
 }
 
 // MARK: - PBXCopyFilesBuildPhase Extension (ProjectElement)
 
 extension PBXCopyFilesBuildPhase: ProjectElement {
-    
+
     public init(reference: String, dictionary: [String : Any]) throws {
         self.reference = reference
         let unboxer = Unboxer(dictionary: dictionary)
@@ -80,7 +79,7 @@ extension PBXCopyFilesBuildPhase: ProjectElement {
         self.files = try unboxer.unbox(key: "files")
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
     }
-    
+
     public static func == (lhs: PBXCopyFilesBuildPhase,
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -90,17 +89,17 @@ extension PBXCopyFilesBuildPhase: ProjectElement {
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
+
     public var hashValue: Int { return self.reference.hashValue }
-    
+
 }
 
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
 
 extension PBXCopyFilesBuildPhase: PlistSerializable {
-    
+
     public static var isa: String = "PBXCopyFilesBuildPhase"
-    
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
@@ -117,5 +116,5 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
                                                  comment: "CopyFiles"),
                 value: .dictionary(dictionary))
     }
-    
+
 }
