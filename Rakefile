@@ -17,15 +17,21 @@ def build
   sh "swift build"
 end
 
-def commit_and_push
+def current_version
   last_tag = `git describe --abbrev=0 --tags`
-  current_version = Semantic::Version.new last_tag
-  new_version = current_version.increment! :patch
+  Semantic::Version.new last_tag
+end
+
+def next_version
+  current_version.increment! :patch
+end
+
+def bump_to_version(from, to)
+  File.open("xcodeproj.podspec", "w"){|f| f.write(content.sub(from, to)) }
   `git add .`
-  `git commit -m "Bump version to #{new_version}"`
-  `git tag #{new_version}`
+  `git commit -m "Bump version to #{to}"`
+  `git tag #{to}`
   `git push origin --tags`
-  new_version
 end
 
 def print(message)
@@ -57,7 +63,8 @@ task :release => [:clean] do
   print "> xcodeproj built"
   generate_docs
   print "> Documentation generated"
-  version = commit_and_push
+  version = next_version
+  bump_to_version(current_version, next_version)
   print "> Commit created and tagged with version: #{version}"
 end
 
