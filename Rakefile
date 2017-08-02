@@ -31,7 +31,7 @@ end
 def bump_to_version(from, to)
   spec_path = "xcodeproj.podspec"
   content = File.read(spec_path)
-  File.open(spec_path, "w"){|f| f.write(content.sub(from, to)) }
+  File.open(spec_path, "w"){|f| f.write(content.sub(from.to_s, to.to_s)) }
   `git add .`
   `git commit -m "Bump version to #{to}"`
   `git tag #{to}`
