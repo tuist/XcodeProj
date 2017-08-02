@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>XCodeProjError Enum Reference</title>
+    <title>Writable Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/XCodeProjError" class="dashAnchor"></a>
-    <a title="XCodeProjError Enum Reference"></a>
+    <a name="//apple_ref/swift/Protocol/Writable" class="dashAnchor"></a>
+    <a title="Writable Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcodeproj Docs</a> (54% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcodeproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        XCodeProjError Enum Reference
+        Writable Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -134,19 +134,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>XCodeProjError</h1>
+            <h1>Writable</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">XCodeProjError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Writable</span></code></pre>
 
                 </div>
               </div>
-            <p>XcodeProj Errors</p>
-
-<ul>
-<li>notFound: the project cannot be found.</li>
-<li>pbxProjNotFound: the .pbxproj file couldn&rsquo;t be found inside the project folder.</li>
-</ul>
+            <p>Protocol that defines how an entity can be writed into disk</p>
 
           </section>
           <section class="section task-group-section">
@@ -155,9 +150,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vPs23CustomStringConvertible11descriptionSS"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vPs23CustomStringConvertible11descriptionSS">description</a>
+                    <a name="/s:FP9xcodeproj8Writable5writeFzT4pathV7PathKit4Path8overrideSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/write(path:override:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP9xcodeproj8Writable5writeFzT4pathV7PathKit4Path8overrideSb_T_">write(path:override:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -165,15 +160,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Writes the object that conforms the protocol.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    writing error if something goes wrong.
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The path to write to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>override</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>True if the content should be overriden if it already exists.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

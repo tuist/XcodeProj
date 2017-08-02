@@ -1,652 +1,610 @@
 {
   "warnings": [
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 12,
       "symbol": "BuildPhase.sources",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 13,
       "symbol": "BuildPhase.frameworks",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 14,
       "symbol": "BuildPhase.resources",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 15,
       "symbol": "BuildPhase.copyFiles",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 16,
       "symbol": "BuildPhase.runScript",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildPhase.swift",
       "line": 17,
       "symbol": "BuildPhase.headers",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/BuildSettings.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/BuildSettings.swift",
       "line": 8,
       "symbol": "BuildSettings.dictionary",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXAggregateTarget.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXAggregateTarget.swift",
       "line": null,
       "symbol": "PBXAggregateTarget",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXAggregateTarget.swift",
-      "line": null,
-      "symbol": "PBXAggregateTarget",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXAggregateTarget.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXAggregateTarget.swift",
       "line": 5,
       "symbol": "PBXAggregateTarget",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXBuildFile.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXBuildFile.swift",
       "line": 5,
       "symbol": "PBXBuildFile",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXContainerItemProxy.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXContainerItemProxy.swift",
       "line": null,
       "symbol": "PBXContainerItemProxy",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXContainerItemProxy.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXContainerItemProxy.swift",
       "line": null,
       "symbol": "PBXContainerItemProxy",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXContainerItemProxy.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXContainerItemProxy.swift",
       "line": 5,
       "symbol": "PBXContainerItemProxy",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXCopyFilesBuildPhase.swift",
       "line": null,
       "symbol": "PBXCopyFilesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXCopyFilesBuildPhase.swift",
       "line": null,
       "symbol": "PBXCopyFilesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
-      "line": null,
-      "symbol": "PBXCopyFilesBuildPhase",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
-      "line": 6,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXCopyFilesBuildPhase.swift",
+      "line": 5,
       "symbol": "PBXCopyFilesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFileElement.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFileElement.swift",
       "line": null,
       "symbol": "PBXFileElement",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFileElement.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFileElement.swift",
       "line": 5,
       "symbol": "PBXFileElement",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFileReference.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFileReference.swift",
       "line": null,
       "symbol": "PBXFileReference",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFileReference.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFileReference.swift",
       "line": 7,
       "symbol": "PBXFileReference",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFrameworksBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFrameworksBuildPhase.swift",
       "line": null,
       "symbol": "PBXFrameworksBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFrameworksBuildPhase.swift",
-      "line": null,
-      "symbol": "PBXFrameworksBuildPhase",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXFrameworksBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXFrameworksBuildPhase.swift",
       "line": 5,
       "symbol": "PBXFrameworksBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXGroup.swift",
       "line": null,
       "symbol": "PBXGroup",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
-      "line": null,
-      "symbol": "PBXGroup",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
-      "line": 5,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXGroup.swift",
+      "line": 4,
       "symbol": "PBXGroup",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXHeadersBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXHeadersBuildPhase.swift",
       "line": null,
       "symbol": "PBXHeadersBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXHeadersBuildPhase.swift",
-      "line": null,
-      "symbol": "PBXHeadersBuildPhase",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXHeadersBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXHeadersBuildPhase.swift",
       "line": 6,
       "symbol": "PBXHeadersBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
       "line": null,
       "symbol": "PBXObject",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
       "line": null,
       "symbol": "PBXObject",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
       "line": null,
       "symbol": "PBXObject",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 4,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 3,
       "symbol": "PBXObject",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 183,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 182,
       "symbol": "PBXObjectError.missingIsa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 184,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 183,
       "symbol": "PBXObjectError.unknownElement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 200,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 199,
       "symbol": "Array.buildFiles",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 207,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 206,
       "symbol": "Array.aggregateTargets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 214,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 213,
       "symbol": "Array.containerItemProxies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 221,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 220,
       "symbol": "Array.copyFilesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 228,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 227,
       "symbol": "Array.groups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 235,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 234,
       "symbol": "Array.fileElements",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 242,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 241,
       "symbol": "Array.configurationLists",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 249,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 248,
       "symbol": "Array.buildConfigurations",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 256,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 255,
       "symbol": "Array.variantGroups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 263,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 262,
       "symbol": "Array.targetDependencies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 270,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 269,
       "symbol": "Array.sourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 277,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 276,
       "symbol": "Array.shellScriptBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 284,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 283,
       "symbol": "Array.resourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 291,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 290,
       "symbol": "Array.frameworksBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 298,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 297,
       "symbol": "Array.headersBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 305,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 304,
       "symbol": "Array.nativeTargets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 312,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 311,
       "symbol": "Array.fileReferences",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 319,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 318,
       "symbol": "Array.projects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 326,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 325,
       "symbol": "Array.fileName(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXObject.swift",
-      "line": 330,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXObject.swift",
+      "line": 329,
       "symbol": "Array.configName(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXProductType.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXProductType.swift",
       "line": 4,
       "symbol": "PBXProductType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXProject.swift",
-      "line": 6,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXProject.swift",
+      "line": 5,
       "symbol": "PBXProject",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXResourcesBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXResourcesBuildPhase.swift",
       "line": null,
       "symbol": "PBXResourcesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXResourcesBuildPhase.swift",
-      "line": null,
-      "symbol": "PBXResourcesBuildPhase",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXResourcesBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXResourcesBuildPhase.swift",
       "line": 5,
       "symbol": "PBXResourcesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXShellScriptBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXShellScriptBuildPhase.swift",
       "line": null,
       "symbol": "PBXShellScriptBuildPhase",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXShellScriptBuildPhase.swift",
-      "line": null,
-      "symbol": "PBXShellScriptBuildPhase",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXShellScriptBuildPhase.swift",
-      "line": 6,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXShellScriptBuildPhase.swift",
+      "line": 5,
       "symbol": "PBXShellScriptBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXSourceTree.swift",
       "line": 5,
       "symbol": "PBXSourceTree",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXSourcesBuildPhase.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXSourcesBuildPhase.swift",
       "line": 5,
       "symbol": "PBXSourcesBuildPhase",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXTarget.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXTarget.swift",
       "line": 4,
       "symbol": "PBXTarget",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXTargetDependency.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXTargetDependency.swift",
       "line": 5,
       "symbol": "PBXTargetDependency",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/PBXVariantGroup.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/PBXVariantGroup.swift",
       "line": 5,
       "symbol": "PBXVariantGroup",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCBuildConfiguration.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/String+Extras.swift",
+      "line": 5,
+      "symbol": "String.quoted",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/String+Extras.swift",
+      "line": 9,
+      "symbol": "String.isQuoted",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/String+Extras.swift",
+      "line": 13,
+      "symbol": "String.random(length:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCBuildConfiguration.swift",
       "line": null,
       "symbol": "XCBuildConfiguration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCBuildConfiguration.swift",
-      "line": null,
-      "symbol": "XCBuildConfiguration",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCBuildConfiguration.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCBuildConfiguration.swift",
       "line": 5,
       "symbol": "XCBuildConfiguration",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfig.swift",
-      "line": 209,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCConfig.swift",
+      "line": 208,
       "symbol": "XCConfigError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfigurationList.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCConfigurationList.swift",
       "line": null,
       "symbol": "XCConfigurationList",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfigurationList.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCConfigurationList.swift",
       "line": null,
       "symbol": "XCConfigurationList",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfigurationList.swift",
-      "line": null,
-      "symbol": "XCConfigurationList",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCConfigurationList.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCConfigurationList.swift",
       "line": 5,
       "symbol": "XCConfigurationList",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCScheme.swift",
       "line": null,
       "symbol": "XCScheme",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
-      "line": 9,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCScheme.swift",
+      "line": 7,
       "symbol": "XCScheme",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
-      "line": 570,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCScheme.swift",
+      "line": 568,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCScheme.swift",
-      "line": 571,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCScheme.swift",
+      "line": 569,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCSharedData.swift",
-      "line": 5,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCSharedData.swift",
+      "line": 4,
       "symbol": "XCSharedData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCSharedData.swift",
-      "line": 39,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCSharedData.swift",
+      "line": 38,
       "symbol": "XCSharedDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspace.swift",
-      "line": 71,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCWorkspace.swift",
+      "line": 70,
       "symbol": "XCWorkspaceError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspace.swift",
-      "line": 72,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCWorkspace.swift",
+      "line": 71,
       "symbol": "XCWorkspaceError.xcworkspaceDataNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
-      "line": 10,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCWorkspaceData.swift",
+      "line": 9,
       "symbol": "XCWorkspace.Data",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
-      "line": 189,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XCWorkspaceData.swift",
+      "line": 164,
       "symbol": "XCWorkspaceDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 12,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XcodeProj.swift",
+      "line": 10,
       "symbol": "XcodeProj.workspace",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 22,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XcodeProj.swift",
+      "line": 20,
       "symbol": "XcodeProj.init(path:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 103,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XcodeProj.swift",
+      "line": 101,
       "symbol": "XCodeProjError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 104,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XcodeProj.swift",
+      "line": 102,
       "symbol": "XCodeProjError.pbxprojNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
-      "line": 105,
+      "file": "/Users/pedro.pinera.buendia/code/xcodeproj/Sources/XcodeProj.swift",
+      "line": 103,
       "symbol": "XCodeProjError.xcworkspaceNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
