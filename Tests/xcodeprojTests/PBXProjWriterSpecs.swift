@@ -1,11 +1,10 @@
 import Foundation
 import XCTest
-import xcodeprojextensions
 
 @testable import xcodeproj
 
 class PBXProjWriterSpecs: XCTestCase {
-    
+
     func test_dictionaryPlistValue_returnsTheCorrectValue() {
         let dictionary: [String: Any] = [
             "a": "b",
@@ -19,7 +18,7 @@ class PBXProjWriterSpecs: XCTestCase {
         XCTAssertEqual(plist.dictionary?[CommentedString("c")], .array([.string(CommentedString("d")), .string(CommentedString("e"))]))
         XCTAssertEqual(plist.dictionary?[CommentedString("f")], .dictionary([CommentedString("g"): .string(CommentedString("h"))]))
     }
-    
+
     func test_arrayPlistValue_returnsTheCorrectValue() {
         let array: [Any] = [
             "a",
@@ -31,6 +30,6 @@ class PBXProjWriterSpecs: XCTestCase {
         XCTAssertEqual(plist.array?[1], .array([.string(CommentedString("b")), .string(CommentedString("c"))]))
         XCTAssertEqual(plist.array?[2], .dictionary([CommentedString("d"): .string(CommentedString("e"))]))
     }
-    
-    
+
+
 }

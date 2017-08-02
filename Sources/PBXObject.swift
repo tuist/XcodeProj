@@ -1,8 +1,7 @@
 import Foundation
-import xcodeprojextensions
 
 public enum PBXObject {
-    
+
     case pbxNativeTarget(PBXNativeTarget)
     case pbxAggregateTarget(PBXAggregateTarget)
     case pbxBuildFile(PBXBuildFile)
@@ -21,13 +20,13 @@ public enum PBXObject {
     case xcConfigurationList(XCConfigurationList)
     case pbxCopyFilesBuildPhase(PBXCopyFilesBuildPhase)
     case pbxContainerItemProxy(PBXContainerItemProxy)
-    
+
 }
 
 // MARK: - PBXObject Extension (Init)
 
 extension PBXObject {
-    
+
     public init(reference: String, dictionary: [String: Any]) throws {
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
         switch isa {
@@ -71,13 +70,13 @@ extension PBXObject {
             throw PBXObjectError.unknownElement(isa)
         }
     }
-    
+
 }
 
 // MARK: - PBXObject Extension (Extras)
 
 extension PBXObject {
-    
+
     public var reference: String {
         switch self {
         case .pbxBuildFile(let element): return element.reference
@@ -100,13 +99,13 @@ extension PBXObject {
         case .pbxProject(let element): return element.reference
         }
     }
-    
+
 }
 
 // MARK: - PBXObject
 
 extension PBXObject: Hashable {
-    
+
     public var hashValue: Int {
         switch self {
         case .pbxBuildFile(let element): return element.hashValue
@@ -129,7 +128,7 @@ extension PBXObject: Hashable {
         case .pbxProject(let element): return element.hashValue
         }
     }
-    
+
     public static func == (lhs: PBXObject, rhs: PBXObject) -> Bool {
         switch (lhs, rhs) {
         case (.pbxNativeTarget(let lhsElement), .pbxNativeTarget(let rhsElement)):
@@ -172,7 +171,7 @@ extension PBXObject: Hashable {
             return false
         }
     }
-    
+
 }
 
 /// PBXObjectError
@@ -182,7 +181,7 @@ extension PBXObject: Hashable {
 public enum PBXObjectError: Error, CustomStringConvertible {
     case missingIsa
     case unknownElement(String)
-    
+
     public var description: String {
         switch self {
         case .missingIsa:
@@ -196,119 +195,119 @@ public enum PBXObjectError: Error, CustomStringConvertible {
 // MARK: - Array Extension (PBXObject)
 
 public extension Array where Element == PBXObject {
-    
+
     var buildFiles: [PBXBuildFile] {
         return flatMap {
             guard case .pbxBuildFile(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var aggregateTargets: [PBXAggregateTarget] {
         return flatMap {
             guard case .pbxAggregateTarget(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var containerItemProxies: [PBXContainerItemProxy] {
         return flatMap {
             guard case .pbxContainerItemProxy(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] {
         return flatMap {
             guard case .pbxCopyFilesBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var groups: [PBXGroup] {
         return flatMap {
             guard case .pbxGroup(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var fileElements: [PBXFileElement] {
         return flatMap {
             guard case .pbxFileElement(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var configurationLists: [XCConfigurationList] {
         return flatMap {
             guard case .xcConfigurationList(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var buildConfigurations: [XCBuildConfiguration] {
         return flatMap {
             guard case .xcBuildConfiguration(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var variantGroups: [PBXVariantGroup] {
         return flatMap {
             guard case .pbxVariantGroup(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var targetDependencies: [PBXTargetDependency] {
         return flatMap {
             guard case .pbxTargetDependency(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var sourcesBuildPhases: [PBXSourcesBuildPhase] {
         return flatMap {
             guard case .pbxSourcesBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var shellScriptBuildPhases: [PBXShellScriptBuildPhase] {
         return flatMap {
             guard case .pbxShellScriptBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var resourcesBuildPhases: [PBXResourcesBuildPhase] {
         return flatMap {
             guard case .pbxResourcesBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var frameworksBuildPhases: [PBXFrameworksBuildPhase] {
         return flatMap {
             guard case .pbxFrameworksBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var headersBuildPhases: [PBXHeadersBuildPhase] {
         return flatMap {
             guard case .pbxHeadersBuildPhase(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var nativeTargets: [PBXNativeTarget] {
         return flatMap {
             guard case .pbxNativeTarget(let object) = $0 else { return nil }
             return object
         }
     }
-    
+
     var fileReferences: [PBXFileReference] {
         return flatMap {
             guard case .pbxFileReference(let object) = $0 else { return nil }
@@ -326,7 +325,7 @@ public extension Array where Element == PBXObject {
     func fileName(from reference: String) -> String? {
         return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name ?? $0.path }.first
     }
-    
+
     func configName(from reference: String) -> String? {
         return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
     }

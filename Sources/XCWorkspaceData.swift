@@ -2,20 +2,19 @@ import Foundation
 import Unbox
 import PathKit
 import AEXML
-import xcodeprojprotocols
 
 // MARK: - XCWorkspace model
 public extension XCWorkspace {
-    
+
     public struct Data: Equatable, Writable {
-        
+
         public enum FileRef: Hashable, ExpressibleByStringLiteral, CustomStringConvertible {
             case project(path: Path)
             case file(path: Path)
             case other(location: String)
-            
+
             // MARK: - Init
-            
+
             init(string: String, path: Path? = nil) {
                 var location = string
                 if location == "self:",
@@ -33,9 +32,9 @@ public extension XCWorkspace {
                     self = .other(location: string)
                 }
             }
-            
+
             // MARK: - <CustomStringConvertible>
-            
+
             public var description: String {
                 switch self {
                 case .project(let path): return "self:\(path.string)"
@@ -43,23 +42,23 @@ public extension XCWorkspace {
                 case .other(let location): return location
                 }
             }
-            
+
             // MARK: - <ExpressibleByStringLiteral>
-            
+
             public init(stringLiteral value: String) {
                 self.init(string: value)
             }
-            
+
             public init(extendedGraphemeClusterLiteral value: String) {
                 self.init(string: value)
             }
-            
+
             public init(unicodeScalarLiteral value: String) {
                 self.init(string: value)
             }
-            
+
             // MARK: - Public
-            
+
             public var project: XcodeProj? {
                 switch self {
                 case .project(let path):
@@ -68,9 +67,9 @@ public extension XCWorkspace {
                     return nil
                 }
             }
-            
+
             // MARK: - Hashable
-            
+
             public var hashValue: Int {
                 switch self {
                 case .file(let path):
@@ -81,7 +80,7 @@ public extension XCWorkspace {
                     return location.hashValue
                 }
             }
-            
+
             public static func == (lhs: FileRef,
                                    rhs: FileRef) -> Bool {
                 switch (lhs, rhs) {
@@ -95,16 +94,16 @@ public extension XCWorkspace {
                     return false
                 }
             }
-            
+
         }
-        
+
         /// MARK: - Attributes
-        
+
         /// References to the workspace projects
         public var references: [FileRef]
-        
+
         // MARK: - Init
-        
+
         /// Initializes the XCWorkspaceData reading the content from the file at the given path.
         ///
         /// - Parameter path: path where the .xcworkspacedata is.
@@ -119,7 +118,7 @@ public extension XCWorkspace {
                 .flatMap { $0.attributes["location"] }
                 .map { FileRef(string: $0!, path: path) }
         }
-        
+
         /// Initializes the XCWorkspaceData with its attributes.
         ///
         /// - Parameters:
@@ -127,16 +126,16 @@ public extension XCWorkspace {
         public init(references: [FileRef]) {
             self.references = references
         }
-        
+
         // MARK: - Equatable
-        
+
         public static func == (lhs: XCWorkspace.Data,
                                rhs: XCWorkspace.Data) -> Bool {
             return lhs.references == rhs.references
         }
-        
+
         // MARK: - <Writable>
-        
+
         public func write(path: Path, override: Bool = true) throws {
             let document = AEXMLDocument()
             let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
@@ -150,9 +149,9 @@ public extension XCWorkspace {
             }
             try path.write(document.xml)
         }
-        
+
     }
-    
+
 }
 
 // MARK: - XCWorkspaceData Errors
@@ -161,14 +160,14 @@ public extension XCWorkspace {
 ///
 /// - notFound: returned when the .xcworkspacedata cannot be found.
 public enum XCWorkspaceDataError: Error, CustomStringConvertible {
-    
+
     case notFound(path: Path)
-    
+
     public var description: String {
         switch self {
         case .notFound(let path):
             return "Workspace not found at \(path)"
         }
     }
-    
+
 }

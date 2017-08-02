@@ -1,54 +1,53 @@
 import Foundation
 import Unbox
-import xcodeprojextensions
 
 // This is the element for a build target that produces a binary content (application or library).
 public struct PBXProject: ProjectElement, PlistSerializable {
-    
+
     // MARK: - Attributes
-    
+
     public var reference: String
-    
+
     public static var isa: String = "PBXProject"
-    
+
     // The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
-    
+
     // A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
-    
+
     // The region of development.
     public var developmentRegion: String?
-    
+
     // Whether file encodings have been scanned.
     public var hasScannedForEncodings: Int?
-    
+
     // The known regions for localized files.
     public var knownRegions: [String]
-    
+
     // The object is a reference to a PBXGroup element.
     public var mainGroup: String
-    
+
     // The object is a reference to a PBXGroup element.
     public var productRefGroup: String?
-    
+
     // The relative path of the project.
     public var projectDirPath: String?
-    
+
     /// Project references.
     public var projectReferences: [Any]
-    
+
     // The relative root path of the project.
     public var projectRoot: String?
-    
+
     // The objects are a reference to a PBXTarget element.
     public var targets: [String]
-    
+
     /// Project attributes.
     public var attributes: [String: Any]
-    
+
     // MARK: - Init
-    
+
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
@@ -92,7 +91,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.targets = targets
         self.attributes = attributes
     }
-    
+
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
     ///
     /// - Parameters:
@@ -115,9 +114,9 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.targets = (unboxer.unbox(key: "targets")) ?? []
         self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
     }
-    
+
     // MARK: - Hashable
-    
+
     public static func == (lhs: PBXProject,
                            rhs: PBXProject) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -134,11 +133,11 @@ public struct PBXProject: ProjectElement, PlistSerializable {
             lhs.targets == rhs.targets &&
             NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
     }
-    
+
     public var hashValue: Int { return self.reference.hashValue }
-    
+
     // MARK: - PlistSerializable
-    
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
@@ -155,7 +154,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         }
         dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
-        
+
         dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
@@ -177,12 +176,12 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-    
+
     private func nativeTarget(from reference: String, proj: PBXProj) -> String? {
         return proj.objects.nativeTargets
             .filter { $0.reference == reference }
             .map { $0.name }
             .first
     }
-    
+
 }

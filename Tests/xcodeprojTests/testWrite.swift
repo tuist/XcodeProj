@@ -2,7 +2,6 @@ import Foundation
 import PathKit
 import XCTest
 import xcodeproj
-import xcodeprojprotocols
 
 func testWrite<T: Writable & Equatable>(from path: Path,
                initModel: (Path) -> T?,
