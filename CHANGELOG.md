@@ -1,4 +1,4 @@
-## 0.0.8
+## 0.0.9
 - CocoaPods support https://github.com/carambalabs/xcodeproj/pull/35 by @pepibumur
 - Make project models mutable https://github.com/carambalabs/xcodeproj/pull/33 by @yonaskolb
 
