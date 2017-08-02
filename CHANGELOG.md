@@ -1,3 +1,7 @@
+## 0.0.8
+- CocoaPods support https://github.com/carambalabs/xcodeproj/pull/35 by @pepibumur
+- Make project models mutable https://github.com/carambalabs/xcodeproj/pull/33 by @yonaskolb
+
 ## 0.0.7
 - Downgrade Swift Tools versions to 4.0 https://github.com/carambalabs/xcodeproj/pull/27 by @yonaskolb
 - Make Scheme intializers public https://github.com/carambalabs/xcodeproj/pull/28 by @yonaskolb
