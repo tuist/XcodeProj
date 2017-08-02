@@ -87,6 +87,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cocoapods
   colorize
   jazzy
   rake
