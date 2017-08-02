@@ -57,6 +57,16 @@ Edit your `Marathonfile` and specify the dependency in there:
 https://github.com/carambalabs/xcodeproj.git
 ```
 
+#### Using [CocoaPods](https://cocoapods.org)
+
+Edit your `Podfile` and specify the dependency:
+
+```bash
+pod "xcodeproj"
+```
+
+> Note: xcodeproj is only available for macOS projects.
+
 ### How to 🐒
 
 #### Read
