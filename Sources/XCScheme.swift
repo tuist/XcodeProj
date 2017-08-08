@@ -110,7 +110,7 @@ public struct XCScheme {
             self.runnableDebuggingMode = runnableDebuggingMode
         }
         public init(element: AEXMLElement) throws {
-            self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"]!
+            self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
             self.buildableReference = try BuildableReference(element:  element["BuildableReference"])
         }
         public func xmlElement() -> AEXMLElement {
