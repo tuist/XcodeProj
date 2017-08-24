@@ -4,7 +4,7 @@ import PathKit
 
 //  A PBXFileReference is used to track every external file referenced by 
 //  the project: source files, resource files, libraries, generated application files, and so on.
-public struct PBXFileReference {
+public final class PBXFileReference {
  
     // MARK: - Attributes
     
@@ -74,16 +74,16 @@ extension PBXFileReference: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.fileEncoding = unboxer.unbox(key: "fileEncoding")
-        self.explicitFileType = unboxer.unbox(key: "explicitFileType")
-        self.lastKnownFileType = unboxer.unbox(key: "lastKnownFileType")
-        self.name = unboxer.unbox(key: "name")
-        self.path = unboxer.unbox(key: "path")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.includeInIndex = unboxer.unbox(key: "includeInIndex")
+        self.init(reference: reference,
+                  sourceTree: try unboxer.unbox(key: "sourceTree"),
+                  name: unboxer.unbox(key: "name"),
+                  fileEncoding: unboxer.unbox(key: "fileEncoding"),
+                  explicitFileType: unboxer.unbox(key: "explicitFileType"),
+                  lastKnownFileType: unboxer.unbox(key: "lastKnownFileType"),
+                  path: unboxer.unbox(key: "path"),
+                  includeInIndex: unboxer.unbox(key: "includeInIndex"))
     }
     
 }
