@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the framewrok link build phase.
-public struct PBXFrameworksBuildPhase {
+public final class PBXFrameworksBuildPhase {
     
     // MARK: - Properties
     
@@ -53,12 +53,12 @@ extension PBXFrameworksBuildPhase: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+        self.init(reference: reference,
+                  files:  try unboxer.unbox(key: "files"),
+                  runOnlyForDeploymentPostprocessing: try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing"),
+                  buildActionMask: try unboxer.unbox(key: "buildActionMask"))
     }
 }
 
