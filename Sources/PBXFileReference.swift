@@ -49,8 +49,6 @@ public class PBXFileReference: ProjectElement {
         super.init(reference: reference)
     }
 
-    public static var isa: String = "PBXFileReference"
-
     public static func == (lhs: PBXFileReference,
                            rhs: PBXFileReference) -> Bool {
         return lhs.reference == rhs.reference &&

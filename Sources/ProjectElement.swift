@@ -26,6 +26,10 @@ public class ProjectElement: Referenceable, Hashable {
                            rhs: ProjectElement) -> Bool {
         return lhs.reference == rhs.reference
     }
+
+    public static var isa: String {
+        return String(describing: self)
+    }
 }
 
 public protocol Referenceable {

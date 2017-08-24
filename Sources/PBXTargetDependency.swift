@@ -6,9 +6,6 @@ public class PBXTargetDependency: ProjectElement {
     
     // MARK: - Attributes
     
-    /// Target dependency isa.
-    public static var isa: String = "PBXTargetDependency"
-    
     /// Target reference.
     public var target: String
     

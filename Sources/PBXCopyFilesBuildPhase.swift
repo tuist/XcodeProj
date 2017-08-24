@@ -4,8 +4,6 @@ import Unbox
 // This is the element for the copy file build phase.
 public class PBXCopyFilesBuildPhase: PBXBuildPhase {
 
-    public static var isa: String = "PBXCopyFilesBuildPhase"
-
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0
         case productsDirectory = 16

@@ -4,8 +4,6 @@ import Unbox
 // This is the element for the framewrok link build phase.
 public class PBXFrameworksBuildPhase: PBXBuildPhase {
 
-    public static var isa: String = "PBXFrameworksBuildPhase"
-
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&

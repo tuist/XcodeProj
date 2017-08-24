@@ -3,7 +3,7 @@ import Unbox
 
 // This is the element for to decorate a target item.
 public class PBXContainerItemProxy: ProjectElement {
-    
+
     public enum ProxyType: UInt, UnboxableEnum {
         case nativeTarget = 1
         case reference = 2
@@ -65,8 +65,6 @@ public class PBXContainerItemProxy: ProjectElement {
 // MARK: - PBXContainerItemProxy Extension (PlistSerializable)
 
 extension PBXContainerItemProxy: PlistSerializable {
-    
-    public static var isa: String = "PBXContainerItemProxy"
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]

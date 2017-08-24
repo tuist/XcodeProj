@@ -4,8 +4,6 @@ import Unbox
 // This is the element for the resources copy build phase.
 public class PBXResourcesBuildPhase: PBXBuildPhase {
     
-    public static var isa: String = "PBXResourcesBuildPhase"
-
     public static func == (lhs: PBXResourcesBuildPhase,
                            rhs: PBXResourcesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&

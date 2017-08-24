@@ -39,8 +39,6 @@ public class PBXGroup: ProjectElement {
         super.init(reference: reference)
     }
 
-    public static var isa: String = "PBXGroup"
-
     public static func == (lhs: PBXGroup,
                            rhs: PBXGroup) -> Bool {
         return lhs.reference == rhs.reference &&

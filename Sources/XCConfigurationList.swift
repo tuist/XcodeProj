@@ -55,8 +55,6 @@ public class XCConfigurationList: ProjectElement {
 
 extension XCConfigurationList: PlistSerializable {
     
-    public static var isa: String = "XCConfigurationList"
-    
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))

@@ -50,8 +50,6 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         super.init(reference: reference, files: files, buildActionMask: buildActionMask, runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
 
-    public static var isa: String = "PBXShellScriptBuildPhase"
-
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.name = try unboxer.unbox(key: "name")

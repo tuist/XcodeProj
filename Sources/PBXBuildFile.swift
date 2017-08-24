@@ -6,9 +6,6 @@ public class PBXBuildFile: ProjectElement {
     
     // MARK: - Attributes
     
-    /// Element isa.
-    public static var isa: String = "PBXBuildFile"
-    
     /// Element file reference.
     public var fileRef: String
     

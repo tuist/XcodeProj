@@ -34,8 +34,6 @@ public class XCBuildConfiguration: ProjectElement {
         super.init(reference: reference)
     }
     
-    public static var isa: String = "XCBuildConfiguration"
-    
     public static func == (lhs: XCBuildConfiguration,
                            rhs: XCBuildConfiguration) -> Bool {
         return lhs.reference == rhs.reference &&

@@ -6,8 +6,6 @@ public class PBXProject: ProjectElement, PlistSerializable {
 
     // MARK: - Attributes
 
-    public static var isa: String = "PBXProject"
-
     // The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
 

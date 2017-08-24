@@ -5,8 +5,6 @@ import PathKit
 // This is the element for the framewrok link build phase.
 public class PBXHeadersBuildPhase: PBXBuildPhase {
     
-    public static var isa: String = "PBXHeadersBuildPhase"
-
     public static func == (lhs: PBXHeadersBuildPhase,
                            rhs: PBXHeadersBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&

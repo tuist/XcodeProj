@@ -6,9 +6,6 @@ public class PBXVariantGroup: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
     
-    // Variant group isa.
-    public static var isa: String = "PBXVariantGroup"
-    
     // The objects are a reference to a PBXFileElement element
     public var children: Set<String>
     

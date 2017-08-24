@@ -33,8 +33,6 @@ public class PBXFileElement: ProjectElement {
         super.init(reference: reference)
     }
     
-    public static var isa: String = "PBXFileElement"
-    
     public static func == (lhs: PBXFileElement,
                            rhs: PBXFileElement) -> Bool {
         return lhs.reference == rhs.reference &&

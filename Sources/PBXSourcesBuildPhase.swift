@@ -4,11 +4,6 @@ import Unbox
 // This is the element for the sources compilation build phase.
 public class PBXSourcesBuildPhase: PBXBuildPhase {
     
-    // MARK: - Attributes
-    
-    /// Element isa.
-    public static var isa: String = "PBXSourcesBuildPhase"
-    
     // MARK: - Hashable
     
     public static func == (lhs: PBXSourcesBuildPhase,
