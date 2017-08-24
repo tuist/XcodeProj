@@ -1,7 +1,7 @@
 import Foundation
 
 /// Struct that represents the Xcode build settings.
-public struct BuildSettings {
+public final class BuildSettings {
     
     // MARK: - Attributes
     
@@ -48,10 +48,10 @@ extension BuildSettings: Equatable {
 
 extension BuildSettings: ExpressibleByDictionaryLiteral {
     
-    public init(dictionaryLiteral elements: (String, String)...) {
+    public convenience init(dictionaryLiteral elements: (String, String)...) {
         var dictionary: [String: String] = [:]
         elements.forEach { dictionary[$0.0] = $0.1 }
-        self.dictionary = dictionary
+        self.init(dictionary: dictionary)
     }
     
 }
