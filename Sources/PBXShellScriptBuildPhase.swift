@@ -25,7 +25,7 @@ public struct PBXShellScriptBuildPhase {
     public var outputPaths: Set<String>
 
     /// Run only for deployment post processing attribute.
-    public var runOnlyForDeploymentPostprocessing: Int = 0
+    public var runOnlyForDeploymentPostprocessing: Int
 
     /// Path to the shell.
     public var shellPath: String
@@ -52,7 +52,8 @@ public struct PBXShellScriptBuildPhase {
                 outputPaths: Set<String>,
                 shellPath: String = "bin/sh",
                 shellScript: String?,
-                buildActionMask: Int = 2147483647) {
+                buildActionMask: Int = 2147483647,
+                runOnlyForDeploymentPostprocessing: Int = 0) {
         self.reference = reference
         self.files = files
         self.name = name
@@ -61,6 +62,7 @@ public struct PBXShellScriptBuildPhase {
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.buildActionMask = buildActionMask
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
 
 }
@@ -105,6 +107,7 @@ extension PBXShellScriptBuildPhase: ProjectElement {
         self.shellPath = try unboxer.unbox(key: "shellPath")
         self.shellScript = unboxer.unbox(key: "shellScript")
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+        self.runOnlyForDeploymentPostprocessing = unboxer.unbox(key: "runOnlyForDeploymentPostprocessing") ?? 0
     }
 
     public static func == (lhs: PBXShellScriptBuildPhase,
