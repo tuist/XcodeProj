@@ -2,46 +2,12 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public class PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
+public class PBXSourcesBuildPhase: PBXBuildPhase {
     
     // MARK: - Attributes
     
     /// Element isa.
     public static var isa: String = "PBXSourcesBuildPhase"
-    
-    /// Build action mask.
-    public var buildActionMask: Int = 2147483647
-    
-    /// Files.
-    public var files: Set<String>
-    
-    /// Run only for deployment post processing.
-    public var runOnlyForDeploymentPostprocessing: Int = 0
-    
-    // MARK: - Init
-    
-    /// Initializes the build phase with the reference and the files.
-    ///
-    /// - Parameters:
-    ///   - reference: build phase reference.
-    ///   - files: build phase files.
-    public init(reference: String,
-                files: Set<String>) {
-        self.files = files
-        super.init(reference: reference)
-    }
-    
-    /// Initializes the build phase with the element reference and a dictionary with its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the build phase attributes.
-    /// - Throws: throws an error in case any of the attributes is missing or it has the wrong type.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        try super.init(reference: reference, dictionary: dictionary)
-    }
     
     // MARK: - Hashable
     
@@ -52,7 +18,10 @@ public class PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
         lhs.files == rhs.files &&
         lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
+}
+
+extension PBXSourcesBuildPhase: PlistSerializable {
+
     // MARK: - PlistSerializable
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {

@@ -3,43 +3,17 @@ import Unbox
 import PathKit
 
 // This is the element for the framewrok link build phase.
-public class PBXHeadersBuildPhase: ProjectElement {
+public class PBXHeadersBuildPhase: PBXBuildPhase {
     
-    /// Element build action mask
-    public var buildActionMask: UInt
-    
-    /// Element files.
-    public var files: Set<String>
-    
-    /// Element runOnlyForDeploymentPostprocessing
-    public var runOnlyForDeploymentPostprocessing: UInt
+    public static var isa: String = "PBXHeadersBuildPhase"
 
-    public init(reference: String,
-                buildActionMask: UInt = 2147483647,
-                files: Set<String> = Set(),
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.buildActionMask = buildActionMask
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-        super.init(reference: reference)
+    public static func == (lhs: PBXHeadersBuildPhase,
+                           rhs: PBXHeadersBuildPhase) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
-    // MARK: - Init
-    
-    /// Initializes the headers build phase element with the reference and a dictionary that contains its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: element dictionary that contains the properties.
-    /// - Throws: an error if any of the attributes is missing or has the wrong type.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-        try super.init(reference: reference, dictionary: dictionary)
-    }
-    
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (Extras)
@@ -63,23 +37,6 @@ extension PBXHeadersBuildPhase {
         return headersExtensions.contains(fileExtension)
     }
     
-}
-
-// MARK: - PBXHeadersBuildPhase Extension (ProjectElement)
-
-extension PBXHeadersBuildPhase {
-    
-    public static var isa: String = "PBXHeadersBuildPhase"
-
-    public static func == (lhs: PBXHeadersBuildPhase,
-                           rhs: PBXHeadersBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
-    
-
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (PlistSerializable)

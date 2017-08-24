@@ -2,43 +2,10 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public class PBXResourcesBuildPhase: ProjectElement {
-    
-    /// Element build action mask.
-    public var buildActionMask: Int
-    
-    /// Element files.
-    public var files: Set<String>
-    
-    /// Element run only for deployment post processing value.
-    public var runOnlyForDeploymentPostprocessing: Int
-    
-    /// Initializes the resources build phase with its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - files: element files.
-    ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
-    public init(reference: String,
-                files: Set<String>,
-                runOnlyForDeploymentPostprocessing: Int = 0,
-                buildActionMask: Int = 2147483647) {
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-        self.buildActionMask = buildActionMask
-        super.init(reference: reference)
-    }
+public class PBXResourcesBuildPhase: PBXBuildPhase {
     
     public static var isa: String = "PBXResourcesBuildPhase"
 
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = (unboxer.unbox(key: "files")) ?? []
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        try super.init(reference: reference, dictionary: dictionary)
-    }
-    
     public static func == (lhs: PBXResourcesBuildPhase,
                            rhs: PBXResourcesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&

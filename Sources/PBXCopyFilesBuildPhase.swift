@@ -2,7 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for the copy file build phase.
-public class PBXCopyFilesBuildPhase: ProjectElement {
+public class PBXCopyFilesBuildPhase: PBXBuildPhase {
+
+    public static var isa: String = "PBXCopyFilesBuildPhase"
 
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0
@@ -23,17 +25,8 @@ public class PBXCopyFilesBuildPhase: ProjectElement {
     /// Element destination path
     public var dstPath: String
 
-    /// Element build action mask.
-    public var buildActionMask: UInt
-
     /// Element destination subfolder spec
     public var dstSubfolderSpec: SubFolder
-
-    /// Element files
-    public var files: Set<String>
-
-    /// element run only for deployment post processing.
-    public var runOnlyForDeploymentPostprocessing: UInt
 
     // MARK: - Init
 
@@ -53,21 +46,15 @@ public class PBXCopyFilesBuildPhase: ProjectElement {
                 files: Set<String> = [],
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.dstPath = dstPath
-        self.buildActionMask = buildActionMask
         self.dstSubfolderSpec = dstSubfolderSpec
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-        super.init(reference: reference)
+        super.init(reference: reference, files: files, buildActionMask: buildActionMask, runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
 
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.dstPath = try unboxer.unbox(key: "dstPath")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
         let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
         self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
         try super.init(reference: reference, dictionary: dictionary)
     }
 
@@ -86,8 +73,6 @@ public class PBXCopyFilesBuildPhase: ProjectElement {
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
 
 extension PBXCopyFilesBuildPhase: PlistSerializable {
-
-    public static var isa: String = "PBXCopyFilesBuildPhase"
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
