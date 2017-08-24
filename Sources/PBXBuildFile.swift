@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
-public struct PBXBuildFile: ProjectElement {
+public class PBXBuildFile: ProjectElement {
     
     // MARK: - Attributes
-    
-    /// Element reference.
-    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXBuildFile"
@@ -29,9 +26,9 @@ public struct PBXBuildFile: ProjectElement {
     public init(reference: String,
                 fileRef: String,
                 settings: [String: Any]? = nil) {
-        self.reference = reference
         self.fileRef = fileRef
         self.settings = settings
+        super.init(reference: reference)
     }
     
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
@@ -40,11 +37,11 @@ public struct PBXBuildFile: ProjectElement {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.fileRef = try unboxer.unbox(key: "fileRef")
         self.settings = unboxer.unbox(key: "settings")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
     // MARK: - Hashable
@@ -55,9 +52,8 @@ public struct PBXBuildFile: ProjectElement {
             lhs.fileRef == rhs.fileRef &&
             NSDictionary(dictionary: lhs.settings ?? [:]).isEqual(to: rhs.settings ?? [:])
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
 }
+
 
 // MARK: - PBXBuildFile Extension (PlistSerializable)
 

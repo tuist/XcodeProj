@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCConfigurationList {
+public class XCConfigurationList: ProjectElement {
     
     // MARK: - Attributes
-    
-    /// Element reference.
-    public var reference: String
     
     /// Element build configurations.
     public var buildConfigurations: Set<String>
@@ -31,10 +28,25 @@ public struct XCConfigurationList {
                 buildConfigurations: Set<String>,
                 defaultConfigurationName: String,
                 defaultConfigurationIsVisible: UInt = 0) {
-        self.reference = reference
         self.buildConfigurations = buildConfigurations
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
+        super.init(reference: reference)
+    }
+
+    public static func == (lhs: XCConfigurationList,
+                           rhs: XCConfigurationList) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildConfigurations == rhs.buildConfigurations &&
+            lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
+    }
+
+    public override init(reference: String, dictionary: [String: Any]) throws {
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")
+        self.defaultConfigurationIsVisible = try unboxer.unbox(key: "defaultConfigurationIsVisible")
+        self.defaultConfigurationName = try unboxer.unbox(key: "defaultConfigurationName")
+        try super.init(reference: reference, dictionary: dictionary)
     }
 
 }
@@ -69,27 +81,4 @@ extension XCConfigurationList: PlistSerializable {
         return nil
     }
 
-}
-
-// MARK: - XCConfigurationList Extension (ProjectElement)
-
-extension XCConfigurationList: ProjectElement {
-    
-    public static func == (lhs: XCConfigurationList,
-                           rhs: XCConfigurationList) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildConfigurations == rhs.buildConfigurations &&
-            lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
-    }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")
-        self.defaultConfigurationIsVisible = try unboxer.unbox(key: "defaultConfigurationIsVisible")
-        self.defaultConfigurationName = try unboxer.unbox(key: "defaultConfigurationName")
-    }
-    
 }

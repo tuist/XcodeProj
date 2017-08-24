@@ -3,10 +3,7 @@ import Unbox
 import PathKit
 
 // This is the element for the framewrok link build phase.
-public struct PBXHeadersBuildPhase {
-    
-    /// Element reference.
-    public var reference: String
+public class PBXHeadersBuildPhase: ProjectElement {
     
     /// Element build action mask
     public var buildActionMask: UInt
@@ -16,6 +13,16 @@ public struct PBXHeadersBuildPhase {
     
     /// Element runOnlyForDeploymentPostprocessing
     public var runOnlyForDeploymentPostprocessing: UInt
+
+    public init(reference: String,
+                buildActionMask: UInt = 2147483647,
+                files: Set<String> = Set(),
+                runOnlyForDeploymentPostprocessing: UInt = 0) {
+        self.buildActionMask = buildActionMask
+        self.files = files
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+        super.init(reference: reference)
+    }
     
     // MARK: - Init
     
@@ -25,12 +32,12 @@ public struct PBXHeadersBuildPhase {
     ///   - reference: element reference.
     ///   - dictionary: element dictionary that contains the properties.
     /// - Throws: an error if any of the attributes is missing or has the wrong type.
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
         self.files = try unboxer.unbox(key: "files")
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
 }
@@ -60,7 +67,7 @@ extension PBXHeadersBuildPhase {
 
 // MARK: - PBXHeadersBuildPhase Extension (ProjectElement)
 
-extension PBXHeadersBuildPhase: ProjectElement {
+extension PBXHeadersBuildPhase {
     
     public static var isa: String = "PBXHeadersBuildPhase"
 
@@ -72,17 +79,7 @@ extension PBXHeadersBuildPhase: ProjectElement {
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String,
-                buildActionMask: UInt = 2147483647,
-                files: Set<String> = Set(),
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.reference = reference
-        self.buildActionMask = buildActionMask
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-    }
+
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (PlistSerializable)

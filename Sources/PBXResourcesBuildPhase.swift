@@ -2,10 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXResourcesBuildPhase {
-    
-    /// Element reference
-    public var reference: String
+public class PBXResourcesBuildPhase: ProjectElement {
     
     /// Element build action mask.
     public var buildActionMask: Int
@@ -26,26 +23,20 @@ public struct PBXResourcesBuildPhase {
                 files: Set<String>,
                 runOnlyForDeploymentPostprocessing: Int = 0,
                 buildActionMask: Int = 2147483647) {
-        self.reference = reference
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         self.buildActionMask = buildActionMask
+        super.init(reference: reference)
     }
-    
-}
-
-// MARK: - PBXResourcesBuildPhase Extension (ProjectElement)
-
-extension PBXResourcesBuildPhase: ProjectElement {
     
     public static var isa: String = "PBXResourcesBuildPhase"
 
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = (unboxer.unbox(key: "files")) ?? []
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
     public static func == (lhs: PBXResourcesBuildPhase,
@@ -55,9 +46,7 @@ extension PBXResourcesBuildPhase: ProjectElement {
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
+
 }
 
 // MARK: - PBXResourcesBuildPhase Extension (PlistSerializable)

@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
+public class PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     
     // MARK: - Attributes
-    
-    /// Reference.
-    public var reference: String
     
     /// Element isa.
     public static var isa: String = "PBXSourcesBuildPhase"
@@ -30,8 +27,8 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     ///   - files: build phase files.
     public init(reference: String,
                 files: Set<String>) {
-        self.reference = reference
         self.files = files
+        super.init(reference: reference)
     }
     
     /// Initializes the build phase with the element reference and a dictionary with its attributes.
@@ -40,10 +37,10 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the build phase attributes.
     /// - Throws: throws an error in case any of the attributes is missing or it has the wrong type.
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
     // MARK: - Hashable
@@ -55,8 +52,6 @@ public struct PBXSourcesBuildPhase: ProjectElement, PlistSerializable {
         lhs.files == rhs.files &&
         lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
     
     // MARK: - PlistSerializable
     

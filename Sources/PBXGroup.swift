@@ -1,12 +1,9 @@
 import Foundation
 import Unbox
 
-public struct PBXGroup {
+public class PBXGroup: ProjectElement {
 
     // MARK: - Attributes
-
-    /// Element reference.
-    public var reference: String
 
     /// Element children.
     public var children: [String]
@@ -35,18 +32,12 @@ public struct PBXGroup {
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 path: String? = nil) {
-        self.reference = reference
         self.children = children
         self.name = name
         self.sourceTree = sourceTree
         self.path = path
+        super.init(reference: reference)
     }
-
-}
-
-// MARK: - PBXGroup Extension (ProjectElement)
-
-extension PBXGroup: ProjectElement {
 
     public static var isa: String = "PBXGroup"
 
@@ -59,15 +50,13 @@ extension PBXGroup: ProjectElement {
             lhs.path == rhs.path
     }
 
-    public var hashValue: Int { return self.reference.hashValue }
-
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.children = try unboxer.unbox(key: "children")
         self.name = unboxer.unbox(key: "name")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.path = unboxer.unbox(key: "path")
+        try super.init(reference: reference, dictionary: dictionary)
     }
 }
 

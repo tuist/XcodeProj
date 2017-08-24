@@ -99,7 +99,7 @@ class PBXProjWriter {
         output.append("/* \(comment) */")
     }
     
-    private func write<T: ProjectElement & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
+    private func write<T: Referenceable & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")

@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public struct XCBuildConfiguration {
+public class XCBuildConfiguration: ProjectElement {
    
     // MARK: - Attributes
-    
-    /// Build configuration reference.
-    public var reference: String
     
     /// The path to a xcconfig file
     public var baseConfigurationReference: String?
@@ -31,21 +28,13 @@ public struct XCBuildConfiguration {
                 name: String,
                 baseConfigurationReference: String? = nil,
                 buildSettings: BuildSettings = [:]) {
-        self.reference = reference
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
+        super.init(reference: reference)
     }
     
-}
-
-// MARK: - XCBuildConfiguration Extension (ProjectElement)
-
-extension XCBuildConfiguration: ProjectElement {
-    
     public static var isa: String = "XCBuildConfiguration"
-    
-    public var hashValue: Int { return self.reference.hashValue }
     
     public static func == (lhs: XCBuildConfiguration,
                            rhs: XCBuildConfiguration) -> Bool {
@@ -55,12 +44,12 @@ extension XCBuildConfiguration: ProjectElement {
             NSDictionary(dictionary: lhs.buildSettings.dictionary).isEqual(to: rhs.buildSettings.dictionary)
     }
     
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
         self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: Any]) ?? [:])
         self.name = try unboxer.unbox(key: "name")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
 }

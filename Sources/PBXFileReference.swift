@@ -4,12 +4,9 @@ import PathKit
 
 //  A PBXFileReference is used to track every external file referenced by 
 //  the project: source files, resource files, libraries, generated application files, and so on.
-public struct PBXFileReference {
+public class PBXFileReference: ProjectElement {
  
     // MARK: - Attributes
-    
-    /// Element reference.
-    public var reference: String
     
     /// Element file encoding.
     public var fileEncoding: Int?
@@ -42,7 +39,6 @@ public struct PBXFileReference {
                 lastKnownFileType: String? = nil,
                 path: String? = nil,
                 includeInIndex: Int? = nil) {
-        self.reference = reference
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
@@ -50,14 +46,9 @@ public struct PBXFileReference {
         self.path = path
         self.sourceTree = sourceTree
         self.includeInIndex = includeInIndex
+        super.init(reference: reference)
     }
-    
-}
 
-// MARK: - PBXFileReference Extension (ProjectElement)
-
-extension PBXFileReference: ProjectElement {
-    
     public static var isa: String = "PBXFileReference"
 
     public static func == (lhs: PBXFileReference,
@@ -72,10 +63,7 @@ extension PBXFileReference: ProjectElement {
             lhs.includeInIndex == rhs.includeInIndex
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.fileEncoding = unboxer.unbox(key: "fileEncoding")
         self.explicitFileType = unboxer.unbox(key: "explicitFileType")
@@ -84,6 +72,7 @@ extension PBXFileReference: ProjectElement {
         self.path = unboxer.unbox(key: "path")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.includeInIndex = unboxer.unbox(key: "includeInIndex")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
 }

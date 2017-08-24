@@ -4,7 +4,7 @@ import PathKit
 public typealias XCConfigInclude = (include: Path, config: XCConfig)
 
 /// .xcconfig configuration file.
-public struct XCConfig {
+public class XCConfig {
 
     // MARK: - Attributes
 
@@ -25,30 +25,6 @@ public struct XCConfig {
         self.includes = includes
         self.buildSettings = buildSettings
     }
-
-}
-
-// MARK: - XCConfig Extension (Equatable)
-
-extension XCConfig: Equatable {
-
-    public static func == (lhs: XCConfig, rhs: XCConfig) -> Bool {
-        if lhs.includes.count != rhs.includes.count { return false }
-        for i in 0..<lhs.includes.count {
-            let lhsInclude = lhs.includes[i]
-            let rhsInclude = rhs.includes[i]
-            if lhsInclude.config != rhsInclude.config || lhsInclude.include != rhsInclude.include {
-                return false
-            }
-        }
-        return lhs.buildSettings == rhs.buildSettings
-    }
-
-}
-
-// MARK: - XCConfig Extension (Init)
-
-extension XCConfig {
 
     /// Initializes the XCConfig reading the content from the file at the given path and parsing it.
     ///
@@ -114,11 +90,27 @@ extension XCConfig {
     }
 
     // swiftlint:disable:next force_try line_length
-    private static var includeRegex: NSRegularExpression = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"",
-                                                                                    options: .caseInsensitive)
+    private static var includeRegex: NSRegularExpression = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
     // swiftlint:disable:next force_try line_length
-    private static var settingRegex: NSRegularExpression = try! NSRegularExpression(pattern: "(.+)\\s+=\\s+(\"?.[^\"]+\"?)",
-                                                                                    options: .caseInsensitive)
+    private static var settingRegex: NSRegularExpression = try! NSRegularExpression(pattern: "(.+)\\s+=\\s+(\"?.[^\"]+\"?)",options: .caseInsensitive)
+
+}
+
+// MARK: - XCConfig Extension (Equatable)
+
+extension XCConfig: Equatable {
+
+    public static func == (lhs: XCConfig, rhs: XCConfig) -> Bool {
+        if lhs.includes.count != rhs.includes.count { return false }
+        for i in 0..<lhs.includes.count {
+            let lhsInclude = lhs.includes[i]
+            let rhsInclude = rhs.includes[i]
+            if lhsInclude.config != rhsInclude.config || lhsInclude.include != rhsInclude.include {
+                return false
+            }
+        }
+        return lhs.buildSettings == rhs.buildSettings
+    }
 
 }
 

@@ -3,7 +3,7 @@ import Unbox
 import PathKit
 
 /// It represents a .pbxproj file
-public struct PBXProj {
+public class PBXProj {
 
     // MARK: - Properties
 
@@ -21,12 +21,6 @@ public struct PBXProj {
 
     /// Project root object.
     public var rootObject: String
-
-}
-
-// MARK: - PBXProj Extension (Init)
-
-extension PBXProj {
 
     /// Initializes the project with its attributes.
     ///
@@ -53,7 +47,7 @@ extension PBXProj {
     /// - Parameters:
     ///   - path: path where the .pbxproj is.
     /// - Throws: an error if the project cannot be found or the format is wrong.
-    public init(path: Path) throws {
+    public convenience init(path: Path) throws {
         guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
         try self.init(dictionary: dictionary)
     }

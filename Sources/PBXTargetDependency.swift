@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
+public class PBXTargetDependency: ProjectElement {
     
     // MARK: - Attributes
-    
-    /// Target dependency reference.
-    public var reference: String
     
     /// Target dependency isa.
     public static var isa: String = "PBXTargetDependency"
@@ -29,9 +26,9 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     public init(reference: String,
                 target: String,
                 targetProxy: String) {
-        self.reference = reference
         self.target = target
         self.targetProxy = targetProxy
+        super.init(reference: reference)
     }
     
     /// Initializes the target dependency with its reference and a dictionary that contains its attributes.
@@ -40,11 +37,11 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the attributes.
     /// - Throws: throws an error in case of any attribute is missing or the type is not the expected one.
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.target = try unboxer.unbox(key: "target")
         self.targetProxy = try unboxer.unbox(key: "targetProxy")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
     // MARK: - Hashable
@@ -56,9 +53,10 @@ public struct PBXTargetDependency: ProjectElement, Hashable, PlistSerializable {
         lhs.targetProxy == rhs.targetProxy
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-    
     // MARK: - PlistSerializable
+}
+
+extension PBXTargetDependency: PlistSerializable {
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]

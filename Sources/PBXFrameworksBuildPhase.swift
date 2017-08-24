@@ -2,12 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for the framewrok link build phase.
-public struct PBXFrameworksBuildPhase {
+public class PBXFrameworksBuildPhase: ProjectElement {
     
     // MARK: - Properties
-    
-    /// Element reference.
-    public var reference: String
     
     /// Framework build phase files.
     public var files: Set<String>
@@ -30,18 +27,12 @@ public struct PBXFrameworksBuildPhase {
                 files: Set<String>,
                 runOnlyForDeploymentPostprocessing: UInt,
                 buildActionMask: Int = 2147483647) {
-        self.reference = reference
         self.files = files
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         self.buildActionMask = buildActionMask
+        super.init(reference: reference)
     }
-    
-}
 
-// MARK: - PBXFrameworksBuildPhase Extension (ProjectElement)
-
-extension PBXFrameworksBuildPhase: ProjectElement {
-    
     public static var isa: String = "PBXFrameworksBuildPhase"
 
     public static func == (lhs: PBXFrameworksBuildPhase,
@@ -51,14 +42,12 @@ extension PBXFrameworksBuildPhase: ProjectElement {
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.files = try unboxer.unbox(key: "files")
         self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
         self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
+        try super.init(reference: reference, dictionary: dictionary)
     }
 }
 
