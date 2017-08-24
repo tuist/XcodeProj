@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the copy file build phase.
-public struct PBXCopyFilesBuildPhase {
+public final class PBXCopyFilesBuildPhase {
 
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0
@@ -69,15 +69,15 @@ public struct PBXCopyFilesBuildPhase {
 
 extension PBXCopyFilesBuildPhase: ProjectElement {
 
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.dstPath = try unboxer.unbox(key: "dstPath")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
         let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
-        self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        self.init(reference: reference,
+                  dstPath: try unboxer.unbox(key: "dstPath"),
+                  dstSubfolderSpec: SubFolder(rawValue: dstSubFolderSpecInt) ?? .other,
+                  buildActionMask: try unboxer.unbox(key: "buildActionMask"),
+                  files: try unboxer.unbox(key: "files"),
+                  runOnlyForDeploymentPostprocessing: try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing"))
     }
 
     public static func == (lhs: PBXCopyFilesBuildPhase,
