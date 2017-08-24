@@ -3,7 +3,7 @@ import Unbox
 import PathKit
 
 // This is the element for the framewrok link build phase.
-public struct PBXHeadersBuildPhase {
+public final class PBXHeadersBuildPhase {
     
     /// Element reference.
     public var reference: String
@@ -19,18 +19,14 @@ public struct PBXHeadersBuildPhase {
     
     // MARK: - Init
     
-    /// Initializes the headers build phase element with the reference and a dictionary that contains its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: element dictionary that contains the properties.
-    /// - Throws: an error if any of the attributes is missing or has the wrong type.
-    public init(reference: String, dictionary: [String : Any]) throws {
+    public init(reference: String,
+                buildActionMask: UInt = 2147483647,
+                files: Set<String> = Set(),
+                runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+        self.buildActionMask = buildActionMask
+        self.files = files
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
     }
     
 }
@@ -74,15 +70,20 @@ extension PBXHeadersBuildPhase: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String,
-                buildActionMask: UInt = 2147483647,
-                files: Set<String> = Set(),
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.reference = reference
-        self.buildActionMask = buildActionMask
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+    /// Initializes the headers build phase element with the reference and a dictionary that contains its properties.
+    ///
+    /// - Parameters:
+    ///   - reference: element reference.
+    ///   - dictionary: element dictionary that contains the properties.
+    /// - Throws: an error if any of the attributes is missing or has the wrong type.
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.init(reference: reference,
+                  buildActionMask: try unboxer.unbox(key: "buildActionMask"),
+                  files: try unboxer.unbox(key: "files"),
+                  runOnlyForDeploymentPostprocessing: try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing"))
     }
+    
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (PlistSerializable)

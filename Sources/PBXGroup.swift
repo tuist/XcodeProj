@@ -62,6 +62,7 @@ extension PBXGroup: ProjectElement {
     public var hashValue: Int { return self.reference.hashValue }
 
     public convenience init(reference: String, dictionary: [String : Any]) throws {
+        let unboxer = Unboxer(dictionary: dictionary)
         self.init(reference: reference,
                   children: try unboxer.unbox(key: "children"),
                   sourceTree: try unboxer.unbox(key: "sourceTree"),
