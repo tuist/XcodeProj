@@ -25,7 +25,8 @@ extension PBXSourcesBuildPhase: PlistSerializable {
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { file in
             var comment: String? = nil
-            if let fileString = fileName(from: file, proj: proj) {
+            if let buildFile = proj.buildFiles.getReference(file),
+                let fileString = proj.fileReferences.getReference(buildFile.reference)?.path {
                 comment = "\(fileString) in Sources"
             }
             return PlistValue.string(CommentedString(file, comment: comment))
@@ -35,15 +36,6 @@ extension PBXSourcesBuildPhase: PlistSerializable {
         return (key: CommentedString(self.reference,
                                                  comment: "Sources"),
                 value: .dictionary(dictionary))
-    }
-    
-    private func fileName(from reference: String, proj: PBXProj) -> String? {
-        return proj.buildFiles
-            .filter { $0.reference == reference }
-            .flatMap { buildFile in
-                return proj.fileReferences.filter { $0.reference == buildFile.fileRef }.first?.path
-            }
-            .first
     }
     
 }

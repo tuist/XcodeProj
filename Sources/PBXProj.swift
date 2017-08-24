@@ -129,11 +129,12 @@ public class PBXProj {
     }
 
     func fileName(from reference: String) -> String? {
-        return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name ?? $0.path }.first
+        let fileReference = fileReferences.getReference(reference)
+        return fileReference?.name ?? fileReference?.path
     }
 
     func configName(from reference: String) -> String? {
-        return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
+        return self.buildConfigurations.getReference(reference)?.name
     }
 
 }
@@ -205,28 +206,28 @@ extension PBXProj {
     /// - Parameter reference: file reference.
     /// - Returns: build file name.
     func buildFileName(reference: String) -> String? {
-        guard let fileRef = buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
-        if let variantGroup = variantGroups.filter({ $0.reference == fileRef }).first {
+        guard let fileRef = buildFiles.getReference(reference)?.fileRef else { return nil }
+        if let variantGroup = variantGroups.getReference(fileRef) {
             return variantGroup.name
-        } else if let fileReference = fileReferences.filter({ $0.reference == fileRef}).first {
+        } else if let fileReference = fileReferences.getReference(fileRef) {
             return fileReference.path ?? fileReference.name
         }
         return nil
     }
 
-    /// Returns the type of file whose reference is given.
+    /// Returns the build phase a file is in.
     ///
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
-    func fileType(reference: String) -> String? {
+    func fileType(reference: String) -> BuildPhase? {
         if frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return BuildPhase.frameworks.rawValue
+            return .frameworks
         } else if headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return BuildPhase.headers.rawValue
+            return .headers
         } else if sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return BuildPhase.sources.rawValue
+            return .sources
         } else if resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return BuildPhase.resources.rawValue
+            return .resources
         }
         return nil
     }

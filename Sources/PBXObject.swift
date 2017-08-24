@@ -98,6 +98,10 @@ extension Array where Element: Referenceable {
     func contains(reference: String) -> Bool {
         return contains { $0.reference == reference }
     }
+
+    func getReference(_ reference: String) -> Element? {
+        return first { $0.reference == reference }
+    }
 }
 
 public protocol Referenceable {

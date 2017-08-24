@@ -58,17 +58,10 @@ extension PBXTargetDependency: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
-        dictionary["target"] = .string(CommentedString(target, comment: target(from: target, proj: proj)))
+        dictionary["target"] = .string(CommentedString(target, comment: proj.nativeTargets.getReference(target)?.name))
         dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
         return (key: CommentedString(self.reference,
                                                  comment: "PBXTargetDependency"),
                 value: .dictionary(dictionary))
-    }
-    
-    private func target(from reference: String, proj: PBXProj) -> String? {
-        return proj.nativeTargets
-            .filter { $0.reference == reference }
-            .map { $0.name }
-            .first
     }
 }

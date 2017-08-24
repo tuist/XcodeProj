@@ -82,14 +82,11 @@ extension PBXGroup: PlistSerializable {
     }
 
     fileprivate func name(reference: String, proj: PBXProj) -> String? {
-        let group = proj.groups.filter({ $0.reference == reference }).first
-        let variantGroup = proj.variantGroups.filter({ $0.reference == reference }).first
-        let file = proj.fileReferences.filter({ $0.reference == reference }).first
-        if let group = group {
+        if let group = proj.groups.getReference(reference) {
             return group.name ?? group.path
-        } else if let variantGroup = variantGroup {
+        } else if let variantGroup = proj.variantGroups.getReference(reference) {
             return variantGroup.name
-        } else if let file = file {
+        } else if let file = proj.fileReferences.getReference(reference) {
             return file.name ?? file.path
         }
         return nil

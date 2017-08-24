@@ -63,7 +63,7 @@ extension PBXBuildFile: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         let fileName = name(fileRef: fileRef, proj: proj)
         dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
-        let fileType = proj.fileType(reference: reference)
+        let fileType = proj.fileType(reference: reference)?.rawValue
         if let settings = settings {
             dictionary["settings"] = settings.plist()
         }
@@ -73,25 +73,12 @@ extension PBXBuildFile: PlistSerializable {
     }
     
     private func name(fileRef: String, proj: PBXProj) -> String? {
-        let fileReference = proj.fileReferences.filter({$0.reference == fileRef}).first
-        let variantGroup = proj.variantGroups.filter({$0.reference == fileRef}).first
+        let fileReference = proj.fileReferences.getReference(fileRef)
+        let variantGroup = proj.variantGroups.getReference(fileRef)
         if let fileReference = fileReference {
             return fileReference.name ?? fileReference.path
         } else if let variantGroup = variantGroup {
             return variantGroup.name
-        }
-        return nil
-    }
-    
-    private func fileType(reference: String, proj: PBXProj) -> String? {
-        if proj.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-           return "Frameworks"
-        } else if proj.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Headers"
-        } else if proj.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Sources"
-        } else if proj.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return "Resources"
         }
         return nil
     }
