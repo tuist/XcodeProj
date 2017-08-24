@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for a build target that aggregates several others.
-public struct PBXAggregateTarget: PBXTarget {
+public final class PBXAggregateTarget: PBXTarget {
     
     // MARK: - Attributes
 
@@ -81,17 +81,17 @@ extension PBXAggregateTarget: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
-        self.buildPhases = try unboxer.unbox(key: "buildPhases")
-        self.buildRules = try unboxer.unbox(key: "buildRules")
-        self.dependencies = try unboxer.unbox(key: "dependencies")
-        self.name = try unboxer.unbox(key: "name")
-        self.productName = unboxer.unbox(key: "productName")
-        self.productReference = unboxer.unbox(key: "productReference")
-        self.productType = unboxer.unbox(key: "productType")
+        self.init(reference: reference,
+                  buildConfigurationList: try unboxer.unbox(key: "buildConfigurationList"),
+                  buildPhases: try unboxer.unbox(key: "buildPhases"),
+                  buildRules: try unboxer.unbox(key: "buildRules"),
+                  dependencies: try unboxer.unbox(key: "dependencies"),
+                  name: try unboxer.unbox(key: "name"),
+                  productName: unboxer.unbox(key: "productName"),
+                  productReference: unboxer.unbox(key: "productReference"),
+                  productType: unboxer.unbox(key: "productType"))
     }
 
 }

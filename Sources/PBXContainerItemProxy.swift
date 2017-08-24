@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for to decorate a target item.
-public struct PBXContainerItemProxy {
+public final class PBXContainerItemProxy {
     
     public enum ProxyType: UInt, UnboxableEnum {
         case nativeTarget = 1
@@ -61,14 +61,14 @@ extension PBXContainerItemProxy: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.containerPortal = try unboxer.unbox(key: "containerPortal")
-        self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
-        self.remoteInfo = unboxer.unbox(key: "remoteInfo")
         let proxyTypeInt: UInt = try unboxer.unbox(key: "proxyType")
-        self.proxyType = ProxyType(rawValue: proxyTypeInt) ?? .other
+        self.init(reference: reference,
+                  containerPortal: try unboxer.unbox(key: "containerPortal"),
+                  remoteGlobalIDString: try unboxer.unbox(key: "remoteGlobalIDString"),
+                  proxyType:  ProxyType(rawValue: proxyTypeInt) ?? .other,
+                  remoteInfo: unboxer.unbox(key: "remoteInfo"))
     }
     
 }

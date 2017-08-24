@@ -1,7 +1,7 @@
 import Foundation
 import Unbox
 
-public struct PBXGroup {
+public final class PBXGroup {
 
     // MARK: - Attributes
 
@@ -61,13 +61,13 @@ extension PBXGroup: ProjectElement {
 
     public var hashValue: Int { return self.reference.hashValue }
 
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.children = try unboxer.unbox(key: "children")
-        self.name = unboxer.unbox(key: "name")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.path = unboxer.unbox(key: "path")
+        self.init(reference: reference,
+                  children: try unboxer.unbox(key: "children"),
+                  sourceTree: try unboxer.unbox(key: "sourceTree"),
+                  name: unboxer.unbox(key: "name"),
+                  path: unboxer.unbox(key: "path"))
     }
 }
 

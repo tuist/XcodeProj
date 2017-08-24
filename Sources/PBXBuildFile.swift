@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
-public struct PBXBuildFile: ProjectElement {
+public final class PBXBuildFile: ProjectElement {
     
     // MARK: - Attributes
     

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This element is an abstract parent for file and group elements.
-public struct PBXFileElement {
+public final class PBXFileElement {
     
     // MARK: - Attributes
 
@@ -54,12 +54,12 @@ extension PBXFileElement: ProjectElement {
     
     public var hashValue: Int { return self.reference.hashValue }
     
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public convenience init(reference: String, dictionary: [String : Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.path = try unboxer.unbox(key: "path")
-        self.name = try unboxer.unbox(key: "name")
+        self.init(reference: reference,
+                  sourceTree: try unboxer.unbox(key: "sourceTree"),
+                  path: try unboxer.unbox(key: "path"),
+                  name: try unboxer.unbox(key: "name"))
     }
 }
 
