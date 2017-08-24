@@ -18,6 +18,35 @@ struct CommentedString {
         self.string = string
         self.comment = comment
     }
+
+    private static let invalidCharacters = CharacterSet.alphanumerics.inverted
+        .subtracting(CharacterSet(charactersIn: "_./"))
+
+    var validString: String {
+        switch string {
+            case "": return "".quoted
+            case "false": return "NO"
+            case "true": return "YES"
+            default: break
+        }
+
+        var escaped = string
+        // escape newlines
+        escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
+
+        // escape quotes
+        var range: Range<String.Index>?
+        if escaped.isQuoted {
+            range = escaped.index(after: escaped.startIndex)..<escaped.index(before: escaped.endIndex)
+        }
+        escaped = escaped.replacingOccurrences(of: "([^\\\\])(\")", with: "$1\\\\$2", options: .regularExpression, range: range)
+
+        if !escaped.isQuoted && escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil {
+            escaped = escaped.quoted
+        }
+
+        return escaped
+    }
     
 }
 
