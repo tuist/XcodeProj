@@ -31,5 +31,50 @@ class PBXProjWriterSpecs: XCTestCase {
         XCTAssertEqual(plist.array?[2], .dictionary([CommentedString("d"): .string(CommentedString("e"))]))
     }
 
+    func test_commentedStringEscaping() {
+
+        let quote = "\""
+        let escapedNewline = "\\n"
+        let escapedQuote = "\\\""
+
+        let values: [String: String] = [
+            "a": "a",
+            "a".quoted: "a".quoted,
+            "@": "@".quoted,
+            "[": "[".quoted,
+            "<": "<".quoted,
+            ">": ">".quoted,
+            ";": ";".quoted,
+            "&": "&".quoted,
+            "$": "$".quoted,
+            "{": "{".quoted,
+            "}": "}".quoted,
+            "\\": "\\".quoted,
+            "+": "+".quoted,
+            "-": "-".quoted,
+            "=": "=".quoted,
+            ",": ",".quoted,
+            " ": " ".quoted,
+            "a;": "a;".quoted,
+            "a_a": "a_a",
+            "a a": "a a".quoted,
+            "": "".quoted,
+            "a\(quote)q\(quote)a": "a\(escapedQuote)q\(escapedQuote)a".quoted,
+            "a\(quote)q\(quote)a".quoted: "a\(escapedQuote)q\(escapedQuote)a".quoted,
+            "a\(escapedQuote)a\(escapedQuote)": "a\(escapedQuote)a\(escapedQuote)".quoted,
+            "a\na": "a\\na".quoted,
+            "\n": escapedNewline.quoted,
+            "\na": "\(escapedNewline)a".quoted,
+            "a\n": "a\(escapedNewline)".quoted,
+            "a\na".quoted: "a\(escapedNewline)a".quoted,
+            "a\(escapedNewline)a": "a\(escapedNewline)a".quoted,
+            "a\(escapedNewline)a".quoted: "a\(escapedNewline)a".quoted,
+        ]
+
+        for (initial, expected) in values {
+            let escapedString = CommentedString(initial).validString
+            XCTAssertEqual(escapedString, expected)
+        }
+    }
 
 }
