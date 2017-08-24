@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the framewrok link build phase.
-public class PBXFrameworksBuildPhase: PBXBuildPhase {
+public class PBXFrameworksBuildPhase: PBXBuildPhase, Hashable {
 
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {

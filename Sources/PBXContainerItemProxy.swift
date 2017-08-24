@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for to decorate a target item.
-public class PBXContainerItemProxy: ProjectElement {
+public class PBXContainerItemProxy: PBXObject, Hashable {
 
     public enum ProxyType: UInt, UnboxableEnum {
         case nativeTarget = 1

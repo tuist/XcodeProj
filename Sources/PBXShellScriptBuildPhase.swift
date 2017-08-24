@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public class PBXShellScriptBuildPhase: PBXBuildPhase {
+public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     // MARK: - Attributes
 

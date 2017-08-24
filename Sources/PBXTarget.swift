@@ -2,29 +2,29 @@ import Foundation
 import Unbox
 
 // This element is an abstract parent for specialized targets.
-public class PBXTarget: ProjectElement {
-    
+public class PBXTarget: PBXObject, Hashable {
+
     /// Target build configuration list.
     public var buildConfigurationList: String
-    
+
     /// Target build phases.
     public var buildPhases: [String]
-    
+
     /// Target build rules.
     public var buildRules: [String]
-    
+
     /// Target dependencies.
     public var dependencies: [String]
-    
+
     /// Target name.
     public var name: String
-    
+
     /// Target product name.
     public var productName: String?
-    
+
     /// Target product reference.
     public var productReference: String?
-    
+
     /// Target product type.
     public var productType: PBXProductType?
 
@@ -65,12 +65,12 @@ public class PBXTarget: ProjectElement {
                            rhs: PBXTarget) -> Bool {
         return lhs.reference == rhs.reference &&
             lhs.buildConfigurationList == rhs.buildConfigurationList &&
-        lhs.buildPhases == rhs.buildPhases &&
-        lhs.buildRules == rhs.buildRules &&
-        lhs.dependencies == rhs.dependencies &&
-        lhs.name == rhs.name &&
-        lhs.productReference == rhs.productReference &&
-        lhs.productType == rhs.productType
+            lhs.buildPhases == rhs.buildPhases &&
+            lhs.buildRules == rhs.buildRules &&
+            lhs.dependencies == rhs.dependencies &&
+            lhs.name == rhs.name &&
+            lhs.productReference == rhs.productReference &&
+            lhs.productType == rhs.productType
     }
     
 }

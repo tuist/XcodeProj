@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public class XCBuildConfiguration: ProjectElement {
+public class XCBuildConfiguration: PBXObject, Hashable {
    
     // MARK: - Attributes
     
@@ -62,7 +62,7 @@ extension XCBuildConfiguration: PlistSerializable {
         dictionary["name"] = .string(CommentedString(name))
         dictionary["buildSettings"] = buildSettings.dictionary.plist()
         if let baseConfigurationReference = baseConfigurationReference {
-            let filename = proj.objects.fileName(from: baseConfigurationReference)
+            let filename = proj.fileName(from: baseConfigurationReference)
             dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference, comment: filename))
         }
         return (key: CommentedString(self.reference, comment: name), value: .dictionary(dictionary))

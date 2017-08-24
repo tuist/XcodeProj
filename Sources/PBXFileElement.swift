@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This element is an abstract parent for file and group elements.
-public class PBXFileElement: ProjectElement {
+public class PBXFileElement: PBXObject, Hashable {
     
     // MARK: - Attributes
 

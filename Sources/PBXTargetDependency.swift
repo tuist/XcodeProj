@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing other target through content proxies.
-public class PBXTargetDependency: ProjectElement {
+public class PBXTargetDependency: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -66,7 +66,7 @@ extension PBXTargetDependency: PlistSerializable {
     }
     
     private func target(from reference: String, proj: PBXProj) -> String? {
-        return proj.objects.nativeTargets
+        return proj.nativeTargets
             .filter { $0.reference == reference }
             .map { $0.name }
             .first

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public class PBXVariantGroup: ProjectElement, PlistSerializable {
+public class PBXVariantGroup: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -57,16 +57,18 @@ public class PBXVariantGroup: ProjectElement, PlistSerializable {
         lhs.name == rhs.name &&
         lhs.sourceTree == rhs.sourceTree
     }
-    
-    // MARK: - PlistSerializable
-    
+}
+
+// MARK: - PlistSerializable
+extension PBXVariantGroup: PlistSerializable {
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["sourceTree"] = sourceTree.plist()
         dictionary["children"] = .array(children
-            .map({PlistValue.string(CommentedString($0, comment: proj.objects.fileName(from: $0)))}))
+            .map({PlistValue.string(CommentedString($0, comment: proj.fileName(from: $0)))}))
         return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))

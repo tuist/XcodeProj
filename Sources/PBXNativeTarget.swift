@@ -19,7 +19,7 @@ extension PBXNativeTarget: PlistSerializable {
                                                                                    comment: buildConfigurationListComment))
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
-                let comment: String? = proj.buildPhaseType(from: buildPhase)
+                let comment: String? = proj.buildPhaseType(from: buildPhase)?.rawValue
                 return .string(CommentedString(buildPhase, comment: comment))
         })
         dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})

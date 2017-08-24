@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // An absctract class for all the build phase objects
-public class PBXBuildPhase: ProjectElement {
+public class PBXBuildPhase: PBXObject {
 
     /// Element build action mask.
     public var buildActionMask: UInt

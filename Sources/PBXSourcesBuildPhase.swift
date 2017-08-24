@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the sources compilation build phase.
-public class PBXSourcesBuildPhase: PBXBuildPhase {
+public class PBXSourcesBuildPhase: PBXBuildPhase, Hashable {
     
     // MARK: - Hashable
     
@@ -38,10 +38,10 @@ extension PBXSourcesBuildPhase: PlistSerializable {
     }
     
     private func fileName(from reference: String, proj: PBXProj) -> String? {
-        return proj.objects.buildFiles
+        return proj.buildFiles
             .filter { $0.reference == reference }
             .flatMap { buildFile in
-                return proj.objects.fileReferences.filter { $0.reference == buildFile.fileRef }.first?.path
+                return proj.fileReferences.filter { $0.reference == buildFile.fileRef }.first?.path
             }
             .first
     }

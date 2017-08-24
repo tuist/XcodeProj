@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
-public class PBXBuildFile: ProjectElement {
+public class PBXBuildFile: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -73,8 +73,8 @@ extension PBXBuildFile: PlistSerializable {
     }
     
     private func name(fileRef: String, proj: PBXProj) -> String? {
-        let fileReference = proj.objects.fileReferences.filter({$0.reference == fileRef}).first
-        let variantGroup = proj.objects.variantGroups.filter({$0.reference == fileRef}).first
+        let fileReference = proj.fileReferences.filter({$0.reference == fileRef}).first
+        let variantGroup = proj.variantGroups.filter({$0.reference == fileRef}).first
         if let fileReference = fileReference {
             return fileReference.name ?? fileReference.path
         } else if let variantGroup = variantGroup {
@@ -84,13 +84,13 @@ extension PBXBuildFile: PlistSerializable {
     }
     
     private func fileType(reference: String, proj: PBXProj) -> String? {
-        if proj.objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        if proj.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
            return "Frameworks"
-        } else if proj.objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if proj.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return "Headers"
-        } else if proj.objects.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if proj.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return "Sources"
-        } else if proj.objects.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if proj.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return "Resources"
         }
         return nil

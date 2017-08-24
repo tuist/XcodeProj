@@ -1,7 +1,7 @@
 import Foundation
 import Unbox
 
-public class PBXGroup: ProjectElement {
+public class PBXGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
 
@@ -82,9 +82,9 @@ extension PBXGroup: PlistSerializable {
     }
 
     fileprivate func name(reference: String, proj: PBXProj) -> String? {
-        let group = proj.objects.groups.filter({ $0.reference == reference }).first
-        let variantGroup = proj.objects.variantGroups.filter({ $0.reference == reference }).first
-        let file = proj.objects.fileReferences.filter({ $0.reference == reference }).first
+        let group = proj.groups.filter({ $0.reference == reference }).first
+        let variantGroup = proj.variantGroups.filter({ $0.reference == reference }).first
+        let file = proj.fileReferences.filter({ $0.reference == reference }).first
         if let group = group {
             return group.name ?? group.path
         } else if let variantGroup = variantGroup {

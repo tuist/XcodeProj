@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the copy file build phase.
-public class PBXCopyFilesBuildPhase: PBXBuildPhase {
+public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
     public enum SubFolder: UInt, UnboxableEnum {
         case absolutePath = 0

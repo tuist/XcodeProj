@@ -16,11 +16,27 @@ public class PBXProj {
     /// Project classes.
     public var classes: [Any]
 
-    /// Project objects
-    public var objects: [PBXObject]
-
     /// Project root object.
     public var rootObject: String
+
+    public var buildFiles: [PBXBuildFile] = []
+    public var aggregateTargets: [PBXAggregateTarget] = []
+    public var containerItemProxies: [PBXContainerItemProxy] = []
+    public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] = []
+    public var groups: [PBXGroup] = []
+    public var fileElements: [PBXFileElement] = []
+    public var configurationLists: [XCConfigurationList] = []
+    public var buildConfigurations: [XCBuildConfiguration] = []
+    public var variantGroups: [PBXVariantGroup] = []
+    public var targetDependencies: [PBXTargetDependency] = []
+    public var sourcesBuildPhases: [PBXSourcesBuildPhase] = []
+    public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] = []
+    public var resourcesBuildPhases: [PBXResourcesBuildPhase] = []
+    public var frameworksBuildPhases: [PBXFrameworksBuildPhase] = []
+    public var headersBuildPhases: [PBXHeadersBuildPhase] = []
+    public var nativeTargets: [PBXNativeTarget] = []
+    public var fileReferences: [PBXFileReference] = []
+    public var projects: [PBXProject] = []
 
     /// Initializes the project with its attributes.
     ///
@@ -38,8 +54,53 @@ public class PBXProj {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
-        self.objects = objects
         self.rootObject = rootObject
+        self.objects = objects
+    }
+
+    var objects: [PBXObject] {
+        get {
+            var array: [PBXObject] = []
+            array += buildFiles as [PBXObject]
+            array += aggregateTargets as [PBXObject]
+            array += containerItemProxies as [PBXObject]
+            array += copyFilesBuildPhases as [PBXObject]
+            array += groups as [PBXObject]
+            array += fileElements as [PBXObject]
+            array += configurationLists as [PBXObject]
+            array += buildConfigurations as [PBXObject]
+            array += variantGroups as [PBXObject]
+            array += targetDependencies as [PBXObject]
+            array += sourcesBuildPhases as [PBXObject]
+            array += shellScriptBuildPhases as [PBXObject]
+            array += resourcesBuildPhases as [PBXObject]
+            array += frameworksBuildPhases as [PBXObject]
+            array += headersBuildPhases as [PBXObject]
+            array += nativeTargets as [PBXObject]
+            array += fileReferences as [PBXObject]
+            array += projects as [PBXObject]
+            return array
+        }
+        set {
+            buildFiles = newValue.flatMap { $0 as? PBXBuildFile }
+            aggregateTargets = newValue.flatMap { $0 as? PBXAggregateTarget }
+            containerItemProxies = newValue.flatMap { $0 as? PBXContainerItemProxy }
+            copyFilesBuildPhases = newValue.flatMap { $0 as? PBXCopyFilesBuildPhase }
+            groups = newValue.flatMap { $0 as? PBXGroup }
+            fileElements = newValue.flatMap { $0 as? PBXFileElement }
+            configurationLists = newValue.flatMap { $0 as? XCConfigurationList }
+            buildConfigurations = newValue.flatMap { $0 as? XCBuildConfiguration }
+            variantGroups = newValue.flatMap { $0 as? PBXVariantGroup }
+            targetDependencies = newValue.flatMap { $0 as? PBXTargetDependency }
+            sourcesBuildPhases = newValue.flatMap { $0 as? PBXSourcesBuildPhase }
+            shellScriptBuildPhases = newValue.flatMap { $0 as? PBXShellScriptBuildPhase }
+            resourcesBuildPhases = newValue.flatMap { $0 as? PBXResourcesBuildPhase }
+            frameworksBuildPhases = newValue.flatMap { $0 as? PBXFrameworksBuildPhase }
+            headersBuildPhases = newValue.flatMap { $0 as? PBXHeadersBuildPhase }
+            nativeTargets = newValue.flatMap { $0 as? PBXNativeTarget }
+            fileReferences = newValue.flatMap { $0 as? PBXFileReference }
+            projects = newValue.flatMap { $0 as? PBXProject }
+        }
     }
 
     /// Initializes the .pbxproj reading the file from the given path.
@@ -63,12 +124,20 @@ public class PBXProj {
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
         self.classes = (dictionary["classes"] as? [Any]) ?? []
         let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
-        self.objects = objectsDictionary
-            .flatMap { try? PBXObject(reference: $0.key, dictionary: $0.value) }
         self.rootObject = try unboxer.unbox(key: "rootObject")
+        objects = objectsDictionary.flatMap { try? PBXObject.parse(reference: $0.key, dictionary: $0.value) }
+    }
+
+    func fileName(from reference: String) -> String? {
+        return self.fileReferences.filter { $0.reference == reference }.flatMap { $0.name ?? $0.path }.first
+    }
+
+    func configName(from reference: String) -> String? {
+        return self.buildConfigurations.filter { $0.reference == reference }.map { $0.name }.first
     }
 
 }
+
 
 // MARK: - PBXProj Extension (Equatable)
 
@@ -78,10 +147,26 @@ extension PBXProj: Equatable {
         return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
             NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
-            lhs.objects == rhs.objects &&
+            lhs.buildFiles == rhs.buildFiles &&
+            lhs.aggregateTargets == rhs.aggregateTargets &&
+            lhs.containerItemProxies == rhs.containerItemProxies &&
+            lhs.copyFilesBuildPhases == rhs.copyFilesBuildPhases &&
+            lhs.groups == rhs.groups &&
+            lhs.fileElements == rhs.fileElements &&
+            lhs.configurationLists == rhs.configurationLists &&
+            lhs.buildConfigurations == rhs.buildConfigurations &&
+            lhs.variantGroups == rhs.variantGroups &&
+            lhs.targetDependencies == rhs.targetDependencies &&
+            lhs.sourcesBuildPhases == rhs.sourcesBuildPhases &&
+            lhs.shellScriptBuildPhases == rhs.shellScriptBuildPhases &&
+            lhs.resourcesBuildPhases == rhs.resourcesBuildPhases &&
+            lhs.frameworksBuildPhases == rhs.frameworksBuildPhases &&
+            lhs.headersBuildPhases == rhs.headersBuildPhases &&
+            lhs.nativeTargets == rhs.nativeTargets &&
+            lhs.fileReferences == rhs.fileReferences &&
+            lhs.projects == rhs.projects &&
             lhs.rootObject == rhs.rootObject
     }
-
 }
 
 // MARK: - PBXProj Error
@@ -120,10 +205,10 @@ extension PBXProj {
     /// - Parameter reference: file reference.
     /// - Returns: build file name.
     func buildFileName(reference: String) -> String? {
-        guard let fileRef = objects.buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
-        if let variantGroup = objects.variantGroups.filter({ $0.reference == fileRef }).first {
+        guard let fileRef = buildFiles.filter({$0.reference == reference}).first?.fileRef else { return nil }
+        if let variantGroup = variantGroups.filter({ $0.reference == fileRef }).first {
             return variantGroup.name
-        } else if let fileReference = objects.fileReferences.filter({ $0.reference == fileRef}).first {
+        } else if let fileReference = fileReferences.filter({ $0.reference == fileRef}).first {
             return fileReference.path ?? fileReference.name
         }
         return nil
@@ -134,13 +219,13 @@ extension PBXProj {
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
     func fileType(reference: String) -> String? {
-        if objects.frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        if frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return BuildPhase.frameworks.rawValue
-        } else if objects.headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return BuildPhase.headers.rawValue
-        } else if objects.sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return BuildPhase.sources.rawValue
-        } else if objects.resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
+        } else if resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
             return BuildPhase.resources.rawValue
         }
         return nil
@@ -150,25 +235,19 @@ extension PBXProj {
     ///
     /// - Parameter reference: build phase reference.
     /// - Returns: string with the build phase type.
-    func buildPhaseType(from reference: String) -> String? {
-        let sources = objects.sourcesBuildPhases.map {return $0.reference}
-        let frameworks = objects.frameworksBuildPhases.map {return $0.reference}
-        let resources = objects.resourcesBuildPhases.map {return $0.reference}
-        let copyFiles = objects.copyFilesBuildPhases.map {return $0.reference}
-        let runScript = objects.shellScriptBuildPhases.map {return $0.reference}
-        let headers = objects.headersBuildPhases.map {return $0.reference}
-        if sources.contains(reference) {
-            return BuildPhase.sources.rawValue
-        } else if frameworks.contains(reference) {
-            return BuildPhase.frameworks.rawValue
-        } else if resources.contains(reference) {
-            return BuildPhase.resources.rawValue
-        } else if copyFiles.contains(reference) {
-            return BuildPhase.copyFiles.rawValue
-        } else if runScript.contains(reference) {
-            return BuildPhase.runScript.rawValue
-        } else if headers.contains(reference) {
-            return BuildPhase.headers.rawValue
+    func buildPhaseType(from reference: String) -> BuildPhase? {
+        if sourcesBuildPhases.contains(reference: reference) {
+            return .sources
+        } else if frameworksBuildPhases.contains(reference: reference) {
+            return .frameworks
+        } else if resourcesBuildPhases.contains(reference: reference) {
+            return .resources
+        } else if copyFilesBuildPhases.contains(reference: reference) {
+            return .copyFiles
+        } else if shellScriptBuildPhases.contains(reference: reference) {
+            return .runScript
+        } else if headersBuildPhases.contains(reference: reference) {
+            return .headers
         }
         return nil
     }
@@ -183,7 +262,7 @@ public extension PBXProj {
     ///
     /// - Parameter element: project element class.
     /// - Returns: UUID available to be used.
-    public func generateUUID<T: ProjectElement>(for element: T.Type) -> String {
+    public func generateUUID<T: PBXObject>(for element: T.Type) -> String {
         var uuid: String = ""
         var counter: UInt = 0
         let random: String = String.random()
@@ -191,7 +270,7 @@ public extension PBXProj {
         repeat {
             counter += 1
             uuid = String(format: "%08X%08X%08X", className, random, counter)
-        } while(self.objects.map({$0.reference}).contains(uuid))
+        } while(objects.contains(reference: uuid))
         return uuid
     }
 

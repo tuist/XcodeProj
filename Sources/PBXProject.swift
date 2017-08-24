@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for a build target that produces a binary content (application or library).
-public class PBXProject: ProjectElement, PlistSerializable {
+public class PBXProject: PBXObject, Hashable {
 
     // MARK: - Attributes
 
@@ -41,6 +41,7 @@ public class PBXProject: ProjectElement, PlistSerializable {
 
     /// Project attributes.
     public var attributes: [String: Any]
+
 
     // MARK: - Init
 
@@ -129,8 +130,10 @@ public class PBXProject: ProjectElement, PlistSerializable {
             lhs.targets == rhs.targets &&
             NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
     }
+}
 
-    // MARK: - PlistSerializable
+// MARK: - PlistSerializable
+extension PBXProject: PlistSerializable {
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
@@ -172,7 +175,7 @@ public class PBXProject: ProjectElement, PlistSerializable {
     }
 
     private func nativeTarget(from reference: String, proj: PBXProj) -> String? {
-        return proj.objects.nativeTargets
+        return proj.nativeTargets
             .filter { $0.reference == reference }
             .map { $0.name }
             .first

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public class PBXResourcesBuildPhase: PBXBuildPhase {
+public class PBXResourcesBuildPhase: PBXBuildPhase, Hashable {
     
     public static func == (lhs: PBXResourcesBuildPhase,
                            rhs: PBXResourcesBuildPhase) -> Bool {

@@ -2,7 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for listing build configurations.
-public class XCConfigurationList: ProjectElement {
+public class XCConfigurationList: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -59,7 +59,7 @@ extension XCConfigurationList: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { .string(CommentedString($0, comment: proj.objects.configName(from: $0)))
+            .map { .string(CommentedString($0, comment: proj.configName(from: $0)))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
         dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
@@ -69,8 +69,8 @@ extension XCConfigurationList: PlistSerializable {
     }
     
     private func plistComment(proj: PBXProj) -> String? {
-        let project = proj.objects.projects.filter { $0.buildConfigurationList == self.reference }.first
-        let target = proj.objects.nativeTargets.filter { $0.buildConfigurationList == self.reference }.first
+        let project = proj.projects.filter { $0.buildConfigurationList == self.reference }.first
+        let target = proj.nativeTargets.filter { $0.buildConfigurationList == self.reference }.first
         if project != nil {
             return "Build configuration list for PBXProject"
         } else if let target = target {
