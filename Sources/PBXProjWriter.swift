@@ -87,6 +87,17 @@ class PBXProjWriter {
     private func write(commentedString: CommentedString) {
         var string = commentedString.string
 
+        // escape newlines
+        string = string.replacingOccurrences(of: "\n", with: "\\n")
+
+        // escape quotes
+        if string.isQuoted {
+            let range = string.index(after: string.startIndex)..<string.index(before: string.endIndex)
+            string = string.replacingOccurrences(of: "\"", with: "\\\"", options: [], range: range)
+        } else {
+            string = string.replacingOccurrences(of: "\"", with: "\\\"")
+        }
+
         if string.isEmpty || (!string.isQuoted && string.rangeOfCharacter(from: invalidCharacters) != nil) {
             string = string.quoted
         }
