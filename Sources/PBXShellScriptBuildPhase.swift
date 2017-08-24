@@ -50,7 +50,7 @@ public struct PBXShellScriptBuildPhase {
                 name: String,
                 inputPaths: Set<String>,
                 outputPaths: Set<String>,
-                shellPath: String,
+                shellPath: String = "bin/sh",
                 shellScript: String?,
                 buildActionMask: Int = 2147483647) {
         self.reference = reference
