@@ -16,9 +16,8 @@ class PBXProjWriter {
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
-    // swiftlint:disable next force_try legacy_constructor
-    let quotesRequireRegEx = try! NSRegularExpression(pattern: "[<>;&${}\\+\\-=, ]", options: [])
-    
+    let invalidCharacters = CharacterSet.alphanumerics.inverted.subtracting(CharacterSet(charactersIn: "_./"))
+
     func write(proj: PBXProj) -> String {
         writeUtf8()
         writeNewLine()
@@ -88,11 +87,8 @@ class PBXProjWriter {
     private func write(commentedString: CommentedString) {
         var string = commentedString.string
 
-        if !string.isQuoted {
-            let stringRange = NSRange(location: 0, length: string.characters.count)
-            if string.isEmpty || quotesRequireRegEx.firstMatch(in: string, options: [], range: stringRange) != nil {
-                string = string.quoted
-            }
+        if string.isEmpty || (!string.isQuoted && string.rangeOfCharacter(from: invalidCharacters) != nil) {
+            string = string.quoted
         }
 
         if string == "false" {
