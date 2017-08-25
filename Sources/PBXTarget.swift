@@ -72,5 +72,32 @@ public class PBXTarget: PBXObject, Hashable {
             lhs.productReference == rhs.productReference &&
             lhs.productType == rhs.productType
     }
+
+    func plistValues(proj: PBXProj, isa: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["isa"] = .string(CommentedString(isa))
+        let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
+        dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList, comment: buildConfigurationListComment))
+        dictionary["buildPhases"] = .array(buildPhases
+            .map { buildPhase in
+                let comment = proj.buildPhaseType(from: buildPhase)?.rawValue
+                return .string(CommentedString(buildPhase, comment: comment))
+        })
+        dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
+        dictionary["dependencies"] = .array(dependencies.map {.string(CommentedString($0, comment: PBXTargetDependency.isa))})
+        dictionary["name"] = .string(CommentedString(name))
+        if let productName = productName {
+            dictionary["productName"] = .string(CommentedString(productName))
+        }
+        if let productType = productType {
+            dictionary["productType"] = .string(CommentedString("\"\(productType.rawValue)\""))
+        }
+        if let productReference = productReference {
+            let productReferenceComment = proj.buildFileName(reference: productReference)
+            dictionary["productReference"] = .string(CommentedString(productReference, comment: productReferenceComment))
+        }
+        return (key: CommentedString(self.reference, comment: name),
+                value: .dictionary(dictionary))
+    }
     
 }
