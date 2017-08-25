@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ProjectElement Protocol Reference</title>
+    <title>BuildSettings Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/ProjectElement" class="dashAnchor"></a>
-    <a title="ProjectElement Protocol Reference"></a>
+    <a name="//apple_ref/swift/Class/BuildSettings" class="dashAnchor"></a>
+    <a title="BuildSettings Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcodeproj Docs</a> (54% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcodeproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ProjectElement Protocol Reference
+        BuildSettings Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -32,30 +32,25 @@
             <a href="../Models.html">Models</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/BuildSettings.html">BuildSettings</a>
+                <a href="../Classes/BuildSettings.html">BuildSettings</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/XCConfig.html">XCConfig</a>
+                <a href="../Classes/XCConfig.html">XCConfig</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/XCWorkspace.html">XCWorkspace</a>
+                <a href="../Classes/XCWorkspace.html">XCWorkspace</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/XcodeProj.html">XcodeProj</a>
+                <a href="../Classes/XcodeProj.html">XcodeProj</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/PBXNativeTarget.html">PBXNativeTarget</a>
+                <a href="../Models.html#/s:C9xcodeproj15PBXNativeTarget">PBXNativeTarget</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/PBXProj.html">PBXProj</a>
+                <a href="../Classes/PBXProj.html">PBXProj</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Protocols.html">Protocols</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/ProjectElement.html">ProjectElement</a>
+                <a href="../Classes/PBXObject.html">PBXObject</a>
               </li>
             </ul>
           </li>
@@ -97,9 +92,6 @@
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Other Extensions.html#/s:Sa">Array</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Extensions/Bool.html">Bool</a>
               </li>
               <li class="nav-group-task">
@@ -107,9 +99,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/PlistValue.html">PlistValue</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Other Extensions.html#/s:SS">String</a>
               </li>
             </ul>
           </li>
@@ -134,25 +123,32 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ProjectElement</h1>
+            <h1>BuildSettings</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ProjectElement</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BuildSettings</span><span class="p">:</span> <span class="kt">ExpressibleByDictionaryLiteral</span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol that represents a project element.</p>
+            <p>Represents the Xcode build settings.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Init"></a>
+                <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                <a href="#/Init">
+                  <h3 class="section-name">Init</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZvP9xcodeproj14ProjectElement3isaSS"></a>
-                    <a name="//apple_ref/swift/Variable/isa" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvP9xcodeproj14ProjectElement3isaSS">isa</a>
+                    <a name="/s:FC9xcodeproj13BuildSettingscFT10dictionaryGVs10DictionarySSP___S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(dictionary:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9xcodeproj13BuildSettingscFT10dictionaryGVs10DictionarySSP___S0_">init(dictionary:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -160,73 +156,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>String with the element name.</p>
+                        <p>Initializes the build settings with the dictionary that contains all the settings.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">isa</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vP9xcodeproj14ProjectElement9referenceSS"></a>
-                    <a name="//apple_ref/swift/Property/reference" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vP9xcodeproj14ProjectElement9referenceSS">reference</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Element unique reference.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FP9xcodeproj14ProjectElementcFzT9referenceSS10dictionaryGVs10DictionarySSP___x"></a>
-                    <a name="//apple_ref/swift/Method/init(reference:dictionary:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP9xcodeproj14ProjectElementcFzT9referenceSS10dictionaryGVs10DictionarySSP___x">init(reference:dictionary:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Constructor that initializes the project element with the reference and a dictionary with its properties.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    throws an error in case any of the propeties are missing or they have the wrong type.
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="nf">init</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">dictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">dictionary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -237,24 +174,157 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>reference</em>
+                                <em>dictionary</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>element reference.</p>
+                                  <p>build settings dictionary.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public"></a>
+                <a name="//apple_ref/swift/Section/Public" class="dashAnchor"></a>
+                <a href="#/Public">
+                  <h3 class="section-name">Public</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:iC9xcodeproj13BuildSettings9subscriptFSSGSqP__"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:iC9xcodeproj13BuildSettings9subscriptFSSGSqP__">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the value for a given setting.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>setting whose value will be returned.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FPs30ExpressibleByDictionaryLiteralcFt17dictionaryLiteralGSaTwx3Keywx5Value___x"></a>
+                    <a name="//apple_ref/swift/Method/init(dictionaryLiteral:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FPs30ExpressibleByDictionaryLiteralcFt17dictionaryLiteralGSaTwx3Keywx5Value___x">init(dictionaryLiteral:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">dictionaryLiteral</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">(</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span><span class="o">...</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFPs9Equatableoi2eeFTxx_Sb"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFPs9Equatableoi2eeFTxx_Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">BuildSettings</span><span class="p">,</span>
+                           <span class="nv">rhs</span><span class="p">:</span> <span class="kt">BuildSettings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>dictionary</em>
+                                <em>rhs</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>dictionary with the element properties.</p>
+                                  
                                 </div>
                               </td>
                             </tr>
@@ -270,7 +340,7 @@
         </section>
         <section id="footer">
           <p>Copyright © 2017 Caramba. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

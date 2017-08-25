@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Writable Protocol Reference</title>
+    <title>PBXObject Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/Writable" class="dashAnchor"></a>
-    <a title="Writable Protocol Reference"></a>
+    <a name="//apple_ref/swift/Class/PBXObject" class="dashAnchor"></a>
+    <a title="PBXObject Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcodeproj Docs</a> (54% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcodeproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Writable Protocol Reference
+        PBXObject Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -123,14 +123,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Writable</h1>
+            <h1>PBXObject</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Writable</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXObject</span><span class="p">:</span> <span class="kt">Referenceable</span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol that defines how an entity can be writed into disk</p>
+            <p>Class that represents a project element.</p>
 
           </section>
           <section class="section task-group-section">
@@ -139,9 +139,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP9xcodeproj8Writable5writeFzT4pathV7PathKit4Path8overrideSb_T_"></a>
-                    <a name="//apple_ref/swift/Method/write(path:override:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP9xcodeproj8Writable5writeFzT4pathV7PathKit4Path8overrideSb_T_">write(path:override:)</a>
+                    <a name="/s:vC9xcodeproj9PBXObject9referenceSS"></a>
+                    <a name="//apple_ref/swift/Property/reference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC9xcodeproj9PBXObject9referenceSS">reference</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -149,52 +149,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Writes the object that conforms the protocol.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    writing error if something goes wrong.
-
-</div>
+                        <p>Element unique reference.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>path</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The path to write to</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>override</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>True if the content should be overriden if it already exists.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
