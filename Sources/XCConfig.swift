@@ -21,7 +21,7 @@ public class XCConfig {
     /// - Parameters:
     ///   - includes: all the .xcconfig file includes. The order determines how the values get overriden.
     ///   - dictionary: dictionary that contains the config.
-    public init(includes: [XCConfigInclude], buildSettings: BuildSettings) {
+    public init(includes: [XCConfigInclude], buildSettings: BuildSettings = [:]) {
         self.includes = includes
         self.buildSettings = buildSettings
     }
@@ -39,7 +39,7 @@ public class XCConfig {
         fileLines
             .flatMap(XCConfig.settingFrom)
             .forEach { buildSettings[$0.key] = $0.value }
-        self.buildSettings = BuildSettings(dictionary: buildSettings)
+        self.buildSettings = buildSettings
     }
 
     /// Given the path the line is being parsed from, it returns a function that parses a line,
@@ -109,7 +109,7 @@ extension XCConfig: Equatable {
                 return false
             }
         }
-        return lhs.buildSettings == rhs.buildSettings
+        return NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
 
 }
@@ -122,17 +122,17 @@ extension XCConfig {
     ///
     /// - Returns: build settings flattening all the includes.
     public func flattenedBuildSettings() -> BuildSettings {
-        var content: [String: Any] = buildSettings.dictionary
+        var content: [String: Any] = buildSettings
         includes
             .map { $0.1 }
             .flattened()
-            .map { $0.buildSettings.dictionary }
+            .map { $0.buildSettings }
             .forEach { (configDictionary) in
                 configDictionary.forEach { (key, value) in
                     if content[key] == nil { content[key] = value }
                 }
         }
-        return BuildSettings(dictionary: content)
+        return content
     }
 
 }
@@ -163,7 +163,7 @@ extension XCConfig: Writable {
 
     private func writeBuildSettings() -> String {
         var content = ""
-        buildSettings.dictionary.forEach { (key, value) in
+        buildSettings.forEach { (key, value) in
             content.append("\(key) = \(value)\n")
         }
         content.append("\n")

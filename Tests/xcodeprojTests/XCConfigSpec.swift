@@ -8,22 +8,22 @@ final class XCConfigSpec: XCTestCase {
     var subject: XCConfig?
     
     func test_init_initializesTheConfigWithTheRightAttributes() {
-        let configA = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: [:]))
-        let configB = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: [:]))
+        let configA = XCConfig(includes: [])
+        let configB = XCConfig(includes: [])
         let config = XCConfig(includes: [(Path("testA"), configA),
                                          (Path("testB"), configB)],
-                              buildSettings: BuildSettings(dictionary: ["a": "b"]))
-        XCTAssertEqual(config.buildSettings.dictionary as! [String: String], ["a": "b"])
+                              buildSettings: ["a": "b"])
+        XCTAssertEqual(config.buildSettings as! [String: String], ["a": "b"])
         XCTAssertEqual(config.includes[0].config, configA)
         XCTAssertEqual(config.includes[1].config, configB)
     }
     
     func test_flattened_flattensTheConfigCorrectly() {
-        let configA = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: ["a": "1"]))
-        let configB = XCConfig(includes: [], buildSettings: BuildSettings(dictionary: ["a": "2"]))
+        let configA = XCConfig(includes: [], buildSettings: ["a": "1"])
+        let configB = XCConfig(includes: [], buildSettings: ["a": "2"])
         let config = XCConfig(includes: [(Path("testA"), configA),
                                          (Path("testB"), configB)],
-                              buildSettings: BuildSettings(dictionary: ["b": "3"]))
+                              buildSettings: ["b": "3"])
         let buildSettings = config.flattenedBuildSettings()
         XCTAssertEqual(buildSettings["a"] as? String, "2")
         XCTAssertEqual(buildSettings["b"] as? String, "3")
