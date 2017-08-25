@@ -1,3 +1,7 @@
+## 0.1.1
+- Change `BuildSettings` to `[String: Any]` https://github.com/carambalabs/xcodeproj/pull/52 by @yonaskolb
+- Plist fixes https://github.com/carambalabs/xcodeproj/pull/54 by @yonaskolb
+
 ## 0.1.0
 - Update struct to classes and clean up API https://github.com/carambalabs/xcodeproj/pull/51 by @yonaskolb
 - Fix and cleanup strings escaping https://github.com/carambalabs/xcodeproj/pull/48 by @yonaskolb
