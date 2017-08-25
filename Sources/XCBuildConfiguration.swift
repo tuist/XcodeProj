@@ -39,13 +39,13 @@ public class XCBuildConfiguration: PBXObject, Hashable {
         return lhs.reference == rhs.reference &&
             lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
             lhs.name == rhs.name &&
-            NSDictionary(dictionary: lhs.buildSettings.dictionary).isEqual(to: rhs.buildSettings.dictionary)
+            NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
     
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = BuildSettings(dictionary: (dictionary["buildSettings"] as? [String: Any]) ?? [:])
+        self.buildSettings = (dictionary["buildSettings"] as? BuildSettings) ?? [:]
         self.name = try unboxer.unbox(key: "name")
         try super.init(reference: reference, dictionary: dictionary)
     }
@@ -60,7 +60,7 @@ extension XCBuildConfiguration: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
-        dictionary["buildSettings"] = buildSettings.dictionary.plist()
+        dictionary["buildSettings"] = buildSettings.plist()
         if let baseConfigurationReference = baseConfigurationReference {
             let filename = proj.fileName(from: baseConfigurationReference)
             dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference, comment: filename))
