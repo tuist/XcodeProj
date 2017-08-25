@@ -309,6 +309,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXProj.swift",
+      "line": 106,
+      "symbol": "PBXProj.addObject(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXProject.swift",
       "line": 5,
       "symbol": "PBXProject",

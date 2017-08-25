@@ -1,7 +1,7 @@
-<img width="300" src="https://github.com/carambalabs/xcodeproj/blob/master/Assets/logo.png?raw=true"/>
+<img width="300" src="https://github.com/swift-xcode/xcodeproj/blob/master/Assets/logo.png?raw=true"/>
 
-<a href="https://travis-ci.org/carambalabs/xcodeproj">
-    <img src="https://travis-ci.org/carambalabs/xcodeproj.svg?branch=master">
+<a href="https://travis-ci.org/swift-xcode/xcodeproj">
+    <img src="https://travis-ci.org/swift-xcode/xcodeproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
@@ -30,7 +30,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 
 ### Contribute 👨‍👩‍👧
 
-1. Git clone the repository `git@github.com:carambalabs/xcodeproj.git`.
+1. Git clone the repository `git@github.com:swift-xcode/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
 ### Setup 🦋
@@ -43,7 +43,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .Package(url: "https://github.com/carambalabs/xcodeproj.git", majorVersion: 0, minor: 0)
+        .Package(url: "https://github.com/swift-xcode/xcodeproj.git", majorVersion: 0, minor: 0)
     ]
 )
 
@@ -54,7 +54,7 @@ let package = Package(
 Edit your `Marathonfile` and specify the dependency in there:
 
 ```bash
-https://github.com/carambalabs/xcodeproj.git
+https://github.com/swift-xcode/xcodeproj.git
 ```
 
 #### Using [CocoaPods](https://cocoapods.org)
@@ -98,7 +98,7 @@ xcconfig.write(override: true)
 ```
 
 ### Documentation 📄
-You can check out the documentation on the following [link](https://carambalabs.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://swift-xcode.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ### References 📚
 
@@ -117,24 +117,12 @@ You can check out the documentation on the following [link](https://carambalabs.
 
 [<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 
-## About
-
-<img src="https://github.com/carambalabs/Foundation/blob/master/ASSETS/logo-salmon.png?raw=true" width="200" />
-
-This project is funded and maintained by [Caramba](http://caramba.io). We 💛 open source software!
-
-Check out our other [open source projects](https://github.com/carambalabs/), read our [blog](http://blog.caramba.io) or say :wave: on twitter [@carambalabs](http://twitter.com/carambalabs).
-
-## Contribute
-
-Contributions are welcome :metal: We encourage developers like you to help us improve the projects we've shared with the community. Please see the [Contributing Guide](https://github.com/carambalabs/Foundation/blob/master/CONTRIBUTING.md) and the [Code of Conduct](https://github.com/carambalabs/Foundation/blob/master/CONDUCT.md).
-
 ### License
 
 ```
 MIT License
 
-Copyright (c) 2017 Caramba
+Copyright (c) 2017 swift-code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

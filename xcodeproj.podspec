@@ -2,11 +2,10 @@ Pod::Spec.new do |s|
   s.name             = "xcodeproj"
   s.version          = "0.1.1"
   s.summary          = "Read/Modify/Write your Xcode projects"
-  s.homepage         = "https://github.com/carambalabs/xcodeproj"
+  s.homepage         = "https://github.com/swift-xcode/xcodeproj"
   s.license          = 'MIT'
   s.author           = "Pedro Pinñera", "Yonas Kolb"
-  s.source           = { :git => "https://github.com/carambalabs/xcodeproj.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/carambalabsEng'
+  s.source           = { :git => "https://github.com/swift-xcode/xcodeproj.git", :tag => s.version.to_s }
   s.requires_arc = true
 
   s.platform = :osx
