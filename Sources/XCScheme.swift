@@ -4,11 +4,11 @@ import PathKit
 import AEXML
 
 // swiftlint:disable:next type_body_length
-public struct XCScheme {
+public class XCScheme {
 
     // MARK: - BuildableReference
 
-    public struct BuildableReference {
+    public class BuildableReference {
         public var referencedContainer: String
         public var blueprintIdentifier: String
         public var buildableName: String
@@ -61,7 +61,7 @@ public struct XCScheme {
         }
     }
 
-    public struct TestableReference {
+    public class TestableReference {
         public var skipped: Bool
         public var buildableReference: BuildableReference
         public init(skipped: Bool,
@@ -82,7 +82,7 @@ public struct XCScheme {
         }
     }
 
-    public struct LocationScenarioReference {
+    public class LocationScenarioReference {
         public var identifier: String
         public var referenceType: String
         public init(identifier: String, referenceType: String) {
@@ -101,7 +101,7 @@ public struct XCScheme {
         }
     }
 
-    public struct BuildableProductRunnable {
+    public class BuildableProductRunnable {
         public var runnableDebuggingMode: String
         public var buildableReference: BuildableReference
         public init(buildableReference: BuildableReference,
@@ -124,9 +124,9 @@ public struct XCScheme {
 
     // MARK: - Build Action
 
-    public struct BuildAction {
+    public class BuildAction {
 
-        public struct Entry {
+        public class Entry {
 
             public enum BuildFor {
                 case running, testing, profiling, archiving, analyzing
@@ -218,7 +218,7 @@ public struct XCScheme {
         }
     }
 
-    public struct LaunchAction {
+    public class LaunchAction {
 
         public enum Style: String {
             case auto = "0"
@@ -313,7 +313,7 @@ public struct XCScheme {
         }
     }
 
-    public struct ProfileAction {
+    public class ProfileAction {
         public var buildableProductRunnable: BuildableProductRunnable
         public var buildConfiguration: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
@@ -360,7 +360,7 @@ public struct XCScheme {
         }
     }
 
-    public struct TestAction {
+    public class TestAction {
         public var testables: [TestableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
@@ -416,7 +416,7 @@ public struct XCScheme {
         }
     }
 
-    public struct AnalyzeAction {
+    public class AnalyzeAction {
         public var buildConfiguration: String
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
@@ -434,7 +434,7 @@ public struct XCScheme {
         }
     }
 
-    public struct ArchiveAction {
+    public class ArchiveAction {
         public var buildConfiguration: String
         public var revealArchiveInOrganizer: Bool
         public var customArchiveName: String?

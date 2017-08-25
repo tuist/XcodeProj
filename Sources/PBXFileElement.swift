@@ -2,13 +2,10 @@ import Foundation
 import Unbox
 
 // This element is an abstract parent for file and group elements.
-public struct PBXFileElement {
+public class PBXFileElement: PBXObject, Hashable {
     
     // MARK: - Attributes
 
-    /// Element reference.
-    public var reference: String
-    
     /// Element source tree.
     public var sourceTree: PBXSourceTree
     
@@ -30,19 +27,11 @@ public struct PBXFileElement {
                 sourceTree: PBXSourceTree,
                 path: String,
                 name: String) {
-        self.reference = reference
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
+        super.init(reference: reference)
     }
-    
-}
-
-// MARK: - PBXFileElement Extension (ProjectElement)
-
-extension PBXFileElement: ProjectElement {
-    
-    public static var isa: String = "PBXFileElement"
     
     public static func == (lhs: PBXFileElement,
                            rhs: PBXFileElement) -> Bool {
@@ -52,14 +41,12 @@ extension PBXFileElement: ProjectElement {
             lhs.name == rhs.name
     }
     
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.path = try unboxer.unbox(key: "path")
         self.name = try unboxer.unbox(key: "name")
+        try super.init(reference: reference, dictionary: dictionary)
     }
 }
 

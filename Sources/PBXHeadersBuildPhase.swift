@@ -3,36 +3,15 @@ import Unbox
 import PathKit
 
 // This is the element for the framewrok link build phase.
-public struct PBXHeadersBuildPhase {
+public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
     
-    /// Element reference.
-    public var reference: String
-    
-    /// Element build action mask
-    public var buildActionMask: UInt
-    
-    /// Element files.
-    public var files: Set<String>
-    
-    /// Element runOnlyForDeploymentPostprocessing
-    public var runOnlyForDeploymentPostprocessing: UInt
-    
-    // MARK: - Init
-    
-    /// Initializes the headers build phase element with the reference and a dictionary that contains its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: element dictionary that contains the properties.
-    /// - Throws: an error if any of the attributes is missing or has the wrong type.
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.files = try unboxer.unbox(key: "files")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
+    public static func == (lhs: PBXHeadersBuildPhase,
+                           rhs: PBXHeadersBuildPhase) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (Extras)
@@ -56,33 +35,6 @@ extension PBXHeadersBuildPhase {
         return headersExtensions.contains(fileExtension)
     }
     
-}
-
-// MARK: - PBXHeadersBuildPhase Extension (ProjectElement)
-
-extension PBXHeadersBuildPhase: ProjectElement {
-    
-    public static var isa: String = "PBXHeadersBuildPhase"
-
-    public static func == (lhs: PBXHeadersBuildPhase,
-                           rhs: PBXHeadersBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
-    public init(reference: String,
-                buildActionMask: UInt = 2147483647,
-                files: Set<String> = Set(),
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
-        self.reference = reference
-        self.buildActionMask = buildActionMask
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-    }
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (PlistSerializable)

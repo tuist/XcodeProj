@@ -3,7 +3,7 @@ import Unbox
 import PathKit
 
 /// Model that represents a Xcode workspace.
-public struct XCWorkspace {
+public class XCWorkspace {
 
     /// Workspace data
     public var data: XCWorkspace.Data

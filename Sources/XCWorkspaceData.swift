@@ -6,7 +6,7 @@ import AEXML
 // MARK: - XCWorkspace model
 public extension XCWorkspace {
 
-    public struct Data: Equatable, Writable {
+    public class Data: Equatable, Writable {
 
         public enum FileRef: Hashable, ExpressibleByStringLiteral, CustomStringConvertible {
             case project(path: Path)

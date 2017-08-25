@@ -2,15 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for referencing localized resources.
-public struct PBXVariantGroup: ProjectElement, PlistSerializable {
+public class PBXVariantGroup: PBXObject, Hashable {
     
     // MARK: - Attributes
-    
-    // Variant group reference.
-    public var reference: String
-    
-    // Variant group isa.
-    public static var isa: String = "PBXVariantGroup"
     
     // The objects are a reference to a PBXFileElement element
     public var children: Set<String>
@@ -34,10 +28,10 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
                 children: Set<String>,
                 name: String,
                 sourceTree: PBXSourceTree) {
-        self.reference = reference
         self.children = children
         self.name = name
         self.sourceTree = sourceTree
+        super.init(reference: reference)
     }
     
     /// Initializes the variant group with the element reference an a dictionary with its properties.
@@ -46,12 +40,12 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: an error in case any property is missing or the format is wrong.
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.children = try unboxer.unbox(key: "children")
         self.name = try unboxer.unbox(key: "name")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
+        try super.init(reference: reference, dictionary: dictionary)
     }
     
     // MARK: - Hashable
@@ -63,18 +57,18 @@ public struct PBXVariantGroup: ProjectElement, PlistSerializable {
         lhs.name == rhs.name &&
         lhs.sourceTree == rhs.sourceTree
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
+}
 
-    // MARK: - PlistSerializable
-    
+// MARK: - PlistSerializable
+extension PBXVariantGroup: PlistSerializable {
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["sourceTree"] = sourceTree.plist()
         dictionary["children"] = .array(children
-            .map({PlistValue.string(CommentedString($0, comment: proj.objects.fileName(from: $0)))}))
+            .map({PlistValue.string(CommentedString($0, comment: proj.fileName(from: $0)))}))
         return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))

@@ -10,7 +10,7 @@ final class PBXProjSpec: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        object = PBXObject.pbxBuildFile(PBXBuildFile(reference: "ref", fileRef: "333"))
+        object = PBXBuildFile(reference: "ref", fileRef: "333")
         subject = PBXProj(archiveVersion: 1,
                           objectVersion: 46,
                           rootObject: "root",
@@ -57,24 +57,24 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.archiveVersion, 1)
         XCTAssertEqual(proj.objectVersion, 46)
         XCTAssertEqual(proj.classes.count, 0)
-        XCTAssertEqual(proj.objects.buildFiles.count, 10)
-        XCTAssertEqual(proj.objects.aggregateTargets.count, 0)
-        XCTAssertEqual(proj.objects.containerItemProxies.count, 1)
-        XCTAssertEqual(proj.objects.copyFilesBuildPhases.count, 1)
-        XCTAssertEqual(proj.objects.groups.count, 5)
-        XCTAssertEqual(proj.objects.fileElements.count, 0)
-        XCTAssertEqual(proj.objects.configurationLists.count, 3)
-        XCTAssertEqual(proj.objects.buildConfigurations.count, 6)
-        XCTAssertEqual(proj.objects.variantGroups.count, 2)
-        XCTAssertEqual(proj.objects.targetDependencies.count, 1)
-        XCTAssertEqual(proj.objects.sourcesBuildPhases.count, 2)
-        XCTAssertEqual(proj.objects.shellScriptBuildPhases.count, 1)
-        XCTAssertEqual(proj.objects.resourcesBuildPhases.count, 2)
-        XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
-        XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
-        XCTAssertEqual(proj.objects.nativeTargets.count, 2)
-        XCTAssertEqual(proj.objects.fileReferences.count, 14)
-        XCTAssertEqual(proj.objects.projects.count, 1)
+        XCTAssertEqual(proj.buildFiles.count, 10)
+        XCTAssertEqual(proj.aggregateTargets.count, 0)
+        XCTAssertEqual(proj.containerItemProxies.count, 1)
+        XCTAssertEqual(proj.copyFilesBuildPhases.count, 1)
+        XCTAssertEqual(proj.groups.count, 5)
+        XCTAssertEqual(proj.fileElements.count, 0)
+        XCTAssertEqual(proj.configurationLists.count, 3)
+        XCTAssertEqual(proj.buildConfigurations.count, 6)
+        XCTAssertEqual(proj.variantGroups.count, 2)
+        XCTAssertEqual(proj.targetDependencies.count, 1)
+        XCTAssertEqual(proj.sourcesBuildPhases.count, 2)
+        XCTAssertEqual(proj.shellScriptBuildPhases.count, 1)
+        XCTAssertEqual(proj.resourcesBuildPhases.count, 2)
+        XCTAssertEqual(proj.frameworksBuildPhases.count, 2)
+        XCTAssertEqual(proj.headersBuildPhases.count, 1)
+        XCTAssertEqual(proj.nativeTargets.count, 2)
+        XCTAssertEqual(proj.fileReferences.count, 14)
+        XCTAssertEqual(proj.projects.count, 1)
     }
     
 }

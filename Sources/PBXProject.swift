@@ -2,13 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for a build target that produces a binary content (application or library).
-public struct PBXProject: ProjectElement, PlistSerializable {
+public class PBXProject: PBXObject, Hashable {
 
     // MARK: - Attributes
-
-    public var reference: String
-
-    public static var isa: String = "PBXProject"
 
     // The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
@@ -46,6 +42,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     /// Project attributes.
     public var attributes: [String: Any]
 
+
     // MARK: - Init
 
     /// Initializes the project with its attributes
@@ -77,7 +74,6 @@ public struct PBXProject: ProjectElement, PlistSerializable {
                 projectRoot: String? = nil,
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
-        self.reference = reference
         self.buildConfigurationList = buildConfigurationList
         self.compatibilityVersion = compatibilityVersion
         self.mainGroup = mainGroup
@@ -90,6 +86,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.projectRoot = projectRoot
         self.targets = targets
         self.attributes = attributes
+        super.init(reference: reference)
     }
 
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
@@ -98,8 +95,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
     ///   - reference: element reference.
     ///   - dictionary: dictionary with the element properties.
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
         self.compatibilityVersion = try unboxer.unbox(key: "compatibilityVersion")
@@ -113,6 +109,7 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         self.projectRoot = unboxer.unbox(key: "projectRoot")
         self.targets = (unboxer.unbox(key: "targets")) ?? []
         self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
+        try super.init(reference: reference, dictionary: dictionary)
     }
 
     // MARK: - Hashable
@@ -133,10 +130,10 @@ public struct PBXProject: ProjectElement, PlistSerializable {
             lhs.targets == rhs.targets &&
             NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
     }
+}
 
-    public var hashValue: Int { return self.reference.hashValue }
-
-    // MARK: - PlistSerializable
+// MARK: - PlistSerializable
+extension PBXProject: PlistSerializable {
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
@@ -168,20 +165,12 @@ public struct PBXProject: ProjectElement, PlistSerializable {
         }
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
-                return .string(CommentedString(target,
-                                                           comment: nativeTarget(from: target, proj: proj)))
+                return .string(CommentedString(target, comment: proj.nativeTargets.getReference(target)?.name))
         })
         dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(self.reference,
                                                  comment: "Project object"),
                 value: .dictionary(dictionary))
-    }
-
-    private func nativeTarget(from reference: String, proj: PBXProj) -> String? {
-        return proj.objects.nativeTargets
-            .filter { $0.reference == reference }
-            .map { $0.name }
-            .first
     }
 
 }

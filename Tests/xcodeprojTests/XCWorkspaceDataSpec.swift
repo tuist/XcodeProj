@@ -40,9 +40,9 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
     func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { try? XCWorkspace.Data(path: $0) },
-                  modify: { var modified = $0
-                    modified.references.append( .file(path: "shakira"))
-                    return modified
+                  modify: {
+                    $0.references.append( .file(path: "shakira"))
+                    return $0
                     }) { (before, after) in
                     XCTAssertTrue(after.references.filter{ $0.description.contains("shakira")}.count == 1)
         }

@@ -2,18 +2,9 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXShellScriptBuildPhase {
+public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     // MARK: - Attributes
-
-    /// Element reference.
-    public var reference: String
-
-    /// Files references.
-    public var files: Set<String>
-
-    /// Build action mask.
-    public var buildActionMask: Int
 
     /// Build phase name.
     public var name: String
@@ -23,9 +14,6 @@ public struct PBXShellScriptBuildPhase {
 
     /// Output paths
     public var outputPaths: Set<String>
-
-    /// Run only for deployment post processing attribute.
-    public var runOnlyForDeploymentPostprocessing: Int
 
     /// Path to the shell.
     public var shellPath: String
@@ -52,17 +40,37 @@ public struct PBXShellScriptBuildPhase {
                 outputPaths: Set<String>,
                 shellPath: String = "bin/sh",
                 shellScript: String?,
-                buildActionMask: Int = 2147483647,
-                runOnlyForDeploymentPostprocessing: Int = 0) {
-        self.reference = reference
-        self.files = files
+                buildActionMask: UInt = 2147483647,
+                runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
         self.shellPath = shellPath
         self.shellScript = shellScript
-        self.buildActionMask = buildActionMask
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
+        super.init(reference: reference, files: files, buildActionMask: buildActionMask, runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
+    }
+
+    public override init(reference: String, dictionary: [String: Any]) throws {
+        let unboxer = Unboxer(dictionary: dictionary)
+        self.name = try unboxer.unbox(key: "name")
+        self.inputPaths = (unboxer.unbox(key: "inputPaths")) ?? []
+        self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
+        self.shellPath = try unboxer.unbox(key: "shellPath")
+        self.shellScript = unboxer.unbox(key: "shellScript")
+        try super.init(reference: reference, dictionary: dictionary)
+    }
+
+    public static func == (lhs: PBXShellScriptBuildPhase,
+                           rhs: PBXShellScriptBuildPhase) -> Bool {
+        return lhs.reference == rhs.reference &&
+            lhs.buildActionMask == rhs.buildActionMask &&
+            lhs.files == rhs.files &&
+            lhs.name == rhs.name &&
+            lhs.inputPaths == rhs.inputPaths &&
+            lhs.outputPaths == rhs.outputPaths &&
+            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
+            lhs.shellPath == rhs.shellPath &&
+            lhs.shellScript == rhs.shellScript
     }
 
 }
@@ -88,41 +96,5 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
                                                  comment: "Run Script"),
                 value: .dictionary(dictionary))
     }
-
-}
-
-// MARK: - PBXShellScriptBuildPhase Extension (ProjectElement)
-
-extension PBXShellScriptBuildPhase: ProjectElement {
-
-    public static var isa: String = "PBXShellScriptBuildPhase"
-
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        self.name = try unboxer.unbox(key: "name")
-        self.inputPaths = (unboxer.unbox(key: "inputPaths")) ?? []
-        self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
-        self.shellPath = try unboxer.unbox(key: "shellPath")
-        self.shellScript = unboxer.unbox(key: "shellScript")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.runOnlyForDeploymentPostprocessing = unboxer.unbox(key: "runOnlyForDeploymentPostprocessing") ?? 0
-    }
-
-    public static func == (lhs: PBXShellScriptBuildPhase,
-                           rhs: PBXShellScriptBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.name == rhs.name &&
-            lhs.inputPaths == rhs.inputPaths &&
-            lhs.outputPaths == rhs.outputPaths &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
-            lhs.shellPath == rhs.shellPath &&
-            lhs.shellScript == rhs.shellScript
-    }
-
-    public var hashValue: Int { return self.reference.hashValue }
 
 }

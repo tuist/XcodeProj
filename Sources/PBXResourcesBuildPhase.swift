@@ -2,51 +2,7 @@ import Foundation
 import Unbox
 
 // This is the element for the resources copy build phase.
-public struct PBXResourcesBuildPhase {
-    
-    /// Element reference
-    public var reference: String
-    
-    /// Element build action mask.
-    public var buildActionMask: Int
-    
-    /// Element files.
-    public var files: Set<String>
-    
-    /// Element run only for deployment post processing value.
-    public var runOnlyForDeploymentPostprocessing: Int
-    
-    /// Initializes the resources build phase with its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - files: element files.
-    ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing value.
-    public init(reference: String,
-                files: Set<String>,
-                runOnlyForDeploymentPostprocessing: Int = 0,
-                buildActionMask: Int = 2147483647) {
-        self.reference = reference
-        self.files = files
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-        self.buildActionMask = buildActionMask
-    }
-    
-}
-
-// MARK: - PBXResourcesBuildPhase Extension (ProjectElement)
-
-extension PBXResourcesBuildPhase: ProjectElement {
-    
-    public static var isa: String = "PBXResourcesBuildPhase"
-
-    public init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = (unboxer.unbox(key: "files")) ?? []
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-    }
+public class PBXResourcesBuildPhase: PBXBuildPhase, Hashable {
     
     public static func == (lhs: PBXResourcesBuildPhase,
                            rhs: PBXResourcesBuildPhase) -> Bool {
@@ -55,9 +11,7 @@ extension PBXResourcesBuildPhase: ProjectElement {
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
-    
-    public var hashValue: Int { return self.reference.hashValue }
-    
+
 }
 
 // MARK: - PBXResourcesBuildPhase Extension (PlistSerializable)

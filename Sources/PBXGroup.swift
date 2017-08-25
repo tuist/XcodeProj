@@ -1,12 +1,9 @@
 import Foundation
 import Unbox
 
-public struct PBXGroup {
+public class PBXGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
-
-    /// Element reference.
-    public var reference: String
 
     /// Element children.
     public var children: [String]
@@ -35,20 +32,12 @@ public struct PBXGroup {
                 sourceTree: PBXSourceTree,
                 name: String? = nil,
                 path: String? = nil) {
-        self.reference = reference
         self.children = children
         self.name = name
         self.sourceTree = sourceTree
         self.path = path
+        super.init(reference: reference)
     }
-
-}
-
-// MARK: - PBXGroup Extension (ProjectElement)
-
-extension PBXGroup: ProjectElement {
-
-    public static var isa: String = "PBXGroup"
 
     public static func == (lhs: PBXGroup,
                            rhs: PBXGroup) -> Bool {
@@ -59,15 +48,13 @@ extension PBXGroup: ProjectElement {
             lhs.path == rhs.path
     }
 
-    public var hashValue: Int { return self.reference.hashValue }
-
-    public init(reference: String, dictionary: [String : Any]) throws {
-        self.reference = reference
+    public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.children = try unboxer.unbox(key: "children")
         self.name = unboxer.unbox(key: "name")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.path = unboxer.unbox(key: "path")
+        try super.init(reference: reference, dictionary: dictionary)
     }
 }
 
@@ -95,14 +82,11 @@ extension PBXGroup: PlistSerializable {
     }
 
     fileprivate func name(reference: String, proj: PBXProj) -> String? {
-        let group = proj.objects.groups.filter({ $0.reference == reference }).first
-        let variantGroup = proj.objects.variantGroups.filter({ $0.reference == reference }).first
-        let file = proj.objects.fileReferences.filter({ $0.reference == reference }).first
-        if let group = group {
+        if let group = proj.groups.getReference(reference) {
             return group.name ?? group.path
-        } else if let variantGroup = variantGroup {
+        } else if let variantGroup = proj.variantGroups.getReference(reference) {
             return variantGroup.name
-        } else if let file = file {
+        } else if let file = proj.fileReferences.getReference(reference) {
             return file.name ?? file.path
         }
         return nil

@@ -1,7 +1,7 @@
 import Foundation
 
-/// Struct that represents the Xcode build settings.
-public struct BuildSettings {
+/// Represents the Xcode build settings.
+public class BuildSettings: ExpressibleByDictionaryLiteral {
     
     // MARK: - Attributes
     
@@ -29,6 +29,12 @@ public struct BuildSettings {
             self.dictionary[key] = newValue
         }
     }
+
+    public required convenience init(dictionaryLiteral elements: (String, String)...) {
+        var dictionary: [String: String] = [:]
+        elements.forEach { dictionary[$0.0] = $0.1 }
+        self.init(dictionary: dictionary)
+    }
     
 }
 
@@ -40,18 +46,6 @@ extension BuildSettings: Equatable {
                            rhs: BuildSettings) -> Bool {
         return NSDictionary(dictionary: lhs.dictionary)
             .isEqual(to: NSDictionary(dictionary: rhs.dictionary))
-    }
-    
-}
-
-// MARK: - BuildSettings Extension (ExpressibleByDictionaryLiteral)
-
-extension BuildSettings: ExpressibleByDictionaryLiteral {
-    
-    public init(dictionaryLiteral elements: (String, String)...) {
-        var dictionary: [String: String] = [:]
-        elements.forEach { dictionary[$0.0] = $0.1 }
-        self.dictionary = dictionary
     }
     
 }
