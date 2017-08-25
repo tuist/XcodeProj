@@ -42,17 +42,9 @@ extension PBXHeadersBuildPhase {
 extension PBXHeadersBuildPhase: PlistSerializable {
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXHeadersBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["files"] = .array(files.map({ (fileReference) -> PlistValue in
-            let comment = proj.buildFileName(reference: reference).flatMap({"\($0) in Headers"})
-            return .string(CommentedString(fileReference, comment: comment))
-        }))
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: CommentedString(self.reference,
-                                                 comment: "Frameworks"),
-                value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: "Frameworks"), value: .dictionary(dictionary))
     }
     
 }

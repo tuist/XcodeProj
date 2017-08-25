@@ -20,22 +20,9 @@ extension PBXSourcesBuildPhase: PlistSerializable {
     // MARK: - PlistSerializable
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["files"] = .array(files.map { file in
-            var comment: String? = nil
-            if let buildFile = proj.buildFiles.getReference(file),
-                let fileString = proj.fileReferences.getReference(buildFile.reference)?.path {
-                comment = "\(fileString) in Sources"
-            }
-            return PlistValue.string(CommentedString(file, comment: comment))
-        })
-        
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: CommentedString(self.reference,
-                                                 comment: "Sources"),
-                value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: "Sources"), value: .dictionary(dictionary))
     }
     
 }
