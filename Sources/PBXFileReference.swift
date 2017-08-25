@@ -32,6 +32,12 @@ public class PBXFileReference: PBXObject, Hashable {
     /// Element uses tabs.
     public var usesTabs: Int?
     
+    /// Element line ending.
+    public var lineEnding: Int?
+    
+    /// Element xc language specification identifier
+    public var xcLanguageSpecificationIdentifier: String?
+    
     // MARK: - Init
     
     public init(reference: String,
@@ -42,7 +48,9 @@ public class PBXFileReference: PBXObject, Hashable {
                 lastKnownFileType: String? = nil,
                 path: String? = nil,
                 includeInIndex: Int? = nil,
-                usesTabs: Int? = nil) {
+                usesTabs: Int? = nil,
+                lineEnding: Int? = nil,
+                xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
@@ -51,6 +59,8 @@ public class PBXFileReference: PBXObject, Hashable {
         self.sourceTree = sourceTree
         self.includeInIndex = includeInIndex
         self.usesTabs = usesTabs
+        self.lineEnding = lineEnding
+        self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
         super.init(reference: reference)
     }
 
@@ -64,7 +74,9 @@ public class PBXFileReference: PBXObject, Hashable {
             lhs.path == rhs.path &&
             lhs.sourceTree == rhs.sourceTree &&
             lhs.includeInIndex == rhs.includeInIndex &&
-            lhs.usesTabs == rhs.usesTabs
+            lhs.usesTabs == rhs.usesTabs &&
+            lhs.lineEnding == rhs.lineEnding &&
+            lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier
     }
     
     public override init(reference: String, dictionary: [String: Any]) throws {
@@ -77,6 +89,8 @@ public class PBXFileReference: PBXObject, Hashable {
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.includeInIndex = unboxer.unbox(key: "includeInIndex")
         self.usesTabs = unboxer.unbox(key: "usesTabs")
+        self.lineEnding = unboxer.unbox(key: "lineEnding")
+        self.xcLanguageSpecificationIdentifier = unboxer.unbox(key: "xcLanguageSpecificationIdentifier")
         try super.init(reference: reference, dictionary: dictionary)
     }
     
@@ -160,6 +174,12 @@ extension PBXFileReference: PlistSerializable {
         }
         if let usesTabs = usesTabs {
             dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+        }
+        if let lineEnding = lineEnding {
+            dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
+        }
+        if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
+            dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
         }
         dictionary["sourceTree"] = sourceTree.plist()
         return (key: CommentedString(self.reference, comment: name ?? path),

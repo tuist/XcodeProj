@@ -42,7 +42,16 @@ public class PBXBuildPhase: PBXObject {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { fileReference in
-            let comment = proj.buildFileName(reference: fileReference)
+            let name = proj.buildFileName(reference: fileReference)
+            let type = proj.fileType(reference: fileReference)?.rawValue
+            let comment = name
+                .flatMap({ fileName -> String? in
+                    if let type = type {
+                        return "\(fileName) in \(type)"
+                    } else {
+                        return fileName
+                    }
+                })
             return .string(CommentedString(fileReference, comment: comment))
         })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
