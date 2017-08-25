@@ -103,6 +103,30 @@ public class PBXProj {
         }
     }
 
+    public func addObject(_ object: PBXObject) {
+        switch object {
+        case let object as PBXBuildFile: buildFiles.append(object)
+        case let object as PBXAggregateTarget: aggregateTargets.append(object)
+        case let object as PBXContainerItemProxy: containerItemProxies.append(object)
+        case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
+        case let object as PBXGroup: groups.append(object)
+        case let object as PBXFileElement: fileElements.append(object)
+        case let object as XCConfigurationList: configurationLists.append(object)
+        case let object as XCBuildConfiguration: buildConfigurations.append(object)
+        case let object as PBXVariantGroup: variantGroups.append(object)
+        case let object as PBXTargetDependency: targetDependencies.append(object)
+        case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object)
+        case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object)
+        case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object)
+        case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object)
+        case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object)
+        case let object as PBXNativeTarget: nativeTargets.append(object)
+        case let object as PBXFileReference: fileReferences.append(object)
+        case let object as PBXProject: projects.append(object)
+        default: break
+        }
+    }
+
     /// Initializes the .pbxproj reading the file from the given path.
     ///
     /// - Parameters:
