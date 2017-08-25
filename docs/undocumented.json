@@ -43,13 +43,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/BuildSettings.swift",
-      "line": 8,
-      "symbol": "BuildSettings.dictionary",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXAggregateTarget.swift",
       "line": 5,
       "symbol": "PBXAggregateTarget",
@@ -152,6 +145,27 @@
       "line": 80,
       "symbol": "PBXObjectError.unknownElement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXObject.swift",
+      "line": 94,
+      "symbol": "Array.references",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXObject.swift",
+      "line": 98,
+      "symbol": "Array.contains(reference:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/carambalabs/xcodeproj/Sources/PBXObject.swift",
+      "line": 102,
+      "symbol": "Array.getReference(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
