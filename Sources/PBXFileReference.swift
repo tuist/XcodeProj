@@ -29,6 +29,9 @@ public class PBXFileReference: PBXObject, Hashable {
     /// Element source tree.
     public var sourceTree: PBXSourceTree
     
+    /// Element uses tabs.
+    public var usesTabs: Int?
+    
     // MARK: - Init
     
     public init(reference: String,
@@ -38,7 +41,8 @@ public class PBXFileReference: PBXObject, Hashable {
                 explicitFileType: String? = nil,
                 lastKnownFileType: String? = nil,
                 path: String? = nil,
-                includeInIndex: Int? = nil) {
+                includeInIndex: Int? = nil,
+                usesTabs: Int? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
@@ -46,6 +50,7 @@ public class PBXFileReference: PBXObject, Hashable {
         self.path = path
         self.sourceTree = sourceTree
         self.includeInIndex = includeInIndex
+        self.usesTabs = usesTabs
         super.init(reference: reference)
     }
 
@@ -58,7 +63,8 @@ public class PBXFileReference: PBXObject, Hashable {
             lhs.name == rhs.name &&
             lhs.path == rhs.path &&
             lhs.sourceTree == rhs.sourceTree &&
-            lhs.includeInIndex == rhs.includeInIndex
+            lhs.includeInIndex == rhs.includeInIndex &&
+            lhs.usesTabs == rhs.usesTabs
     }
     
     public override init(reference: String, dictionary: [String: Any]) throws {
@@ -70,6 +76,7 @@ public class PBXFileReference: PBXObject, Hashable {
         self.path = unboxer.unbox(key: "path")
         self.sourceTree = try unboxer.unbox(key: "sourceTree")
         self.includeInIndex = unboxer.unbox(key: "includeInIndex")
+        self.usesTabs = unboxer.unbox(key: "usesTabs")
         try super.init(reference: reference, dictionary: dictionary)
     }
     
@@ -150,6 +157,9 @@ extension PBXFileReference: PlistSerializable {
         }
         if let includeInIndex = includeInIndex {
             dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex)"))
+        }
+        if let usesTabs = usesTabs {
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
         }
         dictionary["sourceTree"] = sourceTree.plist()
         return (key: CommentedString(self.reference, comment: name ?? path),
