@@ -1,3 +1,9 @@
+## 0.1.0
+- Update struct to classes and clean up API https://github.com/carambalabs/xcodeproj/pull/51 by @yonaskolb
+- Fix and cleanup strings escaping https://github.com/carambalabs/xcodeproj/pull/48 by @yonaskolb
+- Add `runOnlyForDeploymentPostprocessing` to `PBXShellScriptBuildPhase` by @yonaskolb
+- Remove force unwrap for `XCScheme` https://github.com/carambalabs/xcodeproj/pull/39 by @Shakarang
+
 ## 0.0.9
 - CocoaPods support https://github.com/carambalabs/xcodeproj/pull/35 by @pepibumur
 - Make project models mutable https://github.com/carambalabs/xcodeproj/pull/33 by @yonaskolb
