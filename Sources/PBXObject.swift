@@ -91,15 +91,15 @@ public enum PBXObjectError: Error, CustomStringConvertible {
 
 extension Array where Element: Referenceable {
 
-    var references: [String] {
+    public var references: [String] {
         return map { $0.reference }
     }
 
-    func contains(reference: String) -> Bool {
+    public func contains(reference: String) -> Bool {
         return contains { $0.reference == reference }
     }
 
-    func getReference(_ reference: String) -> Element? {
+    public func getReference(_ reference: String) -> Element? {
         return first { $0.reference == reference }
     }
 }
