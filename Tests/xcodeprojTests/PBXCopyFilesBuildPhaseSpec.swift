@@ -12,7 +12,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
                                               dstPath: "dest",
                                               dstSubfolderSpec: .absolutePath,
                                               buildActionMask: 4,
-                                              files: Set(arrayLiteral: "33"),
+                                              files: ["33"],
                                               runOnlyForDeploymentPostprocessing: 0)
     }
     
@@ -60,7 +60,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.dstPath, "dest")
         XCTAssertEqual(subject.dstSubfolderSpec, .absolutePath)
         XCTAssertEqual(subject.buildActionMask, 4)
-        XCTAssertEqual(subject.files, Set(arrayLiteral: "33"))
+        XCTAssertEqual(subject.files, ["33"])
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
     
@@ -118,7 +118,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
                                              dstPath: "dest",
                                              dstSubfolderSpec: .absolutePath,
                                              buildActionMask: 4,
-                                             files: Set(arrayLiteral: "33"),
+                                             files: ["33"],
                                              runOnlyForDeploymentPostprocessing: 0)
         XCTAssertEqual(subject, another)
     }

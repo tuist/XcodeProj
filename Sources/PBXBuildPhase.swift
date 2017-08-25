@@ -8,13 +8,13 @@ public class PBXBuildPhase: PBXObject {
     public var buildActionMask: UInt
 
     /// Element files.
-    public var files: Set<String>
+    public var files: [String]
 
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: UInt
 
     public init(reference: String,
-                files: Set<String> = [],
+                files: [String] = [],
                 buildActionMask: UInt = 2147483647,
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.files = files
