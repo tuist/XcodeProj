@@ -73,20 +73,11 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 extension PBXCopyFilesBuildPhase: PlistSerializable {
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["dstPath"] = .string(CommentedString(dstPath))
         dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
-        dictionary["files"] = .array(self.files
-            .map { reference in
-                let fileName = proj.buildFileName(reference: reference).flatMap { "\($0) in CopyFiles" }
-                return PlistValue.string(CommentedString(reference, comment: fileName))
-            })
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        return (key: CommentedString(self.reference,
-                                                 comment: "CopyFiles"),
-                value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: "CopyFiles"), value: .dictionary(dictionary))
     }
 
 }

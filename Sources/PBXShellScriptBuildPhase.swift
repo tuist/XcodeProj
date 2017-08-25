@@ -80,21 +80,16 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 extension PBXShellScriptBuildPhase: PlistSerializable {
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
-        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["shellPath"] = .string(CommentedString("\(shellPath)"))
-        dictionary["files"] = .array(files.map({.string(CommentedString($0))}))
+        dictionary["shellPath"] = .string(CommentedString(shellPath))
         dictionary["inputPaths"] = .array(inputPaths.map({.string(CommentedString($0))}))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["outputPaths"] = .array(outputPaths.map({.string(CommentedString($0))}))
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        return (key: CommentedString(self.reference,
-                                                 comment: "Run Script"),
-                value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: "Run Script"), value: .dictionary(dictionary))
     }
 
 }

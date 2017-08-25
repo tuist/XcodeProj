@@ -37,4 +37,15 @@ public class PBXBuildPhase: PBXObject {
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
+
+    func plistValues(proj: PBXProj) -> [CommentedString: PlistValue] {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        dictionary["files"] = .array(files.map { fileReference in
+            let comment = proj.buildFileName(reference: fileReference)
+            return .string(CommentedString(fileReference, comment: comment))
+        })
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        return dictionary
+    }
 }
