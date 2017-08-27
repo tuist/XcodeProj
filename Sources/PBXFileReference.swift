@@ -41,7 +41,7 @@ public class PBXFileReference: PBXObject, Hashable {
                 includeInIndex: Int? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
-        self.lastKnownFileType = lastKnownFileType
+        self.lastKnownFileType = lastKnownFileType ?? path.flatMap { PBXFileReference.fileType(path: Path($0)) }
         self.name = name
         self.path = path
         self.sourceTree = sourceTree
@@ -118,7 +118,7 @@ extension PBXFileReference {
     ///
     /// - Parameter path: path whose file type will be returned.
     /// - Returns: file type (if supported).
-    static func fileType(path: Path) -> String? {
+    public static func fileType(path: Path) -> String? {
         return path.extension.flatMap({fileTypeHash[$0]})
     }
     
