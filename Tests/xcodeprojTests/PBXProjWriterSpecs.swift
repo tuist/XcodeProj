@@ -69,11 +69,17 @@ class PBXProjWriterSpecs: XCTestCase {
             "a\na".quoted: "a\(escapedNewline)a".quoted,
             "a\(escapedNewline)a": "a\(escapedNewline)a".quoted,
             "a\(escapedNewline)a".quoted: "a\(escapedNewline)a".quoted,
+            "\"": escapedQuote.quoted,
+            "\"\"": "\"\"",
+            "\"\"\"\"": "\(escapedQuote)\(escapedQuote)".quoted,
+            "a=\"\"": "a=\(escapedQuote)\(escapedQuote)".quoted,
         ]
 
         for (initial, expected) in values {
             let escapedString = CommentedString(initial).validString
-            XCTAssertEqual(escapedString, expected)
+            if escapedString != expected {
+                XCTFail("Escaped strings are not equal:\ninitial: \(initial)\nexpect:  \(expected)\nescaped: \(escapedString) ")
+            }
         }
     }
 

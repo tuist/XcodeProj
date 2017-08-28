@@ -36,10 +36,10 @@ struct CommentedString {
 
         // escape quotes
         var range: Range<String.Index>?
-        if escaped.isQuoted {
+        if escaped.isQuoted && escaped.characters.count > 1 {
             range = escaped.index(after: escaped.startIndex)..<escaped.index(before: escaped.endIndex)
         }
-        escaped = escaped.replacingOccurrences(of: "([^\\\\])(\")", with: "$1\\\\$2", options: .regularExpression, range: range)
+        escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"", range: range).replacingOccurrences(of: "\\\\\"", with: "\\\"")
 
         if !escaped.isQuoted && escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil {
             escaped = escaped.quoted
