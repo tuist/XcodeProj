@@ -9,7 +9,7 @@ final class XCConfigurationListSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         self.subject = XCConfigurationList(reference: "reference",
-                                           buildConfigurations: Set(arrayLiteral: "12345"),
+                                           buildConfigurations: ["12345"],
                                            defaultConfigurationName: "Debug")
     }
     

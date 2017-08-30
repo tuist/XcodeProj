@@ -26,6 +26,7 @@ public class PBXProj {
     public var groups: [PBXGroup] = []
     public var fileElements: [PBXFileElement] = []
     public var configurationLists: [XCConfigurationList] = []
+    public var versionGroups: [XCVersionGroup] = []
     public var buildConfigurations: [XCBuildConfiguration] = []
     public var variantGroups: [PBXVariantGroup] = []
     public var targetDependencies: [PBXTargetDependency] = []
@@ -79,6 +80,7 @@ public class PBXProj {
             array += nativeTargets as [PBXObject]
             array += fileReferences as [PBXObject]
             array += projects as [PBXObject]
+            array += versionGroups as [PBXObject]
             return array
         }
         set {
@@ -100,6 +102,7 @@ public class PBXProj {
             nativeTargets = newValue.flatMap { $0 as? PBXNativeTarget }
             fileReferences = newValue.flatMap { $0 as? PBXFileReference }
             projects = newValue.flatMap { $0 as? PBXProject }
+            versionGroups = newValue.flatMap { $0 as? XCVersionGroup }
         }
     }
 
@@ -123,6 +126,7 @@ public class PBXProj {
         case let object as PBXNativeTarget: nativeTargets.append(object)
         case let object as PBXFileReference: fileReferences.append(object)
         case let object as PBXProject: projects.append(object)
+        case let object as XCVersionGroup: versionGroups.append(object)
         default: break
         }
     }
@@ -190,113 +194,7 @@ extension PBXProj: Equatable {
             lhs.nativeTargets == rhs.nativeTargets &&
             lhs.fileReferences == rhs.fileReferences &&
             lhs.projects == rhs.projects &&
-            lhs.rootObject == rhs.rootObject
+            lhs.rootObject == rhs.rootObject &&
+            lhs.versionGroups == rhs.versionGroups
     }
-}
-
-// MARK: - PBXProj Error
-
-enum PBXProjError: Error, CustomStringConvertible {
-    case notFound(path: Path)
-    var description: String {
-        switch self {
-        case .notFound(let path):
-            return ".pbxproj not found at path \(path)"
-        }
-    }
-}
-
-// MARK: - PBXProj extension (Writable)
-
-extension PBXProj: Writable {
-
-    public func write(path: Path, override: Bool) throws {
-        let writer = PBXProjWriter()
-        let output = writer.write(proj: self)
-        if override && path.exists {
-            try path.delete()
-        }
-        try path.write(output)
-    }
-
-}
-
-// MARK: - PBXProj Extension (Extras)
-
-extension PBXProj {
-
-    /// Returns the build file name.
-    ///
-    /// - Parameter reference: file reference.
-    /// - Returns: build file name.
-    func buildFileName(reference: String) -> String? {
-        guard let fileRef = buildFiles.getReference(reference)?.fileRef else { return nil }
-        if let variantGroup = variantGroups.getReference(fileRef) {
-            return variantGroup.name
-        } else if let fileReference = fileReferences.getReference(fileRef) {
-            return fileReference.path ?? fileReference.name
-        }
-        return nil
-    }
-
-    /// Returns the build phase a file is in.
-    ///
-    /// - Parameter reference: reference of the file whose type will be returned.
-    /// - Returns: String with the type of file.
-    func fileType(reference: String) -> BuildPhase? {
-        if frameworksBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return .frameworks
-        } else if headersBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return .headers
-        } else if sourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return .sources
-        } else if resourcesBuildPhases.filter({$0.files.contains(reference)}).count != 0 {
-            return .resources
-        }
-        return nil
-    }
-
-    /// Returns the build phase type from its reference.
-    ///
-    /// - Parameter reference: build phase reference.
-    /// - Returns: string with the build phase type.
-    func buildPhaseType(from reference: String) -> BuildPhase? {
-        if sourcesBuildPhases.contains(reference: reference) {
-            return .sources
-        } else if frameworksBuildPhases.contains(reference: reference) {
-            return .frameworks
-        } else if resourcesBuildPhases.contains(reference: reference) {
-            return .resources
-        } else if copyFilesBuildPhases.contains(reference: reference) {
-            return .copyFiles
-        } else if shellScriptBuildPhases.contains(reference: reference) {
-            return .runScript
-        } else if headersBuildPhases.contains(reference: reference) {
-            return .headers
-        }
-        return nil
-    }
-
-}
-
-// MARK: - PBXProj Extension (UUID Generation)
-
-public extension PBXProj {
-
-    /// Returns a valid UUID for new elements.
-    ///
-    /// - Parameter element: project element class.
-    /// - Returns: UUID available to be used.
-    public func generateUUID<T: PBXObject>(for element: T.Type) -> String {
-        var uuid: String = ""
-        var counter: UInt = 0
-        let random: String = String.random()
-        let className: String = String(describing: T.self).hash.description
-        repeat {
-            counter += 1
-            uuid = String(format: "%08X%08X%08X", className, random, counter)
-        } while(objects.contains(reference: uuid))
-        return uuid
-    }
-
 }
