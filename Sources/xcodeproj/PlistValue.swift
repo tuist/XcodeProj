@@ -9,7 +9,7 @@ enum PlistValue {
     case string(CommentedString)
     case array([PlistValue])
     case dictionary([CommentedString: PlistValue])
-    
+
     var string: (CommentedString)? {
         switch self {
         case .string(let string): return string
@@ -28,35 +28,35 @@ enum PlistValue {
         default: return nil
         }
     }
-    
+
 }
 
 // MARK: - PlistValue Extension (ExpressibleByArrayLiteral)
 
 extension PlistValue: ExpressibleByArrayLiteral {
-    
+
     public init(arrayLiteral elements: PlistValue...) {
         self = .array(elements)
     }
-    
+
 }
 
 // MARK: - PlistValue Extension (ExpressibleByDictionaryLiteral)
 
 extension PlistValue: ExpressibleByDictionaryLiteral {
-    
+
     public init(dictionaryLiteral elements: (CommentedString, PlistValue)...) {
         var dictionary: [CommentedString: PlistValue] = [:]
         elements.forEach { dictionary[$0.0] = $0.1 }
         self = .dictionary(dictionary)
     }
-    
+
 }
 
 // MARK: - PlistValue Extension (ExpressibleByStringLiteral)
 
 extension PlistValue: ExpressibleByStringLiteral {
-    
+
     public init(stringLiteral value: String) {
         self = .string(CommentedString(value))
     }
@@ -66,13 +66,13 @@ extension PlistValue: ExpressibleByStringLiteral {
     public init(unicodeScalarLiteral value: String) {
         self = .string(CommentedString(value))
     }
-    
+
 }
 
 // MARK: PlistValue Extension (Equatable)
 
 extension PlistValue: Equatable {
-    
+
     static func == (lhs: PlistValue, rhs: PlistValue) -> Bool {
         switch (lhs, rhs) {
         case (.string(let lhsString), .string(let rhsString)):
@@ -85,7 +85,7 @@ extension PlistValue: Equatable {
             return false
         }
     }
-    
+
 }
 
 fileprivate func plistValue(_ value: String) -> String {
@@ -109,28 +109,28 @@ fileprivate func plistKey(_ string: String) -> String {
 // MARK: - Dictionary Extension (PlistValue)
 
 extension Dictionary where Key == String {
-    
+
     func plist() -> PlistValue {
         var dictionary: [CommentedString: PlistValue] = [:]
-        self.forEach { (key, value) in
-            if let array = value as? [Any] {
-                dictionary[CommentedString(plistKey(key))] = array.plist()
-            } else if let subDictionary = value as? [String: Any] {
-                dictionary[CommentedString(plistKey(key))] = subDictionary.plist()
-            } else if let string = value as? CustomStringConvertible {
+        self.forEach { tuple in
+            if let array = tuple.value as? [Any] {
+                dictionary[CommentedString(plistKey(tuple.key))] = array.plist()
+            } else if let subDictionary = tuple.value as? [String: Any] {
+                dictionary[CommentedString(plistKey(tuple.key))] = subDictionary.plist()
+            } else if let string = tuple.value as? CustomStringConvertible {
                 let stringValue = plistValue(string.description)
-                dictionary[CommentedString(plistKey(key))] = .string(CommentedString(stringValue))
+                dictionary[CommentedString(plistKey(tuple.key))] = .string(CommentedString(stringValue))
             }
         }
         return .dictionary(dictionary)
     }
-    
+
 }
 
 // MARK: - Array Extension (PlistValue)
 
 extension Array {
-    
+
     func plist() -> PlistValue {
         return .array(self.flatMap({ (element) -> PlistValue? in
             if let array = element as? [Any] {
@@ -144,5 +144,5 @@ extension Array {
             return nil
         }))
     }
-    
+
 }

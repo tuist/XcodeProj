@@ -1,5 +1,5 @@
 import Foundation
-import CryptoSwift
+//import CryptoSwift
 
 // Object reference
 public typealias UUID = String
@@ -9,5 +9,5 @@ public typealias UUID = String
 /// - Parameter reference: element reference.
 /// - Returns: the generated UUID
 func generateUUID(reference: String) -> String {
-    return reference.md5().uppercased()
+    return ""//reference.md5().uppercased()
 }
