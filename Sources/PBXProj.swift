@@ -26,6 +26,7 @@ public class PBXProj {
     public var groups: [PBXGroup] = []
     public var fileElements: [PBXFileElement] = []
     public var configurationLists: [XCConfigurationList] = []
+    public var versionGroups: [XCVersionGroup] = []
     public var buildConfigurations: [XCBuildConfiguration] = []
     public var variantGroups: [PBXVariantGroup] = []
     public var targetDependencies: [PBXTargetDependency] = []
@@ -79,6 +80,7 @@ public class PBXProj {
             array += nativeTargets as [PBXObject]
             array += fileReferences as [PBXObject]
             array += projects as [PBXObject]
+            array += versionGroups as [PBXObject]
             return array
         }
         set {
@@ -100,6 +102,7 @@ public class PBXProj {
             nativeTargets = newValue.flatMap { $0 as? PBXNativeTarget }
             fileReferences = newValue.flatMap { $0 as? PBXFileReference }
             projects = newValue.flatMap { $0 as? PBXProject }
+            versionGroups = newValue.flatMap { $0 as? XCVersionGroup }
         }
     }
 
@@ -123,6 +126,7 @@ public class PBXProj {
         case let object as PBXNativeTarget: nativeTargets.append(object)
         case let object as PBXFileReference: fileReferences.append(object)
         case let object as PBXProject: projects.append(object)
+        case let object as XCVersionGroup: versionGroups.append(object)
         default: break
         }
     }
@@ -190,6 +194,7 @@ extension PBXProj: Equatable {
             lhs.nativeTargets == rhs.nativeTargets &&
             lhs.fileReferences == rhs.fileReferences &&
             lhs.projects == rhs.projects &&
-            lhs.rootObject == rhs.rootObject
+            lhs.rootObject == rhs.rootObject &&
+            lhs.versionGroups == rhs.versionGroups
     }
 }
