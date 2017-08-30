@@ -63,7 +63,7 @@ extension PBXBuildFile: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         let fileName = name(fileRef: fileRef, proj: proj)
         dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
-        let fileType = proj.fileType(reference: reference)?.rawValue
+        let fileType = proj.buildPhaseType(buildFileReference: reference)?.rawValue
         if let settings = settings {
             dictionary["settings"] = settings.plist()
         }

@@ -42,8 +42,8 @@ public class PBXBuildPhase: PBXObject {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { fileReference in
-            let name = proj.buildFileName(reference: fileReference)
-            let type = proj.fileType(reference: fileReference)?.rawValue
+            let name = proj.fileName(buildFileReference: fileReference)
+            let type = proj.buildPhaseType(buildFileReference: fileReference)?.rawValue
             let comment = name
                 .flatMap({ fileName -> String? in
                     if let type = type {
