@@ -7,7 +7,7 @@ public class XCConfigurationList: PBXObject, Hashable {
     // MARK: - Attributes
     
     /// Element build configurations.
-    public var buildConfigurations: Set<String>
+    public var buildConfigurations: [String]
     
     /// Element default configuration is visible.
     public var defaultConfigurationIsVisible: UInt
@@ -25,7 +25,7 @@ public class XCConfigurationList: PBXObject, Hashable {
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
     public init(reference: String,
-                buildConfigurations: Set<String>,
+                buildConfigurations: [String],
                 defaultConfigurationName: String,
                 defaultConfigurationIsVisible: UInt = 0) {
         self.buildConfigurations = buildConfigurations
