@@ -34,7 +34,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
     public init(reference: String,
-                files: Set<String>,
+                files: [String],
                 name: String,
                 inputPaths: Set<String>,
                 outputPaths: Set<String>,

@@ -8,13 +8,13 @@ public class PBXBuildPhase: PBXObject {
     public var buildActionMask: UInt
 
     /// Element files.
-    public var files: Set<String>
+    public var files: [String]
 
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: UInt
 
     public init(reference: String,
-                files: Set<String> = [],
+                files: [String] = [],
                 buildActionMask: UInt = 2147483647,
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.files = files
@@ -42,7 +42,16 @@ public class PBXBuildPhase: PBXObject {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { fileReference in
-            let comment = proj.buildFileName(reference: fileReference)
+            let name = proj.buildFileName(reference: fileReference)
+            let type = proj.fileType(reference: fileReference)?.rawValue
+            let comment = name
+                .flatMap({ fileName -> String? in
+                    if let type = type {
+                        return "\(fileName) in \(type)"
+                    } else {
+                        return fileName
+                    }
+                })
             return .string(CommentedString(fileReference, comment: comment))
         })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))

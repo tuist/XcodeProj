@@ -10,7 +10,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXHeadersBuildPhase(reference: "ref",
-                                       files: Set(arrayLiteral: "333"),
+                                       files: ["333"],
                                        buildActionMask: 0,
                                        runOnlyForDeploymentPostprocessing: 0)
     }
@@ -22,7 +22,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_init_initializesTheBuildPhaseWithTheRightAttributes() {
         XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.buildActionMask, 0)
-        XCTAssertEqual(subject.files, Set(arrayLiteral: "333"))
+        XCTAssertEqual(subject.files, ["333"])
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
     
@@ -55,7 +55,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     
     func test_equals_returnsTheCorrectValue() {
         let another = PBXHeadersBuildPhase(reference: "ref",
-                                           files: Set(arrayLiteral: "333"),
+                                           files: ["333"],
                                            buildActionMask: 0,
                                            runOnlyForDeploymentPostprocessing: 0)
         XCTAssertEqual(subject, another)

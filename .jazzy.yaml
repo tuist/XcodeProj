@@ -1,9 +1,8 @@
-author: Caramba
-author_url: https://twitter.com/carambalabsEng
+author: swift-xcode
 module: xcodeproj
 module_version: 0.0.1
-github_url: https://github.com/carambalabs/xcodeproj
-copyright: 'Copyright © 2017 Caramba. All rights reserved.'
+github_url: https://github.com/swift-xcode/xcodeproj
+copyright: 'Copyright © 2017 swift-xcode. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md
 custom_categories:
