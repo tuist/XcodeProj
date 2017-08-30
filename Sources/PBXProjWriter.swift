@@ -46,6 +46,7 @@ class PBXProjWriter {
         write(section: "PBXVariantGroup", proj: proj, object: proj.variantGroups)
         write(section: "XCBuildConfiguration", proj: proj, object: proj.buildConfigurations)
         write(section: "XCConfigurationList", proj: proj, object: proj.configurationLists)
+        write(section: "XCVersionGroup", proj: proj, object: proj.versionGroups)
         decreaseIndent()
         writeIndent()
         write(string: "};")
