@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit.git", from: "0.8.0"),
-        //.package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .branch("swift4")),
+        .package(url: "https://github.com/IBM-Swift/CommonCrypto", from: "0.1.4"),
         .package(url: "https://github.com/tadija/AEXML.git", from: "4.0.0"),
         .package(url: "https://github.com/johnsundell/unbox.git", from: "2.5.0")
     ],

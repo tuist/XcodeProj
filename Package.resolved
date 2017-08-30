@@ -11,12 +11,12 @@
         }
       },
       {
-        "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "package": "CommonCrypto",
+        "repositoryURL": "https://github.com/IBM-Swift/CommonCrypto",
         "state": {
-          "branch": "swift4",
-          "revision": "451042009badca8a3dd75c002fdfe04770d54d9c",
-          "version": null
+          "branch": null,
+          "revision": "02a5c0520b1a0a7a6c606f0273fcd161973722fa",
+          "version": "0.1.4"
         }
       },
       {
