@@ -12,11 +12,11 @@ extension PlistSerializable {
 
 /// Writes your PBXProj files
 class PBXProjWriter {
-    
+
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
-    
+
     func write(proj: PBXProj) -> String {
         writeUtf8()
         writeNewLine()
@@ -57,13 +57,13 @@ class PBXProjWriter {
         writeNewLine()
         return output
     }
-    
+
     // MARK: - Private
-    
+
     private func writeUtf8() {
         output.append("// !$*UTF8*$!")
     }
-    
+
     private func writeNewLine() {
         if multiline {
             output.append("\n")
@@ -71,7 +71,7 @@ class PBXProjWriter {
             output.append(" ")
         }
     }
-    
+
     private func write(value: PlistValue) {
         switch value {
         case .array(let array):
@@ -82,7 +82,7 @@ class PBXProjWriter {
             write(commentedString: commentedString)
         }
     }
-    
+
     private func write(commentedString: CommentedString) {
         write(string: commentedString.string)
         if let comment = commentedString.comment {
@@ -90,22 +90,22 @@ class PBXProjWriter {
             write(comment: comment)
         }
     }
-    
+
     private func write(string: String) {
         output.append(string)
     }
-    
+
     private func write(comment: String) {
         output.append("/* \(comment) */")
     }
-    
+
     private func write<T: ProjectElement & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
         object
-            .sorted(by: { $0.0.reference < $0.1.reference})
+            .sorted(by: { $0.reference < $1.reference})
             .forEach { (serializable) in
             let element = serializable.plistKeyAndValue(proj: proj)
             write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
@@ -113,7 +113,7 @@ class PBXProjWriter {
         write(string: "/* End \(section) section */")
         writeNewLine()
     }
-    
+
     private func write(dictionary: [CommentedString: PlistValue], newLines: Bool = true) {
         writeDictionaryStart()
         dictionary.sorted(by: { (left, right) -> Bool in
@@ -128,7 +128,7 @@ class PBXProjWriter {
             .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
         writeDictionaryEnd()
     }
-    
+
     private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true) {
         writeIndent()
         let beforeMultiline = self.multiline
@@ -140,56 +140,56 @@ class PBXProjWriter {
         self.multiline = beforeMultiline
         writeNewLine()
     }
-    
+
     private func writeDictionaryStart() {
         output.append("{")
         if multiline { writeNewLine() }
         increaseIndent()
     }
-    
+
     private func writeDictionaryEnd() {
         decreaseIndent()
         writeIndent()
         output.append("}")
     }
-    
+
     private func write(array: [PlistValue]) {
         writeArrayStart()
         array.forEach { write(arrayValue: $0) }
         writeArrayEnd()
     }
-    
+
     private func write(arrayValue: PlistValue) {
         writeIndent()
         write(value: arrayValue)
         output.append(",")
         writeNewLine()
     }
-    
+
     private func writeArrayStart() {
         output.append("(")
         if multiline { writeNewLine() }
         increaseIndent()
     }
-    
+
     private func writeArrayEnd() {
         decreaseIndent()
         writeIndent()
         output.append(")")
     }
-    
+
     private func writeIndent() {
         if multiline {
             output.append(String(repeating: "\t", count: Int(indent)))
         }
     }
-    
+
     private func increaseIndent() {
         indent += 1
     }
-    
+
     private func decreaseIndent() {
         indent -= 1
     }
-    
+
 }

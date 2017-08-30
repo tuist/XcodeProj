@@ -6,17 +6,17 @@
         "repositoryURL": "https://github.com/tadija/AEXML.git",
         "state": {
           "branch": null,
-          "revision": "28599f78f89bc188de02d2e3b8b14a1c75a2e1c3",
-          "version": "4.0.2"
+          "revision": "2981eccd86a69ea12a7f71a4c6b4d5177c2972a9",
+          "version": "4.1.0"
         }
       },
       {
-        "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "package": "CommonCrypto",
+        "repositoryURL": "https://github.com/IBM-Swift/CommonCrypto",
         "state": {
-          "branch": "swift4",
-          "revision": "85c659ac534c5f8a72eb3b72488fb941e82763bd",
-          "version": null
+          "branch": null,
+          "revision": "02a5c0520b1a0a7a6c606f0273fcd161973722fa",
+          "version": "0.1.4"
         }
       },
       {
@@ -39,11 +39,11 @@
       },
       {
         "package": "Unbox",
-        "repositoryURL": "https://github.com/JohnSundell/Unbox",
+        "repositoryURL": "https://github.com/johnsundell/unbox.git",
         "state": {
           "branch": null,
-          "revision": "ba42e010ea8d220d31e5bc4c67f3aa2a1329c15b",
-          "version": "2.4.0"
+          "revision": "17ad6aa1cc2f1efa27a0bbbdb66f79796708aa95",
+          "version": "2.5.0"
         }
       }
     ]
