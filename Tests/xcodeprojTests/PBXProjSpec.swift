@@ -51,6 +51,11 @@ final class PBXProjSpec: XCTestCase {
 final class PBXProjIntegrationSpec: XCTestCase {
     
     func test_init_initializesTheProjCorrectly() {
+//        do {
+//            try PBXProj(path: fixturePath())
+//        } catch {
+//            print(error)
+//        }
         let proj = try? PBXProj(path: fixturePath())
         XCTAssertNotNil(proj)
         if let proj = proj{

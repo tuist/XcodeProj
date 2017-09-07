@@ -25,6 +25,9 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
     /// Element destination subfolder spec
     public var dstSubfolderSpec: SubFolder
+    
+    /// Copy files build phase name
+    public var name: String?
 
     // MARK: - Init
 
@@ -40,11 +43,13 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     public init(reference: String,
                 dstPath: String,
                 dstSubfolderSpec: SubFolder,
+                name: String? = nil,
                 buildActionMask: UInt = 2147483647,
                 files: [String] = [],
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
+        self.name = name
         super.init(reference: reference,
                    files: files,
                    buildActionMask: buildActionMask,
@@ -55,6 +60,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.dstPath = try unboxer.unbox(key: "dstPath")
+        self.name = unboxer.unbox(key: "name")
         let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
         self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
         try super.init(reference: reference, dictionary: dictionary)
@@ -64,6 +70,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
             lhs.dstPath == rhs.dstPath &&
+            lhs.name == rhs.name &&
             lhs.buildActionMask == rhs.buildActionMask &&
             lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
             lhs.files == rhs.files &&
@@ -80,8 +87,11 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
         dictionary["dstPath"] = .string(CommentedString(dstPath))
+        if let name = name {
+            dictionary["name"] = .string(CommentedString(name))
+        }
         dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
-        return (key: CommentedString(self.reference, comment: "CopyFiles"), value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: self.name ?? "CopyFiles"), value: .dictionary(dictionary))
     }
 
 }

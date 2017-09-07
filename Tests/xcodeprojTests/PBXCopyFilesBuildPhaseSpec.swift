@@ -11,6 +11,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         self.subject = PBXCopyFilesBuildPhase(reference: "ref",
                                               dstPath: "dest",
                                               dstSubfolderSpec: .absolutePath,
+                                              name: "name",
                                               buildActionMask: 4,
                                               files: ["33"],
                                               runOnlyForDeploymentPostprocessing: 0)
@@ -117,6 +118,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         let another = PBXCopyFilesBuildPhase(reference: "ref",
                                              dstPath: "dest",
                                              dstSubfolderSpec: .absolutePath,
+                                             name: "name",
                                              buildActionMask: 4,
                                              files: ["33"],
                                              runOnlyForDeploymentPostprocessing: 0)

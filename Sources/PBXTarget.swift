@@ -80,7 +80,7 @@ public class PBXTarget: PBXObject, Hashable {
         dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList, comment: buildConfigurationListComment))
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
-                let comment = proj.buildPhaseType(buildPhaseReference: buildPhase)?.rawValue
+                let comment = proj.buildPhaseName(buildPhaseReference: buildPhase)
                 return .string(CommentedString(buildPhase, comment: comment))
         })
         dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})

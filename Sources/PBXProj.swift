@@ -153,7 +153,7 @@ public class PBXProj {
         self.classes = (dictionary["classes"] as? [Any]) ?? []
         let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
         self.rootObject = try unboxer.unbox(key: "rootObject")
-        objects = objectsDictionary.flatMap { try? PBXObject.parse(reference: $0.key, dictionary: $0.value) }
+        objects = try objectsDictionary.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
     }
 
     func fileName(from reference: String) -> String? {

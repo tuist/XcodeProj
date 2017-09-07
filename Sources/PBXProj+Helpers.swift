@@ -70,6 +70,27 @@ extension PBXProj {
         return nil
     }
     
+    /// Get the build phase name given its reference (mostly used for comments).
+    ///
+    /// - Parameter buildPhaseReference: build phase reference.
+    /// - Returns: the build phase name.
+    func buildPhaseName(buildPhaseReference: String) -> String? {
+        if sourcesBuildPhases.contains(reference: buildPhaseReference) {
+            return "Sources"
+        } else if frameworksBuildPhases.contains(reference: buildPhaseReference) {
+            return "Frameworks"
+        } else if resourcesBuildPhases.contains(reference: buildPhaseReference) {
+            return "Resources"
+        } else if let copyFilesBuildPhase = copyFilesBuildPhases.filter({$0.reference == buildPhaseReference}).first {
+            return  copyFilesBuildPhase.name ?? "CopyFiles"
+        } else if let shellScriptBuildPhase = shellScriptBuildPhases.filter({$0.reference == buildPhaseReference}).first {
+            return shellScriptBuildPhase.name ?? "ShellScript"
+        } else if headersBuildPhases.contains(reference: buildPhaseReference) {
+            return "Headers"
+        }
+        return nil
+    }
+    
 }
 
 // MARK: - PBXProj extension (Writable)

@@ -7,7 +7,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     // MARK: - Attributes
 
     /// Build phase name.
-    public var name: String
+    public var name: String?
 
     /// Input paths
     public var inputPaths: [String]
@@ -35,7 +35,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     ///   - buildActionMask: build action mask.
     public init(reference: String,
                 files: [String],
-                name: String,
+                name: String? = nil,
                 inputPaths: [String],
                 outputPaths: [String],
                 shellPath: String = "bin/sh",
@@ -55,7 +55,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.name = try unboxer.unbox(key: "name")
+        self.name = unboxer.unbox(key: "name")
         self.inputPaths = (unboxer.unbox(key: "inputPaths")) ?? []
         self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
         self.shellPath = try unboxer.unbox(key: "shellPath")
@@ -87,12 +87,14 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         dictionary["shellPath"] = .string(CommentedString(shellPath))
         dictionary["inputPaths"] = .array(inputPaths.map({.string(CommentedString($0))}))
-        dictionary["name"] = .string(CommentedString(name))
+        if let name = name {
+            dictionary["name"] = .string(CommentedString(name))
+        }
         dictionary["outputPaths"] = .array(outputPaths.map({.string(CommentedString($0))}))
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        return (key: CommentedString(self.reference, comment: self.name), value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
 
 }
