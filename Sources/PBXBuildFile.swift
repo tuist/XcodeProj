@@ -51,7 +51,6 @@ public class PBXBuildFile: PBXObject, Hashable {
     }
 }
 
-
 // MARK: - PBXBuildFile Extension (PlistSerializable)
 
 extension PBXBuildFile: PlistSerializable {

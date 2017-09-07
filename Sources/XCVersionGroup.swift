@@ -89,5 +89,3 @@ extension XCVersionGroup: PlistSerializable {
                 value: .dictionary(dictionary))
     }
 }
-
-

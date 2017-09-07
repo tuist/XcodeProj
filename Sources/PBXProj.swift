@@ -167,7 +167,6 @@ public class PBXProj {
 
 }
 
-
 // MARK: - PBXProj Extension (Equatable)
 
 extension PBXProj: Equatable {

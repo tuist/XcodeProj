@@ -45,7 +45,11 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
-        super.init(reference: reference, files: files, buildActionMask: buildActionMask, runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
+        super.init(reference: reference,
+                   files: files,
+                   buildActionMask: buildActionMask,
+                   runOnlyForDeploymentPostprocessing:
+            runOnlyForDeploymentPostprocessing)
     }
 
     public override init(reference: String, dictionary: [String: Any]) throws {

@@ -42,7 +42,6 @@ public class PBXProject: PBXObject, Hashable {
     /// Project attributes.
     public var attributes: [String: Any]
 
-
     // MARK: - Init
 
     /// Initializes the project with its attributes

@@ -10,10 +10,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     public var name: String
 
     /// Input paths
-    public var inputPaths: Set<String>
+    public var inputPaths: [String]
 
     /// Output paths
-    public var outputPaths: Set<String>
+    public var outputPaths: [String]
 
     /// Path to the shell.
     public var shellPath: String
@@ -36,8 +36,8 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     public init(reference: String,
                 files: [String],
                 name: String,
-                inputPaths: Set<String>,
-                outputPaths: Set<String>,
+                inputPaths: [String],
+                outputPaths: [String],
                 shellPath: String = "bin/sh",
                 shellScript: String?,
                 buildActionMask: UInt = 2147483647,
@@ -47,7 +47,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
         self.outputPaths = outputPaths
         self.shellPath = shellPath
         self.shellScript = shellScript
-        super.init(reference: reference, files: files, buildActionMask: buildActionMask, runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
+        super.init(reference: reference,
+                   files: files,
+                   buildActionMask: buildActionMask,
+                   runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
 
     public override init(reference: String, dictionary: [String: Any]) throws {
