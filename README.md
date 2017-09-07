@@ -120,10 +120,6 @@ You can check out the documentation on the following [link](https://swift-xcode.
 
 [<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 
-### Sponsor xcodeproj
-
-<a href="https://app.codesponsor.io/link/Wubfoy6Ufnr9x5TgqoEAgegC/swift-xcode/xcodeproj" rel="nofollow"><img src="https://app.codesponsor.io/embed/Wubfoy6Ufnr9x5TgqoEAgegC/swift-xcode/xcodeproj.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 ### License
 
 ```
