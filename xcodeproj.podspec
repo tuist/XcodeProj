@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "xcodeproj"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/swift-xcode/xcodeproj"
   s.license          = 'MIT'
