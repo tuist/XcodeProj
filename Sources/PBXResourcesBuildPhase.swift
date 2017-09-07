@@ -19,7 +19,7 @@ public class PBXResourcesBuildPhase: PBXBuildPhase, Hashable {
 extension PBXResourcesBuildPhase: PlistSerializable {
 
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)        
         dictionary["isa"] = .string(CommentedString(PBXResourcesBuildPhase.isa))
         return (key: CommentedString(self.reference, comment: "Resources"), value: .dictionary(dictionary))
     }

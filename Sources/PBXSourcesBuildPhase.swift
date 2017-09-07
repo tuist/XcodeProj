@@ -21,7 +21,7 @@ extension PBXSourcesBuildPhase: PlistSerializable {
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
-        dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa, comment: "in Sources"))
+        dictionary["isa"] = .string(CommentedString(PBXSourcesBuildPhase.isa))
         return (key: CommentedString(self.reference, comment: "Sources"), value: .dictionary(dictionary))
     }
     
