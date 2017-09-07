@@ -1,3 +1,10 @@
+## 0.1.2
+- Update shell build script phase input and output files to be array instead of set https://github.com/swift-xcode/xcodeproj/issues/65 by @pepibumur
+- Fix wrong comment in the shell script build phase https://github.com/swift-xcode/xcodeproj/issues/67 by @ppeibumur
+- Fix wron gcomment in `PBXSourcesBuildPhase` files property https://github.com/swift-xcode/xcodeproj/issues/68 by @pepibumur
+- Add `XCVersionGroup` project element used by Core Data models https://github.com/swift-xcode/xcodeproj/issues/69 by @pepibumur
+- Update `XCConcigurationList` build configurations to be an array https://github.com/swift-xcode/xcodeproj/issues/70 by @pepibumur
+
 ## 0.1.1
 - Change `BuildSettings` to `[String: Any]` https://github.com/carambalabs/xcodeproj/pull/52 by @yonaskolb
 - Plist fixes https://github.com/carambalabs/xcodeproj/pull/54 by @yonaskolb
