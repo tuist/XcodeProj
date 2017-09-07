@@ -20,6 +20,9 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     /// Shell script.
     public var shellScript: String?
+    
+    /// Show environment variables in the logs.
+    public var showEnvVarsInLog: UInt?
 
     // MARK: - Init
 
@@ -41,12 +44,14 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
                 shellPath: String = "bin/sh",
                 shellScript: String?,
                 buildActionMask: UInt = 2147483647,
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
+                runOnlyForDeploymentPostprocessing: UInt = 0,
+                showEnvVarsInLog: UInt? = nil) {
         self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
         self.shellPath = shellPath
         self.shellScript = shellScript
+        self.showEnvVarsInLog = showEnvVarsInLog
         super.init(reference: reference,
                    files: files,
                    buildActionMask: buildActionMask,
@@ -60,6 +65,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
         self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
         self.shellPath = try unboxer.unbox(key: "shellPath")
         self.shellScript = unboxer.unbox(key: "shellScript")
+        self.showEnvVarsInLog = unboxer.unbox(key: "showEnvVarsInLog")
         try super.init(reference: reference, dictionary: dictionary)
     }
 
@@ -73,7 +79,8 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
             lhs.outputPaths == rhs.outputPaths &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing &&
             lhs.shellPath == rhs.shellPath &&
-            lhs.shellScript == rhs.shellScript
+            lhs.shellScript == rhs.shellScript &&
+            lhs.showEnvVarsInLog == rhs.showEnvVarsInLog
     }
 
 }
@@ -93,6 +100,9 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         dictionary["outputPaths"] = .array(outputPaths.map({.string(CommentedString($0))}))
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
+        }
+        if let showEnvVarsInLog = showEnvVarsInLog {
+            dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog)"))
         }
         return (key: CommentedString(self.reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
