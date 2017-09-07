@@ -89,7 +89,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        return (key: CommentedString(self.reference, comment: "Run Script"), value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: self.name), value: .dictionary(dictionary))
     }
 
 }
