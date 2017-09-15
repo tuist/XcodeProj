@@ -12,10 +12,6 @@ Following these guidelines helps to communicate that you respect the time of the
 
 xcodeproj is an open source project and we love to receive contributions from our community — you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into xcodeproj itself.
 
-### A bad contribution
-
-Please, don't use the issue tracker for support questions. For that purpose use Stack Overflow tagging your threads with `#xcodeproj`.
-
 # Ground Rules
 
 * Ensure that changes in the project are tested.
@@ -41,7 +37,7 @@ At this point, you're ready to make your changes! Feel free to ask for help; eve
 
 # Getting started
 
-1. Create your own fork of the code
+1. Create your own fork of the code and follow the steps in the `README` to set it up.
 2. Do the changes in your fork
 3. If you like the change and think the project could use it:
     * Be sure you have followed the code style for the project.

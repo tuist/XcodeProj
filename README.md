@@ -34,7 +34,8 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 ### Contribute 👨‍👩‍👧
 
 1. Git clone the repository `git@github.com:swift-xcode/xcodeproj.git`.
-2. Open `xcodeproj.xcodeproj`
+2. Generate xcodeproj with  `swift package generate-xcodeproj`.
+3. Open `xcodeproj.xcodeproj`.
 
 ### Setup 🦋
 
