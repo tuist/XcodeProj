@@ -13,4 +13,4 @@
 - [ ] Step 2
 
 ### GIF
-> Find a descriptive GIF for your PR. Because we :heart: fun at Carambalabs.
+> Find a descriptive GIF for your PR.
