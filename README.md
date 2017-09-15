@@ -18,25 +18,25 @@
 
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods Xcodeproj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
-### Motivation 💅
+## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
 
 - Add new `Build phases`.
 - Update the project `Build Settings`.
 - Create new `Schemes`.
 
-### Projects that benefit from xcodeproj ❤️
+## Projects that benefit from xcodeproj ❤️
 
 | **Project** | **Description** |
 |---------|-------------|
 | [XcodeGen](https://github.com/yonaskolb/XcodeGen)     | Generate Xcode projects dynamically from a YAML file |
 
-### Contribute 👨‍👩‍👧
+## Contribute 👨‍👩‍👧
 
 1. Git clone the repository `git@github.com:swift-xcode/xcodeproj.git`.
 2. Open `xcodeproj.xcodeproj`
 
-### Setup 🦋
+## Setup 🦋
 
 #### Using Swift Package Manager
 
@@ -70,40 +70,51 @@ pod "xcodeproj"
 
 > Note: xcodeproj is only available for macOS projects.
 
-### How to 🐒
+## How to use xcodeproj 🐒
 
-#### Read
+Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the `XcodeProj` or the `XCWorkspace` model. Modifications in your projects are usually executed in three steps:
 
-You can read the Xcode project files as shown in the examples below:
+1. Read the project or workspace initializing a `XcodeProj` or a `XCWorkspace` object respectively.
+2. Modify those objects or any of its dependencies.
+3. Write it back to disk.
 
 ```swift
-// Read a project
+// Removing all frameworks build phases
 let project = try! XcodeProj(path: "myproject.xcodeproj")
-let pbxproj = project.pbxproj
-let buildFiles = pbxproj.objects.buildFiles
-let buildConfigurations = pbxproj.objects.buildConfigurations
-
-// Read a workspace
-let workspace = try! XCWorkspace(path: "myworkspace.workspace")
-let projects = workspace.data.references.map { $0.project }
-
-// Read a config file
-let xcconfig = try! XCConfig(path: "MyConfig.xcconfig")
-let buildDir = xcconfig.buildSettings("CONFIGURATION_BUILD_DIR")
+project.pbxproj.frameworksBuildPhases.removeAll()
+try! project.write(path: "myproject.xcodeproj")
 ```
 
-#### Write
-All models above are also writable. After modifying them you can write them back to disk:
+The diagram below shows the sructure of a Xcode project.
 
-```swit
-pbxproj.write(override: true)
-xcconfig.write(override: true)
-```
+A `XcodeProj` has the following properties:
+- `XCSharedData` that contains the information about the schemes of the project.
+- `XCWorkspace` that defines the structure of the project workspace.
+- `PBXProj` that defines the strcuture of the project.
 
-### Documentation 📄
+Amongt other properties, the most important one in the `PBXProj` object is `Objects`. Projects are defined by a list of those objects that can be classified in the following groups:
+
+- **Build phases objects**: Define the available build phases.
+- **Targets objects**: Define your project targets and dependencies between them.
+- **Configuration objects**: Define the available configs and the link between them and the targets.
+- **Files objects**: Define the project files, build files and groups.
+
+
+All objects subclass `PBXObject`, and have an unique & deterministic reference. Moreover, they are hashable and conform the `Equatable` protocol.
+
+![diagram](Assets/diagram.png)
+
+You can read more about what each of these objects is for on the [following link](http://www.monobjc.net/xcode-project-file-format.html)
+
+### Considerations
+- Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
+- The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcodeproj`.
+- New versions of Xcode might introduce new models or property that are not supported by `xcodeproj`. If you find any, don't hesitate to [open an issue](https://github.com/swift-xcode/xcodeproj/issues/new) on the repository.
+
+## Documentation 📄
 You can check out the documentation on the following [link](https://swift-xcode.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
-### References 📚
+## References 📚
 
 - [PathKit](https://github.com/kylef/PathKit)
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
@@ -116,11 +127,11 @@ You can check out the documentation on the following [link](https://swift-xcode.
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
 
-### Contributors ❤️
+## Contributors ❤️
 
 [<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 
-### License
+## License
 
 ```
 MIT License
