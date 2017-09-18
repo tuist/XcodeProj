@@ -136,10 +136,13 @@
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
+</a>
+<a>
+   <img src="https://swift-xcode.herokuapp.com/badge.svg">
 </a></p>
 
 <p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods Xcodeproj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
-<h3 id='motivation' class='heading'>Motivation 💅</h3>
+<h2 id='motivation' class='heading'>Motivation 💅</h2>
 
 <p>Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:</p>
 
@@ -148,7 +151,7 @@
 <li>Update the project <code>Build Settings</code>.</li>
 <li>Create new <code>Schemes</code>.</li>
 </ul>
-<h3 id='projects-that-benefit-from-xcodeproj' class='heading'>Projects that benefit from xcodeproj ❤️</h3>
+<h2 id='projects-that-benefit-from-xcodeproj' class='heading'>Projects that benefit from xcodeproj ❤️</h2>
 
 <table><thead>
 <tr>
@@ -161,13 +164,14 @@
 <td>Generate Xcode projects dynamically from a YAML file</td>
 </tr>
 </tbody></table>
-<h3 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h3>
+<h2 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h2>
 
 <ol>
 <li>Git clone the repository <code>git@github.com:swift-xcode/xcodeproj.git</code>.</li>
-<li>Open <code>xcodeproj.xcodeproj</code></li>
+<li>Generate xcodeproj with  <code>swift package generate-xcodeproj</code>.</li>
+<li>Open <code>xcodeproj.xcodeproj</code>.</li>
 </ol>
-<h3 id='setup' class='heading'>Setup 🦋</h3>
+<h2 id='setup' class='heading'>Setup 🦋</h2>
 <h4 id='using-swift-package-manager' class='heading'>Using Swift Package Manager</h4>
 
 <p>Add the dependency in your <code>Package.swift</code> file:</p>
@@ -193,34 +197,56 @@
 <blockquote>
 <p>Note: xcodeproj is only available for macOS projects.</p>
 </blockquote>
-<h3 id='how-to' class='heading'>How to 🐒</h3>
-<h4 id='read' class='heading'>Read</h4>
+<h2 id='how-to-use-xcodeproj' class='heading'>How to use xcodeproj 🐒</h2>
 
-<p>You can read the Xcode project files as shown in the examples below:</p>
-<pre class="highlight swift"><code><span class="c1">// Read a project</span>
+<p>Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the <code>XcodeProj</code> or the <code>XCWorkspace</code> model. Modifications in your projects are usually executed in three steps:</p>
+
+<ol>
+<li>Read the project or workspace initializing a <code>XcodeProj</code> or a <code>XCWorkspace</code> object respectively.</li>
+<li>Modify those objects or any of its dependencies.</li>
+<li>Write it back to disk.</li>
+</ol>
+<pre class="highlight swift"><code><span class="c1">// Removing all frameworks build phases</span>
 <span class="k">let</span> <span class="nv">project</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XcodeProj</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myproject.xcodeproj"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">pbxproj</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span>
-<span class="k">let</span> <span class="nv">buildFiles</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">buildFiles</span>
-<span class="k">let</span> <span class="nv">buildConfigurations</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">buildConfigurations</span>
-
-<span class="c1">// Read a workspace</span>
-<span class="k">let</span> <span class="nv">workspace</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCWorkspace</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myworkspace.workspace"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">projects</span> <span class="o">=</span> <span class="n">workspace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">project</span> <span class="p">}</span>
-
-<span class="c1">// Read a config file</span>
-<span class="k">let</span> <span class="nv">xcconfig</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XCConfig</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyConfig.xcconfig"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">buildDir</span> <span class="o">=</span> <span class="n">xcconfig</span><span class="o">.</span><span class="nf">buildSettings</span><span class="p">(</span><span class="s">"CONFIGURATION_BUILD_DIR"</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">frameworksBuildPhases</span><span class="o">.</span><span class="nf">removeAll</span><span class="p">()</span>
+<span class="k">try!</span> <span class="n">project</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myproject.xcodeproj"</span><span class="p">)</span>
 </code></pre>
-<h4 id='write' class='heading'>Write</h4>
 
-<p>All models above are also writable. After modifying them you can write them back to disk:</p>
-<pre class="highlight plaintext"><code>pbxproj.write(override: true)
-xcconfig.write(override: true)
-</code></pre>
-<h3 id='documentation' class='heading'>Documentation 📄</h3>
+<p>The diagram below shows the sructure of a Xcode project.</p>
+
+<p>A <code>XcodeProj</code> has the following properties:</p>
+
+<ul>
+<li><code>XCSharedData</code> that contains the information about the schemes of the project.</li>
+<li><code>XCWorkspace</code> that defines the structure of the project workspace.</li>
+<li><code>PBXProj</code> that defines the strcuture of the project.</li>
+</ul>
+
+<p>Amongt other properties, the most important one in the <code>PBXProj</code> object is <code>Objects</code>. Projects are defined by a list of those objects that can be classified in the following groups:</p>
+
+<ul>
+<li><strong>Build phases objects</strong>: Define the available build phases.</li>
+<li><strong>Targets objects</strong>: Define your project targets and dependencies between them.</li>
+<li><strong>Configuration objects</strong>: Define the available configs and the link between them and the targets.</li>
+<li><strong>Files objects</strong>: Define the project files, build files and groups.</li>
+</ul>
+
+<p>All objects subclass <code>PBXObject</code>, and have an unique &amp; deterministic reference. Moreover, they are hashable and conform the <code>Equatable</code> protocol.</p>
+
+<p><img src="Assets/diagram.png" alt="diagram"></p>
+
+<p>You can read more about what each of these objects is for on the <a href="http://www.monobjc.net/xcode-project-file-format.html">following link</a></p>
+<h3 id='considerations' class='heading'>Considerations</h3>
+
+<ul>
+<li>Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.</li>
+<li>The write doesn&rsquo;t validate the structure of the project. It&rsquo;s up to the developer to validate the changes that have been done using <code>xcodeproj</code>.</li>
+<li>New versions of Xcode might introduce new models or property that are not supported by <code>xcodeproj</code>. If you find any, don&rsquo;t hesitate to <a href="https://github.com/swift-xcode/xcodeproj/issues/new">open an issue</a> on the repository.</li>
+</ul>
+<h2 id='documentation' class='heading'>Documentation 📄</h2>
 
 <p>You can check out the documentation on the following <a href="https://swift-xcode.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
-<h3 id='references' class='heading'>References 📚</h3>
+<h2 id='references' class='heading'>References 📚</h2>
 
 <ul>
 <li><a href="https://github.com/kylef/PathKit">PathKit</a></li>
@@ -234,10 +260,10 @@ xcconfig.write(override: true)
 <li><a href="https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html">Facebook Buck</a></li>
 <li><a href="https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj">Swift Package Manager - Xcodeproj</a></li>
 </ul>
-<h3 id='contributors' class='heading'>Contributors ❤️</h3>
+<h2 id='contributors' class='heading'>Contributors ❤️</h2>
 
 <p><a href="https://github.com/yonaskolb"><img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117"></a><a href="https://github.com/pepibumur"><img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117"></a></p>
-<h3 id='license' class='heading'>License</h3>
+<h2 id='license' class='heading'>License</h2>
 <pre class="highlight plaintext"><code>MIT License
 
 Copyright (c) 2017 swift-code
