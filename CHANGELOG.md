@@ -1,3 +1,7 @@
+## 0.2.0
+- Add how to use section https://github.com/swift-xcode/xcodeproj/pull/77 by @pepibumur
+- Add contributing guidelines https://github.com/swift-xcode/xcodeproj/pull/76 by @pepibumur
+
 ## 0.1.2
 - Update shell build script phase input and output files to be array instead of set https://github.com/swift-xcode/xcodeproj/issues/65 by @pepibumur
 - Fix wrong comment in the shell script build phase https://github.com/swift-xcode/xcodeproj/issues/67 by @ppeibumur
