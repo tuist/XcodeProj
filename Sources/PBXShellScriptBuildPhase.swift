@@ -20,7 +20,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     /// Shell script.
     public var shellScript: String?
-    
+
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: UInt?
 
@@ -41,7 +41,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
                 name: String? = nil,
                 inputPaths: [String],
                 outputPaths: [String],
-                shellPath: String = "bin/sh",
+                shellPath: String = "/bin/sh",
                 shellScript: String?,
                 buildActionMask: UInt = 2147483647,
                 runOnlyForDeploymentPostprocessing: UInt = 0,
