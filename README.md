@@ -134,7 +134,7 @@ You can check out the documentation on the following [link](https://swift-xcode.
 
 ## Contributors ❤️
 
-[<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
+[<img alt="Shakarang" src="https://avatars1.githubusercontent.com/u/8086925?v=4&s=117" width="117">](https://github.com/Shakarang)[<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 
 ## License
 
