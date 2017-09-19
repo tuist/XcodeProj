@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
 <a>
-   <img src="https://swift-xcode.herokuapp.com/badge.svg">
+   <a href="http://swift-xcode.herokuapp.com/"><img src="https://swift-xcode.herokuapp.com/badge.svg"></a>
 </a>
 
 
