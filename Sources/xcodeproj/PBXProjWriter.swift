@@ -16,7 +16,7 @@ class PBXProjWriter {
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
-
+    
     func write(proj: PBXProj) -> String {
         writeUtf8()
         writeNewLine()
@@ -53,7 +53,7 @@ class PBXProjWriter {
         writeNewLine()
         write(dictionaryKey: "rootObject",
               dictionaryValue: .string(CommentedString(proj.rootObject,
-                                                                   comment: "Project object")))
+                                                       comment: "Project object")))
         writeDictionaryEnd()
         writeNewLine()
         return output
@@ -105,11 +105,10 @@ class PBXProjWriter {
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object
-            .sorted(by: { $0.0.reference < $0.1.reference})
+        object.sorted { $0.reference < $1.reference }
             .forEach { (serializable) in
-            let element = serializable.plistKeyAndValue(proj: proj)
-            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
+                let element = serializable.plistKeyAndValue(proj: proj)
+                write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
         }
         write(string: "/* End \(section) section */")
         writeNewLine()
@@ -118,14 +117,14 @@ class PBXProjWriter {
     private func write(dictionary: [CommentedString: PlistValue], newLines: Bool = true) {
         writeDictionaryStart()
         dictionary.sorted(by: { (left, right) -> Bool in
-                if left.key == "isa" {
-                    return true
-                } else if right.key == "isa" {
-                    return false
-                } else {
-                    return left.key.string < right.key.string
-                }
-            })
+            if left.key == "isa" {
+                return true
+            } else if right.key == "isa" {
+                return false
+            } else {
+                return left.key.string < right.key.string
+            }
+        })
             .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
         writeDictionaryEnd()
     }
