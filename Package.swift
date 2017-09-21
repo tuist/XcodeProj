@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "xcodeproj",
+    products: [
+        .library(name: "xcodeproj", targets: ["xcodeproj"]),
+        ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit.git", .upToNextMajor(from: "0.0.8")),
         .package(url: "https://github.com/JohnSundell/Unbox.git", .upToNextMajor(from: "2.5.0")),
