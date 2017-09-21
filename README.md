@@ -51,8 +51,13 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .Package(url: "https://github.com/swift-xcode/xcodeproj.git", majorVersion: 0, minor: 0)
-    ]
+        .package(url: "https://github.com/swift-xcode/xcodeproj.git", .upToNextMajor(from: "0.2.0")),
+        ],
+    targets: [
+        .target(
+            name: "myproject",
+            dependencies: ["xcodeproj"]),
+        ]
 )
 
 ```
