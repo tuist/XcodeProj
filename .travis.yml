@@ -1,7 +1,7 @@
 os:
 - osx
 language: generic
-osx_image: xcode9.0
+osx_image: xcode9
 install:
   - brew upgrade swiftlint
   - bundle install
