@@ -13,8 +13,7 @@ let package = Package(
         .package(url: "https://github.com/tadija/AEXML.git", .upToNextMajor(from: "4.1.0")),
         ],
     targets: [
-        .target(
-            name: "xcodeproj",
-            dependencies: ["PathKit", "Unbox", "AEXML"]),
+        .target(name: "xcodeproj", dependencies: ["PathKit", "Unbox", "AEXML"]),
+        .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj"]),
         ]
 )
