@@ -65,6 +65,8 @@ public class PBXObject: Referenceable {
             return try PBXCopyFilesBuildPhase(reference: reference, dictionary: dictionary)
         case PBXContainerItemProxy.isa:
             return try PBXContainerItemProxy(reference: reference, dictionary: dictionary)
+        case PBXReferenceProxy.isa:
+            return try PBXReferenceProxy(reference: reference, dictionary: dictionary)
         default:
             throw PBXObjectError.unknownElement(isa)
         }
