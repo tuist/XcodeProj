@@ -38,7 +38,8 @@ public class PBXProj {
     public var nativeTargets: [PBXNativeTarget] = []
     public var fileReferences: [PBXFileReference] = []
     public var projects: [PBXProject] = []
-
+    public var referenceProxies: [PBXReferenceProxy] = []
+    
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
@@ -81,6 +82,7 @@ public class PBXProj {
             array += fileReferences as [PBXObject]
             array += projects as [PBXObject]
             array += versionGroups as [PBXObject]
+            array += referenceProxies as [PBXObject]
             return array
         }
         set {
@@ -103,6 +105,7 @@ public class PBXProj {
             fileReferences = newValue.flatMap { $0 as? PBXFileReference }
             projects = newValue.flatMap { $0 as? PBXProject }
             versionGroups = newValue.flatMap { $0 as? XCVersionGroup }
+            referenceProxies = newValue.flatMap { $0 as? PBXReferenceProxy }
         }
     }
 
@@ -127,6 +130,7 @@ public class PBXProj {
         case let object as PBXFileReference: fileReferences.append(object)
         case let object as PBXProject: projects.append(object)
         case let object as XCVersionGroup: versionGroups.append(object)
+        case let object as PBXReferenceProxy: referenceProxies.append(object)
         default: break
         }
     }
@@ -194,6 +198,7 @@ extension PBXProj: Equatable {
             lhs.fileReferences == rhs.fileReferences &&
             lhs.projects == rhs.projects &&
             lhs.rootObject == rhs.rootObject &&
-            lhs.versionGroups == rhs.versionGroups
+            lhs.versionGroups == rhs.versionGroups &&
+            lhs.referenceProxies == rhs.referenceProxies
     }
 }
