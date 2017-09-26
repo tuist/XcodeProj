@@ -7,7 +7,7 @@ public class PBXVariantGroup: PBXObject, Hashable {
     // MARK: - Attributes
     
     // The objects are a reference to a PBXFileElement element
-    public var children: Set<String>
+    public var children: [String]
     
     // The filename
     public var name: String
@@ -25,7 +25,7 @@ public class PBXVariantGroup: PBXObject, Hashable {
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
     public init(reference: String,
-                children: Set<String>,
+                children: [String],
                 name: String,
                 sourceTree: PBXSourceTree) {
         self.children = children
