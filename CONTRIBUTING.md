@@ -20,7 +20,7 @@ xcproj is an open source project and we love to receive contributions from our c
 * Don't add any classes to the codebase unless absolutely needed.
 * Keep feature versions as small as possible, preferably one new feature per version.
 * Be welcoming to newcomers and encourage diverse new contributors from all backgrounds.
-* Comply the [code of conduct](https://github.com/swift-xcode/xcproj/blob/master/CODE_OF_CONDUCT.md) when you participate in the project.
+* Comply the [code of conduct](https://github.com/xcodeswift/xcproj/blob/master/CODE_OF_CONDUCT.md) when you participate in the project.
 
 # Your First Contribution
 
@@ -83,7 +83,7 @@ After feedback has been given we expect responses within two weeks. After two we
 
 # Community
 
-You can chat with the core team on Slack. You can join the group on the [following link](https://swift-xcode.herokuapp.com).
+You can chat with the core team on Slack. You can join the group on the [following link](https://xcodeswift.herokuapp.com).
 
 # Conventions
 

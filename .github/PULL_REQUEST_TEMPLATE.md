@@ -1,4 +1,4 @@
-**Issue:** [Link](https://github.com/swift-xcode/xcproj/issues/YYY)
+**Issue:** [Link](https://github.com/xcodeswift/xcproj/issues/YYY)
 
 ### Short description
 > Describe here the purpose of your PR.
