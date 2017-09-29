@@ -1,4 +1,4 @@
 import XCTest
-@testable import xcodeprojTests
+@testable import xcprojTests
 
 // testDictionaryExtras()

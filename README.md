@@ -1,7 +1,7 @@
-<img width="300" src="https://github.com/swift-xcode/xcodeproj/blob/master/Assets/logo.png?raw=true"/>
+<img width="300" src="https://github.com/swift-xcode/xcproj/blob/master/Assets/logo.png?raw=true"/>
 
-<a href="https://travis-ci.org/swift-xcode/xcodeproj">
-    <img src="https://travis-ci.org/swift-xcode/xcodeproj.svg?branch=master">
+<a href="https://travis-ci.org/swift-xcode/xcproj">
+    <img src="https://travis-ci.org/swift-xcode/xcproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
@@ -9,8 +9,8 @@
 <a href="https://twitter.com/pepibumur">
     <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
 </a>
-<a href="https://github.com/swift-xcode/xcodeproj/releases">
-    <img src="https://img.shields.io/github/release/swift-xcode/xcodeproj.svg"/>
+<a href="https://github.com/swift-xcode/xcproj/releases">
+    <img src="https://img.shields.io/github/release/swift-xcode/xcproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
@@ -20,7 +20,7 @@
 </a>
 
 
-xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods Xcodeproj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
+xcproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 ## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
@@ -29,7 +29,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 - Update the project `Build Settings`.
 - Create new `Schemes`.
 
-## Projects that benefit from xcodeproj ❤️
+## Projects that benefit from xcproj ❤️
 
 | **Project** | **Description** |
 |---------|-------------|
@@ -37,9 +37,9 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 
 ## Contribute 👨‍👩‍👧
 
-1. Git clone the repository `git@github.com:swift-xcode/xcodeproj.git`.
-2. Generate xcodeproj with  `swift package generate-xcodeproj`.
-3. Open `xcodeproj.xcodeproj`.
+1. Git clone the repository `git@github.com:swift-xcode/xcproj.git`.
+2. Generate xcproj with  `swift package generate-xcproj`.
+3. Open `xcproj.xcodeproj`.
 
 ## Setup 🦋
 
@@ -51,12 +51,12 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/swift-xcode/xcodeproj.git", .upToNextMajor(from: "0.2.0")),
+        .package(url: "https://github.com/swift-xcode/xcproj.git", .upToNextMajor(from: "0.2.0")),
         ],
     targets: [
         .target(
             name: "myproject",
-            dependencies: ["xcodeproj"]),
+            dependencies: ["xcproj"]),
         ]
 )
 
@@ -67,7 +67,7 @@ let package = Package(
 Edit your `Marathonfile` and specify the dependency in there:
 
 ```bash
-https://github.com/swift-xcode/xcodeproj.git
+https://github.com/swift-xcode/xcproj.git
 ```
 
 #### Using [CocoaPods](https://cocoapods.org)
@@ -75,12 +75,12 @@ https://github.com/swift-xcode/xcodeproj.git
 Edit your `Podfile` and specify the dependency:
 
 ```bash
-pod "xcodeproj"
+pod "xcproj"
 ```
 
-> Note: xcodeproj is only available for macOS projects.
+> Note: xcproj is only available for macOS projects.
 
-## How to use xcodeproj 🐒
+## How to use xcproj 🐒
 
 Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the `XcodeProj` or the `XCWorkspace` model. Modifications in your projects are usually executed in three steps:
 
@@ -118,11 +118,11 @@ You can read more about what each of these objects is for on the [following link
 
 ### Considerations
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
-- The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcodeproj`.
-- New versions of Xcode might introduce new models or property that are not supported by `xcodeproj`. If you find any, don't hesitate to [open an issue](https://github.com/swift-xcode/xcodeproj/issues/new) on the repository.
+- The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
+- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/swift-xcode/xcproj/issues/new) on the repository.
 
 ## Documentation 📄
-You can check out the documentation on the following [link](https://swift-xcode.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://swift-xcode.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ## References 📚
 

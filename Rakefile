@@ -8,7 +8,7 @@ require 'colorize'
 def generate_docs
   print "> Executing tests"
   sh "swift package generate-xcodeproj"
-  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -scheme,xcodeproj --skip-undocumented --no-download-badge"
+  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -scheme,xcproj-Package --skip-undocumented --no-download-badge"
 end
 
 def any_git_changes?
@@ -29,7 +29,7 @@ def next_version
 end
 
 def bump_to_version(from, to)
-  spec_path = "xcodeproj.podspec"
+  spec_path = "xcproj.podspec"
   content = File.read(spec_path)
   File.open(spec_path, "w"){|f| f.write(content.sub(from.to_s, to.to_s)) }
   `git add .`
@@ -60,11 +60,11 @@ task :ci => [:clean] do
   sh "swift test"
 end
 
-desc "Bumps the version of xcodeprojlint. It creates a new tagged commit and archives the binary to be published with the release"
+desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
 task :release => [:clean] do
   abort '> Commit all your changes before starting the release' unless !any_git_changes?
   build
-  print "> xcodeproj built"
+  print "> xcproj built"
   generate_docs
   print "> Documentation generated"
   version = next_version

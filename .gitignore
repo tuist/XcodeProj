@@ -181,4 +181,4 @@ xcuserdata
 .vscode
 
 build/
-xcodeproj.xcodeproj
+xcproj.xcodeproj

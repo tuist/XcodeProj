@@ -3,9 +3,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "xcodeproj",
+    name: "xcproj",
     products: [
-        .library(name: "xcodeproj", targets: ["xcodeproj"]),
+        .library(name: "xcproj", targets: ["xcproj"]),
         ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit.git", .upToNextMajor(from: "0.0.8")),
@@ -13,7 +13,7 @@ let package = Package(
         .package(url: "https://github.com/tadija/AEXML.git", .upToNextMajor(from: "4.1.0")),
         ],
     targets: [
-        .target(name: "xcodeproj", dependencies: ["PathKit", "Unbox", "AEXML"]),
-        .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj"]),
+        .target(name: "xcproj", dependencies: ["PathKit", "Unbox", "AEXML"]),
+        .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
         ]
 )

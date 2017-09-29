@@ -1,0 +1,65 @@
+import Foundation
+import XCTest
+import xcproj
+
+final class PBXGroupSpec: XCTestCase {
+
+    var subject: PBXGroup!
+
+    override func setUp() {
+        super.setUp()
+        self.subject = PBXGroup(reference: "ref",
+                                children: ["333"],
+                                sourceTree: .group,
+                                name: "name")
+    }
+
+    func test_init_initializesTheGroupWithTheRightProperties() {
+        XCTAssertEqual(subject.reference, "ref")
+        XCTAssertEqual(subject.children, ["333"])
+        XCTAssertEqual(subject.sourceTree, .group)
+        XCTAssertEqual(subject.name, "name")
+    }
+
+    func test_init_failsIfChildrenIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "children")
+        do {
+            _ = try PBXGroup(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+
+    func test_init_failsIfSourceTreeIsMissing() {
+        var dictionary = testDictionary()
+        dictionary.removeValue(forKey: "sourceTree")
+        do {
+            _ = try PBXGroup(reference: "ref", dictionary: dictionary)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {}
+    }
+
+    func test_isa_returnsTheCorrectValue() {
+        XCTAssertEqual(PBXGroup.isa, "PBXGroup")
+    }
+
+    func test_equals_returnsTheCorretValue() {
+        let another = PBXGroup(reference: "ref",
+                               children: ["333"],
+                               sourceTree: .group,
+                               name: "name")
+        XCTAssertEqual(subject, another)
+    }
+
+    func test_hashValue_returnsTheReferenceHashValue() {
+        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
+    }
+
+    private func testDictionary() -> [String: Any] {
+        return [
+            "children": ["child"],
+            "name": "name",
+            "sourceTree": "absolute"
+        ]
+    }
+}

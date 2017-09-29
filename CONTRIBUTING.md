@@ -2,7 +2,7 @@
 
 ### Welcome dear contributor!
 
-First off, thank you for considering contributing to xcodeproj. It's people like you that make xcodeproj such a great tool.
+First off, thank you for considering contributing to xcproj. It's people like you that make xcproj such a great tool.
 
 ### Why reading the guidelines is important
 
@@ -10,7 +10,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 ### A good contribution
 
-xcodeproj is an open source project and we love to receive contributions from our community — you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into xcodeproj itself.
+xcproj is an open source project and we love to receive contributions from our community — you! There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests or writing code which can be incorporated into xcproj itself.
 
 # Ground Rules
 
@@ -20,11 +20,11 @@ xcodeproj is an open source project and we love to receive contributions from ou
 * Don't add any classes to the codebase unless absolutely needed.
 * Keep feature versions as small as possible, preferably one new feature per version.
 * Be welcoming to newcomers and encourage diverse new contributors from all backgrounds.
-* Comply the [code of conduct](https://github.com/swift-xcode/xcodeproj/blob/master/CODE_OF_CONDUCT.md) when you participate in the project.
+* Comply the [code of conduct](https://github.com/swift-xcode/xcproj/blob/master/CODE_OF_CONDUCT.md) when you participate in the project.
 
 # Your First Contribution
 
-Unsure where to begin contributing to xcodeproj? You can start by looking through these easy and thread issues:
+Unsure where to begin contributing to xcproj? You can start by looking through these easy and thread issues:
 
 - **difficulty:easy** - issues which should only require a few lines of code, and a test or two.
 - **type:thread** - issues which should be a bit more involved than beginner issues.
@@ -73,7 +73,7 @@ When filing an issue, make sure to answer these five questions:
 
 Before suggesting a new feature, make sure that it aligns with the project philosophy, providing an API to interact with Xcode projects files.
 
-If you find yourself wishing for a feature that doesn't exist in xcodeproj, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that xcodeproj has today have been added because our users saw the need. Open an issue on our issues list on GitHub which describes the feature you would like to see, why you need it, and how it should work.
+If you find yourself wishing for a feature that doesn't exist in xcproj, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that xcproj has today have been added because our users saw the need. Open an issue on our issues list on GitHub which describes the feature you would like to see, why you need it, and how it should work.
 
 # Code review process
 
