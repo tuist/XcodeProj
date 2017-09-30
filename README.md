@@ -6,8 +6,8 @@
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
 </a>
-<a href="https://twitter.com/pepibumur">
-    <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+<a href="https://twitter.com/xcodedotswift">
+    <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
 </a>
 <a href="https://github.com/xcodeswift/xcproj/releases">
     <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
