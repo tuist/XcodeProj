@@ -1,4 +1,4 @@
-<img width="300" src="https://github.com/xcodeswift/xcproj/blob/master/Assets/logo.png?raw=true"/>
+# xcproj
 
 <a href="https://travis-ci.org/xcodeswift/xcproj">
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
