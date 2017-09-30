@@ -1,16 +1,16 @@
 **Issue:** [Link](https://github.com/xcodeswift/xcproj/issues/YYY)
 
-### Short description
+### Short description 📝
 > Describe here the purpose of your PR.
 
-### Solution
+### Solution 📦
 > Describe the solution you came up with and the reasons that led you to that solution. If you thought about other solutions don't forget about mentioning them.
 
-### Implementation
+### Implementation 👩‍💻👨‍💻
 > Detail in a checklist the steps that you took to implement the PR.
 
 - [ ] Step 1
 - [ ] Step 2
 
 ### GIF
-> Find a descriptive GIF for your PR.
+![gif]()
