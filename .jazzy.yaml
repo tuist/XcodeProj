@@ -1,8 +1,8 @@
-author: swift-xcode
+author: xcode.swift
 module: xcproj
 module_version: 0.0.1
-github_url: https://github.com/swift-xcode/xcproj
-copyright: 'Copyright © 2017 swift-xcode. All rights reserved.'
+github_url: https://github.com/xcodeswift/xcproj
+copyright: 'Copyright © 2017 xcode.swift. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md
 custom_categories:

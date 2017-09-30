@@ -1,7 +1,7 @@
-<img width="300" src="https://github.com/swift-xcode/xcproj/blob/master/Assets/logo.png?raw=true"/>
+<img width="300" src="https://github.com/xcodeswift/xcproj/blob/master/Assets/logo.png?raw=true"/>
 
-<a href="https://travis-ci.org/swift-xcode/xcproj">
-    <img src="https://travis-ci.org/swift-xcode/xcproj.svg?branch=master">
+<a href="https://travis-ci.org/xcodeswift/xcproj">
+    <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
@@ -9,14 +9,14 @@
 <a href="https://twitter.com/pepibumur">
     <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
 </a>
-<a href="https://github.com/swift-xcode/xcproj/releases">
-    <img src="https://img.shields.io/github/release/swift-xcode/xcproj.svg"/>
+<a href="https://github.com/xcodeswift/xcproj/releases">
+    <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
 <a>
-   <a href="http://swift-xcode.herokuapp.com/"><img src="https://swift-xcode.herokuapp.com/badge.svg"></a>
+   <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
 </a>
 
 
@@ -51,7 +51,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/swift-xcode/xcproj.git", .upToNextMajor(from: "0.2.0")),
+        .package(url: "https://github.com/xcodeswift/xcproj.git", .upToNextMajor(from: "0.2.0")),
         ],
     targets: [
         .target(
@@ -67,7 +67,7 @@ let package = Package(
 Edit your `Marathonfile` and specify the dependency in there:
 
 ```bash
-https://github.com/swift-xcode/xcproj.git
+https://github.com/xcodeswift/xcproj.git
 ```
 
 #### Using [CocoaPods](https://cocoapods.org)
@@ -119,10 +119,10 @@ You can read more about what each of these objects is for on the [following link
 ### Considerations
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
 - The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
-- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/swift-xcode/xcproj/issues/new) on the repository.
+- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcodeswift/xcproj/issues/new) on the repository.
 
 ## Documentation 📄
-You can check out the documentation on the following [link](https://swift-xcode.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ## References 📚
 

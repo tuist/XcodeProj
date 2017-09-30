@@ -14,7 +14,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">xcproj Docs</a> (49% documented)</p>
-        <p class="header-right"><a href="https://github.com/swift-xcode/xcproj"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -128,10 +128,10 @@
         <section>
           <section class="section">
             
-            <p><img width="300" src="https://github.com/swift-xcode/xcproj/blob/master/Assets/logo.png?raw=true"/></p>
+            <p><img width="300" src="https://github.com/xcodeswift/xcproj/blob/master/Assets/logo.png?raw=true"/></p>
 
-<p><a href="https://travis-ci.org/swift-xcode/xcproj">
-    <img src="https://travis-ci.org/swift-xcode/xcproj.svg?branch=master">
+<p><a href="https://travis-ci.org/xcodeswift/xcproj">
+    <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
@@ -139,14 +139,14 @@
 <a href="https://twitter.com/pepibumur">
     <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
 </a>
-<a href="https://github.com/swift-xcode/xcproj/releases">
-    <img src="https://img.shields.io/github/release/swift-xcode/xcproj.svg"/>
+<a href="https://github.com/xcodeswift/xcproj/releases">
+    <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
 <a>
-   <a href="http://swift-xcode.herokuapp.com/"><img src="https://swift-xcode.herokuapp.com/badge.svg"></a>
+   <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
 </a></p>
 
 <p>xcproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods XcodeProj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
@@ -175,7 +175,7 @@
 <h2 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h2>
 
 <ol>
-<li>Git clone the repository <code>git@github.com:swift-xcode/xcproj.git</code>.</li>
+<li>Git clone the repository <code>git@github.com:xcodeswift/xcproj.git</code>.</li>
 <li>Generate xcproj with  <code>swift package generate-xcproj</code>.</li>
 <li>Open <code>xcproj.xcodeproj</code>.</li>
 </ol>
@@ -186,7 +186,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/swift-xcode/xcproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.2.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/xcodeswift/xcproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.2.0"</span><span class="p">)),</span>
         <span class="p">],</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
         <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
@@ -199,7 +199,7 @@
 <h4 id='using-a-href-https-github-com-johnsundell-marathon-marathon-a' class='heading'>Using <a href="https://github.com/JohnSundell/Marathon">Marathon</a></h4>
 
 <p>Edit your <code>Marathonfile</code> and specify the dependency in there:</p>
-<pre class="highlight shell"><code>https://github.com/swift-xcode/xcproj.git
+<pre class="highlight shell"><code>https://github.com/xcodeswift/xcproj.git
 </code></pre>
 <h4 id='using-a-href-https-cocoapods-org-cocoapods-a' class='heading'>Using <a href="https://cocoapods.org">CocoaPods</a></h4>
 
@@ -254,11 +254,11 @@
 <ul>
 <li>Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.</li>
 <li>The write doesn&rsquo;t validate the structure of the project. It&rsquo;s up to the developer to validate the changes that have been done using <code>xcproj</code>.</li>
-<li>New versions of Xcode might introduce new models or property that are not supported by <code>xcproj</code>. If you find any, don&rsquo;t hesitate to <a href="https://github.com/swift-xcode/xcproj/issues/new">open an issue</a> on the repository.</li>
+<li>New versions of Xcode might introduce new models or property that are not supported by <code>xcproj</code>. If you find any, don&rsquo;t hesitate to <a href="https://github.com/xcodeswift/xcproj/issues/new">open an issue</a> on the repository.</li>
 </ul>
 <h2 id='documentation' class='heading'>Documentation 📄</h2>
 
-<p>You can check out the documentation on the following <a href="https://swift-xcode.github.io/xcproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
+<p>You can check out the documentation on the following <a href="https://xcodeswift.github.io/xcproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
 <h2 id='references' class='heading'>References 📚</h2>
 
 <ul>
@@ -303,7 +303,7 @@ SOFTWARE.
           </section>
         </section>
         <section id="footer">
-          <p>Copyright © 2017 swift-xcode. All rights reserved.</p>
+          <p>Copyright © 2017 xcode.swift. All rights reserved.</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

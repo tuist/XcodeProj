@@ -8,7 +8,7 @@ In this documents you'll find all the necessary steps to release a new version o
 2. Update the `CHANGELOG.md` adding a new entry at the top with the new version. The new entry should include all the changes in the new version, mentioning the people involved in these changes, and the issues that were closed with those changes. Commit the changes in `CHANGELOG.md`.
 3. Validate the state of the project by executing `bundle exec rake ci`
 4. Generate the release with `bundle exec rake release`.
-5. Create a new release on [GitHub](https://github.com/swift-xcode/xcproj) including the information from the last entry in the `CHANGELOG.md`.
+5. Create a new release on [GitHub](https://github.com/xcodeswift/xcproj) including the information from the last entry in the `CHANGELOG.md`.
 6. Close the GitHub Milestone associated to that release and open a new one for the next release.
 7. Rebase the `release/x.x.x` branch into `master`.
 
