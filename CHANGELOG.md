@@ -1,3 +1,9 @@
+## 0.3.0
+- Turn `PBXVariantGroup` children property into an array https://github.com/xcodeswift/xcproj/pull/88 by @pepibumur
+- Add `PBXReferenceProxy` object https://github.com/xcodeswift/xcproj/pull/85 by @pepibumur
+- Migrate project to Swift 4 https://github.com/xcodeswift/xcproj/pull/84 by @artemnovichkov
+- Fix build phase script error undoer Xcode 9 https://github.com/xcodeswift/xcproj/pull/81 by @kixswift
+
 ## 0.2.0
 - Add how to use section https://github.com/xcodeswift/xcproj/pull/77 by @pepibumur
 - Add contributing guidelines https://github.com/xcodeswift/xcproj/pull/76 by @pepibumur
