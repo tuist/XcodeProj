@@ -102,7 +102,7 @@ public class PBXProject: PBXObject, Hashable {
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
-        self.name = try unboxer.unbox(key: "name")
+        self.name = (try? unboxer.unbox(key: "name")) ?? ""
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
         self.compatibilityVersion = try unboxer.unbox(key: "compatibilityVersion")
         self.developmentRegion = unboxer.unbox(key: "developmentRegion")
