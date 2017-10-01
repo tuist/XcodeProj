@@ -1,4 +1,4 @@
-<img width="300" src="https://github.com/xcodeswift/xcproj/blob/master/Assets/logo.png?raw=true"/>
+# xcproj
 
 <a href="https://travis-ci.org/xcodeswift/xcproj">
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
@@ -6,8 +6,8 @@
 <a href="https://swift.org/package-manager">
     <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
 </a>
-<a href="https://twitter.com/pepibumur">
-    <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+<a href="https://twitter.com/xcodedotswift">
+    <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
 </a>
 <a href="https://github.com/xcodeswift/xcproj/releases">
     <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
@@ -38,7 +38,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 ## Contribute 👨‍👩‍👧
 
 1. Git clone the repository `git@github.com:xcodeswift/xcproj.git`.
-2. Generate xcproj with  `swift package generate-xcproj`.
+2. Generate xcproj with  `swift package generate-xcodeproj`.
 3. Open `xcproj.xcodeproj`.
 
 ## Setup 🦋
@@ -139,10 +139,8 @@ You can check out the documentation on the following [link](https://xcodeswift.g
 
 ## Contributors ❤️
 
-[<img alt="Shakarang" src="https://avatars1.githubusercontent.com/u/8086925?v=4&s=117" width="117">](https://github.com/Shakarang)[<img alt="kixswift" src="https://avatars0.githubusercontent.com/u/10491362?v=4&s=117" width="117">](https://github.com/kixswift)[<img alt="artemnovichkov" src="https://avatars3.githubusercontent.com/u/5051597?v=4&s=117" width="117">](https://github.com/artemnovichkov)[<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
-
-
-
+[<img alt="Shakarang" src="https://avatars1.githubusercontent.com/u/8086925?v=4&s=117" width="117">](https://github.com/Shakarang)[<img alt="Mazyod" src="https://avatars3.githubusercontent.com/u/860511?v=4&s=117" width="117">](https://github.com/Mazyod)[<img alt="kixswift" src="https://avatars0.githubusercontent.com/u/10491362?v=4&s=117" width="117">](https://github.com/kixswift)[<img alt="artemnovichkov" src="https://avatars3.githubusercontent.com/u/5051597?v=4&s=117" width="117">](https://github.com/artemnovichkov)[<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)
+[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 
 ## License
 

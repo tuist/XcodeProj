@@ -8,7 +8,7 @@ extension PBXProj {
     static func testData(archiveVersion: Int = 0,
                 objectVersion: Int = 1,
                 rootObject: String = "rootObject",
-                classes: [Any] = [],
+                classes: [String: Any] = [:],
                 objects: [PBXObject] = []) -> PBXProj {
         return PBXProj(archiveVersion: archiveVersion,
                        objectVersion: objectVersion,
@@ -30,7 +30,7 @@ final class PBXProjSpec: XCTestCase {
         subject = PBXProj(archiveVersion: 1,
                           objectVersion: 46,
                           rootObject: "root",
-                          classes: [],
+                          classes: [:],
                           objects: [object])
     }
 
