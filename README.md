@@ -34,6 +34,8 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 | **Project** | **Description** |
 |---------|-------------|
 | [XcodeGen](https://github.com/yonaskolb/XcodeGen)     | Generate Xcode projects dynamically from a YAML file |
+| [xclint](https://github.com/xcodeswift/xclint) | Lint the format of your Xcode projects|
+| [xctools](https://github.com/xcodeswift/xctools) | Handy command line tools |
 
 ## Contribute 👨‍👩‍👧
 
