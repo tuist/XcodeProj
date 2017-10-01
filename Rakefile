@@ -2,6 +2,7 @@
 
 require 'semantic'
 require 'colorize'
+require 'fileutils'
 
 ### HELPERS ###
 
@@ -50,10 +51,19 @@ task :clean do
   `rm -rf build`
 end
 
+desc "Lints the CocoaPods specification"
+task :pod_lint do
+  sh "bundle exec pod install --project-directory=CocoaPods/"
+  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme macOS -config Debug clean build"
+  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme iOS -config Debug -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0' clean build"
+end
+
 desc "Executes all the validation steps for CI"
 task :ci => [:clean] do
   print "> Linting project"
   sh "swiftlint"
+  print "> CocoaPods linting"
+  Rake::Task["pod_lint"].invoke
   print "> Building the project"
   sh "swift build"
   print "> Executing tests"

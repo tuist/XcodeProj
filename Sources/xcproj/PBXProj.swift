@@ -176,9 +176,10 @@ public class PBXProj {
 extension PBXProj: Equatable {
 
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
+        let equalClasses = NSDictionary(dictionary: lhs.classes).isEqual(to: rhs.classes)
         return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
-            NSDictionary(dictionary: lhs.classes).isEqual(to: NSDictionary(dictionary: rhs.classes)) &&
+            equalClasses &&
             lhs.buildFiles == rhs.buildFiles &&
             lhs.aggregateTargets == rhs.aggregateTargets &&
             lhs.containerItemProxies == rhs.containerItemProxies &&

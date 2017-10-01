@@ -3,50 +3,50 @@ import Unbox
 
 // This is the element for a build target that produces a binary content (application or library).
 public class PBXProject: PBXObject, Hashable {
-
+    
     // MARK: - Attributes
-
+  
     // xcodeproj's name
     public var name: String
 
     // The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
-
+    
     // A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
-
+    
     // The region of development.
     public var developmentRegion: String?
-
+    
     // Whether file encodings have been scanned.
     public var hasScannedForEncodings: Int?
-
+    
     // The known regions for localized files.
     public var knownRegions: [String]
-
+    
     // The object is a reference to a PBXGroup element.
     public var mainGroup: String
-
+    
     // The object is a reference to a PBXGroup element.
     public var productRefGroup: String?
-
+    
     // The relative path of the project.
     public var projectDirPath: String?
-
+    
     /// Project references.
     public var projectReferences: [Any]
-
+    
     // The relative root path of the project.
     public var projectRoot: String?
-
+    
     // The objects are a reference to a PBXTarget element.
     public var targets: [String]
-
+    
     /// Project attributes.
     public var attributes: [String: Any]
-
+    
     // MARK: - Init
-
+    
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
@@ -93,7 +93,7 @@ public class PBXProject: PBXObject, Hashable {
         self.attributes = attributes
         super.init(reference: reference)
     }
-
+    
     /// Constructor that initializes the project element with the reference and a dictionary with its properties.
     ///
     /// - Parameters:
@@ -117,36 +117,44 @@ public class PBXProject: PBXObject, Hashable {
         self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
         try super.init(reference: reference, dictionary: dictionary)
     }
-
+    
     // MARK: - Hashable
-
+    
     public static func == (lhs: PBXProject,
                            rhs: PBXProject) -> Bool {
+        let equalRegion = lhs.developmentRegion == rhs.developmentRegion
+        let equalHasScannedForEncodings = lhs.hasScannedForEncodings == rhs.hasScannedForEncodings
+        let equalProductRefGroup = lhs.productRefGroup == rhs.productRefGroup
+        let equalProjectDirPath = lhs.projectDirPath == rhs.projectDirPath
+        let equalProjectRoot = lhs.projectRoot == rhs.projectRoot
+        let equalProjectReferences = NSArray(array: lhs.projectReferences).isEqual(to: rhs.projectReferences)
+        let equalAttributes = NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes)
+        
         return lhs.reference == rhs.reference &&
             lhs.buildConfigurationList == rhs.buildConfigurationList &&
             lhs.compatibilityVersion == rhs.compatibilityVersion &&
-            lhs.developmentRegion == rhs.developmentRegion &&
-            lhs.hasScannedForEncodings == rhs.hasScannedForEncodings &&
+            equalRegion &&
+            equalHasScannedForEncodings &&
             lhs.knownRegions == rhs.knownRegions &&
             lhs.mainGroup == rhs.mainGroup &&
-            lhs.productRefGroup == rhs.productRefGroup &&
-            lhs.projectDirPath == rhs.projectDirPath &&
-            NSArray(array: lhs.projectReferences).isEqual(to: NSArray(array: rhs.projectReferences)) &&
-            lhs.projectRoot == rhs.projectRoot &&
+            equalProductRefGroup &&
+            equalProjectDirPath &&
+            equalProjectReferences &&
+            equalProjectRoot &&
             lhs.targets == rhs.targets &&
-            NSDictionary(dictionary: lhs.attributes).isEqual(to: NSDictionary(dictionary: rhs.attributes))
+            equalAttributes
     }
 }
 
 // MARK: - PlistSerializable
 extension PBXProject: PlistSerializable {
-
+    
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
         let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
-                                                                                comment: buildConfigurationListComment)
+                                                                    comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
         dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion))
         if let developmentRegion = developmentRegion {
@@ -157,11 +165,11 @@ extension PBXProject: PlistSerializable {
         }
         dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
-
+        
         dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
-                                                                                comment: "Products"))
+                                                                    comment: "Products"))
         }
         if let projectDirPath = projectDirPath {
             dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
@@ -175,8 +183,8 @@ extension PBXProject: PlistSerializable {
         })
         dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(self.reference,
-                                                 comment: "Project object"),
+                                     comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-
+    
 }

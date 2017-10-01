@@ -78,7 +78,7 @@ Edit your `Podfile` and specify the dependency:
 pod "xcproj"
 ```
 
-> Note: xcproj is only available for macOS projects.
+> Note: xcproj is only available for macOS and iOS projects.
 
 ## How to use xcproj 🐒
 
