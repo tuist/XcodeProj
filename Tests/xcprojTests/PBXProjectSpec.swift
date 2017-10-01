@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import xcproj
+@testable import xcproj
 
 final class PBXProjectSpec: XCTestCase {
 
@@ -41,6 +41,16 @@ final class PBXProjectSpec: XCTestCase {
         XCTAssertEqual(subject.projectReferences as! [String], ["ref"])
         XCTAssertEqual(subject.projectRoot, "root")
         XCTAssertEqual(subject.targets, ["target"])
+    }
+
+    func test_plistKeyAndValue() {
+        let proj = PBXProj(archiveVersion: 1, objectVersion: 1, rootObject: "")
+        let (_, plistValue) = subject.plistKeyAndValue(proj: proj)
+        guard let v = plistValue.dictionary?["buildConfigurationList"]?.string else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(v, CommentedString("config", comment: "Build configuration list for PBXProject \"App\""))
     }
 
     func test_init_failsIfBuildConfigurationListIsMissing() {
