@@ -6,6 +6,9 @@ public class PBXProject: PBXObject, Hashable {
 
     // MARK: - Attributes
 
+    // xcodeproj's name
+    public var name: String
+
     // The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
 
@@ -47,6 +50,7 @@ public class PBXProject: PBXObject, Hashable {
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
+    ///   - name: xcodeproj's name.
     ///   - reference: element reference.
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
@@ -60,7 +64,8 @@ public class PBXProject: PBXObject, Hashable {
     ///   - projectRoot: project root.
     ///   - targets: project targets.
     ///   - attributes: project attributes.
-    public init(reference: String,
+    public init(name: String,
+                reference: String,
                 buildConfigurationList: String,
                 compatibilityVersion: String,
                 mainGroup: String,
@@ -73,6 +78,7 @@ public class PBXProject: PBXObject, Hashable {
                 projectRoot: String? = nil,
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
+        self.name = name
         self.buildConfigurationList = buildConfigurationList
         self.compatibilityVersion = compatibilityVersion
         self.mainGroup = mainGroup
@@ -96,6 +102,7 @@ public class PBXProject: PBXObject, Hashable {
     /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
+        self.name = (try? unboxer.unbox(key: "name")) ?? ""
         self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
         self.compatibilityVersion = try unboxer.unbox(key: "compatibilityVersion")
         self.developmentRegion = unboxer.unbox(key: "developmentRegion")
@@ -137,7 +144,7 @@ extension PBXProject: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
-        let buildConfigurationListComment = "Build configuration list for PBXProject"
+        let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
         let buildConfigurationListCommentedString = CommentedString(buildConfigurationList,
                                                                                 comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)

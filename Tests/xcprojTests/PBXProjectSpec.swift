@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import xcproj
+@testable import xcproj
 
 final class PBXProjectSpec: XCTestCase {
 
@@ -8,7 +8,8 @@ final class PBXProjectSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXProject(reference: "uuid",
+        subject = PBXProject(name: "App",
+                             reference: "uuid",
                              buildConfigurationList: "config",
                              compatibilityVersion: "version",
                              mainGroup: "main",
@@ -27,6 +28,7 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_init_initializesTheProjectWithTheRightAttributes() {
+        XCTAssertEqual(subject.name, "App")
         XCTAssertEqual(subject.reference, "uuid")
         XCTAssertEqual(subject.buildConfigurationList, "config")
         XCTAssertEqual(subject.compatibilityVersion, "version")
@@ -39,6 +41,16 @@ final class PBXProjectSpec: XCTestCase {
         XCTAssertEqual(subject.projectReferences as! [String], ["ref"])
         XCTAssertEqual(subject.projectRoot, "root")
         XCTAssertEqual(subject.targets, ["target"])
+    }
+
+    func test_plistKeyAndValue() {
+        let proj = PBXProj(archiveVersion: 1, objectVersion: 1, rootObject: "")
+        let (_, plistValue) = subject.plistKeyAndValue(proj: proj)
+        guard let v = plistValue.dictionary?["buildConfigurationList"]?.string else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(v, CommentedString("config", comment: "Build configuration list for PBXProject \"App\""))
     }
 
     func test_init_failsIfBuildConfigurationListIsMissing() {
@@ -69,7 +81,8 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXProject(reference: "uuid",
+        let another = PBXProject(name: "App",
+                                 reference: "uuid",
                                  buildConfigurationList: "config",
                                  compatibilityVersion: "version",
                                  mainGroup: "main",
