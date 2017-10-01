@@ -14,7 +14,7 @@ public class PBXProj {
     public var objectVersion: Int
 
     /// Project classes.
-    public var classes: [Any]
+    public var classes: [String: Any]
 
     /// Project root object.
     public var rootObject: String
@@ -51,7 +51,7 @@ public class PBXProj {
     public init(archiveVersion: Int,
                 objectVersion: Int,
                 rootObject: String,
-                classes: [Any] = [],
+                classes: [String: Any] = [:],
                 objects: [PBXObject] = []) {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
@@ -154,7 +154,7 @@ public class PBXProj {
         let unboxer = Unboxer(dictionary: dictionary)
         self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
         self.objectVersion = try unboxer.unbox(key: "objectVersion")
-        self.classes = (dictionary["classes"] as? [Any]) ?? []
+        self.classes = (dictionary["classes"] as? [String: Any]) ?? [:]
         let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
         self.rootObject = try unboxer.unbox(key: "rootObject")
         objects = try objectsDictionary.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
@@ -178,7 +178,7 @@ extension PBXProj: Equatable {
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
         return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
-            NSArray(array: lhs.classes).isEqual(to: NSArray(array: rhs.classes)) &&
+            NSDictionary(dictionary: lhs.classes).isEqual(to: NSDictionary(dictionary: rhs.classes)) &&
             lhs.buildFiles == rhs.buildFiles &&
             lhs.aggregateTargets == rhs.aggregateTargets &&
             lhs.containerItemProxies == rhs.containerItemProxies &&
