@@ -17,7 +17,7 @@ class BuildPhaseSpecs: XCTestCase {
     }
 
     func test_copyFiles_hasTheCorrectRawValue() {
-        XCTAssertEqual(BuildPhase.copyFiles.rawValue, "Copy Files")
+        XCTAssertEqual(BuildPhase.copyFiles.rawValue, "CopyFiles")
     }
 
     func test_runStript_hasTheCorrectRawValue() {
