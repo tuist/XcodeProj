@@ -8,7 +8,8 @@ final class PBXProjectSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXProject(reference: "uuid",
+        subject = PBXProject(name: "App",
+                             reference: "uuid",
                              buildConfigurationList: "config",
                              compatibilityVersion: "version",
                              mainGroup: "main",
@@ -27,6 +28,7 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_init_initializesTheProjectWithTheRightAttributes() {
+        XCTAssertEqual(subject.name, "App")
         XCTAssertEqual(subject.reference, "uuid")
         XCTAssertEqual(subject.buildConfigurationList, "config")
         XCTAssertEqual(subject.compatibilityVersion, "version")
@@ -69,7 +71,8 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXProject(reference: "uuid",
+        let another = PBXProject(name: "App",
+                                 reference: "uuid",
                                  buildConfigurationList: "config",
                                  compatibilityVersion: "version",
                                  mainGroup: "main",
