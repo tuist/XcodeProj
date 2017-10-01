@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/xcodeswift/xcproj"
   s.license          = 'MIT'
   s.author           = "Pedro Pinñera", "Yonas Kolb"
-  s.source           = { :git => "https://github.com/xcodeswiftu/xcproj.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/xcodeswift/xcproj.git", :tag => s.version.to_s }
   s.requires_arc = true
 
   s.osx.deployment_target = '10.10'
