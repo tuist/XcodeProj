@@ -28,6 +28,8 @@ public class PBXObject: Referenceable {
 
     public static func parse(reference: String, dictionary: [String: Any]) throws -> PBXObject {
         let decoder = JSONDecoder()
+        var mutableDictionary = dictionary
+        mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
         switch isa {
