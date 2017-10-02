@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import xcproj
+@testable import xcproj
 import PathKit
 
 final class XCConfigSpec: XCTestCase {
@@ -27,6 +27,21 @@ final class XCConfigSpec: XCTestCase {
         let buildSettings = config.flattenedBuildSettings()
         XCTAssertEqual(buildSettings["a"] as? String, "2")
         XCTAssertEqual(buildSettings["b"] as? String, "3")
+    }
+
+    func test_xcconfig_settingRegex() {
+        do {
+            let line = "A = a"
+            let (key, value) = XCConfig.settingFrom(line: line)!
+            XCTAssertEqual("A", key)
+            XCTAssertEqual("a", value)
+        }
+        do {
+            let line = "B=b"
+            let (key, value) = XCConfig.settingFrom(line: line)!
+            XCTAssertEqual("B", key)
+            XCTAssertEqual("b", value)
+        }
     }
 
     func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {
