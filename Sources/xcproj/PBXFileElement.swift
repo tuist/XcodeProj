@@ -1,8 +1,7 @@
 import Foundation
-import Unbox
 
 // This element is an abstract parent for file and group elements.
-public class PBXFileElement: PBXObject, Hashable {
+public class PBXFileElement: PBXObject, Hashable, Decodable {
     
     // MARK: - Attributes
 
@@ -41,13 +40,22 @@ public class PBXFileElement: PBXObject, Hashable {
             lhs.name == rhs.name
     }
     
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.path = try unboxer.unbox(key: "path")
-        self.name = try unboxer.unbox(key: "name")
-        try super.init(reference: reference, dictionary: dictionary)
+    enum CodingKeys: String, CodingKey {
+        case sourceTree
+        case name
+        case path
+        case reference
     }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.path = try container.decode(String.self, forKey: .path)
+        let reference = try container.decode(String.self, forKey: .reference)
+        super.init(reference: reference)
+    }
+    
 }
 
 // MARK: - PBXFileElement Extension (PlistSerializable)

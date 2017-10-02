@@ -27,6 +27,8 @@ public class PBXObject: Referenceable {
     }
 
     public static func parse(reference: String, dictionary: [String: Any]) throws -> PBXObject {
+        let decoder = JSONDecoder()
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
         switch isa {
         case PBXNativeTarget.isa:
@@ -40,7 +42,7 @@ public class PBXObject: Referenceable {
         case PBXProject.isa:
             return try PBXProject(reference: reference, dictionary: dictionary)
         case PBXFileElement.isa:
-            return try PBXFileElement(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXFileElement.self, from: data)
         case PBXGroup.isa:
             return try PBXGroup(reference: reference, dictionary: dictionary)
         case PBXHeadersBuildPhase.isa:
