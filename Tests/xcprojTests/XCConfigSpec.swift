@@ -42,6 +42,18 @@ final class XCConfigSpec: XCTestCase {
             XCTAssertEqual("B", key)
             XCTAssertEqual("b", value)
         }
+        do {
+            let line = "B=\"b=b=b=\""
+            let (key, value) = XCConfigParser.settingFrom(line: line)!
+            XCTAssertEqual("B", key)
+            XCTAssertEqual("\"b=b=b=\"", value)
+        }
+        do {
+            let line = "B=\"b\\\"b\""
+            let (key, value) = XCConfigParser.settingFrom(line: line)!
+            XCTAssertEqual("B", key)
+            XCTAssertEqual("\"b\\\"b\"", value)
+        }
     }
 
     func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {
