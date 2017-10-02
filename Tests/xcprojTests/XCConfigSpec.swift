@@ -32,13 +32,13 @@ final class XCConfigSpec: XCTestCase {
     func test_xcconfig_settingRegex() {
         do {
             let line = "A = a"
-            let (key, value) = XCConfig.settingFrom(line: line)!
+            let (key, value) = XCConfigParser.settingFrom(line: line)!
             XCTAssertEqual("A", key)
             XCTAssertEqual("a", value)
         }
         do {
             let line = "B=b"
-            let (key, value) = XCConfig.settingFrom(line: line)!
+            let (key, value) = XCConfigParser.settingFrom(line: line)!
             XCTAssertEqual("B", key)
             XCTAssertEqual("b", value)
         }
