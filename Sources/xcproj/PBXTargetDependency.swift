@@ -10,7 +10,7 @@ public class PBXTargetDependency: PBXObject, Hashable {
     public var target: String
     
     /// Target proxy
-    public var targetProxy: String
+    public var targetProxy: String?
     
     // MARK: - Init
     
@@ -22,7 +22,7 @@ public class PBXTargetDependency: PBXObject, Hashable {
     ///   - targetProxy: element target proxy.
     public init(reference: String,
                 target: String,
-                targetProxy: String) {
+                targetProxy: String? = nil) {
         self.target = target
         self.targetProxy = targetProxy
         super.init(reference: reference)
@@ -37,7 +37,7 @@ public class PBXTargetDependency: PBXObject, Hashable {
     public override init(reference: String, dictionary: [String: Any]) throws {
         let unboxer = Unboxer(dictionary: dictionary)
         self.target = try unboxer.unbox(key: "target")
-        self.targetProxy = try unboxer.unbox(key: "targetProxy")
+        self.targetProxy = unboxer.unbox(key: "targetProxy")
         try super.init(reference: reference, dictionary: dictionary)
     }
     
@@ -59,7 +59,9 @@ extension PBXTargetDependency: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         dictionary["target"] = .string(CommentedString(target, comment: proj.nativeTargets.getReference(target)?.name))
-        dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        if let targetProxy = targetProxy {
+            dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        }
         return (key: CommentedString(self.reference,
                                                  comment: "PBXTargetDependency"),
                 value: .dictionary(dictionary))

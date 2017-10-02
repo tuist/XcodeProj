@@ -27,15 +27,6 @@ final class PBXTargetDependencySpec: XCTestCase {
         } catch {}
     }
 
-    func test_init_failsIfTheTargetProxyIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "targetProxy")
-        do {
-            _ = try PBXTargetDependency(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_hasTheCorrectIsa() {
         XCTAssertEqual(PBXTargetDependency.isa, "PBXTargetDependency")
     }
