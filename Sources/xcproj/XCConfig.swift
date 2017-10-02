@@ -92,9 +92,7 @@ final class XCConfigParser {
             .first
     }
 
-    // swiftlint:disable:next force_try line_length
     private static var includeRegex = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
-    // swiftlint:disable:next force_try line_length
     private static var settingRegex = try! NSRegularExpression(pattern: "([^\\s=]+)\\s*=\\s*(\"?.*\"?)", options: [])
 }
 
