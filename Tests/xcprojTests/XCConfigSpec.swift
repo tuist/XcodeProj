@@ -54,6 +54,16 @@ final class XCConfigSpec: XCTestCase {
             XCTAssertEqual("B", key)
             XCTAssertEqual("\"b\\\"b\"", value)
         }
+        do {
+            let line = "// A = a"
+            XCTAssertNil(XCConfigParser.settingFrom(line: line))
+        }
+        do {
+            let line = "A[sdk=iphoneos*] = a"
+            let (key, value) = XCConfigParser.settingFrom(line: line)!
+            XCTAssertEqual("A[sdk=iphoneos*]", key)
+            XCTAssertEqual("a", value)
+        }
     }
 
     func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {

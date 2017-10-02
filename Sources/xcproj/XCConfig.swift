@@ -93,7 +93,7 @@ final class XCConfigParser {
     }
 
     private static var includeRegex = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
-    private static var settingRegex = try! NSRegularExpression(pattern: "([^\\s=]+)\\s*=\\s*(\"?.*\"?)", options: [])
+    private static var settingRegex = try! NSRegularExpression(pattern: "^([a-zA-Z0-9_\\[\\]=\\*~]+)\\s*=\\s*(\"?.*\"?)", options: [])
 }
 
 // MARK: - XCConfig Extension (Equatable)
