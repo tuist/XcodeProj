@@ -4,7 +4,7 @@
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
-    <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+    <a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/xcproj/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/xcproj/sponsors/badge.svg" /></a> <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
 </a>
 <a href="https://twitter.com/xcodedotswift">
     <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
@@ -148,6 +148,36 @@ You can check out the documentation on the following [link](https://xcodeswift.g
 [<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)
 [<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
 [<img alt="toshi0383" src="https://avatars2.githubusercontent.com/u/6007952?v=4&s=117" width="117">](https://github.com/toshi0383)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="graphs/contributors"><img src="https://opencollective.com/xcproj/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/xcproj#backer)]
+
+<a href="https://opencollective.com/xcproj#backers" target="_blank"><img src="https://opencollective.com/xcproj/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xcproj#sponsor)]
+
+<a href="https://opencollective.com/xcproj/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/5/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/6/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/7/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/8/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/9/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 
