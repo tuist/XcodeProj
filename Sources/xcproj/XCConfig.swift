@@ -34,22 +34,25 @@ public class XCConfig {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
-            .flatMap(XCConfig.configFrom(path: path))
+            .flatMap(XCConfigParser.configFrom(path: path))
         var buildSettings: [String: String] = [:]
         fileLines
-            .flatMap(XCConfig.settingFrom)
+            .flatMap(XCConfigParser.settingFrom)
             .forEach { buildSettings[$0.key] = $0.value }
         self.buildSettings = buildSettings
     }
+}
+
+final class XCConfigParser {
 
     /// Given the path the line is being parsed from, it returns a function that parses a line,
     /// and returns the include path and the config that the include is pointing to.
     ///
     /// - Parameter path: path of the config file that the line belongs to.
     /// - Returns: function that parses the line.
-    private static func configFrom(path: Path) -> (String) -> (include: Path, config: XCConfig)? {
+    static func configFrom(path: Path) -> (String) -> (include: Path, config: XCConfig)? {
         return { line in
-            return XCConfig.includeRegex.matches(in: line,
+            return includeRegex.matches(in: line,
                                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                  range: NSRange(location: 0,
                                                                 length: line.characters.count))
@@ -73,8 +76,8 @@ public class XCConfig {
         }
     }
 
-    private static func settingFrom(line: String) -> (key: String, value: String)? {
-        return XCConfig.settingRegex.matches(in: line,
+    static func settingFrom(line: String) -> (key: String, value: String)? {
+        return settingRegex.matches(in: line,
                                              options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                              range: NSRange(location: 0,
                                                             length: line.characters.count))
@@ -89,11 +92,10 @@ public class XCConfig {
             .first
     }
 
-    // swiftlint:disable:next force_try line_length
-    private static var includeRegex: NSRegularExpression = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
-    // swiftlint:disable:next force_try line_length
-    private static var settingRegex: NSRegularExpression = try! NSRegularExpression(pattern: "(.+)\\s+=\\s+(\"?.[^\"]+\"?)", options: .caseInsensitive)
-
+    // swiftlint:disable:next force_try
+    private static var includeRegex = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
+    // swiftlint:disable:next force_try
+    private static var settingRegex = try! NSRegularExpression(pattern: "^([a-zA-Z0-9_\\[\\]=\\*~]+)\\s*=\\s*(\"?.*\"?)", options: [])
 }
 
 // MARK: - XCConfig Extension (Equatable)
