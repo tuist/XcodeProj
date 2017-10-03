@@ -4,19 +4,25 @@
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
 <a href="https://swift.org/package-manager">
-    <a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/xcproj/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/xcproj/sponsors/badge.svg" /></a> <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+<a href="#backers" alt="sponsors on Open Collective">
+  <img src="https://opencollective.com/xcproj/backers/badge.svg"/>
+</a>
+<a href="#sponsors" alt="Sponsors on Open Collective">
+  <img src="https://opencollective.com/xcproj/sponsors/badge.svg"/>
+</a> 
+<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
 </a>
 <a href="https://twitter.com/xcodedotswift">
-    <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
+  <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
 </a>
 <a href="https://github.com/xcodeswift/xcproj/releases">
-    <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
+  <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
 <a>
-   <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
+  <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
 </a>
 
 
@@ -138,16 +144,6 @@ You can check out the documentation on the following [link](https://xcodeswift.g
 - [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
-
-## Contributors ❤️
-
-[<img alt="Shakarang" src="https://avatars1.githubusercontent.com/u/8086925?v=4&s=117" width="117">](https://github.com/Shakarang)
-[<img alt="Mazyod" src="https://avatars3.githubusercontent.com/u/860511?v=4&s=117" width="117">](https://github.com/Mazyod)
-[<img alt="kixswift" src="https://avatars0.githubusercontent.com/u/10491362?v=4&s=117" width="117">](https://github.com/kixswift)
-[<img alt="artemnovichkov" src="https://avatars3.githubusercontent.com/u/5051597?v=4&s=117" width="117">](https://github.com/artemnovichkov)
-[<img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117">](https://github.com/yonaskolb)
-[<img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117">](https://github.com/pepibumur)
-[<img alt="toshi0383" src="https://avatars2.githubusercontent.com/u/6007952?v=4&s=117" width="117">](https://github.com/toshi0383)
 
 ## Contributors
 
