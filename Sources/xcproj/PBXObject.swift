@@ -30,7 +30,7 @@ public class PBXObject: Referenceable {
         let decoder = JSONDecoder()
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
-        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
         switch isa {
         case PBXNativeTarget.isa:
