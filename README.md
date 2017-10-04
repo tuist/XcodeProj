@@ -3,14 +3,14 @@
 <a href="https://travis-ci.org/xcodeswift/xcproj">
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
-<a href="https://swift.org/package-manager">
 <a href="#backers" alt="sponsors on Open Collective">
   <img src="https://opencollective.com/xcproj/backers/badge.svg"/>
 </a>
 <a href="#sponsors" alt="Sponsors on Open Collective">
   <img src="https://opencollective.com/xcproj/sponsors/badge.svg"/>
 </a> 
-<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+<a href="https://swift.org/package-manager">
+<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
 </a>
 <a href="https://twitter.com/xcodedotswift">
   <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
@@ -21,8 +21,8 @@
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
-<a>
-  <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
+<a href="http://xcodeswift.herokuapp.com/">
+  <img src="https://xcodeswift.herokuapp.com/badge.svg">
 </a>
 
 
