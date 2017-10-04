@@ -34,9 +34,9 @@ public class PBXObject: Referenceable {
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
         switch isa {
         case PBXNativeTarget.isa:
-            return try PBXNativeTarget(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXNativeTarget.self, from: data)
         case PBXAggregateTarget.isa:
-            return try PBXAggregateTarget(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXAggregateTarget.self, from: data)
         case PBXBuildFile.isa:
             return try PBXBuildFile(reference: reference, dictionary: dictionary)
         case PBXFileReference.isa:

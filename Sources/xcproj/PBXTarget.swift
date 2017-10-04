@@ -1,8 +1,7 @@
 import Foundation
-import Unbox
 
 // This element is an abstract parent for specialized targets.
-public class PBXTarget: PBXObject, Hashable {
+public class PBXTarget: PBXObject, Hashable, Decodable {
 
     /// Target build configuration list.
     public var buildConfigurationList: String
@@ -47,18 +46,31 @@ public class PBXTarget: PBXObject, Hashable {
         self.productType = productType
         super.init(reference: reference)
     }
-
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
-        self.buildPhases = try unboxer.unbox(key: "buildPhases")
-        self.buildRules = try unboxer.unbox(key: "buildRules")
-        self.dependencies = try unboxer.unbox(key: "dependencies")
-        self.name = try unboxer.unbox(key: "name")
-        self.productName = unboxer.unbox(key: "productName")
-        self.productReference = unboxer.unbox(key: "productReference")
-        self.productType = unboxer.unbox(key: "productType")
-        try super.init(reference: reference, dictionary: dictionary)
+    
+    enum CodingKeys: String, CodingKey {
+        case buildConfigurationList
+        case buildPhases
+        case buildRules
+        case dependencies
+        case name
+        case productName
+        case productReference
+        case productType
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.buildConfigurationList = try container.decode(String.self, forKey: .buildConfigurationList)
+        self.buildPhases = try container.decode([String].self, forKey: .buildPhases)
+        self.buildRules = try container.decode([String].self, forKey: .buildRules)
+        self.dependencies = try container.decode([String].self, forKey: .dependencies)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.productName = try container.decode(String?.self, forKey: .productName)
+        self.productReference = try container.decode(String?.self, forKey: .productReference)
+        self.productType = try container.decode(PBXProductType?.self, forKey: .productType)
+        let reference = try container.decode(String.self, forKey: .reference)
+        super.init(reference: reference)
     }
 
     public static func == (lhs: PBXTarget,
