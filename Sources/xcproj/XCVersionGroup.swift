@@ -1,10 +1,9 @@
 import Foundation
-import Unbox
 import PathKit
 
 // Group that contains multiple files references to the different versions of a resource.
 // Used to contain the different versions of a xcdatamodel
-public class XCVersionGroup: PBXObject, Hashable {
+public class XCVersionGroup: PBXObject, Hashable, Decodable {
     
     // MARK: - Attributes
         
@@ -44,17 +43,6 @@ public class XCVersionGroup: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    override init(reference: String, dictionary: [String : Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.currentVersion = try unboxer.unbox(key: "currentVersion")
-        self.path = try unboxer.unbox(key: "path")
-        self.name = unboxer.unbox(key: "name")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.versionGroupType = try unboxer.unbox(key: "versionGroupType")
-        self.children = (try? unboxer.unbox(key: "children")) ?? []
-        try super.init(reference: reference, dictionary: dictionary)
-    }
-    
     public static func == (lhs: XCVersionGroup,
                            rhs: XCVersionGroup) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -63,6 +51,29 @@ public class XCVersionGroup: PBXObject, Hashable {
         lhs.sourceTree == rhs.sourceTree &&
         lhs.versionGroupType == rhs.versionGroupType &&
         lhs.children == rhs.children
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case currentVersion
+        case path
+        case name
+        case sourceTree
+        case versionGroupType
+        case children
+        case reference
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.currentVersion = try container.decode(String.self, forKey: .currentVersion)
+        self.path = try container.decode(String.self, forKey: .path)
+        self.name = try container.decode(String?.self, forKey: .name)
+        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
+        self.versionGroupType = try container.decode(String.self, forKey: .versionGroupType)
+        let children = try? container.decode([String].self, forKey: .children)
+        self.children = children ?? []
+        let reference = try container.decode(String.self, forKey: .reference)
+        super.init(reference: reference)
     }
 }
 

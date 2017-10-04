@@ -72,7 +72,7 @@ public class PBXObject: Referenceable {
         case PBXReferenceProxy.isa:
             return try PBXReferenceProxy(reference: reference, dictionary: dictionary)
         case XCVersionGroup.isa:
-            return try XCVersionGroup(reference: reference, dictionary: dictionary)
+            return try decoder.decode(XCVersionGroup.self, from: data)
         default:
             throw PBXObjectError.unknownElement(isa)
         }
