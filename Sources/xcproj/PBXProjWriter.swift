@@ -22,7 +22,7 @@ class PBXProjWriter {
         writeNewLine()
         writeDictionaryStart()
         write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")))
-        write(dictionaryKey: "classes", dictionaryValue: .array([]))
+        write(dictionaryKey: "classes", dictionaryValue: .dictionary([:]))
         write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")))
         writeIndent()
         write(string: "objects = {")
