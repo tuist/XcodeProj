@@ -24,8 +24,10 @@ final class PBXVariantGroupSpec: XCTestCase {
     func test_init_failsIfTheChildrenIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "children")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXVariantGroup(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXVariantGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -33,8 +35,10 @@ final class PBXVariantGroupSpec: XCTestCase {
     func test_init_failsIfTheNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXVariantGroup(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXVariantGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -42,8 +46,10 @@ final class PBXVariantGroupSpec: XCTestCase {
     func test_init_failsIfTheSourceTreeIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXVariantGroup(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXVariantGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -51,8 +57,10 @@ final class PBXVariantGroupSpec: XCTestCase {
     func test_init_failsIfTheSourceTreeIsWrong() {
         var dictionary = testDictionary()
         dictionary["sourceTree"] = "asdgasdgas"
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXVariantGroup(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXVariantGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }

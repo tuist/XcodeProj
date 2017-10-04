@@ -62,7 +62,7 @@ public class PBXObject: Referenceable {
         case PBXTargetDependency.isa:
             return try PBXTargetDependency(reference: reference, dictionary: dictionary)
         case PBXVariantGroup.isa:
-            return try PBXVariantGroup(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXVariantGroup.self, from: data)
         case XCBuildConfiguration.isa:
             return try XCBuildConfiguration(reference: reference, dictionary: dictionary)
         case PBXCopyFilesBuildPhase.isa:
