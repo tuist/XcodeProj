@@ -53,6 +53,8 @@ public class XCVersionGroup: PBXObject, Hashable, Decodable {
         lhs.children == rhs.children
     }
 
+    // MARK: - Decodable
+    
     enum CodingKeys: String, CodingKey {
         case currentVersion
         case path

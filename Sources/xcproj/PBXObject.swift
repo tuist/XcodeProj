@@ -38,7 +38,7 @@ public class PBXObject: Referenceable {
         case PBXAggregateTarget.isa:
             return try decoder.decode(PBXAggregateTarget.self, from: data)
         case PBXBuildFile.isa:
-            return try PBXBuildFile(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXBuildFile.self, from: data)
         case PBXFileReference.isa:
             return try PBXFileReference(reference: reference, dictionary: dictionary)
         case PBXProject.isa:

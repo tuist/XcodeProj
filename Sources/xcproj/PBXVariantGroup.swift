@@ -33,6 +33,8 @@ public class PBXVariantGroup: PBXObject, Hashable, Decodable {
         super.init(reference: reference)
     }
     
+    // MARK: - Decodable
+    
     enum CodingKeys: String, CodingKey {
         case children
         case name
