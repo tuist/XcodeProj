@@ -1,7 +1,7 @@
 import Foundation
 
 // This element is an abstract parent for file and group elements.
-public class PBXFileElement: PBXObject, Hashable, Decodable {
+public class PBXFileElement: PBXObject, Hashable {
     
     // MARK: - Attributes
 
@@ -40,7 +40,9 @@ public class PBXFileElement: PBXObject, Hashable, Decodable {
             lhs.name == rhs.name
     }
     
-    enum CodingKeys: String, CodingKey {
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
         case sourceTree
         case name
         case path
@@ -49,10 +51,10 @@ public class PBXFileElement: PBXObject, Hashable, Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.path = try container.decode(String.self, forKey: .path)
-        let reference = try container.decode(String.self, forKey: .reference)
+        self.sourceTree = try container.decode(.sourceTree)
+        self.name = try container.decode(.name)
+        self.path = try container.decode(.path)
+        let reference: String = try container.decode(.reference)
         super.init(reference: reference)
     }
     

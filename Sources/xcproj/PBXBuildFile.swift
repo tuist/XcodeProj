@@ -1,7 +1,7 @@
 import Foundation
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
-public class PBXBuildFile: PBXObject, Hashable, Decodable {
+public class PBXBuildFile: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -37,9 +37,9 @@ public class PBXBuildFile: PBXObject, Hashable, Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let reference = try container.decode(String.self, forKey: .reference)
-        self.fileRef = try container.decode(String.self, forKey: .fileRef)
-        self.settings = try container.decodeIfPresent([String: Any].self, forKey: .fileRef)
+        let reference: String = try container.decode(.reference)
+        self.fileRef = try container.decode(.fileRef)
+        self.settings = try container.decodeIfPresent(.fileRef)
         super.init(reference: reference)
     }
     

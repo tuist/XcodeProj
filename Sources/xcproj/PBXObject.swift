@@ -1,7 +1,7 @@
 import Foundation
 
 /// Class that represents a project element.
-public class PBXObject: Referenceable {
+public class PBXObject: Referenceable, Decodable {
 
     public var hashValue: Int { return self.reference.hashValue }
 
@@ -12,16 +12,17 @@ public class PBXObject: Referenceable {
         self.reference = reference
     }
 
-    /// Constructor that initializes the project element with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    init(reference: String, dictionary: [String: Any]) throws {
-        self.reference = reference
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case reference
     }
-
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.reference = try container.decode(.reference)
+    }
+    
     public static var isa: String {
         return String(describing: self)
     }
@@ -40,37 +41,37 @@ public class PBXObject: Referenceable {
         case PBXBuildFile.isa:
             return try decoder.decode(PBXBuildFile.self, from: data)
         case PBXFileReference.isa:
-            return try PBXFileReference(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXFileReference.self, from: data)
         case PBXProject.isa:
-            return try PBXProject(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXProject.self, from: data)
         case PBXFileElement.isa:
             return try decoder.decode(PBXFileElement.self, from: data)
         case PBXGroup.isa:
-            return try PBXGroup(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXGroup.self, from: data)
         case PBXHeadersBuildPhase.isa:
-            return try PBXHeadersBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXHeadersBuildPhase.self, from: data)
         case PBXFrameworksBuildPhase.isa:
-            return try PBXFrameworksBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
         case XCConfigurationList.isa:
-            return try XCConfigurationList(reference: reference, dictionary: dictionary)
+            return try decoder.decode(XCConfigurationList.self, from: data)
         case PBXResourcesBuildPhase.isa:
-            return try PBXResourcesBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXResourcesBuildPhase.self, from: data)
         case PBXShellScriptBuildPhase.isa:
-            return try PBXShellScriptBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
         case PBXSourcesBuildPhase.isa:
-            return try PBXSourcesBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXSourcesBuildPhase.self, from: data)
         case PBXTargetDependency.isa:
-            return try PBXTargetDependency(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXTargetDependency.self, from: data)
         case PBXVariantGroup.isa:
             return try decoder.decode(PBXVariantGroup.self, from: data)
         case XCBuildConfiguration.isa:
-            return try XCBuildConfiguration(reference: reference, dictionary: dictionary)
+            return try decoder.decode(XCBuildConfiguration.self, from: data)
         case PBXCopyFilesBuildPhase.isa:
-            return try PBXCopyFilesBuildPhase(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
         case PBXContainerItemProxy.isa:
-            return try PBXContainerItemProxy(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXContainerItemProxy.self, from: data)
         case PBXReferenceProxy.isa:
-            return try PBXReferenceProxy(reference: reference, dictionary: dictionary)
+            return try decoder.decode(PBXReferenceProxy.self, from: data)
         case XCVersionGroup.isa:
             return try decoder.decode(XCVersionGroup.self, from: data)
         default:

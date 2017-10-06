@@ -1,7 +1,7 @@
 import Foundation
 
 // This is the element for referencing localized resources.
-public class PBXVariantGroup: PBXObject, Hashable, Decodable {
+public class PBXVariantGroup: PBXObject, Hashable {
     
     // MARK: - Attributes
     
@@ -35,7 +35,7 @@ public class PBXVariantGroup: PBXObject, Hashable, Decodable {
     
     // MARK: - Decodable
     
-    enum CodingKeys: String, CodingKey {
+    fileprivate enum CodingKeys: String, CodingKey {
         case children
         case name
         case sourceTree

@@ -1,7 +1,6 @@
 import Foundation
-import Unbox
 
-public enum PBXProductType: String, UnboxableEnum, Decodable {
+public enum PBXProductType: String, Decodable {
     case none = ""
     case application = "com.apple.product-type.application"
     case framework = "com.apple.product-type.framework"

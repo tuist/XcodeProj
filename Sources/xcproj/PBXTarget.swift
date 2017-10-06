@@ -1,7 +1,7 @@
 import Foundation
 
 // This element is an abstract parent for specialized targets.
-public class PBXTarget: PBXObject, Hashable, Decodable {
+public class PBXTarget: PBXObject, Hashable {
 
     /// Target build configuration list.
     public var buildConfigurationList: String
@@ -47,7 +47,9 @@ public class PBXTarget: PBXObject, Hashable, Decodable {
         super.init(reference: reference)
     }
     
-    enum CodingKeys: String, CodingKey {
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
         case buildConfigurationList
         case buildPhases
         case buildRules
@@ -61,15 +63,15 @@ public class PBXTarget: PBXObject, Hashable, Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildConfigurationList = try container.decode(String.self, forKey: .buildConfigurationList)
-        self.buildPhases = try container.decode([String].self, forKey: .buildPhases)
-        self.buildRules = try container.decode([String].self, forKey: .buildRules)
-        self.dependencies = try container.decode([String].self, forKey: .dependencies)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.productName = try container.decode(String?.self, forKey: .productName)
-        self.productReference = try container.decode(String?.self, forKey: .productReference)
-        self.productType = try container.decode(PBXProductType?.self, forKey: .productType)
-        let reference = try container.decode(String.self, forKey: .reference)
+        self.buildConfigurationList = try container.decode(.buildConfigurationList)
+        self.buildPhases = try container.decode(.buildPhases)
+        self.buildRules = try container.decode(.buildRules)
+        self.dependencies = try container.decode(.dependencies)
+        self.name = try container.decode(.name)
+        self.productName = try container.decodeIfPresent(.productName)
+        self.productReference = try container.decodeIfPresent(.productReference)
+        self.productType = try container.decodeIfPresent(.productType)
+        let reference: String = try container.decode(.reference)
         super.init(reference: reference)
     }
 

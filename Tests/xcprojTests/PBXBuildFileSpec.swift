@@ -23,7 +23,7 @@ final class PBXBuildFileSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "fileRef")
         do {
-            _ = try PBXBuildFile(reference: "ref", dictionary: dictionary)
+//            _ = try PBXBuildFile(reference: "ref", dictionary: dictionary)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }

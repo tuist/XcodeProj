@@ -23,7 +23,9 @@ public class XcodeProj {
         if pbxprojPaths.count == 0 {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        pbxproj = try PBXProj(path: pbxprojPaths.first!)
+        let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
+        let plistDecoder = PropertyListDecoder()
+        pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
             throw XCodeProjError.xcworkspaceNotFound(path: path)

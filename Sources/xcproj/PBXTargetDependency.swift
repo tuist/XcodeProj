@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for referencing other target through content proxies.
 public class PBXTargetDependency: PBXObject, Hashable {
@@ -28,19 +27,6 @@ public class PBXTargetDependency: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    /// Initializes the target dependency with its reference and a dictionary that contains its attributes.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the attributes.
-    /// - Throws: throws an error in case of any attribute is missing or the type is not the expected one.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.target = try unboxer.unbox(key: "target")
-        self.targetProxy = try unboxer.unbox(key: "targetProxy")
-        try super.init(reference: reference, dictionary: dictionary)
-    }
-    
     // MARK: - Hashable
     
     public static func == (lhs: PBXTargetDependency,
@@ -50,8 +36,23 @@ public class PBXTargetDependency: PBXObject, Hashable {
         lhs.targetProxy == rhs.targetProxy
     }
     
-    // MARK: - PlistSerializable
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case target
+        case targetProxy
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.target = try container.decode(.target)
+        self.targetProxy = try container.decode(.targetProxy)
+        try super.init(from: decoder)
+    }
+    
 }
+
+// MARK: - PlistSerializable
 
 extension PBXTargetDependency: PlistSerializable {
     

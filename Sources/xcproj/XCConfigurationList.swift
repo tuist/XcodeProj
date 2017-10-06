@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for listing build configurations.
 public class XCConfigurationList: PBXObject, Hashable {
@@ -41,14 +40,22 @@ public class XCConfigurationList: PBXObject, Hashable {
             lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
     }
 
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurations = try unboxer.unbox(key: "buildConfigurations")
-        self.defaultConfigurationIsVisible = try unboxer.unbox(key: "defaultConfigurationIsVisible")
-        self.defaultConfigurationName = try unboxer.unbox(key: "defaultConfigurationName")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+        
+    fileprivate enum CodingKeys: String, CodingKey {
+        case buildConfigurations
+        case defaultConfigurationName
+        case defaultConfigurationIsVisible
     }
-
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.buildConfigurations = (try container.decodeIfPresent(.buildConfigurations)) ?? []
+        self.defaultConfigurationIsVisible = try container.decode(.defaultConfigurationIsVisible)
+        self.defaultConfigurationName = try container.decode(.defaultConfigurationName)
+        try super.init(from: decoder)
+    }
+    
 }
 
 // MARK: - XCConfigurationList Extension (PlistSerializable)

@@ -1,10 +1,9 @@
 import Foundation
-import Unbox
 
 // This is the element for to decorate a target item.
 public class PBXContainerItemProxy: PBXObject, Hashable {
 
-    public enum ProxyType: UInt, UnboxableEnum {
+    public enum ProxyType: UInt, Decodable {
         case nativeTarget = 1
         case reference = 2
         case other
@@ -50,14 +49,22 @@ public class PBXContainerItemProxy: PBXObject, Hashable {
             lhs.remoteInfo == rhs.remoteInfo
     }
     
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.containerPortal = try unboxer.unbox(key: "containerPortal")
-        self.remoteGlobalIDString = try unboxer.unbox(key: "remoteGlobalIDString")
-        self.remoteInfo = unboxer.unbox(key: "remoteInfo")
-        let proxyTypeInt: UInt = try unboxer.unbox(key: "proxyType")
-        self.proxyType = ProxyType(rawValue: proxyTypeInt) ?? .other
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case containerPortal
+        case proxyType
+        case remoteGlobalIDString
+        case remoteInfo
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.containerPortal = try container.decode(.containerPortal)
+        self.proxyType = try container.decode(.proxyType)
+        self.remoteGlobalIDString = try container.decode(.remoteGlobalIDString)
+        self.remoteInfo = try container.decodeIfPresent(.remoteInfo)
+        try super.init(from: decoder)
     }
     
 }
