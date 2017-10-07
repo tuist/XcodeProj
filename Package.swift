@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/tadija/AEXML.git", .upToNextMajor(from: "4.1.0")),
         ],
     targets: [
-        .target(name: "xcproj", dependencies: ["PathKit", "Unbox", "AEXML"]),
+        .target(name: "xcproj", dependencies: ["PathKit", "AEXML"]),
         .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
         ]
 )
