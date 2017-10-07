@@ -50,6 +50,8 @@ extension KeyedDecodingContainer {
         for key in allKeys {
             if let intValue = try? decode(Int.self, forKey: key) {
                 dictionary[key.stringValue] = intValue
+            } else if let unsignedIntValue = try? decode(UInt.self, forKey: key) {
+                dictionary[key.stringValue] = unsignedIntValue
             } else if let stringValue = try? decode(String.self, forKey: key) {
                 dictionary[key.stringValue] = stringValue
             } else if let boolValue = try? decode(Bool.self, forKey: key) {
