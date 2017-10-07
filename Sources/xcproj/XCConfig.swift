@@ -12,7 +12,7 @@ public class XCConfig {
     public var includes: [XCConfigInclude]
 
     /// Build settings
-    public var buildSettings: BuildSettings
+    public var buildSettings: [String: Any]
 
     // MARK: - Init
 
@@ -21,7 +21,7 @@ public class XCConfig {
     /// - Parameters:
     ///   - includes: all the .xcconfig file includes. The order determines how the values get overriden.
     ///   - dictionary: dictionary that contains the config.
-    public init(includes: [XCConfigInclude], buildSettings: BuildSettings = [:]) {
+    public init(includes: [XCConfigInclude], buildSettings: [String: Any] = [:]) {
         self.includes = includes
         self.buildSettings = buildSettings
     }
@@ -123,7 +123,7 @@ extension XCConfig {
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
-    public func flattenedBuildSettings() -> BuildSettings {
+    public func flattenedBuildSettings() -> [String: Any] {
         var content: [String: Any] = buildSettings
         includes
             .map { $0.1 }

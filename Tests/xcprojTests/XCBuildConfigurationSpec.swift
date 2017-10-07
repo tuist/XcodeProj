@@ -26,9 +26,11 @@ final class XCBuildConfigurationSpec: XCTestCase {
     func test_initFails_ifNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try XCBuildConfiguration(reference: "ref", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected to throw an error but it didnt' throw any")
+            _ = try decoder.decode(XCBuildConfiguration.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
@@ -50,7 +52,8 @@ final class XCBuildConfigurationSpec: XCTestCase {
         return [
             "baseConfigurationReference": "baseConfigurationReference",
             "buildSettings": [:],
-            "name": "name"
+            "name": "name",
+            "reference": "reference"
         ]
     }
 

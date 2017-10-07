@@ -22,8 +22,10 @@ final class PBXBuildFileSpec: XCTestCase {
     func test_initFails_ifFileRefIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "fileRef")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-//            _ = try PBXBuildFile(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXBuildFile.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -46,7 +48,8 @@ final class PBXBuildFileSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "fileRef": "fileRef",
-            "settings": ["a": "b"]
+            "settings": ["a": "b"],
+            "reference": "reference"
         ]
     }
 }

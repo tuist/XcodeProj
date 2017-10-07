@@ -9,7 +9,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    public var buildSettings: BuildSettings
+    public var buildSettings: [String: Any]
     
     /// The configuration name.
     public var name: String
@@ -26,7 +26,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public init(reference: String,
                 name: String,
                 baseConfigurationReference: String? = nil,
-                buildSettings: BuildSettings = [:]) {
+                buildSettings: [String: Any] = [:]) {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
@@ -52,7 +52,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
-        self.buildSettings = try container.decode(.buildSettings)
+        self.buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
         self.name = try container.decode(.name)
         try super.init(from: decoder)
     }

@@ -113,7 +113,8 @@ final class PBXNativeTargetSpec: XCTestCase {
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dependency"],
-            "name": "name"
+            "name": "name",
+            "reference": "reference"
         ]
     }
 

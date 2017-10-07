@@ -26,8 +26,10 @@ final class PBXReferenceProxySpec: XCTestCase {
     func test_init_failsIfTheFileTypeIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "fileType")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXReferenceProxy(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXReferenceProxy.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -35,8 +37,10 @@ final class PBXReferenceProxySpec: XCTestCase {
     func test_init_failsIfThePathIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "path")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXReferenceProxy(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXReferenceProxy.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -44,8 +48,10 @@ final class PBXReferenceProxySpec: XCTestCase {
     func test_init_failsIfTheRemoteRefIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "remoteRef")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXReferenceProxy(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXReferenceProxy.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -53,8 +59,10 @@ final class PBXReferenceProxySpec: XCTestCase {
     func test_init_failsIfTheSourceTreeIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXReferenceProxy(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXReferenceProxy.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -64,7 +72,8 @@ final class PBXReferenceProxySpec: XCTestCase {
             "fileType": "fileType",
             "path": "path",
             "remoteRef": "remoteRef",
-            "sourceTree": "<absolute>"
+            "sourceTree": "<absolute>",
+            "reference": "reference"
         ]
     }
 }

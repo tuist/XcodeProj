@@ -113,7 +113,8 @@ final class PBXAggregateTargetSpec: XCTestCase {
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dep"],
-            "name": "name"
+            "name": "name",
+            "reference": "reference"
         ]
     }
 }

@@ -83,7 +83,8 @@ final class PBXVariantGroupSpec: XCTestCase {
         return [
             "children": ["child1", "child2"],
             "name": "name",
-            "sourceTree": "SDKROOT"
+            "sourceTree": "SDKROOT",
+            "reference": "reference"
         ]
     }
 

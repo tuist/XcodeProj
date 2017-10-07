@@ -99,7 +99,8 @@ final class XCVersionGroupSpec: XCTestCase {
             "name": "name",
             "sourceTree": "<group>",
             "versionGroupType": "versionGroupType",
-            "children": ["child"]
+            "children": ["child"],
+            "reference": "reference"
         ]
     }
 }

@@ -28,27 +28,33 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     func test_initFails_whenTheFilesAreMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXShellScriptBuildPhase(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected to throw an error but it didnt'")
+            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
     func test_initFails_whenShellPathIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "shellPath")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXShellScriptBuildPhase(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected to throw an error but it didnt'")
+            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
     func test_initFails_whenNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXShellScriptBuildPhase(reference: "name", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected to throw an error but it didnt'")
+            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
@@ -68,7 +74,8 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
             "inputPaths": ["input"],
             "outputPaths": ["output"],
             "shellPath": "shellPath",
-            "shellScript": "shellScript"
+            "shellScript": "shellScript",
+            "reference": "reference"
         ]
     }
 }

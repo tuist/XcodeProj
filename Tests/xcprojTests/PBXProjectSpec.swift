@@ -56,8 +56,10 @@ final class PBXProjectSpec: XCTestCase {
     func test_init_failsIfBuildConfigurationListIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildConfigurationList")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -65,8 +67,10 @@ final class PBXProjectSpec: XCTestCase {
     func test_init_failsIfCompatibilityVersionIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "compatibilityVersion")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -74,8 +78,10 @@ final class PBXProjectSpec: XCTestCase {
     func test_init_failsIfMainGroupIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "mainGroup")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXProject(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -105,7 +111,8 @@ final class PBXProjectSpec: XCTestCase {
         return [
             "buildConfigurationList": "buildConfigurationList",
             "compatibilityVersion": "compatibilityVersion",
-            "mainGroup": "mainGroup"
+            "mainGroup": "mainGroup",
+            "reference": "reference"
         ]
     }
 }

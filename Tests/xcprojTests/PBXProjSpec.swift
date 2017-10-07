@@ -51,12 +51,9 @@ final class PBXProjSpec: XCTestCase {
 final class PBXProjIntegrationSpec: XCTestCase {
 
     func test_init_initializesTheProjCorrectly() {
-//        do {
-//            try PBXProj(path: fixturePath())
-//        } catch {
-//            print(error)
-//        }
-        let proj = try? PBXProj(path: fixturePath())
+        let data = try! Data(contentsOf: fixturePath().url)
+        let decoder = PropertyListDecoder()
+        let proj = try? decoder.decode(PBXProj.self, from: data)
         XCTAssertNotNil(proj)
         if let proj = proj{
             assert(proj: proj)
@@ -65,7 +62,11 @@ final class PBXProjIntegrationSpec: XCTestCase {
 
     func test_write() {
         testWrite(from: fixturePath(),
-                  initModel: { try? PBXProj(path: $0) },
+                  initModel: { path -> PBXProj? in
+                    let data = try! Data(contentsOf: path.url)
+                    let decoder = PropertyListDecoder()
+                    return try? decoder.decode(PBXProj.self, from: data)
+                    },
                   modify: { $0 })
     }
 
