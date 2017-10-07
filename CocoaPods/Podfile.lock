@@ -1,11 +1,9 @@
 PODS:
   - AEXML (4.1.0)
   - PathKit (0.8.0)
-  - Unbox (2.5.0)
   - xcproj (0.3.0):
     - AEXML (~> 4.1)
     - PathKit (~> 0.8)
-    - Unbox (~> 2.5)
 
 DEPENDENCIES:
   - xcproj (from `../`)
@@ -17,8 +15,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AEXML: 647fbb051280f3fb38a1a7caa62b0344055a851c
   PathKit: dcab05d701474011aae0e40cf892298a831f63d6
-  Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
-  xcproj: a7842e582bb39e86670b51dce53e4cca96a36bd8
+  xcproj: 8caa6c441d91aeb3c5ca3e375fb486a9575fc558
 
 PODFILE CHECKSUM: 2b8bfbb70dcc013e3ca2bf6ce7085024138065fe
 
