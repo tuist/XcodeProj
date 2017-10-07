@@ -13,7 +13,7 @@
     <a title="xcproj  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcproj Docs</a> (49% documented)</p>
+        <p><a href="index.html">xcproj Docs</a> (48% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -85,7 +85,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other Enums.html">Other Enums</a>
+            <a href="Other Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Other Enums.html#/s:6xcproj10BuildPhaseO">BuildPhase</a>
@@ -128,25 +128,31 @@
         <section>
           <section class="section">
             
-            <p><img width="300" src="https://github.com/xcodeswift/xcproj/blob/master/Assets/logo.png?raw=true"/></p>
+            <p><img src="Assets/header.png" width="400"/><br/></p>
 
 <p><a href="https://travis-ci.org/xcodeswift/xcproj">
     <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
 </a>
-<a href="https://swift.org/package-manager">
-    <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+<a href="#backers" alt="sponsors on Open Collective">
+  <img src="https://opencollective.com/xcproj/backers/badge.svg"/>
 </a>
-<a href="https://twitter.com/pepibumur">
-    <img src="https://img.shields.io/badge/contact-@pepibumur-blue.svg?style=flat" alt="Twitter: @pepibumur" />
+<a href="#sponsors" alt="Sponsors on Open Collective">
+  <img src="https://opencollective.com/xcproj/sponsors/badge.svg"/>
+</a> 
+<a href="https://swift.org/package-manager">
+<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
+</a>
+<a href="https://twitter.com/xcodedotswift">
+  <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
 </a>
 <a href="https://github.com/xcodeswift/xcproj/releases">
-    <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
+  <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
 </a>
-<a>
-   <a href="http://xcodeswift.herokuapp.com/"><img src="https://xcodeswift.herokuapp.com/badge.svg"></a>
+<a href="http://xcodeswift.herokuapp.com/">
+  <img src="https://xcodeswift.herokuapp.com/badge.svg">
 </a></p>
 
 <p>xcproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods XcodeProj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
@@ -171,12 +177,20 @@
 <td><a href="https://github.com/yonaskolb/XcodeGen">XcodeGen</a></td>
 <td>Generate Xcode projects dynamically from a YAML file</td>
 </tr>
+<tr>
+<td><a href="https://github.com/xcodeswift/xclint">xclint</a></td>
+<td>Lint the format of your Xcode projects</td>
+</tr>
+<tr>
+<td><a href="https://github.com/xcodeswift/xctools">xctools</a></td>
+<td>Handy command line tools</td>
+</tr>
 </tbody></table>
 <h2 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h2>
 
 <ol>
 <li>Git clone the repository <code>git@github.com:xcodeswift/xcproj.git</code>.</li>
-<li>Generate xcproj with  <code>swift package generate-xcproj</code>.</li>
+<li>Generate xcproj with  <code>swift package generate-xcodeproj</code>.</li>
 <li>Open <code>xcproj.xcodeproj</code>.</li>
 </ol>
 <h2 id='setup' class='heading'>Setup 🦋</h2>
@@ -208,14 +222,14 @@
 </code></pre>
 
 <blockquote>
-<p>Note: xcproj is only available for macOS projects.</p>
+<p>Note: xcproj is only available for macOS and iOS projects.</p>
 </blockquote>
 <h2 id='how-to-use-xcproj' class='heading'>How to use xcproj 🐒</h2>
 
-<p>Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the <code>XcodeProj</code> or the <code>XCWorkspace</code> model. Modifications in your projects are usually executed in three steps:</p>
+<p>Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> or the <code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> model. Modifications in your projects are usually executed in three steps:</p>
 
 <ol>
-<li>Read the project or workspace initializing a <code>XcodeProj</code> or a <code>XCWorkspace</code> object respectively.</li>
+<li>Read the project or workspace initializing a <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> or a <code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> object respectively.</li>
 <li>Modify those objects or any of its dependencies.</li>
 <li>Write it back to disk.</li>
 </ol>
@@ -227,15 +241,15 @@
 
 <p>The diagram below shows the sructure of a Xcode project.</p>
 
-<p>A <code>XcodeProj</code> has the following properties:</p>
+<p>A <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> has the following properties:</p>
 
 <ul>
 <li><code>XCSharedData</code> that contains the information about the schemes of the project.</li>
-<li><code>XCWorkspace</code> that defines the structure of the project workspace.</li>
-<li><code>PBXProj</code> that defines the strcuture of the project.</li>
+<li><code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> that defines the structure of the project workspace.</li>
+<li><code><a href="Classes/PBXProj.html">PBXProj</a></code> that defines the strcuture of the project.</li>
 </ul>
 
-<p>Amongt other properties, the most important one in the <code>PBXProj</code> object is <code>Objects</code>. Projects are defined by a list of those objects that can be classified in the following groups:</p>
+<p>Amongt other properties, the most important one in the <code><a href="Classes/PBXProj.html">PBXProj</a></code> object is <code>Objects</code>. Projects are defined by a list of those objects that can be classified in the following groups:</p>
 
 <ul>
 <li><strong>Build phases objects</strong>: Define the available build phases.</li>
@@ -244,7 +258,7 @@
 <li><strong>Files objects</strong>: Define the project files, build files and groups.</li>
 </ul>
 
-<p>All objects subclass <code>PBXObject</code>, and have an unique &amp; deterministic reference. Moreover, they are hashable and conform the <code>Equatable</code> protocol.</p>
+<p>All objects subclass <code><a href="Classes/PBXObject.html">PBXObject</a></code>, and have an unique &amp; deterministic reference. Moreover, they are hashable and conform the <code>Equatable</code> protocol.</p>
 
 <p><img src="Assets/diagram.png" alt="diagram"></p>
 
@@ -273,9 +287,29 @@
 <li><a href="https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html">Facebook Buck</a></li>
 <li><a href="https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj">Swift Package Manager - Xcodeproj</a></li>
 </ul>
-<h2 id='contributors' class='heading'>Contributors ❤️</h2>
+<h2 id='contributors' class='heading'>Contributors</h2>
 
-<p><a href="https://github.com/Shakarang"><img alt="Shakarang" src="https://avatars1.githubusercontent.com/u/8086925?v=4&s=117" width="117"></a><a href="https://github.com/kixswift"><img alt="kixswift" src="https://avatars0.githubusercontent.com/u/10491362?v=4&s=117" width="117"></a><a href="https://github.com/artemnovichkov"><img alt="artemnovichkov" src="https://avatars3.githubusercontent.com/u/5051597?v=4&s=117" width="117"></a><a href="https://github.com/yonaskolb"><img alt="yonaskolb" src="https://avatars2.githubusercontent.com/u/2393781?v=4&s=117" width="117"></a><a href="https://github.com/pepibumur"><img alt="pepibumur" src="https://avatars3.githubusercontent.com/u/663605?v=4&s=117" width="117"></a></p>
+<p>This project exists thanks to all the people who contribute. <a href="CONTRIBUTING.md">[Contribute]</a>.
+<a href="graphs/contributors"><img src="https://opencollective.com/xcproj/contributors.svg?width=890" /></a></p>
+<h2 id='backers' class='heading'>Backers</h2>
+
+<p>Thank you to all our backers! 🙏 [<a href="https://opencollective.com/xcproj#backer">Become a backer</a>]</p>
+
+<p><a href="https://opencollective.com/xcproj#backers" target="_blank"><img src="https://opencollective.com/xcproj/backers.svg?width=890"></a></p>
+<h2 id='sponsors' class='heading'>Sponsors</h2>
+
+<p>Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [<a href="https://opencollective.com/xcproj#sponsor">Become a sponsor</a>]</p>
+
+<p><a href="https://opencollective.com/xcproj/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/5/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/6/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/7/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/8/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/xcproj/sponsor/9/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/9/avatar.svg"></a></p>
 <h2 id='license' class='heading'>License</h2>
 <pre class="highlight plaintext"><code>MIT License
 
@@ -304,7 +338,7 @@ SOFTWARE.
         </section>
         <section id="footer">
           <p>Copyright © 2017 xcode.swift. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
