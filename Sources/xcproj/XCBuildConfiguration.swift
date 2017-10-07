@@ -52,8 +52,8 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
-        self.buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
-        self.name = try container.decode(.name)
+        self.buildSettings = try container.decodeIfPresent([String: Any].self, forKey: .buildSettings) ?? [:]
+        self.name = try container.decodeIfPresent(.name) ?? ""
         try super.init(from: decoder)
     }
     

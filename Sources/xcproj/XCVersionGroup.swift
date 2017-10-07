@@ -67,14 +67,13 @@ public class XCVersionGroup: PBXObject, Hashable {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.currentVersion = try container.decode(String.self, forKey: .currentVersion)
-        self.path = try container.decode(String.self, forKey: .path)
+        self.currentVersion = try container.decodeIfPresent(.currentVersion) ?? ""
+        self.path = try container.decodeIfPresent(.path) ?? ""
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
-        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
-        self.versionGroupType = try container.decode(String.self, forKey: .versionGroupType)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree) ?? .none
+        self.versionGroupType = try container.decodeIfPresent(.versionGroupType) ?? ""
         self.children = try container.decodeIfPresent([String].self, forKey: .children) ?? []
-        let reference = try container.decode(String.self, forKey: .reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
 }
 

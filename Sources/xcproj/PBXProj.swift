@@ -146,11 +146,11 @@ public class PBXProj: Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let archiveVersionString: String = try container.decode(.archiveVersion)
+        let archiveVersionString: String = try container.decodeIfPresent(.archiveVersion) ?? ""
         self.archiveVersion = Int(archiveVersionString) ?? 0
-        let objectVersionString: String = try container.decode(.objectVersion)
+        let objectVersionString: String = try container.decodeIfPresent(.objectVersion) ?? ""
         self.objectVersion = Int(objectVersionString) ?? 0
-        self.rootObject = try container.decode(.rootObject)
+        self.rootObject = try container.decodeIfPresent(.rootObject) ?? ""
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]

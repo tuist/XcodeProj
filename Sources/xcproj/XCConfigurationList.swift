@@ -51,9 +51,9 @@ public class XCConfigurationList: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.buildConfigurations = (try container.decodeIfPresent(.buildConfigurations)) ?? []
-        let defaultConfigurationIsVisibleString: String = try container.decode(.defaultConfigurationIsVisible)
+        let defaultConfigurationIsVisibleString: String = try container.decodeIfPresent(.defaultConfigurationIsVisible) ?? ""
         self.defaultConfigurationIsVisible = UInt(defaultConfigurationIsVisibleString) ?? 0
-        self.defaultConfigurationName = try container.decode(.defaultConfigurationName)
+        self.defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName) ?? ""
         try super.init(from: decoder)
     }
     

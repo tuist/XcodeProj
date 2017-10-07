@@ -114,17 +114,17 @@ public class PBXProject: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = (try container.decodeIfPresent(.name)) ?? ""
-        self.buildConfigurationList = try container.decode(.buildConfigurationList)
-        self.compatibilityVersion = try container.decode(.compatibilityVersion)
+        self.buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList) ?? ""
+        self.compatibilityVersion = try container.decodeIfPresent(.compatibilityVersion) ?? ""
         self.developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
         self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)})
         self.knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
-        self.mainGroup = try container.decode(.mainGroup)
+        self.mainGroup = try container.decodeIfPresent(.mainGroup) ?? ""
         self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
         self.projectDirPath = try container.decodeIfPresent(.projectDirPath)
         self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
-        self.projectRoot = try container.decode(.projectRoot)
+        self.projectRoot = try container.decodeIfPresent(.projectRoot)
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)

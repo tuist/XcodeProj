@@ -33,13 +33,12 @@ public class PBXBuildPhase: PBXObject {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let buildActionMaskString: String = try container.decode(.buildActionMask)
+        let buildActionMaskString: String = try container.decodeIfPresent(.buildActionMask) ?? ""
         self.buildActionMask = UInt(buildActionMaskString) ?? 0
-        self.files = try container.decode(.files)
-        let runOnlyForDeploymentPostprocessingString: String = try container.decode(.runOnlyForDeploymentPostprocessing)
+        self.files = try container.decodeIfPresent(.files) ?? []
+        let runOnlyForDeploymentPostprocessingString: String = try container.decodeIfPresent(.runOnlyForDeploymentPostprocessing) ?? ""
         self.runOnlyForDeploymentPostprocessing = UInt(runOnlyForDeploymentPostprocessingString) ?? 0
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
 
     public static func == (lhs: PBXBuildPhase,

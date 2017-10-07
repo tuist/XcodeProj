@@ -45,8 +45,8 @@ public class PBXTargetDependency: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.target = try container.decode(.target)
-        self.targetProxy = try container.decode(.targetProxy)
+        self.target = try container.decodeIfPresent(.target) ?? ""
+        self.targetProxy = try container.decodeIfPresent(.targetProxy) ?? ""
         try super.init(from: decoder)
     }
     

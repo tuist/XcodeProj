@@ -60,10 +60,10 @@ public class PBXContainerItemProxy: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.containerPortal = try container.decode(.containerPortal)
-        let proxyTypeString: String = try container.decode(.proxyType)
+        self.containerPortal = try container.decodeIfPresent(.containerPortal) ?? ""
+        let proxyTypeString: String = try container.decodeIfPresent(.proxyType) ?? ""
         self.proxyType = UInt(proxyTypeString).flatMap({ProxyType(rawValue: $0)}) ?? .other
-        self.remoteGlobalIDString = try container.decode(.remoteGlobalIDString)
+        self.remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString) ?? ""
         self.remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }

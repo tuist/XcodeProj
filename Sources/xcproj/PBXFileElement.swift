@@ -51,11 +51,10 @@ public class PBXFileElement: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceTree = try container.decode(.sourceTree)
-        self.name = try container.decode(.name)
-        self.path = try container.decode(.path)
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree) ?? .none
+        self.name = try container.decodeIfPresent(.name) ?? ""
+        self.path = try container.decodeIfPresent(.path) ?? ""
+        try super.init(from: decoder)
     }
     
 }

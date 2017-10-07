@@ -71,10 +71,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(.name)
+        self.name = try container.decodeIfPresent(.name) ?? ""
         self.inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
         self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
-        self.shellPath = try container.decode(.shellPath)
+        self.shellPath = try container.decodeIfPresent(.shellPath) ?? ""
         self.shellScript = try container.decodeIfPresent(.shellScript)
         self.showEnvVarsInLog = try container.decodeIfPresent(.showEnvVarsInLog)
         try super.init(from: decoder)
