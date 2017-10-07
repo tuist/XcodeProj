@@ -22,37 +22,31 @@ final class PBXContainerItemProxySpec: XCTestCase {
         XCTAssertEqual(subject.remoteInfo, "remote_info")
     }
 
-    func test_init_shouldFail_ifContainerPortalIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenContainerPortalIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "containerPortal")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXContainerItemProxy.self, from: data)
+        XCTAssertEqual(subject.containerPortal, "")
     }
-
-    func test_init_shouldFail_ifRemoteGlobalIDStringIsMissing() {
+    
+    func test_init_setsTheCorrectDefaultValue_whenRemoteGlobalIDStringIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "remoteGlobalIDString")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXContainerItemProxy.self, from: data)
+        XCTAssertEqual(subject.remoteGlobalIDString, "")
     }
-
-    func test_init_shouldFail_ifRemoteInfoIsMissing() {
+    
+    func test_init_setsTheCorrectDefaultValue_whenRemoteInfoIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "remoteInfo")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXContainerItemProxy.self, from: data)
+        XCTAssertNil(subject.remoteInfo)
     }
 
     func test_equal_shouldReturnTheCorrectValue() {
