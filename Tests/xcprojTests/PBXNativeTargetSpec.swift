@@ -35,59 +35,49 @@ final class PBXNativeTargetSpec: XCTestCase {
         XCTAssertEqual(subject.productType, .application)
     }
 
-    func test_init_failsWhenBuildConfigurationListIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenBuildConfigurationListIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildConfigurationList")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXNativeTarget.self, from: data)
+        XCTAssertEqual(subject.buildConfigurationList, "")
     }
 
-    func test_init_failsWhenBuildPhasesIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenBuildPhasesIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildPhases")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXNativeTarget.self, from: data)
+        XCTAssertEqual(subject.buildPhases, [])
     }
 
-    func test_init_failsWhenBuildRulesIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenBuildRulesIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildRules")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXNativeTarget.self, from: data)
+        XCTAssertEqual(subject.buildRules, [])
     }
 
-    func test_init_failsWhenDependenciesIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenDependenciesIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "dependencies")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXNativeTarget.self, from: data)
+        XCTAssertEqual(subject.dependencies, [])
     }
 
-    func test_init_failsWhenNameIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenNameIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXNativeTarget.self, from: data)
+        XCTAssertEqual(subject.name, "")
     }
 
     func test_equal_returnsTheCorrectValue() {
