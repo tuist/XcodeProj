@@ -72,8 +72,7 @@ public class XCVersionGroup: PBXObject, Hashable {
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
         self.versionGroupType = try container.decode(String.self, forKey: .versionGroupType)
-        let children = try? container.decode([String].self, forKey: .children)
-        self.children = children ?? []
+        self.children = try container.decodeIfPresent([String].self, forKey: .children) ?? []
         let reference = try container.decode(String.self, forKey: .reference)
         super.init(reference: reference)
     }
