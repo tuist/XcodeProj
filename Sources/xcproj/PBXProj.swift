@@ -146,12 +146,15 @@ public class PBXProj: Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.archiveVersion = try container.decode(.archiveVersion)
-        self.objectVersion = try container.decode(.objectVersion)
+        let archiveVersionString: String = try container.decode(.archiveVersion)
+        self.archiveVersion = Int(archiveVersionString) ?? 0
+        let objectVersionString: String = try container.decode(.objectVersion)
+        self.objectVersion = Int(objectVersionString) ?? 0
         self.rootObject = try container.decode(.rootObject)
-        self.classes = (try container.decodeIfPresent(.classes)) ?? [:]
-        let objectsDictionary: [String: [String: Any]] = try container.decode(.objects)
-        self.objects = try objectsDictionary.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
+        self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
+        let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
+        let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
+        self.objects = try objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
     }
 
     func fileName(from reference: String) -> String? {

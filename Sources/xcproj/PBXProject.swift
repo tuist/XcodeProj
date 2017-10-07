@@ -117,7 +117,8 @@ public class PBXProject: PBXObject, Hashable {
         self.buildConfigurationList = try container.decode(.buildConfigurationList)
         self.compatibilityVersion = try container.decode(.compatibilityVersion)
         self.developmentRegion = try container.decodeIfPresent(.developmentRegion)
-        self.hasScannedForEncodings = try container.decodeIfPresent(.hasScannedForEncodings)
+        let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
+        self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)})
         self.knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
         self.mainGroup = try container.decode(.mainGroup)
         self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
@@ -125,7 +126,7 @@ public class PBXProject: PBXObject, Hashable {
         self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
         self.projectRoot = try container.decode(.projectRoot)
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
-        self.attributes = (try container.decodeIfPresent(.attributes)) ?? [:]
+        self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
     

@@ -33,9 +33,11 @@ public class PBXBuildPhase: PBXObject {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildActionMask = try container.decode(.buildActionMask)
+        let buildActionMaskString: String = try container.decode(.buildActionMask)
+        self.buildActionMask = UInt(buildActionMaskString) ?? 0
         self.files = try container.decode(.files)
-        self.runOnlyForDeploymentPostprocessing = try container.decode(.runOnlyForDeploymentPostprocessing)
+        let runOnlyForDeploymentPostprocessingString: String = try container.decode(.runOnlyForDeploymentPostprocessing)
+        self.runOnlyForDeploymentPostprocessing = UInt(runOnlyForDeploymentPostprocessingString) ?? 0
         let reference: String = try container.decode(.reference)
         super.init(reference: reference)
     }

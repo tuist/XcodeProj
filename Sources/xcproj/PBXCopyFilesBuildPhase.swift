@@ -78,7 +78,8 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.dstPath = try container.decode(.dstPath)
-        self.dstSubfolderSpec = try container.decode(.dstSubfolderSpec)
+        let dstSubfolderSpecString: String = try container.decode(.dstSubfolderSpec)
+        self.dstSubfolderSpec = UInt(dstSubfolderSpecString).flatMap(SubFolder.init) ?? .other
         self.name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }

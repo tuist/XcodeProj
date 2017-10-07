@@ -19,16 +19,6 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
 
-    func test_initWithReferenceAndDictionary_returnsThePhaseWithTheRightAttributes() {
-        let dictionary = testDictionary()
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        let phase = try! decoder.decode(PBXResourcesBuildPhase.self, from: data)
-        XCTAssertEqual(phase.reference, "reference")
-        XCTAssertEqual(phase.files, ["file1"])
-        XCTAssertEqual(phase.runOnlyForDeploymentPostprocessing, 3)
-    }
-
     func test_initFails_whenRunOnlyForDeploymentPostprocessingIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
@@ -54,8 +44,8 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "files": ["file1"],
-            "buildActionMask": 333,
-            "runOnlyForDeploymentPostprocessing": 3,
+            "buildActionMask": "333",
+            "runOnlyForDeploymentPostprocessing": "3",
             "reference": "reference"
         ]
     }

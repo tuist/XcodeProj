@@ -30,6 +30,11 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     // MARK: - Private
 
     private func project() -> XcodeProj? {
-        return try? XcodeProj(path: fixturePath())
+        do {
+            return try XcodeProj(path: fixturePath())
+        } catch{
+            print("ERROR: \(error)")
+            return nil
+        }
     }
 }
