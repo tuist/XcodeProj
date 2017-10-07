@@ -32,15 +32,13 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
-    func test_init_failsIfFilesAreMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenFilesIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXResourcesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXResourcesBuildPhase.self, from: data)
+        XCTAssertEqual(subject.files, [])
     }
 
 
