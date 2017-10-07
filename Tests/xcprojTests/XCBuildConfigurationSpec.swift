@@ -23,15 +23,13 @@ final class XCBuildConfigurationSpec: XCTestCase {
         XCTAssertEqual(subject.buildSettings as! [String: String], [:])
     }
 
-    func test_initFails_ifNameIsMissing() {
+    func test_setsTheCorrectDefaultValue_whenNameIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCBuildConfiguration.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(XCBuildConfiguration.self, from: data)
+        XCTAssertEqual(subject.name, "")
     }
 
     func test_isa_hasTheCorrectValue() {
