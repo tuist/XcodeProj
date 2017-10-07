@@ -25,37 +25,31 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(PBXShellScriptBuildPhase.isa, "PBXShellScriptBuildPhase")
     }
 
-    func test_initFails_whenTheFilesAreMissing() {
+    func test_initSetsTheCorrectDefaultValue_whenFilesIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+        XCTAssertEqual(subject.files, [])
     }
-
-    func test_initFails_whenShellPathIsMissing() {
+    
+    func test_initSetsTheCorrectDefaultValue_whenShellPathIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "shellPath")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+        XCTAssertEqual(subject.shellPath, "")
     }
 
-    func test_initFails_whenNameIsMissing() {
+    func test_initSetsTheCorrectDefaultValue_whenNameIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXShellScriptBuildPhase.self, from: data)
+        XCTAssertEqual(subject.name, "")
     }
 
     func test_equals_returnsTheCorrectValue() {

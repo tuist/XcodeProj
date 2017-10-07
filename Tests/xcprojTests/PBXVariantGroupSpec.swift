@@ -21,37 +21,31 @@ final class PBXVariantGroupSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .group)
     }
 
-    func test_init_failsIfTheChildrenIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenChildrenIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "children")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXVariantGroup.self, from: data)
+        XCTAssertEqual(subject.children, [])
     }
 
-    func test_init_failsIfTheNameIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenNameIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXVariantGroup.self, from: data)
+        XCTAssertEqual(subject.name, "")
     }
 
-    func test_init_failsIfTheSourceTreeIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenSourceTreeIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXVariantGroup.self, from: data)
+        XCTAssertEqual(subject.sourceTree, .none)
     }
 
     func test_init_failsIfTheSourceTreeIsWrong() {

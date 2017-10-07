@@ -61,7 +61,7 @@ public class PBXGroup: PBXObject, Hashable {
         self.name = try container.decodeIfPresent(.name)
         self.children = (try container.decodeIfPresent(.children)) ?? []
         self.path = try container.decodeIfPresent(.path)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree) ?? .none
         try super.init(from: decoder)
     }
     

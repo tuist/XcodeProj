@@ -63,16 +63,15 @@ public class PBXTarget: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildConfigurationList = try container.decode(.buildConfigurationList)
-        self.buildPhases = try container.decode(.buildPhases)
-        self.buildRules = try container.decode(.buildRules)
-        self.dependencies = try container.decode(.dependencies)
-        self.name = try container.decode(.name)
+        self.buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList) ?? ""
+        self.buildPhases = try container.decodeIfPresent(.buildPhases) ?? []
+        self.buildRules = try container.decodeIfPresent(.buildRules) ?? []
+        self.dependencies = try container.decodeIfPresent(.dependencies) ?? []
+        self.name = try container.decodeIfPresent(.name) ?? ""
         self.productName = try container.decodeIfPresent(.productName)
         self.productReference = try container.decodeIfPresent(.productReference)
         self.productType = try container.decodeIfPresent(.productType)
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
 
     public static func == (lhs: PBXTarget,

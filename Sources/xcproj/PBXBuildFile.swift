@@ -37,10 +37,9 @@ public class PBXBuildFile: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let reference: String = try container.decode(.reference)
-        self.fileRef = try container.decode(.fileRef)        
+        self.fileRef = try container.decodeIfPresent(.fileRef) ?? ""
         self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings) ?? [:]
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
     
     // MARK: - Hashable

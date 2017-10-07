@@ -44,11 +44,10 @@ public class PBXVariantGroup: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.children = try container.decode([String].self, forKey: .children)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
-        let reference = try container.decode(String.self, forKey: .reference)
-        super.init(reference: reference)
+        self.children = try container.decodeIfPresent(.children) ?? []
+        self.name = try container.decodeIfPresent(.name) ?? ""
+        self.sourceTree = try container.decodeIfPresent(.sourceTree) ?? .none
+        try super.init(from: decoder)
     }
     
     // MARK: - Hashable

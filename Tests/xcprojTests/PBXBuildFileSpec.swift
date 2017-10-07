@@ -19,15 +19,13 @@ final class PBXBuildFileSpec: XCTestCase {
         XCTAssertEqual(subject.settings as! [String: String], ["a": "b"])
     }
 
-    func test_initFails_ifFileRefIsMissing() {
+    func test_initFails_setsTheCorrectDefaultValue_whenFileRefIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "fileRef")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXBuildFile.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXBuildFile.self, from: data)
+        XCTAssertEqual(subject.fileRef, "")
     }
 
     func test_isa_returnsTheCorrectValue() {

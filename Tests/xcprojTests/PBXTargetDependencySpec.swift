@@ -18,26 +18,22 @@ final class PBXTargetDependencySpec: XCTestCase {
         XCTAssertEqual(subject.targetProxy, "target_proxy")
     }
 
-    func test_init_failsIfTheTargetIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenTargetIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "target")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXTargetDependency.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXTargetDependency.self, from: data)
+        XCTAssertEqual(subject.target, "")
     }
 
-    func test_init_failsIfTheTargetProxyIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenTargetProxyIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "targetProxy")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXTargetDependency.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXTargetDependency.self, from: data)
+        XCTAssertEqual(subject.targetProxy, "")
     }
 
     func test_hasTheCorrectIsa() {

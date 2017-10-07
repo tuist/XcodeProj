@@ -46,48 +46,40 @@ final class XCVersionGroupSpec: XCTestCase {
         XCTAssertNotEqual(a, b)
     }
 
-    func test_initFails_whenCurrentVersionIsMissing() {
+    func test_setsTheCorrectDefaultValue_whenCurrentVersionIsMissing() throws {
         var dictionary = testData()
         dictionary.removeValue(forKey: "currentVersion")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
+        let subject = try decoder.decode(XCVersionGroup.self, from: data)
+        XCTAssertEqual(subject.currentVersion, "")
     }
 
-    func test_initFails_whenPathIsMissing() {
+    func test_setsTheCorrectDefaultValue_whenPathIsMissing() throws {
         var dictionary = testData()
         dictionary.removeValue(forKey: "path")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
+        let subject = try decoder.decode(XCVersionGroup.self, from: data)
+        XCTAssertEqual(subject.path, "")
     }
 
-    func test_initFails_whenSourceTreeIsMissing() {
+    func test_setsTheCorrectDefaultValue_whenSourceTreeIsMissing() throws {
         var dictionary = testData()
         dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
+        let subject = try decoder.decode(XCVersionGroup.self, from: data)
+        XCTAssertEqual(subject.sourceTree, .none)
     }
-
-    func test_initFails_whenVersionGroupTypeIsMissing() {
+    
+    func test_setsTheCorrectDefaultValue_whenVersionGroupTypeIsMissing() throws {
         var dictionary = testData()
         dictionary.removeValue(forKey: "versionGroupType")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
+        let subject = try decoder.decode(XCVersionGroup.self, from: data)
+        XCTAssertEqual(subject.versionGroupType, "")
     }
 
     // MARK: - Private

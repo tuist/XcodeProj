@@ -102,7 +102,7 @@ public class PBXFileReference: PBXObject, Hashable {
         self.includeInIndex = includeInIndexString.flatMap({Int($0)})
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree) ?? .none
         self.usesTabs = try container.decodeIfPresent(.usesTabs)
         self.lineEnding = try container.decodeIfPresent(.lineEnding)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)

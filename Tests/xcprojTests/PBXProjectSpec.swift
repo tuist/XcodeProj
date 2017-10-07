@@ -53,37 +53,31 @@ final class PBXProjectSpec: XCTestCase {
         XCTAssertEqual(v, CommentedString("config", comment: "Build configuration list for PBXProject \"App\""))
     }
 
-    func test_init_failsIfBuildConfigurationListIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenBuildConfigurationListIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildConfigurationList")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXProject.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXProject.self, from: data)
+        XCTAssertEqual(subject.buildConfigurationList, "")
     }
-
-    func test_init_failsIfCompatibilityVersionIsMissing() {
+    
+    func test_init_setsTheCorrectDefaultValue_whenCompatibilityVersionIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "compatibilityVersion")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXProject.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXProject.self, from: data)
+        XCTAssertEqual(subject.compatibilityVersion, "")
     }
-
-    func test_init_failsIfMainGroupIsMissing() {
+    
+    func test_init_setsTheCorrectDefaultValue_whenMainGroupIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "mainGroup")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXProject.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXProject.self, from: data)
+        XCTAssertEqual(subject.mainGroup, "")
     }
 
     func test_equal_returnsTheCorrectValue() {
