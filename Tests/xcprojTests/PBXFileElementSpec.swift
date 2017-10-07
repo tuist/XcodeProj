@@ -33,15 +33,13 @@ final class PBXFileElementSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_init_failsIfSourceTreeIsMissing() {
+    func test_init_setsTheCorrectDefaultValue_whenSourceTreeIsMissing() throws {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXFileElement.self, from: data)
-            XCTAssertTrue(false, "Expected to throw but it didn't")
-        } catch {}
+        let subject = try decoder.decode(PBXFileElement.self, from: data)
+        XCTAssertEqual(subject.sourceTree, .none)
     }
 
     func test_init_failsIfPathIsMissing() {
