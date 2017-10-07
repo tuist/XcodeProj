@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for listing build configurations.
 public class XCBuildConfiguration: PBXObject, Hashable {
@@ -10,7 +9,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    public var buildSettings: BuildSettings
+    public var buildSettings: [String: Any]
     
     /// The configuration name.
     public var name: String
@@ -27,7 +26,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public init(reference: String,
                 name: String,
                 baseConfigurationReference: String? = nil,
-                buildSettings: BuildSettings = [:]) {
+                buildSettings: [String: Any] = [:]) {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
@@ -42,12 +41,20 @@ public class XCBuildConfiguration: PBXObject, Hashable {
             NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
     
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.baseConfigurationReference = unboxer.unbox(key: "baseConfigurationReference")
-        self.buildSettings = (dictionary["buildSettings"] as? BuildSettings) ?? [:]
-        self.name = try unboxer.unbox(key: "name")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case baseConfigurationReference
+        case buildSettings
+        case name
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
+        self.buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
+        self.name = try container.decode(.name)
+        try super.init(from: decoder)
     }
     
 }

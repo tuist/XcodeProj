@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // An absctract class for all the build phase objects
 public class PBXBuildPhase: PBXObject {
@@ -22,13 +21,25 @@ public class PBXBuildPhase: PBXObject {
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         super.init(reference: reference)
     }
-
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.files = try unboxer.unbox(key: "files")
-        self.buildActionMask = try unboxer.unbox(key: "buildActionMask")
-        self.runOnlyForDeploymentPostprocessing = try unboxer.unbox(key: "runOnlyForDeploymentPostprocessing")
-        try super.init(reference: reference, dictionary: dictionary)
+    
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case buildActionMask
+        case files
+        case runOnlyForDeploymentPostprocessing
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let buildActionMaskString: String = try container.decode(.buildActionMask)
+        self.buildActionMask = UInt(buildActionMaskString) ?? 0
+        self.files = try container.decode(.files)
+        let runOnlyForDeploymentPostprocessingString: String = try container.decode(.runOnlyForDeploymentPostprocessing)
+        self.runOnlyForDeploymentPostprocessing = UInt(runOnlyForDeploymentPostprocessingString) ?? 0
+        let reference: String = try container.decode(.reference)
+        super.init(reference: reference)
     }
 
     public static func == (lhs: PBXBuildPhase,

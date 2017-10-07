@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 import PathKit
 
 //  A PBXFileReference is used to track every external file referenced by 
@@ -79,19 +78,35 @@ public class PBXFileReference: PBXObject, Hashable {
             lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier
     }
     
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.fileEncoding = unboxer.unbox(key: "fileEncoding")
-        self.explicitFileType = unboxer.unbox(key: "explicitFileType")
-        self.lastKnownFileType = unboxer.unbox(key: "lastKnownFileType")
-        self.name = unboxer.unbox(key: "name")
-        self.path = unboxer.unbox(key: "path")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.includeInIndex = unboxer.unbox(key: "includeInIndex")
-        self.usesTabs = unboxer.unbox(key: "usesTabs")
-        self.lineEnding = unboxer.unbox(key: "lineEnding")
-        self.xcLanguageSpecificationIdentifier = unboxer.unbox(key: "xcLanguageSpecificationIdentifier")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case fileEncoding
+        case explicitFileType
+        case lastKnownFileType
+        case name
+        case path
+        case sourceTree
+        case includeInIndex
+        case usesTabs
+        case lineEnding
+        case xcLanguageSpecificationIdentifier
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.fileEncoding = try container.decodeIfPresent(.fileEncoding)
+        self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
+        self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
+        let includeInIndexString: String? = try container.decodeIfPresent(.includeInIndex)
+        self.includeInIndex = includeInIndexString.flatMap({Int($0)})
+        self.name = try container.decodeIfPresent(.name)
+        self.path = try container.decodeIfPresent(.path)
+        self.sourceTree = try container.decode(.sourceTree)
+        self.usesTabs = try container.decodeIfPresent(.usesTabs)
+        self.lineEnding = try container.decodeIfPresent(.lineEnding)
+        self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
+        try super.init(from: decoder)
     }
     
 }

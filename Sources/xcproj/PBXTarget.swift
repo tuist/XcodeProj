@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXObject, Hashable {
@@ -47,18 +46,33 @@ public class PBXTarget: PBXObject, Hashable {
         self.productType = productType
         super.init(reference: reference)
     }
-
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
-        self.buildPhases = try unboxer.unbox(key: "buildPhases")
-        self.buildRules = try unboxer.unbox(key: "buildRules")
-        self.dependencies = try unboxer.unbox(key: "dependencies")
-        self.name = try unboxer.unbox(key: "name")
-        self.productName = unboxer.unbox(key: "productName")
-        self.productReference = unboxer.unbox(key: "productReference")
-        self.productType = unboxer.unbox(key: "productType")
-        try super.init(reference: reference, dictionary: dictionary)
+    
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case buildConfigurationList
+        case buildPhases
+        case buildRules
+        case dependencies
+        case name
+        case productName
+        case productReference
+        case productType
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.buildConfigurationList = try container.decode(.buildConfigurationList)
+        self.buildPhases = try container.decode(.buildPhases)
+        self.buildRules = try container.decode(.buildRules)
+        self.dependencies = try container.decode(.dependencies)
+        self.name = try container.decode(.name)
+        self.productName = try container.decodeIfPresent(.productName)
+        self.productReference = try container.decodeIfPresent(.productReference)
+        self.productType = try container.decodeIfPresent(.productType)
+        let reference: String = try container.decode(.reference)
+        super.init(reference: reference)
     }
 
     public static func == (lhs: PBXTarget,

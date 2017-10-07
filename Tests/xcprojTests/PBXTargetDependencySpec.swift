@@ -21,8 +21,10 @@ final class PBXTargetDependencySpec: XCTestCase {
     func test_init_failsIfTheTargetIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "target")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXTargetDependency(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXTargetDependency.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -30,8 +32,10 @@ final class PBXTargetDependencySpec: XCTestCase {
     func test_init_failsIfTheTargetProxyIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "targetProxy")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXTargetDependency(reference: "reference", dictionary: dictionary)
+            _ = try decoder.decode(PBXTargetDependency.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -53,7 +57,8 @@ final class PBXTargetDependencySpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "target": "target",
-            "targetProxy": "targetProxy"
+            "targetProxy": "targetProxy",
+            "reference": "reference"
         ]
     }
 }

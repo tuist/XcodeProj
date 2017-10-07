@@ -1,10 +1,9 @@
 import Foundation
-import Unbox
 
 // This is the element for the copy file build phase.
 public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
-    public enum SubFolder: UInt, UnboxableEnum {
+    public enum SubFolder: UInt, Decodable {
         case absolutePath = 0
         case productsDirectory = 16
         case wrapper = 1
@@ -57,15 +56,6 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
             runOnlyForDeploymentPostprocessing)
     }
 
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.dstPath = try unboxer.unbox(key: "dstPath")
-        self.name = unboxer.unbox(key: "name")
-        let dstSubFolderSpecInt: UInt = try unboxer.unbox(key: "dstSubfolderSpec")
-        self.dstSubfolderSpec = SubFolder(rawValue: dstSubFolderSpecInt) ?? .other
-        try super.init(reference: reference, dictionary: dictionary)
-    }
-
     public static func == (lhs: PBXCopyFilesBuildPhase,
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -75,6 +65,23 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
             lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
+    }
+    
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case dstPath
+        case dstSubfolderSpec
+        case name
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.dstPath = try container.decode(.dstPath)
+        let dstSubfolderSpecString: String = try container.decode(.dstSubfolderSpec)
+        self.dstSubfolderSpec = UInt(dstSubfolderSpecString).flatMap(SubFolder.init) ?? .other
+        self.name = try container.decodeIfPresent(.name)
+        try super.init(from: decoder)
     }
 
 }

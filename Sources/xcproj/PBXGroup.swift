@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 public class PBXGroup: PBXObject, Hashable {
 
@@ -47,15 +46,25 @@ public class PBXGroup: PBXObject, Hashable {
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path
     }
-
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.children = try unboxer.unbox(key: "children")
-        self.name = unboxer.unbox(key: "name")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        self.path = unboxer.unbox(key: "path")
-        try super.init(reference: reference, dictionary: dictionary)
+    
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case children
+        case name
+        case sourceTree
+        case path
     }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decodeIfPresent(.name)
+        self.children = (try container.decodeIfPresent(.children)) ?? []
+        self.path = try container.decodeIfPresent(.path)
+        self.sourceTree = try container.decode(.sourceTree)
+        try super.init(from: decoder)
+    }
+    
 }
 
 // MARK: - PBXGroup Extension (PlistSerializable)

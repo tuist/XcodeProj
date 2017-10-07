@@ -26,8 +26,10 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenTheFilesAreMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXFrameworksBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -35,8 +37,10 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenTheRunOnlyForDeploymentPostProcessingIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXFrameworksBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -55,7 +59,8 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "files": ["file1"],
-            "runOnlyForDeploymentPostprocessing": 0
+            "runOnlyForDeploymentPostprocessing": 0,
+            "reference": "reference"
         ]
     }
 }

@@ -68,8 +68,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenDstPathIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "dstPath")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -77,8 +79,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenBuildActionMaskIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildActionMask")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -86,8 +90,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenDstSubfolderSpecIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "dstSubfolderSpec")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -95,8 +101,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenFilesIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -104,8 +112,10 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_init_fails_whenRunOnlyForDeploymentPostprocessingIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXCopyFilesBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -135,7 +145,8 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
             "buildActionMask": 0,
             "dstSubfolderSpec": 12,
             "files": ["a", "b"],
-            "runOnlyForDeploymentPostprocessing": 0
+            "runOnlyForDeploymentPostprocessing": 0,
+            "reference": "reference"
         ]
     }
 }

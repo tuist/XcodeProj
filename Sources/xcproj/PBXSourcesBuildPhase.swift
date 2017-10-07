@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for the sources compilation build phase.
 public class PBXSourcesBuildPhase: PBXBuildPhase, Hashable {

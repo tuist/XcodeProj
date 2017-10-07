@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for referencing localized resources.
 public class PBXVariantGroup: PBXObject, Hashable {
@@ -34,18 +33,22 @@ public class PBXVariantGroup: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    /// Initializes the variant group with the element reference an a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: an error in case any property is missing or the format is wrong.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.children = try unboxer.unbox(key: "children")
-        self.name = try unboxer.unbox(key: "name")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case children
+        case name
+        case sourceTree
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.children = try container.decode([String].self, forKey: .children)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
+        let reference = try container.decode(String.self, forKey: .reference)
+        super.init(reference: reference)
     }
     
     // MARK: - Hashable

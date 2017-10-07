@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
 public class PBXBuildFile: PBXObject, Hashable {
@@ -28,17 +27,20 @@ public class PBXBuildFile: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    /// Constructor that initializes the project element with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.fileRef = try unboxer.unbox(key: "fileRef")
-        self.settings = unboxer.unbox(key: "settings")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    enum CodingKeys: String, CodingKey {
+        case fileRef
+        case settings
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let reference: String = try container.decode(.reference)
+        self.fileRef = try container.decode(.fileRef)        
+        self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings) ?? [:]
+        super.init(reference: reference)
     }
     
     // MARK: - Hashable

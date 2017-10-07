@@ -34,8 +34,10 @@ final class PBXFileReferenceSpec: XCTestCase {
     func test_init_failsIfNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXFileReference(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXFileReference.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -43,8 +45,10 @@ final class PBXFileReferenceSpec: XCTestCase {
     func test_init_failsIfSourceTreeIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXFileReference(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXFileReference.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -67,7 +71,8 @@ final class PBXFileReferenceSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "name": "name",
-            "sourceTree": "group"
+            "sourceTree": "group",
+            "reference": "reference"
         ]
     }
 }

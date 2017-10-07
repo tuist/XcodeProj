@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for a build target that aggregates several others.
 public class PBXAggregateTarget: PBXTarget {

@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for a build target that produces a binary content (application or library).
 public class PBXProject: PBXObject, Hashable {
@@ -94,28 +93,41 @@ public class PBXProject: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    /// Constructor that initializes the project element with the reference and a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: throws an error in case any of the propeties are missing or they have the wrong type.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.name = (try? unboxer.unbox(key: "name")) ?? ""
-        self.buildConfigurationList = try unboxer.unbox(key: "buildConfigurationList")
-        self.compatibilityVersion = try unboxer.unbox(key: "compatibilityVersion")
-        self.developmentRegion = unboxer.unbox(key: "developmentRegion")
-        self.hasScannedForEncodings = unboxer.unbox(key: "hasScannedForEncodings")
-        self.knownRegions = (unboxer.unbox(key: "knownRegions")) ?? []
-        self.mainGroup = try unboxer.unbox(key: "mainGroup")
-        self.productRefGroup = unboxer.unbox(key: "productRefGroup")
-        self.projectDirPath = unboxer.unbox(key: "projectDirPath")
-        self.projectReferences = (unboxer.unbox(key: "projectReferences")) ?? []
-        self.projectRoot = unboxer.unbox(key: "projectRoot")
-        self.targets = (unboxer.unbox(key: "targets")) ?? []
-        self.attributes = (try? unboxer.unbox(key: "attributes")) ?? [:]
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case name
+        case buildConfigurationList
+        case compatibilityVersion
+        case developmentRegion
+        case hasScannedForEncodings
+        case knownRegions
+        case mainGroup
+        case productRefGroup
+        case projectDirPath
+        case projectReferences
+        case projectRoot
+        case targets
+        case attributes
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = (try container.decodeIfPresent(.name)) ?? ""
+        self.buildConfigurationList = try container.decode(.buildConfigurationList)
+        self.compatibilityVersion = try container.decode(.compatibilityVersion)
+        self.developmentRegion = try container.decodeIfPresent(.developmentRegion)
+        let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
+        self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)})
+        self.knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
+        self.mainGroup = try container.decode(.mainGroup)
+        self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
+        self.projectDirPath = try container.decodeIfPresent(.projectDirPath)
+        self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
+        self.projectRoot = try container.decode(.projectRoot)
+        self.targets = (try container.decodeIfPresent(.targets)) ?? []
+        self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
+        try super.init(from: decoder)
     }
     
     // MARK: - Hashable

@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 // This is the element for the resources copy build phase.
 public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
@@ -58,15 +57,27 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
 
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.name = unboxer.unbox(key: "name")
-        self.inputPaths = (unboxer.unbox(key: "inputPaths")) ?? []
-        self.outputPaths = (unboxer.unbox(key: "outputPaths")) ?? []
-        self.shellPath = try unboxer.unbox(key: "shellPath")
-        self.shellScript = unboxer.unbox(key: "shellScript")
-        self.showEnvVarsInLog = unboxer.unbox(key: "showEnvVarsInLog")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case name
+        case inputPaths
+        case outputPaths
+        case shellPath
+        case shellScript
+        case showEnvVarsInLog
+        case reference
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(.name)
+        self.inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
+        self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
+        self.shellPath = try container.decode(.shellPath)
+        self.shellScript = try container.decodeIfPresent(.shellScript)
+        self.showEnvVarsInLog = try container.decodeIfPresent(.showEnvVarsInLog)
+        try super.init(from: decoder)
     }
 
     public static func == (lhs: PBXShellScriptBuildPhase,

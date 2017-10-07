@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 /// A proxy for another object which might belong to another project
 /// contained in the same workspace of the document.
@@ -34,19 +33,22 @@ public class PBXReferenceProxy: PBXObject, Hashable {
         super.init(reference: reference)
     }
     
-    /// Initializes the reference proxy with the element reference an a dictionary with its properties.
-    ///
-    /// - Parameters:
-    ///   - reference: element reference.
-    ///   - dictionary: dictionary with the element properties.
-    /// - Throws: an error in case any property is missing or the format is wrong.
-    public override init(reference: String, dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.fileType = try unboxer.unbox(key: "fileType")
-        self.path = try unboxer.unbox(key: "path")
-        self.remoteRef = try unboxer.unbox(key: "remoteRef")
-        self.sourceTree = try unboxer.unbox(key: "sourceTree")
-        try super.init(reference: reference, dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case fileType
+        case path
+        case remoteRef
+        case sourceTree
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.fileType = try container.decode(.fileType)
+        self.path = try container.decode(.path)
+        self.remoteRef = try container.decode(.remoteRef)
+        self.sourceTree = try container.decode(.sourceTree)
+        try super.init(from: decoder)
     }
     
     // MARK: - Hashable

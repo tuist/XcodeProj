@@ -1,5 +1,4 @@
 import Foundation
-import Unbox
 
 /// This is the element for a build target that produces a binary content (application or library).
 public class PBXNativeTarget: PBXTarget {

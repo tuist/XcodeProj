@@ -25,27 +25,33 @@ final class PBXContainerItemProxySpec: XCTestCase {
     func test_init_shouldFail_ifContainerPortalIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "containerPortal")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXContainerItemProxy(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected init to throw an error but it didn't")
+            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
     func test_init_shouldFail_ifRemoteGlobalIDStringIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "remoteGlobalIDString")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXContainerItemProxy(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected init to throw an error but it didn't")
+            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
     func test_init_shouldFail_ifRemoteInfoIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "remoteInfo")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXContainerItemProxy(reference: "reference", dictionary: dictionary)
-            XCTAssertTrue(false, "Expected init to throw an error but it didn't")
+            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
 
@@ -63,7 +69,8 @@ final class PBXContainerItemProxySpec: XCTestCase {
         return [
             "containerPortal": "containerPortal",
             "remoteGlobalIDString": "remoteGlobalIDString",
-            "remoteInfo": "remoteInfo"
+            "remoteInfo": "remoteInfo",
+            "reference": "reference"
         ]
     }
 

@@ -24,8 +24,10 @@ final class PBXGroupSpec: XCTestCase {
     func test_init_failsIfChildrenIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "children")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXGroup(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -33,8 +35,10 @@ final class PBXGroupSpec: XCTestCase {
     func test_init_failsIfSourceTreeIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "sourceTree")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXGroup(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXGroup.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -59,7 +63,8 @@ final class PBXGroupSpec: XCTestCase {
         return [
             "children": ["child"],
             "name": "name",
-            "sourceTree": "absolute"
+            "sourceTree": "absolute",
+            "reference": "reference"
         ]
     }
 }

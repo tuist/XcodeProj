@@ -1,9 +1,8 @@
 import Foundation
-import Unbox
 import PathKit
 
 /// It represents a .pbxproj file
-public class PBXProj {
+public class PBXProj: Decodable {
 
     // MARK: - Properties
 
@@ -135,29 +134,27 @@ public class PBXProj {
         }
     }
 
-    /// Initializes the .pbxproj reading the file from the given path.
-    ///
-    /// - Parameters:
-    ///   - path: path where the .pbxproj is.
-    /// - Throws: an error if the project cannot be found or the format is wrong.
-    public convenience init(path: Path) throws {
-        guard let dictionary = loadPlist(path: path.string) else { throw PBXProjError.notFound(path: path) }
-        try self.init(dictionary: dictionary)
+    // MARK: - Decodable
+    
+    fileprivate enum CodingKeys: String, CodingKey {
+        case archiveVersion
+        case objectVersion
+        case classes
+        case objects
+        case rootObject
     }
-
-    /// Initializes the .pbxproj representation with the path where the file is and a dictionary with its content.
-    ///
-    /// - Parameters:
-    ///   - dictionary: dictionary with the file content.
-    /// - Throws: throws an error if the content cannot be parsed properly.
-    public init(dictionary: [String: Any]) throws {
-        let unboxer = Unboxer(dictionary: dictionary)
-        self.archiveVersion = try unboxer.unbox(key: "archiveVersion")
-        self.objectVersion = try unboxer.unbox(key: "objectVersion")
-        self.classes = (dictionary["classes"] as? [String: Any]) ?? [:]
-        let objectsDictionary: [String: [String: Any]] = try unboxer.unbox(key: "objects")
-        self.rootObject = try unboxer.unbox(key: "rootObject")
-        objects = try objectsDictionary.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let archiveVersionString: String = try container.decode(.archiveVersion)
+        self.archiveVersion = Int(archiveVersionString) ?? 0
+        let objectVersionString: String = try container.decode(.objectVersion)
+        self.objectVersion = Int(objectVersionString) ?? 0
+        self.rootObject = try container.decode(.rootObject)
+        self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
+        let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
+        let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
+        self.objects = try objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
     }
 
     func fileName(from reference: String) -> String? {

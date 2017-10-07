@@ -29,8 +29,10 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_init_failsWhenTheBuildActionMaskIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildActionMask")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXHeadersBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -38,8 +40,10 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_init_failWhenFilesIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXHeadersBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -47,8 +51,10 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_init_failsWhenRunOnlyForDeploymentPostProcessingIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = JSONDecoder()
         do {
-            _ = try PBXHeadersBuildPhase(reference: "ref", dictionary: dictionary)
+            _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -80,7 +86,8 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         return [
             "buildActionMask": 3,
             "files": ["file"],
-            "runOnlyForDeploymentPostprocessing": 2
+            "runOnlyForDeploymentPostprocessing": 2,
+            "reference": "reference"
         ]
     }
 }
