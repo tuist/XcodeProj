@@ -1,3 +1,12 @@
+## 0.4.0
+- Remove dependency with Unbox and use the language coding/decoding features https://github.com/xcodeswift/xcproj/pull/99 by @pepibumur and @artemnovichkov.
+- Enable xcproj in [Open Collective](https://opencollective.com/xcproj) by @pepibumur.
+- Support parsing XCVersionGroup objects https://github.com/xcodeswift/xcproj/pull/96 by @pepibumur.
+- Add iOS support to the `.podspec` https://github.com/xcodeswift/xcproj/pull/92 by @pepibumur.
+- Fix comment for buildConfigurationList https://github.com/xcodeswift/xcproj/pull/93 by @toshi0383.
+- Update `PBXProj` classes property to be a dictionary https://github.com/xcodeswift/xcproj/pull/94 by @toshi0383.
+- Fix comment in the `BuildPhase` object https://github.com/xcodeswift/xcproj/pull/95 by @toshi0383.
+
 ## 0.3.0
 - Turn `PBXVariantGroup` children property into an array https://github.com/xcodeswift/xcproj/pull/88 by @pepibumur
 - Add `PBXReferenceProxy` object https://github.com/xcodeswift/xcproj/pull/85 by @pepibumur
