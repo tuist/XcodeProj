@@ -13,7 +13,7 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
 
     func test_init_initializesThePropertiesCorrectly() {
         XCTAssertEqual(subject.reference, "reference")
-        XCTAssertEqual(subject.buildActionMask, 2147483647)
+        XCTAssertNil(subject.buildActionMask)
         XCTAssertEqual(subject.files, ["file"])
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }

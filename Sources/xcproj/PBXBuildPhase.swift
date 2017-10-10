@@ -4,7 +4,7 @@ import Foundation
 public class PBXBuildPhase: PBXObject {
 
     /// Element build action mask.
-    public var buildActionMask: UInt
+    public var buildActionMask: UInt?
 
     /// Element files.
     public var files: [String]
@@ -14,7 +14,7 @@ public class PBXBuildPhase: PBXObject {
 
     public init(reference: String,
                 files: [String] = [],
-                buildActionMask: UInt = 2147483647,
+                buildActionMask: UInt? = nil,
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.files = files
         self.buildActionMask = buildActionMask
@@ -33,8 +33,8 @@ public class PBXBuildPhase: PBXObject {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let buildActionMaskString: String = try container.decode(.buildActionMask)
-        self.buildActionMask = UInt(buildActionMaskString) ?? 0
+        let buildActionMaskString: String? = try container.decodeIfPresent(.buildActionMask)
+        self.buildActionMask = buildActionMaskString.flatMap(UInt.init)
         self.files = try container.decode(.files)
         let runOnlyForDeploymentPostprocessingString: String = try container.decode(.runOnlyForDeploymentPostprocessing)
         self.runOnlyForDeploymentPostprocessing = UInt(runOnlyForDeploymentPostprocessingString) ?? 0
@@ -50,7 +50,9 @@ public class PBXBuildPhase: PBXObject {
 
     func plistValues(proj: PBXProj) -> [CommentedString: PlistValue] {
         var dictionary: [CommentedString: PlistValue] = [:]
-        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        if let buildActionMask = buildActionMask  {
+            dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
+        }
         dictionary["files"] = .array(files.map { fileReference in
             let name = proj.fileName(buildFileReference: fileReference)
             let type = proj.buildPhaseType(buildFileReference: fileReference)?.rawValue
