@@ -2,17 +2,17 @@ import Foundation
 
 // This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
 public class PBXBuildFile: PBXObject, Hashable {
-    
+
     // MARK: - Attributes
-    
+
     /// Element file reference.
-    public var fileRef: String
-    
+    public var fileRef: String?
+
     /// Element settings
     public var settings: [String: Any]?
-    
+
     // MARK: - Init
-    
+
     /// Initiazlies the build file with its attributes.
     ///
     /// - Parameters:
@@ -26,24 +26,24 @@ public class PBXBuildFile: PBXObject, Hashable {
         self.settings = settings
         super.init(reference: reference)
     }
-    
+
     // MARK: - Decodable
-    
+
     enum CodingKeys: String, CodingKey {
         case fileRef
         case settings
         case reference
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileRef = try container.decode(.fileRef)        
+        self.fileRef = try container.decodeIfPresent(.fileRef)
         self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings) ?? [:]
         try super.init(from: decoder)
     }
-    
+
     // MARK: - Hashable
-    
+
     public static func == (lhs: PBXBuildFile,
                            rhs: PBXBuildFile) -> Bool {
         return lhs.reference == rhs.reference &&
@@ -55,14 +55,17 @@ public class PBXBuildFile: PBXObject, Hashable {
 // MARK: - PBXBuildFile Extension (PlistSerializable)
 
 extension PBXBuildFile: PlistSerializable {
-    
+
     var multiline: Bool { return false }
-    
+
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
-        let fileName = name(fileRef: fileRef, proj: proj)
-        dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
+        var fileName: String?
+        if let fileRef = fileRef {
+            fileName = name(fileRef: fileRef, proj: proj)
+            dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
+        }
         let fileType = proj.buildPhaseType(buildFileReference: reference)?.rawValue
         if let settings = settings {
             dictionary["settings"] = settings.plist()
@@ -71,7 +74,7 @@ extension PBXBuildFile: PlistSerializable {
         return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
     }
-    
+
     private func name(fileRef: String, proj: PBXProj) -> String? {
         let fileReference = proj.fileReferences.getReference(fileRef)
         let variantGroup = proj.variantGroups.getReference(fileRef)
@@ -82,5 +85,5 @@ extension PBXBuildFile: PlistSerializable {
         }
         return nil
     }
-    
+
 }
