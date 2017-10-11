@@ -124,7 +124,7 @@ public class PBXProject: PBXObject, Hashable {
         self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
         self.projectDirPath = try container.decodeIfPresent(.projectDirPath)
         self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
-        self.projectRoot = try container.decode(.projectRoot)
+        self.projectRoot = try container.decodeIfPresent(.projectRoot)
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
