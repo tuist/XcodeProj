@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0403345F1F8F57CB0079CCF5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */; };
 		04D5C09F1F153824008A2F98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D5C09E1F153824008A2F98 /* CoreData.framework */; };
 		04D5C0A31F153924008A2F98 /* Public.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A01F153915008A2F98 /* Public.h */; };
 		04D5C0A41F153924008A2F98 /* Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A11F15391B008A2F98 /* Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,11 +33,14 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		239688B71EBCD3B10014B321 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 0;
+			dstSubfolderSpec = 0;
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0403345E1F8F57CB0079CCF5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		04D5C09E1F153824008A2F98 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		04D5C0A01F153915008A2F98 /* Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Public.h; sourceTree = "<group>"; };
 		04D5C0A11F15391B008A2F98 /* Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Protected.h; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 				04D5C0A01F153915008A2F98 /* Public.h */,
 				04D5C0A11F15391B008A2F98 /* Protected.h */,
 				04D5C0A21F153921008A2F98 /* Private.h */,
+				0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 			files = (
 				23766C181EAA3484007A9026 /* ViewController.swift in Sources */,
 				23766C161EAA3484007A9026 /* AppDelegate.swift in Sources */,
+				0403345F1F8F57CB0079CCF5 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +486,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0403345E1F8F57CB0079CCF5 /* Model.xcdatamodel */,
+			);
+			currentVersion = 0403345E1F8F57CB0079CCF5 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 23766C0A1EAA3484007A9026 /* Project object */;
 }
