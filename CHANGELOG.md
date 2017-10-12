@@ -1,3 +1,7 @@
+## 0.4.1
+- Add back the `BuildSettings` typelias removed by mistake https://github.com/xcodeswift/xcproj/pull/109 by @pepibumur.
+- Fix a bug decoding the `PBXProject.projectRoot` property that should be decoded as an optional https://github.com/xcodeswift/xcproj/issues/108 by @pepibumur.
+
 ## 0.4.0
 - Remove dependency with Unbox and use the language coding/decoding features https://github.com/xcodeswift/xcproj/pull/99 by @pepibumur and @artemnovichkov.
 - Enable xcproj in [Open Collective](https://opencollective.com/xcproj) by @pepibumur.
