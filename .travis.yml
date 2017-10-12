@@ -3,7 +3,6 @@ os:
 language: generic
 osx_image: xcode9
 install:
-  - brew upgrade swiftlint
   - bundle install
 script:
   - bundle exec rake ci
