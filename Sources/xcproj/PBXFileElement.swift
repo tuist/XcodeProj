@@ -54,8 +54,7 @@ public class PBXFileElement: PBXObject, Hashable {
         self.sourceTree = try container.decode(.sourceTree)
         self.name = try container.decode(.name)
         self.path = try container.decode(.path)
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
     
 }

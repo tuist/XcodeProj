@@ -47,8 +47,7 @@ public class PBXVariantGroup: PBXObject, Hashable {
         self.children = try container.decode([String].self, forKey: .children)
         self.name = try container.decode(String.self, forKey: .name)
         self.sourceTree = try container.decode(PBXSourceTree.self, forKey: .sourceTree)
-        let reference = try container.decode(String.self, forKey: .reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
     
     // MARK: - Hashable

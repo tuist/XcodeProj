@@ -38,8 +38,7 @@ public class PBXBuildPhase: PBXObject {
         self.files = try container.decode(.files)
         let runOnlyForDeploymentPostprocessingString: String = try container.decode(.runOnlyForDeploymentPostprocessing)
         self.runOnlyForDeploymentPostprocessing = UInt(runOnlyForDeploymentPostprocessingString) ?? 0
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
 
     public static func == (lhs: PBXBuildPhase,
