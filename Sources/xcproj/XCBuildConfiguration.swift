@@ -9,7 +9,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    public var buildSettings: [String: Any]
+    public var buildSettings: BuildSettings
     
     /// The configuration name.
     public var name: String
@@ -26,7 +26,7 @@ public class XCBuildConfiguration: PBXObject, Hashable {
     public init(reference: String,
                 name: String,
                 baseConfigurationReference: String? = nil,
-                buildSettings: [String: Any] = [:]) {
+                buildSettings: BuildSettings = [:]) {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
