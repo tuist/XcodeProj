@@ -9,11 +9,11 @@ final class PBXNativeTargetSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXNativeTarget(reference: "ref",
+                                  name: "name",
                                   buildConfigurationList: "list",
                                   buildPhases: ["phase"],
                                   buildRules: ["rule"],
                                   dependencies: ["dependency"],
-                                  name: "name",
                                   productName: "productname",
                                   productReference: "productreference",
                                   productType: .application)
@@ -35,50 +35,6 @@ final class PBXNativeTargetSpec: XCTestCase {
         XCTAssertEqual(subject.productType, .application)
     }
 
-    func test_init_failsWhenBuildConfigurationListIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildConfigurationList")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenBuildPhasesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildPhases")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenBuildRulesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildRules")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenDependenciesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "dependencies")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXNativeTarget.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_init_failsWhenNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
@@ -92,11 +48,11 @@ final class PBXNativeTargetSpec: XCTestCase {
 
     func test_equal_returnsTheCorrectValue() {
         let another = PBXNativeTarget(reference: "ref",
+                                      name: "name",
                                       buildConfigurationList: "list",
                                       buildPhases: ["phase"],
                                       buildRules: ["rule"],
                                       dependencies: ["dependency"],
-                                      name: "name",
                                       productName: "productname",
                                       productReference: "productreference",
                                       productType: .application)

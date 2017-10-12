@@ -4,7 +4,7 @@ import Foundation
 public class PBXTarget: PBXObject, Hashable {
 
     /// Target build configuration list.
-    public var buildConfigurationList: String
+    public var buildConfigurationList: String?
 
     /// Target build phases.
     public var buildPhases: [String]
@@ -28,11 +28,11 @@ public class PBXTarget: PBXObject, Hashable {
     public var productType: PBXProductType?
 
     public init(reference: String,
-                buildConfigurationList: String,
-                buildPhases: [String],
-                buildRules: [String],
-                dependencies: [String],
                 name: String,
+                buildConfigurationList: String? = nil,
+                buildPhases: [String] = [],
+                buildRules: [String] = [],
+                dependencies: [String] = [],
                 productName: String? = nil,
                 productReference: String? = nil,
                 productType: PBXProductType? = nil) {
@@ -63,11 +63,11 @@ public class PBXTarget: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildConfigurationList = try container.decode(.buildConfigurationList)
-        self.buildPhases = try container.decode(.buildPhases)
-        self.buildRules = try container.decode(.buildRules)
-        self.dependencies = try container.decode(.dependencies)
         self.name = try container.decode(.name)
+        self.buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList)
+        self.buildPhases = try container.decodeIfPresent(.buildPhases) ?? []
+        self.buildRules = try container.decodeIfPresent(.buildRules) ?? []
+        self.dependencies = try container.decodeIfPresent(.dependencies) ?? []
         self.productName = try container.decodeIfPresent(.productName)
         self.productReference = try container.decodeIfPresent(.productReference)
         self.productType = try container.decodeIfPresent(.productType)
@@ -90,7 +90,9 @@ public class PBXTarget: PBXObject, Hashable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
-        dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList, comment: buildConfigurationListComment))
+        if let buildConfigurationList = buildConfigurationList {
+            dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList, comment: buildConfigurationListComment))
+        }
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
                 let comment = proj.buildPhaseName(buildPhaseReference: buildPhase)

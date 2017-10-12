@@ -9,11 +9,11 @@ final class PBXAggregateTargetSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXAggregateTarget(reference: "ref",
+                                     name: "name",
                                      buildConfigurationList: "333",
                                      buildPhases: ["build"],
                                      buildRules: ["rule"],
                                      dependencies: ["dep"],
-                                     name: "name",
                                      productName: "productName",
                                      productReference: "productReference",
                                      productType: .application)
@@ -35,50 +35,6 @@ final class PBXAggregateTargetSpec: XCTestCase {
         XCTAssertEqual(subject.productType, .application)
     }
 
-    func test_init_failsWhenTheBuildConfigurationListIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildConfigurationList")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXAggregateTarget.self, from: data)
-            XCTAssertTrue(false, "It should throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenBuildPhasesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildPhases")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXAggregateTarget.self, from: data)
-            XCTAssertTrue(false, "It should throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenBuildRulesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "buildRules")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXAggregateTarget.self, from: data)
-            XCTAssertTrue(false, "It should throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsWhenDependenciesIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "dependencies")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXAggregateTarget.self, from: data)
-            XCTAssertTrue(false, "It should throw an error but it didn't")
-        } catch {}
-    }
-
     func test_init_failsWhenNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
@@ -92,11 +48,11 @@ final class PBXAggregateTargetSpec: XCTestCase {
 
     func test_equal_returnsTheCorrectValue() {
         let another = PBXAggregateTarget(reference: "ref",
+                                         name: "name",
                                          buildConfigurationList: "333",
                                          buildPhases: ["build"],
                                          buildRules: ["rule"],
                                          dependencies: ["dep"],
-                                         name: "name",
                                          productName: "productName",
                                          productReference: "productReference",
                                          productType: .application)
