@@ -32,6 +32,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		239688B71EBCD3B10014B321 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

@@ -21,7 +21,9 @@ class PBXProjWriter {
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
-        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")))
+        if let archiveVersion = proj.archiveVersion {
+            write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(archiveVersion)")))
+        }
         write(dictionaryKey: "classes", dictionaryValue: .dictionary([:]))
         write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")))
         writeIndent()

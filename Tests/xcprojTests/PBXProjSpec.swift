@@ -10,9 +10,9 @@ extension PBXProj {
                 rootObject: String = "rootObject",
                 classes: [String: Any] = [:],
                 objects: [PBXObject] = []) -> PBXProj {
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
+        return PBXProj(objectVersion: objectVersion,
                        rootObject: rootObject,
+                       archiveVersion: archiveVersion,
                        classes: classes,
                        objects: objects)
     }
@@ -27,9 +27,9 @@ final class PBXProjSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         object = PBXBuildFile(reference: "ref", fileRef: "333")
-        subject = PBXProj(archiveVersion: 1,
-                          objectVersion: 46,
+        subject = PBXProj(objectVersion: 46,
                           rootObject: "root",
+                          archiveVersion: 1,
                           classes: [:],
                           objects: [object])
     }
