@@ -32,12 +32,6 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		239688B71EBCD3B10014B321 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices/paga/asdgas";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
