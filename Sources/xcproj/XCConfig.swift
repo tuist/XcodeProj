@@ -12,7 +12,7 @@ public class XCConfig {
     public var includes: [XCConfigInclude]
 
     /// Build settings
-    public var buildSettings: [String: Any]
+    public var buildSettings: BuildSettings
 
     // MARK: - Init
 
@@ -21,7 +21,7 @@ public class XCConfig {
     /// - Parameters:
     ///   - includes: all the .xcconfig file includes. The order determines how the values get overriden.
     ///   - dictionary: dictionary that contains the config.
-    public init(includes: [XCConfigInclude], buildSettings: [String: Any] = [:]) {
+    public init(includes: [XCConfigInclude], buildSettings: BuildSettings = [:]) {
         self.includes = includes
         self.buildSettings = buildSettings
     }
