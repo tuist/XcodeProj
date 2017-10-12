@@ -71,8 +71,7 @@ public class PBXTarget: PBXObject, Hashable {
         self.productName = try container.decodeIfPresent(.productName)
         self.productReference = try container.decodeIfPresent(.productReference)
         self.productType = try container.decodeIfPresent(.productType)
-        let reference: String = try container.decode(.reference)
-        super.init(reference: reference)
+        try super.init(from: decoder)
     }
 
     public static func == (lhs: PBXTarget,
