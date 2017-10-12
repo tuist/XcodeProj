@@ -9,10 +9,10 @@ public class XCConfigurationList: PBXObject, Hashable {
     public var buildConfigurations: [String]
     
     /// Element default configuration is visible.
-    public var defaultConfigurationIsVisible: UInt
+    public var defaultConfigurationIsVisible: UInt?
     
     /// Element default configuration name
-    public var defaultConfigurationName: String
+    public var defaultConfigurationName: String?
     
     // MARK: - Init
     
@@ -25,8 +25,8 @@ public class XCConfigurationList: PBXObject, Hashable {
     ///   - defaultConfigurationIsVisible: default configuration is visible.
     public init(reference: String,
                 buildConfigurations: [String],
-                defaultConfigurationName: String,
-                defaultConfigurationIsVisible: UInt = 0) {
+                defaultConfigurationName: String? = nil,
+                defaultConfigurationIsVisible: UInt? = nil) {
         self.buildConfigurations = buildConfigurations
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
@@ -50,10 +50,10 @@ public class XCConfigurationList: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildConfigurations = (try container.decodeIfPresent(.buildConfigurations)) ?? []
-        let defaultConfigurationIsVisibleString: String = try container.decode(.defaultConfigurationIsVisible)
-        self.defaultConfigurationIsVisible = UInt(defaultConfigurationIsVisibleString) ?? 0
-        self.defaultConfigurationName = try container.decode(.defaultConfigurationName)
+        self.buildConfigurations = try container.decode(.buildConfigurations)
+        let defaultConfigurationIsVisibleString: String? = try container.decodeIfPresent(.defaultConfigurationIsVisible)
+        self.defaultConfigurationIsVisible = defaultConfigurationIsVisibleString.flatMap(UInt.init)
+        self.defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)
     }
     
@@ -69,8 +69,12 @@ extension XCConfigurationList: PlistSerializable {
         dictionary["buildConfigurations"] = .array(buildConfigurations
             .map { .string(CommentedString($0, comment: proj.configName(from: $0)))
         })
-        dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
-        dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
+        if let defaultConfigurationIsVisible = defaultConfigurationIsVisible {
+            dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
+        }
+        if let defaultConfigurationName = defaultConfigurationName {
+            dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
+        }
         return (key: CommentedString(self.reference,
                                                  comment: plistComment(proj: proj)),
                 value: .dictionary(dictionary))
