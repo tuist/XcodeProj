@@ -490,13 +490,6 @@
 /* Begin XCVersionGroup section */
 		0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
-			children = (
-				0403345E1F8F57CB0079CCF5 /* Model.xcdatamodel */,
-			);
-			currentVersion = 0403345E1F8F57CB0079CCF5 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
 	};

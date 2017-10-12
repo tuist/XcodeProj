@@ -45,51 +45,7 @@ final class XCVersionGroupSpec: XCTestCase {
         let b = XCVersionGroup.testData(reference: "333")
         XCTAssertNotEqual(a, b)
     }
-
-    func test_initFails_whenCurrentVersionIsMissing() {
-        var dictionary = testData()
-        dictionary.removeValue(forKey: "currentVersion")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
-    }
-
-    func test_initFails_whenPathIsMissing() {
-        var dictionary = testData()
-        dictionary.removeValue(forKey: "path")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
-    }
-
-    func test_initFails_whenSourceTreeIsMissing() {
-        var dictionary = testData()
-        dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
-    }
-
-    func test_initFails_whenVersionGroupTypeIsMissing() {
-        var dictionary = testData()
-        dictionary.removeValue(forKey: "versionGroupType")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(XCVersionGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to fail but tt didn't")
-        } catch {}
-    }
-
+    
     // MARK: - Private
 
     private func testData() -> [String: Any] {
