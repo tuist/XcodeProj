@@ -487,7 +487,7 @@ public class XCScheme {
         if !path.exists {
             throw XCSchemeError.notFound(path: path)
         }
-        name = path.lastComponent
+        name = path.lastComponentWithoutExtension
         let document = try AEXMLDocument(xml: try path.read())
         let scheme = document["Scheme"]
         lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
