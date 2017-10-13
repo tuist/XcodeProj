@@ -6,10 +6,10 @@ public class PBXTargetDependency: PBXObject, Hashable {
     // MARK: - Attributes
     
     /// Target reference.
-    public var target: String
+    public var target: String?
     
     /// Target proxy
-    public var targetProxy: String
+    public var targetProxy: String?
     
     // MARK: - Init
     
@@ -20,8 +20,8 @@ public class PBXTargetDependency: PBXObject, Hashable {
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
     public init(reference: String,
-                target: String,
-                targetProxy: String) {
+                target: String? = nil,
+                targetProxy: String? = nil) {
         self.target = target
         self.targetProxy = targetProxy
         super.init(reference: reference)
@@ -45,8 +45,8 @@ public class PBXTargetDependency: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.target = try container.decode(.target)
-        self.targetProxy = try container.decode(.targetProxy)
+        self.target = try container.decodeIfPresent(.target)
+        self.targetProxy = try container.decodeIfPresent(.targetProxy)
         try super.init(from: decoder)
     }
     
@@ -59,8 +59,13 @@ extension PBXTargetDependency: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
-        dictionary["target"] = .string(CommentedString(target, comment: proj.nativeTargets.getReference(target)?.name))
-        dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        if let target = target {
+            dictionary["target"] = .string(CommentedString(target, comment: proj.nativeTargets.getReference(target)?.name))
+
+        }
+        if let targetProxy = targetProxy {
+            dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
+        }
         return (key: CommentedString(self.reference,
                                                  comment: "PBXTargetDependency"),
                 value: .dictionary(dictionary))

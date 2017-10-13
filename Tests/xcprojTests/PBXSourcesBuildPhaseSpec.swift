@@ -13,9 +13,9 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
 
     func test_init_initializesThePropertiesCorrectly() {
         XCTAssertEqual(subject.reference, "reference")
-        XCTAssertEqual(subject.buildActionMask, 2147483647)
+        XCTAssertNil(subject.buildActionMask)
         XCTAssertEqual(subject.files, ["file"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
+        XCTAssertNil(subject.runOnlyForDeploymentPostprocessing)
     }
 
     func test_itHasTheCorrectIsa() {
@@ -31,18 +31,6 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
     func test_hashValue_returnsTheReferenceHashValue() {
         XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
-
-    func test_init_failsIfFilesAreMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "files")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXResourcesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
 
     private func testDictionary() -> [String: Any] {
         return [

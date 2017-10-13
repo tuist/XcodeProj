@@ -20,10 +20,10 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     // MARK: - Attributes
 
     /// Element destination path
-    public var dstPath: String
+    public var dstPath: String?
 
     /// Element destination subfolder spec
-    public var dstSubfolderSpec: SubFolder
+    public var dstSubfolderSpec: SubFolder?
     
     /// Copy files build phase name
     public var name: String?
@@ -40,12 +40,12 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     ///   - files: files to copy.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing.
     public init(reference: String,
-                dstPath: String,
-                dstSubfolderSpec: SubFolder,
+                dstPath: String? = nil,
+                dstSubfolderSpec: SubFolder? = nil,
                 name: String? = nil,
-                buildActionMask: UInt = 2147483647,
+                buildActionMask: UInt? = nil,
                 files: [String] = [],
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
+                runOnlyForDeploymentPostprocessing: UInt? = nil) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
@@ -77,9 +77,9 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.dstPath = try container.decode(.dstPath)
-        let dstSubfolderSpecString: String = try container.decode(.dstSubfolderSpec)
-        self.dstSubfolderSpec = UInt(dstSubfolderSpecString).flatMap(SubFolder.init) ?? .other
+        self.dstPath = try container.decodeIfPresent(.dstPath)
+        let dstSubfolderSpecString: String? = try container.decodeIfPresent(.dstSubfolderSpec)
+        self.dstSubfolderSpec = dstSubfolderSpecString.flatMap(UInt.init).flatMap(SubFolder.init)
         self.name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
@@ -93,11 +93,15 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
-        dictionary["dstPath"] = .string(CommentedString(dstPath))
+        if let dstPath = dstPath {
+            dictionary["dstPath"] = .string(CommentedString(dstPath))
+        }
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
+        if let dstSubfolderSpec = dstSubfolderSpec {
+            dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
+        }
         return (key: CommentedString(self.reference, comment: self.name ?? "CopyFiles"), value: .dictionary(dictionary))
     }
 

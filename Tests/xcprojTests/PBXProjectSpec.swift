@@ -44,7 +44,7 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_plistKeyAndValue() {
-        let proj = PBXProj(archiveVersion: 1, objectVersion: 1, rootObject: "")
+        let proj = PBXProj(objectVersion: 1, rootObject: "", archiveVersion: 1)
         let (_, plistValue) = subject.plistKeyAndValue(proj: proj)
         guard let v = plistValue.dictionary?["buildConfigurationList"]?.string else {
             XCTFail()

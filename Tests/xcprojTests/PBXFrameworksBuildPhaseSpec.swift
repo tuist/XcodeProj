@@ -34,17 +34,6 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
         } catch {}
     }
 
-    func test_init_fails_whenTheRunOnlyForDeploymentPostProcessingIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_equals_returnsTheCorrectValue() {
         let another = PBXFrameworksBuildPhase(reference: "ref",
                                               files: ["33"],

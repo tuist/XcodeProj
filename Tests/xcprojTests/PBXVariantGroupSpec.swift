@@ -21,39 +21,6 @@ final class PBXVariantGroupSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .group)
     }
 
-    func test_init_failsIfTheChildrenIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "children")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsIfTheNameIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "name")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_failsIfTheSourceTreeIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_init_failsIfTheSourceTreeIsWrong() {
         var dictionary = testDictionary()
         dictionary["sourceTree"] = "asdgasdgas"

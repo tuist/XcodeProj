@@ -19,17 +19,6 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
 
-    func test_initFails_whenRunOnlyForDeploymentPostprocessingIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXReferenceProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXResourcesBuildPhase.isa, "PBXResourcesBuildPhase")
     }

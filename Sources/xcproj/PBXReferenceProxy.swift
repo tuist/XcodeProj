@@ -8,24 +8,24 @@ public class PBXReferenceProxy: PBXObject, Hashable {
     // MARK: - Attributes
     
     // Element file type
-    public var fileType: String
+    public var fileType: String?
     
     // Element path.
-    public var path: String
+    public var path: String?
     
     // Element remote reference.
-    public var remoteRef: String
+    public var remoteRef: String?
     
     // Element source tree.
-    public var sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree?
     
     // MARK: - Init
     
     public init(reference: String,
-                fileType: String,
-                path: String,
-                remoteRef: String,
-                sourceTree: PBXSourceTree) {
+                fileType: String? = nil,
+                path: String? = nil,
+                remoteRef: String? = nil,
+                sourceTree: PBXSourceTree? = nil) {
         self.fileType = fileType
         self.path = path
         self.remoteRef = remoteRef
@@ -44,10 +44,10 @@ public class PBXReferenceProxy: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileType = try container.decode(.fileType)
-        self.path = try container.decode(.path)
-        self.remoteRef = try container.decode(.remoteRef)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.fileType = try container.decodeIfPresent(.fileType)
+        self.path = try container.decodeIfPresent(.path)
+        self.remoteRef = try container.decodeIfPresent(.remoteRef)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
     
@@ -69,10 +69,18 @@ extension PBXReferenceProxy: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
-        dictionary["fileType"] = .string(CommentedString(fileType))
-        dictionary["path"] = .string(CommentedString(path))
-        dictionary["remoteRef"] = .string(CommentedString(remoteRef, comment: "PBXContainerItemProxy"))
-        dictionary["sourceTree"] = sourceTree.plist()
+        if let fileType = fileType {
+            dictionary["fileType"] = .string(CommentedString(fileType))
+        }
+        if let path = path {
+            dictionary["path"] = .string(CommentedString(path))
+        }
+        if let remoteRef = remoteRef {
+            dictionary["remoteRef"] = .string(CommentedString(remoteRef, comment: "PBXContainerItemProxy"))
+        }
+        if let sourceTree = sourceTree {
+            dictionary["sourceTree"] = sourceTree.plist()
+        }
         return (key: CommentedString(self.reference, comment: path),
                 value: .dictionary(dictionary))
     }

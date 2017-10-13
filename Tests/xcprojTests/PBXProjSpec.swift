@@ -10,9 +10,9 @@ extension PBXProj {
                 rootObject: String = "rootObject",
                 classes: [String: Any] = [:],
                 objects: [PBXObject] = []) -> PBXProj {
-        return PBXProj(archiveVersion: archiveVersion,
-                       objectVersion: objectVersion,
+        return PBXProj(objectVersion: objectVersion,
                        rootObject: rootObject,
+                       archiveVersion: archiveVersion,
                        classes: classes,
                        objects: objects)
     }
@@ -27,9 +27,9 @@ final class PBXProjSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         object = PBXBuildFile(reference: "ref", fileRef: "333")
-        subject = PBXProj(archiveVersion: 1,
-                          objectVersion: 46,
+        subject = PBXProj(objectVersion: 46,
                           rootObject: "root",
+                          archiveVersion: 1,
                           classes: [:],
                           objects: [object])
     }
@@ -79,7 +79,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.archiveVersion, 1)
         XCTAssertEqual(proj.objectVersion, 46)
         XCTAssertEqual(proj.classes.count, 0)
-        XCTAssertEqual(proj.buildFiles.count, 10)
+        XCTAssertEqual(proj.buildFiles.count, 11)
         XCTAssertEqual(proj.aggregateTargets.count, 0)
         XCTAssertEqual(proj.containerItemProxies.count, 1)
         XCTAssertEqual(proj.copyFilesBuildPhases.count, 1)
@@ -95,7 +95,8 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.frameworksBuildPhases.count, 2)
         XCTAssertEqual(proj.headersBuildPhases.count, 1)
         XCTAssertEqual(proj.nativeTargets.count, 2)
-        XCTAssertEqual(proj.fileReferences.count, 14)
+        XCTAssertEqual(proj.fileReferences.count, 15)
+        XCTAssertEqual(proj.versionGroups.count, 1)
         XCTAssertEqual(proj.projects.count, 1)
     }
 

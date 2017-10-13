@@ -15,7 +15,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     public var outputPaths: [String]
 
     /// Path to the shell.
-    public var shellPath: String
+    public var shellPath: String?
 
     /// Shell script.
     public var shellScript: String?
@@ -71,10 +71,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(.name)
+        self.name = try container.decodeIfPresent(.name)
         self.inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
         self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
-        self.shellPath = try container.decode(.shellPath)
+        self.shellPath = try container.decodeIfPresent(.shellPath)
         self.shellScript = try container.decodeIfPresent(.shellScript)
         self.showEnvVarsInLog = try container.decodeIfPresent(.showEnvVarsInLog)
         try super.init(from: decoder)
@@ -103,7 +103,9 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
-        dictionary["shellPath"] = .string(CommentedString(shellPath))
+        if let shellPath = shellPath {
+            dictionary["shellPath"] = .string(CommentedString(shellPath))
+        }
         dictionary["inputPaths"] = .array(inputPaths.map({.string(CommentedString($0))}))
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))

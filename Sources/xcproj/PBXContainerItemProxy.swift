@@ -13,10 +13,10 @@ public class PBXContainerItemProxy: PBXObject, Hashable {
     public var containerPortal: String
     
     /// Element proxy type.
-    public var proxyType: ProxyType
+    public var proxyType: ProxyType?
     
     /// Element remote global ID reference.
-    public var remoteGlobalIDString: String
+    public var remoteGlobalIDString: String?
     
     /// Element remote info.
     public var remoteInfo: String?
@@ -30,8 +30,8 @@ public class PBXContainerItemProxy: PBXObject, Hashable {
     ///   - remoteInfo: remote info.
     public init(reference: String,
                 containerPortal: String,
-                remoteGlobalIDString: String,
-                proxyType: ProxyType = .nativeTarget,
+                remoteGlobalIDString: String? = nil,
+                proxyType: ProxyType? = nil,
                 remoteInfo: String? = nil) {
         self.containerPortal = containerPortal
         self.remoteGlobalIDString = remoteGlobalIDString
@@ -61,9 +61,9 @@ public class PBXContainerItemProxy: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.containerPortal = try container.decode(.containerPortal)
-        let proxyTypeString: String = try container.decode(.proxyType)
-        self.proxyType = UInt(proxyTypeString).flatMap({ProxyType(rawValue: $0)}) ?? .other
-        self.remoteGlobalIDString = try container.decode(.remoteGlobalIDString)
+        let proxyTypeString: String? = try container.decodeIfPresent(.proxyType)
+        self.proxyType = proxyTypeString.flatMap(UInt.init).flatMap(ProxyType.init)
+        self.remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString)
         self.remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }
@@ -78,8 +78,12 @@ extension PBXContainerItemProxy: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXContainerItemProxy.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
-        dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
-        dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalIDString))
+        if let proxyType = proxyType {
+            dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
+        }
+        if let remoteGlobalIDString = remoteGlobalIDString {
+            dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalIDString))
+        }
         if let remoteInfo = remoteInfo {
             dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
         }
