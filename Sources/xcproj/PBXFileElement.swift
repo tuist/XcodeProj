@@ -6,13 +6,13 @@ public class PBXFileElement: PBXObject, Hashable {
     // MARK: - Attributes
 
     /// Element source tree.
-    public var sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree?
     
     /// Element path.
-    public var path: String
+    public var path: String?
     
     /// Element name.
-    public var name: String
+    public var name: String?
     
     // MARK: - Init
     
@@ -23,9 +23,9 @@ public class PBXFileElement: PBXObject, Hashable {
     ///   - sourceTree: file source tree.
     ///   - name: file name.
     public init(reference: String,
-                sourceTree: PBXSourceTree,
-                path: String,
-                name: String) {
+                sourceTree: PBXSourceTree? = nil,
+                path: String? = nil,
+                name: String? = nil) {
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
@@ -51,9 +51,9 @@ public class PBXFileElement: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceTree = try container.decode(.sourceTree)
-        self.name = try container.decode(.name)
-        self.path = try container.decode(.path)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree)
+        self.name = try container.decodeIfPresent(.name)
+        self.path = try container.decodeIfPresent(.path)
         try super.init(from: decoder)
     }
     
@@ -66,9 +66,15 @@ extension PBXFileElement: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileElement.isa))
-        dictionary["name"] = .string(CommentedString(name))
-        dictionary["path"] = .string(CommentedString(path))
-        dictionary["sourceTree"] = sourceTree.plist()
+        if let name = name {
+            dictionary["name"] = .string(CommentedString(name))
+        }
+        if let path = path {
+            dictionary["path"] = .string(CommentedString(path))
+        }
+        if let sourceTree = sourceTree {
+            dictionary["sourceTree"] = sourceTree.plist()
+        }
         return (key: CommentedString(self.reference,
                                      comment: self.name),
                 value: .dictionary(dictionary))

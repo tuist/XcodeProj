@@ -44,10 +44,10 @@ public class PBXReferenceProxy: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileType = try container.decode(.fileType)
-        self.path = try container.decode(.path)
-        self.remoteRef = try container.decode(.remoteRef)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.fileType = try container.decodeIfPresent(.fileType)
+        self.path = try container.decodeIfPresent(.path)
+        self.remoteRef = try container.decodeIfPresent(.remoteRef)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
     
