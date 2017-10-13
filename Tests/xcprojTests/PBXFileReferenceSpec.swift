@@ -42,17 +42,6 @@ final class PBXFileReferenceSpec: XCTestCase {
         } catch {}
     }
 
-    func test_init_failsIfSourceTreeIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "sourceTree")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXFileReference.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_equal_returnsTheCorrectValue() {
         let another = PBXFileReference(reference: "ref",
                                        sourceTree: .absolute,

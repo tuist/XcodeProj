@@ -26,7 +26,7 @@ public class PBXFileReference: PBXObject, Hashable {
     public var path: String?
  
     /// Element source tree.
-    public var sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree?
     
     /// Element uses tabs.
     public var usesTabs: Int?
@@ -40,7 +40,7 @@ public class PBXFileReference: PBXObject, Hashable {
     // MARK: - Init
     
     public init(reference: String,
-                sourceTree: PBXSourceTree,
+                sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: Int? = nil,
                 explicitFileType: String? = nil,
@@ -102,7 +102,7 @@ public class PBXFileReference: PBXObject, Hashable {
         self.includeInIndex = includeInIndexString.flatMap({Int($0)})
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree)
         self.usesTabs = try container.decodeIfPresent(.usesTabs)
         self.lineEnding = try container.decodeIfPresent(.lineEnding)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
@@ -196,7 +196,9 @@ extension PBXFileReference: PlistSerializable {
         if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
             dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
         }
-        dictionary["sourceTree"] = sourceTree.plist()
+        if let sourceTree = sourceTree {
+            dictionary["sourceTree"] = sourceTree.plist()
+        }
         return (key: CommentedString(self.reference, comment: name ?? path),
                 value: .dictionary(dictionary))
     }
