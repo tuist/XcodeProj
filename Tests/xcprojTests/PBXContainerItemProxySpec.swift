@@ -33,28 +33,6 @@ final class PBXContainerItemProxySpec: XCTestCase {
         } catch {}
     }
 
-    func test_init_shouldFail_ifRemoteGlobalIDStringIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "remoteGlobalIDString")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
-    func test_init_shouldFail_ifRemoteInfoIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "remoteInfo")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_equal_shouldReturnTheCorrectValue() {
         let one = PBXContainerItemProxy(reference: "reference", containerPortal: "portal", remoteGlobalIDString: "globalid", remoteInfo: "info")
         let another = PBXContainerItemProxy(reference: "reference", containerPortal: "portal", remoteGlobalIDString: "globalid", remoteInfo: "info")
