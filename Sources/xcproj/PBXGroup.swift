@@ -14,7 +14,7 @@ public class PBXGroup: PBXObject, Hashable {
     public var path: String?
 
     /// Element source tree.
-    public var sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree?
 
     // MARK: - Init
 
@@ -28,7 +28,7 @@ public class PBXGroup: PBXObject, Hashable {
     ///   - path: group path.
     public init(reference: String,
                 children: [String],
-                sourceTree: PBXSourceTree,
+                sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil) {
         self.children = children
@@ -61,7 +61,7 @@ public class PBXGroup: PBXObject, Hashable {
         self.name = try container.decodeIfPresent(.name)
         self.children = (try container.decodeIfPresent(.children)) ?? []
         self.path = try container.decodeIfPresent(.path)
-        self.sourceTree = try container.decode(.sourceTree)
+        self.sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
     
@@ -84,7 +84,9 @@ extension PBXGroup: PlistSerializable {
         if let path = path {
             dictionary["path"] = .string(CommentedString(path))
         }
-        dictionary["sourceTree"] = sourceTree.plist()
+        if let sourceTree = sourceTree {
+            dictionary["sourceTree"] = sourceTree.plist()
+        }
         return (key: CommentedString(self.reference,
                                                  comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
