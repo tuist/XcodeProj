@@ -121,13 +121,12 @@ A `XcodeProj` has the following properties:
 - `XCWorkspace` that defines the structure of the project workspace.
 - `PBXProj` that defines the strcuture of the project.
 
-Amongt other properties, the most important one in the `PBXProj` object is `Objects`. Projects are defined by a list of those objects that can be classified in the following groups:
+Among other properties, the most important one in the `PBXProj` object is `Objects`. Projects are defined by a list of those objects that can be classified in the following groups:
 
 - **Build phases objects**: Define the available build phases.
-- **Targets objects**: Define your project targets and dependencies between them.
+- **Target objects**: Define your project targets and dependencies between them.
 - **Configuration objects**: Define the available configs and the link between them and the targets.
-- **Files objects**: Define the project files, build files and groups.
-
+- **File objects**: Define the project files, build files and groups.
 
 All objects subclass `PBXObject`, and have an unique & deterministic reference. Moreover, they are hashable and conform the `Equatable` protocol.
 
@@ -139,6 +138,28 @@ You can read more about what each of these objects is for on the [following link
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
 - The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
 - New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcodeswift/xcproj/issues/new) on the repository.
+
+## Examples
+
+### Creating a group inside another group
+
+```swift
+let project = try! XcodeProj(path: "myproject.xcodeproj")
+let myGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "MyGroup")
+project.pbxproj.append(myGroup)
+try project.write(path: "myproject.xcodeproj")
+```
+
+### Adding a file inside a group
+
+```swift
+let project = try! XcodeProj(path: "myproject.xcodeproj")
+let myGroupFile = PBXFileReference(reference: "xxx", sourceTree: .group, path: "myGroupFile.swift")
+myGroup.children.append(myGroupFile.reference)
+project.pbxproj.append(myGroupFile)
+try project.write(path: "myproject.xcodeproj")
+```
+
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
