@@ -8,24 +8,24 @@ public class PBXReferenceProxy: PBXObject, Hashable {
     // MARK: - Attributes
     
     // Element file type
-    public var fileType: String
+    public var fileType: String?
     
     // Element path.
-    public var path: String
+    public var path: String?
     
     // Element remote reference.
-    public var remoteRef: String
+    public var remoteRef: String?
     
     // Element source tree.
-    public var sourceTree: PBXSourceTree
+    public var sourceTree: PBXSourceTree?
     
     // MARK: - Init
     
     public init(reference: String,
-                fileType: String,
-                path: String,
-                remoteRef: String,
-                sourceTree: PBXSourceTree) {
+                fileType: String? = nil,
+                path: String? = nil,
+                remoteRef: String? = nil,
+                sourceTree: PBXSourceTree? = nil) {
         self.fileType = fileType
         self.path = path
         self.remoteRef = remoteRef
@@ -69,10 +69,18 @@ extension PBXReferenceProxy: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
-        dictionary["fileType"] = .string(CommentedString(fileType))
-        dictionary["path"] = .string(CommentedString(path))
-        dictionary["remoteRef"] = .string(CommentedString(remoteRef, comment: "PBXContainerItemProxy"))
-        dictionary["sourceTree"] = sourceTree.plist()
+        if let fileType = fileType {
+            dictionary["fileType"] = .string(CommentedString(fileType))
+        }
+        if let path = path {
+            dictionary["path"] = .string(CommentedString(path))
+        }
+        if let remoteRef = remoteRef {
+            dictionary["remoteRef"] = .string(CommentedString(remoteRef, comment: "PBXContainerItemProxy"))
+        }
+        if let sourceTree = sourceTree {
+            dictionary["sourceTree"] = sourceTree.plist()
+        }
         return (key: CommentedString(self.reference, comment: path),
                 value: .dictionary(dictionary))
     }
