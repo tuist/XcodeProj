@@ -1,7 +1,7 @@
 PODS:
   - AEXML (4.1.0)
   - PathKit (0.8.0)
-  - xcproj (0.4.0):
+  - xcproj (0.4.1):
     - AEXML (~> 4.1)
     - PathKit (~> 0.8)
 
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AEXML: 647fbb051280f3fb38a1a7caa62b0344055a851c
   PathKit: dcab05d701474011aae0e40cf892298a831f63d6
-  xcproj: 69cfc20c4c03430f25037031acc8632edceccd67
+  xcproj: e9b94d5305704f9e5dad61ba3ba473e9a183501d
 
 PODFILE CHECKSUM: 2b8bfbb70dcc013e3ca2bf6ce7085024138065fe
 
