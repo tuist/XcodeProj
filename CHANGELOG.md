@@ -1,5 +1,18 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.0.0 - Acho
+
+### Changed
+- **Breaking:** Review optionality of attributes to align it with Xcode one https://github.com/xcodeswift/xcproj/pull/107 by @pepibumur.
+- Contributing, and code of conduct point to the organization ones by @pepibumur.
+- New changelog format introduced by @pepibumur.
+### Fixed
+- Use the super init to decode reference in some objects https://github.com/xcodeswift/xcproj/pull/110 by @yonaskolb
+- Schemes being shared with an extension https://github.com/xcodeswift/xcproj/pull/113 by @esttorhe.
+- Contributors link in the README.md https://github.com/xcodeswift/xcproj/pull/117 by @tapanprakasht.
+
+### Security
+
 ## 0.4.1
 - Add back the `BuildSettings` typelias removed by mistake https://github.com/xcodeswift/xcproj/pull/109 by @pepibumur.
 - Fix a bug decoding the `PBXProject.projectRoot` property that should be decoded as an optional https://github.com/xcodeswift/xcproj/issues/108 by @pepibumur.
