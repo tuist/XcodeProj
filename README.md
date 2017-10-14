@@ -144,7 +144,7 @@ You can read more about what each of these objects is for on the [following link
 ### Creating a group inside another group
 
 ```swift
-let project = try! XcodeProj(path: "myproject.xcodeproj")
+let project = try XcodeProj(path: "myproject.xcodeproj")
 let myGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "MyGroup")
 project.pbxproj.append(myGroup)
 try project.write(path: "myproject.xcodeproj")
@@ -153,10 +153,20 @@ try project.write(path: "myproject.xcodeproj")
 ### Adding a file inside a group
 
 ```swift
-let project = try! XcodeProj(path: "myproject.xcodeproj")
+let project = try XcodeProj(path: "myproject.xcodeproj")
 let myGroupFile = PBXFileReference(reference: "xxx", sourceTree: .group, path: "myGroupFile.swift")
 myGroup.children.append(myGroupFile.reference)
 project.pbxproj.append(myGroupFile)
+try project.write(path: "myproject.xcodeproj")
+```
+
+### Adding a existing file as a source file
+
+```swift
+let targetName = "MyTarget"
+let project = try XcodeProj(path: "myproject.xcodeproj")
+let sourcesBuildPhase = project.pbxproj.sourcesBuildPhases.first?
+
 try project.write(path: "myproject.xcodeproj")
 ```
 
