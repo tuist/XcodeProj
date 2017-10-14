@@ -151,9 +151,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjC14archiveVersionSiv"></a>
+                    <a name="/s:6xcproj7PBXProjC14archiveVersionSiSgv"></a>
                     <a name="//apple_ref/swift/Property/archiveVersion" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjC14archiveVersionSiv">archiveVersion</a>
+                    <a class="token" href="#/s:6xcproj7PBXProjC14archiveVersionSiSgv">archiveVersion</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -168,7 +168,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -259,9 +259,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjCACSi14archiveVersion_Si06objectD0SS10rootObjects10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(archiveVersion:objectVersion:rootObject:classes:objects:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjCACSi14archiveVersion_Si06objectD0SS10rootObjects10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc">init(archiveVersion:objectVersion:rootObject:classes:objects:)</a>
+                    <a name="/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSiSg07archiveD0s10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(objectVersion:rootObject:archiveVersion:classes:objects:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSiSg07archiveD0s10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc">init(objectVersion:rootObject:archiveVersion:classes:objects:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -276,9 +276,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                 <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
                 <span class="nv">classes</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
                 <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
 
@@ -288,18 +288,6 @@
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>archiveVersion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>project archive version.</p>
-                                </div>
-                              </td>
-                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -321,6 +309,18 @@
                               <td>
                                 <div>
                                   <p>project root object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>archiveVersion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>project archive version.</p>
                                 </div>
                               </td>
                             </tr>
