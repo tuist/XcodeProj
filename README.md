@@ -148,7 +148,7 @@ You can check out the documentation on the following [link](https://xcodeswift.g
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="graphs/contributors"><img src="https://opencollective.com/xcproj/contributors.svg?width=890" /></a>
+<a href="https://github.com/xcodeswift/xcproj/graphs/contributors"><img src="https://opencollective.com/xcproj/contributors.svg?width=890" /></a>
 
 
 ## Backers
