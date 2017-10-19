@@ -43,8 +43,8 @@ public class XCWorkspace {
     }
 
     /// Returns an empty workspace.
-    public static var `empty`: XCWorkspace {
-        let data = XCWorkspace.Data(references: [])
+    public static var `default`: XCWorkspace {
+        let data = XCWorkspace.Data(references: [ .other(location: "self:") ])
         return XCWorkspace(data: data)
     }
     

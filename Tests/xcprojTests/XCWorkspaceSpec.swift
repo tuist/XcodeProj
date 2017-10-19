@@ -18,8 +18,9 @@ final class XCWorkspaceIntegrationSpec: XCTestCase {
         } catch {}
     }
     
-    func test_empty_returnsAnEmptyWorkspace() {
-        XCTAssertTrue(XCWorkspace.empty.data.references.isEmpty)
+    func test_empty_returnsAWorkspaceWithTheCorrectReference() {
+        XCTAssertEqual(XCWorkspace.default.data.references.count, 1)
+        XCTAssertEqual(XCWorkspace.default.data.references.first, .other(location: "self:"))
     }
 
 }
