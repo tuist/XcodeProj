@@ -25,6 +25,14 @@ public class XCWorkspace {
         }
         data = try XCWorkspace.Data(path: xcworkspaceDataPaths.first!)
     }
+    
+    /// Initializes the workspace with the path string.
+    ///
+    /// - Parameter pathString: path string.
+    /// - Throws: throws an error if the initialization fails.
+    public convenience init(pathString: String) throws {
+        try self.init(path: Path(pathString))
+    }
 
     /// Initializes the workspace with its properties.
     ///

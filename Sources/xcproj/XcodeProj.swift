@@ -34,6 +34,10 @@ public class XcodeProj {
         let sharedDataPath = path + Path("xcshareddata")
         self.sharedData = try? XCSharedData(path: sharedDataPath)
     }
+    
+    public convenience init(pathString: String) throws {
+        try self.init(path: Path(pathString))
+    }
 
     /// Initializes the XCodeProj
     ///
