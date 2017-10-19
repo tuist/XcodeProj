@@ -13,28 +13,36 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     }
 
     func test_init_hasTheASharedData() {
-        let got = project()
+        let got = projectiOS()
         XCTAssertNotNil(got?.sharedData)
     }
 
     func test_write() {
-        testWrite(from: fixturePath(),
+        testWrite(from: fixtureiOSProjectPath(),
                   initModel: { try? XcodeProj(path: $0) },
                   modify: { $0 })
     }
-
-    private func fixturePath() -> Path {
-        return fixturesPath() + "iOS/Project.xcodeproj"
+    
+    func test_init_usesAnEmptyWorkspace_whenItsMissing() {
+        let got = projectWithoutWorkspace()
+        XCTAssertNotNil(got)
     }
 
     // MARK: - Private
 
-    private func project() -> XcodeProj? {
-        do {
-            return try XcodeProj(path: fixturePath())
-        } catch{
-            print("ERROR: \(error)")
-            return nil
-        }
+    private func fixtureWithoutWorkspaceProjectPath() -> Path {
+        return fixturesPath() + "WithoutWorkspace/WithoutWorkspace.xcodeproj"
+    }
+    
+    private func fixtureiOSProjectPath() -> Path {
+        return fixturesPath() + "iOS/Project.xcodeproj"
+    }
+    
+    private func projectiOS() -> XcodeProj? {
+        return try? XcodeProj(path: fixtureiOSProjectPath())
+    }
+    
+    private func projectWithoutWorkspace() -> XcodeProj? {
+        return try? XcodeProj(path: fixtureWithoutWorkspaceProjectPath())
     }
 }
