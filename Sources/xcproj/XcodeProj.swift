@@ -28,9 +28,10 @@ public class XcodeProj {
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
-            throw XCodeProjError.xcworkspaceNotFound(path: path)
+            workspace = XCWorkspace.empty
+        } else {
+            workspace = try XCWorkspace(path: xcworkspacePaths.first!)
         }
-        workspace = try XCWorkspace(path: xcworkspacePaths.first!)
         let sharedDataPath = path + Path("xcshareddata")
         self.sharedData = try? XCSharedData(path: sharedDataPath)
     }

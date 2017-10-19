@@ -42,6 +42,12 @@ public class XCWorkspace {
         self.data = data
     }
 
+    /// Returns an empty workspace.
+    public static var `empty`: XCWorkspace {
+        let data = XCWorkspace.Data(references: [])
+        return XCWorkspace(data: data)
+    }
+    
 }
 
 // MARK: - <Writable>

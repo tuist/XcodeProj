@@ -17,5 +17,9 @@ final class XCWorkspaceIntegrationSpec: XCTestCase {
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
+    
+    func test_empty_returnsAnEmptyWorkspace() {
+        XCTAssertTrue(XCWorkspace.empty.data.references.isEmpty)
+    }
 
 }
