@@ -28,7 +28,7 @@ public class XcodeProj {
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
-            workspace = XCWorkspace.default
+            workspace = XCWorkspace()
         } else {
             workspace = try XCWorkspace(path: xcworkspacePaths.first!)
         }
