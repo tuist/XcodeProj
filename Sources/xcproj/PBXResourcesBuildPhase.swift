@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for the resources copy build phase.
+/// This is the element for the resources copy build phase.
 public class PBXResourcesBuildPhase: PBXBuildPhase, Hashable {
     
     public static func == (lhs: PBXResourcesBuildPhase,

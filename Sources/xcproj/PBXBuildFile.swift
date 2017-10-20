@@ -1,6 +1,6 @@
 import Foundation
 
-// This element indicate a file reference that is used in a PBXBuildPhase (either as an include or resource).
+/// This element indicates a file reference that is used in a PBXBuildPhase (either as an include or resource).
 public class PBXBuildFile: PBXObject, Hashable {
 
     // MARK: - Attributes

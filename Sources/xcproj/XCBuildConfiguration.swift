@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for listing build configurations.
+/// This is the element for listing build configurations.
 public class XCBuildConfiguration: PBXObject, Hashable {
    
     // MARK: - Attributes

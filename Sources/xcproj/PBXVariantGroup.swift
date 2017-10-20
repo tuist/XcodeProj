@@ -5,13 +5,13 @@ public class PBXVariantGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
 
-    // The objects are a reference to a PBXFileElement element
+    /// The objects are a reference to a PBXFileElement element
     public var children: [String]
 
-    // The filename
+    /// The filename
     public var name: String?
 
-    // Variant group source tree.
+    /// Variant group source tree.
     public var sourceTree: PBXSourceTree?
 
     // MARK: - Init

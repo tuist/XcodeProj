@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for the resources copy build phase.
+/// This is the element for the shell script build phase.
 public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     // MARK: - Attributes

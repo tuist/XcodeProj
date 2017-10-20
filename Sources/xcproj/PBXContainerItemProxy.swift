@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for to decorate a target item.
+/// This is the element to decorate a target item.
 public class PBXContainerItemProxy: PBXObject, Hashable {
 
     public enum ProxyType: UInt, Decodable {

@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for a build target that aggregates several others.
+/// This is the element for a build target that aggregates several others.
 public class PBXAggregateTarget: PBXTarget {
 
 }

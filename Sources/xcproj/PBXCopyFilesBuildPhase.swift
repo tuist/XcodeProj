@@ -1,6 +1,6 @@
 import Foundation
 
-// This is the element for the copy file build phase.
+/// This is the element for the copy file build phase.
 public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
     public enum SubFolder: UInt, Decodable {

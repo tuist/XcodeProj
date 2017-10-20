@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-// This is the element for the framewrok link build phase.
+/// This is the element for the framework headers build phase.
 public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
     
     public static func == (lhs: PBXHeadersBuildPhase,
