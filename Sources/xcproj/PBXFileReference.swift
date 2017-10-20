@@ -1,8 +1,8 @@
 import Foundation
 import PathKit
 
-//  A PBXFileReference is used to track every external file referenced by 
-//  the project: source files, resource files, libraries, generated application files, and so on.
+///  A PBXFileReference is used to track every external file referenced by
+///  the project: source files, resource files, libraries, generated application files, and so on.
 public class PBXFileReference: PBXObject, Hashable {
  
     // MARK: - Attributes

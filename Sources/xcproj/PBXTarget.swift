@@ -1,6 +1,6 @@
 import Foundation
 
-// This element is an abstract parent for specialized targets.
+/// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXObject, Hashable {
 
     /// Target build configuration list.

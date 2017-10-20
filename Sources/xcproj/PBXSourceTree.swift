@@ -1,6 +1,7 @@
 import Foundation
 
-// Specifies source trees for files
+/// Specifies source trees for files
+/// Corresponds to the "Location" dropdown in Xcode's File Inspector
 public enum PBXSourceTree: String, Hashable, Decodable {
     case none = ""
     case absolute = "<absolute>"

@@ -6,7 +6,7 @@ public class XcodeProj {
 
     // MARK: - Properties
 
-    // Project workspace
+    /// Project workspace
     public var workspace: XCWorkspace
 
     /// .pbxproj representatino

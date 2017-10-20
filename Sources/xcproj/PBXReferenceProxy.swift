@@ -7,16 +7,16 @@ public class PBXReferenceProxy: PBXObject, Hashable {
     
     // MARK: - Attributes
     
-    // Element file type
+    /// Element file type
     public var fileType: String?
     
-    // Element path.
+    /// Element path.
     public var path: String?
     
-    // Element remote reference.
+    /// Element remote reference.
     public var remoteRef: String?
     
-    // Element source tree.
+    /// Element source tree.
     public var sourceTree: PBXSourceTree?
     
     // MARK: - Init

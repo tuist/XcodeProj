@@ -1,6 +1,6 @@
 import Foundation
 
-// An absctract class for all the build phase objects
+/// An absctract class for all the build phase objects
 public class PBXBuildPhase: PBXObject {
 
     /// Element build action mask.

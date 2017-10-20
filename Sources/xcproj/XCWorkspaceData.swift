@@ -96,7 +96,7 @@ public extension XCWorkspace {
 
         }
 
-        /// MARK: - Attributes
+        // MARK: - Attributes
 
         /// References to the workspace projects
         public var references: [FileRef]

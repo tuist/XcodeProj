@@ -1,44 +1,43 @@
 import Foundation
 
-// This is the element for a build target that produces a binary content (application or library).
 public class PBXProject: PBXObject, Hashable {
     
     // MARK: - Attributes
   
-    // xcodeproj's name
+    /// xcodeproj's name
     public var name: String
 
-    // The object is a reference to a XCConfigurationList element.
+    /// The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
     
-    // A string representation of the XcodeCompatibilityVersion.
+    /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
     
-    // The region of development.
+    /// The region of development.
     public var developmentRegion: String?
     
-    // Whether file encodings have been scanned.
+    /// Whether file encodings have been scanned.
     public var hasScannedForEncodings: Int?
     
-    // The known regions for localized files.
+    /// The known regions for localized files.
     public var knownRegions: [String]
     
-    // The object is a reference to a PBXGroup element.
+    /// The object is a reference to a PBXGroup element.
     public var mainGroup: String
     
-    // The object is a reference to a PBXGroup element.
+    /// The object is a reference to a PBXGroup element.
     public var productRefGroup: String?
     
-    // The relative path of the project.
+    /// The relative path of the project.
     public var projectDirPath: String?
     
     /// Project references.
     public var projectReferences: [Any]
     
-    // The relative root path of the project.
+    /// The relative root path of the project.
     public var projectRoot: String?
     
-    // The objects are a reference to a PBXTarget element.
+    /// The objects are a reference to a PBXTarget element.
     public var targets: [String]
     
     /// Project attributes.

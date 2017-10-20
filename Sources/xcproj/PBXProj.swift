@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-/// It represents a .pbxproj file
+/// Represents a .pbxproj file
 public class PBXProj: Decodable {
 
     // MARK: - Properties
