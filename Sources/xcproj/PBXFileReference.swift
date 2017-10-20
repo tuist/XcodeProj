@@ -95,7 +95,8 @@ public class PBXFileReference: PBXObject, Hashable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileEncoding = try container.decodeIfPresent(.fileEncoding)
+        let fileEncodingString: String? = try container.decodeIfPresent(.fileEncoding)
+        self.fileEncoding = fileEncodingString.flatMap(Int.init)
         self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
         let includeInIndexString: String? = try container.decodeIfPresent(.includeInIndex)
