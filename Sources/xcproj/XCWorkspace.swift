@@ -26,6 +26,12 @@ public class XCWorkspace {
         data = try XCWorkspace.Data(path: xcworkspaceDataPaths.first!)
     }
     
+    /// Initializes a default workspace with a single reference that points to self:
+    public convenience init() {
+        let data = XCWorkspace.Data(references: [ .other(location: "self:") ])
+        self.init(data: data)
+    }
+    
     /// Initializes the workspace with the path string.
     ///
     /// - Parameter pathString: path string.
@@ -41,7 +47,7 @@ public class XCWorkspace {
     public init(data: XCWorkspace.Data) {
         self.data = data
     }
-
+    
 }
 
 // MARK: - <Writable>

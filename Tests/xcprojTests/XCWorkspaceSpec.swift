@@ -17,5 +17,10 @@ final class XCWorkspaceIntegrationSpec: XCTestCase {
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
+    
+    func test_init_returnsAWorkspaceWithTheCorrectReference() {
+        XCTAssertEqual(XCWorkspace().data.references.count, 1)
+        XCTAssertEqual(XCWorkspace().data.references.first, .other(location: "self:"))
+    }
 
 }
