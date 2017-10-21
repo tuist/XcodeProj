@@ -1,5 +1,15 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.1.0 - Muerdo
+
+### Added
+- It supports now SPM-generated projects https://github.com/xcodeswift/xcproj/pull/124 by @pepibumur. Thanks @josefdolezal for the report.
+- Project and workspace initializer that takes the path as a string https://github.com/xcodeswift/xcproj/pull/123 by @pepibumur.
+
+### Fixed
+- Fix the decoding of the `PBXFileReference.fileEncoding` property https://github.com/xcodeswift/xcproj/pull/127 by @gubikmic.
+- Fix some wrong comments and typos https://github.com/xcodeswift/xcproj/pull/126 by @gubikmic
+
 ## 1.0.0 - Acho
 
 ### Changed
