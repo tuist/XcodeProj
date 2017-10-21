@@ -55,7 +55,7 @@ desc "Lints the CocoaPods specification"
 task :pod_lint do
   sh "bundle exec pod install --project-directory=CocoaPods/"
   sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme macOS -config Debug clean build"
-  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme iOS -config Debug -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0.1' clean build"
+  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme iOS -config Debug -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0' clean build"
 end
 
 desc "Executes all the validation steps for CI"
