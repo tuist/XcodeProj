@@ -15,15 +15,16 @@ public class XCWorkspace {
     ///
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
-    public init(path: Path) throws {
+    public convenience init(path: Path) throws {
         if !path.exists {
             throw XCWorkspaceError.notFound(path: path)
         }
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
         if xcworkspaceDataPaths.count == 0 {
-            throw XCWorkspaceError.xcworkspaceDataNotFound(path: path)
+            self.init()
+        } else {
+            try self.init(data: XCWorkspace.Data(path: xcworkspaceDataPaths.first!))
         }
-        data = try XCWorkspace.Data(path: xcworkspaceDataPaths.first!)
     }
     
     /// Initializes a default workspace with a single reference that points to self:
