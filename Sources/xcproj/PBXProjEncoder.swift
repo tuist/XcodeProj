@@ -10,14 +10,14 @@ extension PlistSerializable {
     var multiline: Bool { return true }
 }
 
-/// Writes your PBXProj files
-class PBXProjWriter {
+/// Encodes your PBXProj files to String
+class PBXProjEncoder {
     
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
     
-    func write(proj: PBXProj) -> String {
+    func encode(proj: PBXProj) -> String {
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()

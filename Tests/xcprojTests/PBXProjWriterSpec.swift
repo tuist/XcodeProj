@@ -3,7 +3,7 @@ import XCTest
 
 @testable import xcproj
 
-class PBXProjWriterSpec: XCTestCase {
+class PBXProjEncoderSpec: XCTestCase {
 
     func test_dictionaryPlistValue_returnsTheCorrectValue() {
         let dictionary: [String: Any] = [

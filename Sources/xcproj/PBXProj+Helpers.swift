@@ -98,8 +98,8 @@ extension PBXProj {
 extension PBXProj: Writable {
     
     public func write(path: Path, override: Bool) throws {
-        let writer = PBXProjWriter()
-        let output = writer.write(proj: self)
+        let encoder = PBXProjEncoder()
+        let output = encoder.encode(proj: self)
         if override && path.exists {
             try path.delete()
         }
