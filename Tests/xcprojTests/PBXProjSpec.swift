@@ -46,6 +46,16 @@ final class PBXProjSpec: XCTestCase {
         XCTAssertTrue(subject.classes.isEmpty)
     }
 
+    func test_buildPhases_returnsAllBuildPhases() {
+        let subject = PBXProj(objectVersion: 0, rootObject: "root")
+        subject.addObject(PBXCopyFilesBuildPhase(reference: "ref1"))
+        subject.addObject(PBXSourcesBuildPhase(reference: "ref2"))
+        subject.addObject(PBXShellScriptBuildPhase(reference: "ref3", files: [], inputPaths: [], outputPaths: [], shellScript: nil))
+        subject.addObject(PBXResourcesBuildPhase(reference: "ref4"))
+        subject.addObject(PBXFrameworksBuildPhase(reference: "ref5"))
+        subject.addObject(PBXHeadersBuildPhase(reference: "ref6"))
+        XCTAssertEqual(subject.buildPhases.count, 6)
+    }
 }
 
 final class PBXProjIntegrationSpec: XCTestCase {
