@@ -4,10 +4,10 @@ require 'semantic'
 require 'colorize'
 require 'fileutils'
 
-### HELPERS ###
+DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.0.1"
 
 def generate_docs
-  print "> Executing tests"
+  print "Executing tests"
   sh "swift package generate-xcodeproj"
   sh "jazzy --clean --sdk macosx --xcodebuild-arguments -scheme,xcproj-Package --skip-undocumented --no-download-badge"
 end
@@ -16,8 +16,26 @@ def any_git_changes?
   !`git status -s`.empty?
 end
 
+def command?(name)
+  `which #{name}`
+  $?.success?
+end
+
 def build
   sh "swift build"
+end
+
+def build_carthage_project
+  sh "xcodebuild -project Carthage.xcodeproj -scheme xcproj_macOS -config Debug clean build"
+  sh "xcodebuild -project Carthage.xcodeproj -scheme xcproj_iOS -config Debug -destination '#{DESTINATION}' clean build"
+end
+
+task :carthage do
+  build_carthage_project()
+end
+
+def test
+  sh "swift test"
 end
 
 def current_version
@@ -33,54 +51,67 @@ def bump_to_version(from, to)
   spec_path = "xcproj.podspec"
   content = File.read(spec_path)
   File.open(spec_path, "w"){|f| f.write(content.sub(from.to_s, to.to_s)) }
+end
+
+def pod_lint
+  sh "bundle exec pod install --project-directory=CocoaPods/"
+  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme macOS -config Debug clean build"
+  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme iOS -config Debug -destination '#{DESTINATION}' clean build"
+end
+
+def commit_changes_and_push(tag)
   `git add .`
   `git commit -m "Bump version to #{to}"`
-  `git tag #{to}`
+  if tag then `git tag #{tag}` end
   `git push origin --tags`
 end
 
-def print(message)
-  puts message.colorize(:yellow)
+def generate_carthage_project
+  throw "Mint is necessary. Make sure it's installed in your system" unless command?("mint")
+  sh "mint run yonaskolb/xcodegen@1.3.0"
 end
 
-### TASKS ###
+def print(message)
+  puts "> #{message.colorize(:yellow)}"
+end
 
 desc "Removes the build folder"
 task :clean do
-  print "> Cleaning build/ folder"
+  print "Cleaning build/ folder"
   `rm -rf build`
-end
-
-desc "Lints the CocoaPods specification"
-task :pod_lint do
-  sh "bundle exec pod install --project-directory=CocoaPods/"
-  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme macOS -config Debug clean build"
-  sh "xcodebuild -workspace CocoaPods/CocoaPods.xcworkspace -scheme iOS -config Debug -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.0' clean build"
 end
 
 desc "Executes all the validation steps for CI"
 task :ci => [:clean] do
-  print "> Linting project"
+  print "Linting project"
   sh "swiftlint"
-  print "> CocoaPods linting"
-  Rake::Task["pod_lint"].invoke
-  print "> Building the project"
-  sh "swift build"
-  print "> Executing tests"
-  sh "swift test"
+  print "CocoaPods linting"
+  pod_lint()
+  print "Building the project"
+  build()
+  print "Executing tests"
+  test()
+  print "Building Carthage project"
+  build_carthage_project()
 end
 
 desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
 task :release => [:clean] do
-  abort '> Commit all your changes before starting the release' unless !any_git_changes?
+  abort 'Commit all your changes before starting the release' unless !any_git_changes?
+  print("Building xcproj")
   build
-  print "> xcproj built"
+  print "Generating Carthage project"
+  generate_carthage_project()
+  print "Building Carthage project"
+  build_carthage_project()
+  print "Generating docs"
   generate_docs
-  print "> Documentation generated"
   version = next_version
+  print "Bumping version to #{next_version}"
   bump_to_version(current_version, next_version)
-  print "> Commit created and tagged with version: #{version}"
-  print "> Pushing new version to CocoaPods"
+  print "Commiting and pushing changes to GitHub"
+  commit_changes_and_push(next_version)
+  print "Pushing new version to CocoaPods"
   sh "bundle exec pod trunk push --verbose --allow-warnings"
 end
 
