@@ -38,6 +38,16 @@ public class PBXProj: Decodable {
     public var fileReferences: [PBXFileReference] = []
     public var projects: [PBXProject] = []
     public var referenceProxies: [PBXReferenceProxy] = []
+    public var buildPhases: [PBXBuildPhase] {
+        var phases: [PBXBuildPhase] = []
+        phases.append(contentsOf: self.copyFilesBuildPhases as [PBXBuildPhase])
+        phases.append(contentsOf: self.sourcesBuildPhases as [PBXBuildPhase])
+        phases.append(contentsOf: self.shellScriptBuildPhases as [PBXBuildPhase])
+        phases.append(contentsOf: self.resourcesBuildPhases as [PBXBuildPhase])
+        phases.append(contentsOf: self.frameworksBuildPhases as [PBXBuildPhase])
+        phases.append(contentsOf: self.headersBuildPhases as [PBXBuildPhase])
+        return phases
+    }
     
     /// Initializes the project with its attributes.
     ///
