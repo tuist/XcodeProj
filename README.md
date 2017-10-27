@@ -82,8 +82,16 @@ https://github.com/xcodeswift/xcproj.git
 
 Edit your `Podfile` and specify the dependency:
 
-```bash
+```ruby
 pod "xcproj"
+```
+
+#### Using [Carthage](https://github.com/carthage)
+
+Edit your `Cartfile` and specify the dependency:
+
+```bash
+github "xcodeswift/xcproj"
 ```
 
 > Note: xcproj is only available for macOS and iOS projects.
