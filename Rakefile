@@ -4,7 +4,7 @@ require 'semantic'
 require 'colorize'
 require 'fileutils'
 
-DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.0.1"
+DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.0"
 
 def generate_docs
   print "Executing tests"
