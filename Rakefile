@@ -5,6 +5,7 @@ require 'colorize'
 require 'fileutils'
 
 DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.0"
+XCODEGEN_VERSION = "1.3.0"
 
 def generate_docs
   print "Executing tests"
@@ -68,7 +69,7 @@ end
 
 def generate_carthage_project
   throw "Mint is necessary. Make sure it's installed in your system" unless command?("mint")
-  sh "mint run yonaskolb/xcodegen@1.3.0"
+  sh "mint run yonaskolb/xcodegen@#{XCODEGEN_VERSION}"
 end
 
 def print(message)
