@@ -10,7 +10,7 @@ XCODEGEN_VERSION = "1.3.0"
 def generate_docs
   print "Executing tests"
   sh "swift package generate-xcodeproj"
-  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -scheme,xcproj-Package --skip-undocumented --no-download-badge"
+  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -project,xcproj.xcodeproj,-scheme,xcproj-Package --skip-undocumented --no-download-badge"
 end
 
 def any_git_changes?
