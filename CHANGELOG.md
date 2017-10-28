@@ -1,5 +1,14 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.2.0 - Two shoes
+
+### Added
+- Carthage support https://github.com/xcodeswift/xcproj/pull/125 by @pepibumur.
+- `buildPhases` property to `PBXProj` https://github.com/xcodeswift/xcproj/pull/132 by @pepibumur.
+
+### Fixed
+- Build phase `buildActionMask` wrong default value https://github.com/xcodeswift/xcproj/pull/131 by @pepibumur.
+
 ## 1.1.0 - Muerdo
 
 ### Added
