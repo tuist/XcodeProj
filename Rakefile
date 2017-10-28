@@ -62,7 +62,7 @@ end
 
 def commit_changes_and_push(tag)
   `git add .`
-  `git commit -m "Bump version to #{to}"`
+  `git commit -m "Bump version to #{tag}"`
   if tag then `git tag #{tag}` end
   `git push origin --tags`
 end

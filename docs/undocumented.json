@@ -65,21 +65,21 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXBuildPhase.swift",
-      "line": 15,
+      "line": 18,
       "symbol": "PBXBuildPhase.init(reference:files:buildActionMask:runOnlyForDeploymentPostprocessing:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXBuildPhase.swift",
-      "line": 34,
+      "line": 37,
       "symbol": "PBXBuildPhase.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXBuildPhase.swift",
-      "line": 44,
+      "line": 47,
       "symbol": "PBXBuildPhase.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -352,7 +352,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 111,
+      "line": 41,
+      "symbol": "PBXProj.buildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
+      "line": 121,
       "symbol": "PBXProj.addObject(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
