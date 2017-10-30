@@ -69,7 +69,7 @@ public class PBXProj: Decodable {
         self.objects = objects
     }
 
-    var objects: [PBXObject] {
+    public private(set) var objects: [PBXObject] {
         get {
             var array: [PBXObject] = []
             array += buildFiles as [PBXObject]
