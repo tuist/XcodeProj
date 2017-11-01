@@ -1,5 +1,16 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.3.0 - Esbarzers
+
+### Added
+- Add `PBXSourceTree.developerDir` type https://github.com/xcodeswift/xcproj/commit/5504fcde00bc56cf6c240ecd7cc36c05296861f8 by @pepibumur.
+
+### Fixed
+- Fix `PBXShellScriptBuildPhase` bug decoding `showEnvVarsInLog` https://github.com/xcodeswift/xcproj/commit/521b4e62b70f5fc43a06d00c43916d4899138553 by @pepibumur.
+- Fix `PBXFileReference` bug decoding `useTabs` https://github.com/xcodeswift/xcproj/commit/c533987496959a3e32c0ddfe45a0f2db8d5daae0 by @pepibumur.
+- Fix `PBXFileReference` bug decoding `lineEnding` https://github.com/xcodeswift/xcproj/commit/8a2c94effbe94859a68d58e0c49d66156ba1eaea by @pepibumur.
+
+
 ## 1.2.0 - Two shoes
 
 ### Added
