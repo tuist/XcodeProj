@@ -359,6 +359,13 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
+      "line": 72,
+      "symbol": "PBXProj.objects",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
       "line": 121,
       "symbol": "PBXProj.addObject(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
@@ -431,6 +438,13 @@
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXSourceTree.swift",
       "line": 11,
       "symbol": "PBXSourceTree.sdkRoot",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXSourceTree.swift",
+      "line": 12,
+      "symbol": "PBXSourceTree.developerDir",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
