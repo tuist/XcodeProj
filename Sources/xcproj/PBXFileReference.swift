@@ -105,7 +105,8 @@ public class PBXFileReference: PBXObject, Hashable {
         self.path = try container.decodeIfPresent(.path)
         self.sourceTree = try container.decodeIfPresent(.sourceTree)
         self.usesTabs = try container.decodeIfPresent(.usesTabs)
-        self.lineEnding = try container.decodeIfPresent(.lineEnding)
+        let lineEndingString: String? = try container.decodeIfPresent(.lineEnding)
+        self.lineEnding = lineEndingString.flatMap(Int.init)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
         try super.init(from: decoder)
     }
