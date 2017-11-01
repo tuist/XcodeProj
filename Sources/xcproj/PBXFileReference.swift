@@ -52,7 +52,7 @@ public class PBXFileReference: PBXObject, Hashable {
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
-        self.lastKnownFileType = lastKnownFileType ?? path.flatMap { PBXFileReference.fileType(path: Path($0)) }
+        self.lastKnownFileType = lastKnownFileType
         self.name = name
         self.path = path
         self.sourceTree = sourceTree
