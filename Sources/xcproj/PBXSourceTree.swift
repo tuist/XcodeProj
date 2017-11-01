@@ -9,6 +9,7 @@ public enum PBXSourceTree: String, Hashable, Decodable {
     case sourceRoot = "SOURCE_ROOT"
     case buildProductsDir = "BUILT_PRODUCTS_DIR"
     case sdkRoot = "SDKROOT"
+    case developerDir = "DEVELOPER_DIR"
 }
 
 // MARK: - PBXSourceTree Extension (PlistValue)

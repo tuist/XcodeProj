@@ -28,6 +28,10 @@ final class PBXSourceTreeSpec: XCTestCase {
     func test_sdkRoot_hasTheCorrectValue() {
         XCTAssertEqual(PBXSourceTree.sdkRoot.rawValue, "SDKROOT")
     }
+    
+    func test_developerDir_hasTheCorrectValue() {
+        XCTAssertEqual(PBXSourceTree.developerDir.rawValue, "DEVELOPER_DIR")
+    }
 
     func test_plistReturnsTheRightValue_whenItsNone() {
         let expected = PlistValue.string(CommentedString(PBXSourceTree.none.rawValue))
