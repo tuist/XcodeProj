@@ -76,7 +76,8 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
         self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
         self.shellPath = try container.decodeIfPresent(.shellPath)
         self.shellScript = try container.decodeIfPresent(.shellScript)
-        self.showEnvVarsInLog = try container.decodeIfPresent(.showEnvVarsInLog)
+        let showEnvVarsInLogString: String? = try container.decodeIfPresent(.showEnvVarsInLog)
+        self.showEnvVarsInLog = showEnvVarsInLogString.flatMap(UInt.init)
         try super.init(from: decoder)
     }
 
