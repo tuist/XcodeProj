@@ -32,7 +32,7 @@ public class PBXProject: PBXObject, Hashable {
     public var projectDirPath: String?
     
     /// Project references.
-    public var projectReferences: [Any]
+    public var projectReferences: [[String:String]]
     
     /// The relative root path of the project.
     public var projectRoot: String?
@@ -72,7 +72,7 @@ public class PBXProject: PBXObject, Hashable {
                 knownRegions: [String] = [],
                 productRefGroup: String? = nil,
                 projectDirPath: String? = nil,
-                projectReferences: [Any] = [],
+                projectReferences: [[String : String]] = [],
                 projectRoot: String? = nil,
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
