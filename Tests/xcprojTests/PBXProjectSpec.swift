@@ -18,7 +18,7 @@ final class PBXProjectSpec: XCTestCase {
                              knownRegions: ["region"],
                              productRefGroup: "group",
                              projectDirPath: "path",
-                             projectReferences: ["ref"],
+                             projectReferences: [["ref" : "ref"]],
                              projectRoot: "root",
                              targets: ["target"])
     }
@@ -38,7 +38,7 @@ final class PBXProjectSpec: XCTestCase {
         XCTAssertEqual(subject.knownRegions, ["region"])
         XCTAssertEqual(subject.productRefGroup, "group")
         XCTAssertEqual(subject.projectDirPath, "path")
-        XCTAssertEqual(subject.projectReferences as! [String], ["ref"])
+        XCTAssertTrue(subject.projectReferences.elementsEqual([["ref" : "ref"]], by: ==))
         XCTAssertEqual(subject.projectRoot, "root")
         XCTAssertEqual(subject.targets, ["target"])
     }
@@ -97,7 +97,7 @@ final class PBXProjectSpec: XCTestCase {
                                  knownRegions: ["region"],
                                  productRefGroup: "group",
                                  projectDirPath: "path",
-                                 projectReferences: ["ref"],
+                                 projectReferences: [["ref" : "ref"]],
                                  projectRoot: "root",
                                  targets: ["target"])
         XCTAssertEqual(subject, another)
