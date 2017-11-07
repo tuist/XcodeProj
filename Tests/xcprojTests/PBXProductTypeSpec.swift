@@ -80,4 +80,8 @@ final class PBXProductTypeSpec: XCTestCase {
     func test_xpcService_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.xpcService.rawValue, "com.apple.product-type.xpc-service")
     }
+    
+    func test_ocUnitTestBundle_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.ocUnitTestBundle.rawValue, "com.apple.product-type.bundle.ocunit-test")
+    }
 }
