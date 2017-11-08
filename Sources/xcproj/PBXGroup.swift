@@ -16,6 +16,9 @@ public class PBXGroup: PBXObject, Hashable {
     /// Element source tree.
     public var sourceTree: PBXSourceTree?
 
+    /// Element uses tabs.
+    public var usesTabs: Int?
+
     // MARK: - Init
 
     /// Initializes the group with its attributes.
@@ -26,15 +29,18 @@ public class PBXGroup: PBXObject, Hashable {
     ///   - sourceTree: group source tree.
     ///   - name: group name.
     ///   - path: group path.
+    ///   - usesTabs: group uses tabs.
     public init(reference: String,
                 children: [String],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
-                path: String? = nil) {
+                path: String? = nil,
+                usesTabs: Int? = nil) {
         self.children = children
         self.name = name
         self.sourceTree = sourceTree
         self.path = path
+        self.usesTabs = usesTabs
         super.init(reference: reference)
     }
 
@@ -44,7 +50,8 @@ public class PBXGroup: PBXObject, Hashable {
             lhs.children == rhs.children &&
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
-            lhs.path == rhs.path
+            lhs.path == rhs.path &&
+            lhs.usesTabs == rhs.usesTabs
     }
     
     // MARK: - Decodable
@@ -54,6 +61,7 @@ public class PBXGroup: PBXObject, Hashable {
         case name
         case sourceTree
         case path
+        case usesTabs
     }
     
     public required init(from decoder: Decoder) throws {
@@ -62,6 +70,8 @@ public class PBXGroup: PBXObject, Hashable {
         self.children = (try container.decodeIfPresent(.children)) ?? []
         self.path = try container.decodeIfPresent(.path)
         self.sourceTree = try container.decodeIfPresent(.sourceTree)
+        let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
+        self.usesTabs = usesTabString.flatMap(Int.init)
         try super.init(from: decoder)
     }
     
@@ -86,6 +96,9 @@ extension PBXGroup: PlistSerializable {
         }
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
+        }
+        if let usesTabs = usesTabs {
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
         }
         return (key: CommentedString(self.reference,
                                                  comment: self.name ?? self.path),

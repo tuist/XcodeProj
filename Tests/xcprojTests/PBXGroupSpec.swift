@@ -19,6 +19,7 @@ final class PBXGroupSpec: XCTestCase {
         XCTAssertEqual(subject.children, ["333"])
         XCTAssertEqual(subject.sourceTree, .group)
         XCTAssertEqual(subject.name, "name")
+        XCTAssertEqual(subject.usesTabs, nil)
     }
 
     func test_init_failsIfChildrenIsMissing() {
@@ -42,6 +43,13 @@ final class PBXGroupSpec: XCTestCase {
                                sourceTree: .group,
                                name: "name")
         XCTAssertEqual(subject, another)
+
+        let withUsesTabs = PBXGroup(reference: "ref",
+                                    children: ["333"],
+                                    sourceTree: .group,
+                                    name: "name",
+                                    usesTabs: 1)
+        XCTAssertNotEqual(subject, withUsesTabs)
     }
 
     func test_hashValue_returnsTheReferenceHashValue() {
