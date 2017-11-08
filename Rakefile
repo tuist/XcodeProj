@@ -82,6 +82,11 @@ task :clean do
   `rm -rf build`
 end
 
+desc "Generates the Carthage project"
+task :generate_carthage_project do
+  generate_carthage_project()
+end
+
 desc "Executes all the validation steps for CI"
 task :ci => [:clean] do
   print "Linting project"

@@ -64,8 +64,6 @@
 		BF5505389402 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2287573101 /* PBXSourceTree.swift */; };
 		BF5519296501 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5076024901 /* Writable.swift */; };
 		BF5519296502 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5076024901 /* Writable.swift */; };
-		BF5571338001 /* BuidlSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6464156701 /* BuidlSettings.swift */; };
-		BF5571338002 /* BuidlSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6464156701 /* BuidlSettings.swift */; };
 		BF5703401501 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR8873340701 /* PathKit.framework */; };
 		BF5923391201 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8121825001 /* PBXProjError.swift */; };
 		BF5923391202 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8121825001 /* PBXProjError.swift */; };
@@ -79,6 +77,8 @@
 		BF6748394402 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3171444701 /* XCScheme.swift */; };
 		BF6884424401 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3140861801 /* XCConfigurationList.swift */; };
 		BF6884424402 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3140861801 /* XCConfigurationList.swift */; };
+		BF6966109201 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3402716401 /* BuildSettings.swift */; };
+		BF6966109202 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3402716401 /* BuildSettings.swift */; };
 		BF7116108501 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8394611801 /* PBXProj.swift */; };
 		BF7116108502 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8394611801 /* PBXProj.swift */; };
 		BF7333567601 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2671862701 /* XCWorkspace.swift */; };
@@ -121,6 +121,7 @@
 		FR3140861801 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
 		FR3171444701 /* XCScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
 		FR3255351901 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
+		FR3402716401 /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
 		FR3546471301 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR3952162601 /* PBXAggregateTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTarget.swift; sourceTree = "<group>"; };
 		FR4128075701 /* PBXBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildPhase.swift; sourceTree = "<group>"; };
@@ -141,7 +142,6 @@
 		FR6357036901 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
 		FR6447358001 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
 		FR6447358002 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
-		FR6464156701 /* BuidlSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuidlSettings.swift; sourceTree = "<group>"; };
 		FR6754770501 /* XCVersionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCVersionGroup.swift; sourceTree = "<group>"; };
 		FR6980748501 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		FR7045651001 /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
@@ -226,8 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				FR3255351901 /* Bool+Extras.swift */,
-				FR6464156701 /* BuidlSettings.swift */,
 				FR4602369901 /* BuildPhase.swift */,
+				FR3402716401 /* BuildSettings.swift */,
 				FR5186857101 /* CommentedString.swift */,
 				FR8773023601 /* Decodable+Dictionary.swift */,
 				FR6006730201 /* Dictionary+Extras.swift */,
@@ -394,8 +394,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF2311546501 /* Bool+Extras.swift in Sources */,
-				BF5571338001 /* BuidlSettings.swift in Sources */,
 				BF9042303701 /* BuildPhase.swift in Sources */,
+				BF6966109201 /* BuildSettings.swift in Sources */,
 				BF1214569601 /* CommentedString.swift in Sources */,
 				BF3167018201 /* Decodable+Dictionary.swift in Sources */,
 				BF2241362001 /* Dictionary+Extras.swift in Sources */,
@@ -447,8 +447,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF2311546502 /* Bool+Extras.swift in Sources */,
-				BF5571338002 /* BuidlSettings.swift in Sources */,
 				BF9042303702 /* BuildPhase.swift in Sources */,
+				BF6966109202 /* BuildSettings.swift in Sources */,
 				BF1214569602 /* CommentedString.swift in Sources */,
 				BF3167018202 /* Decodable+Dictionary.swift in Sources */,
 				BF2241362002 /* Dictionary+Extras.swift in Sources */,
