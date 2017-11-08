@@ -38,7 +38,7 @@ public class PBXBuildFile: PBXObject, Hashable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.fileRef = try container.decodeIfPresent(.fileRef)
-        self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings) ?? [:]
+        self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
     }
 
@@ -46,9 +46,19 @@ public class PBXBuildFile: PBXObject, Hashable {
 
     public static func == (lhs: PBXBuildFile,
                            rhs: PBXBuildFile) -> Bool {
+        let settingsAreEqual: Bool = {
+            switch (lhs.settings, rhs.settings) {
+            case (.none, .none):
+                return true
+            case (.none, .some), (.some, .none):
+                return false
+            case (.some(let lhsSettings), .some(let rhsSettings)):
+                return NSDictionary(dictionary: lhsSettings).isEqual(to: rhsSettings)
+            }
+        }()
         return lhs.reference == rhs.reference &&
             lhs.fileRef == rhs.fileRef &&
-            NSDictionary(dictionary: lhs.settings ?? [:]).isEqual(to: rhs.settings ?? [:])
+            settingsAreEqual
     }
 }
 
