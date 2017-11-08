@@ -43,7 +43,7 @@ extension PBXHeadersBuildPhase: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
         dictionary["isa"] = .string(CommentedString(PBXHeadersBuildPhase.isa))
-        return (key: CommentedString(self.reference, comment: "Frameworks"), value: .dictionary(dictionary))
+        return (key: CommentedString(self.reference, comment: "Headers"), value: .dictionary(dictionary))
     }
     
 }
