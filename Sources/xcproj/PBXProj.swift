@@ -169,15 +169,6 @@ public class PBXProj: Decodable {
         self.objects = try objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
     }
 
-    func fileName(from reference: String) -> String? {
-        let fileReference: PBXFileReference? = getCachedReference(reference)
-        return fileReference?.name ?? fileReference?.path
-    }
-
-    func configName(from reference: String) -> String? {
-        return (getCachedReference(reference) as? XCBuildConfiguration)?.name
-    }
-
     func getCachedReference<T: PBXObject>(_ reference: String) -> T? {
         return referenceCache[reference] as? T
     }

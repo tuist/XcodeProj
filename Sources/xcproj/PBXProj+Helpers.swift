@@ -5,28 +5,35 @@ import PathKit
 
 extension PBXProj {
     
-    /// Returns the file name from the build file reference.
+    /// Returns the file name from a build file reference.
     ///
-    /// - Parameter reference: file reference.
+    /// - Parameter buildFileReference: file reference.
     /// - Returns: build file name.
     func fileName(buildFileReference: String) -> String? {
-        guard let buildFile: PBXBuildFile = getCachedReference(buildFileReference), let fileRef = buildFile.fileRef else { return nil }
-        if let variantGroup: PBXVariantGroup = getCachedReference(fileRef) {
-            return variantGroup.name
-        } else {
-            return fileName(fileReference: fileRef)
-        }
+        guard let buildFile: PBXBuildFile = getCachedReference(buildFileReference), let fileReference = buildFile.fileRef else { return nil }
+        return fileName(fileReference: fileReference)
     }
-    
-    /// Returns the file name from the file reference.
+
+    /// Returns the file name from a file reference.
     ///
     /// - Parameter fileReference: file reference.
     /// - Returns: file name.
     func fileName(fileReference: String) -> String? {
-        if let fileReference: PBXFileReference = getCachedReference(fileReference) {
-            return fileReference.path.map { Path($0) }?.lastComponent ?? fileReference.name
+        if let variantGroup: PBXVariantGroup = getCachedReference(fileReference) {
+            return variantGroup.name
+        } else if let fileReference: PBXFileReference = getCachedReference(fileReference) {
+            return fileReference.name ?? fileReference.path
+        } else {
+            return nil
         }
-        return nil
+    }
+
+    /// Returns the configNamefile reference.
+    ///
+    /// - Parameter configReference: reference of the XCBuildConfiguration.
+    /// - Returns: config name.
+    func configName(configReference: String) -> String? {
+        return (getCachedReference(configReference) as? XCBuildConfiguration)?.name
     }
     
     /// Returns the build phase a file is in.

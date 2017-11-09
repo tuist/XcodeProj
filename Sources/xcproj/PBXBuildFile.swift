@@ -73,7 +73,7 @@ extension PBXBuildFile: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         var fileName: String?
         if let fileRef = fileRef {
-            fileName = name(fileRef: fileRef, proj: proj)
+            fileName = proj.fileName(fileReference: fileRef)
             dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
         }
         if let settings = settings {
@@ -85,15 +85,6 @@ extension PBXBuildFile: PlistSerializable {
         })
         return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
-    }
-
-    private func name(fileRef: String, proj: PBXProj) -> String? {
-        if let fileReference: PBXFileReference = proj.getCachedReference(fileRef) {
-            return fileReference.name ?? fileReference.path
-        } else if let variantGroup: PBXVariantGroup = proj.getCachedReference(fileRef) {
-            return variantGroup.name
-        }
-        return nil
     }
 
 }

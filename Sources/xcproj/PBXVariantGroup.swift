@@ -74,7 +74,7 @@ extension PBXVariantGroup: PlistSerializable {
             dictionary["sourceTree"] = sourceTree.plist()
         }
         dictionary["children"] = .array(children
-            .map({PlistValue.string(CommentedString($0, comment: proj.fileName(from: $0)))}))
+            .map({PlistValue.string(CommentedString($0, comment: proj.fileName(fileReference: $0)))}))
         return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
