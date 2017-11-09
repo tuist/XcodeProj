@@ -90,7 +90,26 @@ extension PBXProj {
         }
         return nil
     }
-    
+
+    /// Returns the build phase name a file is in (mostly used for comments).
+    ///
+    /// - Parameter reference: reference of the file whose type name will be returned.
+    /// - Returns: the build phase name.
+    func buildPhaseName(buildFileReference: String) -> String? {
+        if sourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+            return BuildPhase.sources.rawValue
+        } else if frameworksBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+            return BuildPhase.frameworks.rawValue
+        } else if resourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+            return BuildPhase.resources.rawValue
+        } else if let copyFilesBuildPhase = copyFilesBuildPhases.filter({$0.files.contains(buildFileReference)}).first {
+            return  copyFilesBuildPhase.name ?? BuildPhase.copyFiles.rawValue
+        } else if headersBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+            return BuildPhase.headers.rawValue
+        }
+        return nil
+    }
+
 }
 
 // MARK: - PBXProj extension (Writable)

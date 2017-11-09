@@ -66,11 +66,13 @@ extension PBXBuildFile: PlistSerializable {
             fileName = name(fileRef: fileRef, proj: proj)
             dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
         }
-        let fileType = proj.buildPhaseType(buildFileReference: reference)?.rawValue
         if let settings = settings {
             dictionary["settings"] = settings.plist()
         }
-        let comment = fileName.flatMap({ fileName -> String? in return fileType.flatMap({"\(fileName) in \($0)"})})
+        let buildPhaseName = proj.buildPhaseName(buildFileReference: reference)
+        let comment = fileName.flatMap({ fileName -> String? in
+            buildPhaseName.flatMap({"\(fileName) in \($0)"})
+        })
         return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
     }

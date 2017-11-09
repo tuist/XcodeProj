@@ -58,7 +58,7 @@ public class PBXBuildPhase: PBXObject {
         }
         dictionary["files"] = .array(files.map { fileReference in
             let name = proj.fileName(buildFileReference: fileReference)
-            let type = proj.buildPhaseType(buildFileReference: fileReference)?.rawValue
+            let type = proj.buildPhaseName(buildFileReference: fileReference)
             let comment = name
                 .flatMap({ fileName -> String? in
                     if let type = type {
