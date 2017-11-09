@@ -35,15 +35,15 @@ extension PBXProj {
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
     func buildPhaseType(buildFileReference: String) -> BuildPhase? {
-        if sourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+        if sourcesBuildPhases.contains(where: {$0.files.contains(buildFileReference)}) {
             return .sources
-        } else if frameworksBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+        } else if frameworksBuildPhases.contains(where: {$0.files.contains(buildFileReference)}) {
             return .frameworks
-        } else if resourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+        } else if resourcesBuildPhases.contains(where: {$0.files.contains(buildFileReference)}) {
             return .resources
-        } else if copyFilesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+        } else if copyFilesBuildPhases.contains(where: {$0.files.contains(buildFileReference)}) {
             return .copyFiles
-        } else if headersBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
+        } else if headersBuildPhases.contains(where: {$0.files.contains(buildFileReference)}) {
             return .headers
         }
         return nil
@@ -81,9 +81,9 @@ extension PBXProj {
             return "Frameworks"
         } else if resourcesBuildPhases.contains(reference: buildPhaseReference) {
             return "Resources"
-        } else if let copyFilesBuildPhase = copyFilesBuildPhases.filter({$0.reference == buildPhaseReference}).first {
+        } else if let copyFilesBuildPhase = copyFilesBuildPhases.first(where: {$0.reference == buildPhaseReference}) {
             return  copyFilesBuildPhase.name ?? "CopyFiles"
-        } else if let shellScriptBuildPhase = shellScriptBuildPhases.filter({$0.reference == buildPhaseReference}).first {
+        } else if let shellScriptBuildPhase = shellScriptBuildPhases.first(where: {$0.reference == buildPhaseReference}) {
             return shellScriptBuildPhase.name ?? "ShellScript"
         } else if headersBuildPhases.contains(reference: buildPhaseReference) {
             return "Headers"
@@ -96,18 +96,13 @@ extension PBXProj {
     /// - Parameter reference: reference of the file whose type name will be returned.
     /// - Returns: the build phase name.
     func buildPhaseName(buildFileReference: String) -> String? {
-        if sourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
-            return BuildPhase.sources.rawValue
-        } else if frameworksBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
-            return BuildPhase.frameworks.rawValue
-        } else if resourcesBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
-            return BuildPhase.resources.rawValue
-        } else if let copyFilesBuildPhase = copyFilesBuildPhases.filter({$0.files.contains(buildFileReference)}).first {
-            return  copyFilesBuildPhase.name ?? BuildPhase.copyFiles.rawValue
-        } else if headersBuildPhases.filter({$0.files.contains(buildFileReference)}).count != 0 {
-            return BuildPhase.headers.rawValue
+        let type = buildPhaseType(buildFileReference: buildFileReference)
+        switch type {
+        case .copyFiles?:
+            return copyFilesBuildPhases.first(where: {$0.files.contains(buildFileReference)})?.name ?? type?.rawValue
+        default:
+            return type?.rawValue
         }
-        return nil
     }
 
 }
