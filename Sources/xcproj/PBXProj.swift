@@ -18,6 +18,8 @@ public class PBXProj: Decodable {
     /// Project root object.
     public var rootObject: String
 
+    var referenceCache: [String: PBXObject] = [:]
+
     public var buildFiles: [PBXBuildFile] = []
     public var aggregateTargets: [PBXAggregateTarget] = []
     public var containerItemProxies: [PBXContainerItemProxy] = []
@@ -168,12 +170,16 @@ public class PBXProj: Decodable {
     }
 
     func fileName(from reference: String) -> String? {
-        let fileReference = fileReferences.getReference(reference)
+        let fileReference: PBXFileReference? = getCachedReference(reference)
         return fileReference?.name ?? fileReference?.path
     }
 
     func configName(from reference: String) -> String? {
-        return self.buildConfigurations.getReference(reference)?.name
+        return (getCachedReference(reference) as? XCBuildConfiguration)?.name
+    }
+
+    func getCachedReference<T: PBXObject>(_ reference: String) -> T? {
+        return referenceCache[reference] as? T
     }
 
 }

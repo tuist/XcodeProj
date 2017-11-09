@@ -88,11 +88,9 @@ extension PBXBuildFile: PlistSerializable {
     }
 
     private func name(fileRef: String, proj: PBXProj) -> String? {
-        let fileReference = proj.fileReferences.getReference(fileRef)
-        let variantGroup = proj.variantGroups.getReference(fileRef)
-        if let fileReference = fileReference {
+        if let fileReference: PBXFileReference = proj.getCachedReference(fileRef) {
             return fileReference.name ?? fileReference.path
-        } else if let variantGroup = variantGroup {
+        } else if let variantGroup: PBXVariantGroup = proj.getCachedReference(fileRef) {
             return variantGroup.name
         }
         return nil
