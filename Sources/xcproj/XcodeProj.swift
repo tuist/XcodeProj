@@ -26,6 +26,7 @@ public class XcodeProj {
         let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
         let plistDecoder = PropertyListDecoder()
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
+        pbxproj.updateProjectName(path: pbxprojPaths.first!)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.count == 0 {
             workspace = XCWorkspace()

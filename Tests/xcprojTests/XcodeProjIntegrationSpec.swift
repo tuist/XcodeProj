@@ -28,6 +28,13 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertNotNil(got)
     }
 
+    func test_init_setsCorrectProjectName() {
+        let proj = projectiOS()!.pbxproj
+        let rootObject = proj.rootObject
+        let rootProject = proj.projects.first(where: { $0.reference == rootObject })
+        XCTAssertEqual(rootProject?.name, "Project")
+    }
+
     // MARK: - Private
 
     private func fixtureWithoutWorkspaceProjectPath() -> Path {
