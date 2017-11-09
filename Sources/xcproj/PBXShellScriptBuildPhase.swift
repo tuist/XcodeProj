@@ -23,6 +23,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: UInt?
 
+    public override var buildPhase: BuildPhase {
+        return .runScript
+    }
+
     // MARK: - Init
 
     /// Initializes the shell script build phase with its attributes.

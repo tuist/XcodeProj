@@ -28,6 +28,10 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     /// Copy files build phase name
     public var name: String?
 
+    public override var buildPhase: BuildPhase {
+        return .copyFiles
+    }
+
     // MARK: - Init
 
     /// Initializes the copy files build phase with its attributes.

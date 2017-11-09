@@ -2,7 +2,11 @@ import Foundation
 
 /// This is the element for the sources compilation build phase.
 public class PBXSourcesBuildPhase: PBXBuildPhase, Hashable {
-    
+
+    public override var buildPhase: BuildPhase {
+        return .sources
+    }
+
     // MARK: - Hashable
     
     public static func == (lhs: PBXSourcesBuildPhase,

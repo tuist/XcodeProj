@@ -18,6 +18,11 @@ public class PBXBuildPhase: PBXObject {
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: UInt
 
+    /// The build phase type of the build phase
+    public var buildPhase: BuildPhase {
+        fatalError("This property must be override")
+    }
+
     public init(reference: String,
                 files: [String] = [],
                 buildActionMask: UInt = defaultBuildActionMask,

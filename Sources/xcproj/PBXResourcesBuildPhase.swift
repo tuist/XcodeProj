@@ -2,6 +2,10 @@ import Foundation
 
 /// This is the element for the resources copy build phase.
 public class PBXResourcesBuildPhase: PBXBuildPhase, Hashable {
+
+    public override var buildPhase: BuildPhase {
+        return .resources
+    }
     
     public static func == (lhs: PBXResourcesBuildPhase,
                            rhs: PBXResourcesBuildPhase) -> Bool {
