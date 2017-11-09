@@ -108,7 +108,7 @@ public class PBXTarget: PBXObject, Hashable {
             dictionary["productType"] = .string(CommentedString("\"\(productType.rawValue)\""))
         }
         if let productReference = productReference {
-            let productReferenceComment = proj.fileName(buildFileReference: productReference)
+            let productReferenceComment = proj.fileName(fileReference: productReference)
             dictionary["productReference"] = .string(CommentedString(productReference, comment: productReferenceComment))
         }
         return (key: CommentedString(self.reference, comment: name),
