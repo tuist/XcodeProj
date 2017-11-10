@@ -18,6 +18,10 @@ class PBXProjEncoder {
     var multiline: Bool = true
     
     func encode(proj: PBXProj) -> String {
+        // populate reference cache
+        proj.referenceCache.removeAll()
+        proj.objects.forEach { proj.referenceCache[$0.reference] = $0 }
+
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
@@ -58,6 +62,9 @@ class PBXProjEncoder {
                                                        comment: "Project object")))
         writeDictionaryEnd()
         writeNewLine()
+
+        // clear reference cache
+        proj.referenceCache.removeAll()
         return output
     }
     
