@@ -23,6 +23,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: UInt?
 
+    public override var buildPhase: BuildPhase {
+        return .runScript
+    }
+
     // MARK: - Init
 
     /// Initializes the shell script build phase with its attributes.
@@ -36,12 +40,12 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
     public init(reference: String,
-                files: [String],
+                files: [String] = [],
                 name: String? = nil,
-                inputPaths: [String],
-                outputPaths: [String],
+                inputPaths: [String] = [],
+                outputPaths: [String] = [],
                 shellPath: String = "/bin/sh",
-                shellScript: String?,
+                shellScript: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: UInt = 0,
                 showEnvVarsInLog: UInt? = nil) {

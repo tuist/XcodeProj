@@ -3,7 +3,11 @@ import PathKit
 
 /// This is the element for the framework headers build phase.
 public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
-    
+
+    public override var buildPhase: BuildPhase {
+        return .headers
+    }
+
     public static func == (lhs: PBXHeadersBuildPhase,
                            rhs: PBXHeadersBuildPhase) -> Bool {
         return lhs.reference == rhs.reference &&

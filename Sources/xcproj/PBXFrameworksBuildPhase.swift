@@ -2,6 +2,10 @@ import Foundation
 
 /// This is the element for the framework link build phase.
 public class PBXFrameworksBuildPhase: PBXBuildPhase, Hashable {
+
+    public override var buildPhase: BuildPhase {
+        return .frameworks
+    }
     
     public static func == (lhs: PBXFrameworksBuildPhase,
                            rhs: PBXFrameworksBuildPhase) -> Bool {
