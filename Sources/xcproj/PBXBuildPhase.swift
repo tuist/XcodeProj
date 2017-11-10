@@ -21,7 +21,7 @@ public class PBXBuildPhase: PBXObject {
     public init(reference: String,
                 files: [String] = [],
                 buildActionMask: UInt = defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: UInt = defaultRunOnlyForDeploymentPostprocessing) {
+                runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.files = files
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
@@ -43,7 +43,7 @@ public class PBXBuildPhase: PBXObject {
         self.buildActionMask = buildActionMaskString.flatMap(UInt.init) ?? PBXBuildPhase.defaultBuildActionMask
         self.files = try container.decodeIfPresent(.files) ?? []
         let runOnlyForDeploymentPostprocessingString: String? = try container.decodeIfPresent(.runOnlyForDeploymentPostprocessing)
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessingString.flatMap(UInt.init) ?? PBXBuildPhase.defaultRunOnlyForDeploymentPostprocessing
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessingString.flatMap(UInt.init) ?? 0
         try super.init(from: decoder)
     }
 

@@ -45,7 +45,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 files: [String] = [],
-                runOnlyForDeploymentPostprocessing: UInt = defaultRunOnlyForDeploymentPostprocessing) {
+                runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
