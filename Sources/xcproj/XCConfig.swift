@@ -55,7 +55,7 @@ final class XCConfigParser {
             return includeRegex.matches(in: line,
                                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                  range: NSRange(location: 0,
-                                                                length: line.characters.count))
+                                                                length: line.count))
                 .flatMap { (match) -> String? in
                     if match.numberOfRanges == 2 {
                         return NSString(string: line).substring(with: match.range(at: 1))
@@ -80,7 +80,7 @@ final class XCConfigParser {
         return settingRegex.matches(in: line,
                                              options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                              range: NSRange(location: 0,
-                                                            length: line.characters.count))
+                                                            length: line.count))
             .flatMap { (match) -> (key: String, value: String)?  in
                 if match.numberOfRanges == 3 {
                     let key: String = NSString(string: line).substring(with: match.range(at: 1))

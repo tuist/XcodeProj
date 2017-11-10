@@ -91,7 +91,7 @@ extension PlistValue: Equatable {
 fileprivate func plistKey(_ string: String) -> String {
     // swiftlint:disable next force_try legacy_constructor
     let regex = try! NSRegularExpression(pattern: "\\[.+\\]", options: [])
-    if regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) != nil {
+    if regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) != nil {
         return string.quoted
     } else {
         return string

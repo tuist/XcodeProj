@@ -36,7 +36,7 @@ struct CommentedString {
 
         // escape quotes
         var range: Range<String.Index>?
-        if escaped.isQuoted && escaped.characters.count > 1 {
+        if escaped.isQuoted && escaped.count > 1 {
             range = escaped.index(after: escaped.startIndex)..<escaped.index(before: escaped.endIndex)
         }
         escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"", range: range).replacingOccurrences(of: "\\\\\"", with: "\\\"")
