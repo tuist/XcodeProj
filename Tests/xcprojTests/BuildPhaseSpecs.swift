@@ -28,4 +28,28 @@ class BuildPhaseSpecs: XCTestCase {
         XCTAssertEqual(BuildPhase.headers.rawValue, "Headers")
     }
 
+    func test_sources_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.sources, PBXSourcesBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_frameworks_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.frameworks, PBXFrameworksBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_resources_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.resources, PBXResourcesBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_copyFiles_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.copyFiles, PBXCopyFilesBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_runStript_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.runScript, PBXShellScriptBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_headers_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.headers, PBXHeadersBuildPhase(reference: "").buildPhase)
+    }
+
 }
