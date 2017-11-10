@@ -9,7 +9,7 @@ public class XCConfigurationList: PBXObject, Hashable {
     public var buildConfigurations: [String]
     
     /// Element default configuration is visible.
-    public var defaultConfigurationIsVisible: UInt?
+    public var defaultConfigurationIsVisible: UInt
     
     /// Element default configuration name
     public var defaultConfigurationName: String?
@@ -26,7 +26,7 @@ public class XCConfigurationList: PBXObject, Hashable {
     public init(reference: String,
                 buildConfigurations: [String],
                 defaultConfigurationName: String? = nil,
-                defaultConfigurationIsVisible: UInt? = nil) {
+                defaultConfigurationIsVisible: UInt = 0) {
         self.buildConfigurations = buildConfigurations
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
@@ -52,7 +52,7 @@ public class XCConfigurationList: PBXObject, Hashable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.buildConfigurations = try container.decode(.buildConfigurations)
         let defaultConfigurationIsVisibleString: String? = try container.decodeIfPresent(.defaultConfigurationIsVisible)
-        self.defaultConfigurationIsVisible = defaultConfigurationIsVisibleString.flatMap(UInt.init)
+        self.defaultConfigurationIsVisible = defaultConfigurationIsVisibleString.flatMap(UInt.init) ?? 0
         self.defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)
     }
@@ -69,9 +69,7 @@ extension XCConfigurationList: PlistSerializable {
         dictionary["buildConfigurations"] = .array(buildConfigurations
             .map { .string(CommentedString($0, comment: proj.configName(configReference: $0)))
         })
-        if let defaultConfigurationIsVisible = defaultConfigurationIsVisible {
-            dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
-        }
+        dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
         if let defaultConfigurationName = defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }

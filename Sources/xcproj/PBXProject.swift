@@ -17,7 +17,7 @@ public class PBXProject: PBXObject, Hashable {
     public var developmentRegion: String?
     
     /// Whether file encodings have been scanned.
-    public var hasScannedForEncodings: Int?
+    public var hasScannedForEncodings: Int
     
     /// The known regions for localized files.
     public var knownRegions: [String]
@@ -29,13 +29,13 @@ public class PBXProject: PBXObject, Hashable {
     public var productRefGroup: String?
     
     /// The relative path of the project.
-    public var projectDirPath: String?
+    public var projectDirPath: String
     
     /// Project references.
     public var projectReferences: [[String:String]]
     
     /// The relative root path of the project.
-    public var projectRoot: String?
+    public var projectRoot: String
     
     /// The objects are a reference to a PBXTarget element.
     public var targets: [String]
@@ -68,12 +68,12 @@ public class PBXProject: PBXObject, Hashable {
                 compatibilityVersion: String,
                 mainGroup: String,
                 developmentRegion: String? = nil,
-                hasScannedForEncodings: Int? = nil,
+                hasScannedForEncodings: Int = 0,
                 knownRegions: [String] = [],
                 productRefGroup: String? = nil,
-                projectDirPath: String? = nil,
+                projectDirPath: String = "",
                 projectReferences: [[String : String]] = [],
-                projectRoot: String? = nil,
+                projectRoot: String = "",
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
         self.name = name
@@ -117,13 +117,13 @@ public class PBXProject: PBXObject, Hashable {
         self.compatibilityVersion = try container.decode(.compatibilityVersion)
         self.developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
-        self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)})
+        self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)}) ?? 0
         self.knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
         self.mainGroup = try container.decode(.mainGroup)
         self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
-        self.projectDirPath = try container.decodeIfPresent(.projectDirPath)
+        self.projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
         self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
-        self.projectRoot = try container.decodeIfPresent(.projectRoot)
+        self.projectRoot = try container.decodeIfPresent(.projectRoot) ?? ""
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
@@ -171,9 +171,7 @@ extension PBXProject: PlistSerializable {
         if let developmentRegion = developmentRegion {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
-        if let hasScannedForEncodings = hasScannedForEncodings {
-            dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-        }
+        dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
         dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
         
@@ -182,12 +180,8 @@ extension PBXProject: PlistSerializable {
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
                                                                     comment: "Products"))
         }
-        if let projectDirPath = projectDirPath {
-            dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
-        }
-        if let projectRoot = projectRoot {
-            dictionary["projectRoot"] = .string(CommentedString(projectRoot))
-        }
+        dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
+        dictionary["projectRoot"] = .string(CommentedString(projectRoot))
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
                 let targetName = (proj.getCachedReference(target) as? PBXTarget)?.name

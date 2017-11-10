@@ -7,7 +7,7 @@ public class PBXProj: Decodable {
     // MARK: - Properties
 
     /// Project archive version.
-    public var archiveVersion: Int?
+    public var archiveVersion: Int
 
     /// Project object version.
     public var objectVersion: Int
@@ -61,7 +61,7 @@ public class PBXProj: Decodable {
     ///   - objects: project objects
     public init(objectVersion: Int,
                 rootObject: String,
-                archiveVersion: Int? = nil,
+                archiveVersion: Int = 1,
                 classes: [String: Any] = [:],
                 objects: [PBXObject] = []) {
         self.archiveVersion = archiveVersion
@@ -159,7 +159,7 @@ public class PBXProj: Decodable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let archiveVersionString: String? = try container.decodeIfPresent(.archiveVersion)
-        self.archiveVersion = archiveVersionString.flatMap(Int.init)
+        self.archiveVersion = archiveVersionString.flatMap(Int.init) ?? 1
         let objectVersionString: String = try container.decode(.objectVersion)
         self.objectVersion = Int(objectVersionString) ?? 0
         self.rootObject = try container.decode(.rootObject)
