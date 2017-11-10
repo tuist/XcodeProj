@@ -42,8 +42,8 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
                 outputPaths: [String],
                 shellPath: String = "/bin/sh",
                 shellScript: String?,
-                buildActionMask: UInt = 2147483647,
-                runOnlyForDeploymentPostprocessing: UInt = 0,
+                buildActionMask: UInt = defaultBuildActionMask,
+                runOnlyForDeploymentPostprocessing: UInt = defaultRunOnlyForDeploymentPostprocessing,
                 showEnvVarsInLog: UInt? = nil) {
         self.name = name
         self.inputPaths = inputPaths

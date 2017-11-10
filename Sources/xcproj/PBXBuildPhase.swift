@@ -6,19 +6,22 @@ public class PBXBuildPhase: PBXObject {
     /// Default build action mask.
     public static let defaultBuildActionMask: UInt = 2147483647
 
+    /// Default runOnlyForDeploymentPostprocessing value.
+    public static let defaultRunOnlyForDeploymentPostprocessing: UInt = 0
+
     /// Element build action mask.
-    public var buildActionMask: UInt?
+    public var buildActionMask: UInt
 
     /// Element files.
     public var files: [String]
 
     /// Element run only for deployment post processing value.
-    public var runOnlyForDeploymentPostprocessing: UInt?
+    public var runOnlyForDeploymentPostprocessing: UInt
 
     public init(reference: String,
                 files: [String] = [],
-                buildActionMask: UInt? = defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: UInt? = nil) {
+                buildActionMask: UInt = defaultBuildActionMask,
+                runOnlyForDeploymentPostprocessing: UInt = defaultRunOnlyForDeploymentPostprocessing) {
         self.files = files
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
@@ -40,7 +43,7 @@ public class PBXBuildPhase: PBXObject {
         self.buildActionMask = buildActionMaskString.flatMap(UInt.init) ?? PBXBuildPhase.defaultBuildActionMask
         self.files = try container.decodeIfPresent(.files) ?? []
         let runOnlyForDeploymentPostprocessingString: String? = try container.decodeIfPresent(.runOnlyForDeploymentPostprocessing)
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessingString.flatMap(UInt.init)
+        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessingString.flatMap(UInt.init) ?? PBXBuildPhase.defaultRunOnlyForDeploymentPostprocessing
         try super.init(from: decoder)
     }
 
@@ -53,9 +56,7 @@ public class PBXBuildPhase: PBXObject {
 
     func plistValues(proj: PBXProj) -> [CommentedString: PlistValue] {
         var dictionary: [CommentedString: PlistValue] = [:]
-        if let buildActionMask = buildActionMask  {
-            dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        }
+        dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { fileReference in
             let name = proj.fileName(buildFileReference: fileReference)
             let type = proj.buildPhaseName(buildFileReference: fileReference)
@@ -69,9 +70,7 @@ public class PBXBuildPhase: PBXObject {
                 })
             return .string(CommentedString(fileReference, comment: comment))
         })
-        if let runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing {
-            dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
-        }
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
         return dictionary
     }
 }
