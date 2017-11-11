@@ -62,6 +62,8 @@ GEM
       kramdown (~> 1.5)
       octokit (~> 4.7)
       terminal-table (~> 1)
+    danger-prose (2.0.5)
+      danger
     escape (0.0.4)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -133,6 +135,7 @@ DEPENDENCIES
   cocoapods
   colorize
   danger
+  danger-prose
   jazzy
   rake
   semantic
