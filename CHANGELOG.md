@@ -1,5 +1,7 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.4.0 - (next version)
+
 ## 1.3.0 - Esbarzers
 
 ### Added
