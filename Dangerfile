@@ -1,4 +1,3 @@
-require "danger-prose"
 
 # Add a CHANGELOG entry for app changes
 if !git.modified_files.include?("CHANGELOG.md") && has_app_changes
