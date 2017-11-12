@@ -5,6 +5,7 @@ osx_image: xcode9.1
 install:
 - bundle install
 before_script:
+- bundle exec danger
 - carthage update --platform iOS,macOS
 script:
 - bundle exec rake ci
