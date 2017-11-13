@@ -88,16 +88,6 @@ extension PlistValue: Equatable {
     
 }
 
-fileprivate func plistKey(_ string: String) -> String {
-    // swiftlint:disable next force_try legacy_constructor
-    let regex = try! NSRegularExpression(pattern: "\\[.+\\]", options: [])
-    if regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) != nil {
-        return string.quoted
-    } else {
-        return string
-    }
-}
-
 // MARK: - Dictionary Extension (PlistValue)
 
 extension Dictionary where Key == String {
@@ -106,11 +96,11 @@ extension Dictionary where Key == String {
         var dictionary: [CommentedString: PlistValue] = [:]
         self.forEach { (key, value) in
             if let array = value as? [Any] {
-                dictionary[CommentedString(plistKey(key))] = array.plist()
+                dictionary[CommentedString(key)] = array.plist()
             } else if let subDictionary = value as? [String: Any] {
-                dictionary[CommentedString(plistKey(key))] = subDictionary.plist()
+                dictionary[CommentedString(key)] = subDictionary.plist()
             } else if let string = value as? CustomStringConvertible {
-                dictionary[CommentedString(plistKey(key))] = .string(CommentedString(string.description))
+                dictionary[CommentedString(key)] = .string(CommentedString(string.description))
             }
         }
         return .dictionary(dictionary)
