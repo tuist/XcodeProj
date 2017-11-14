@@ -5,5 +5,4 @@ gem "jazzy"
 gem "semantic"
 gem "colorize"
 gem "cocoapods"
-gem "danger"
-gem "danger-prose"
+gem 'danger-xcodeswift', :git => "https://github.com/xcodeswift/danger", require: false
