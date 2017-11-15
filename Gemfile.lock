@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/xcodeswift/danger
-  revision: d11bcf2727c180b801488ba939a72ae77b947428
+  revision: ded3875f29a42722c72ba246238122eb9cf565ad
   specs:
     danger-xcodeswift (0.1.0)
       danger (~> 5.5.5)
