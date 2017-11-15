@@ -2,6 +2,9 @@
 
 ## 1.4.0 - (next version)
 
+### Added
+- Danger checks https://github.com/xcodeswift/xcproj/pull/160 by @pepibumur
+
 ## 1.3.0 - Esbarzers
 
 ### Added

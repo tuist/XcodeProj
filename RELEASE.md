@@ -5,7 +5,7 @@ In this documents you'll find all the necessary steps to release a new version o
 > Although some of the steps have been automated, there are some of them that need to be executed manually.
 
 1. First of all, create a new release branch with the following name `release/x.x.x` where `x.x.x` is the new version that is going to be released.
-2. Update the `CHANGELOG.md` adding a new entry at the top with the new version. The new entry should include all the changes in the new version, mentioning the people involved in these changes, and the issues that were closed with those changes. Commit the changes in `CHANGELOG.md`.
+2. Update the `CHANGELOG.md` adding a new entry at the top with the next version. Make sure that all the changes in the version that is about to be released are properly formatted. Commit the changes in `CHANGELOG.md`.
 3. Validate the state of the project by executing `bundle exec rake ci`
 4. Generate the release with `bundle exec rake release`.
 5. Create a new release on [GitHub](https://github.com/xcodeswift/xcproj) including the information from the last entry in the `CHANGELOG.md`.
