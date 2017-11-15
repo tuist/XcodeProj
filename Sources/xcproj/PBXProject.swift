@@ -184,7 +184,7 @@ extension PBXProject: PlistSerializable {
         dictionary["projectRoot"] = .string(CommentedString(projectRoot))
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
-                let targetName = (proj.getCachedReference(target) as? PBXTarget)?.name
+                let targetName = (proj.objects.getReference(target) as? PBXTarget)?.name
                 return .string(CommentedString(target, comment: targetName))
         })
         dictionary["attributes"] = attributes.plist()

@@ -60,7 +60,7 @@ extension PBXTargetDependency: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         if let target = target {
-            let targetName = (proj.getCachedReference(target) as? PBXTarget)?.name
+            let targetName = (proj.objects.getReference(target) as? PBXTarget)?.name
             dictionary["target"] = .string(CommentedString(target, comment: targetName))
 
         }

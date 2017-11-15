@@ -97,22 +97,3 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         }
     }
 }
-
-extension Array where Element: Referenceable {
-
-    public var references: [String] {
-        return map { $0.reference }
-    }
-
-    public func contains(reference: String) -> Bool {
-        return contains { $0.reference == reference }
-    }
-
-    public func getReference(_ reference: String) -> Element? {
-        return first { $0.reference == reference }
-    }
-}
-
-public protocol Referenceable {
-    var reference: String { get }
-}

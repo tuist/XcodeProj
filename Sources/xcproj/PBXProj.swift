@@ -3,8 +3,135 @@ import PathKit
 
 /// Represents a .pbxproj file
 public class PBXProj: Decodable {
+    public class Objects: Equatable {
+        // MARK: - Properties
+        public var buildFiles: ReferenceableCollection<PBXBuildFile> = ReferenceableCollection<PBXBuildFile>()
+        public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = ReferenceableCollection<PBXAggregateTarget>()
+        public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = ReferenceableCollection<PBXContainerItemProxy>()
+        public var groups: ReferenceableCollection<PBXGroup> = ReferenceableCollection<PBXGroup>()
+        public var fileElements: ReferenceableCollection<PBXFileElement> = ReferenceableCollection<PBXFileElement>()
+        public var configurationLists: ReferenceableCollection<XCConfigurationList> = ReferenceableCollection<XCConfigurationList>()
+        public var versionGroups: ReferenceableCollection<XCVersionGroup> = ReferenceableCollection<XCVersionGroup>()
+        public var buildConfigurations: ReferenceableCollection<XCBuildConfiguration> = ReferenceableCollection<XCBuildConfiguration>()
+        public var variantGroups: ReferenceableCollection<PBXVariantGroup> = ReferenceableCollection<PBXVariantGroup>()
+        public var targetDependencies: ReferenceableCollection<PBXTargetDependency> = ReferenceableCollection<PBXTargetDependency>()
+
+        public var nativeTargets: ReferenceableCollection<PBXNativeTarget> = ReferenceableCollection<PBXNativeTarget>()
+        public var fileReferences: ReferenceableCollection<PBXFileReference> = ReferenceableCollection<PBXFileReference>()
+        public var projects: ReferenceableCollection<PBXProject> = ReferenceableCollection<PBXProject>()
+        public var referenceProxies: ReferenceableCollection<PBXReferenceProxy> = ReferenceableCollection<PBXReferenceProxy>()
+
+
+        // Ordering matters with build phases so leave these as arrays
+        public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] = []
+        public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] = []
+        public var resourcesBuildPhases: [PBXResourcesBuildPhase] = []
+        public var frameworksBuildPhases: [PBXFrameworksBuildPhase] = []
+        public var headersBuildPhases: [PBXHeadersBuildPhase] = []
+        public var sourcesBuildPhases: [PBXSourcesBuildPhase] = []
+
+        // Open Questions about buildPhases
+        // - Unsure if there is value in making this a dictionary
+        // - Will the ordering of the phases be unstable given we are retrieving values from a dictionary
+        // and this might require a sort of some kind (compare references strings?)
+        // - Should we convert the build phases objects back to arrays
+        public var buildPhases: [PBXBuildPhase] {
+            var phases: [PBXBuildPhase] = []
+            phases += self.copyFilesBuildPhases as [PBXBuildPhase]
+            phases += self.sourcesBuildPhases as [PBXBuildPhase]
+            phases += self.shellScriptBuildPhases as [PBXBuildPhase]
+            phases += self.resourcesBuildPhases as [PBXBuildPhase]
+            phases += self.frameworksBuildPhases as [PBXBuildPhase]
+            phases += self.headersBuildPhases as [PBXBuildPhase]
+            return phases
+        }
+
+        /// Initializes the project objects container
+        ///
+        /// - Parameters:
+        ///   - objects: project objects
+        public init(objects: [PBXObject]) {
+            objects.forEach(addObject)
+        }
+        // MARK: - Equatable
+        public static func == (lhs: Objects, rhs: Objects) -> Bool {
+            return lhs.buildFiles == rhs.buildFiles &&
+                lhs.aggregateTargets == rhs.aggregateTargets &&
+                lhs.containerItemProxies == rhs.containerItemProxies &&
+                lhs.copyFilesBuildPhases == rhs.copyFilesBuildPhases &&
+                lhs.groups == rhs.groups &&
+                lhs.fileElements == rhs.fileElements &&
+                lhs.configurationLists == rhs.configurationLists &&
+                lhs.buildConfigurations == rhs.buildConfigurations &&
+                lhs.variantGroups == rhs.variantGroups &&
+                lhs.targetDependencies == rhs.targetDependencies &&
+                lhs.sourcesBuildPhases == rhs.sourcesBuildPhases &&
+                lhs.shellScriptBuildPhases == rhs.shellScriptBuildPhases &&
+                lhs.resourcesBuildPhases == rhs.resourcesBuildPhases &&
+                lhs.frameworksBuildPhases == rhs.frameworksBuildPhases &&
+                lhs.headersBuildPhases == rhs.headersBuildPhases &&
+                lhs.nativeTargets == rhs.nativeTargets &&
+                lhs.fileReferences == rhs.fileReferences &&
+                lhs.projects == rhs.projects &&
+                lhs.versionGroups == rhs.versionGroups &&
+                lhs.referenceProxies == rhs.referenceProxies
+        }
+
+        // MARK: - Public Methods
+
+        public func addObject(_ object: PBXObject) {
+            switch object {
+            case let object as PBXBuildFile: buildFiles.append(object)
+            case let object as PBXAggregateTarget: aggregateTargets.append(object)
+            case let object as PBXContainerItemProxy: containerItemProxies.append(object)
+            case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
+            case let object as PBXGroup: groups.append(object)
+            case let object as PBXFileElement: fileElements.append(object)
+            case let object as XCConfigurationList: configurationLists.append(object)
+            case let object as XCBuildConfiguration: buildConfigurations.append(object)
+            case let object as PBXVariantGroup: variantGroups.append(object)
+            case let object as PBXTargetDependency: targetDependencies.append(object)
+            case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object)
+            case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object)
+            case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object)
+            case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object)
+            case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object)
+            case let object as PBXNativeTarget: nativeTargets.append(object)
+            case let object as PBXFileReference: fileReferences.append(object)
+            case let object as PBXProject: projects.append(object)
+            case let object as XCVersionGroup: versionGroups.append(object)
+            case let object as PBXReferenceProxy: referenceProxies.append(object)
+            default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
+            }
+        }
+
+        public func getReference<T: PBXObject>(_ reference: String) -> T? {
+            let caches: [[String: PBXObject]] = [
+                buildFiles,
+                aggregateTargets,
+                containerItemProxies,
+                groups,
+                fileElements,
+                configurationLists,
+                buildConfigurations,
+                variantGroups,
+                targetDependencies,
+                nativeTargets,
+                fileReferences,
+                projects,
+                versionGroups,
+                referenceProxies
+            ]
+            return caches.first { cache in cache[reference] != nil }?[reference] as? T ?? self.buildPhases.first { $0.reference == reference } as? T ?? nil
+        }
+
+        public func contains(reference: String) -> Bool {
+            return getReference(reference) != nil
+        }
+    }
 
     // MARK: - Properties
+    public let objects: Objects
 
     /// Project archive version.
     public var archiveVersion: Int
@@ -18,39 +145,6 @@ public class PBXProj: Decodable {
     /// Project root object.
     public var rootObject: String
 
-    var referenceCache: [String: PBXObject] = [:]
-
-    public var buildFiles: [PBXBuildFile] = []
-    public var aggregateTargets: [PBXAggregateTarget] = []
-    public var containerItemProxies: [PBXContainerItemProxy] = []
-    public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] = []
-    public var groups: [PBXGroup] = []
-    public var fileElements: [PBXFileElement] = []
-    public var configurationLists: [XCConfigurationList] = []
-    public var versionGroups: [XCVersionGroup] = []
-    public var buildConfigurations: [XCBuildConfiguration] = []
-    public var variantGroups: [PBXVariantGroup] = []
-    public var targetDependencies: [PBXTargetDependency] = []
-    public var sourcesBuildPhases: [PBXSourcesBuildPhase] = []
-    public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] = []
-    public var resourcesBuildPhases: [PBXResourcesBuildPhase] = []
-    public var frameworksBuildPhases: [PBXFrameworksBuildPhase] = []
-    public var headersBuildPhases: [PBXHeadersBuildPhase] = []
-    public var nativeTargets: [PBXNativeTarget] = []
-    public var fileReferences: [PBXFileReference] = []
-    public var projects: [PBXProject] = []
-    public var referenceProxies: [PBXReferenceProxy] = []
-    public var buildPhases: [PBXBuildPhase] {
-        var phases: [PBXBuildPhase] = []
-        phases.append(contentsOf: self.copyFilesBuildPhases as [PBXBuildPhase])
-        phases.append(contentsOf: self.sourcesBuildPhases as [PBXBuildPhase])
-        phases.append(contentsOf: self.shellScriptBuildPhases as [PBXBuildPhase])
-        phases.append(contentsOf: self.resourcesBuildPhases as [PBXBuildPhase])
-        phases.append(contentsOf: self.frameworksBuildPhases as [PBXBuildPhase])
-        phases.append(contentsOf: self.headersBuildPhases as [PBXBuildPhase])
-        return phases
-    }
-    
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
@@ -68,82 +162,11 @@ public class PBXProj: Decodable {
         self.objectVersion = objectVersion
         self.classes = classes
         self.rootObject = rootObject
-        self.objects = objects
+        self.objects = Objects(objects: objects)
     }
 
-    public private(set) var objects: [PBXObject] {
-        get {
-            var array: [PBXObject] = []
-            array += buildFiles as [PBXObject]
-            array += aggregateTargets as [PBXObject]
-            array += containerItemProxies as [PBXObject]
-            array += copyFilesBuildPhases as [PBXObject]
-            array += groups as [PBXObject]
-            array += fileElements as [PBXObject]
-            array += configurationLists as [PBXObject]
-            array += buildConfigurations as [PBXObject]
-            array += variantGroups as [PBXObject]
-            array += targetDependencies as [PBXObject]
-            array += sourcesBuildPhases as [PBXObject]
-            array += shellScriptBuildPhases as [PBXObject]
-            array += resourcesBuildPhases as [PBXObject]
-            array += frameworksBuildPhases as [PBXObject]
-            array += headersBuildPhases as [PBXObject]
-            array += nativeTargets as [PBXObject]
-            array += fileReferences as [PBXObject]
-            array += projects as [PBXObject]
-            array += versionGroups as [PBXObject]
-            array += referenceProxies as [PBXObject]
-            return array
-        }
-        set {
-            buildFiles = newValue.flatMap { $0 as? PBXBuildFile }
-            aggregateTargets = newValue.flatMap { $0 as? PBXAggregateTarget }
-            containerItemProxies = newValue.flatMap { $0 as? PBXContainerItemProxy }
-            copyFilesBuildPhases = newValue.flatMap { $0 as? PBXCopyFilesBuildPhase }
-            groups = newValue.flatMap { $0 as? PBXGroup }
-            fileElements = newValue.flatMap { $0 as? PBXFileElement }
-            configurationLists = newValue.flatMap { $0 as? XCConfigurationList }
-            buildConfigurations = newValue.flatMap { $0 as? XCBuildConfiguration }
-            variantGroups = newValue.flatMap { $0 as? PBXVariantGroup }
-            targetDependencies = newValue.flatMap { $0 as? PBXTargetDependency }
-            sourcesBuildPhases = newValue.flatMap { $0 as? PBXSourcesBuildPhase }
-            shellScriptBuildPhases = newValue.flatMap { $0 as? PBXShellScriptBuildPhase }
-            resourcesBuildPhases = newValue.flatMap { $0 as? PBXResourcesBuildPhase }
-            frameworksBuildPhases = newValue.flatMap { $0 as? PBXFrameworksBuildPhase }
-            headersBuildPhases = newValue.flatMap { $0 as? PBXHeadersBuildPhase }
-            nativeTargets = newValue.flatMap { $0 as? PBXNativeTarget }
-            fileReferences = newValue.flatMap { $0 as? PBXFileReference }
-            projects = newValue.flatMap { $0 as? PBXProject }
-            versionGroups = newValue.flatMap { $0 as? XCVersionGroup }
-            referenceProxies = newValue.flatMap { $0 as? PBXReferenceProxy }
-        }
-    }
-
-    public func addObject(_ object: PBXObject) {
-        switch object {
-        case let object as PBXBuildFile: buildFiles.append(object)
-        case let object as PBXAggregateTarget: aggregateTargets.append(object)
-        case let object as PBXContainerItemProxy: containerItemProxies.append(object)
-        case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
-        case let object as PBXGroup: groups.append(object)
-        case let object as PBXFileElement: fileElements.append(object)
-        case let object as XCConfigurationList: configurationLists.append(object)
-        case let object as XCBuildConfiguration: buildConfigurations.append(object)
-        case let object as PBXVariantGroup: variantGroups.append(object)
-        case let object as PBXTargetDependency: targetDependencies.append(object)
-        case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object)
-        case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object)
-        case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object)
-        case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object)
-        case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object)
-        case let object as PBXNativeTarget: nativeTargets.append(object)
-        case let object as PBXFileReference: fileReferences.append(object)
-        case let object as PBXProject: projects.append(object)
-        case let object as XCVersionGroup: versionGroups.append(object)
-        case let object as PBXReferenceProxy: referenceProxies.append(object)
-        default: break
-        }
+    @available(*, deprecated, message: "Use objects.addObject instead") public func addObject(_ object: PBXObject) {
+        objects.addObject(object)
     }
 
     // MARK: - Decodable
@@ -166,13 +189,8 @@ public class PBXProj: Decodable {
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        self.objects = try objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) }
+        self.objects = try Objects(objects: objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) })
     }
-
-    func getCachedReference<T: PBXObject>(_ reference: String) -> T? {
-        return referenceCache[reference] as? T
-    }
-
 }
 
 // MARK: - PBXProj Extension (Equatable)
@@ -184,26 +202,6 @@ extension PBXProj: Equatable {
         return lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
             equalClasses &&
-            lhs.buildFiles == rhs.buildFiles &&
-            lhs.aggregateTargets == rhs.aggregateTargets &&
-            lhs.containerItemProxies == rhs.containerItemProxies &&
-            lhs.copyFilesBuildPhases == rhs.copyFilesBuildPhases &&
-            lhs.groups == rhs.groups &&
-            lhs.fileElements == rhs.fileElements &&
-            lhs.configurationLists == rhs.configurationLists &&
-            lhs.buildConfigurations == rhs.buildConfigurations &&
-            lhs.variantGroups == rhs.variantGroups &&
-            lhs.targetDependencies == rhs.targetDependencies &&
-            lhs.sourcesBuildPhases == rhs.sourcesBuildPhases &&
-            lhs.shellScriptBuildPhases == rhs.shellScriptBuildPhases &&
-            lhs.resourcesBuildPhases == rhs.resourcesBuildPhases &&
-            lhs.frameworksBuildPhases == rhs.frameworksBuildPhases &&
-            lhs.headersBuildPhases == rhs.headersBuildPhases &&
-            lhs.nativeTargets == rhs.nativeTargets &&
-            lhs.fileReferences == rhs.fileReferences &&
-            lhs.projects == rhs.projects &&
-            lhs.rootObject == rhs.rootObject &&
-            lhs.versionGroups == rhs.versionGroups &&
-            lhs.referenceProxies == rhs.referenceProxies
+            lhs.objects == rhs.objects
     }
 }

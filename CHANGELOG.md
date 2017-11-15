@@ -2,6 +2,8 @@
 
 ## 1.4.0 - (next version)
 
+- Improve efficiency of looking up `PBXObject`'s from `PBXProj` by @rmalik
+
 ### Added
 - Danger checks https://github.com/xcodeswift/xcproj/pull/160 by @pepibumur
 

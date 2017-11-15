@@ -18,10 +18,6 @@ class PBXProjEncoder {
     var multiline: Bool = true
     
     func encode(proj: PBXProj) -> String {
-        // populate reference cache
-        proj.referenceCache.removeAll()
-        proj.objects.forEach { proj.referenceCache[$0.reference] = $0 }
-
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
@@ -32,25 +28,25 @@ class PBXProjEncoder {
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
-        write(section: "PBXAggregateTarget", proj: proj, object: proj.aggregateTargets)
-        write(section: "PBXBuildFile", proj: proj, object: proj.buildFiles)
-        write(section: "PBXContainerItemProxy", proj: proj, object: proj.containerItemProxies)
-        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.copyFilesBuildPhases)
-        write(section: "PBXFileElement", proj: proj, object: proj.fileElements)
-        write(section: "PBXFileReference", proj: proj, object: proj.fileReferences)
-        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.frameworksBuildPhases)
-        write(section: "PBXGroup", proj: proj, object: proj.groups)
-        write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.headersBuildPhases)
-        write(section: "PBXNativeTarget", proj: proj, object: proj.nativeTargets)
-        write(section: "PBXProject", proj: proj, object: proj.projects)
-        write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.resourcesBuildPhases)
-        write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.shellScriptBuildPhases)
-        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.sourcesBuildPhases)
-        write(section: "PBXTargetDependency", proj: proj, object: proj.targetDependencies)
-        write(section: "PBXVariantGroup", proj: proj, object: proj.variantGroups)
-        write(section: "XCBuildConfiguration", proj: proj, object: proj.buildConfigurations)
-        write(section: "XCConfigurationList", proj: proj, object: proj.configurationLists)
-        write(section: "XCVersionGroup", proj: proj, object: proj.versionGroups)
+        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets.referenceValues)
+        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles.referenceValues)
+        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies.referenceValues)
+        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
+        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements.referenceValues)
+        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences.referenceValues)
+        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
+        write(section: "PBXGroup", proj: proj, object: proj.objects.groups.referenceValues)
+        write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
+        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets.referenceValues)
+        write(section: "PBXProject", proj: proj, object: proj.objects.projects.referenceValues)
+        write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
+        write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
+        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies.referenceValues)
+        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups.referenceValues)
+        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations.referenceValues)
+        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists.referenceValues)
+        write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups.referenceValues)
         decreaseIndent()
         writeIndent()
         write(string: "};")
@@ -62,7 +58,6 @@ class PBXProjEncoder {
         writeNewLine()
 
         // clear reference cache
-        proj.referenceCache.removeAll()
         return output
     }
     
@@ -107,7 +102,7 @@ class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
     
-    private func write<T: Referenceable & PlistSerializable>(section: String, proj: PBXProj, object: [T]) {
+    private func write<T: Referenceable & PlistSerializable & Equatable>(section: String, proj: PBXProj, object: [T]) {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
