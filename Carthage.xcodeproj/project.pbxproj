@@ -73,6 +73,10 @@
 		BF6518149702 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8599247801 /* JSONDecoding.swift */; };
 		BF6638647201 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4128075701 /* PBXBuildPhase.swift */; };
 		BF6638647202 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4128075701 /* PBXBuildPhase.swift */; };
+		BF6646142901 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3300528101 /* Referenceable.swift */; };
+		BF6646142902 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3300528101 /* Referenceable.swift */; };
+		BF6657084901 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3238635301 /* Deprecations.swift */; };
+		BF6657084902 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3238635301 /* Deprecations.swift */; };
 		BF6748394401 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3171444701 /* XCScheme.swift */; };
 		BF6748394402 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3171444701 /* XCScheme.swift */; };
 		BF6884424401 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3140861801 /* XCConfigurationList.swift */; };
@@ -120,7 +124,9 @@
 		FR2771210001 /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
 		FR3140861801 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
 		FR3171444701 /* XCScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
+		FR3238635301 /* Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
 		FR3255351901 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
+		FR3300528101 /* Referenceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Referenceable.swift; sourceTree = "<group>"; };
 		FR3402716401 /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
 		FR3546471301 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR3952162601 /* PBXAggregateTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTarget.swift; sourceTree = "<group>"; };
@@ -230,6 +236,7 @@
 				FR3402716401 /* BuildSettings.swift */,
 				FR5186857101 /* CommentedString.swift */,
 				FR8773023601 /* Decodable+Dictionary.swift */,
+				FR3238635301 /* Deprecations.swift */,
 				FR6006730201 /* Dictionary+Extras.swift */,
 				FR8599247801 /* JSONDecoding.swift */,
 				FR6357036901 /* KeyedDecodingContainer+Additions.swift */,
@@ -260,6 +267,7 @@
 				FR7414687801 /* PBXTargetDependency.swift */,
 				FR7776220701 /* PBXVariantGroup.swift */,
 				FR4840718101 /* PlistValue.swift */,
+				FR3300528101 /* Referenceable.swift */,
 				FR7128364401 /* String+Extras.swift */,
 				FR5076024901 /* Writable.swift */,
 				FR7796866701 /* XCBuildConfiguration.swift */,
@@ -398,6 +406,7 @@
 				BF6966109201 /* BuildSettings.swift in Sources */,
 				BF1214569601 /* CommentedString.swift in Sources */,
 				BF3167018201 /* Decodable+Dictionary.swift in Sources */,
+				BF6657084901 /* Deprecations.swift in Sources */,
 				BF2241362001 /* Dictionary+Extras.swift in Sources */,
 				BF6518149701 /* JSONDecoding.swift in Sources */,
 				BF1286225401 /* KeyedDecodingContainer+Additions.swift in Sources */,
@@ -428,6 +437,7 @@
 				BF9179674901 /* PBXTargetDependency.swift in Sources */,
 				BF1168848901 /* PBXVariantGroup.swift in Sources */,
 				BF6269930301 /* PlistValue.swift in Sources */,
+				BF6646142901 /* Referenceable.swift in Sources */,
 				BF5156404201 /* String+Extras.swift in Sources */,
 				BF5519296501 /* Writable.swift in Sources */,
 				BF7608155301 /* XCBuildConfiguration.swift in Sources */,
@@ -451,6 +461,7 @@
 				BF6966109202 /* BuildSettings.swift in Sources */,
 				BF1214569602 /* CommentedString.swift in Sources */,
 				BF3167018202 /* Decodable+Dictionary.swift in Sources */,
+				BF6657084902 /* Deprecations.swift in Sources */,
 				BF2241362002 /* Dictionary+Extras.swift in Sources */,
 				BF6518149702 /* JSONDecoding.swift in Sources */,
 				BF1286225402 /* KeyedDecodingContainer+Additions.swift in Sources */,
@@ -481,6 +492,7 @@
 				BF9179674902 /* PBXTargetDependency.swift in Sources */,
 				BF1168848902 /* PBXVariantGroup.swift in Sources */,
 				BF6269930302 /* PlistValue.swift in Sources */,
+				BF6646142902 /* Referenceable.swift in Sources */,
 				BF5156404202 /* String+Extras.swift in Sources */,
 				BF5519296502 /* Writable.swift in Sources */,
 				BF7608155302 /* XCBuildConfiguration.swift in Sources */,

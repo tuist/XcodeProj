@@ -1,7 +1,7 @@
 import Foundation
 
 /// An absctract class for all the build phase objects
-public class PBXBuildPhase: PBXObject {
+public class PBXBuildPhase: PBXObject, Equatable {
     
     /// Default build action mask.
     public static let defaultBuildActionMask: UInt = 2147483647

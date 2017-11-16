@@ -106,11 +106,11 @@ extension PBXGroup: PlistSerializable {
     }
 
     fileprivate func name(reference: String, proj: PBXProj) -> String? {
-        if let group: PBXGroup = proj.getCachedReference(reference) {
+        if let group: PBXGroup = proj.objects.groups.getReference(reference) {
             return group.name ?? group.path
-        } else if let variantGroup: PBXVariantGroup = proj.getCachedReference(reference) {
+        } else if let variantGroup: PBXVariantGroup = proj.objects.variantGroups.getReference(reference) {
             return variantGroup.name
-        } else if let file: PBXFileReference = proj.getCachedReference(reference) {
+        } else if let file: PBXFileReference = proj.objects.fileReferences.getReference(reference) {
             return file.name ?? file.path
         }
         return nil

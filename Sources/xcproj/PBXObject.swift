@@ -6,7 +6,7 @@ public class PBXObject: Referenceable, Decodable {
     public var hashValue: Int { return self.reference.hashValue }
 
     /// Element unique reference.
-    public var reference: String = ""
+    public let reference: String
 
     init(reference: String) {
         self.reference = reference
@@ -27,7 +27,9 @@ public class PBXObject: Referenceable, Decodable {
         return String(describing: self)
     }
 
-    public static func parse(reference: String, dictionary: [String: Any]) throws -> PBXObject {
+    //swiftlint:disable function_body_length
+    public static func parse(reference: String,
+                             dictionary: [String: Any]) throws -> PBXObject {
         let decoder = JSONDecoder()
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
@@ -78,6 +80,7 @@ public class PBXObject: Referenceable, Decodable {
             throw PBXObjectError.unknownElement(isa)
         }
     }
+    //swiftlint:enable function_body_length
 }
 
 /// PBXObjectError
@@ -96,23 +99,4 @@ public enum PBXObjectError: Error, CustomStringConvertible {
             return "The element \(element) is not supported"
         }
     }
-}
-
-extension Array where Element: Referenceable {
-
-    public var references: [String] {
-        return map { $0.reference }
-    }
-
-    public func contains(reference: String) -> Bool {
-        return contains { $0.reference == reference }
-    }
-
-    public func getReference(_ reference: String) -> Element? {
-        return first { $0.reference == reference }
-    }
-}
-
-public protocol Referenceable {
-    var reference: String { get }
 }
