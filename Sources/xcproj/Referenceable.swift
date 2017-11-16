@@ -2,11 +2,11 @@ import Foundation
 
 // Typealias that represents dictionary from string -> T where T is Referenceable (i.e. PBXObjects)
 
-public typealias ReferenceableCollection<T: Referenceable & Equatable> = [String: T]
-
 public protocol Referenceable {
     var reference: String { get }
 }
+
+public typealias ReferenceableCollection<T: Referenceable & Equatable> = [String: T]
 
 extension Array where Element: Referenceable {
 
