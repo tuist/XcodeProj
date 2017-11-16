@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import PathKit
 
 @testable import xcproj
 
@@ -36,10 +37,12 @@ class PBXProjEncoderSpec: XCTestCase {
         let quote = "\""
         let escapedNewline = "\\n"
         let escapedQuote = "\\\""
+        let escapedEscape = "\\\\"
+        let escapedTab = "\\t"
 
         let values: [String: String] = [
             "a": "a",
-            "a".quoted: "a".quoted,
+            "a".quoted: "\(escapedQuote)a\(escapedQuote)".quoted,
             "@": "@".quoted,
             "[": "[".quoted,
             "<": "<".quoted,
@@ -49,29 +52,30 @@ class PBXProjEncoderSpec: XCTestCase {
             "$": "$".quoted,
             "{": "{".quoted,
             "}": "}".quoted,
-            "\\": "\\".quoted,
+            "\\": escapedEscape.quoted,
             "+": "+".quoted,
             "-": "-".quoted,
             "=": "=".quoted,
             ",": ",".quoted,
             " ": " ".quoted,
+            "\t": escapedTab.quoted,
             "a;": "a;".quoted,
             "a_a": "a_a",
             "a a": "a a".quoted,
             "": "".quoted,
             "a\(quote)q\(quote)a": "a\(escapedQuote)q\(escapedQuote)a".quoted,
-            "a\(quote)q\(quote)a".quoted: "a\(escapedQuote)q\(escapedQuote)a".quoted,
-            "a\(escapedQuote)a\(escapedQuote)": "a\(escapedQuote)a\(escapedQuote)".quoted,
+            "a\(quote)q\(quote)a".quoted: "\(escapedQuote)a\(escapedQuote)q\(escapedQuote)a\(escapedQuote)".quoted,
+            "a\(escapedQuote)a\(escapedQuote)": "a\(escapedEscape)\(escapedQuote)a\(escapedEscape)\(escapedQuote)".quoted,
             "a\na": "a\\na".quoted,
             "\n": escapedNewline.quoted,
             "\na": "\(escapedNewline)a".quoted,
             "a\n": "a\(escapedNewline)".quoted,
-            "a\na".quoted: "a\(escapedNewline)a".quoted,
-            "a\(escapedNewline)a": "a\(escapedNewline)a".quoted,
-            "a\(escapedNewline)a".quoted: "a\(escapedNewline)a".quoted,
+            "a\na".quoted: "\(escapedQuote)a\(escapedNewline)a\(escapedQuote)".quoted,
+            "a\(escapedNewline)a": "a\(escapedEscape)na".quoted,
+            "a\(escapedNewline)a".quoted: "\(escapedQuote)a\(escapedEscape)na\(escapedQuote)".quoted,
             "\"": escapedQuote.quoted,
-            "\"\"": "\"\"",
-            "\"\"\"\"": "\(escapedQuote)\(escapedQuote)".quoted,
+            "\"\"": "\(escapedQuote)\(escapedQuote)".quoted,
+            "".quoted.quoted: "\(escapedQuote)\(escapedQuote)\(escapedQuote)\(escapedQuote)".quoted,
             "a=\"\"": "a=\(escapedQuote)\(escapedQuote)".quoted,
         ]
 

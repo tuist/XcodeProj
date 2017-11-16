@@ -31,15 +31,14 @@ struct CommentedString {
         }
 
         var escaped = string
+        // escape escape
+        escaped = escaped.replacingOccurrences(of: "\\", with: "\\\\")
+        // escape quotes
+        escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"")
+        // escape tab
+        escaped = escaped.replacingOccurrences(of: "\t", with: "\\t")
         // escape newlines
         escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
-
-        // escape quotes
-        var range: Range<String.Index>?
-        if escaped.isQuoted && escaped.count > 1 {
-            range = escaped.index(after: escaped.startIndex)..<escaped.index(before: escaped.endIndex)
-        }
-        escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"", range: range).replacingOccurrences(of: "\\\\\"", with: "\\\"")
 
         if !escaped.isQuoted && escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil {
             escaped = escaped.quoted

@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 import PathKit
-import xcproj
+@testable import xcproj
 
 final class XcodeProjIntegrationSpec: XCTestCase {
 
@@ -33,6 +33,31 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let rootObject = proj.rootObject
         let rootProject = proj.projects.first(where: { $0.reference == rootObject })
         XCTAssertEqual(rootProject?.name, "Project")
+    }
+
+    func test_noChanges_encodesSameValue() throws {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let rawProj: String = try (path + "project.pbxproj").read()
+
+        let proj = try XcodeProj(path: path)
+        let encoder = PBXProjEncoder()
+        let output = encoder.encode(proj: proj.pbxproj)
+
+        XCTAssertEqual(output, rawProj)
+    }
+
+    func test_aQuoted_encodesSameValue() throws {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let rawProj: String = try (path + "project.pbxproj").read()
+
+        let proj = try XcodeProj(path: path)
+        let buildConfiguration = proj.pbxproj.buildConfigurations.first!
+        buildConfiguration.buildSettings["a_quoted"] = "a".quoted
+
+        let encoder = PBXProjEncoder()
+        let output = encoder.encode(proj: proj.pbxproj)
+
+        XCTAssertEqual(output, rawProj)
     }
 
     // MARK: - Private
