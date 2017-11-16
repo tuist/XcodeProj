@@ -36,7 +36,7 @@ extension PBXProj {
     /// - Parameter configReference: reference of the XCBuildConfiguration.
     /// - Returns: config name.
     func configName(configReference: String) -> String? {
-        return (objects.getReference(configReference) as? XCBuildConfiguration)?.name
+        return objects.buildConfigurations[configReference]?.name
     }
     
     /// Returns the build phase a file is in.
