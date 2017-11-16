@@ -5,45 +5,39 @@ import PathKit
 public class PBXProj: Decodable {
     public class Objects: Equatable {
         // MARK: - Properties
-        public var buildFiles: ReferenceableCollection<PBXBuildFile> = ReferenceableCollection<PBXBuildFile>()
-        public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = ReferenceableCollection<PBXAggregateTarget>()
-        public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = ReferenceableCollection<PBXContainerItemProxy>()
-        public var groups: ReferenceableCollection<PBXGroup> = ReferenceableCollection<PBXGroup>()
-        public var fileElements: ReferenceableCollection<PBXFileElement> = ReferenceableCollection<PBXFileElement>()
-        public var configurationLists: ReferenceableCollection<XCConfigurationList> = ReferenceableCollection<XCConfigurationList>()
-        public var versionGroups: ReferenceableCollection<XCVersionGroup> = ReferenceableCollection<XCVersionGroup>()
-        public var buildConfigurations: ReferenceableCollection<XCBuildConfiguration> = ReferenceableCollection<XCBuildConfiguration>()
-        public var variantGroups: ReferenceableCollection<PBXVariantGroup> = ReferenceableCollection<PBXVariantGroup>()
-        public var targetDependencies: ReferenceableCollection<PBXTargetDependency> = ReferenceableCollection<PBXTargetDependency>()
+        public var buildFiles: ReferenceableCollection<PBXBuildFile> = [:]
+        public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = [:]
+        public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = [:]
+        public var groups: ReferenceableCollection<PBXGroup> = [:]
+        public var fileElements: ReferenceableCollection<PBXFileElement> = [:]
+        public var configurationLists: ReferenceableCollection<XCConfigurationList> = [:]
+        public var versionGroups: ReferenceableCollection<XCVersionGroup> = [:]
+        public var buildConfigurations: ReferenceableCollection<XCBuildConfiguration> = [:]
+        public var variantGroups: ReferenceableCollection<PBXVariantGroup> = [:]
+        public var targetDependencies: ReferenceableCollection<PBXTargetDependency> = [:]
+        public var nativeTargets: ReferenceableCollection<PBXNativeTarget> = [:]
+        public var fileReferences: ReferenceableCollection<PBXFileReference> = [:]
+        public var projects: ReferenceableCollection<PBXProject> = [:]
+        public var referenceProxies: ReferenceableCollection<PBXReferenceProxy> = [:]
 
-        public var nativeTargets: ReferenceableCollection<PBXNativeTarget> = ReferenceableCollection<PBXNativeTarget>()
-        public var fileReferences: ReferenceableCollection<PBXFileReference> = ReferenceableCollection<PBXFileReference>()
-        public var projects: ReferenceableCollection<PBXProject> = ReferenceableCollection<PBXProject>()
-        public var referenceProxies: ReferenceableCollection<PBXReferenceProxy> = ReferenceableCollection<PBXReferenceProxy>()
+        // Build Phases
+        public var copyFilesBuildPhases: ReferenceableCollection<PBXCopyFilesBuildPhase> = [:]
+        public var shellScriptBuildPhases: ReferenceableCollection<PBXShellScriptBuildPhase> = [:]
+        public var resourcesBuildPhases: ReferenceableCollection<PBXResourcesBuildPhase> = [:]
+        public var frameworksBuildPhases: ReferenceableCollection<PBXFrameworksBuildPhase> = [:]
+        public var headersBuildPhases: ReferenceableCollection<PBXHeadersBuildPhase> = [:]
+        public var sourcesBuildPhases: ReferenceableCollection<PBXSourcesBuildPhase> = [:]
 
-
-        // Ordering matters with build phases so leave these as arrays
-        public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] = []
-        public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] = []
-        public var resourcesBuildPhases: [PBXResourcesBuildPhase] = []
-        public var frameworksBuildPhases: [PBXFrameworksBuildPhase] = []
-        public var headersBuildPhases: [PBXHeadersBuildPhase] = []
-        public var sourcesBuildPhases: [PBXSourcesBuildPhase] = []
-
-        // Open Questions about buildPhases
-        // - Unsure if there is value in making this a dictionary
-        // - Will the ordering of the phases be unstable given we are retrieving values from a dictionary
-        // and this might require a sort of some kind (compare references strings?)
-        // - Should we convert the build phases objects back to arrays
-        public var buildPhases: [PBXBuildPhase] {
+        // MARK: - Computed Properties
+        public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
             var phases: [PBXBuildPhase] = []
-            phases += self.copyFilesBuildPhases as [PBXBuildPhase]
-            phases += self.sourcesBuildPhases as [PBXBuildPhase]
-            phases += self.shellScriptBuildPhases as [PBXBuildPhase]
-            phases += self.resourcesBuildPhases as [PBXBuildPhase]
-            phases += self.frameworksBuildPhases as [PBXBuildPhase]
-            phases += self.headersBuildPhases as [PBXBuildPhase]
-            return phases
+            phases += self.copyFilesBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.sourcesBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.shellScriptBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.resourcesBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.frameworksBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.headersBuildPhases.referenceValues as [PBXBuildPhase]
+            return Dictionary(references: phases)
         }
 
         /// Initializes the project objects container
@@ -105,7 +99,15 @@ public class PBXProj: Decodable {
             }
         }
 
-        public func getReference<T: PBXObject>(_ reference: String) -> T? {
+        public func getTarget(reference: String) -> PBXTarget? {
+            let caches: [[String: PBXTarget]] = [
+                aggregateTargets,
+                nativeTargets
+            ]
+            return caches.first { cache in cache[reference] != nil }?[reference]
+        }
+
+        public func getReference(_ reference: String) -> PBXObject? {
             let caches: [[String: PBXObject]] = [
                 buildFiles,
                 aggregateTargets,
@@ -120,9 +122,15 @@ public class PBXProj: Decodable {
                 fileReferences,
                 projects,
                 versionGroups,
-                referenceProxies
+                referenceProxies,
+                copyFilesBuildPhases,
+                shellScriptBuildPhases,
+                resourcesBuildPhases,
+                frameworksBuildPhases,
+                headersBuildPhases,
+                sourcesBuildPhases
             ]
-            return caches.first { cache in cache[reference] != nil }?[reference] as? T ?? self.buildPhases.first { $0.reference == reference } as? T ?? nil
+            return caches.first { cache in cache[reference] != nil }?[reference]
         }
 
         public func contains(reference: String) -> Bool {

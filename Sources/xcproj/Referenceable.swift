@@ -1,10 +1,3 @@
-//
-//  Referenceable.swift
-//  xcprojPackageDescription
-//
-//  Created by rmalik on 11/8/17.
-//
-
 import Foundation
 
 // Typealias that represents dictionary from string -> T where T is Referenceable (i.e. PBXObjects)
@@ -30,10 +23,9 @@ extension Array where Element: Referenceable {
     }
 }
 
-
 extension Dictionary where Key == String, Value: Referenceable {
     init(references: [Value]) {
-        self = Dictionary<String, Value>(uniqueKeysWithValues: references.flatMap { ($0.reference, $0) })
+        self = [String: Value](uniqueKeysWithValues: references.flatMap { ($0.reference, $0) })
     }
 
     public var references: [String] {

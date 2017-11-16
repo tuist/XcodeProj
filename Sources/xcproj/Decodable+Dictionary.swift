@@ -1,6 +1,5 @@
 import Foundation
 
-
 // MARK: - Decodable Extension
 
 extension Decodable {

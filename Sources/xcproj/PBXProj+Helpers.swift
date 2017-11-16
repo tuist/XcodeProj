@@ -10,7 +10,10 @@ extension PBXProj {
     /// - Parameter buildFileReference: file reference.
     /// - Returns: build file name.
     func fileName(buildFileReference: String) -> String? {
-        guard let buildFile: PBXBuildFile = objects.buildFiles.getReference(buildFileReference), let fileReference = buildFile.fileRef else { return nil }
+        guard let buildFile: PBXBuildFile = objects.buildFiles.getReference(buildFileReference),
+              let fileReference = buildFile.fileRef else {
+                return nil
+        }
         return fileName(fileReference: fileReference)
     }
 
@@ -41,15 +44,15 @@ extension PBXProj {
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
     func buildPhaseType(buildFileReference: String) -> BuildPhase? {
-        if objects.sourcesBuildPhases.contains(where: { $0.files.contains(buildFileReference)}) {
+        if objects.sourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
             return .sources
-        } else if objects.frameworksBuildPhases.contains(where: { $0.files.contains(buildFileReference)}) {
+        } else if objects.frameworksBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
             return .frameworks
-        } else if objects.resourcesBuildPhases.contains(where: { $0.files.contains(buildFileReference)}) {
+        } else if objects.resourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
             return .resources
-        } else if objects.copyFilesBuildPhases.contains(where: { $0.files.contains(buildFileReference)}) {
+        } else if objects.copyFilesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
             return .copyFiles
-        } else if objects.headersBuildPhases.contains(where: { $0.files.contains(buildFileReference)}) {
+        } else if objects.headersBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
             return .headers
         }
         return nil
@@ -87,9 +90,9 @@ extension PBXProj {
             return "Frameworks"
         } else if objects.resourcesBuildPhases.contains(reference: buildPhaseReference) {
             return "Resources"
-        } else if let copyFilesBuildPhase = objects.copyFilesBuildPhases.first(where: { $0.reference == buildPhaseReference}) {
+        } else if let copyFilesBuildPhase = objects.copyFilesBuildPhases.getReference(buildPhaseReference) {
             return  copyFilesBuildPhase.name ?? "CopyFiles"
-        } else if let shellScriptBuildPhase = objects.shellScriptBuildPhases.first(where: { $0.reference == buildPhaseReference }) {
+        } else if let shellScriptBuildPhase = objects.shellScriptBuildPhases.getReference(buildPhaseReference) {
             return shellScriptBuildPhase.name ?? "ShellScript"
         } else if objects.headersBuildPhases.contains(reference: buildPhaseReference) {
             return "Headers"
@@ -105,7 +108,7 @@ extension PBXProj {
         let type = buildPhaseType(buildFileReference: buildFileReference)
         switch type {
         case .copyFiles?:
-            return objects.copyFilesBuildPhases.first(where: { $0.files.contains(buildFileReference)})?.name ?? type?.rawValue
+            return objects.copyFilesBuildPhases.first(where: { _, val in val.files.contains(buildFileReference)})?.value.name ?? type?.rawValue
         default:
             return type?.rawValue
         }

@@ -28,25 +28,25 @@ class PBXProjEncoder {
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
-        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets.referenceValues)
-        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles.referenceValues)
-        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies.referenceValues)
+        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
+        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
+        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
         write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
-        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements.referenceValues)
-        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences.referenceValues)
+        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements)
+        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
         write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
-        write(section: "PBXGroup", proj: proj, object: proj.objects.groups.referenceValues)
+        write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
         write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
-        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets.referenceValues)
-        write(section: "PBXProject", proj: proj, object: proj.objects.projects.referenceValues)
+        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
+        write(section: "PBXProject", proj: proj, object: proj.objects.projects)
         write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
         write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
         write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
-        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies.referenceValues)
-        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups.referenceValues)
-        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations.referenceValues)
-        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists.referenceValues)
-        write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups.referenceValues)
+        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
+        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
+        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
+        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
+        write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups)
         decreaseIndent()
         writeIndent()
         write(string: "};")
@@ -102,12 +102,12 @@ class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
     
-    private func write<T: Referenceable & PlistSerializable & Equatable>(section: String, proj: PBXProj, object: [T]) {
+    private func write<T: Referenceable & PlistSerializable & Equatable>(section: String, proj: PBXProj, object: ReferenceableCollection<T>) {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object.sorted { $0.reference < $1.reference }
+        object.referenceValues.sorted { $0.reference < $1.reference }
             .forEach { (serializable) in
                 let element = serializable.plistKeyAndValue(proj: proj)
                 write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
