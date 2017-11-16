@@ -6,7 +6,7 @@ public class PBXObject: Referenceable, Decodable {
     public var hashValue: Int { return self.reference.hashValue }
 
     /// Element unique reference.
-    public var reference: String = ""
+    public let reference: String
 
     init(reference: String) {
         self.reference = reference
