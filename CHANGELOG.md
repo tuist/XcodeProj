@@ -1,11 +1,27 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## 1.4.0 - (next version)
+## 1.4.0 - Take me out
 
-- Improve efficiency of looking up `PBXObject`'s from `PBXProj` by @rahul-malik
+### Added
+- Danger integration https://github.com/xcodeswift/xcproj/pull/158 by @pepibumur
+
+### Changed
+- Improve efficiency of looking up `PBXObject`'s from `PBXProj` https://github.com/xcodeswift/xcproj/pull/136 by @rahul-malik
+
+### Deprecated
+- `PBXObject` objects accessors https://github.com/xcodeswift/xcproj/pull/136/files#diff-f4369d9af58a6914f0e5cdf81ed18530R6 by @rahul-malik.
+
+### Fixed
+- Fix `PBXBuildFile` wrongly defaulting the settings attribute when it was nil https://github.com/xcodeswift/xcproj/pull/149 by @allu22
+- Fix `PBXTarget` generating the wrong comment for the `productReference` property https://github.com/xcodeswift/xcproj/pull/151 by @allu22.
+- Add missing `usesTabs` property to `PBXGroup` https://github.com/xcodeswift/xcproj/pull/147 by @allu22.
+- Fix generated comment for `PBXHeadersBuildPhase` by @allu22.
+- Fix wrong `BuidlSettings.swift` file name https://github.com/xcodeswift/xcproj/pull/146 by @allu22.
+- Fix `projectReferences` type https://github.com/xcodeswift/xcproj/pull/135 by @solgar.
 
 ### Added
 - Danger checks https://github.com/xcodeswift/xcproj/pull/160 by @pepibumur
+- New product type `ocUnitTestBundle` https://github.com/xcodeswift/xcproj/pull/134 by @solgar.
 
 ## 1.3.0 - Esbarzers
 
