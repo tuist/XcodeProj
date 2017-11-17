@@ -1,5 +1,7 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## 1.5.0 - (next release)
+
 ## 1.4.0 - Take me out
 
 ### Added
