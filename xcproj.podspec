@@ -3,6 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "1.4.0"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/xcodeswift/xcproj"
+  s.social_media_url = 'https://twitter.com/xcodeswiftio'
   s.license          = 'MIT'
   s.author           = "Pedro Pinñera", "Yonas Kolb"
   s.source           = { :git => "https://github.com/xcodeswift/xcproj.git", :tag => s.version.to_s }
