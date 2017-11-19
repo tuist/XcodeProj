@@ -2,6 +2,9 @@
 
 ## 1.5.0 - (next release)
 
+### Fixed
+- Fix `PBXProject` `productRefGroup` comment https://github.com/xcodeswift/xcproj/pull/161 by @allu22
+
 ## 1.4.0 - Take me out
 
 ### Added
