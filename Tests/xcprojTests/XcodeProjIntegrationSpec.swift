@@ -36,14 +36,19 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     }
 
     func test_noChanges_encodesSameValue() throws {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
-        let rawProj: String = try (path + "project.pbxproj").read()
+        let pathsToProjectsToTest = [
+            fixturesPath() + "iOS/BuildSettings.xcodeproj",
+            fixturesPath() + "iOS/ProjectWithoutProductsGroup.xcodeproj"
+        ]
 
-        let proj = try XcodeProj(path: path)
-        let encoder = PBXProjEncoder()
-        let output = encoder.encode(proj: proj.pbxproj)
-
-        XCTAssertEqual(output, rawProj)
+        for path in pathsToProjectsToTest {
+            let rawProj: String = try (path + "project.pbxproj").read()
+            let proj = try XcodeProj(path: path)
+            let encoder = PBXProjEncoder()
+            let output = encoder.encode(proj: proj.pbxproj)
+            
+            XCTAssertEqual(output, rawProj)
+        }
     }
 
     func test_aQuoted_encodesSameValue() throws {

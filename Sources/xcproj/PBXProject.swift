@@ -177,8 +177,9 @@ extension PBXProject: PlistSerializable {
         
         dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
+            let productRefGroupComment = proj.objects.groups[productRefGroup]?.name
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
-                                                                    comment: "Products"))
+                                                                    comment: productRefGroupComment))
         }
         dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
         dictionary["projectRoot"] = .string(CommentedString(projectRoot))
