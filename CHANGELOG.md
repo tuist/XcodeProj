@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fix `PBXProject` `productRefGroup` comment https://github.com/xcodeswift/xcproj/pull/161 by @allu22
+- Fix deprecation warnings for `PBXProj` objects usage https://github.com/xcodeswift/xcproj/pull/162 by @rahul-malik
 
 ## 1.4.0 - Take me out
 

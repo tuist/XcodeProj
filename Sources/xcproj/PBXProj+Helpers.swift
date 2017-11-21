@@ -125,7 +125,7 @@ extension PBXProj {
             return
         }
         let projectName = path.parent().lastComponentWithoutExtension
-        let rootProject = projects.first(where: { $0.reference == rootObject })
+        let rootProject = objects.projects.getReference(rootObject)
         rootProject?.name = projectName
     }
 
