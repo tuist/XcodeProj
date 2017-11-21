@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for file and group elements.
-public class PBXFileElement: PBXObject, Hashable {
+final public class PBXFileElement: PBXObject, Hashable {
     
     // MARK: - Attributes
 

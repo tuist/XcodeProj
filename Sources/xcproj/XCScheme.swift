@@ -4,11 +4,11 @@ import PathKit
 import AEXML
 
 // swiftlint:disable:next type_body_length
-public class XCScheme {
+final public class XCScheme {
 
     // MARK: - BuildableReference
 
-    public class BuildableReference {
+    final public class BuildableReference {
         public var referencedContainer: String
         public var blueprintIdentifier: String
         public var buildableName: String
@@ -27,7 +27,7 @@ public class XCScheme {
             self.blueprintName = blueprintName
         }
 
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else {
                 throw XCSchemeError.missing(property: "BuildableIdentifier")
             }
@@ -50,7 +50,7 @@ public class XCScheme {
             self.referencedContainer = referencedContainer
         }
 
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "BuildableReference",
                                 value: nil,
                                 attributes: ["BuildableIdentifier": buildableIdentifier,
@@ -61,7 +61,7 @@ public class XCScheme {
         }
     }
 
-    public class TestableReference {
+    final public class TestableReference {
         public var skipped: Bool
         public var buildableReference: BuildableReference
         public init(skipped: Bool,
@@ -69,11 +69,11 @@ public class XCScheme {
             self.skipped = skipped
             self.buildableReference = buildableReference
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             self.skipped = element.attributes["skipped"] == "YES"
             self.buildableReference = try BuildableReference(element: element["BuildableReference"])
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "TestableReference",
                                        value: nil,
                                        attributes: ["skipped": skipped.xmlString])
@@ -82,18 +82,18 @@ public class XCScheme {
         }
     }
 
-    public class LocationScenarioReference {
+    final public class LocationScenarioReference {
         public var identifier: String
         public var referenceType: String
         public init(identifier: String, referenceType: String) {
             self.identifier = identifier
             self.referenceType = referenceType
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             self.identifier = element.attributes["identifier"]!
             self.referenceType = element.attributes["referenceType"]!
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "LocationScenarioReference",
                                 value: nil,
                                 attributes: ["identifier": identifier,
@@ -101,7 +101,7 @@ public class XCScheme {
         }
     }
 
-    public class BuildableProductRunnable {
+    final public class BuildableProductRunnable {
         public var runnableDebuggingMode: String
         public var buildableReference: BuildableReference
         public init(buildableReference: BuildableReference,
@@ -109,11 +109,11 @@ public class XCScheme {
             self.buildableReference = buildableReference
             self.runnableDebuggingMode = runnableDebuggingMode
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
             self.buildableReference = try BuildableReference(element:  element["BuildableReference"])
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildableProductRunnable",
                                        value: nil,
                                        attributes: ["runnableDebuggingMode": runnableDebuggingMode])
@@ -124,9 +124,9 @@ public class XCScheme {
 
     // MARK: - Build Action
 
-    public class BuildAction {
+    final public class BuildAction {
 
-        public class Entry {
+        final public class Entry {
 
             public enum BuildFor {
                 case running, testing, profiling, archiving, analyzing
@@ -143,7 +143,7 @@ public class XCScheme {
                 self.buildableReference = buildableReference
                 self.buildFor = buildFor
             }
-            public init(element: AEXMLElement) throws {
+            init(element: AEXMLElement) throws {
                 var buildFor: [BuildFor] = []
                 if element.attributes["buildForTesting"] == "YES" {
                     buildFor.append(.testing)
@@ -163,7 +163,7 @@ public class XCScheme {
                 self.buildFor = buildFor
                 self.buildableReference = try BuildableReference(element: element["BuildableReference"])
             }
-            public func xmlElement() -> AEXMLElement {
+            fileprivate func xmlElement() -> AEXMLElement {
                 var attributes: [String: String] = [:]
                 attributes["buildForTesting"] = buildFor.contains(.testing) ? "YES" : "NO"
                 attributes["buildForRunning"] = buildFor.contains(.running) ? "YES" : "NO"
@@ -190,7 +190,7 @@ public class XCScheme {
             self.buildImplicitDependencies = buildImplicitDependencies
         }
 
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             parallelizeBuild = element.attributes["parallelizeBuildables"]! == "YES"
             buildImplicitDependencies = element.attributes["buildImplicitDependencies"] == "YES"
             self.buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
@@ -198,7 +198,7 @@ public class XCScheme {
                 .map(Entry.init) ?? []
         }
 
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildAction",
                                        value: nil,
                                        attributes: ["parallelizeBuildables": parallelizeBuild.xmlString,
@@ -218,7 +218,7 @@ public class XCScheme {
         }
     }
 
-    public class LaunchAction {
+    final public class LaunchAction {
 
         public enum Style: String {
             case auto = "0"
@@ -261,7 +261,7 @@ public class XCScheme {
             self.locationScenarioReference = locationScenarioReference
         }
 
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
             }
@@ -293,7 +293,7 @@ public class XCScheme {
                 self.locationScenarioReference = nil
             }
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "LaunchAction",
                                        value: nil,
                                        attributes: ["buildConfiguration": buildConfiguration,
@@ -313,7 +313,7 @@ public class XCScheme {
         }
     }
 
-    public class ProfileAction {
+    final public class ProfileAction {
         public var buildableProductRunnable: BuildableProductRunnable
         public var buildConfiguration: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
@@ -333,7 +333,7 @@ public class XCScheme {
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.debugDocumentVersioning = debugDocumentVersioning
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
             }
@@ -347,7 +347,7 @@ public class XCScheme {
             self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
             self.buildableProductRunnable = try BuildableProductRunnable(element: element["BuildableProductRunnable"])
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "ProfileAction",
                                        value: nil,
                                        attributes: ["buildConfiguration": buildConfiguration,
@@ -360,7 +360,7 @@ public class XCScheme {
         }
     }
 
-    public class TestAction {
+    final public class TestAction {
         public var testables: [TestableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
@@ -380,7 +380,7 @@ public class XCScheme {
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
             }
@@ -399,7 +399,7 @@ public class XCScheme {
                 .map(TestableReference.init) ?? []
             self.macroExpansion = try BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
             attributes["buildConfiguration"] = buildConfiguration
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
@@ -416,25 +416,25 @@ public class XCScheme {
         }
     }
 
-    public class AnalyzeAction {
+    final public class AnalyzeAction {
         public var buildConfiguration: String
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
             }
             self.buildConfiguration = buildConfiguration
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
             attributes["buildConfiguration"] = buildConfiguration
             return AEXMLElement(name: "AnalyzeAction", value: nil, attributes: attributes)
         }
     }
 
-    public class ArchiveAction {
+    final public class ArchiveAction {
         public var buildConfiguration: String
         public var revealArchiveInOrganizer: Bool
         public var customArchiveName: String?
@@ -445,7 +445,7 @@ public class XCScheme {
             self.revealArchiveInOrganizer = revealArchiveInOrganizer
             self.customArchiveName = customArchiveName
         }
-        public init(element: AEXMLElement) throws {
+        init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
                 throw XCSchemeError.missing(property: "buildConfiguration")
             }
@@ -456,7 +456,7 @@ public class XCScheme {
             self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"] == "YES"
             self.customArchiveName = customArchiveName
         }
-        public func xmlElement() -> AEXMLElement {
+        fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
             attributes["buildConfiguration"] = buildConfiguration
             attributes["customArchiveName"] = customArchiveName

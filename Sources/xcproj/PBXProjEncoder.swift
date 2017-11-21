@@ -11,7 +11,7 @@ extension PlistSerializable {
 }
 
 /// Encodes your PBXProj files to String
-class PBXProjEncoder {
+final class PBXProjEncoder {
     
     var indent: UInt = 0
     var output: String = ""

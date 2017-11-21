@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 
 /// This is the element for the framework headers build phase.
-public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
 
     public override var buildPhase: BuildPhase {
         return .headers

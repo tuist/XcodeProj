@@ -3,7 +3,7 @@ import Foundation
 /// A proxy for another object which might belong to another project
 /// contained in the same workspace of the document.
 /// This class is referenced by PBXTargetDependency.
-public class PBXReferenceProxy: PBXObject, Hashable {
+final public class PBXReferenceProxy: PBXObject, Hashable {
     
     // MARK: - Attributes
     

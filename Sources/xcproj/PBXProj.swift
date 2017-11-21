@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 
 /// Represents a .pbxproj file
-public class PBXProj: Decodable {
+final public class PBXProj: Decodable {
     public class Objects: Equatable {
         // MARK: - Properties
         public var buildFiles: ReferenceableCollection<PBXBuildFile> = [:]

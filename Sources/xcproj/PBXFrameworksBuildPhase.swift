@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for the framework link build phase.
-public class PBXFrameworksBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXFrameworksBuildPhase: PBXBuildPhase, Hashable {
 
     public override var buildPhase: BuildPhase {
         return .frameworks

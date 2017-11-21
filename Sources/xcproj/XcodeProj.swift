@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 
 /// Model that represents a .xcodeproj project.
-public class XcodeProj {
+final public class XcodeProj {
 
     // MARK: - Properties
 

@@ -3,7 +3,7 @@ import PathKit
 
 /// Group that contains multiple files references to the different versions of a resource.
 /// Used to contain the different versions of a xcdatamodel
-public class XCVersionGroup: PBXObject, Hashable {
+final public class XCVersionGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
 
