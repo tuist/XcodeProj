@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for the shell script build phase.
-public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     // MARK: - Attributes
 

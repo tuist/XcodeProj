@@ -1,6 +1,6 @@
 import Foundation
 
-public class PBXGroup: PBXObject, Hashable {
+final public class PBXGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
 

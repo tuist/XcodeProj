@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 
 /// Model that represents a Xcode workspace.
-public class XCWorkspace {
+final public class XCWorkspace {
 
     /// Workspace data
     public var data: XCWorkspace.Data

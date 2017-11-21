@@ -1,7 +1,7 @@
 import Foundation
 
 // This is the element for referencing localized resources.
-public class PBXVariantGroup: PBXObject, Hashable {
+final public class PBXVariantGroup: PBXObject, Hashable {
 
     // MARK: - Attributes
 

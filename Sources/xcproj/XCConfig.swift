@@ -4,7 +4,7 @@ import PathKit
 public typealias XCConfigInclude = (include: Path, config: XCConfig)
 
 /// .xcconfig configuration file.
-public class XCConfig {
+final public class XCConfig {
 
     // MARK: - Attributes
 

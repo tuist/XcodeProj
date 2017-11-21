@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public class XCSharedData {
+final public class XCSharedData {
 
     // MARK: - Attributes
 

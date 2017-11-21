@@ -2,6 +2,9 @@
 
 ## 1.5.0 - (next release)
 
+### Added
+- Make `final` classes that are not extendible https://github.com/xcodeswift/xcproj/pull/164 by @pepibumur.
+
 ### Fixed
 - Fix `PBXProject` `productRefGroup` comment https://github.com/xcodeswift/xcproj/pull/161 by @allu22
 - Fix deprecation warnings for `PBXProj` objects usage https://github.com/xcodeswift/xcproj/pull/162 by @rahul-malik

@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element to decorate a target item.
-public class PBXContainerItemProxy: PBXObject, Hashable {
+final public class PBXContainerItemProxy: PBXObject, Hashable {
 
     public enum ProxyType: UInt, Decodable {
         case nativeTarget = 1
