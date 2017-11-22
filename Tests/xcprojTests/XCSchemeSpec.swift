@@ -60,12 +60,21 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.testAction?.macroExpansion.blueprintName, "iOS")
         XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertNotNil(scheme.testAction?.commandlineArguments)
+        if let testCLIArgs = scheme.testAction?.commandlineArguments {
+            XCTAssertTrue(testCLIArgs.arguments.count > 0)
+            XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
+            XCTAssertTrue(testCLIArgs.arguments[0].enabled)
+        }
+
         // Archive action
         XCTAssertEqual(scheme.archiveAction?.buildConfiguration, "Release")
         XCTAssertEqual(scheme.archiveAction?.revealArchiveInOrganizer, true)
         XCTAssertEqual(scheme.archiveAction?.customArchiveName, "TestName")
+
         // Analyze action
         XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
+
         // Profile action
         XCTAssertEqual(scheme.profileAction?.buildConfiguration, "Release")
         XCTAssertEqual(scheme.profileAction?.shouldUseLaunchSchemeArgsEnv, true)
@@ -78,6 +87,13 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertNotNil(scheme.profileAction?.commandlineArguments)
+        if let profileCLIArgs = scheme.profileAction?.commandlineArguments {
+            XCTAssertTrue(profileCLIArgs.arguments.count > 0)
+            XCTAssertEqual(profileCLIArgs.arguments[0].name, "MyProfileArgument")
+            XCTAssertFalse(profileCLIArgs.arguments[0].enabled)
+        }
+
         // Launch action
         XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
         XCTAssertEqual(scheme.launchAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
@@ -96,6 +112,13 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.referenceType, "1")
+
+        XCTAssertNotNil(scheme.launchAction?.commandlineArguments)
+        if let launchCLIArgs = scheme.launchAction?.commandlineArguments {
+            XCTAssertTrue(launchCLIArgs.arguments.count > 0)
+            XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
+            XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
+        }
     }
 
     private func fixturePath() -> Path {
