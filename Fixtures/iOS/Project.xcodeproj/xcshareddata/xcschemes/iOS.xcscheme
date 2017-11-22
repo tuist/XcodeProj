@@ -50,6 +50,9 @@
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
+      <CommandLineArguments>
+        <CommandLineArgument argument="MyTestArgument" isEnabled="YES"></CommandLineArgument>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -77,6 +80,9 @@
          identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
          referenceType = "1">
       </LocationScenarioReference>
+      <CommandLineArguments>
+        <CommandLineArgument argument="MyLaunchArgument" isEnabled="YES"></CommandLineArgument>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -94,6 +100,9 @@
             ReferencedContainer = "container:Project.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+        <CommandLineArgument argument="MyProfileArgument" isEnabled="NO"></CommandLineArgument>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
