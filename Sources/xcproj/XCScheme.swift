@@ -366,19 +366,22 @@ final public class XCScheme {
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
+        public var codeCoverageEnabled: Bool
         public var macroExpansion: BuildableReference
         public init(buildConfiguration: String,
                     macroExpansion: BuildableReference,
                     testables: [TestableReference] = [],
                     selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
                     selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
-                    shouldUseLaunchSchemeArgsEnv: Bool = true) {
+                    shouldUseLaunchSchemeArgsEnv: Bool = true,
+                    codeCoverageEnabled: Bool = false) {
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
             self.testables = testables
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
+            self.codeCoverageEnabled = codeCoverageEnabled
         }
         init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
@@ -394,6 +397,7 @@ final public class XCScheme {
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
+            self.codeCoverageEnabled = element.attributes["codeCoverageEnabled"] == "YES"
             self.testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
@@ -405,6 +409,7 @@ final public class XCScheme {
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
             attributes["selectedLauncherIdentifier"] = selectedLauncherIdentifier
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
+            attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             let testablesElement = element.addChild(name: "Testables")
             testables.forEach { (testable) in

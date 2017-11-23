@@ -3,6 +3,7 @@
 ## 1.5.0 - (next release)
 
 ### Added
+- Add `codeCoverageEnabled` parameter to `TestAction` https://github.com/xcodeswift/xcproj/pull/166 by @kastiglione
 - Make `final` classes that are not extendible https://github.com/xcodeswift/xcproj/pull/164 by @pepibumur.
 
 ### Fixed

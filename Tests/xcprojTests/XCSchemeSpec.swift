@@ -48,6 +48,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
         XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
         XCTAssertEqual(scheme.testAction?.shouldUseLaunchSchemeArgsEnv, true)
+        XCTAssertEqual(scheme.testAction?.codeCoverageEnabled, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
