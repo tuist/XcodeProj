@@ -181,3 +181,4 @@ xcuserdata
 build/
 xcproj.xcodeproj
 .idea/
+tmp/
