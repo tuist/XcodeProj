@@ -611,14 +611,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 568,
+      "line": 573,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 569,
+      "line": 574,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
