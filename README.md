@@ -141,35 +141,51 @@ You can read more about what each of these objects is for on the [following link
 
 ## Examples
 
-### Creating a group inside another group
+### Reading `MyApp.xcodeproj`
 
 ```swift
-let project = try XcodeProj(path: "myproject.xcodeproj")
-let myGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "MyGroup")
-project.pbxproj.append(myGroup)
-try project.write(path: "myproject.xcodeproj")
+let project = try XcodeProj(path: "MyApp.xcodeproj")
 ```
 
-### Adding a file inside a group
+### Writing `MyApp.xcodeproj`
 
 ```swift
-let project = try XcodeProj(path: "myproject.xcodeproj")
-let myGroupFile = PBXFileReference(reference: "xxx", sourceTree: .group, path: "myGroupFile.swift")
-myGroup.children.append(myGroupFile.reference)
-project.pbxproj.append(myGroupFile)
-try project.write(path: "myproject.xcodeproj")
+try project.write(path: "MyApp.xcodeproj")
 ```
 
-### Adding a existing file as a source file
+### Adding `Home` group inside `Sources` group
 
 ```swift
-let targetName = "MyTarget"
-let project = try XcodeProj(path: "myproject.xcodeproj")
-let sourcesBuildPhase = project.pbxproj.sourcesBuildPhases.first?
-
-try project.write(path: "myproject.xcodeproj")
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources"})?.value else { return }    
+let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+sourcesGroup.children.append(homeGroup.reference)
+project.pbxproj.objects.addObject(homeGroup)
 ```
 
+### Add `HomeViewController.swift` file inside `HomeGroup`
+
+```swift
+let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+homeGroup.children.append(homeViewController.reference)
+```
+
+### Add `HomeViewController.swift` file to `MyApp` target
+
+```swift
+let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+guard let sourcesBuildPhase = project.pbxproj
+    .objects.nativeTargets
+    .values
+    .first(where: {$0.name == "MyApp"})
+    .flatMap({  target -> PBXSourcesBuildPhase? in
+        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
+    }) else { return }
+// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
+let buildFile = PBXBuildFile(reference: "yyy", fileRef: homeViewController.reference)
+project.pbxproj.objects.addObject(buildFile)
+sourcesBuildPhase.files.append(buildFile.reference)
+```
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
