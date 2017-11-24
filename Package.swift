@@ -14,5 +14,6 @@ let package = Package(
     targets: [
         .target(name: "xcproj", dependencies: ["PathKit", "AEXML"]),
         .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
+        .testTarget(name: "xcprojIntegrationTests", dependencies: ["xcproj"]),
         ]
 )
