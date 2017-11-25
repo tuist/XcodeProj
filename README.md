@@ -1,8 +1,5 @@
 <img src="Assets/header.png" width="400"/><br/>
 
-<a href="https://travis-ci.org/xcodeswift/xcproj">
-    <img src="https://travis-ci.org/xcodeswift/xcproj.svg?branch=master">
-</a>
 <a href="#backers" alt="sponsors on Open Collective">
   <img src="https://opencollective.com/xcproj/backers/badge.svg"/>
 </a>
@@ -27,8 +24,12 @@
 
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/xcode-swift)
 
-
 xcproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
+
+## Continuous Integration ✅
+
+- **Master:** [![Build Status](https://travis-ci.org/xcodeswift/xcproj.svg?branch=master)](https://travis-ci.org/xcodeswift/xcproj)
+- **Integration:** [![Build Status](https://travis-ci.org/xcodeswift/xcproj.svg?branch=integration)](https://travis-ci.org/xcodeswift/xcproj)
 
 ## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
@@ -182,7 +183,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/xcproj/sponsor/7/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/xcproj/sponsor/8/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/xcproj/sponsor/9/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/9/avatar.svg"></a>
-
 
 
 ## License
