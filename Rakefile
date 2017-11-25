@@ -36,7 +36,11 @@ task :carthage do
 end
 
 def test
-  sh "swift test"
+  sh "swift test --filter xcprojTests"
+end
+
+def test_integration
+  sh "swift test --filter xcprojIntegrationTests"
 end
 
 def current_version
