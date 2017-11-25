@@ -1,10 +1,3 @@
-//
-//  XCTestCase+Assertions.swift
-//  xcprojTests
-//
-//  Created by Rahul Malik on 11/24/17.
-//
-
 import Foundation
 import XCTest
 
