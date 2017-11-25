@@ -121,13 +121,12 @@ A `XcodeProj` has the following properties:
 - `XCWorkspace` that defines the structure of the project workspace.
 - `PBXProj` that defines the strcuture of the project.
 
-Amongt other properties, the most important one in the `PBXProj` object is `Objects`. Projects are defined by a list of those objects that can be classified in the following groups:
+Among other properties, the most important one in the `PBXProj` object is `Objects`. Projects are defined by a list of those objects that can be classified in the following groups:
 
 - **Build phases objects**: Define the available build phases.
-- **Targets objects**: Define your project targets and dependencies between them.
+- **Target objects**: Define your project targets and dependencies between them.
 - **Configuration objects**: Define the available configs and the link between them and the targets.
-- **Files objects**: Define the project files, build files and groups.
-
+- **File objects**: Define the project files, build files and groups.
 
 All objects subclass `PBXObject`, and have an unique & deterministic reference. Moreover, they are hashable and conform the `Equatable` protocol.
 
@@ -139,6 +138,54 @@ You can read more about what each of these objects is for on the [following link
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
 - The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
 - New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcodeswift/xcproj/issues/new) on the repository.
+
+## Examples
+
+### Reading `MyApp.xcodeproj`
+
+```swift
+let project = try XcodeProj(path: "MyApp.xcodeproj")
+```
+
+### Writing `MyApp.xcodeproj`
+
+```swift
+try project.write(path: "MyApp.xcodeproj")
+```
+
+### Adding `Home` group inside `Sources` group
+
+```swift
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources"})?.value else { return }    
+let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+sourcesGroup.children.append(homeGroup.reference)
+project.pbxproj.objects.addObject(homeGroup)
+```
+
+### Add `HomeViewController.swift` file inside `HomeGroup`
+
+```swift
+let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+homeGroup.children.append(homeViewController.reference)
+```
+
+### Add `HomeViewController.swift` file to `MyApp` target
+
+```swift
+let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+guard let sourcesBuildPhase = project.pbxproj
+    .objects.nativeTargets
+    .values
+    .first(where: {$0.name == "MyApp"})
+    .flatMap({  target -> PBXSourcesBuildPhase? in
+        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
+    }) else { return }
+// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
+let buildFile = PBXBuildFile(reference: "yyy", fileRef: homeViewController.reference)
+project.pbxproj.objects.addObject(buildFile)
+sourcesBuildPhase.files.append(buildFile.reference)
+```
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
