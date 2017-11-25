@@ -85,7 +85,7 @@ extension PBXGroup: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
         dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
-            let comment = name(reference: fileReference, proj: proj)
+            let comment = proj.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
         if let name = name {
@@ -103,17 +103,6 @@ extension PBXGroup: PlistSerializable {
         return (key: CommentedString(self.reference,
                                                  comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
-    }
-
-    fileprivate func name(reference: String, proj: PBXProj) -> String? {
-        if let group: PBXGroup = proj.objects.groups.getReference(reference) {
-            return group.name ?? group.path
-        } else if let variantGroup: PBXVariantGroup = proj.objects.variantGroups.getReference(reference) {
-            return variantGroup.name
-        } else if let file: PBXFileReference = proj.objects.fileReferences.getReference(reference) {
-            return file.name ?? file.path
-        }
-        return nil
     }
 
 }

@@ -6,6 +6,9 @@
 - Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
 
+### Fixed
+- `PBXGroup` not generating the comment properly for its children https://github.com/xcodeswift/xcproj/pull/169 by @pepibumur.
+
 ## 1.5.0
 
 ### Added
