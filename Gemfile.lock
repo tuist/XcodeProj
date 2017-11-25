@@ -150,6 +150,7 @@ DEPENDENCIES
   cocoapods
   colorize
   danger-xcodeswift!
+  git
   jazzy
   rake
   semantic

@@ -3,9 +3,12 @@
 require 'semantic'
 require 'colorize'
 require 'fileutils'
+require 'git'
 
 DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.1"
 XCODEGEN_VERSION = "1.3.0"
+
+git = Git.open(".")
 
 def generate_docs
   print "Executing tests"
@@ -14,7 +17,7 @@ def generate_docs
 end
 
 def any_git_changes?
-  !`git status -s`.empty?
+  !git.status.changed.empty?
 end
 
 def command?(name)
@@ -65,10 +68,12 @@ def pod_lint
 end
 
 def commit_changes_and_push(tag)
-  `git add .`
-  `git commit -m "Bump version to #{tag}"`
-  if tag then `git tag #{tag}` end
-  `git push origin --tags`
+  git.add "."
+  git.commit "Bump version to #{tag}"
+  if tag
+    git.add_tag(tag)
+  end
+  git.push('origin', "refs/tags/#{tag}")
 end
 
 def generate_carthage_project
@@ -97,12 +102,16 @@ task :ci => [:clean] do
   sh "swiftlint"
   print "CocoaPods linting"
   pod_lint()
+  print "Building Carthage project"
+  build_carthage_project()
   print "Building the project"
   build()
   print "Executing tests"
   test()
-  print "Building Carthage project"
-  build_carthage_project()
+  if git.current_branch == "integration"
+    print "Executing integration tests"
+    test_integration()
+  end
 end
 
 desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
