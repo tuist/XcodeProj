@@ -141,19 +141,19 @@ You can read more about what each of these objects is for on the [following link
 
 ## Examples
 
-### Reading `MyApp.xcodeproj`
+#### Reading `MyApp.xcodeproj`
 
 ```swift
 let project = try XcodeProj(path: "MyApp.xcodeproj")
 ```
 
-### Writing `MyApp.xcodeproj`
+#### Writing `MyApp.xcodeproj`
 
 ```swift
 try project.write(path: "MyApp.xcodeproj")
 ```
 
-### Adding `Home` group inside `Sources` group
+#### Adding `Home` group inside `Sources` group
 
 ```swift
 guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources"})?.value else { return }    
@@ -162,7 +162,7 @@ sourcesGroup.children.append(homeGroup.reference)
 project.pbxproj.objects.addObject(homeGroup)
 ```
 
-### Add `HomeViewController.swift` file inside `HomeGroup`
+#### Add `HomeViewController.swift` file inside `HomeGroup`
 
 ```swift
 let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
@@ -170,7 +170,7 @@ let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, 
 homeGroup.children.append(homeViewController.reference)
 ```
 
-### Add `HomeViewController.swift` file to `MyApp` target
+#### Add `HomeViewController.swift` file to `MyApp` target
 
 ```swift
 let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
