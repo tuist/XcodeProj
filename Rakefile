@@ -108,10 +108,20 @@ task :ci => [:clean] do
   build()
   print "Executing tests"
   test()
-  if git.current_branch == "integration"
+  if git.current_branch == "integration" || ENV["TRAVIS_BRANCH"] == "integration"
     print "Executing integration tests"
     test_integration()
   end
+end
+
+desc "Branches off master into integration and pushes it to origin (only executable from master)"
+task :deploy_to_integration do
+   if git.current_branch == "master" || ENV["TRAVIS_BRANCH"] == "master"
+    token = ENV["GITHUB_TOKEN"]
+    return abort("GITHUB_TOKEN environment variable is missing") unless token
+    git.add_remote("origin-travis", "https://#{token}@github.com/xcodeswift/xcproj.git")
+    git.push("origin-travis", "master:integration")
+   end
 end
 
 desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
