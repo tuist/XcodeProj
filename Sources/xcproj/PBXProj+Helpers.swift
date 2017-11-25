@@ -24,6 +24,10 @@ extension PBXProj {
     func fileName(fileReference: String) -> String? {
         if let variantGroup: PBXVariantGroup = objects.variantGroups.getReference(fileReference) {
             return variantGroup.name
+        } else if let group: PBXGroup = objects.groups.getReference(fileReference) {
+            return group.name
+        } else if let versionGroup: XCVersionGroup = objects.versionGroups.getReference(fileReference) {
+            return versionGroup.name
         } else if let fileReference: PBXFileReference = objects.fileReferences.getReference(fileReference) {
             return fileReference.name ?? fileReference.path
         } else {
