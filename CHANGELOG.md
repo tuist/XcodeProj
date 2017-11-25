@@ -2,6 +2,9 @@
 
 ## 1.6.0 (next version)
 
+### Added
+- Add adding / editing command line arguments for Launch, Test and Profile Actions in `XCScheme`. https://github.com/xcodeswift/xcproj/pull/167 by @rahul-malik
+
 ## 1.5.0
 
 ### Added

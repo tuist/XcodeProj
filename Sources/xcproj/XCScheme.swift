@@ -138,11 +138,13 @@ final public class XCScheme {
             self.arguments = args
         }
 
-        init(element: AEXMLElement) {
-            self.arguments = element.children.map { elt in
-                guard let argName = elt.attributes["argument"],
-                      let argEnabledRaw = elt.attributes["isEnabled"] else {
-                    fatalError("Invalid Commandline Argument Element")
+        init(element: AEXMLElement) throws {
+            self.arguments = try element.children.map { elt in
+                guard let argName = elt.attributes["argument"] else {
+                    throw XCSchemeError.missing(property: "argument")
+                }
+                guard let argEnabledRaw = elt.attributes["isEnabled"] else {
+                    throw XCSchemeError.missing(property: "isEnabled")
                 }
                 return CommandLineArgument(name: argName, enabled: argEnabledRaw == "YES")
             }
@@ -332,8 +334,9 @@ final public class XCScheme {
                 self.locationScenarioReference = nil
             }
 
-            if let commandlineOptions = element.children.first(where: { $0.name == "CommandLineArguments" }) {
-                self.commandlineArguments = CommandLineArguments(element: commandlineOptions)
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
             }
         }
         fileprivate func xmlElement() -> AEXMLElement {
@@ -398,8 +401,9 @@ final public class XCScheme {
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
             self.buildableProductRunnable = try BuildableProductRunnable(element: element["BuildableProductRunnable"])
-            if let commandlineOptions = element.children.first(where: { $0.name == "CommandLineArguments" }) {
-                self.commandlineArguments = CommandLineArguments(element: commandlineOptions)
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
             }
         }
         fileprivate func xmlElement() -> AEXMLElement {
@@ -465,8 +469,9 @@ final public class XCScheme {
                 .map(TestableReference.init) ?? []
             self.macroExpansion = try BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
 
-            if let commandlineOptions = element.children.first(where: { $0.name == "CommandLineArguments" }) {
-                self.commandlineArguments = CommandLineArguments(element: commandlineOptions)
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
             }
         }
         fileprivate func xmlElement() -> AEXMLElement {

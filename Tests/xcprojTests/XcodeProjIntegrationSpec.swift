@@ -31,7 +31,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_init_setsCorrectProjectName() {
         let proj = projectiOS()!.pbxproj
         let rootObject = proj.rootObject
-        let rootProject = proj.projects.first(where: { $0.reference == rootObject })
+        let rootProject = proj.objects.projects.getReference(rootObject)
         XCTAssertEqual(rootProject?.name, "Project")
     }
 
@@ -56,7 +56,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let rawProj: String = try (path + "project.pbxproj").read()
 
         let proj = try XcodeProj(path: path)
-        let buildConfiguration = proj.pbxproj.buildConfigurations.first!
+        let buildConfiguration = proj.pbxproj.objects.buildConfigurations.first!.value
         buildConfiguration.buildSettings["a_quoted"] = "a".quoted
 
         let encoder = PBXProjEncoder()

@@ -61,12 +61,12 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.testAction?.macroExpansion.blueprintName, "iOS")
         XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.testAction?.macroExpansion.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertNotNil(scheme.testAction?.commandlineArguments)
-        if let testCLIArgs = scheme.testAction?.commandlineArguments {
-            XCTAssertTrue(testCLIArgs.arguments.count > 0)
-            XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
-            XCTAssertTrue(testCLIArgs.arguments[0].enabled)
-        }
+
+        let testCLIArgs = XCTAssertNotNilAndUnwrap(scheme.testAction?.commandlineArguments)
+        XCTAssertTrue(testCLIArgs.arguments.count > 0)
+        XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
+        XCTAssertTrue(testCLIArgs.arguments[0].enabled)
+
 
         // Archive action
         XCTAssertEqual(scheme.archiveAction?.buildConfiguration, "Release")
@@ -88,12 +88,11 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.buildableName, "iOS.app")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.blueprintName, "iOS")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable.buildableReference.referencedContainer, "container:Project.xcodeproj")
-        XCTAssertNotNil(scheme.profileAction?.commandlineArguments)
-        if let profileCLIArgs = scheme.profileAction?.commandlineArguments {
-            XCTAssertTrue(profileCLIArgs.arguments.count > 0)
-            XCTAssertEqual(profileCLIArgs.arguments[0].name, "MyProfileArgument")
-            XCTAssertFalse(profileCLIArgs.arguments[0].enabled)
-        }
+
+        let profileCLIArgs = XCTAssertNotNilAndUnwrap(scheme.profileAction?.commandlineArguments)
+        XCTAssertTrue(profileCLIArgs.arguments.count > 0)
+        XCTAssertEqual(profileCLIArgs.arguments[0].name, "MyProfileArgument")
+        XCTAssertFalse(profileCLIArgs.arguments[0].enabled)
 
         // Launch action
         XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
@@ -114,12 +113,11 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.identifier, "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier")
         XCTAssertEqual(scheme.launchAction?.locationScenarioReference?.referenceType, "1")
 
-        XCTAssertNotNil(scheme.launchAction?.commandlineArguments)
-        if let launchCLIArgs = scheme.launchAction?.commandlineArguments {
-            XCTAssertTrue(launchCLIArgs.arguments.count > 0)
-            XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
-            XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
-        }
+        let launchCLIArgs = XCTAssertNotNilAndUnwrap(scheme.launchAction?.commandlineArguments)
+        XCTAssertTrue(launchCLIArgs.arguments.count > 0)
+        XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
+        XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
+
     }
 
     private func fixturePath() -> Path {
