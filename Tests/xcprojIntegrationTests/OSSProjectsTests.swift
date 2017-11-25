@@ -20,7 +20,7 @@ final class OSSProjectsTests: XCTestCase {
         try? tempDirectory.delete()
     }
     
-    func test_githaw() throws {
+    func test_projects() throws {
         try [
             (URL(string: "https://github.com/artsy/eigen")!, "Artsy.xcodeproj"),
             (URL(string: "https://github.com/rnystrom/GitHawk")!, "Freetime.xcodeproj"),
@@ -36,8 +36,10 @@ final class OSSProjectsTests: XCTestCase {
                                  projectPath: String) throws {
         let name = gitURL.lastPathComponent
         let clonePath = tempDirectory + Path(name)
-        print("> Cloning \(gitURL) to run the integartion test")
+        print("> Cloning \(gitURL) to run the integration test")
         try shellOut(to: "git clone --depth=1 \(gitURL) \(clonePath.string)")
+        let hash = try shellOut(to: "git --git-dir \(clonePath)/.git rev-parse HEAD")
+        print("> Running tests on commit: \(hash)")
         let projectFullPath = clonePath + Path(projectPath)
         _ = try XcodeProj(path: projectFullPath)
         print("> Project \(projectPath) can be opened ✅")
