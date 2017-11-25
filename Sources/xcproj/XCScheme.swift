@@ -126,6 +126,12 @@ final public class XCScheme {
         public struct CommandLineArgument {
             public let name: String
             public let enabled: Bool
+
+            public init(name: String, enabled: Bool) {
+                self.name = name
+                self.enabled = enabled
+            }
+
             fileprivate func xmlElement() -> AEXMLElement {
                 return AEXMLElement(name: "CommandLineArgument",
                                     value: nil,
