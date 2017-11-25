@@ -1,2 +1,2 @@
-github "tadija/AEXML" ~> 4.1.0
+github "tadija/AEXML" "81f506ab3e363aad66c36cda7664f3a1bfa7b439"
 github "xcodeswift/PathKit" "f11da4713b9f78159f1102959642f02c57c9e6a8"

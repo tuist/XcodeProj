@@ -2,6 +2,9 @@
 
 ## 1.6.0 (next version)
 
+### Added
+- Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
+
 ## 1.5.0
 
 ### Added
