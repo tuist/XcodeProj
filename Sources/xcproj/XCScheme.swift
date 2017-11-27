@@ -122,6 +122,50 @@ final public class XCScheme {
         }
     }
 
+    final public class CommandLineArguments {
+        public struct CommandLineArgument {
+            public let name: String
+            public let enabled: Bool
+
+            public init(name: String, enabled: Bool) {
+                self.name = name
+                self.enabled = enabled
+            }
+
+            fileprivate func xmlElement() -> AEXMLElement {
+                return AEXMLElement(name: "CommandLineArgument",
+                                    value: nil,
+                                    attributes: ["argument": name, "isEnabled": enabled ? "YES" : "NO" ])
+            }
+        }
+        public let arguments: [CommandLineArgument]
+
+        public init(arguments args:[CommandLineArgument]) {
+            self.arguments = args
+        }
+
+        init(element: AEXMLElement) throws {
+            self.arguments = try element.children.map { elt in
+                guard let argName = elt.attributes["argument"] else {
+                    throw XCSchemeError.missing(property: "argument")
+                }
+                guard let argEnabledRaw = elt.attributes["isEnabled"] else {
+                    throw XCSchemeError.missing(property: "isEnabled")
+                }
+                return CommandLineArgument(name: argName, enabled: argEnabledRaw == "YES")
+            }
+        }
+
+        fileprivate func xmlElement() -> AEXMLElement {
+            let element = AEXMLElement(name: "CommandLineArguments",
+                                       value: nil)
+            arguments.forEach { arg in
+                element.addChild(arg.xmlElement())
+            }
+            return element
+        }
+    }
+
     // MARK: - Build Action
 
     final public class BuildAction {
@@ -236,6 +280,7 @@ final public class XCScheme {
         public var debugServiceExtension: String
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
+        public var commandlineArguments: CommandLineArguments?
 
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
@@ -247,7 +292,8 @@ final public class XCScheme {
                     debugDocumentVersioning: Bool = true,
                     debugServiceExtension: String = "internal",
                     allowLocationSimulation: Bool = true,
-                    locationScenarioReference: LocationScenarioReference? = nil) {
+                    locationScenarioReference: LocationScenarioReference? = nil,
+                    commandlineArguments: CommandLineArguments? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.launchStyle = launchStyle
@@ -259,6 +305,7 @@ final public class XCScheme {
             self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = allowLocationSimulation
             self.locationScenarioReference = locationScenarioReference
+            self.commandlineArguments = commandlineArguments
         }
 
         init(element: AEXMLElement) throws {
@@ -292,6 +339,11 @@ final public class XCScheme {
             } else {
                 self.locationScenarioReference = nil
             }
+
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
+            }
         }
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "LaunchAction",
@@ -309,6 +361,11 @@ final public class XCScheme {
             if let locationScenarioReference = locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
+
+            if let commandlineArguments = commandlineArguments {
+                element.addChild(commandlineArguments.xmlElement())
+            }
+
             return element
         }
     }
@@ -320,18 +377,22 @@ final public class XCScheme {
         public var savedToolIdentifier: String
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
+        public var commandlineArguments: CommandLineArguments?
+
         public init(buildableProductRunnable: BuildableProductRunnable,
                     buildConfiguration: String,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     savedToolIdentifier: String = "",
                     useCustomWorkingDirectory: Bool = false,
-                    debugDocumentVersioning: Bool = true) {
+                    debugDocumentVersioning: Bool = true,
+                    commandlineArguments: CommandLineArguments? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.savedToolIdentifier = savedToolIdentifier
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.debugDocumentVersioning = debugDocumentVersioning
+            self.commandlineArguments = commandlineArguments
         }
         init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
@@ -346,6 +407,10 @@ final public class XCScheme {
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
             self.buildableProductRunnable = try BuildableProductRunnable(element: element["BuildableProductRunnable"])
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
+            }
         }
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "ProfileAction",
@@ -356,6 +421,9 @@ final public class XCScheme {
                                                     "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
                                                     "debugDocumentVersioning": debugDocumentVersioning.xmlString])
             element.addChild(buildableProductRunnable.xmlElement())
+            if let commandlineArguments = commandlineArguments {
+                element.addChild(commandlineArguments.xmlElement())
+            }
             return element
         }
     }
@@ -368,13 +436,16 @@ final public class XCScheme {
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var codeCoverageEnabled: Bool
         public var macroExpansion: BuildableReference
+        public var commandlineArguments: CommandLineArguments?
+
         public init(buildConfiguration: String,
                     macroExpansion: BuildableReference,
                     testables: [TestableReference] = [],
                     selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
                     selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
-                    codeCoverageEnabled: Bool = false) {
+                    codeCoverageEnabled: Bool = false,
+                    commandlineArguments: CommandLineArguments? = nil) {
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
             self.testables = testables
@@ -382,6 +453,7 @@ final public class XCScheme {
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.codeCoverageEnabled = codeCoverageEnabled
+            self.commandlineArguments = commandlineArguments
         }
         init(element: AEXMLElement) throws {
             guard let buildConfiguration = element.attributes["buildConfiguration"] else {
@@ -402,6 +474,11 @@ final public class XCScheme {
                 .all?
                 .map(TestableReference.init) ?? []
             self.macroExpansion = try BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
+
+            let commandlineOptions = element["CommandLineArguments"]
+            if commandlineOptions.error == nil {
+                self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
+            }
         }
         fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
@@ -417,6 +494,11 @@ final public class XCScheme {
             }
             let macro = element.addChild(name: "MacroExpansion")
             macro.addChild(macroExpansion.xmlElement())
+
+            if let commandlineArguments = commandlineArguments {
+                element.addChild(commandlineArguments.xmlElement())
+            }
+
             return element
         }
     }
