@@ -88,7 +88,7 @@ extension XcodeProj: Writable {
                 try debuggerPath.delete()
             }
             try debuggerPath.mkpath()
-            try sharedData.writeBreakpoints(path: debuggerPath + "Breakpoints_v2.xcbkptlist", override: override)
+            try sharedData.breakpoints?.write(path: debuggerPath + "Breakpoints_v2.xcbkptlist", override: override)
         }
     }
 

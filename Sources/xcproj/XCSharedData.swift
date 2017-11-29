@@ -1,6 +1,5 @@
 import Foundation
 import PathKit
-import AEXML
 
 final public class XCSharedData {
 
@@ -10,7 +9,7 @@ final public class XCSharedData {
     public var schemes: [XCScheme]
 
     /// Shared data breakpoints.
-    public var breakpoints: [XCBreakpoint]
+    public var breakpoints: XCBreakpointList?
 
     // MARK: - Init
 
@@ -19,7 +18,7 @@ final public class XCSharedData {
     /// - Parameters:
     ///   - schemes: shared data schemes.
     ///   - breakpoints: shared data breakpoints.
-    public init(schemes: [XCScheme], breakpoints: [XCBreakpoint]) {
+    public init(schemes: [XCScheme], breakpoints: XCBreakpointList?) {
         self.schemes = schemes
         self.breakpoints = breakpoints
     }
@@ -33,26 +32,7 @@ final public class XCSharedData {
         }
         self.schemes = path.glob("xcschemes/*.xcscheme")
             .flatMap { try? XCScheme(path: $0) }
-        self.breakpoints = path.glob("xcdebugger/Breakpoints_v2.xcbkptlist")
-            .flatMap { try? XCBreakpoint(path: $0) }
-    }
-
-}
-
-// MARK: - XCSharedData Extension (Writable)
-
-extension XCSharedData: Writable {
-
-    public func writeBreakpoints(path: Path, override: Bool) throws {
-        try write(path: path, override: override)
-    }
-
-    public func write(path: Path, override: Bool) throws {
-        let document = AEXMLDocument()
-        if override && path.exists {
-            try path.delete()
-        }
-        try path.write(document.xml)
+        self.breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
     }
 
 }
