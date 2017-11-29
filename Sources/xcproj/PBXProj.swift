@@ -6,6 +6,7 @@ final public class PBXProj: Decodable {
     public class Objects: Equatable {
         // MARK: - Properties
         public var buildFiles: ReferenceableCollection<PBXBuildFile> = [:]
+        public var legacyTargets: ReferenceableCollection<PBXLegacyTarget> = [:]
         public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = [:]
         public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = [:]
         public var groups: ReferenceableCollection<PBXGroup> = [:]
@@ -50,6 +51,7 @@ final public class PBXProj: Decodable {
         // MARK: - Equatable
         public static func == (lhs: Objects, rhs: Objects) -> Bool {
             return lhs.buildFiles == rhs.buildFiles &&
+                lhs.legacyTargets == rhs.legacyTargets &&
                 lhs.aggregateTargets == rhs.aggregateTargets &&
                 lhs.containerItemProxies == rhs.containerItemProxies &&
                 lhs.copyFilesBuildPhases == rhs.copyFilesBuildPhases &&
@@ -77,6 +79,8 @@ final public class PBXProj: Decodable {
             switch object {
             case let object as PBXBuildFile: buildFiles.append(object)
             case let object as PBXAggregateTarget: aggregateTargets.append(object)
+            case let object as PBXLegacyTarget:
+                legacyTargets.append(object)
             case let object as PBXContainerItemProxy: containerItemProxies.append(object)
             case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
             case let object as PBXGroup: groups.append(object)
@@ -102,7 +106,8 @@ final public class PBXProj: Decodable {
         public func getTarget(reference: String) -> PBXTarget? {
             let caches: [[String: PBXTarget]] = [
                 aggregateTargets,
-                nativeTargets
+                nativeTargets,
+                legacyTargets
             ]
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
@@ -111,6 +116,7 @@ final public class PBXProj: Decodable {
             let caches: [[String: PBXObject]] = [
                 buildFiles,
                 aggregateTargets,
+                legacyTargets,
                 containerItemProxies,
                 groups,
                 fileElements,
