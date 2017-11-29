@@ -107,7 +107,7 @@ final public class PBXProj: Decodable {
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
 
-        private func getReference(_ reference: String) -> PBXObject? {
+        public func getReference(_ reference: String) -> PBXObject? {
             let caches: [[String: PBXObject]] = [
                 buildFiles,
                 aggregateTargets,

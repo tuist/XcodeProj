@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for file and group elements.
-final public class PBXFileElement: PBXObject, Hashable {
+public class PBXFileElement: PBXObject, Hashable, PlistSerializable {
     
     // MARK: - Attributes
 
@@ -57,11 +57,7 @@ final public class PBXFileElement: PBXObject, Hashable {
         try super.init(from: decoder)
     }
     
-}
-
-// MARK: - PBXFileElement Extension (PlistSerializable)
-
-extension PBXFileElement: PlistSerializable {
+    // MARK: - PlistSerializable
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]

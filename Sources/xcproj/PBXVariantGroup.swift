@@ -1,18 +1,12 @@
 import Foundation
 
 // This is the element for referencing localized resources.
-final public class PBXVariantGroup: PBXObject, Hashable {
+final public class PBXVariantGroup: PBXFileElement {
 
     // MARK: - Attributes
 
     /// The objects are a reference to a PBXFileElement element
     public var children: [String]
-
-    /// The filename
-    public var name: String?
-
-    /// Variant group source tree.
-    public var sourceTree: PBXSourceTree?
 
     // MARK: - Init
 
@@ -28,25 +22,19 @@ final public class PBXVariantGroup: PBXObject, Hashable {
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil) {
         self.children = children
-        self.name = name
-        self.sourceTree = sourceTree
-        super.init(reference: reference)
+        super.init(reference: reference, sourceTree: sourceTree, name: name)
     }
 
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {
         case children
-        case name
-        case sourceTree
         case reference
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = try container.decodeIfPresent([String].self, forKey: .children) ?? []
-        self.name = try container.decodeIfPresent(String.self, forKey: .name)
-        self.sourceTree = try container.decodeIfPresent(PBXSourceTree.self, forKey: .sourceTree)
         try super.init(from: decoder)
     }
 
@@ -59,25 +47,16 @@ final public class PBXVariantGroup: PBXObject, Hashable {
         lhs.name == rhs.name &&
         lhs.sourceTree == rhs.sourceTree
     }
-}
 
-// MARK: - PlistSerializable
-extension PBXVariantGroup: PlistSerializable {
+    // MARK: - PlistSerializable
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
-        if let name = name {
-            dictionary["name"] = .string(CommentedString(name))
-        }
-        if let sourceTree = sourceTree {
-            dictionary["sourceTree"] = sourceTree.plist()
-        }
         dictionary["children"] = .array(children
             .map({PlistValue.string(CommentedString($0, comment: proj.fileName(fileReference: $0)))}))
         return (key: CommentedString(self.reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
     }
-
 }

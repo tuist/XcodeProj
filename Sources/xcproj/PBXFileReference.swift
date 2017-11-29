@@ -3,7 +3,7 @@ import PathKit
 
 ///  A PBXFileReference is used to track every external file referenced by
 ///  the project: source files, resource files, libraries, generated application files, and so on.
-final public class PBXFileReference: PBXObject, Hashable {
+final public class PBXFileReference: PBXFileElement {
  
     // MARK: - Attributes
     
@@ -18,15 +18,6 @@ final public class PBXFileReference: PBXObject, Hashable {
     
     /// Element include in index.
     public var includeInIndex: Int?
-    
-    /// Element name.
-    public var name: String?
-    
-    /// Element path.
-    public var path: String?
- 
-    /// Element source tree.
-    public var sourceTree: PBXSourceTree?
     
     /// Element uses tabs.
     public var usesTabs: Int?
@@ -53,14 +44,11 @@ final public class PBXFileReference: PBXObject, Hashable {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
-        self.name = name
-        self.path = path
-        self.sourceTree = sourceTree
         self.includeInIndex = includeInIndex
         self.usesTabs = usesTabs
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(reference: reference)
+        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
     }
 
     public static func == (lhs: PBXFileReference,
@@ -84,9 +72,6 @@ final public class PBXFileReference: PBXObject, Hashable {
         case fileEncoding
         case explicitFileType
         case lastKnownFileType
-        case name
-        case path
-        case sourceTree
         case includeInIndex
         case usesTabs
         case lineEnding
@@ -101,9 +86,6 @@ final public class PBXFileReference: PBXObject, Hashable {
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
         let includeInIndexString: String? = try container.decodeIfPresent(.includeInIndex)
         self.includeInIndex = includeInIndexString.flatMap({Int($0)})
-        self.name = try container.decodeIfPresent(.name)
-        self.path = try container.decodeIfPresent(.path)
-        self.sourceTree = try container.decodeIfPresent(.sourceTree)
         let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
         self.usesTabs = usesTabString.flatMap(Int.init)
         let lineEndingString: String? = try container.decodeIfPresent(.lineEnding)
@@ -112,6 +94,38 @@ final public class PBXFileReference: PBXObject, Hashable {
         try super.init(from: decoder)
     }
     
+    
+    // MARK: - PlistSerializable
+    
+    var multiline: Bool { return false }
+    
+    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
+        dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))
+        if let lastKnownFileType = lastKnownFileType {
+            dictionary["lastKnownFileType"] = .string(CommentedString(lastKnownFileType))
+        }
+        if let fileEncoding = fileEncoding {
+            dictionary["fileEncoding"] = .string(CommentedString("\(fileEncoding)"))
+        }
+        if let explicitFileType = self.explicitFileType {
+            dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
+        }
+        if let includeInIndex = includeInIndex {
+            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex)"))
+        }
+        if let usesTabs = usesTabs {
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+        }
+        if let lineEnding = lineEnding {
+            dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
+        }
+        if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
+            dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
+        }
+        return (key: CommentedString(self.reference, comment: name ?? path),
+                value: .dictionary(dictionary))
+    }
 }
 
 fileprivate let fileTypeHash: [String: String] = [
@@ -163,46 +177,3 @@ extension PBXFileReference {
     
 }
 
-// MARK: - PBXFileReference Extension (PlistSerializable)
-
-extension PBXFileReference: PlistSerializable {
-    
-    var multiline: Bool { return false }
-    
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
-        dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))
-        if let lastKnownFileType = lastKnownFileType {
-            dictionary["lastKnownFileType"] = .string(CommentedString(lastKnownFileType))
-        }
-        if let name = name {
-            dictionary["name"] = .string(CommentedString(name))
-        }
-        if let path = path {
-            dictionary["path"] = .string(CommentedString(path))
-        }
-        if let fileEncoding = fileEncoding {
-            dictionary["fileEncoding"] = .string(CommentedString("\(fileEncoding)"))
-        }
-        if let explicitFileType = self.explicitFileType {
-            dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
-        }
-        if let includeInIndex = includeInIndex {
-            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex)"))
-        }
-        if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
-        }
-        if let lineEnding = lineEnding {
-            dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
-        }
-        if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
-            dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
-        }
-        if let sourceTree = sourceTree {
-            dictionary["sourceTree"] = sourceTree.plist()
-        }
-        return (key: CommentedString(self.reference, comment: name ?? path),
-                value: .dictionary(dictionary))
-    }
-}
