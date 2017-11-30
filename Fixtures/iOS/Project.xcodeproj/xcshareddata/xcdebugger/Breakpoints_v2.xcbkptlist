@@ -22,8 +22,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
+            shouldBeEnabled = "No"
+            ignoreCount = "1"
             continueAfterRunningActions = "Yes"
             scope = "0"
             stopOnStyle = "0">
@@ -31,7 +31,7 @@
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.Log">
                   <ActionContent
-                     message = ""
+                     message = "Log"
                      conveyanceType = "0">
                   </ActionContent>
                </BreakpointActionProxy>
@@ -42,7 +42,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
-            ignoreCount = "0"
+            ignoreCount = "2"
             continueAfterRunningActions = "No"
             symbolName = "-[NSException raise]"
             moduleName = "">
@@ -50,7 +50,7 @@
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.ShellCommand">
                   <ActionContent
-                     waitUntilDone = "NO">
+                     waitUntilDone = "YES">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
@@ -61,8 +61,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.OpenGLErrorBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
+            shouldBeEnabled = "No"
+            ignoreCount = "3"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"
             symbolName = "__GPUTOOLS_HAS_DETECTED_AN_OPENGL_ERROR__"
@@ -71,7 +71,7 @@
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
-                     consoleCommand = "">
+                     consoleCommand = "po nil">
                   </ActionContent>
                </BreakpointActionProxy>
                <BreakpointActionProxy
@@ -88,8 +88,8 @@
          BreakpointExtensionID = "Xcode.Breakpoint.IDEConstraintErrorBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
+            ignoreCount = "4"
+            continueAfterRunningActions = "Yes"
             breakpointStackSelectionBehavior = "1">
             <Actions>
                <BreakpointActionProxy
