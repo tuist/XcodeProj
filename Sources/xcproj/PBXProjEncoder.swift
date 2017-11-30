@@ -32,7 +32,6 @@ final class PBXProjEncoder {
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
         write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
         write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
-        write(section: "PBXFileElement", proj: proj, object: proj.objects.fileElements)
         write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
         write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
         write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
