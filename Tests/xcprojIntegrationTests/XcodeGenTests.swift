@@ -36,20 +36,16 @@ final class XcodeGenTests: XCTestCase {
                                                   encoding: .utf8)
         print("> Building XcodeGen")
         try shellOut(to: "cd \(clonePath); swift build")
+        print("> Testing XcodeGen")
+        try shellOut(to: "cd \(clonePath); swift test")
     }
     
     fileprivate func makeXcprojDependencyLocal(content: String,
                                                revision: String) throws -> String {
-        let exp = "\\.package\\(url:\\s*\\\".+xcproj.git\\\".+\\)"
-        let regex = try NSRegularExpression(pattern: exp)
-        guard let match = regex.firstMatch(in: content,
-                                           options: [],
-                                           range: NSRange.init(location: 0, length: content.count)) else {
-                                            return content
-        }
-        let output = (content as NSString).replacingCharacters(in: match.range,
-                                                               with: ".package(url: \"../..\", .revision(\"\(revision)\"))")
-        return output
+        let expression = "\\.package\\(url:\\s*\\\".+xcproj.git\\\".+\\)"
+        let replacement = ".package(url: \"../..\", .revision(\"\(revision)\"))"
+        return content.replacingOccurrences(of: expression, with: replacement, options: .regularExpression, range: nil)
     }
     
 }
+
