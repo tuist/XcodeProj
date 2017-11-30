@@ -9,6 +9,7 @@
 
 ### Fixed
 - `PBXGroup` not generating the comment properly for its children https://github.com/xcodeswift/xcproj/pull/169 by @pepibumur.
+- Make `PBXFileElement` a superclass for `PBXFileReference`, `PBXGroup`, and `PBXVariantGroup` https://github.com/xcodeswift/xcproj/pull/173 by @gubikmic. 
 
 ## 1.5.0
 
