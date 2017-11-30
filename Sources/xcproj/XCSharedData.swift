@@ -18,7 +18,7 @@ final public class XCSharedData {
     /// - Parameters:
     ///   - schemes: shared data schemes.
     ///   - breakpoints: shared data breakpoints.
-    public init(schemes: [XCScheme], breakpoints: XCBreakpointList?) {
+    public init(schemes: [XCScheme], breakpoints: XCBreakpointList? = nil) {
         self.schemes = schemes
         self.breakpoints = breakpoints
     }
