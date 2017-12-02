@@ -9,7 +9,6 @@ final public class PBXProj: Decodable {
         public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = [:]
         public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = [:]
         public var groups: ReferenceableCollection<PBXGroup> = [:]
-        public var fileElements: ReferenceableCollection<PBXFileElement> = [:]
         public var configurationLists: ReferenceableCollection<XCConfigurationList> = [:]
         public var versionGroups: ReferenceableCollection<XCVersionGroup> = [:]
         public var buildConfigurations: ReferenceableCollection<XCBuildConfiguration> = [:]
@@ -54,7 +53,6 @@ final public class PBXProj: Decodable {
                 lhs.containerItemProxies == rhs.containerItemProxies &&
                 lhs.copyFilesBuildPhases == rhs.copyFilesBuildPhases &&
                 lhs.groups == rhs.groups &&
-                lhs.fileElements == rhs.fileElements &&
                 lhs.configurationLists == rhs.configurationLists &&
                 lhs.buildConfigurations == rhs.buildConfigurations &&
                 lhs.variantGroups == rhs.variantGroups &&
@@ -80,7 +78,6 @@ final public class PBXProj: Decodable {
             case let object as PBXContainerItemProxy: containerItemProxies.append(object)
             case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
             case let object as PBXGroup: groups.append(object)
-            case let object as PBXFileElement: fileElements.append(object)
             case let object as XCConfigurationList: configurationLists.append(object)
             case let object as XCBuildConfiguration: buildConfigurations.append(object)
             case let object as PBXVariantGroup: variantGroups.append(object)
@@ -107,13 +104,12 @@ final public class PBXProj: Decodable {
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
 
-        private func getReference(_ reference: String) -> PBXObject? {
+        public func getReference(_ reference: String) -> PBXObject? {
             let caches: [[String: PBXObject]] = [
                 buildFiles,
                 aggregateTargets,
                 containerItemProxies,
                 groups,
-                fileElements,
                 configurationLists,
                 buildConfigurations,
                 variantGroups,

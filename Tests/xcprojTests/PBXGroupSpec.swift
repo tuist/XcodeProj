@@ -49,7 +49,7 @@ final class PBXGroupSpec: XCTestCase {
                                     sourceTree: .group,
                                     name: "name",
                                     usesTabs: 1)
-        XCTAssertNotEqual(subject, withUsesTabs)
+        XCTAssertFalse(withUsesTabs == subject)
     }
 
     func test_hashValue_returnsTheReferenceHashValue() {
