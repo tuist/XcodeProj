@@ -15,14 +15,16 @@ final public class PBXVariantGroup: PBXFileElement {
     /// - Parameters:
     ///   - reference: variant group reference.
     ///   - children: group children references.
+    ///   - path: path of the variant group
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
     public init(reference: String,
                 children: [String] = [],
+                path: String? = nil,
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil) {
         self.children = children
-        super.init(reference: reference, sourceTree: sourceTree, name: name)
+        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
     }
 
     // MARK: - Decodable
