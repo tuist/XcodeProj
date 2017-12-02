@@ -7,6 +7,8 @@
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
 - Add adding / editing command line arguments for Launch, Test and Profile Actions in `XCScheme`. https://github.com/xcodeswift/xcproj/pull/167 by @rahul-malik
 - Test the contract with XcodeGen https://github.com/xcodeswift/xcproj/pull/170 by @pepibumur
+- add `PBXProj.Objects.getFileElement` https://github.com/xcodeswift/xcproj/pull/175 by @yonaskolb
+
 
 ### Fixed
 - `PBXGroup` not generating the comment properly for its children https://github.com/xcodeswift/xcproj/pull/169 by @pepibumur.
