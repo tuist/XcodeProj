@@ -49,7 +49,7 @@ def test_integration
 end
 
 def current_version
-  last_tag = `git describe --abbrev=0 --tags`
+  last_tag = `git describe --tags $(git rev-list --tags --max-count=1)`
   Semantic::Version.new last_tag
 end
 
