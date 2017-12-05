@@ -97,7 +97,7 @@ final public class PBXFileReference: PBXFileElement {
     
     // MARK: - PlistSerializable
     
-    var multiline: Bool { return false }
+    override var multiline: Bool { return false }
     
     override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]

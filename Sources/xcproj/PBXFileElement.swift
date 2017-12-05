@@ -58,6 +58,8 @@ public class PBXFileElement: PBXObject, Hashable, PlistSerializable {
     }
     
     // MARK: - PlistSerializable
+
+    var multiline: Bool { return true }
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
