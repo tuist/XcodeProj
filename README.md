@@ -237,7 +237,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 ```
 MIT License
 
-Copyright (c) 2017 swift-code
+Copyright (c) 2017 xcode.swift
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
