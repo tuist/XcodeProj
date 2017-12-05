@@ -8,7 +8,9 @@ require 'git'
 DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.1"
 XCODEGEN_VERSION = "1.3.0"
 
-git = Git.open(".")
+def git
+  Git.open(".")
+end
 
 def generate_docs
   print "Executing tests"
