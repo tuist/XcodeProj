@@ -71,11 +71,11 @@ end
 
 def commit_changes_and_push(tag)
   git.add "."
-  git.commit "Bump version to #{tag}"
+  git.commit "Bump version to #{tag.to_string}"
   if tag
-    git.add_tag(tag)
+    git.add_tag(tag.to_string)
   end
-  git.push('origin', "refs/tags/#{tag}")
+  git.push('origin', "refs/tags/#{tag.to_string}")
 end
 
 def generate_carthage_project
