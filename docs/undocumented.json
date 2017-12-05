@@ -80,111 +80,104 @@
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
       "line": 11,
-      "symbol": "PBXProj.fileElements",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 12,
       "symbol": "PBXProj.configurationLists",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 13,
+      "line": 12,
       "symbol": "PBXProj.versionGroups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 14,
+      "line": 13,
       "symbol": "PBXProj.buildConfigurations",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 15,
+      "line": 14,
       "symbol": "PBXProj.variantGroups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 16,
+      "line": 15,
       "symbol": "PBXProj.targetDependencies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 17,
+      "line": 16,
       "symbol": "PBXProj.sourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 18,
+      "line": 17,
       "symbol": "PBXProj.shellScriptBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 19,
+      "line": 18,
       "symbol": "PBXProj.resourcesBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 20,
+      "line": 19,
       "symbol": "PBXProj.frameworksBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 21,
+      "line": 20,
       "symbol": "PBXProj.headersBuildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 22,
+      "line": 21,
       "symbol": "PBXProj.nativeTargets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 23,
+      "line": 22,
       "symbol": "PBXProj.fileReferences",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 24,
+      "line": 23,
       "symbol": "PBXProj.projects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 25,
+      "line": 24,
       "symbol": "PBXProj.referenceProxies",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 26,
+      "line": 25,
       "symbol": "PBXProj.buildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -268,14 +261,21 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXFileReference.swift",
-      "line": 42,
+      "line": 33,
       "symbol": "PBXFileReference.init(reference:sourceTree:name:fileEncoding:explicitFileType:lastKnownFileType:path:includeInIndex:usesTabs:lineEnding:xcLanguageSpecificationIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXFileReference.swift",
-      "line": 96,
+      "line": 54,
+      "symbol": "PBXFileReference.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXFileReference.swift",
+      "line": 81,
       "symbol": "PBXFileReference.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -352,14 +352,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 142,
+      "line": 148,
       "symbol": "PBXProj.objects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 176,
+      "line": 182,
       "symbol": "PBXProj.addObject(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -611,14 +611,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 573,
+      "line": 655,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 574,
+      "line": 656,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -639,14 +639,21 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCVersionGroup.swift",
-      "line": 30,
+      "line": 21,
       "symbol": "XCVersionGroup.init(reference:currentVersion:path:name:sourceTree:versionGroupType:children:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCVersionGroup.swift",
-      "line": 68,
+      "line": 34,
+      "symbol": "XCVersionGroup.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCVersionGroup.swift",
+      "line": 51,
       "symbol": "XCVersionGroup.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
