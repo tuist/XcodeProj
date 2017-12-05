@@ -1,13 +1,15 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## 1.6.0 (next version)
+## 1.7.0 (next version)
+
+## 1.6.0
 
 ### Added
 - Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
 - Add adding / editing command line arguments for Launch, Test and Profile Actions in `XCScheme`. https://github.com/xcodeswift/xcproj/pull/167 by @rahul-malik
 - Test the contract with XcodeGen https://github.com/xcodeswift/xcproj/pull/170 by @pepibumur
-- add `PBXProj.Objects.getFileElement` https://github.com/xcodeswift/xcproj/pull/175 by @yonaskolb
+- Add `PBXProj.Objects.getFileElement` https://github.com/xcodeswift/xcproj/pull/175 by @yonaskolb
 
 
 ### Fixed
