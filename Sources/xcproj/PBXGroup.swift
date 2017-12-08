@@ -9,6 +9,12 @@ final public class PBXGroup: PBXFileElement {
 
     /// Element uses tabs.
     public var usesTabs: Int?
+    
+    /// Element indent width.
+    public var indentWidth: Int?
+    
+    /// Element tab width.
+    public var tabWidth: Int?
 
     // MARK: - Init
 
@@ -26,9 +32,13 @@ final public class PBXGroup: PBXFileElement {
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil,
-                usesTabs: Int? = nil) {
+                usesTabs: Int? = nil,
+                indentWidth: Int? = nil,
+                tabWidth: Int? = nil) {
         self.children = children
         self.usesTabs = usesTabs
+        self.indentWidth = indentWidth
+        self.tabWidth = tabWidth
         super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
     }
 
@@ -39,7 +49,9 @@ final public class PBXGroup: PBXFileElement {
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
-            lhs.usesTabs == rhs.usesTabs
+            lhs.usesTabs == rhs.usesTabs &&
+            lhs.indentWidth == rhs.indentWidth &&
+            lhs.tabWidth == rhs.tabWidth
     }
     
     // MARK: - Decodable
@@ -47,6 +59,8 @@ final public class PBXGroup: PBXFileElement {
     fileprivate enum CodingKeys: String, CodingKey {
         case children
         case usesTabs
+        case indentWidth
+        case tabWidth
     }
     
     public required init(from decoder: Decoder) throws {
@@ -54,6 +68,10 @@ final public class PBXGroup: PBXFileElement {
         self.children = (try container.decodeIfPresent(.children)) ?? []
         let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
         self.usesTabs = usesTabString.flatMap(Int.init)
+        let indentWidthString: String? = try container.decodeIfPresent(.indentWidth)
+        self.indentWidth = indentWidthString.flatMap(Int.init)
+        let tabWidthString: String? = try container.decodeIfPresent(.tabWidth)
+        self.tabWidth = tabWidthString.flatMap(Int.init)
         try super.init(from: decoder)
     }
     
@@ -66,9 +84,14 @@ final public class PBXGroup: PBXFileElement {
             let comment = proj.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
-        if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+        [("usesTabs" as CommentedString, usesTabs),
+         ("indentWidth", indentWidth),
+         ("tabWidth", tabWidth)].forEach { name, valueOption in
+            if let value = valueOption {
+                dictionary[name] = .string(CommentedString("\(value)"))
+            }
         }
+        
         return (key: CommentedString(self.reference,
                                      comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
