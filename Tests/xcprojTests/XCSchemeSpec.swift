@@ -24,6 +24,19 @@ final class XCSchemeIntegrationSpec: XCTestCase {
                   modify: { $0 },
                   assertion: { assert(scheme: $1) })
     }
+    
+    func test_write_doesntWriteIfTheContentDidntChange() throws {
+        let path = fixturePath()
+        let beforeDate = createdAt(path: path)
+        let scheme = try XCScheme(path: path)
+        try scheme.write(path: path, override: false)
+        let afterDate = createdAt(path: path)
+        XCTAssertEqual(beforeDate, afterDate)
+    }
+    
+    private func createdAt(path: Path) -> Date? {
+        return try? FileManager.default.attributesOfItem(atPath: path.string)[FileAttributeKey.creationDate] as! Date
+    }
 
     // MARK: - Private
 

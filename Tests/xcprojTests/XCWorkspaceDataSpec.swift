@@ -52,7 +52,7 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
         let path = fixturePath()
         let dateBefore = createdAt(path: path)
         let workspaceData = try XCWorkspace.Data(path: path)
-        try workspaceData.write(path: path, override: true)
+        try workspaceData.write(path: path, override: false)
         let dateAfter = createdAt(path: path)
         XCTAssertEqual(dateBefore, dateAfter)
     }

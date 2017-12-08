@@ -76,10 +76,14 @@ extension XcodeProj: Writable {
     fileprivate func writeSharedData(path: Path, override: Bool) throws {
         if let sharedData = sharedData {
             let schemesPath = path + "xcshareddata/xcschemes"
-            if override && schemesPath.exists {
-                try schemesPath.delete()
+            if !schemesPath.exists {
+                try schemesPath.mkpath()
             }
-            try schemesPath.mkpath()
+            let existingSchemes = Set(schemesPath.glob("*.xcscheme").map({ $0.lastComponentWithoutExtension }))
+            let newSchemes = Set(sharedData.schemes.map({$0.name}))
+            try existingSchemes.subtracting(newSchemes).forEach { name in
+                try (schemesPath + "\(name).xcscheme").delete()
+            }
             for scheme in sharedData.schemes {
                 try scheme.write(path: schemesPath + "\(scheme.name).xcscheme", override: override)
             }

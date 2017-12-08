@@ -86,7 +86,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
         let data = try! Data(contentsOf: path.url)
         let decoder = PropertyListDecoder()
         let project = try decoder.decode(PBXProj.self, from: data)
-        try project.write(path: path, override: true)
+        try project.write(path: path, override: false)
         let afterCreatedAt = createdAt(path: path)
         XCTAssertEqual(beforeCreatedAt, afterCreatedAt)
     }
