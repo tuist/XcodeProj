@@ -2,7 +2,7 @@
 
 ## Next version
 
-## 1.7.0
+## 1.6.1
 
 ### Fixed
 - Fix encoded line breaks in PBXFileReference https://github.com/xcodeswift/xcproj/pull/177 by @yonaskolb
