@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Workspace
-   version = "1.0">
-   <FileRef
-      location = "self:">
-   </FileRef>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Workspace version="1.0">
+	<FileRef location="self:/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Fixtures/iOS/Project.xcodeproj" />
 </Workspace>

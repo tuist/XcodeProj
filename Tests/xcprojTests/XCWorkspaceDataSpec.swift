@@ -47,6 +47,15 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
                     XCTAssertTrue(after.references.filter{ $0.description.contains("shakira")}.count == 1)
         }
     }
+    
+    func test_write_doesntWriteIfTheDataHasntChanged() throws {
+        let path = fixturePath()
+        let dateBefore = createdAt(path: path)
+        let workspaceData = try XCWorkspace.Data(path: path)
+        try workspaceData.write(path: path, override: true)
+        let dateAfter = createdAt(path: path)
+        XCTAssertEqual(dateBefore, dateAfter)
+    }
 
     // MARK: - Private
 
@@ -54,4 +63,7 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
         return fixturesPath() + Path("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata")
     }
 
+    private func createdAt(path: Path) -> Date? {
+        return try? FileManager.default.attributesOfItem(atPath: path.string)[FileAttributeKey.creationDate] as! Date
+    }
 }
