@@ -135,10 +135,13 @@ extension PBXProj: Writable {
     public func write(path: Path, override: Bool) throws {
         let encoder = PBXProjEncoder()
         let output = encoder.encode(proj: self)
-        if override && path.exists {
-            try path.delete()
+        let existing = try? String(contentsOf: path.url)
+        if existing != output {
+            if override && path.exists {
+                try path.delete()
+            }
+            try path.write(output)
         }
-        try path.write(output)
     }
     
 }

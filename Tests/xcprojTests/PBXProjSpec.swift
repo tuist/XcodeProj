@@ -79,10 +79,25 @@ final class PBXProjIntegrationSpec: XCTestCase {
                     },
                   modify: { $0 })
     }
+    
+    func test_write_doesntWriteIfTheProjectHasntBeenModified() throws  {
+        let path = fixturePath()
+        let beforeCreatedAt = createdAt(path: path)
+        let data = try! Data(contentsOf: path.url)
+        let decoder = PropertyListDecoder()
+        let project = try decoder.decode(PBXProj.self, from: data)
+        try project.write(path: path, override: true)
+        let afterCreatedAt = createdAt(path: path)
+        XCTAssertEqual(beforeCreatedAt, afterCreatedAt)
+    }
 
     private func fixturePath() -> Path {
         let path = fixturesPath() + Path("iOS/Project.xcodeproj/project.pbxproj")
         return path
+    }
+    
+    private func createdAt(path: Path) -> Date? {
+        return try? FileManager.default.attributesOfItem(atPath: path.string)[FileAttributeKey.creationDate] as! Date
     }
 
     private func assert(proj: PBXProj) {
