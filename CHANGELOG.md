@@ -2,6 +2,10 @@
 
 ## Next version
 
+## 1.7.0
+
+- Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase
+
 ## 1.6.1
 
 ### Fixed

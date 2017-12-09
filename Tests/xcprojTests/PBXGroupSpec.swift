@@ -20,6 +20,8 @@ final class PBXGroupSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .group)
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.usesTabs, nil)
+        XCTAssertEqual(subject.indentWidth, nil)
+        XCTAssertEqual(subject.tabWidth, nil)
     }
 
     func test_init_failsIfChildrenIsMissing() {
