@@ -2,6 +2,8 @@
 
 ## Next version
 
+- Add breakpoint support through `XCBreakpointList`. https://github.com/xcodeswift/xcproj/pull/172 by [@alexruperez](https://github.com/alexruperez)
+
 ## 1.6.1
 
 ### Fixed
