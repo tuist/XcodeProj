@@ -10,6 +10,7 @@
 ## 1.6.0
 
 ### Added
+- PBXLegacyTarget support https://github.com/xcodeswift/xcproj/pull/171 by @bkase
 - Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
 - Add adding / editing command line arguments for Launch, Test and Profile Actions in `XCScheme`. https://github.com/xcodeswift/xcproj/pull/167 by @rahul-malik
