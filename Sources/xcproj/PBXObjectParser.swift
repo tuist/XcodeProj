@@ -26,16 +26,6 @@ final class PBXObjectsParser: PBXObjectsParsing {
     }
     
     // MARK: - Attributes
-    
-    /// True if the objects are parsed using multiple threads
-    private let multithread: Bool
-    
-    /// Initializes the PBXObjectsParser
-    ///
-    /// - Parameter multithread: true if objects are parsed in multiple threads.
-    init(multithread: Bool = true) {
-        self.multithread = multithread
-    }
 
     /// Parses the objects contained in the given dictionary.
     ///
@@ -43,26 +33,21 @@ final class PBXObjectsParser: PBXObjectsParsing {
     /// - Returns: array with all the objects
     /// - Throws: an error if the parsing fails
     func parse(objects: [String: [String: Any]]) throws -> [PBXObject] {
-        if multithread {
-            return try objects.map { (input) in
-                return Future<PBXObject, ParsingError> { completion in
-                    DispatchQueue.global().async {
-                        do {
-                            let value = try PBXObject.parse(reference: input.key,
-                                                            dictionary: input.value)
-                            completion(.success(value))
-                        } catch let decodingError as DecodingError {
-                            completion(.failure(.decoding(decodingError)))
-                        } catch {
-                            completion(.failure(.other(error)))
-                        }
+        return try objects.map { (input) in
+            return Future<PBXObject, ParsingError> { completion in
+                DispatchQueue.global().async {
+                    do {
+                        let value = try PBXObject.parse(reference: input.key,
+                                                        dictionary: input.value)
+                        completion(.success(value))
+                    } catch let decodingError as DecodingError {
+                        completion(.failure(.decoding(decodingError)))
+                    } catch {
+                        completion(.failure(.other(error)))
                     }
                 }
+            }
             }.sequence().forced().dematerialize()
-        } else {
-            return try objects.map { try PBXObject.parse(reference: $0.key,
-                                                         dictionary: $0.value) }
-        }
     }
     
 }
