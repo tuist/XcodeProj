@@ -14,7 +14,7 @@ let package = Package(
         .package(url: "https://github.com/Thomvis/BrightFutures.git", from: "6.0.0")
     ],
     targets: [
-        .target(name: "xcproj", dependencies: ["PathKit", "AEXML"]),
+        .target(name: "xcproj", dependencies: ["PathKit", "AEXML", "BrightFutures"]),
         .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
         .testTarget(name: "xcprojIntegrationTests", dependencies: ["xcproj", "PathKit", "ShellOut"]),
     ]
