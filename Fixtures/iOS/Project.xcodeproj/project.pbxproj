@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0403345F1F8F57CB0079CCF5 = {isa = PBXBuildFile; fileRef = 0403345D1F8F57CB0079CCF5; };
+		0403345F1F8F57CB0079CCF5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */; };
 		04D5C09F1F153824008A2F98 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D5C09E1F153824008A2F98 /* CoreData.framework */; };
 		04D5C0A31F153924008A2F98 /* Public.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A01F153915008A2F98 /* Public.h */; };
 		04D5C0A41F153924008A2F98 /* Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D5C0A11F15391B008A2F98 /* Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -35,8 +35,6 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 0;
 			dstSubfolderSpec = 0;
-			files = (
-			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -117,7 +115,7 @@
 				04D5C0A01F153915008A2F98 /* Public.h */,
 				04D5C0A11F15391B008A2F98 /* Protected.h */,
 				04D5C0A21F153921008A2F98 /* Private.h */,
-				0403345D1F8F57CB0079CCF5,
+				0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -206,7 +204,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "" */;
+			buildConfigurationList = 23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "Project" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -270,7 +268,7 @@
 			files = (
 				23766C181EAA3484007A9026 /* ViewController.swift in Sources */,
 				23766C161EAA3484007A9026 /* AppDelegate.swift in Sources */,
-				0403345F1F8F57CB0079CCF5,
+				0403345F1F8F57CB0079CCF5 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,7 +458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "" */ = {
+		23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "Project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				23766C2D1EAA3484007A9026 /* Debug */,
@@ -490,10 +488,8 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0403345D1F8F57CB0079CCF5 = {
+		0403345D1F8F57CB0079CCF5 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
-			children = (
-			);
 		};
 /* End XCVersionGroup section */
 	};
