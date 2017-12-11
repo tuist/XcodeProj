@@ -5,6 +5,7 @@
 ### Added
 - Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase.
 - Support `PBXLegacyTarget` https://github.com/xcodeswift/xcproj/pull/171 by @bkase.
+- Write only when necessary https://github.com/xcodeswift/xcproj/pull/180 by @pepibumur.
 
 ## 1.6.1
 
