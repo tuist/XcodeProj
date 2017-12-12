@@ -26,6 +26,8 @@
 		BF2311546502 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3255351901 /* Bool+Extras.swift */; };
 		BF3107150401 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5296652601 /* PBXProductType.swift */; };
 		BF3107150402 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5296652601 /* PBXProductType.swift */; };
+		BF3149206801 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8244170301 /* XCBreakpointList.swift */; };
+		BF3149206802 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8244170301 /* XCBreakpointList.swift */; };
 		BF3167018201 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8773023601 /* Decodable+Dictionary.swift */; };
 		BF3167018202 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8773023601 /* Decodable+Dictionary.swift */; };
 		BF3202106901 = {isa = PBXBuildFile; fileRef = FR5099916101 /* xcproj_macOS.framework */; };
@@ -161,6 +163,7 @@
 		FR7776220701 /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
 		FR7796866701 /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
 		FR8121825001 /* PBXProjError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProjError.swift; sourceTree = "<group>"; };
+		FR8244170301 /* XCBreakpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBreakpointList.swift; sourceTree = "<group>"; };
 		FR8394611801 /* PBXProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProj.swift; sourceTree = "<group>"; };
 		FR8483796101 /* PBXFileReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
 		FR8599247801 /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
@@ -274,6 +277,7 @@
 				FR3300528101 /* Referenceable.swift */,
 				FR7128364401 /* String+Extras.swift */,
 				FR5076024901 /* Writable.swift */,
+				FR8244170301 /* XCBreakpointList.swift */,
 				FR7796866701 /* XCBuildConfiguration.swift */,
 				FR4352207101 /* XCConfig.swift */,
 				FR3140861801 /* XCConfigurationList.swift */,
@@ -445,6 +449,7 @@
 				BF6646142901 /* Referenceable.swift in Sources */,
 				BF5156404201 /* String+Extras.swift in Sources */,
 				BF5519296501 /* Writable.swift in Sources */,
+				BF3149206801 /* XCBreakpointList.swift in Sources */,
 				BF7608155301 /* XCBuildConfiguration.swift in Sources */,
 				BF4535722201 /* XCConfig.swift in Sources */,
 				BF6884424401 /* XCConfigurationList.swift in Sources */,
@@ -501,6 +506,7 @@
 				BF6646142902 /* Referenceable.swift in Sources */,
 				BF5156404202 /* String+Extras.swift in Sources */,
 				BF5519296502 /* Writable.swift in Sources */,
+				BF3149206802 /* XCBreakpointList.swift in Sources */,
 				BF7608155302 /* XCBuildConfiguration.swift in Sources */,
 				BF4535722202 /* XCConfig.swift in Sources */,
 				BF6884424402 /* XCConfigurationList.swift in Sources */,

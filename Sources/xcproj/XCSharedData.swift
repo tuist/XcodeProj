@@ -8,14 +8,19 @@ final public class XCSharedData {
     /// Shared data schemes.
     public var schemes: [XCScheme]
 
+    /// Shared data breakpoints.
+    public var breakpoints: XCBreakpointList?
+
     // MARK: - Init
 
     /// Initializes the shared data with its properties.
     ///
     /// - Parameters:
     ///   - schemes: shared data schemes.
-    public init(schemes: [XCScheme]) {
+    ///   - breakpoints: shared data breakpoints.
+    public init(schemes: [XCScheme], breakpoints: XCBreakpointList? = nil) {
         self.schemes = schemes
+        self.breakpoints = breakpoints
     }
 
     /// Initializes the XCSharedData reading the content from the disk.
@@ -27,6 +32,7 @@ final public class XCSharedData {
         }
         self.schemes = path.glob("xcschemes/*.xcscheme")
             .flatMap { try? XCScheme(path: $0) }
+        self.breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
     }
 
 }

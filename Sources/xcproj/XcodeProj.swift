@@ -83,6 +83,12 @@ extension XcodeProj: Writable {
             for scheme in sharedData.schemes {
                 try scheme.write(path: schemesPath + "\(scheme.name).xcscheme", override: override)
             }
+            let debuggerPath = path + "xcshareddata/xcdebugger"
+            if override && debuggerPath.exists {
+                try debuggerPath.delete()
+            }
+            try debuggerPath.mkpath()
+            try sharedData.breakpoints?.write(path: debuggerPath + "Breakpoints_v2.xcbkptlist", override: override)
         }
     }
 
