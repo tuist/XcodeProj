@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for listing build configurations.
-final public class XCBuildConfiguration: PBXObject, Hashable {
+final public class XCBuildConfiguration: PBXObject, Equatable {
    
     // MARK: - Attributes
     
@@ -19,24 +19,21 @@ final public class XCBuildConfiguration: PBXObject, Hashable {
     /// Initializes a build configuration.
     ///
     /// - Parameters:
-    ///   - reference: build configuration reference.
     ///   - name: build configuration name.
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    public init(reference: String,
-                name: String,
+    public init(name: String,
                 baseConfigurationReference: String? = nil,
                 buildSettings: BuildSettings = [:]) {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
         self.name = name
-        super.init(reference: reference)
+        super.init()
     }
     
     public static func == (lhs: XCBuildConfiguration,
                            rhs: XCBuildConfiguration) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
+        return lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
             lhs.name == rhs.name &&
             NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
@@ -63,7 +60,7 @@ final public class XCBuildConfiguration: PBXObject, Hashable {
 
 extension XCBuildConfiguration: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
@@ -72,7 +69,7 @@ extension XCBuildConfiguration: PlistSerializable {
             let filename = proj.objects.fileName(fileReference: baseConfigurationReference)
             dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference, comment: filename))
         }
-        return (key: CommentedString(self.reference, comment: name), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: name), value: .dictionary(dictionary))
     }
     
 }

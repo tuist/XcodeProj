@@ -3,7 +3,7 @@ import Foundation
 /// A proxy for another object which might belong to another project
 /// contained in the same workspace of the document.
 /// This class is referenced by PBXTargetDependency.
-final public class PBXReferenceProxy: PBXObject, Hashable {
+final public class PBXReferenceProxy: PBXObject, Equatable {
     
     // MARK: - Attributes
     
@@ -21,8 +21,7 @@ final public class PBXReferenceProxy: PBXObject, Hashable {
     
     // MARK: - Init
     
-    public init(reference: String,
-                fileType: String? = nil,
+    public init(fileType: String? = nil,
                 path: String? = nil,
                 remoteRef: String? = nil,
                 sourceTree: PBXSourceTree? = nil) {
@@ -30,7 +29,7 @@ final public class PBXReferenceProxy: PBXObject, Hashable {
         self.path = path
         self.remoteRef = remoteRef
         self.sourceTree = sourceTree
-        super.init(reference: reference)
+        super.init()
     }
     
     // MARK: - Decodable
@@ -55,8 +54,7 @@ final public class PBXReferenceProxy: PBXObject, Hashable {
     
     public static func == (lhs: PBXReferenceProxy,
                            rhs: PBXReferenceProxy) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.fileType == rhs.fileType &&
+        return lhs.fileType == rhs.fileType &&
             lhs.path == rhs.path &&
             lhs.remoteRef == rhs.remoteRef &&
             lhs.sourceTree == rhs.sourceTree
@@ -66,7 +64,7 @@ final public class PBXReferenceProxy: PBXObject, Hashable {
 // MARK: - PBXReferenceProxy
 extension PBXReferenceProxy: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         if let fileType = fileType {
@@ -81,7 +79,7 @@ extension PBXReferenceProxy: PlistSerializable {
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
         }
-        return (key: CommentedString(self.reference, comment: path),
+        return (key: CommentedString(reference, comment: path),
                 value: .dictionary(dictionary))
     }
     

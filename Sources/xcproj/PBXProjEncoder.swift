@@ -2,7 +2,7 @@ import Foundation
 
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue)
     var multiline: Bool { get }
 }
 
@@ -102,15 +102,15 @@ final class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
     
-    private func write<T: Referenceable & PlistSerializable & Equatable>(section: String, proj: PBXProj, object: ReferenceableCollection<T>) {
+    private func write<T: PlistSerializable & Equatable>(section: String, proj: PBXProj, object: ReferenceableCollection<T>) {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object.referenceValues.sorted { $0.reference < $1.reference }
-            .forEach { (serializable) in
-                let element = serializable.plistKeyAndValue(proj: proj)
-                write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: serializable.multiline)
+        object.sorted(by: { $0.key < $1.key })
+            .forEach { (key, value) in
+                let element = value.plistKeyAndValue(proj: proj, reference: key)
+                write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: value.multiline)
         }
         write(string: "/* End \(section) section */")
         writeNewLine()

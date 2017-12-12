@@ -14,8 +14,7 @@ final public class PBXLegacyTarget: PBXTarget {
     /// The directory where the build tool will be invoked during a build
     public var buildWorkingDirectory: String?
     
-    public init(reference: String,
-                name: String,
+    public init(name: String,
                 buildToolPath: String? = nil,
                 buildArgumentsString: String? = nil,
                 passBuildSettingsInEnvironment: Bool = false,
@@ -31,8 +30,7 @@ final public class PBXLegacyTarget: PBXTarget {
         self.buildArgumentsString = buildArgumentsString
         self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironment
         self.buildWorkingDirectory = buildWorkingDirectory
-        super.init(reference: reference,
-                   name: name,
+        super.init(name: name,
                    buildConfigurationList: buildConfigurationList,
                    buildPhases: buildPhases,
                    buildRules: buildRules,
@@ -70,8 +68,8 @@ final public class PBXLegacyTarget: PBXTarget {
             lhs.buildWorkingDirectory == rhs.buildWorkingDirectory
     }
     
-    override func plistValues(proj: PBXProj, isa: String) -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = super.plistValues(proj: proj, isa: PBXLegacyTarget.isa)
+    override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
         var dict: [CommentedString: PlistValue]!
         switch value {
         case let .dictionary(_dict):
@@ -101,8 +99,8 @@ final public class PBXLegacyTarget: PBXTarget {
 
 extension PBXLegacyTarget: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXLegacyTarget.isa)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
     }
     
 }

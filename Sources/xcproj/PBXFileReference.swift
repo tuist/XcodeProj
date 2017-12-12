@@ -48,13 +48,12 @@ final public class PBXFileReference: PBXFileElement {
         self.usesTabs = usesTabs
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
+        super.init(sourceTree: sourceTree, path: path, name: name)
     }
 
     public static func == (lhs: PBXFileReference,
                            rhs: PBXFileReference) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.fileEncoding == rhs.fileEncoding &&
+        return lhs.fileEncoding == rhs.fileEncoding &&
             lhs.explicitFileType == rhs.explicitFileType &&
             lhs.lastKnownFileType == rhs.lastKnownFileType &&
             lhs.name == rhs.name &&
@@ -99,8 +98,8 @@ final public class PBXFileReference: PBXFileElement {
     
     override var multiline: Bool { return false }
     
-    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))
         if let lastKnownFileType = lastKnownFileType {
             dictionary["lastKnownFileType"] = .string(CommentedString(lastKnownFileType))
@@ -123,7 +122,7 @@ final public class PBXFileReference: PBXFileElement {
         if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
             dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
         }
-        return (key: CommentedString(self.reference, comment: name ?? path),
+        return (key: CommentedString(reference, comment: name ?? path),
                 value: .dictionary(dictionary))
     }
 }

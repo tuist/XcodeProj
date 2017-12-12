@@ -30,14 +30,13 @@ final public class PBXProj: Decodable {
 
         // MARK: - Computed Properties
         public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
-            var phases: [PBXBuildPhase] = []
-            phases += self.copyFilesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.sourcesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.shellScriptBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.resourcesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.frameworksBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.headersBuildPhases.referenceValues as [PBXBuildPhase]
-            return Dictionary(references: phases)
+            var phases: [String: PBXBuildPhase] = [:]
+            phases.merge(self.copyFilesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.sourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.shellScriptBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.resourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.headersBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            return phases
         }
 
         /// Initializes the project objects container

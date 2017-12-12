@@ -4,7 +4,7 @@ import PathKit
 // MARK: - PBXProj Extension (Getters)
 
 extension PBXProj {
-    
+
     /// Infers project name from Path and sets it as project name
     ///
     /// Project name is needed for certain comments when serialising PBXProj
@@ -25,7 +25,7 @@ extension PBXProj {
 // MARK: - PBXProj extension (Writable)
 
 extension PBXProj: Writable {
-    
+
     public func write(path: Path, override: Bool) throws {
         let encoder = PBXProjEncoder()
         let output = encoder.encode(proj: self)
@@ -34,13 +34,13 @@ extension PBXProj: Writable {
         }
         try path.write(output)
     }
-    
+
 }
 
 // MARK: - PBXProj Extension (UUID Generation)
 
 public extension PBXProj {
-    
+
     /// Returns a valid UUID for new elements.
     ///
     /// - Parameter element: project element class.
@@ -56,5 +56,5 @@ public extension PBXProj {
         } while(objects.contains(reference: uuid))
         return uuid
     }
-    
+
 }

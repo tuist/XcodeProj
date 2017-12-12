@@ -1,6 +1,6 @@
 import Foundation
 
-final public class PBXProject: PBXObject, Hashable {
+final public class PBXProject: PBXObject, Equatable {
     
     // MARK: - Attributes
   
@@ -49,7 +49,6 @@ final public class PBXProject: PBXObject, Hashable {
     ///
     /// - Parameters:
     ///   - name: xcodeproj's name.
-    ///   - reference: element reference.
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
     ///   - mainGroup: project main group.
@@ -63,7 +62,6 @@ final public class PBXProject: PBXObject, Hashable {
     ///   - targets: project targets.
     ///   - attributes: project attributes.
     public init(name: String,
-                reference: String,
                 buildConfigurationList: String,
                 compatibilityVersion: String,
                 mainGroup: String,
@@ -89,7 +87,7 @@ final public class PBXProject: PBXObject, Hashable {
         self.projectRoot = projectRoot
         self.targets = targets
         self.attributes = attributes
-        super.init(reference: reference)
+        super.init()
     }
     
     // MARK: - Decodable
@@ -141,8 +139,7 @@ final public class PBXProject: PBXObject, Hashable {
         let equalProjectReferences = NSArray(array: lhs.projectReferences).isEqual(to: rhs.projectReferences)
         let equalAttributes = NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes)
         
-        return lhs.reference == rhs.reference &&
-            lhs.buildConfigurationList == rhs.buildConfigurationList &&
+        return lhs.buildConfigurationList == rhs.buildConfigurationList &&
             lhs.compatibilityVersion == rhs.compatibilityVersion &&
             equalRegion &&
             equalHasScannedForEncodings &&
@@ -160,7 +157,7 @@ final public class PBXProject: PBXObject, Hashable {
 // MARK: - PlistSerializable
 extension PBXProject: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
@@ -189,7 +186,7 @@ extension PBXProject: PlistSerializable {
                 return .string(CommentedString(target, comment: targetName))
         })
         dictionary["attributes"] = attributes.plist()
-        return (key: CommentedString(self.reference,
+        return (key: CommentedString(reference,
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
     }

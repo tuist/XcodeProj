@@ -9,8 +9,8 @@ final public class PBXNativeTarget: PBXTarget {
 
 extension PBXNativeTarget: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXNativeTarget.isa)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
     
 }

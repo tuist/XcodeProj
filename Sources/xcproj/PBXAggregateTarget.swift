@@ -9,8 +9,8 @@ final public class PBXAggregateTarget: PBXTarget {
 
 extension PBXAggregateTarget: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXAggregateTarget.isa)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXAggregateTarget.isa, reference: reference)
     }
     
 }
