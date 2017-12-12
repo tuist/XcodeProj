@@ -44,8 +44,8 @@ final public class PBXProj: Decodable {
         ///
         /// - Parameters:
         ///   - objects: project objects
-        public init(objects: [PBXObject]) {
-            objects.forEach(addObject)
+        public init(objects: [String: PBXObject]) {
+            objects.forEach { self.addObject($0.value, reference: $0.key) }
         }
         // MARK: - Equatable
         public static func == (lhs: Objects, rhs: Objects) -> Bool {
@@ -73,29 +73,29 @@ final public class PBXProj: Decodable {
 
         // MARK: - Public Methods
 
-        public func addObject(_ object: PBXObject) {
+        public func addObject(_ object: PBXObject, reference: String) {
             switch object {
-            case let object as PBXBuildFile: buildFiles.append(object)
-            case let object as PBXAggregateTarget: aggregateTargets.append(object)
+            case let object as PBXBuildFile: buildFiles.append(object, reference: reference)
+            case let object as PBXAggregateTarget: aggregateTargets.append(object, reference: reference)
             case let object as PBXLegacyTarget:
-                legacyTargets.append(object)
-            case let object as PBXContainerItemProxy: containerItemProxies.append(object)
-            case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
-            case let object as PBXGroup: groups.append(object)
-            case let object as XCConfigurationList: configurationLists.append(object)
-            case let object as XCBuildConfiguration: buildConfigurations.append(object)
-            case let object as PBXVariantGroup: variantGroups.append(object)
-            case let object as PBXTargetDependency: targetDependencies.append(object)
-            case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object)
-            case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object)
-            case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object)
-            case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object)
-            case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object)
-            case let object as PBXNativeTarget: nativeTargets.append(object)
-            case let object as PBXFileReference: fileReferences.append(object)
-            case let object as PBXProject: projects.append(object)
-            case let object as XCVersionGroup: versionGroups.append(object)
-            case let object as PBXReferenceProxy: referenceProxies.append(object)
+                legacyTargets.append(object, reference: reference)
+            case let object as PBXContainerItemProxy: containerItemProxies.append(object, reference: reference)
+            case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object, reference: reference)
+            case let object as PBXGroup: groups.append(object, reference: reference)
+            case let object as XCConfigurationList: configurationLists.append(object, reference: reference)
+            case let object as XCBuildConfiguration: buildConfigurations.append(object, reference: reference)
+            case let object as PBXVariantGroup: variantGroups.append(object, reference: reference)
+            case let object as PBXTargetDependency: targetDependencies.append(object, reference: reference)
+            case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object, reference: reference)
+            case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object, reference: reference)
+            case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object, reference: reference)
+            case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object, reference: reference)
+            case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object, reference: reference)
+            case let object as PBXNativeTarget: nativeTargets.append(object, reference: reference)
+            case let object as PBXFileReference: fileReferences.append(object, reference: reference)
+            case let object as PBXProject: projects.append(object, reference: reference)
+            case let object as XCVersionGroup: versionGroups.append(object, reference: reference)
+            case let object as PBXReferenceProxy: referenceProxies.append(object, reference: reference)
             default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
             }
         }
@@ -177,16 +177,12 @@ final public class PBXProj: Decodable {
                 rootObject: String,
                 archiveVersion: Int = 1,
                 classes: [String: Any] = [:],
-                objects: [PBXObject] = []) {
+                objects: [String: PBXObject] = [:]) {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
         self.rootObject = rootObject
         self.objects = Objects(objects: objects)
-    }
-
-    @available(*, deprecated, message: "Use objects.addObject instead") public func addObject(_ object: PBXObject) {
-        objects.addObject(object)
     }
 
     // MARK: - Decodable
@@ -209,7 +205,7 @@ final public class PBXProj: Decodable {
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        self.objects = try Objects(objects: objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) })
+        self.objects = try Objects(objects: objects.mapValuesWithKeys({ try PBXObject.parse(reference: $0, dictionary: $1) }))
     }
 }
 
