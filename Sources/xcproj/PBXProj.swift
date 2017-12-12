@@ -46,7 +46,9 @@ final public class PBXProj: Decodable {
         public init(objects: [String: PBXObject]) {
             objects.forEach { self.addObject($0.value, reference: $0.key) }
         }
+        
         // MARK: - Equatable
+        
         public static func == (lhs: Objects, rhs: Objects) -> Bool {
             return lhs.buildFiles == rhs.buildFiles &&
                 lhs.legacyTargets == rhs.legacyTargets &&
@@ -72,6 +74,11 @@ final public class PBXProj: Decodable {
 
         // MARK: - Public Methods
 
+        /// Add a new object.
+        ///
+        /// - Parameters:
+        ///   - object: object.
+        ///   - reference: object reference.
         public func addObject(_ object: PBXObject, reference: String) {
             switch object {
             case let object as PBXBuildFile: buildFiles.append(object, reference: reference)
@@ -98,7 +105,34 @@ final public class PBXProj: Decodable {
             default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
             }
         }
+        
+        /// Generates a deterministic reference from an object type and identifier.
+        /// It ensures that the generated reference doesn't collide with any existing one.
+        ///
+        /// - Parameters:
+        ///   - element: object type.
+        ///   - id: object identifier (e.g. path or name)
+        /// - Returns: reference.
+        public func generateReference<T: PBXObject>(_ element: T.Type, _ id: String) -> String {
+            var uuid: String = ""
+            var counter: UInt = 0
+            let characterCount = 16
+            let className: String = String(describing: T.self)
+                .replacingOccurrences(of: "PBX", with: "")
+                .replacingOccurrences(of: "XC", with: "")
+            let classAcronym = String(className.filter { String($0).lowercased() != String($0) })
+            let stringID = String(abs(id.hashValue).description.prefix(characterCount - classAcronym.count - 2))
+            repeat {
+                uuid = "\(classAcronym)_\(stringID)\(counter > 0 ? "-\(counter)" : "")"
+                counter += 1
+            } while ( contains(reference: uuid) )
+            return uuid
+        }
 
+        /// It returns the target with reference.
+        ///
+        /// - Parameter reference: target reference.
+        /// - Returns: target.
         public func getTarget(reference: String) -> PBXTarget? {
             let caches: [[String: PBXTarget]] = [
                 aggregateTargets,
@@ -108,6 +142,10 @@ final public class PBXProj: Decodable {
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
 
+        /// It returns the file element with the given reference.
+        ///
+        /// - Parameter reference: file reference.
+        /// - Returns: file element.
         public func getFileElement(reference: String) -> PBXFileElement? {
             let caches: [[String: PBXFileElement]] = [
                 fileReferences,
@@ -117,7 +155,11 @@ final public class PBXProj: Decodable {
                 ]
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
-
+        
+        /// It returns the object with the given reference.
+        ///
+        /// - Parameter reference: file reference.
+        /// - Returns: object.
         public func getReference(_ reference: String) -> PBXObject? {
             let caches: [[String: PBXObject]] = [
                 buildFiles,
@@ -144,6 +186,10 @@ final public class PBXProj: Decodable {
             return caches.first { cache in cache[reference] != nil }?[reference]
         }
 
+        /// Returns true if objects contains any object with the given reference.
+        ///
+        /// - Parameter reference: reference.
+        /// - Returns: true if it contains the reference.
         public func contains(reference: String) -> Bool {
             return getReference(reference) != nil
         }
