@@ -29,27 +29,27 @@ class BuildPhaseSpecs: XCTestCase {
     }
 
     func test_sources_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.sources, PBXSourcesBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.sources, PBXSourcesBuildPhase().buildPhase)
     }
 
     func test_frameworks_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.frameworks, PBXFrameworksBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.frameworks, PBXFrameworksBuildPhase().buildPhase)
     }
 
     func test_resources_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.resources, PBXResourcesBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.resources, PBXResourcesBuildPhase().buildPhase)
     }
 
     func test_copyFiles_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.copyFiles, PBXCopyFilesBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.copyFiles, PBXCopyFilesBuildPhase().buildPhase)
     }
 
     func test_runStript_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.runScript, PBXShellScriptBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.runScript, PBXShellScriptBuildPhase().buildPhase)
     }
 
     func test_headers_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.headers, PBXHeadersBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.headers, PBXHeadersBuildPhase().buildPhase)
     }
 
 }

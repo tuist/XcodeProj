@@ -9,7 +9,7 @@ extension PBXProj {
                 objectVersion: Int = 1,
                 rootObject: String = "rootObject",
                 classes: [String: Any] = [:],
-                objects: [PBXObject] = []) -> PBXProj {
+                objects: [String: PBXObject] = [:]) -> PBXProj {
         return PBXProj(objectVersion: objectVersion,
                        rootObject: rootObject,
                        archiveVersion: archiveVersion,
@@ -26,12 +26,12 @@ final class PBXProjSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        object = PBXBuildFile(reference: "ref", fileRef: "333")
+        object = PBXBuildFile(fileRef: "333")
         subject = PBXProj(objectVersion: 46,
                           rootObject: "root",
                           archiveVersion: 1,
                           classes: [:],
-                          objects: [object])
+                          objects: ["ref": object])
     }
 
     func test_initWithDictionary_hasTheCorrectArchiveVersion() {
@@ -48,12 +48,12 @@ final class PBXProjSpec: XCTestCase {
 
     func test_buildPhases_returnsAllBuildPhases() {
         let subject = PBXProj(objectVersion: 0, rootObject: "root")
-        subject.objects.addObject(PBXCopyFilesBuildPhase(reference: "ref1"))
-        subject.objects.addObject(PBXSourcesBuildPhase(reference: "ref2"))
-        subject.objects.addObject(PBXShellScriptBuildPhase(reference: "ref3", files: [], inputPaths: [], outputPaths: [], shellScript: nil))
-        subject.objects.addObject(PBXResourcesBuildPhase(reference: "ref4"))
-        subject.objects.addObject(PBXFrameworksBuildPhase(reference: "ref5"))
-        subject.objects.addObject(PBXHeadersBuildPhase(reference: "ref6"))
+        subject.objects.addObject(PBXCopyFilesBuildPhase(), reference: "ref1")
+        subject.objects.addObject(PBXSourcesBuildPhase(), reference: "ref2")
+        subject.objects.addObject(PBXShellScriptBuildPhase(files: [], inputPaths: [], outputPaths: [], shellScript: nil), reference: "ref3")
+        subject.objects.addObject(PBXResourcesBuildPhase(), reference: "ref4")
+        subject.objects.addObject(PBXFrameworksBuildPhase(), reference: "ref5")
+        subject.objects.addObject(PBXHeadersBuildPhase(), reference: "ref6")
         XCTAssertEqual(subject.objects.buildPhases.count, 6)
     }
 }

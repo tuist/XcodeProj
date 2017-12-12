@@ -8,14 +8,12 @@ final class PBXVariantGroupSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXVariantGroup(reference: "reference",
-                                       children: ["child"],
+        self.subject = PBXVariantGroup(children: ["child"],
                                        name: "name",
                                        sourceTree: .group)
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
-        XCTAssertEqual(subject.reference, "reference")
         XCTAssertEqual(subject.children, ["child"])
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.sourceTree, .group)
@@ -37,13 +35,9 @@ final class PBXVariantGroupSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let one = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)
-        let another = PBXVariantGroup(reference: "reference", children: ["a"], name: "name", sourceTree: .group)
+        let one = PBXVariantGroup(children: ["a"], name: "name", sourceTree: .group)
+        let another = PBXVariantGroup(children: ["a"], name: "name", sourceTree: .group)
         XCTAssertEqual(one, another)
-    }
-
-    func test_hashValue_returnsTheReferenceHasValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
     private func testDictionary() -> [String: Any] {

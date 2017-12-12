@@ -9,7 +9,6 @@ final class PBXProjectSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXProject(name: "App",
-                             reference: "uuid",
                              buildConfigurationList: "config",
                              compatibilityVersion: "version",
                              mainGroup: "main",
@@ -29,7 +28,6 @@ final class PBXProjectSpec: XCTestCase {
 
     func test_init_initializesTheProjectWithTheRightAttributes() {
         XCTAssertEqual(subject.name, "App")
-        XCTAssertEqual(subject.reference, "uuid")
         XCTAssertEqual(subject.buildConfigurationList, "config")
         XCTAssertEqual(subject.compatibilityVersion, "version")
         XCTAssertEqual(subject.mainGroup, "main")
@@ -45,7 +43,7 @@ final class PBXProjectSpec: XCTestCase {
 
     func test_plistKeyAndValue() {
         let proj = PBXProj(objectVersion: 1, rootObject: "", archiveVersion: 1)
-        let (_, plistValue) = subject.plistKeyAndValue(proj: proj)
+        let (_, plistValue) = subject.plistKeyAndValue(proj: proj, reference: "ref")
         guard let v = plistValue.dictionary?["buildConfigurationList"]?.string else {
             XCTFail()
             return
@@ -88,7 +86,6 @@ final class PBXProjectSpec: XCTestCase {
 
     func test_equal_returnsTheCorrectValue() {
         let another = PBXProject(name: "App",
-                                 reference: "uuid",
                                  buildConfigurationList: "config",
                                  compatibilityVersion: "version",
                                  mainGroup: "main",
@@ -102,14 +99,9 @@ final class PBXProjectSpec: XCTestCase {
                                  targets: ["target"])
         XCTAssertEqual(subject, another)
     }
-
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
+    
     func test_productRefGroupName_isUsedAsComment() {
-        let productsGroup = PBXGroup(reference: "group",
-                 children: [],
+        let productsGroup = PBXGroup(children: [],
                  sourceTree: .group,
                  name: "Foo")
 
@@ -117,9 +109,9 @@ final class PBXProjectSpec: XCTestCase {
                 rootObject: "rootObject",
                 archiveVersion: 1,
                 classes: [:],
-                objects: [productsGroup])
+                objects: ["ref": productsGroup])
 
-        let plistKV = subject.plistKeyAndValue(proj: proj)
+        let plistKV = subject.plistKeyAndValue(proj: proj, reference: "ref")
         if case let PlistValue.dictionary(dictionary) = plistKV.value {
             XCTAssertEqual(dictionary["productRefGroup"]?.string?.comment, "Foo")
         } else {

@@ -8,8 +8,7 @@ final class PBXAggregateTargetSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXAggregateTarget(reference: "ref",
-                                     name: "name",
+        subject = PBXAggregateTarget(name: "name",
                                      buildConfigurationList: "333",
                                      buildPhases: ["build"],
                                      buildRules: ["rule"],
@@ -24,7 +23,6 @@ final class PBXAggregateTargetSpec: XCTestCase {
     }
 
     func test_init_initializesWithTheCorrectValues() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.buildConfigurationList, "333")
         XCTAssertEqual(subject.buildPhases, ["build"])
         XCTAssertEqual(subject.buildRules, ["rule"])
@@ -47,8 +45,7 @@ final class PBXAggregateTargetSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXAggregateTarget(reference: "ref",
-                                         name: "name",
+        let another = PBXAggregateTarget(name: "name",
                                          buildConfigurationList: "333",
                                          buildPhases: ["build"],
                                          buildRules: ["rule"],
@@ -59,18 +56,13 @@ final class PBXAggregateTargetSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
     func testDictionary() -> [String: Any] {
         return [
             "buildConfigurationList": "buildConfigurationList",
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dep"],
-            "name": "name",
-            "reference": "reference"
+            "name": "name"
         ]
     }
 }
