@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for the copy file build phase.
-final public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
 
     public enum SubFolder: UInt, Decodable {
         case absolutePath = 0
@@ -37,14 +37,12 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
     /// Initializes the copy files build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: reference.
     ///   - dstPath: destination path.
     ///   - dstSubfolderSpec: destination subfolder spec.
     ///   - buildActionMask: build action mask.
     ///   - files: files to copy.
     ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing.
-    public init(reference: String,
-                dstPath: String? = nil,
+    public init(dstPath: String? = nil,
                 dstSubfolderSpec: SubFolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
@@ -53,8 +51,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
-        super.init(reference: reference,
-                   files: files,
+        super.init(files: files,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing:
             runOnlyForDeploymentPostprocessing)
@@ -62,8 +59,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
     public static func == (lhs: PBXCopyFilesBuildPhase,
                            rhs: PBXCopyFilesBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.dstPath == rhs.dstPath &&
+        return lhs.dstPath == rhs.dstPath &&
             lhs.name == rhs.name &&
             lhs.buildActionMask == rhs.buildActionMask &&
             lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
@@ -94,8 +90,8 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase, Hashable {
 
 extension PBXCopyFilesBuildPhase: PlistSerializable {
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
         if let dstPath = dstPath {
             dictionary["dstPath"] = .string(CommentedString(dstPath))
@@ -106,7 +102,7 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         if let dstSubfolderSpec = dstSubfolderSpec {
             dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
         }
-        return (key: CommentedString(self.reference, comment: self.name ?? "CopyFiles"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: self.name ?? "CopyFiles"), value: .dictionary(dictionary))
     }
 
 }

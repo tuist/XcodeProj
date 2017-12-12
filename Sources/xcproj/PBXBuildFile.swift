@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element indicates a file reference that is used in a PBXBuildPhase (either as an include or resource).
-final public class PBXBuildFile: PBXObject, Hashable {
+final public class PBXBuildFile: PBXObject, Equatable {
 
     // MARK: - Attributes
 
@@ -16,15 +16,13 @@ final public class PBXBuildFile: PBXObject, Hashable {
     /// Initiazlies the build file with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
     ///   - fileRef: build file reference.
     ///   - settings: build file settings.
-    public init(reference: String,
-                fileRef: String,
+    public init(fileRef: String,
                 settings: [String: Any]? = nil) {
         self.fileRef = fileRef
         self.settings = settings
-        super.init(reference: reference)
+        super.init()
     }
 
     // MARK: - Decodable
@@ -32,7 +30,6 @@ final public class PBXBuildFile: PBXObject, Hashable {
     enum CodingKeys: String, CodingKey {
         case fileRef
         case settings
-        case reference
     }
 
     public required init(from decoder: Decoder) throws {
@@ -56,8 +53,7 @@ final public class PBXBuildFile: PBXObject, Hashable {
                 return NSDictionary(dictionary: lhsSettings).isEqual(to: rhsSettings)
             }
         }()
-        return lhs.reference == rhs.reference &&
-            lhs.fileRef == rhs.fileRef &&
+        return lhs.fileRef == rhs.fileRef &&
             settingsAreEqual
     }
 }
@@ -68,7 +64,7 @@ extension PBXBuildFile: PlistSerializable {
 
     var multiline: Bool { return false }
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         var fileName: String?
@@ -83,7 +79,7 @@ extension PBXBuildFile: PlistSerializable {
         let comment = fileName.flatMap({ fileName -> String? in
             buildPhaseName.flatMap({"\(fileName) in \($0)"})
         })
-        return (key: CommentedString(self.reference, comment: comment),
+        return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
     }
 

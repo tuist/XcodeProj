@@ -110,6 +110,17 @@ extension PBXProj {
             return type?.rawValue
         }
     }
+    
+    /// Returns the object with the given configuration list (project or target)
+    ///
+    /// - Parameter reference: configuration list reference.
+    /// - Returns: target or project with the given configuration list.
+    func objectWithConfigurationList(reference: String) -> PBXObject? {
+        if let project = objects.projects.first(where: { $0.value.buildConfigurationList == reference})?.value {
+            return project
+        }
+        return objects.nativeTargets.first(where: { $0.value.buildConfigurationList == reference})?.value
+    }
 
     /// Infers project name from Path and sets it as project name
     ///

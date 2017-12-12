@@ -23,14 +23,13 @@ public class PBXBuildPhase: PBXObject, Equatable {
         fatalError("This property must be override")
     }
 
-    public init(reference: String,
-                files: [String] = [],
+    public init(files: [String] = [],
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: UInt = 0) {
         self.files = files
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
-        super.init(reference: reference)
+        super.init()
     }
 
     // MARK: - Decodable
@@ -39,7 +38,6 @@ public class PBXBuildPhase: PBXObject, Equatable {
         case buildActionMask
         case files
         case runOnlyForDeploymentPostprocessing
-        case reference
     }
 
     public required init(from decoder: Decoder) throws {
@@ -54,12 +52,11 @@ public class PBXBuildPhase: PBXObject, Equatable {
 
     public static func == (lhs: PBXBuildPhase,
                            rhs: PBXBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.files == rhs.files &&
+        return lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
 
-    func plistValues(proj: PBXProj) -> [CommentedString: PlistValue] {
+    func plistValues(proj: PBXProj, reference: String) -> [CommentedString: PlistValue] {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = .array(files.map { fileReference in
