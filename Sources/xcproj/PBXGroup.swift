@@ -81,7 +81,7 @@ final public class PBXGroup: PBXFileElement {
         var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
         dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
-            let comment = proj.fileName(fileReference: fileReference)
+            let comment = proj.objects.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
         [("usesTabs" as CommentedString, usesTabs),

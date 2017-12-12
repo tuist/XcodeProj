@@ -67,7 +67,7 @@ extension XCConfigurationList: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { .string(CommentedString($0, comment: proj.configName(configReference: $0)))
+            .map { .string(CommentedString($0, comment: proj.objects.configName(configReference: $0)))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible)"))
         if let defaultConfigurationName = defaultConfigurationName {

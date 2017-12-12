@@ -66,11 +66,11 @@ final public class XCVersionGroup: PBXFileElement {
         }
         dictionary["children"] = .array(children
             .map({ fileReference in
-                let comment = proj.fileName(fileReference: fileReference)
+                let comment = proj.objects.fileName(fileReference: fileReference)
                 return .string(CommentedString(fileReference, comment: comment))
             }))
         if let currentVersion = currentVersion {
-            dictionary["currentVersion"] = .string(CommentedString(currentVersion, comment: proj.fileName(fileReference: currentVersion)))
+            dictionary["currentVersion"] = .string(CommentedString(currentVersion, comment: proj.objects.fileName(fileReference: currentVersion)))
         }
         return (key: CommentedString(self.reference, comment: path.flatMap({Path($0)})?.lastComponent),
                 value: .dictionary(dictionary))

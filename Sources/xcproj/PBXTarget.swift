@@ -95,7 +95,7 @@ public class PBXTarget: PBXObject, Hashable {
         }
         dictionary["buildPhases"] = .array(buildPhases
             .map { buildPhase in
-                let comment = proj.buildPhaseName(buildPhaseReference: buildPhase)
+                let comment = proj.objects.buildPhaseName(buildPhaseReference: buildPhase)
                 return .string(CommentedString(buildPhase, comment: comment))
         })
         dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
@@ -108,7 +108,7 @@ public class PBXTarget: PBXObject, Hashable {
             dictionary["productType"] = .string(CommentedString(productType.rawValue))
         }
         if let productReference = productReference {
-            let productReferenceComment = proj.fileName(fileReference: productReference)
+            let productReferenceComment = proj.objects.fileName(fileReference: productReference)
             dictionary["productReference"] = .string(CommentedString(productReference, comment: productReferenceComment))
         }
         return (key: CommentedString(self.reference, comment: name),
