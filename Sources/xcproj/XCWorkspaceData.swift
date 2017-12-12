@@ -143,10 +143,14 @@ public extension XCWorkspace {
                                    value: nil,
                                    attributes: ["location": "\(reference)"])
             }
-            if override && path.exists {
-                try path.delete()
+            let existing = try? String(contentsOf: path.url)
+            let xml = document.xml
+            if existing != xml {
+                if override && path.exists {
+                    try path.delete()
+                }
+                try path.write(document.xml)
             }
-            try path.write(document.xml)
         }
 
     }

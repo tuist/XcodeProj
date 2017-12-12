@@ -640,7 +640,14 @@ extension XCScheme: Writable {
         if override && path.exists {
             try path.delete()
         }
-        try path.write(document.xml)
+        let existing = try? String(contentsOf: path.url)
+        let xml = document.xml
+        if existing != xml {
+            if override && path.exists {
+                try path.delete()
+            }
+            try path.write(document.xml)
+        }
     }
 
 }
