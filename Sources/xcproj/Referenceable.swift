@@ -6,7 +6,7 @@ public protocol Referenceable {
     var reference: String { get }
 }
 
-public typealias ReferenceableCollection<T: Referenceable & Equatable> = [String: T]
+public typealias ReferenceableCollection<T: Equatable> = [String: T]
 
 extension Array where Element: Referenceable {
 
@@ -29,7 +29,7 @@ extension Dictionary where Key == String, Value: Referenceable {
     }
 
     public var references: [String] {
-        return self.values.map { $0.reference }
+        return Array(self.keys)
     }
 
     public var referenceValues: [Value] {
@@ -44,7 +44,7 @@ extension Dictionary where Key == String, Value: Referenceable {
         return self[reference]
     }
 
-    mutating public func append(_ value: Value) {
+    mutating public func append(_ value: Value, reference: String) {
         self[value.reference] = value
     }
 }
