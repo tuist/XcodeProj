@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for the shell script build phase.
-final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXShellScriptBuildPhase: PBXBuildPhase {
 
     // MARK: - Attributes
 
@@ -32,15 +32,13 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
     /// Initializes the shell script build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: references.
     ///   - files: shell script files.
     ///   - inputPaths: input paths.
     ///   - outputPaths: output paths.
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
-    public init(reference: String,
-                files: [String] = [],
+    public init(files: [String] = [],
                 name: String? = nil,
                 inputPaths: [String] = [],
                 outputPaths: [String] = [],
@@ -55,8 +53,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.showEnvVarsInLog = showEnvVarsInLog
-        super.init(reference: reference,
-                   files: files,
+        super.init(files: files,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }
@@ -70,7 +67,6 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
         case shellPath
         case shellScript
         case showEnvVarsInLog
-        case reference
     }
     
     public required init(from decoder: Decoder) throws {
@@ -87,8 +83,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
     public static func == (lhs: PBXShellScriptBuildPhase,
                            rhs: PBXShellScriptBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
+        return lhs.buildActionMask == rhs.buildActionMask &&
             lhs.files == rhs.files &&
             lhs.name == rhs.name &&
             lhs.inputPaths == rhs.inputPaths &&
@@ -105,8 +100,8 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase, Hashable {
 
 extension PBXShellScriptBuildPhase: PlistSerializable {
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         if let shellPath = shellPath {
             dictionary["shellPath"] = .string(CommentedString(shellPath))
@@ -122,7 +117,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let showEnvVarsInLog = showEnvVarsInLog {
             dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog)"))
         }
-        return (key: CommentedString(self.reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
 
 }

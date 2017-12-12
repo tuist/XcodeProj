@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for listing build configurations.
-final public class XCConfigurationList: PBXObject, Hashable {
+final public class XCConfigurationList: PBXObject, Equatable {
     
     // MARK: - Attributes
     
@@ -19,24 +19,21 @@ final public class XCConfigurationList: PBXObject, Hashable {
     /// Initializes the element with its properties.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
     ///   - buildConfigurations: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(reference: String,
-                buildConfigurations: [String],
+    public init(buildConfigurations: [String],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: UInt = 0) {
         self.buildConfigurations = buildConfigurations
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
-        super.init(reference: reference)
+        super.init()
     }
 
     public static func == (lhs: XCConfigurationList,
                            rhs: XCConfigurationList) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildConfigurations == rhs.buildConfigurations &&
+        return lhs.buildConfigurations == rhs.buildConfigurations &&
             lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
     }
 
@@ -63,7 +60,7 @@ final public class XCConfigurationList: PBXObject, Hashable {
 
 extension XCConfigurationList: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurations
@@ -73,17 +70,15 @@ extension XCConfigurationList: PlistSerializable {
         if let defaultConfigurationName = defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }
-        return (key: CommentedString(self.reference,
-                                                 comment: plistComment(proj: proj)),
+        return (key: CommentedString(reference,comment: plistComment(proj: proj, reference: reference)),
                 value: .dictionary(dictionary))
     }
     
-    private func plistComment(proj: PBXProj) -> String? {
-        let project = proj.objects.projects.first { _, val in val.buildConfigurationList == self.reference }?.value
-        let target = proj.objects.nativeTargets.first { _, val in val.buildConfigurationList == self.reference }?.value
-        if let project = project {
+    private func plistComment(proj: PBXProj, reference: String) -> String? {
+        let object = proj.objectWithConfigurationList(reference: reference)
+        if let project = object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
-        } else if let target = target {
+        } else if let target = object as? PBXNativeTarget {
             return "Build configuration list for PBXNativeTarget \"\(target.name)\""
         }
         return nil

@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for specialized targets.
-public class PBXTarget: PBXObject, Hashable {
+public class PBXTarget: PBXObject, Equatable {
 
     /// Target build configuration list.
     public var buildConfigurationList: String?
@@ -27,8 +27,7 @@ public class PBXTarget: PBXObject, Hashable {
     /// Target product type.
     public var productType: PBXProductType?
 
-    public init(reference: String,
-                name: String,
+    public init(name: String,
                 buildConfigurationList: String? = nil,
                 buildPhases: [String] = [],
                 buildRules: [String] = [],
@@ -44,7 +43,7 @@ public class PBXTarget: PBXObject, Hashable {
         self.productName = productName
         self.productReference = productReference
         self.productType = productType
-        super.init(reference: reference)
+        super.init()
     }
     
     // MARK: - Decodable
@@ -58,7 +57,6 @@ public class PBXTarget: PBXObject, Hashable {
         case productName
         case productReference
         case productType
-        case reference
     }
     
     public required init(from decoder: Decoder) throws {
@@ -76,8 +74,7 @@ public class PBXTarget: PBXObject, Hashable {
 
     public static func == (lhs: PBXTarget,
                            rhs: PBXTarget) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildConfigurationList == rhs.buildConfigurationList &&
+        return lhs.buildConfigurationList == rhs.buildConfigurationList &&
             lhs.buildPhases == rhs.buildPhases &&
             lhs.buildRules == rhs.buildRules &&
             lhs.dependencies == rhs.dependencies &&
@@ -86,7 +83,7 @@ public class PBXTarget: PBXObject, Hashable {
             lhs.productType == rhs.productType
     }
 
-    func plistValues(proj: PBXProj, isa: String) -> (key: CommentedString, value: PlistValue) {
+    func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
@@ -111,7 +108,7 @@ public class PBXTarget: PBXObject, Hashable {
             let productReferenceComment = proj.objects.fileName(fileReference: productReference)
             dictionary["productReference"] = .string(CommentedString(productReference, comment: productReferenceComment))
         }
-        return (key: CommentedString(self.reference, comment: name),
+        return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
     

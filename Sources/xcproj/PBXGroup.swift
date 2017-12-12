@@ -21,14 +21,12 @@ final public class PBXGroup: PBXFileElement {
     /// Initializes the group with its attributes.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
     ///   - children: group children.
     ///   - sourceTree: group source tree.
     ///   - name: group name.
     ///   - path: group path.
     ///   - usesTabs: group uses tabs.
-    public init(reference: String,
-                children: [String],
+    public init(children: [String],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil,
@@ -39,13 +37,12 @@ final public class PBXGroup: PBXFileElement {
         self.usesTabs = usesTabs
         self.indentWidth = indentWidth
         self.tabWidth = tabWidth
-        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
+        super.init(sourceTree: sourceTree, path: path, name: name)
     }
 
     public static func == (lhs: PBXGroup,
                            rhs: PBXGroup) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.children == rhs.children &&
+        return lhs.children == rhs.children &&
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
@@ -77,8 +74,8 @@ final public class PBXGroup: PBXFileElement {
     
     // MARK: - PlistSerializable
     
-    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
         dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
             let comment = proj.objects.fileName(fileReference: fileReference)
@@ -92,7 +89,7 @@ final public class PBXGroup: PBXFileElement {
             }
         }
         
-        return (key: CommentedString(self.reference,
+        return (key: CommentedString(reference,
                                      comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
     }

@@ -18,8 +18,7 @@ final public class XCVersionGroup: PBXFileElement {
 
     // MARK: - Init
 
-    public init(reference: String,
-                currentVersion: String? = nil,
+    public init(currentVersion: String? = nil,
                 path: String? = nil,
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil,
@@ -28,13 +27,12 @@ final public class XCVersionGroup: PBXFileElement {
         self.currentVersion = currentVersion
         self.versionGroupType = versionGroupType
         self.children = children
-        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
+        super.init(sourceTree: sourceTree, path: path, name: name)
     }
 
     public static func == (lhs: XCVersionGroup,
                            rhs: XCVersionGroup) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.currentVersion == rhs.currentVersion &&
+        return lhs.currentVersion == rhs.currentVersion &&
         lhs.versionGroupType == rhs.versionGroupType &&
         lhs.children == rhs.children
     }
@@ -45,7 +43,6 @@ final public class XCVersionGroup: PBXFileElement {
         case currentVersion
         case versionGroupType
         case children
-        case reference
     }
 
     public required init(from decoder: Decoder) throws {
@@ -58,8 +55,8 @@ final public class XCVersionGroup: PBXFileElement {
 
     // MARK: - XCVersionGroup Extension (PlistSerializable)
 
-    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(XCVersionGroup.isa))
         if let versionGroupType = versionGroupType {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))
@@ -72,7 +69,7 @@ final public class XCVersionGroup: PBXFileElement {
         if let currentVersion = currentVersion {
             dictionary["currentVersion"] = .string(CommentedString(currentVersion, comment: proj.objects.fileName(fileReference: currentVersion)))
         }
-        return (key: CommentedString(self.reference, comment: path.flatMap({Path($0)})?.lastComponent),
+        return (key: CommentedString(reference, comment: path.flatMap({Path($0)})?.lastComponent),
                 value: .dictionary(dictionary))
     }
 }

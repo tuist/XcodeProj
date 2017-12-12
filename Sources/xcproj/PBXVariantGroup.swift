@@ -13,18 +13,16 @@ final public class PBXVariantGroup: PBXFileElement {
     /// Initializes the PBXVariantGroup with its values.
     ///
     /// - Parameters:
-    ///   - reference: variant group reference.
     ///   - children: group children references.
     ///   - path: path of the variant group
     ///   - name: name of the variant group
     ///   - sourceTree: the group source tree.
-    public init(reference: String,
-                children: [String] = [],
+    public init(children: [String] = [],
                 path: String? = nil,
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil) {
         self.children = children
-        super.init(reference: reference, sourceTree: sourceTree, path: path, name: name)
+        super.init(sourceTree: sourceTree, path: path, name: name)
     }
 
     // MARK: - Decodable
@@ -44,20 +42,19 @@ final public class PBXVariantGroup: PBXFileElement {
 
     public static func == (lhs: PBXVariantGroup,
                            rhs: PBXVariantGroup) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.children == rhs.children &&
+        return lhs.children == rhs.children &&
         lhs.name == rhs.name &&
         lhs.sourceTree == rhs.sourceTree
     }
 
     // MARK: - PlistSerializable
 
-    override func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["children"] = .array(children
             .map({PlistValue.string(CommentedString($0, comment: proj.objects.fileName(fileReference: $0)))}))
-        return (key: CommentedString(self.reference,
+        return (key: CommentedString(reference,
                                                  comment: name),
                 value: .dictionary(dictionary))
     }
