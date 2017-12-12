@@ -8,15 +8,13 @@ final class PBXReferenceProxySpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXReferenceProxy(reference: "ref",
-                                         fileType: "fileType",
+        self.subject = PBXReferenceProxy(fileType: "fileType",
                                          path: "path",
                                          remoteRef: "remoteRef",
                                          sourceTree: .absolute)
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.fileType, "fileType")
         XCTAssertEqual(subject.path, "path")
         XCTAssertEqual(subject.remoteRef, "remoteRef")
@@ -28,8 +26,7 @@ final class PBXReferenceProxySpec: XCTestCase {
             "fileType": "fileType",
             "path": "path",
             "remoteRef": "remoteRef",
-            "sourceTree": "<absolute>",
-            "reference": "reference"
+            "sourceTree": "<absolute>"
         ]
     }
 }

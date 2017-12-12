@@ -8,11 +8,10 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        self.subject = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
     }
 
     func test_init_initializesTheBuildPhaseWithTheCorrectValues() {
-        XCTAssertEqual(subject.reference, "reference")
         XCTAssertEqual(subject.files, ["file"])
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.inputPaths, ["input"])
@@ -26,13 +25,9 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let one = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
-        let another = PBXShellScriptBuildPhase(reference: "reference", files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        let one = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        let another = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
         XCTAssertEqual(one, another)
-    }
-
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
     private func testDictionary() -> [String: Any] {
@@ -41,8 +36,7 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
             "inputPaths": ["input"],
             "outputPaths": ["output"],
             "shellPath": "shellPath",
-            "shellScript": "shellScript",
-            "reference": "reference"
+            "shellScript": "shellScript"
         ]
     }
 }

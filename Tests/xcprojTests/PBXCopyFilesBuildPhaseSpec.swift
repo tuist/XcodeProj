@@ -8,8 +8,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXCopyFilesBuildPhase(reference: "ref",
-                                              dstPath: "dest",
+        self.subject = PBXCopyFilesBuildPhase(dstPath: "dest",
                                               dstSubfolderSpec: .absolutePath,
                                               name: "name",
                                               buildActionMask: 4,
@@ -57,7 +56,6 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     }
 
     func test_init_initializesTheBuildPhaseWiththeRightAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.dstPath, "dest")
         XCTAssertEqual(subject.dstSubfolderSpec, .absolutePath)
         XCTAssertEqual(subject.buildActionMask, 4)
@@ -125,18 +123,13 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     }
 
     func test_equals_returnsTheRightValue() {
-        let another = PBXCopyFilesBuildPhase(reference: "ref",
-                                             dstPath: "dest",
+        let another = PBXCopyFilesBuildPhase(dstPath: "dest",
                                              dstSubfolderSpec: .absolutePath,
                                              name: "name",
                                              buildActionMask: 4,
                                              files: ["33"],
                                              runOnlyForDeploymentPostprocessing: 0)
         XCTAssertEqual(subject, another)
-    }
-
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
     func testDictionary() -> [String: Any] {

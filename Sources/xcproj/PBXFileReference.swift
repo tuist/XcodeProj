@@ -30,8 +30,7 @@ final public class PBXFileReference: PBXFileElement {
     
     // MARK: - Init
     
-    public init(reference: String,
-                sourceTree: PBXSourceTree? = nil,
+    public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: Int? = nil,
                 explicitFileType: String? = nil,

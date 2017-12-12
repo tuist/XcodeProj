@@ -8,8 +8,7 @@ final class XCConfigurationListSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = XCConfigurationList(reference: "reference",
-                                           buildConfigurations: ["12345"],
+        self.subject = XCConfigurationList(buildConfigurations: ["12345"],
                                            defaultConfigurationName: "Debug")
     }
 
@@ -19,8 +18,8 @@ final class XCConfigurationListSpec: XCTestCase {
 
     func test_plistKeyAndValue() {
         let proj = PBXProj(objectVersion: 1, rootObject: "", archiveVersion: 1)
-        proj.objects.projects = Dictionary(references: [PBXProject.init(name: "App", reference: "", buildConfigurationList: "reference", compatibilityVersion: "47", mainGroup: "")])
-        let (commentedString, _) = subject.plistKeyAndValue(proj: proj)
+        proj.objects.projects = ["ref": PBXProject.init(name: "App", buildConfigurationList: "reference", compatibilityVersion: "47", mainGroup: "")]
+        let (commentedString, _) = subject.plistKeyAndValue(proj: proj, reference: "ref")
         XCTAssertEqual(commentedString, CommentedString("reference", comment: "Build configuration list for PBXProject \"App\""))
     }
 }

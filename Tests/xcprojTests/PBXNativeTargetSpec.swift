@@ -8,8 +8,7 @@ final class PBXNativeTargetSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXNativeTarget(reference: "ref",
-                                  name: "name",
+        subject = PBXNativeTarget(name: "name",
                                   buildConfigurationList: "list",
                                   buildPhases: ["phase"],
                                   buildRules: ["rule"],
@@ -24,7 +23,6 @@ final class PBXNativeTargetSpec: XCTestCase {
     }
 
     func test_init_initializesTheElementWithTheRightAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.buildConfigurationList, "list")
         XCTAssertEqual(subject.buildPhases, ["phase"])
         XCTAssertEqual(subject.buildRules, ["rule"])
@@ -47,8 +45,7 @@ final class PBXNativeTargetSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXNativeTarget(reference: "ref",
-                                      name: "name",
+        let another = PBXNativeTarget(name: "name",
                                       buildConfigurationList: "list",
                                       buildPhases: ["phase"],
                                       buildRules: ["rule"],
@@ -59,18 +56,13 @@ final class PBXNativeTargetSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
     private func testDictionary() -> [String: Any] {
         return [
             "buildConfigurationList": "test",
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dependency"],
-            "name": "name",
-            "reference": "reference"
+            "name": "name"
         ]
     }
 
