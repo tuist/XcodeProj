@@ -8,8 +8,7 @@ final class PBXLegacyTargetSpec: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        subject = PBXLegacyTarget(reference: "ref",
-                                  name: "name",
+        subject = PBXLegacyTarget(name: "name",
                                   buildToolPath: "/usr/bin/true",
                                   buildArgumentsString: "hello world",
                                   passBuildSettingsInEnvironment: false,
@@ -31,7 +30,7 @@ final class PBXLegacyTargetSpec: XCTestCase {
             "buildWorkingDirectory": "/home/xcodeuser"
         ]).dictionary!
         
-        let plistDict = subject.plistValues(proj: PBXProj.testData(), isa: PBXLegacyTarget.isa).value.dictionary!
+        let plistDict = subject.plistValues(proj: PBXProj.testData(), isa: PBXLegacyTarget.isa, reference: "ref").value.dictionary!
         
         (["buildToolPath",
           "buildArgumentsString",

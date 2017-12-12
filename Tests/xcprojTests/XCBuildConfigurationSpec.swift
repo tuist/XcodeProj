@@ -9,15 +9,13 @@ final class XCBuildConfigurationSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = XCBuildConfiguration(reference: "reference",
-                                       name: "Debug",
+        subject = XCBuildConfiguration(name: "Debug",
                                        baseConfigurationReference: "base",
                                        buildSettings: ["name": "value"])
     }
 
     func test_init_initializesTheEntityProperly() {
-        let subject = XCBuildConfiguration(reference: "reference", name: "name", baseConfigurationReference: "build_reference", buildSettings: [:])
-        XCTAssertEqual(subject.reference, "reference")
+        let subject = XCBuildConfiguration(name: "name", baseConfigurationReference: "build_reference", buildSettings: [:])
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.baseConfigurationReference, "build_reference")
         XCTAssertEqual(subject.buildSettings as! [String: String], [:])
@@ -39,13 +37,9 @@ final class XCBuildConfigurationSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let one = XCBuildConfiguration(reference: "reference", name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
-        let another = XCBuildConfiguration(reference: "reference", name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
+        let one = XCBuildConfiguration(name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
+        let another = XCBuildConfiguration(name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
         XCTAssertEqual(one, another)
-    }
-
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
     private func testDictionary() -> [String: Any] {

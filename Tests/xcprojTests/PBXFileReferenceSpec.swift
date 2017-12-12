@@ -8,8 +8,7 @@ final class PBXFileReferenceSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXFileReference(reference: "ref",
-                                   sourceTree: .absolute,
+        subject = PBXFileReference(sourceTree: .absolute,
                                    name: "name",
                                    fileEncoding: 1,
                                    explicitFileType: "type",
@@ -18,7 +17,6 @@ final class PBXFileReferenceSpec: XCTestCase {
     }
 
     func test_init_initializesTheReferenceWithTheRightAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.sourceTree, .absolute)
         XCTAssertEqual(subject.fileEncoding, 1)
@@ -43,9 +41,7 @@ final class PBXFileReferenceSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXFileReference(reference: "ref",
-                                       sourceTree: .absolute,
-                                       name: "name",
+        let another = PBXFileReference(name: "name",
                                        fileEncoding: 1,
                                        explicitFileType: "type",
                                        lastKnownFileType: "last",
@@ -53,15 +49,10 @@ final class PBXFileReferenceSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_hashValue_returnsTheCorrectValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
     private func testDictionary() -> [String: Any] {
         return [
             "name": "name",
-            "sourceTree": "group",
-            "reference": "reference"
+            "sourceTree": "group"
         ]
     }
 }

@@ -8,11 +8,10 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXSourcesBuildPhase(reference: "reference", files: ["file"])
+        self.subject = PBXSourcesBuildPhase(files: ["file"])
     }
 
     func test_init_initializesThePropertiesCorrectly() {
-        XCTAssertEqual(subject.reference, "reference")
         XCTAssertEqual(subject.buildActionMask, PBXBuildPhase.defaultBuildActionMask)
         XCTAssertEqual(subject.files, ["file"])
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
@@ -23,19 +22,14 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let one = PBXSourcesBuildPhase(reference: "refrence", files: ["file"])
-        let another =  PBXSourcesBuildPhase(reference: "refrence", files: ["file"])
+        let one = PBXSourcesBuildPhase(files: ["file"])
+        let another =  PBXSourcesBuildPhase(files: ["file"])
         XCTAssertEqual(one, another)
-    }
-
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
     }
 
     private func testDictionary() -> [String: Any] {
         return [
-            "files": ["file"],
-            "reference": "reference"
+            "files": ["file"]
         ]
     }
 }

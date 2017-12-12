@@ -8,8 +8,7 @@ final class PBXFileElementSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXFileElement(reference: "ref",
-                                 sourceTree: .absolute,
+        subject = PBXFileElement(sourceTree: .absolute,
                                  path: "path",
                                  name: "name")
     }
@@ -19,15 +18,13 @@ final class PBXFileElementSpec: XCTestCase {
     }
 
     func test_init_initializesTheFileElementWithTheRightAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.sourceTree, .absolute)
         XCTAssertEqual(subject.path, "path")
         XCTAssertEqual(subject.name, "name")
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXFileElement(reference: "ref",
-                                     sourceTree: .absolute,
+        let another = PBXFileElement(sourceTree: .absolute,
                                      path: "path",
                                      name: "name")
         XCTAssertEqual(subject, another)
@@ -55,13 +52,8 @@ final class PBXFileElementSpec: XCTestCase {
         } catch {}
     }
 
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
     private func testDictionary() -> [String: Any] {
         return [
-            "reference": "reference",
             "sourceTree": "absolute",
             "path": "path",
             "name": "name"
