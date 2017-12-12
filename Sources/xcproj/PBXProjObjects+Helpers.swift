@@ -1,5 +1,25 @@
 import Foundation
 
+// MARK: - PBXProj.Objects Extension (Public)
+
+public extension PBXProj.Objects {
+
+    /// Returns all the targets with the given name.
+    ///
+    /// - Parameter name: target name.
+    /// - Returns: all existing targets with the given name.
+    public func targets(named name: String) -> [PBXTarget] {
+        var targets: [PBXTarget] = []
+        targets.append(contentsOf: Array(nativeTargets.values) as [PBXTarget])
+        targets.append(contentsOf: Array(legacyTargets.values) as [PBXTarget])
+        targets.append(contentsOf: Array(aggregateTargets.values) as [PBXTarget])
+        return targets.filter { $0.name == name }
+    }
+    
+}
+
+// MARK: - PBXProj.Objects Extension (Internal)
+
 extension PBXProj.Objects {
     
     /// Returns the file name from a build file reference.
