@@ -2,7 +2,10 @@
 
 ## Next version
 
-- Add breakpoint support through `XCBreakpointList`. https://github.com/xcodeswift/xcproj/pull/172 by [@alexruperez](https://github.com/alexruperez)
+### Added
+- Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase.
+- Support `PBXLegacyTarget` https://github.com/xcodeswift/xcproj/pull/171 by @bkase.
+- Breakpoint support through `XCBreakpointList`. https://github.com/xcodeswift/xcproj/pull/172 by [@alexruperez](https://github.com/alexruperez)
 
 ## 1.6.1
 
@@ -12,6 +15,7 @@
 ## 1.6.0
 
 ### Added
+- PBXLegacyTarget support https://github.com/xcodeswift/xcproj/pull/171 by @bkase
 - Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
 - Add adding / editing command line arguments for Launch, Test and Profile Actions in `XCScheme`. https://github.com/xcodeswift/xcproj/pull/167 by @rahul-malik

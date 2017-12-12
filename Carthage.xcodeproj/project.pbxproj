@@ -104,6 +104,8 @@
 		BF8332506302 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1312420901 /* XcodeProj.swift */; };
 		BF8380646601 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7552382101 /* PBXObject.swift */; };
 		BF8380646602 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7552382101 /* PBXObject.swift */; };
+		BF8819575101 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1870303001 /* PBXLegacyTarget.swift */; };
+		BF8819575102 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1870303001 /* PBXLegacyTarget.swift */; };
 		BF8826568101 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1452498301 /* XCWorkspaceData.swift */; };
 		BF8826568102 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1452498301 /* XCWorkspaceData.swift */; };
 		BF9036285501 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR6447358002 /* AEXML.framework */; };
@@ -118,6 +120,7 @@
 		FR1364894901 /* PBXFileElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileElement.swift; sourceTree = "<group>"; };
 		FR1452498301 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
 		FR1827232901 /* PBXReferenceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXReferenceProxy.swift; sourceTree = "<group>"; };
+		FR1870303001 /* PBXLegacyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXLegacyTarget.swift; sourceTree = "<group>"; };
 		FR2127460001 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
 		FR2187351101 /* PBXShellScriptBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhase.swift; sourceTree = "<group>"; };
 		FR2287573101 /* PBXSourceTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTree.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 				FR2771210001 /* PBXFrameworksBuildPhase.swift */,
 				FR3546471301 /* PBXGroup.swift */,
 				FR4384942301 /* PBXHeadersBuildPhase.swift */,
+				FR1870303001 /* PBXLegacyTarget.swift */,
 				FR2127460001 /* PBXNativeTarget.swift */,
 				FR7552382101 /* PBXObject.swift */,
 				FR5296652601 /* PBXProductType.swift */,
@@ -424,6 +428,7 @@
 				BF7408709801 /* PBXFrameworksBuildPhase.swift in Sources */,
 				BF7529047601 /* PBXGroup.swift in Sources */,
 				BF1993286801 /* PBXHeadersBuildPhase.swift in Sources */,
+				BF8819575101 /* PBXLegacyTarget.swift in Sources */,
 				BF4064216601 /* PBXNativeTarget.swift in Sources */,
 				BF8380646601 /* PBXObject.swift in Sources */,
 				BF3107150401 /* PBXProductType.swift in Sources */,
@@ -480,6 +485,7 @@
 				BF7408709802 /* PBXFrameworksBuildPhase.swift in Sources */,
 				BF7529047602 /* PBXGroup.swift in Sources */,
 				BF1993286802 /* PBXHeadersBuildPhase.swift in Sources */,
+				BF8819575102 /* PBXLegacyTarget.swift in Sources */,
 				BF4064216602 /* PBXNativeTarget.swift in Sources */,
 				BF8380646602 /* PBXObject.swift in Sources */,
 				BF3107150402 /* PBXProductType.swift in Sources */,
