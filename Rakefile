@@ -98,6 +98,11 @@ task :generate_carthage_project do
   generate_carthage_project()
 end
 
+desc "Generate Sourcery files"
+task :sourcery do
+  sh "mint run krzysztofzablocki/Sourcery sourcery"
+end
+
 desc "Executes all the validation steps for CI"
 task :ci => [:clean] do
   print "Linting project"
