@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for specialized targets.
-public class PBXTarget: PBXObject, Hashable {
+public class PBXTarget: PBXObject, AutoEquatable {
 
     /// Target build configuration list.
     public var buildConfigurationList: String?
@@ -46,9 +46,9 @@ public class PBXTarget: PBXObject, Hashable {
         self.productType = productType
         super.init(reference: reference)
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case buildConfigurationList
         case buildPhases
@@ -60,7 +60,7 @@ public class PBXTarget: PBXObject, Hashable {
         case productType
         case reference
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(.name)
@@ -72,18 +72,6 @@ public class PBXTarget: PBXObject, Hashable {
         self.productReference = try container.decodeIfPresent(.productReference)
         self.productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
-    }
-
-    public static func == (lhs: PBXTarget,
-                           rhs: PBXTarget) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildConfigurationList == rhs.buildConfigurationList &&
-            lhs.buildPhases == rhs.buildPhases &&
-            lhs.buildRules == rhs.buildRules &&
-            lhs.dependencies == rhs.dependencies &&
-            lhs.name == rhs.name &&
-            lhs.productReference == rhs.productReference &&
-            lhs.productType == rhs.productType
     }
 
     func plistValues(proj: PBXProj, isa: String) -> (key: CommentedString, value: PlistValue) {
@@ -114,5 +102,5 @@ public class PBXTarget: PBXObject, Hashable {
         return (key: CommentedString(self.reference, comment: name),
                 value: .dictionary(dictionary))
     }
-    
+
 }
