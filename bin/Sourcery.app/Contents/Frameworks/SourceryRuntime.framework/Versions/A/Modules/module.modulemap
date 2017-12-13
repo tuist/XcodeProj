@@ -1,0 +1,11 @@
+framework module SourceryRuntime {
+  umbrella header "SourceryRuntime.h"
+
+  export *
+  module * { export * }
+}
+
+module SourceryRuntime.Swift {
+    header "SourceryRuntime-Swift.h"
+    requires objc
+}
