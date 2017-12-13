@@ -128,4 +128,15 @@ extension PBXProj.Objects {
         }
     }
     
+    /// Returns the object with the given configuration list (project or target)
+    ///
+    /// - Parameter reference: configuration list reference.
+    /// - Returns: target or project with the given configuration list.
+    func objectWithConfigurationList(reference: String) -> PBXObject? {
+        if let project = projects.first(where: { $0.value.buildConfigurationList == reference})?.value {
+            return project
+        }
+        return nativeTargets.first(where: { $0.value.buildConfigurationList == reference})?.value
+    }
+    
 }
