@@ -1,6 +1,15 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## Next version
+## 2.0.0
+
+### Added
+- Deterministic reference generation https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur
+
+### Removed
+- `Referenceable` protocol https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
+- Deprecated methods to access objects from the `PBXProj`. Developers should use the `PBXProj.objects` property instead. https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
+
+## 1.7.0
 
 ### Added
 - Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase.
