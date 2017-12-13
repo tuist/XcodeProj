@@ -79,8 +79,6 @@
 		BF6638647202 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4128075701 /* PBXBuildPhase.swift */; };
 		BF6646142901 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3300528101 /* Referenceable.swift */; };
 		BF6646142902 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3300528101 /* Referenceable.swift */; };
-		BF6657084901 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3238635301 /* Deprecations.swift */; };
-		BF6657084902 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3238635301 /* Deprecations.swift */; };
 		BF6748394401 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3171444701 /* XCScheme.swift */; };
 		BF6748394402 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3171444701 /* XCScheme.swift */; };
 		BF6884424401 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3140861801 /* XCConfigurationList.swift */; };
@@ -131,7 +129,6 @@
 		FR2771210001 /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
 		FR3140861801 /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
 		FR3171444701 /* XCScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
-		FR3238635301 /* Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
 		FR3255351901 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
 		FR3300528101 /* Referenceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Referenceable.swift; sourceTree = "<group>"; };
 		FR3402716401 /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
@@ -245,7 +242,6 @@
 				FR3402716401 /* BuildSettings.swift */,
 				FR5186857101 /* CommentedString.swift */,
 				FR8773023601 /* Decodable+Dictionary.swift */,
-				FR3238635301 /* Deprecations.swift */,
 				FR6006730201 /* Dictionary+Extras.swift */,
 				FR8599247801 /* JSONDecoding.swift */,
 				FR6357036901 /* KeyedDecodingContainer+Additions.swift */,
@@ -418,7 +414,6 @@
 				BF6966109201 /* BuildSettings.swift in Sources */,
 				BF1214569601 /* CommentedString.swift in Sources */,
 				BF3167018201 /* Decodable+Dictionary.swift in Sources */,
-				BF6657084901 /* Deprecations.swift in Sources */,
 				BF2241362001 /* Dictionary+Extras.swift in Sources */,
 				BF6518149701 /* JSONDecoding.swift in Sources */,
 				BF1286225401 /* KeyedDecodingContainer+Additions.swift in Sources */,
@@ -476,7 +471,6 @@
 				BF6966109202 /* BuildSettings.swift in Sources */,
 				BF1214569602 /* CommentedString.swift in Sources */,
 				BF3167018202 /* Decodable+Dictionary.swift in Sources */,
-				BF6657084902 /* Deprecations.swift in Sources */,
 				BF2241362002 /* Dictionary+Extras.swift in Sources */,
 				BF6518149702 /* JSONDecoding.swift in Sources */,
 				BF1286225402 /* KeyedDecodingContainer+Additions.swift in Sources */,
