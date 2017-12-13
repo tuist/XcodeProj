@@ -6,8 +6,8 @@
 - Deterministic reference generation https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur
 
 ### Removed
-- `Referenceable` protocol https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
-- Deprecated methods to access objects from the `PBXProj`. Developers should use the `PBXProj.objects` property instead. https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
+- **Breaking Change** `Referenceable` protocol https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
+- **Breaking Change** Deprecated methods to access objects from the `PBXProj`. Developers should use the `PBXProj.objects` property instead. https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
 
 ## 1.7.0
 
