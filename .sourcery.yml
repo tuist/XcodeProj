@@ -1,0 +1,6 @@
+sources:
+  - Sources/xcproj
+templates:
+  - Sourcery/Templates
+output:
+  Sources/xcproj
