@@ -75,7 +75,7 @@ extension XCConfigurationList: PlistSerializable {
     }
     
     private func plistComment(proj: PBXProj, reference: String) -> String? {
-        let object = proj.objectWithConfigurationList(reference: reference)
+        let object = proj.objects.objectWithConfigurationList(reference: reference)
         if let project = object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
         } else if let target = object as? PBXNativeTarget {

@@ -9,16 +9,16 @@ final class PBXProjObjectsHelpersSpec: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        subject = PBXProj.Objects(objects: [])
+        subject = PBXProj.Objects(objects: [:])
     }
     
     func test_targetsNamed_returnsTheCorrectValue() {
-        let nativeTarget = PBXNativeTarget(reference: "1", name: "test")
-        let legacyTarget = PBXLegacyTarget(reference: "1", name: "test")
-        let aggregateTarget = PBXAggregateTarget(reference: "1", name: "test")
-        subject.addObject(nativeTarget)
-        subject.addObject(legacyTarget)
-        subject.addObject(aggregateTarget)
+        let nativeTarget = PBXNativeTarget(name: "test")
+        let legacyTarget = PBXLegacyTarget(name: "test")
+        let aggregateTarget = PBXAggregateTarget(name: "test")
+        subject.addObject(nativeTarget, reference: "1")
+        subject.addObject(legacyTarget, reference: "2")
+        subject.addObject(aggregateTarget, reference: "3")
         let got = subject.targets(named: "test")
         XCTAssertTrue(got.contains(nativeTarget))
         XCTAssertTrue(got.contains(legacyTarget))
