@@ -41,7 +41,8 @@ final class PBXFileReferenceSpec: XCTestCase {
     }
 
     func test_equal_returnsTheCorrectValue() {
-        let another = PBXFileReference(name: "name",
+        let another = PBXFileReference(sourceTree: .absolute,
+                                       name: "name",
                                        fileEncoding: 1,
                                        explicitFileType: "type",
                                        lastKnownFileType: "last",

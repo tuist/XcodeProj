@@ -109,7 +109,7 @@ final class PBXProjectSpec: XCTestCase {
                 rootObject: "rootObject",
                 archiveVersion: 1,
                 classes: [:],
-                objects: ["ref": productsGroup])
+                objects: ["group": productsGroup])
 
         let plistKV = subject.plistKeyAndValue(proj: proj, reference: "ref")
         if case let PlistValue.dictionary(dictionary) = plistKV.value {

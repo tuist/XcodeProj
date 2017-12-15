@@ -36,6 +36,7 @@ final public class PBXProj: Decodable {
             phases.merge(self.shellScriptBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
             phases.merge(self.resourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
             phases.merge(self.headersBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.frameworksBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
             return phases
         }
 

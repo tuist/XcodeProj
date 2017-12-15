@@ -19,7 +19,7 @@ final class XCConfigurationListSpec: XCTestCase {
     func test_plistKeyAndValue() {
         let proj = PBXProj(objectVersion: 1, rootObject: "", archiveVersion: 1)
         proj.objects.projects = ["ref": PBXProject.init(name: "App", buildConfigurationList: "reference", compatibilityVersion: "47", mainGroup: "")]
-        let (commentedString, _) = subject.plistKeyAndValue(proj: proj, reference: "ref")
+        let (commentedString, _) = subject.plistKeyAndValue(proj: proj, reference: "reference")
         XCTAssertEqual(commentedString, CommentedString("reference", comment: "Build configuration list for PBXProject \"App\""))
     }
 }
