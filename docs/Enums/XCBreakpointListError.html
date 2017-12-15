@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>XCBreakpointListError Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
-    <a title="Bool Extension Reference"></a>
+    <a name="//apple_ref/swift/Enum/XCBreakpointListError" class="dashAnchor"></a>
+    <a title="XCBreakpointListError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcproj Docs</a> (63% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Bool Extension Reference
+        XCBreakpointListError Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -188,14 +188,20 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Bool</h1>
+            <h1>XCBreakpointListError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">XCBreakpointListError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>XCBreakpointList Errors.</p>
+
+<ul>
+<li>notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.</li>
+<li>missing: returned when there&rsquo;s a property missing in the Breakpoints_v2.xcbkptlist.</li>
+</ul>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -203,9 +209,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb6xcprojE9xmlStringSSv"></a>
-                    <a name="//apple_ref/swift/Property/xmlString" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb6xcprojE9xmlStringSSv">xmlString</a>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSv"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSv">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -213,14 +219,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a XML string value that represents the boolean.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">xmlString</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>

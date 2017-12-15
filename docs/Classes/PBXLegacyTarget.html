@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>PBXLegacyTarget Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
-    <a title="Bool Extension Reference"></a>
+    <a name="//apple_ref/swift/Class/PBXLegacyTarget" class="dashAnchor"></a>
+    <a title="PBXLegacyTarget Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcproj Docs</a> (63% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Bool Extension Reference
+        PBXLegacyTarget Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -188,14 +188,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Bool</h1>
+            <h1>PBXLegacyTarget</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXLegacyTarget</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>This is the element for a build target that according to Xcode is an <q>External Build System</q>. You can use this target to run a script.</p>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -203,9 +204,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb6xcprojE9xmlStringSSv"></a>
-                    <a name="//apple_ref/swift/Property/xmlString" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb6xcprojE9xmlStringSSv">xmlString</a>
+                    <a name="/s:6xcproj15PBXLegacyTargetC13buildToolPathSSSgv"></a>
+                    <a name="//apple_ref/swift/Property/buildToolPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj15PBXLegacyTargetC13buildToolPathSSSgv">buildToolPath</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -213,14 +214,95 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a XML string value that represents the boolean.</p>
+                        <p>Path to the build tool that is invoked (required)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">xmlString</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildToolPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6xcproj15PBXLegacyTargetC20buildArgumentsStringSSSgv"></a>
+                    <a name="//apple_ref/swift/Property/buildArgumentsString" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj15PBXLegacyTargetC20buildArgumentsStringSSSgv">buildArgumentsString</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Build arguments to be passed to the build tool.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildArgumentsString</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6xcproj15PBXLegacyTargetC30passBuildSettingsInEnvironmentSbv"></a>
+                    <a name="//apple_ref/swift/Property/passBuildSettingsInEnvironment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj15PBXLegacyTargetC30passBuildSettingsInEnvironmentSbv">passBuildSettingsInEnvironment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether or not to pass Xcode build settings as environment variables down to the tool when invoked</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">passBuildSettingsInEnvironment</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6xcproj15PBXLegacyTargetC21buildWorkingDirectorySSSgv"></a>
+                    <a name="//apple_ref/swift/Property/buildWorkingDirectory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj15PBXLegacyTargetC21buildWorkingDirectorySSSgv">buildWorkingDirectory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The directory where the build tool will be invoked during a build</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildWorkingDirectory</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>

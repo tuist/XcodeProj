@@ -302,6 +302,27 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
+      "line": 17,
+      "symbol": "PBXLegacyTarget.init(reference:name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationList:buildPhases:buildRules:dependencies:productName:productReference:productType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
+      "line": 54,
+      "symbol": "PBXLegacyTarget.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
+      "line": 64,
+      "symbol": "PBXLegacyTarget.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXObject.swift",
       "line": 6,
       "symbol": "PBXObject.hashValue",
@@ -324,14 +345,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 91,
+      "line": 93,
       "symbol": "PBXObjectError.missingIsa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 92,
+      "line": 94,
       "symbol": "PBXObjectError.unknownElement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -345,6 +366,13 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
+      "line": null,
+      "symbol": "PBXProj.Objects",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
       "line": 6,
       "symbol": "PBXProj.Objects",
       "symbol_kind": "source.lang.swift.decl.class",
@@ -352,14 +380,14 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 148,
+      "line": 154,
       "symbol": "PBXProj.objects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 182,
+      "line": 188,
       "symbol": "PBXProj.addObject(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -575,6 +603,34 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCBreakpointList.swift",
+      "line": null,
+      "symbol": "XCBreakpointList",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCBreakpointList.swift",
+      "line": 6,
+      "symbol": "XCBreakpointList",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCBreakpointList.swift",
+      "line": 353,
+      "symbol": "XCBreakpointListError.notFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCBreakpointList.swift",
+      "line": 354,
+      "symbol": "XCBreakpointListError.missing",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCBuildConfiguration.swift",
       "line": 52,
       "symbol": "XCBuildConfiguration.init(from:)",
@@ -632,7 +688,7 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XCSharedData.swift",
-      "line": 38,
+      "line": 44,
       "symbol": "XCSharedDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -702,21 +758,21 @@
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XcodeProj.swift",
-      "line": 109,
+      "line": 115,
       "symbol": "XCodeProjError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XcodeProj.swift",
-      "line": 110,
+      "line": 116,
       "symbol": "XCodeProjError.pbxprojNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedro.pinera.buendia/code/xcodeswift/xcproj/Sources/xcproj/XcodeProj.swift",
-      "line": 111,
+      "line": 117,
       "symbol": "XCodeProjError.xcworkspaceNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
