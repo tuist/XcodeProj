@@ -40,12 +40,16 @@ task :carthage do
   build_carthage_project()
 end
 
-def test
+def test_swift
   sh "swift test --filter xcprojTests"
 end
 
-def test_integration
+def test_swift_integration
   sh "swift test --filter xcprojIntegrationTests"
+end
+
+def test_ruby
+  sh "bundle exec rspec"
 end
 
 def current_version
@@ -109,10 +113,11 @@ task :ci => [:clean] do
   print "Building the project"
   build()
   print "Executing tests"
-  test()
+  test_swift()
+  test_ruby()
   if git.current_branch == "integration" || ENV["TRAVIS_BRANCH"] == "integration"
     print "Executing integration tests"
-    test_integration()
+    test_swift_integration()
   end
 end
 
