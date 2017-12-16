@@ -7,7 +7,7 @@ module Danger
 
       def execute
         if added_or_deleted_sources.empty?() then return end
-        if project_modified then return end
+        if project_modified() then return end
         fail("Source files have been added or removed. Execute `bundle exec rake generate_carthage_project` to regenerate the Carthage.xcodeproj")
       end
 
