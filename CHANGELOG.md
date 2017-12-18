@@ -3,7 +3,7 @@
 ## Next version
 
 ### Fixed
-- Optimized performance of `PBXProj.getFileElement()` https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
+- Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 ### Added
 - Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase.
 - Support `PBXLegacyTarget` https://github.com/xcodeswift/xcproj/pull/171 by @bkase.
