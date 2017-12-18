@@ -107,22 +107,17 @@ func deployToIntegration(utils: Utils) throws {
 }
 
 func release(utils: Utils) throws {
-//    abort 'Commit all your changes before starting the release' unless !any_git_changes?
-//    print("Building xcproj")
-//    build
-//    print "Generating Carthage project"
-//    generate_carthage_project()
-//    print "Building Carthage project"
-//    build_carthage_project()
-//    print "Generating docs"
-//    generate_docs
-//    version = next_version
-//    print "Bumping version to #{next_version}"
-//    bump_to_version(current_version, next_version)
-//    print "Commiting and pushing changes to GitHub"
-//    commit_changes_and_push(next_version)
-//    print "Pushing new version to CocoaPods"
-//    sh "bundle exec pod trunk push --verbose --allow-warnings"
+    try build(utils: utils)
+    try generateCarthageProject(utils: utils)
+    try buildCarthageProject(utils: utils)
+    try generateDocs(utils: utils)
+    let version = try Version(utils.git.lastTag())
+    let nextVersion = version.bumpingMinor()
+    try bumpVersion(from: version.string, to: nextVersion.string)
+    try utils.git.commitAll(message: "[release/\(nextVersion.string)] Bump version to \(nextVersion.string)")
+    try utils.git.tag(nextVersion.string)
+    try utils.git.push(remote: "origin", branch: "release/\(nextVersion)", tags: true)
+    try utils.shell.runAndPrint(bash: "bundle exec pod trunk push --verbose --allow-warnings")
 }
 
 func continuousIntegration(utils: Utils) throws {
