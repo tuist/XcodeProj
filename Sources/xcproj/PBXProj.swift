@@ -114,6 +114,10 @@ final public class PBXProj: Decodable {
         }
 
         public func getReference(_ reference: String) -> PBXObject? {
+            // The ?? chaining below is partitioned into separate statments because, with Swift 4, a single
+            // expression resulted in this compiler error:
+            //     Expression was too complex to be solved in reasonable time;
+            //     consider breaking up the expression into distinct sub-expressions
             let part1 = buildFiles[reference] ??
                 aggregateTargets[reference] ??
                 legacyTargets[reference] ??
