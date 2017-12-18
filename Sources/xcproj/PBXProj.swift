@@ -120,7 +120,7 @@ final public class PBXProj: Decodable {
         ///   - object: the object to generate the reference for.
         ///   - id: object identifier (e.g. path or name)
         /// - Returns: reference.
-        public func generateReference<T: PBXObject>(_ object: T, _ id: String) -> String {
+        public func generateReference(_ object: PBXObject, _ id: String) -> String {
             var uuid: String = ""
             var counter: UInt = 0
             let characterCount = 16
