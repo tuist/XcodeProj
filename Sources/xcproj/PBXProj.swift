@@ -111,14 +111,14 @@ final public class PBXProj: Decodable {
         /// It ensures that the generated reference doesn't collide with any existing one.
         ///
         /// - Parameters:
-        ///   - element: object type.
+        ///   - object: the object to generate the reference for.
         ///   - id: object identifier (e.g. path or name)
         /// - Returns: reference.
-        public func generateReference<T: PBXObject>(_ element: T.Type, _ id: String) -> String {
+        public func generateReference<T: PBXObject>(_ object: T, _ id: String) -> String {
             var uuid: String = ""
             var counter: UInt = 0
             let characterCount = 16
-            let className: String = String(describing: T.self)
+            let className: String = String(describing: type(of: object))
                 .replacingOccurrences(of: "PBX", with: "")
                 .replacingOccurrences(of: "XC", with: "")
             let classAcronym = String(className.filter { String($0).lowercased() != String($0) })
