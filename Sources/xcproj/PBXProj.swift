@@ -101,12 +101,9 @@ final public class PBXProj: Decodable {
         }
 
         public func getTarget(reference: String) -> PBXTarget? {
-            let caches: [[String: PBXTarget]] = [
-                aggregateTargets,
-                nativeTargets,
-                legacyTargets
-            ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            return aggregateTargets[reference] ??
+                nativeTargets[reference] ??
+                legacyTargets[reference]
         }
 
         public func getFileElement(reference: String) -> PBXFileElement? {
