@@ -8,6 +8,7 @@
 - Breakpoint support through `XCBreakpointList`. https://github.com/xcodeswift/xcproj/pull/172 by [@alexruperez](https://github.com/alexruperez)
 - Add convenience method to find targets with a given name https://github.com/xcodeswift/xcproj/pull/184 by @pepibumur.
 - Danger plugin that fails earlier if files have been added/deleted and the Carthage project hasn't been regenerated afterwards https://github.com/xcodeswift/xcproj/pull/187 by @pepibumur.
+- Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 
 ## 1.6.1
 
