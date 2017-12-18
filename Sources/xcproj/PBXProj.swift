@@ -114,29 +114,29 @@ final public class PBXProj: Decodable {
         }
 
         public func getReference(_ reference: String) -> PBXObject? {
-            let caches: [[String: PBXObject]] = [
-                buildFiles,
-                aggregateTargets,
-                legacyTargets,
-                containerItemProxies,
-                groups,
-                configurationLists,
-                buildConfigurations,
-                variantGroups,
-                targetDependencies,
-                nativeTargets,
-                fileReferences,
-                projects,
-                versionGroups,
-                referenceProxies,
-                copyFilesBuildPhases,
-                shellScriptBuildPhases,
-                resourcesBuildPhases,
-                frameworksBuildPhases,
-                headersBuildPhases,
-                sourcesBuildPhases
-            ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            let part1 = buildFiles[reference] ??
+                aggregateTargets[reference] ??
+                legacyTargets[reference] ??
+                containerItemProxies[reference] ??
+                groups[reference]
+            let part2 = part1 ??
+                configurationLists[reference] ??
+                buildConfigurations[reference] ??
+                variantGroups[reference] ??
+                targetDependencies[reference] ??
+                nativeTargets[reference]
+            let part3 = part2 ??
+                fileReferences[reference] ??
+                projects[reference] ??
+                versionGroups[reference] ??
+                referenceProxies[reference] ??
+                copyFilesBuildPhases[reference]
+            return part3 ??
+                shellScriptBuildPhases[reference] ??
+                resourcesBuildPhases[reference] ??
+                frameworksBuildPhases[reference] ??
+                headersBuildPhases[reference] ??
+                sourcesBuildPhases[reference]
         }
 
         public func contains(reference: String) -> Bool {
