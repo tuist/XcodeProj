@@ -101,48 +101,66 @@ final public class PBXProj: Decodable {
         }
 
         public func getTarget(reference: String) -> PBXTarget? {
-            let caches: [[String: PBXTarget]] = [
-                aggregateTargets,
-                nativeTargets,
-                legacyTargets
-            ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            return aggregateTargets[reference] ??
+                nativeTargets[reference] ??
+                legacyTargets[reference]
         }
 
         public func getFileElement(reference: String) -> PBXFileElement? {
-            let caches: [[String: PBXFileElement]] = [
-                fileReferences,
-                groups,
-                variantGroups,
-                versionGroups,
-                ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            return fileReferences[reference] ??
+                groups[reference] ??
+                variantGroups[reference] ??
+                versionGroups[reference]
         }
 
         public func getReference(_ reference: String) -> PBXObject? {
-            let caches: [[String: PBXObject]] = [
-                buildFiles,
-                aggregateTargets,
-                legacyTargets,
-                containerItemProxies,
-                groups,
-                configurationLists,
-                buildConfigurations,
-                variantGroups,
-                targetDependencies,
-                nativeTargets,
-                fileReferences,
-                projects,
-                versionGroups,
-                referenceProxies,
-                copyFilesBuildPhases,
-                shellScriptBuildPhases,
-                resourcesBuildPhases,
-                frameworksBuildPhases,
-                headersBuildPhases,
-                sourcesBuildPhases
-            ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
+            // with Swift 4, this compiler error:
+            //     Expression was too complex to be solved in reasonable time;
+            //     consider breaking up the expression into distinct sub-expressions
+            if let object = buildFiles[reference] {
+                return object
+            } else if let object = aggregateTargets[reference] {
+                return object
+            } else if let object = legacyTargets[reference] {
+                return object
+            } else if let object = containerItemProxies[reference] {
+                return object
+            } else if let object = groups[reference] {
+                return object
+            } else if let object = configurationLists[reference] {
+                return object
+            } else if let object = buildConfigurations[reference] {
+                return object
+            } else if let object = variantGroups[reference] {
+                return object
+            } else if let object = targetDependencies[reference] {
+                return object
+            } else if let object = nativeTargets[reference] {
+                return object
+            } else if let object = fileReferences[reference] {
+                return object
+            } else if let object = projects[reference] {
+                return object
+            } else if let object = versionGroups[reference] {
+                return object
+            } else if let object = referenceProxies[reference] {
+                return object
+            } else if let object = copyFilesBuildPhases[reference] {
+                return object
+            } else if let object = shellScriptBuildPhases[reference] {
+                return object
+            } else if let object = resourcesBuildPhases[reference] {
+                return object
+            } else if let object = frameworksBuildPhases[reference] {
+                return object
+            } else if let object = headersBuildPhases[reference] {
+                return object
+            } else if let object = sourcesBuildPhases[reference] {
+                return object
+            } else {
+                return nil
+            }
         }
 
         public func contains(reference: String) -> Bool {
