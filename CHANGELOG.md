@@ -2,6 +2,9 @@
 
 ## Next version
 
+### Added
+- Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
+
 ## 1.7.0
 
 ### Added

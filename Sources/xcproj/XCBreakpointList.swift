@@ -147,6 +147,7 @@ final public class XCBreakpointList {
             public var module: String?
             public var scope: String?
             public var stopOnStyle: String?
+            public var condition: String?
             public var actions: [BreakpointActionProxy]
             public var locations: [BreakpointLocationProxy]
 
@@ -164,6 +165,7 @@ final public class XCBreakpointList {
                         module: String? = nil,
                         scope: String? = nil,
                         stopOnStyle: String? = nil,
+                        condition: String? = nil,
                         actions: [BreakpointActionProxy] = [],
                         locations: [BreakpointLocationProxy] = []) {
                 self.enabled = enabled
@@ -180,6 +182,7 @@ final public class XCBreakpointList {
                 self.module = module
                 self.scope = scope
                 self.stopOnStyle = stopOnStyle
+                self.condition = condition
                 self.actions = actions
                 self.locations = locations
             }
@@ -199,6 +202,7 @@ final public class XCBreakpointList {
                 module = element.attributes["moduleName"]
                 scope = element.attributes["scope"]
                 stopOnStyle = element.attributes["stopOnStyle"]
+                condition = element.attributes["condition"]
 
                 actions = try element["Actions"]["BreakpointActionProxy"]
                     .all?
@@ -223,6 +227,7 @@ final public class XCBreakpointList {
                 attributes["moduleName"] = module
                 attributes["scope"] = scope
                 attributes["stopOnStyle"] = stopOnStyle
+                attributes["condition"] = condition
 
                 let element = AEXMLElement(name: "BreakpointContent",
                                            value: nil,
