@@ -5,21 +5,17 @@ import xcproj
 
 final class XCSchemeIntegrationSpec: XCTestCase {
 
-    var subject: XCScheme?
+    func test_read_iosScheme() {
+        let subject = try? XCScheme(path: iosSchemePath)
 
-    override func setUp() {
-        subject = try? XCScheme(path: fixturePath())
-    }
-
-    func test_init_initializesTheSchemeCorrectly() {
         XCTAssertNotNil(subject)
         if let subject = subject {
             assert(scheme: subject)
         }
     }
 
-    func test_write() {
-        testWrite(from: fixturePath(),
+    func test_write_iosScheme() {
+        testWrite(from: iosSchemePath,
                   initModel: { try? XCScheme(path: $0) },
                   modify: { $0 },
                   assertion: { assert(scheme: $1) })
@@ -120,7 +116,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
 
     }
 
-    private func fixturePath() -> Path {
+    private var iosSchemePath: Path {
         return fixturesPath() + Path("iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme")
     }
 
