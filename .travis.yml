@@ -4,10 +4,12 @@ language: generic
 osx_image: xcode9.1
 install:
 - bundle install
+- brew tap xcodeswift/sake git@github.com:xcodeswift/sake.git
+- brew install sake
 before_script:
 - bundle exec danger
 - carthage update --platform iOS,macOS
 script:
-- bundle exec rake ci
+- sake task ci
 after_success:
-- bundle exec rake deploy_to_integration
+- sake task deploy_to_integration
