@@ -110,13 +110,10 @@ final public class PBXProj: Decodable {
         }
 
         public func getFileElement(reference: String) -> PBXFileElement? {
-            let caches: [[String: PBXFileElement]] = [
-                fileReferences,
-                groups,
-                variantGroups,
-                versionGroups,
-                ]
-            return caches.first { cache in cache[reference] != nil }?[reference]
+            return fileReferences[reference] ??
+                groups[reference] ??
+                variantGroups[reference] ??
+                versionGroups[reference]
         }
 
         public func getReference(_ reference: String) -> PBXObject? {
