@@ -5,6 +5,10 @@
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 
+### Changed
+- **Breaking:** The `buildableProductRunnable` property on`XCScheme.LaunchAction` and `XCScheme.ProfileAction` is now optional. Similarly, `macroExpansion` on `XCScheme.TestAction` is also optional. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+- The `XCScheme` initialization from an XML file has been relaxed, better matching Xcode's behavior. Default values will be used if the XML file is missing the relevant element or attribute. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+
 ## 1.7.0
 
 ### Added

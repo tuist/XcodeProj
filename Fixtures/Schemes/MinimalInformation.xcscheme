@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   version = "1.3">
+   <BuildAction>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForRunning = "NO"
+            buildForTesting = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "651BA89E1E459798004EAFE5"
+               BuildableName = "ais.xctest"
+               BlueprintName = "ais-Tests"
+               ReferencedContainer = "container:ais.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference>
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "651BA89E1E459798004EAFE5"
+               BuildableName = "ais.xctest"
+               BlueprintName = "ais-Tests"
+               ReferencedContainer = "container:ais.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      useCustomWorkingDirectory = "NO">
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "AI_TEST_MODE"
+            value = "integration"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
+   </LaunchAction>
+</Scheme>
