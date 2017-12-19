@@ -54,7 +54,8 @@ final class PBXProjSpec: XCTestCase {
         subject.objects.addObject(PBXResourcesBuildPhase(reference: "ref4"))
         subject.objects.addObject(PBXFrameworksBuildPhase(reference: "ref5"))
         subject.objects.addObject(PBXHeadersBuildPhase(reference: "ref6"))
-        XCTAssertEqual(subject.objects.buildPhases.count, 6)
+        subject.objects.addObject(PBXRezBuildPhase(reference: "ref7"))
+        XCTAssertEqual(subject.objects.buildPhases.count, 7)
     }
 }
 

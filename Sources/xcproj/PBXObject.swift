@@ -78,6 +78,8 @@ public class PBXObject: Referenceable, Decodable {
             return try decoder.decode(PBXReferenceProxy.self, from: data)
         case XCVersionGroup.isa:
             return try decoder.decode(XCVersionGroup.self, from: data)
+        case PBXRezBuildPhase.isa:
+            return try decoder.decode(PBXRezBuildPhase.self, from: data)
         default:
             throw PBXObjectError.unknownElement(isa)
         }
