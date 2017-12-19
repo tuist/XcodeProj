@@ -8,6 +8,7 @@ import Foundation
 /// - copyFiles: files.
 /// - runScript: scripts.
 /// - headers: headers.
+/// - carbonResources: build legacy Carbon resources.
 public enum BuildPhase: String {
     case sources = "Sources"
     case frameworks = "Frameworks"
@@ -15,4 +16,5 @@ public enum BuildPhase: String {
     case copyFiles = "CopyFiles"
     case runScript = "Run Script"
     case headers = "Headers"
+    case carbonResources = "Rez"
 }
