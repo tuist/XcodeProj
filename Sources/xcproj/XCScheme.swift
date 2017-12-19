@@ -6,6 +6,9 @@ import AEXML
 // swiftlint:disable:next type_body_length
 final public class XCScheme {
 
+    public static let defaultDebugger = "Xcode.DebuggerFoundation.Debugger.LLDB"
+    public static let defaultLauncher = "Xcode.DebuggerFoundation.Launcher.LLDB"
+
     // MARK: - BuildableReference
 
     final public class BuildableReference {
@@ -189,19 +192,19 @@ final public class XCScheme {
             }
             init(element: AEXMLElement) throws {
                 var buildFor: [BuildFor] = []
-                if element.attributes["buildForTesting"] == "YES" {
+                if (element.attributes["buildForTesting"].map { $0 == "YES" }) ?? true {
                     buildFor.append(.testing)
                 }
-                if element.attributes["buildForRunning"] == "YES" {
+                if (element.attributes["buildForRunning"].map { $0 == "YES" }) ?? true {
                     buildFor.append(.running)
                 }
-                if element.attributes["buildForProfiling"] == "YES" {
+                if (element.attributes["buildForProfiling"].map { $0 == "YES" }) ?? true {
                     buildFor.append(.profiling)
                 }
-                if element.attributes["buildForArchiving"] == "YES" {
+                if (element.attributes["buildForArchiving"].map { $0 == "YES" }) ?? true {
                     buildFor.append(.archiving)
                 }
-                if element.attributes["buildForAnalyzing"] == "YES" {
+                if (element.attributes["buildForAnalyzing"].map { $0 == "YES" }) ?? true {
                     buildFor.append(.analyzing)
                 }
                 self.buildFor = buildFor
@@ -235,8 +238,8 @@ final public class XCScheme {
         }
 
         init(element: AEXMLElement) throws {
-            parallelizeBuild = element.attributes["parallelizeBuildables"]! == "YES"
-            buildImplicitDependencies = element.attributes["buildImplicitDependencies"] == "YES"
+            parallelizeBuild = element.attributes["parallelizeBuildables"].map { $0 == "YES" } ?? true
+            buildImplicitDependencies = element.attributes["buildImplicitDependencies"].map { $0 == "YES" } ?? true
             self.buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
@@ -263,13 +266,16 @@ final public class XCScheme {
     }
 
     final public class LaunchAction {
+        private static let defaultBuildConfiguration = "Debug"
+        public static let defaultDebugServiceExtension = "internal"
+        private static let defaultLaunchStyle = Style.auto
 
         public enum Style: String {
             case auto = "0"
             case wait = "1"
         }
 
-        public var buildableProductRunnable: BuildableProductRunnable
+        public var buildableProductRunnable: BuildableProductRunnable?
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
         public var buildConfiguration: String
@@ -282,15 +288,15 @@ final public class XCScheme {
         public var locationScenarioReference: LocationScenarioReference?
         public var commandlineArguments: CommandLineArguments?
 
-        public init(buildableProductRunnable: BuildableProductRunnable,
+        public init(buildableProductRunnable: BuildableProductRunnable?,
                     buildConfiguration: String,
-                    selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
-                    selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
+                    selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
+                    selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
                     debugDocumentVersioning: Bool = true,
-                    debugServiceExtension: String = "internal",
+                    debugServiceExtension: String = LaunchAction.defaultDebugServiceExtension,
                     allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil,
                     commandlineArguments: CommandLineArguments? = nil) {
@@ -309,31 +315,21 @@ final public class XCScheme {
         }
 
         init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
-                throw XCSchemeError.missing(property: "buildConfiguration")
-            }
-            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else {
-                throw XCSchemeError.missing(property: "selectedDebuggerIdentifier")
-            }
-            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else {
-                throw XCSchemeError.missing(property: "selectedLauncherIdentifier")
-            }
-            guard let launchStyle = element.attributes["launchStyle"] else {
-                throw XCSchemeError.missing(property: "launchStyle")
-            }
-            guard let debugServiceExtension = element.attributes["debugServiceExtension"] else {
-                throw XCSchemeError.missing(property: "debugServiceExtension")
-            }
-            self.buildConfiguration = buildConfiguration
-            self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
-            self.selectedLauncherIdentifier = selectedLauncherIdentifier
-            self.launchStyle = Style(rawValue: launchStyle) ?? .auto
+            self.buildConfiguration = element.attributes["buildConfiguration"] ?? LaunchAction.defaultBuildConfiguration
+            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
+            self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
+            self.launchStyle = element.attributes["launchStyle"].flatMap { Style(rawValue: $0) } ?? .auto
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             self.ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
-            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
-            self.debugServiceExtension = debugServiceExtension
-            self.allowLocationSimulation = element.attributes["allowLocationSimulation"] == "YES"
-            self.buildableProductRunnable = try BuildableProductRunnable(element:  element["BuildableProductRunnable"])
+            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
+            self.debugServiceExtension = element.attributes["debugServiceExtension"] ?? LaunchAction.defaultDebugServiceExtension
+            self.allowLocationSimulation = element.attributes["allowLocationSimulation"].map { $0 == "YES" } ?? true
+
+            let buildableProductRunnableElement = element["BuildableProductRunnable"]
+            if buildableProductRunnableElement.error == nil {
+                self.buildableProductRunnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
+            }
+
             if element["LocationScenarioReference"].all?.first != nil {
                 self.locationScenarioReference = try LocationScenarioReference(element: element["LocationScenarioReference"])
             } else {
@@ -357,7 +353,10 @@ final public class XCScheme {
                                                     "debugDocumentVersioning": debugDocumentVersioning.xmlString,
                                                     "debugServiceExtension": debugServiceExtension,
                                                     "allowLocationSimulation": allowLocationSimulation.xmlString])
-            element.addChild(buildableProductRunnable.xmlElement())
+            if let buildableProductRunnable = buildableProductRunnable {
+                element.addChild(buildableProductRunnable.xmlElement())
+            }
+
             if let locationScenarioReference = locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
@@ -371,7 +370,9 @@ final public class XCScheme {
     }
 
     final public class ProfileAction {
-        public var buildableProductRunnable: BuildableProductRunnable
+        private static let defaultBuildConfiguration = "Release"
+
+        public var buildableProductRunnable: BuildableProductRunnable?
         public var buildConfiguration: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var savedToolIdentifier: String
@@ -379,7 +380,7 @@ final public class XCScheme {
         public var debugDocumentVersioning: Bool
         public var commandlineArguments: CommandLineArguments?
 
-        public init(buildableProductRunnable: BuildableProductRunnable,
+        public init(buildableProductRunnable: BuildableProductRunnable?,
                     buildConfiguration: String,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     savedToolIdentifier: String = "",
@@ -395,18 +396,16 @@ final public class XCScheme {
             self.commandlineArguments = commandlineArguments
         }
         init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
-                throw XCSchemeError.missing(property: "buildConfiguration")
-            }
-            guard let savedToolIdentifier = element.attributes["savedToolIdentifier"] else {
-                throw XCSchemeError.missing(property: "savedToolIdentifier")
-            }
-            self.buildConfiguration = buildConfiguration
-            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
-            self.savedToolIdentifier = savedToolIdentifier
+            self.buildConfiguration = element.attributes["buildConfiguration"] ?? ProfileAction.defaultBuildConfiguration
+            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"].map { $0 == "YES" } ?? true
+            self.savedToolIdentifier = element.attributes["savedToolIdentifier"] ?? ""
             self.useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
-            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"] == "YES"
-            self.buildableProductRunnable = try BuildableProductRunnable(element: element["BuildableProductRunnable"])
+            self.debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
+
+            let buildableProductRunnableElement = element["BuildableProductRunnable"]
+            if buildableProductRunnableElement.error == nil {
+                self.buildableProductRunnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
+            }
             let commandlineOptions = element["CommandLineArguments"]
             if commandlineOptions.error == nil {
                 self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
@@ -420,7 +419,9 @@ final public class XCScheme {
                                                     "savedToolIdentifier": savedToolIdentifier,
                                                     "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
                                                     "debugDocumentVersioning": debugDocumentVersioning.xmlString])
-            element.addChild(buildableProductRunnable.xmlElement())
+            if let buildableProductRunnable = buildableProductRunnable {
+                element.addChild(buildableProductRunnable.xmlElement())
+            }
             if let commandlineArguments = commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
@@ -429,20 +430,22 @@ final public class XCScheme {
     }
 
     final public class TestAction {
+        private static let defaultBuildConfiguration = "Debug"
+
         public var testables: [TestableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var codeCoverageEnabled: Bool
-        public var macroExpansion: BuildableReference
+        public var macroExpansion: BuildableReference?
         public var commandlineArguments: CommandLineArguments?
 
         public init(buildConfiguration: String,
-                    macroExpansion: BuildableReference,
+                    macroExpansion: BuildableReference?,
                     testables: [TestableReference] = [],
-                    selectedDebuggerIdentifier: String = "Xcode.DebuggerFoundation.Debugger.LLDB",
-                    selectedLauncherIdentifier: String = "Xcode.DebuggerFoundation.Launcher.LLDB",
+                    selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
+                    selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     codeCoverageEnabled: Bool = false,
                     commandlineArguments: CommandLineArguments? = nil) {
@@ -456,24 +459,19 @@ final public class XCScheme {
             self.commandlineArguments = commandlineArguments
         }
         init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
-                throw XCSchemeError.missing(property: "buildConfiguration")
-            }
-            guard let selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] else {
-                throw XCSchemeError.missing(property: "selectedDebuggerIdentifier")
-            }
-            guard let selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] else {
-                throw XCSchemeError.missing(property: "selectedLauncherIdentifier")
-            }
-            self.buildConfiguration = buildConfiguration
-            self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
-            self.selectedLauncherIdentifier = selectedLauncherIdentifier
-            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"] == "YES"
+            self.buildConfiguration = element.attributes["buildConfiguration"] ?? TestAction.defaultBuildConfiguration
+            self.selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
+            self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
+            self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"].map { $0 == "YES" } ?? true
             self.codeCoverageEnabled = element.attributes["codeCoverageEnabled"] == "YES"
             self.testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
-            self.macroExpansion = try BuildableReference(element: element["MacroExpansion"]["BuildableReference"])
+
+            let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
+            if buildableReferenceElement.error == nil {
+                self.macroExpansion = try BuildableReference(element: buildableReferenceElement)
+            }
 
             let commandlineOptions = element["CommandLineArguments"]
             if commandlineOptions.error == nil {
@@ -492,8 +490,10 @@ final public class XCScheme {
             testables.forEach { (testable) in
                 testablesElement.addChild(testable.xmlElement())
             }
-            let macro = element.addChild(name: "MacroExpansion")
-            macro.addChild(macroExpansion.xmlElement())
+            if let macroExpansion = macroExpansion {
+                let macro = element.addChild(name: "MacroExpansion")
+                macro.addChild(macroExpansion.xmlElement())
+            }
 
             if let commandlineArguments = commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
@@ -504,15 +504,14 @@ final public class XCScheme {
     }
 
     final public class AnalyzeAction {
+        private static let defaultBuildConfiguration = "Debug"
+
         public var buildConfiguration: String
         public init(buildConfiguration: String) {
             self.buildConfiguration = buildConfiguration
         }
         init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
-                throw XCSchemeError.missing(property: "buildConfiguration")
-            }
-            self.buildConfiguration = buildConfiguration
+            self.buildConfiguration = element.attributes["buildConfiguration"] ?? AnalyzeAction.defaultBuildConfiguration
         }
         fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]
@@ -522,6 +521,8 @@ final public class XCScheme {
     }
 
     final public class ArchiveAction {
+        private static let defaultBuildConfiguration = "Release"
+
         public var buildConfiguration: String
         public var revealArchiveInOrganizer: Bool
         public var customArchiveName: String?
@@ -533,15 +534,9 @@ final public class XCScheme {
             self.customArchiveName = customArchiveName
         }
         init(element: AEXMLElement) throws {
-            guard let buildConfiguration = element.attributes["buildConfiguration"] else {
-                throw XCSchemeError.missing(property: "buildConfiguration")
-            }
-            guard let customArchiveName = element.attributes["customArchiveName"] else {
-                throw XCSchemeError.missing(property: "customArchiveName")
-            }
-            self.buildConfiguration = buildConfiguration
-            self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"] == "YES"
-            self.customArchiveName = customArchiveName
+            self.buildConfiguration = element.attributes["buildConfiguration"] ?? ArchiveAction.defaultBuildConfiguration
+            self.revealArchiveInOrganizer = element.attributes["revealArchiveInOrganizer"].map { $0 == "YES" } ?? true
+            self.customArchiveName = element.attributes["customArchiveName"]
         }
         fileprivate func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = [:]

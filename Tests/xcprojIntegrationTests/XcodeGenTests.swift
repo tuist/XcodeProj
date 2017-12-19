@@ -34,6 +34,14 @@ final class XcodeGenTests: XCTestCase {
         try packageSwiftWithLocalDependency.write(to: packageSwiftPath.url,
                                                   atomically: true,
                                                   encoding: .utf8)
+        // Testing xcodegen as part of xcproj creates a circular dependency; fix up source files affected by API changes
+        let projectGeneratorTestsPath = clonePath + Path("Tests/XcodeGenKitTests/ProjectGeneratorTests.swift")
+        let projectGeneratorString = try String(contentsOf: projectGeneratorTestsPath.url)
+        let forceUnwrapProjectGeneratorString = projectGeneratorString.replacingOccurrences(of: ".buildableProductRunnable.", with: ".buildableProductRunnable!.")
+        print("> Patching ProjectGeneratorTests.swift")
+        try forceUnwrapProjectGeneratorString.write(to: projectGeneratorTestsPath.url,
+                                                    atomically: true,
+                                                    encoding: .utf8)
         print("> Building XcodeGen")
         try shellOut(to: "cd \(clonePath); swift build")
         print("> Testing XcodeGen")
