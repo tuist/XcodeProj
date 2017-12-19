@@ -28,6 +28,10 @@ class BuildPhaseSpecs: XCTestCase {
         XCTAssertEqual(BuildPhase.headers.rawValue, "Headers")
     }
 
+    func test_carbonResources_hasTheCorrectRawValue() {
+        XCTAssertEqual(BuildPhase.carbonResources.rawValue, "Rez")
+    }
+
     func test_sources_hasTheCorrectBuildPhase() {
         XCTAssertEqual(BuildPhase.sources, PBXSourcesBuildPhase(reference: "").buildPhase)
     }
@@ -50,6 +54,10 @@ class BuildPhaseSpecs: XCTestCase {
 
     func test_headers_hasTheCorrectBuildPhase() {
         XCTAssertEqual(BuildPhase.headers, PBXHeadersBuildPhase(reference: "").buildPhase)
+    }
+
+    func test_carbonResources_hasTheCorrectBuildPhase() {
+        XCTAssertEqual(BuildPhase.carbonResources, PBXRezBuildPhase(reference: "").buildPhase)
     }
 
 }

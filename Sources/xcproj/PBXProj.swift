@@ -27,6 +27,7 @@ final public class PBXProj: Decodable {
         public var frameworksBuildPhases: ReferenceableCollection<PBXFrameworksBuildPhase> = [:]
         public var headersBuildPhases: ReferenceableCollection<PBXHeadersBuildPhase> = [:]
         public var sourcesBuildPhases: ReferenceableCollection<PBXSourcesBuildPhase> = [:]
+        public var carbonResourcesBuildPhases: ReferenceableCollection<PBXRezBuildPhase> = [:]
 
         // MARK: - Computed Properties
         public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
@@ -37,6 +38,7 @@ final public class PBXProj: Decodable {
             phases += self.resourcesBuildPhases.referenceValues as [PBXBuildPhase]
             phases += self.frameworksBuildPhases.referenceValues as [PBXBuildPhase]
             phases += self.headersBuildPhases.referenceValues as [PBXBuildPhase]
+            phases += self.carbonResourcesBuildPhases.referenceValues as [PBXBuildPhase]
             return Dictionary(references: phases)
         }
 
@@ -68,7 +70,8 @@ final public class PBXProj: Decodable {
                 lhs.fileReferences == rhs.fileReferences &&
                 lhs.projects == rhs.projects &&
                 lhs.versionGroups == rhs.versionGroups &&
-                lhs.referenceProxies == rhs.referenceProxies
+                lhs.referenceProxies == rhs.referenceProxies &&
+                lhs.carbonResourcesBuildPhases == rhs.carbonResourcesBuildPhases
         }
 
         // MARK: - Public Methods
@@ -96,6 +99,7 @@ final public class PBXProj: Decodable {
             case let object as PBXProject: projects.append(object)
             case let object as XCVersionGroup: versionGroups.append(object)
             case let object as PBXReferenceProxy: referenceProxies.append(object)
+            case let object as PBXRezBuildPhase: carbonResourcesBuildPhases.append(object)
             default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
             }
         }
@@ -157,6 +161,8 @@ final public class PBXProj: Decodable {
             } else if let object = headersBuildPhases[reference] {
                 return object
             } else if let object = sourcesBuildPhases[reference] {
+                return object
+            } else if let object = carbonResourcesBuildPhases[reference] {
                 return object
             } else {
                 return nil
