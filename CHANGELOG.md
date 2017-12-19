@@ -17,6 +17,10 @@
 - fixed comment generation of PBXBuildFiles without a name https://github.com/xcodeswift/xcproj/pull/203 by @briantkelley
 - fixed PBXReferenceTarget encoding in pbxproj file https://github.com/xcodeswift/xcproj/pull/202 by @briantkelley
 
+### Changed
+- **Breaking:** The `buildableProductRunnable` property on`XCScheme.LaunchAction` and `XCScheme.ProfileAction` is now optional. Similarly, `macroExpansion` on `XCScheme.TestAction` is also optional. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+- The `XCScheme` initialization from an XML file has been relaxed, better matching Xcode's behavior. Default values will be used if the XML file is missing the relevant element or attribute. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+
 ## 1.7.0
 
 ### Added
