@@ -60,6 +60,8 @@
 		BF4805463201 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR8873340702 /* PathKit.framework */; };
 		BF5094034701 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7428998701 /* PBXProj+Helpers.swift */; };
 		BF5094034702 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7428998701 /* PBXProj+Helpers.swift */; };
+		BF5139737101 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7054588301 /* PBXBuildRule.swift */; };
+		BF5139737102 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7054588301 /* PBXBuildRule.swift */; };
 		BF5156404201 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7128364401 /* String+Extras.swift */; };
 		BF5156404202 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7128364401 /* String+Extras.swift */; };
 		BF5295135101 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2187351101 /* PBXShellScriptBuildPhase.swift */; };
@@ -160,6 +162,7 @@
 		FR6754770501 /* XCVersionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCVersionGroup.swift; sourceTree = "<group>"; };
 		FR6980748501 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		FR7045651001 /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
+		FR7054588301 /* PBXBuildRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildRule.swift; sourceTree = "<group>"; };
 		FR7128364401 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
 		FR7414687801 /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
 		FR7428998701 /* PBXProj+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBXProj+Helpers.swift"; sourceTree = "<group>"; };
@@ -255,6 +258,7 @@
 				FR3952162601 /* PBXAggregateTarget.swift */,
 				FR6980748501 /* PBXBuildFile.swift */,
 				FR4128075701 /* PBXBuildPhase.swift */,
+				FR7054588301 /* PBXBuildRule.swift */,
 				FR8962043601 /* PBXContainerItemProxy.swift */,
 				FR5460675201 /* PBXCopyFilesBuildPhase.swift */,
 				FR1364894901 /* PBXFileElement.swift */,
@@ -429,6 +433,7 @@
 				BF3873193301 /* PBXAggregateTarget.swift in Sources */,
 				BF4432284801 /* PBXBuildFile.swift in Sources */,
 				BF6638647201 /* PBXBuildPhase.swift in Sources */,
+				BF5139737101 /* PBXBuildRule.swift in Sources */,
 				BF7832125601 /* PBXContainerItemProxy.swift in Sources */,
 				BF7696587101 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF3882936801 /* PBXFileElement.swift in Sources */,
@@ -488,6 +493,7 @@
 				BF3873193302 /* PBXAggregateTarget.swift in Sources */,
 				BF4432284802 /* PBXBuildFile.swift in Sources */,
 				BF6638647202 /* PBXBuildPhase.swift in Sources */,
+				BF5139737102 /* PBXBuildRule.swift in Sources */,
 				BF7832125602 /* PBXContainerItemProxy.swift in Sources */,
 				BF7696587102 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF3882936802 /* PBXFileElement.swift in Sources */,

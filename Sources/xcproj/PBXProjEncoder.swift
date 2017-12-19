@@ -30,6 +30,7 @@ final class PBXProjEncoder {
         writeNewLine()
         write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
         write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
+        write(section: "PBXBuildRule", proj: proj, object: proj.objects.buildRules)
         write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
         write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
         write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
