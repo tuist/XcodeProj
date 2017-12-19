@@ -3,6 +3,7 @@
 ## Next version
 
 ### Fixed
+- Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
