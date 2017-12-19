@@ -84,4 +84,8 @@ final class PBXProductTypeSpec: XCTestCase {
     func test_ocUnitTestBundle_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.ocUnitTestBundle.rawValue, "com.apple.product-type.bundle.ocunit-test")
     }
+
+    func test_xcodeExtension_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.xcodeExtension.rawValue, "com.apple.product-type.xcode-extension")
+    }
 }

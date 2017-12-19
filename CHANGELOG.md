@@ -6,6 +6,7 @@
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
+- Support Xcode Extension product type https://github.com/xcodeswift/xcproj/pull/190 by @briantkelley
 
 ## 1.7.0
 
