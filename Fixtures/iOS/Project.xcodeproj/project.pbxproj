@@ -20,6 +20,20 @@
 		23766C2B1EAA3484007A9026 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23766C2A1EAA3484007A9026 /* iOSTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		6B7542351FE9CEDE003DFC29 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.myrule";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/CompiledRule",
+			);
+			script = $TOOL_PATH/transform;
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXContainerItemProxy section */
 		23766C271EAA3484007A9026 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -157,6 +171,7 @@
 				23BB67531EE326A800BE9E79 /* Headers */,
 			);
 			buildRules = (
+				6B7542351FE9CEDE003DFC29 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
