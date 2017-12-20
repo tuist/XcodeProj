@@ -21,17 +21,6 @@ final class PBXVariantGroupSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .group)
     }
 
-    func test_init_failsIfTheSourceTreeIsWrong() {
-        var dictionary = testDictionary()
-        dictionary["sourceTree"] = "asdgasdgas"
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXVariantGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_itHasTheCorrectIsa() {
         XCTAssertEqual(PBXVariantGroup.isa, "PBXVariantGroup")
     }
