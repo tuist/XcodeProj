@@ -24,17 +24,6 @@ final class PBXGroupSpec: XCTestCase {
         XCTAssertEqual(subject.tabWidth, nil)
     }
 
-    func test_init_failsIfChildrenIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "children")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXGroup.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXGroup.isa, "PBXGroup")
     }

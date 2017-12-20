@@ -2,7 +2,15 @@
 
 ## Next version
 
+## 2.0.0
+
+### Fixed
+- **Breaking:** `PBXSourceTree` no longer has raw values and gained an assoicated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
+
 ## 1.8.0
+
+### Fixed
+- Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).

@@ -51,7 +51,7 @@ public class PBXFileElement: PBXObject, Hashable, PlistSerializable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceTree = try container.decodeIfPresent(.sourceTree)
+        self.sourceTree = try container.decodeIfPresent(String.self, forKey: .sourceTree).map { PBXSourceTree(value: $0) }
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
         try super.init(from: decoder)
