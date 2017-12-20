@@ -32,13 +32,21 @@ struct CommentedString {
 
         var escaped = string
         // escape escape
-        escaped = escaped.replacingOccurrences(of: "\\", with: "\\\\")
+        if escaped.contains("\\" as Character) {
+            escaped = escaped.replacingOccurrences(of: "\\", with: "\\\\")
+        }
         // escape quotes
-        escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"")
+        if escaped.contains("\"" as Character) {
+            escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"")
+        }
         // escape tab
-        escaped = escaped.replacingOccurrences(of: "\t", with: "\\t")
+        if escaped.contains("\t" as Character) {
+            escaped = escaped.replacingOccurrences(of: "\t", with: "\\t")
+        }
         // escape newlines
-        escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
+        if escaped.contains("\n" as Character) {
+            escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
+        }
 
         if !escaped.isQuoted && escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil {
             escaped = escaped.quoted
