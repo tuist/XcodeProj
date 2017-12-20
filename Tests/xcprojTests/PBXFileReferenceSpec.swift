@@ -31,17 +31,6 @@ final class PBXFileReferenceSpec: XCTestCase {
         XCTAssertEqual(PBXFileReference.isa, "PBXFileReference")
     }
 
-    func test_init_failsIfNameIsMissing() {
-        var dictionary = testDictionary()
-        dictionary.removeValue(forKey: "name")
-        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
-        do {
-            _ = try decoder.decode(PBXFileReference.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_equal_returnsTheCorrectValue() {
         let another = PBXFileReference(reference: "ref",
                                        sourceTree: .absolute,

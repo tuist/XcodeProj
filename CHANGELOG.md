@@ -5,6 +5,7 @@
 ### Fixed
 - Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
+- **Breaking:** `PBXSourceTree` no longer has raw values and gained an assoicated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 - Support Xcode Extension product type https://github.com/xcodeswift/xcproj/pull/190 by @briantkelley
