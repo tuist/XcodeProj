@@ -2,12 +2,14 @@
 
 ## Next version
 
-### Fixed
-- Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
-- Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 - Support Xcode Extension product type https://github.com/xcodeswift/xcproj/pull/190 by @briantkelley
+
+### Fixed
+- Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
+- Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
+- fixed PBXLegacyTarget write order https://github.com/xcodeswift/xcproj/pull/199 by @kastiglione
 
 ## 1.7.0
 
