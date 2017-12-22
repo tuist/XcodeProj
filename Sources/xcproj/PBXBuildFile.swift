@@ -80,9 +80,7 @@ extension PBXBuildFile: PlistSerializable {
             dictionary["settings"] = settings.plist()
         }
         let buildPhaseName = proj.objects.buildPhaseName(buildFileReference: reference)
-        let comment = fileName.flatMap({ fileName -> String? in
-            buildPhaseName.flatMap({"\(fileName) in \($0)"})
-        })
+        let comment = buildPhaseName.flatMap({"\(fileName ?? "(null)") in \($0)"})
         return (key: CommentedString(self.reference, comment: comment),
                 value: .dictionary(dictionary))
     }
