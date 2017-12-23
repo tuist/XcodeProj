@@ -68,7 +68,7 @@ extension PBXReferenceProxy: PlistSerializable {
     
     func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
-        dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
+        dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))
         if let fileType = fileType {
             dictionary["fileType"] = .string(CommentedString(fileType))
         }

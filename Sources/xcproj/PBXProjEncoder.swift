@@ -39,6 +39,7 @@ final class PBXProjEncoder {
         write(section: "PBXLegacyTarget", proj: proj, object: proj.objects.legacyTargets)
         write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
         write(section: "PBXProject", proj: proj, object: proj.objects.projects)
+        write(section: "PBXReferenceProxy", proj: proj, object: proj.objects.referenceProxies)
         write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
         write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
         write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
