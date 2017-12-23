@@ -65,14 +65,8 @@ public class PBXBuildPhase: PBXObject, Equatable {
         dictionary["files"] = .array(files.map { fileReference in
             let name = proj.objects.fileName(buildFileReference: fileReference)
             let type = proj.objects.buildPhaseName(buildFileReference: fileReference)
-            let comment = name
-                .flatMap({ fileName -> String? in
-                    if let type = type {
-                        return "\(fileName) in \(type)"
-                    } else {
-                        return fileName
-                    }
-                })
+            let fileName = name ?? "(null)"
+            let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
             return .string(CommentedString(fileReference, comment: comment))
         })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))

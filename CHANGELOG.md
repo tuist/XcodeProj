@@ -12,6 +12,7 @@
 - Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 - fixed PBXLegacyTarget write order https://github.com/xcodeswift/xcproj/pull/199 by @kastiglione
+- fixed comment generation of PBXBuildFiles without a name https://github.com/xcodeswift/xcproj/pull/203 by @briantkelley
 - fixed PBXReferenceTarget encoding in pbxproj file https://github.com/xcodeswift/xcproj/pull/202 by @briantkelley
 
 ## 1.7.0
