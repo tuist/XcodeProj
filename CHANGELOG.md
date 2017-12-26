@@ -2,6 +2,8 @@
 
 ## Next version
 
+## 1.8.0
+
 ### Added
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 - Support Xcode Extension product type https://github.com/xcodeswift/xcproj/pull/190 by @briantkelley
