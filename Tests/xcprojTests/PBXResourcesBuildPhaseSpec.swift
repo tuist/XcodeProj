@@ -8,13 +8,11 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXResourcesBuildPhase(reference: "ref",
-                                         files: ["333"],
+        subject = PBXResourcesBuildPhase(files: ["333"],
                                          runOnlyForDeploymentPostprocessing: 0)
     }
 
     func test_init_initializesTheBuildPhaseWithTheRightValues() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.files, ["333"])
         XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
     }
@@ -24,8 +22,7 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let another = PBXResourcesBuildPhase(reference: "ref",
-                                             files: ["333"],
+        let another = PBXResourcesBuildPhase(files: ["333"],
                                              runOnlyForDeploymentPostprocessing: 0)
         XCTAssertEqual(subject, another)
     }
@@ -34,8 +31,7 @@ final class PBXResourcesBuildPhaseSpec: XCTestCase {
         return [
             "files": ["file1"],
             "buildActionMask": "333",
-            "runOnlyForDeploymentPostprocessing": "3",
-            "reference": "reference"
+            "runOnlyForDeploymentPostprocessing": "3"
         ]
     }
 }

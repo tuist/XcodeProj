@@ -31,8 +31,7 @@ final public class PBXBuildRule: PBXObject, Equatable {
 
     // MARK: - Init
 
-    public init(reference: String,
-                compilerSpec: String,
+    public init(compilerSpec: String,
                 fileType: String,
                 isEditable: Bool = true,
                 filePatterns: String? = nil,
@@ -48,7 +47,7 @@ final public class PBXBuildRule: PBXObject, Equatable {
         self.outputFiles = outputFiles
         self.outputFilesCompilerFlags = outputFilesCompilerFlags
         self.script = script
-        super.init(reference: reference)
+        super.init()
     }
 
     // MARK: - Decodable
@@ -92,8 +91,7 @@ final public class PBXBuildRule: PBXObject, Equatable {
                     return lhsOutputFilesCompilerFlags == rhsOutputFilesCompilerFlags
             }
         }()
-        return lhs.reference == rhs.reference &&
-            lhs.compilerSpec == rhs.compilerSpec &&
+        return lhs.compilerSpec == rhs.compilerSpec &&
             lhs.filePatterns == rhs.filePatterns &&
             lhs.fileType == rhs.fileType &&
             lhs.isEditable == rhs.isEditable &&
@@ -110,7 +108,7 @@ extension PBXBuildRule: PlistSerializable {
 
     var multiline: Bool { return true }
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildRule.isa))
         dictionary["compilerSpec"] = .string(CommentedString(compilerSpec))
@@ -129,7 +127,7 @@ extension PBXBuildRule: PlistSerializable {
         if let script = script {
             dictionary["script"] = .string(CommentedString(script))
         }
-        return (key: CommentedString(self.reference, comment: PBXBuildRule.isa),
+        return (key: CommentedString(reference, comment: PBXBuildRule.isa),
                 value: .dictionary(dictionary))
     }
 

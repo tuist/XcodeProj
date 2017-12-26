@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element to decorate a target item.
-final public class PBXContainerItemProxy: PBXObject, Hashable {
+final public class PBXContainerItemProxy: PBXObject, Equatable {
 
     public enum ProxyType: UInt, Decodable {
         case nativeTarget = 1
@@ -28,8 +28,7 @@ final public class PBXContainerItemProxy: PBXObject, Hashable {
     ///   - containerPortal: reference to the container portal.
     ///   - remoteGlobalIDString: reference to the remote global ID.
     ///   - remoteInfo: remote info.
-    public init(reference: String,
-                containerPortal: String,
+    public init(containerPortal: String,
                 remoteGlobalIDString: String? = nil,
                 proxyType: ProxyType? = nil,
                 remoteInfo: String? = nil) {
@@ -37,13 +36,12 @@ final public class PBXContainerItemProxy: PBXObject, Hashable {
         self.remoteGlobalIDString = remoteGlobalIDString
         self.remoteInfo = remoteInfo
         self.proxyType = proxyType
-        super.init(reference: reference)
+        super.init()
     }
     
     public static func == (lhs: PBXContainerItemProxy,
                            rhs: PBXContainerItemProxy) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.proxyType == rhs.proxyType &&
+        return lhs.proxyType == rhs.proxyType &&
             lhs.containerPortal == rhs.containerPortal &&
             lhs.remoteGlobalIDString == rhs.remoteGlobalIDString &&
             lhs.remoteInfo == rhs.remoteInfo
@@ -74,7 +72,7 @@ final public class PBXContainerItemProxy: PBXObject, Hashable {
 
 extension PBXContainerItemProxy: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXContainerItemProxy.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
@@ -87,7 +85,7 @@ extension PBXContainerItemProxy: PlistSerializable {
         if let remoteInfo = remoteInfo {
             dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
         }
-        return (key: CommentedString(self.reference,
+        return (key: CommentedString(reference,
                                                  comment: "PBXContainerItemProxy"),
                 value: .dictionary(dictionary))
     }

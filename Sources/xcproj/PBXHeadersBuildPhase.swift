@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 
 /// This is the element for the framework headers build phase.
-final public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
+final public class PBXHeadersBuildPhase: PBXBuildPhase {
 
     public override var buildPhase: BuildPhase {
         return .headers
@@ -10,8 +10,7 @@ final public class PBXHeadersBuildPhase: PBXBuildPhase, Hashable {
 
     public static func == (lhs: PBXHeadersBuildPhase,
                            rhs: PBXHeadersBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
+        return lhs.buildActionMask == rhs.buildActionMask &&
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
@@ -44,10 +43,10 @@ extension PBXHeadersBuildPhase {
 
 extension PBXHeadersBuildPhase: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXHeadersBuildPhase.isa))
-        return (key: CommentedString(self.reference, comment: "Headers"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: "Headers"), value: .dictionary(dictionary))
     }
     
 }

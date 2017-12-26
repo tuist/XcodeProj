@@ -32,25 +32,27 @@ final public class PBXProj: Decodable {
 
         // MARK: - Computed Properties
         public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
-            var phases: [PBXBuildPhase] = []
-            phases += self.copyFilesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.sourcesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.shellScriptBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.resourcesBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.frameworksBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.headersBuildPhases.referenceValues as [PBXBuildPhase]
-            phases += self.carbonResourcesBuildPhases.referenceValues as [PBXBuildPhase]
-            return Dictionary(references: phases)
+            var phases: [String: PBXBuildPhase] = [:]
+            phases.merge(self.copyFilesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.sourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.shellScriptBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.resourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.headersBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.carbonResourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            phases.merge(self.frameworksBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
+            return phases
         }
 
         /// Initializes the project objects container
         ///
         /// - Parameters:
         ///   - objects: project objects
-        public init(objects: [PBXObject]) {
-            objects.forEach(addObject)
+        public init(objects: [String: PBXObject]) {
+            objects.forEach { self.addObject($0.value, reference: $0.key) }
         }
+        
         // MARK: - Equatable
+        
         public static func == (lhs: Objects, rhs: Objects) -> Bool {
             return lhs.buildFiles == rhs.buildFiles &&
                 lhs.legacyTargets == rhs.legacyTargets &&
@@ -78,48 +80,87 @@ final public class PBXProj: Decodable {
 
         // MARK: - Public Methods
 
-        public func addObject(_ object: PBXObject) {
+        /// Add a new object.
+        ///
+        /// - Parameters:
+        ///   - object: object.
+        ///   - reference: object reference.
+        public func addObject(_ object: PBXObject, reference: String) {
             switch object {
-            case let object as PBXBuildFile: buildFiles.append(object)
-            case let object as PBXAggregateTarget: aggregateTargets.append(object)
-            case let object as PBXLegacyTarget:
-                legacyTargets.append(object)
-            case let object as PBXContainerItemProxy: containerItemProxies.append(object)
-            case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object)
-            case let object as PBXGroup: groups.append(object)
-            case let object as XCConfigurationList: configurationLists.append(object)
-            case let object as XCBuildConfiguration: buildConfigurations.append(object)
-            case let object as PBXVariantGroup: variantGroups.append(object)
-            case let object as PBXTargetDependency: targetDependencies.append(object)
-            case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object)
-            case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object)
-            case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object)
-            case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object)
-            case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object)
-            case let object as PBXNativeTarget: nativeTargets.append(object)
-            case let object as PBXFileReference: fileReferences.append(object)
-            case let object as PBXProject: projects.append(object)
-            case let object as XCVersionGroup: versionGroups.append(object)
-            case let object as PBXReferenceProxy: referenceProxies.append(object)
-            case let object as PBXRezBuildPhase: carbonResourcesBuildPhases.append(object)
-            case let object as PBXBuildRule: buildRules.append(object)
+            case let object as PBXBuildFile: buildFiles.append(object, reference: reference)
+            case let object as PBXAggregateTarget: aggregateTargets.append(object, reference: reference)
+            case let object as PBXLegacyTarget: legacyTargets.append(object, reference: reference)
+            case let object as PBXContainerItemProxy: containerItemProxies.append(object, reference: reference)
+            case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases.append(object, reference: reference)
+            case let object as PBXGroup: groups.append(object, reference: reference)
+            case let object as XCConfigurationList: configurationLists.append(object, reference: reference)
+            case let object as XCBuildConfiguration: buildConfigurations.append(object, reference: reference)
+            case let object as PBXVariantGroup: variantGroups.append(object, reference: reference)
+            case let object as PBXTargetDependency: targetDependencies.append(object, reference: reference)
+            case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object, reference: reference)
+            case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object, reference: reference)
+            case let object as PBXResourcesBuildPhase: resourcesBuildPhases.append(object, reference: reference)
+            case let object as PBXFrameworksBuildPhase: frameworksBuildPhases.append(object, reference: reference)
+            case let object as PBXHeadersBuildPhase: headersBuildPhases.append(object, reference: reference)
+            case let object as PBXNativeTarget: nativeTargets.append(object, reference: reference)
+            case let object as PBXFileReference: fileReferences.append(object, reference: reference)
+            case let object as PBXProject: projects.append(object, reference: reference)
+            case let object as XCVersionGroup: versionGroups.append(object, reference: reference)
+            case let object as PBXReferenceProxy: referenceProxies.append(object, reference: reference)
+            case let object as PBXRezBuildPhase: carbonResourcesBuildPhases.append(object, reference: reference)
+            case let object as PBXBuildRule: buildRules.append(object, reference: reference)
             default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
             }
         }
+        
+        /// Generates a deterministic reference from an object type and identifier.
+        /// It ensures that the generated reference doesn't collide with any existing one.
+        ///
+        /// - Parameters:
+        ///   - object: the object to generate the reference for.
+        ///   - id: object identifier (e.g. path or name)
+        /// - Returns: reference.
+        public func generateReference(_ object: PBXObject, _ id: String) -> String {
+            var uuid: String = ""
+            var counter: UInt = 0
+            let characterCount = 16
+            let className: String = String(describing: type(of: object))
+                .replacingOccurrences(of: "PBX", with: "")
+                .replacingOccurrences(of: "XC", with: "")
+            let classAcronym = String(className.filter { String($0).lowercased() != String($0) })
+            let stringID = String(abs(id.hashValue).description.prefix(characterCount - classAcronym.count - 2))
+            repeat {
+                uuid = "\(classAcronym)_\(stringID)\(counter > 0 ? "-\(counter)" : "")"
+                counter += 1
+            } while ( contains(reference: uuid) )
+            return uuid
+        }
 
+        /// It returns the target with reference.
+        ///
+        /// - Parameter reference: target reference.
+        /// - Returns: target.
         public func getTarget(reference: String) -> PBXTarget? {
             return aggregateTargets[reference] ??
                 nativeTargets[reference] ??
                 legacyTargets[reference]
         }
 
+        /// It returns the file element with the given reference.
+        ///
+        /// - Parameter reference: file reference.
+        /// - Returns: file element.
         public func getFileElement(reference: String) -> PBXFileElement? {
             return fileReferences[reference] ??
                 groups[reference] ??
                 variantGroups[reference] ??
                 versionGroups[reference]
         }
-
+        
+        /// It returns the object with the given reference.
+        ///
+        /// - Parameter reference: file reference.
+        /// - Returns: object.
         public func getReference(_ reference: String) -> PBXObject? {
             // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
             // with Swift 4, this compiler error:
@@ -174,6 +215,10 @@ final public class PBXProj: Decodable {
             }
         }
 
+        /// Returns true if objects contains any object with the given reference.
+        ///
+        /// - Parameter reference: reference.
+        /// - Returns: true if it contains the reference.
         public func contains(reference: String) -> Bool {
             return getReference(reference) != nil
         }
@@ -206,16 +251,12 @@ final public class PBXProj: Decodable {
                 rootObject: String,
                 archiveVersion: Int = 1,
                 classes: [String: Any] = [:],
-                objects: [PBXObject] = []) {
+                objects: [String: PBXObject] = [:]) {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
         self.rootObject = rootObject
         self.objects = Objects(objects: objects)
-    }
-
-    @available(*, deprecated, message: "Use objects.addObject instead") public func addObject(_ object: PBXObject) {
-        objects.addObject(object)
     }
 
     // MARK: - Decodable
@@ -238,7 +279,7 @@ final public class PBXProj: Decodable {
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        self.objects = try Objects(objects: objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) })
+        self.objects = try Objects(objects: objects.mapValuesWithKeys({ try PBXObject.parse(reference: $0, dictionary: $1) }))
     }
 }
 

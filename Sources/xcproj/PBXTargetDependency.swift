@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for referencing other targets through content proxies.
-final public class PBXTargetDependency: PBXObject, Hashable {
+final public class PBXTargetDependency: PBXObject, Equatable {
     
     // MARK: - Attributes
     
@@ -16,23 +16,20 @@ final public class PBXTargetDependency: PBXObject, Hashable {
     /// Initializes the target dependency.
     ///
     /// - Parameters:
-    ///   - reference: element reference.
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
-    public init(reference: String,
-                target: String? = nil,
+    public init(target: String? = nil,
                 targetProxy: String? = nil) {
         self.target = target
         self.targetProxy = targetProxy
-        super.init(reference: reference)
+        super.init()
     }
     
     // MARK: - Hashable
     
     public static func == (lhs: PBXTargetDependency,
                            rhs: PBXTargetDependency) -> Bool {
-        return lhs.reference == rhs.reference &&
-        lhs.target == rhs.target &&
+        return lhs.target == rhs.target &&
         lhs.targetProxy == rhs.targetProxy
     }
     
@@ -56,7 +53,7 @@ final public class PBXTargetDependency: PBXObject, Hashable {
 
 extension PBXTargetDependency: PlistSerializable {
     
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         if let target = target {
@@ -67,7 +64,7 @@ extension PBXTargetDependency: PlistSerializable {
         if let targetProxy = targetProxy {
             dictionary["targetProxy"] = .string(CommentedString(targetProxy, comment: "PBXContainerItemProxy"))
         }
-        return (key: CommentedString(self.reference,
+        return (key: CommentedString(reference,
                                                  comment: "PBXTargetDependency"),
                 value: .dictionary(dictionary))
     }
