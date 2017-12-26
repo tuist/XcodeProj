@@ -183,3 +183,5 @@ build/
 xcproj.xcodeproj
 .idea/
 tmp/
+
+Sakefile.xcodeproj
