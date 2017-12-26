@@ -14,6 +14,16 @@
 ### Fixed
 - **Breaking:** `PBXSourceTree` no longer has raw values and gained an associated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
 
+### Changed
+- **Breaking:** The `buildableProductRunnable` property on`XCScheme.LaunchAction` and `XCScheme.ProfileAction` is now optional. Similarly, `macroExpansion` on `XCScheme.TestAction` is also optional. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+- The `XCScheme` initialization from an XML file has been relaxed, better matching Xcode's behavior. Default values will be used if the XML file is missing the relevant element or attribute. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
+
+### Migrate from 1.x.x to 2.x.x
+- If you were using objects getters in `PBXProj` you should use the getters in `PBXProj.objects` instead.
+- Objects don't include a `reference` property anymore. Objects associated references are the keys in the dictionary that contains them.
+- When objects are added to the `PBXProj.objects` collection a reference needs to be passed. The reference can be calculated using the function `PBXProj.objects.generateReference` that generates a unique and deterministic reference based on the given object and identifier.
+- If you were using `buildableProductRunnable` and `macroExpansion` properties from `XCScheme` actions they are now optionals.
+
 ## 1.8.0
 
 ### Fixed
@@ -31,10 +41,6 @@
 - fixed PBXLegacyTarget write order https://github.com/xcodeswift/xcproj/pull/199 by @kastiglione
 - fixed comment generation of PBXBuildFiles without a name https://github.com/xcodeswift/xcproj/pull/203 by @briantkelley
 - fixed PBXReferenceTarget encoding in pbxproj file https://github.com/xcodeswift/xcproj/pull/202 by @briantkelley
-
-### Changed
-- **Breaking:** The `buildableProductRunnable` property on`XCScheme.LaunchAction` and `XCScheme.ProfileAction` is now optional. Similarly, `macroExpansion` on `XCScheme.TestAction` is also optional. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
-- The `XCScheme` initialization from an XML file has been relaxed, better matching Xcode's behavior. Default values will be used if the XML file is missing the relevant element or attribute. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
 
 ## 1.7.0
 
