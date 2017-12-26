@@ -238,7 +238,7 @@ final public class PBXProj: Decodable {
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        self.objects = try Objects(objects: objects.flatMap { try PBXObject.parse(reference: $0.key, dictionary: $0.value) })
+        self.objects = try Objects(objects: PBXObjectsParser().parse(objects: objects))
     }
 }
 
