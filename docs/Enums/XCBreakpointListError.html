@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PBXHeadersBuildPhase Class Reference</title>
+    <title>XCBreakpointListError Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/PBXHeadersBuildPhase" class="dashAnchor"></a>
-    <a title="PBXHeadersBuildPhase Class Reference"></a>
+    <a name="//apple_ref/swift/Enum/XCBreakpointListError" class="dashAnchor"></a>
+    <a title="XCBreakpointListError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcproj Docs</a> (64% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        PBXHeadersBuildPhase Class Reference
+        XCBreakpointListError Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -194,14 +194,19 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PBXHeadersBuildPhase</h1>
+            <h1>XCBreakpointListError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">XCBreakpointListError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>This is the element for the framework headers build phase.</p>
+            <p>XCBreakpointList Errors.</p>
+
+<ul>
+<li>notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.</li>
+<li>missing: returned when there&rsquo;s a property missing in the Breakpoints_v2.xcbkptlist.</li>
+</ul>
 
           </section>
           <section class="section task-group-section">
@@ -210,9 +215,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj20PBXHeadersBuildPhaseC05buildD0AA0cD0Ov"></a>
-                    <a name="//apple_ref/swift/Property/buildPhase" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj20PBXHeadersBuildPhaseC05buildD0AA0cD0Ov">buildPhase</a>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSv"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSv">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -226,7 +231,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="k">var</span> <span class="nv">buildPhase</span><span class="p">:</span> <span class="kt"><a href="../Other Enums.html#/s:6xcproj10BuildPhaseO">BuildPhase</a></span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
