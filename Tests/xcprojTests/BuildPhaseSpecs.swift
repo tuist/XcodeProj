@@ -57,7 +57,7 @@ class BuildPhaseSpecs: XCTestCase {
     }
 
     func test_carbonResources_hasTheCorrectBuildPhase() {
-        XCTAssertEqual(BuildPhase.carbonResources, PBXRezBuildPhase(reference: "").buildPhase)
+        XCTAssertEqual(BuildPhase.carbonResources, PBXRezBuildPhase().buildPhase)
     }
 
 }

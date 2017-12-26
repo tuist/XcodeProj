@@ -8,8 +8,7 @@ final class PBXBuildRuleSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXBuildRule(reference: "ref",
-                               compilerSpec: "spec",
+        subject = PBXBuildRule(compilerSpec: "spec",
                                fileType: "type",
                                isEditable: true,
                                filePatterns: "pattern",
@@ -20,7 +19,6 @@ final class PBXBuildRuleSpec: XCTestCase {
     }
 
     func test_init_initializesTheBuildRuleWithTheRightAttributes() {
-        XCTAssertEqual(subject.reference, "ref")
         XCTAssertEqual(subject.compilerSpec, "spec")
         XCTAssertEqual(subject.filePatterns, "pattern")
         XCTAssertEqual(subject.fileType, "type")
@@ -35,13 +33,8 @@ final class PBXBuildRuleSpec: XCTestCase {
         XCTAssertEqual(PBXBuildRule.isa, "PBXBuildRule")
     }
 
-    func test_hashValue_returnsTheReferenceHashValue() {
-        XCTAssertEqual(subject.hashValue, subject.reference.hashValue)
-    }
-
     func test_equal_shouldReturnTheCorrectValue() {
-        let another = PBXBuildRule(reference: "ref",
-                                   compilerSpec: "spec",
+        let another = PBXBuildRule(compilerSpec: "spec",
                                    fileType: "type",
                                    isEditable: true,
                                    filePatterns: "pattern",

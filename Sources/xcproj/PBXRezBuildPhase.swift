@@ -10,8 +10,7 @@ final public class PBXRezBuildPhase: PBXBuildPhase {
 
     public static func == (lhs: PBXRezBuildPhase,
                            rhs: PBXRezBuildPhase) -> Bool {
-        return lhs.reference == rhs.reference &&
-            lhs.buildActionMask == rhs.buildActionMask &&
+        return lhs.buildActionMask == rhs.buildActionMask &&
             lhs.files == rhs.files &&
             lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
     }
@@ -21,10 +20,10 @@ final public class PBXRezBuildPhase: PBXBuildPhase {
 
 extension PBXRezBuildPhase: PlistSerializable {
 
-    func plistKeyAndValue(proj: PBXProj) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXRezBuildPhase.isa))
-        return (key: CommentedString(self.reference, comment: "Rez"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: "Rez"), value: .dictionary(dictionary))
     }
 
 }
