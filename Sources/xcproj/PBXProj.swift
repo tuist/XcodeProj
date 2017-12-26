@@ -19,6 +19,7 @@ final public class PBXProj: Decodable {
         public var fileReferences: ReferenceableCollection<PBXFileReference> = [:]
         public var projects: ReferenceableCollection<PBXProject> = [:]
         public var referenceProxies: ReferenceableCollection<PBXReferenceProxy> = [:]
+        public var buildRules: ReferenceableCollection<PBXBuildRule> = [:]
 
         // Build Phases
         public var copyFilesBuildPhases: ReferenceableCollection<PBXCopyFilesBuildPhase> = [:]
@@ -71,7 +72,8 @@ final public class PBXProj: Decodable {
                 lhs.projects == rhs.projects &&
                 lhs.versionGroups == rhs.versionGroups &&
                 lhs.referenceProxies == rhs.referenceProxies &&
-                lhs.carbonResourcesBuildPhases == rhs.carbonResourcesBuildPhases
+                lhs.carbonResourcesBuildPhases == rhs.carbonResourcesBuildPhases &&
+                lhs.buildRules == rhs.buildRules
         }
 
         // MARK: - Public Methods
@@ -100,6 +102,7 @@ final public class PBXProj: Decodable {
             case let object as XCVersionGroup: versionGroups.append(object)
             case let object as PBXReferenceProxy: referenceProxies.append(object)
             case let object as PBXRezBuildPhase: carbonResourcesBuildPhases.append(object)
+            case let object as PBXBuildRule: buildRules.append(object)
             default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
             }
         }
@@ -163,6 +166,8 @@ final public class PBXProj: Decodable {
             } else if let object = sourcesBuildPhases[reference] {
                 return object
             } else if let object = carbonResourcesBuildPhases[reference] {
+                return object
+            } else if let object = buildRules[reference] {
                 return object
             } else {
                 return nil
