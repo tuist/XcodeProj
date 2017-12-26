@@ -1,5 +1,7 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
+## next version
+
 ## 2.0.0
 
 ### Added
@@ -9,12 +11,8 @@
 - **Breaking Change** `Referenceable` protocol https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
 - **Breaking Change** Deprecated methods to access objects from the `PBXProj`. Developers should use the `PBXProj.objects` property instead. https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
 
-## 1.7.0
-
-## 2.0.0
-
 ### Fixed
-- **Breaking:** `PBXSourceTree` no longer has raw values and gained an assoicated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
+- **Breaking:** `PBXSourceTree` no longer has raw values and gained an associated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
 
 ## 1.8.0
 
