@@ -14,7 +14,7 @@
     <a title="PBXProj Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcproj Docs</a> (64% documented)</p>
+        <p><a href="../index.html">xcproj Docs</a> (69% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -56,7 +56,7 @@
                 <a href="../Classes/PBXObject.html">PBXObject</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Models.html#/s:6xcproj13PBXSourceTreeO">PBXSourceTree</a>
+                <a href="../Enums/PBXSourceTree.html">PBXSourceTree</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Models.html#/s:6xcproj18PBXAggregateTargetC">PBXAggregateTarget</a>
@@ -325,9 +325,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc"></a>
+                    <a name="/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc"></a>
                     <a name="//apple_ref/swift/Method/init(objectVersion:rootObject:archiveVersion:classes:objects:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesSayAA9PBXObjectCG7objectstcfc">init(objectVersion:rootObject:archiveVersion:classes:objects:)</a>
+                    <a class="token" href="#/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc">init(objectVersion:rootObject:archiveVersion:classes:objects:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -346,7 +346,7 @@
             <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
             <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="nv">classes</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
-            <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+            <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
 
                         </div>
                       </div>
@@ -483,60 +483,6 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:6xcproj7PBXProjC12generateUUIDSSxm3for_tAA9PBXObjectCRbzlF"></a>
-                    <a name="//apple_ref/swift/Method/generateUUID(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjC12generateUUIDSSxm3for_tAA9PBXObjectCRbzlF">generateUUID(for:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a valid UUID for new elements.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">generateUUID</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="o">&gt;</span><span class="p">(</span><span class="k">for</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>element</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>project element class.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>UUID available to be used.</p>
                       </div>
                     </section>
                   </div>

@@ -13,7 +13,7 @@
     <a title="Models  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcproj Docs</a> (64% documented)</p>
+        <p><a href="index.html">xcproj Docs</a> (69% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -55,7 +55,7 @@
                 <a href="Classes/PBXObject.html">PBXObject</a>
               </li>
               <li class="nav-group-task">
-                <a href="Models.html#/s:6xcproj13PBXSourceTreeO">PBXSourceTree</a>
+                <a href="Enums/PBXSourceTree.html">PBXSourceTree</a>
               </li>
               <li class="nav-group-task">
                 <a href="Models.html#/s:6xcproj18PBXAggregateTargetC">PBXAggregateTarget</a>
@@ -316,7 +316,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCBuildConfiguration</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCBuildConfiguration</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -348,7 +348,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -443,7 +443,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXObject</span><span class="p">:</span> <span class="kt">Referenceable</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXObject</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 
                         </div>
                       </div>
@@ -470,12 +470,13 @@
                         <p>Specifies source trees for files
 Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
 
+                        <a href="Enums/PBXSourceTree.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PBXSourceTree</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PBXSourceTree</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
 
                         </div>
                       </div>
@@ -538,7 +539,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXBuildFile</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXBuildFile</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -570,7 +571,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXContainerItemProxy</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXContainerItemProxy</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -602,7 +603,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFileElement</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">PlistSerializable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFileElement</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">PlistSerializable</span></code></pre>
 
                         </div>
                       </div>
@@ -667,7 +668,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFrameworksBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFrameworksBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -699,7 +700,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -731,7 +732,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXResourcesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXResourcesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -763,7 +764,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXCopyFilesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXCopyFilesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -795,7 +796,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXShellScriptBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXShellScriptBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -827,7 +828,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXSourcesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXSourcesBuildPhase</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -859,7 +860,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span><span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>

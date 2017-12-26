@@ -50,146 +50,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 6,
-      "symbol": "PBXProj.buildFiles",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 7,
-      "symbol": "PBXProj.aggregateTargets",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 8,
-      "symbol": "PBXProj.containerItemProxies",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 9,
-      "symbol": "PBXProj.copyFilesBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 10,
-      "symbol": "PBXProj.groups",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 11,
-      "symbol": "PBXProj.configurationLists",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 12,
-      "symbol": "PBXProj.versionGroups",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 13,
-      "symbol": "PBXProj.buildConfigurations",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 14,
-      "symbol": "PBXProj.variantGroups",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 15,
-      "symbol": "PBXProj.targetDependencies",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 16,
-      "symbol": "PBXProj.sourcesBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 17,
-      "symbol": "PBXProj.shellScriptBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 18,
-      "symbol": "PBXProj.resourcesBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 19,
-      "symbol": "PBXProj.frameworksBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 20,
-      "symbol": "PBXProj.headersBuildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 21,
-      "symbol": "PBXProj.nativeTargets",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 22,
-      "symbol": "PBXProj.fileReferences",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 23,
-      "symbol": "PBXProj.projects",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 24,
-      "symbol": "PBXProj.referenceProxies",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Deprecations.swift",
-      "line": 25,
-      "symbol": "PBXProj.buildPhases",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/KeyedDecodingContainer+Additions.swift",
       "line": 5,
       "symbol": "KeyedDecodingContainer.decode(_:)",
@@ -205,7 +65,7 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXBuildFile.swift",
-      "line": 38,
+      "line": 35,
       "symbol": "PBXBuildFile.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -213,13 +73,13 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXBuildPhase.swift",
       "line": 26,
-      "symbol": "PBXBuildPhase.init(reference:files:buildActionMask:runOnlyForDeploymentPostprocessing:)",
+      "symbol": "PBXBuildPhase.init(files:buildActionMask:runOnlyForDeploymentPostprocessing:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXBuildPhase.swift",
-      "line": 45,
+      "line": 43,
       "symbol": "PBXBuildPhase.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -227,13 +87,13 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXBuildRule.swift",
       "line": 34,
-      "symbol": "PBXBuildRule.init(reference:compilerSpec:fileType:isEditable:filePatterns:name:outputFiles:outputFilesCompilerFlags:script:)",
+      "symbol": "PBXBuildRule.init(compilerSpec:fileType:isEditable:filePatterns:name:outputFiles:outputFilesCompilerFlags:script:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXBuildRule.swift",
-      "line": 67,
+      "line": 66,
       "symbol": "PBXBuildRule.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -247,7 +107,7 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXContainerItemProxy.swift",
-      "line": 61,
+      "line": 59,
       "symbol": "PBXContainerItemProxy.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -261,21 +121,21 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXCopyFilesBuildPhase.swift",
-      "line": 63,
+      "line": 60,
       "symbol": "PBXCopyFilesBuildPhase.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXCopyFilesBuildPhase.swift",
-      "line": 82,
+      "line": 78,
       "symbol": "PBXCopyFilesBuildPhase.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXFileElement.swift",
-      "line": 52,
+      "line": 48,
       "symbol": "PBXFileElement.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -283,20 +143,20 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXFileReference.swift",
       "line": 33,
-      "symbol": "PBXFileReference.init(reference:sourceTree:name:fileEncoding:explicitFileType:lastKnownFileType:path:includeInIndex:usesTabs:lineEnding:xcLanguageSpecificationIdentifier:)",
+      "symbol": "PBXFileReference.init(sourceTree:name:fileEncoding:explicitFileType:lastKnownFileType:path:includeInIndex:usesTabs:lineEnding:xcLanguageSpecificationIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXFileReference.swift",
-      "line": 54,
+      "line": 53,
       "symbol": "PBXFileReference.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXFileReference.swift",
-      "line": 81,
+      "line": 79,
       "symbol": "PBXFileReference.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -325,55 +185,48 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
       "line": 17,
-      "symbol": "PBXLegacyTarget.init(reference:name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationList:buildPhases:buildRules:dependencies:productName:productReference:productType:)",
+      "symbol": "PBXLegacyTarget.init(name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationList:buildPhases:buildRules:dependencies:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
-      "line": 54,
+      "line": 52,
       "symbol": "PBXLegacyTarget.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXLegacyTarget.swift",
-      "line": 64,
+      "line": 62,
       "symbol": "PBXLegacyTarget.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 6,
-      "symbol": "PBXObject.hashValue",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 26,
+      "line": 18,
       "symbol": "PBXObject.isa",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 31,
+      "line": 23,
       "symbol": "PBXObject.parse(reference:dictionary:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 97,
+      "line": 89,
       "symbol": "PBXObjectError.missingIsa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXObject.swift",
-      "line": 98,
+      "line": 90,
       "symbol": "PBXObjectError.unknownElement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -401,16 +254,9 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 183,
+      "line": 228,
       "symbol": "PBXProj.objects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXProj.swift",
-      "line": 217,
-      "symbol": "PBXProj.addObject(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -423,13 +269,13 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXReferenceProxy.swift",
       "line": 24,
-      "symbol": "PBXReferenceProxy.init(reference:fileType:path:remoteRef:sourceTree:)",
+      "symbol": "PBXReferenceProxy.init(fileType:path:remoteRef:sourceTree:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXReferenceProxy.swift",
-      "line": 45,
+      "line": 44,
       "symbol": "PBXReferenceProxy.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -450,65 +296,79 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXShellScriptBuildPhase.swift",
-      "line": 76,
+      "line": 72,
       "symbol": "PBXShellScriptBuildPhase.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXShellScriptBuildPhase.swift",
-      "line": 88,
+      "line": 84,
       "symbol": "PBXShellScriptBuildPhase.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 6,
+      "line": 7,
       "symbol": "PBXSourceTree.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 7,
+      "line": 8,
       "symbol": "PBXSourceTree.absolute",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 8,
+      "line": 9,
       "symbol": "PBXSourceTree.group",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 9,
+      "line": 10,
       "symbol": "PBXSourceTree.sourceRoot",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 10,
+      "line": 11,
       "symbol": "PBXSourceTree.buildProductsDir",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 11,
+      "line": 12,
       "symbol": "PBXSourceTree.sdkRoot",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "PBXSourceTree.developerDir",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
+      "line": 14,
+      "symbol": "PBXSourceTree.custom",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXSourceTree.swift",
+      "line": 24,
+      "symbol": "PBXSourceTree.init(value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -521,20 +381,20 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXTarget.swift",
       "line": 30,
-      "symbol": "PBXTarget.init(reference:name:buildConfigurationList:buildPhases:buildRules:dependencies:productName:productReference:productType:)",
+      "symbol": "PBXTarget.init(name:buildConfigurationList:buildPhases:buildRules:dependencies:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXTarget.swift",
-      "line": 64,
+      "line": 62,
       "symbol": "PBXTarget.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/PBXTargetDependency.swift",
-      "line": 46,
+      "line": 43,
       "symbol": "PBXTargetDependency.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -548,64 +408,36 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 5,
-      "symbol": "Referenceable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 13,
-      "symbol": "Array.references",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 17,
-      "symbol": "Array.contains(reference:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 21,
-      "symbol": "Array.getReference(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 31,
+      "line": 9,
       "symbol": "Dictionary.references",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 35,
+      "line": 13,
       "symbol": "Dictionary.referenceValues",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 39,
+      "line": 17,
       "symbol": "Dictionary.contains(reference:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 43,
+      "line": 21,
       "symbol": "Dictionary.getReference(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/Referenceable.swift",
-      "line": 47,
-      "symbol": "Dictionary.append(_:)",
+      "line": 25,
+      "symbol": "Dictionary.append(_:reference:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -660,7 +492,7 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCBuildConfiguration.swift",
-      "line": 52,
+      "line": 49,
       "symbol": "XCBuildConfiguration.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -674,7 +506,7 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCConfigurationList.swift",
-      "line": 51,
+      "line": 48,
       "symbol": "XCConfigurationList.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -695,14 +527,14 @@
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 655,
+      "line": 650,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCScheme.swift",
-      "line": 656,
+      "line": 651,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -724,20 +556,20 @@
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCVersionGroup.swift",
       "line": 21,
-      "symbol": "XCVersionGroup.init(reference:currentVersion:path:name:sourceTree:versionGroupType:children:)",
+      "symbol": "XCVersionGroup.init(currentVersion:path:name:sourceTree:versionGroupType:children:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCVersionGroup.swift",
-      "line": 34,
+      "line": 33,
       "symbol": "XCVersionGroup.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pepibumur/code/xcproj/Sources/xcproj/XCVersionGroup.swift",
-      "line": 51,
+      "line": 48,
       "symbol": "XCVersionGroup.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
