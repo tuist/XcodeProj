@@ -58,7 +58,7 @@ def current_version
 end
 
 def next_version
-  current_version.increment! :minor
+  current_version.increment! :major
 end
 
 def bump_to_version(from, to)
