@@ -15,6 +15,7 @@ describe "execute" do
     before :each do
       allow(@git).to receive(:added_files) { ["Sources/xcproj/added.swift", "Tests/something.swift"] }
       allow(@git).to receive(:deleted_files) { ["Sources/xcproj/removed.swift", "test"] }
+      allow(@git).to receive(:modified_files) { [] }
     end
 
     it "should fail with the correct message" do
