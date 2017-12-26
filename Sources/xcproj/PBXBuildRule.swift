@@ -33,9 +33,9 @@ final public class PBXBuildRule: PBXObject, Equatable {
 
     public init(reference: String,
                 compilerSpec: String,
-                filePatterns: String? = nil,
                 fileType: String,
                 isEditable: Bool = true,
+                filePatterns: String? = nil,
                 name: String? = nil,
                 outputFiles: [String] = [],
                 outputFilesCompilerFlags: [String]? = nil,

@@ -10,9 +10,9 @@ final class PBXBuildRuleSpec: XCTestCase {
         super.setUp()
         subject = PBXBuildRule(reference: "ref",
                                compilerSpec: "spec",
-                               filePatterns: "pattern",
                                fileType: "type",
                                isEditable: true,
+                               filePatterns: "pattern",
                                name: "rule",
                                outputFiles:["a", "b"],
                                outputFilesCompilerFlags: ["-1", "-2"],
@@ -42,9 +42,9 @@ final class PBXBuildRuleSpec: XCTestCase {
     func test_equal_shouldReturnTheCorrectValue() {
         let another = PBXBuildRule(reference: "ref",
                                    compilerSpec: "spec",
-                                   filePatterns: "pattern",
                                    fileType: "type",
                                    isEditable: true,
+                                   filePatterns: "pattern",
                                    name: "rule",
                                    outputFiles:["a", "b"],
                                    outputFilesCompilerFlags: ["-1", "-2"],
