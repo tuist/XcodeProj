@@ -7,6 +7,9 @@
 - macOS CLI targets now have a nil extension, instead of an empty string https://github.com/xcodeswift/xcproj/pull/208 by @keith
 - Fix unnecessary quotations in CommentedString https://github.com/xcodeswift/xcproj/pull/211 by @allu22
 
+### Changed
+- **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
+
 ## 2.0.0
 
 ### Added

@@ -60,12 +60,12 @@ extension XcodeProj: Writable {
 
     public func write(path: Path, override: Bool = true) throws {
         try path.mkpath()
-        try writeWorkSpace(path: path, override: override)
+        try writeWorkspace(path: path, override: override)
         try writePBXProj(path: path, override: override)
         try writeSharedData(path: path, override: override)
     }
 
-    fileprivate func writeWorkSpace(path: Path, override: Bool) throws {
+    fileprivate func writeWorkspace(path: Path, override: Bool) throws {
         try workspace.write(path: path + "project.xcworkspace", override: override)
     }
 

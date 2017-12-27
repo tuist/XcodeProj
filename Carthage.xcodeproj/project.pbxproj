@@ -28,6 +28,10 @@
 		BF2311546502 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3255351901 /* Bool+Extras.swift */; };
 		BF2547585701 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8449186301 /* PBXProjObjects+Helpers.swift */; };
 		BF2547585702 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8449186301 /* PBXProjObjects+Helpers.swift */; };
+		BF2605514001 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5395076701 /* XCWorkspaceDataGroup.swift */; };
+		BF2605514002 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5395076701 /* XCWorkspaceDataGroup.swift */; };
+		BF2887207901 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6189630601 /* XCWorkspaceDataFileRef.swift */; };
+		BF2887207902 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6189630601 /* XCWorkspaceDataFileRef.swift */; };
 		BF3107150401 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5296652601 /* PBXProductType.swift */; };
 		BF3107150402 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5296652601 /* PBXProductType.swift */; };
 		BF3149206801 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8244170301 /* XCBreakpointList.swift */; };
@@ -47,6 +51,8 @@
 		BF3882936802 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1364894901 /* PBXFileElement.swift */; };
 		BF4064216601 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2127460001 /* PBXNativeTarget.swift */; };
 		BF4064216602 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2127460001 /* PBXNativeTarget.swift */; };
+		BF4217534501 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7040398601 /* XCWorkspaceDataElement.swift */; };
+		BF4217534502 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7040398601 /* XCWorkspaceDataElement.swift */; };
 		BF4292481201 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4811062301 /* XCSharedData.swift */; };
 		BF4292481202 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4811062301 /* XCSharedData.swift */; };
 		BF4321991401 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7045651001 /* PBXSourcesBuildPhase.swift */; };
@@ -58,6 +64,8 @@
 		BF4535722201 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4352207101 /* XCConfig.swift */; };
 		BF4535722202 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4352207101 /* XCConfig.swift */; };
 		BF4805463201 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR8873340702 /* PathKit.framework */; };
+		BF4909993601 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1474891601 /* XCWorkspaceDataElementLocationType.swift */; };
+		BF4909993602 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR1474891601 /* XCWorkspaceDataElementLocationType.swift */; };
 		BF5094034701 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7428998701 /* PBXProj+Helpers.swift */; };
 		BF5094034702 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7428998701 /* PBXProj+Helpers.swift */; };
 		BF5139737101 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR7054588301 /* PBXBuildRule.swift */; };
@@ -123,6 +131,7 @@
 		FR1312420901 /* XcodeProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProj.swift; sourceTree = "<group>"; };
 		FR1364894901 /* PBXFileElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileElement.swift; sourceTree = "<group>"; };
 		FR1452498301 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
+		FR1474891601 /* XCWorkspaceDataElementLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElementLocationType.swift; sourceTree = "<group>"; };
 		FR1827232901 /* PBXReferenceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXReferenceProxy.swift; sourceTree = "<group>"; };
 		FR1870303001 /* PBXLegacyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXLegacyTarget.swift; sourceTree = "<group>"; };
 		FR2127460001 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
@@ -151,13 +160,16 @@
 		FR5186857101 /* CommentedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedString.swift; sourceTree = "<group>"; };
 		FR5190097701 /* PBXResourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhase.swift; sourceTree = "<group>"; };
 		FR5296652601 /* PBXProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
+		FR5395076701 /* XCWorkspaceDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataGroup.swift; sourceTree = "<group>"; };
 		FR5460675201 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		FR6006730201 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
+		FR6189630601 /* XCWorkspaceDataFileRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataFileRef.swift; sourceTree = "<group>"; };
 		FR6357036901 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
 		FR6447358001 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
 		FR6447358002 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
 		FR6754770501 /* XCVersionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCVersionGroup.swift; sourceTree = "<group>"; };
 		FR6980748501 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
+		FR7040398601 /* XCWorkspaceDataElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElement.swift; sourceTree = "<group>"; };
 		FR7045651001 /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
 		FR7054588301 /* PBXBuildRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildRule.swift; sourceTree = "<group>"; };
 		FR7128364401 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
@@ -294,6 +306,10 @@
 				FR6754770501 /* XCVersionGroup.swift */,
 				FR2671862701 /* XCWorkspace.swift */,
 				FR1452498301 /* XCWorkspaceData.swift */,
+				FR7040398601 /* XCWorkspaceDataElement.swift */,
+				FR1474891601 /* XCWorkspaceDataElementLocationType.swift */,
+				FR6189630601 /* XCWorkspaceDataFileRef.swift */,
+				FR5395076701 /* XCWorkspaceDataGroup.swift */,
 				FR1312420901 /* XcodeProj.swift */,
 			);
 			name = xcproj;
@@ -468,6 +484,10 @@
 				BF3723071401 /* XCVersionGroup.swift in Sources */,
 				BF7333567601 /* XCWorkspace.swift in Sources */,
 				BF8826568101 /* XCWorkspaceData.swift in Sources */,
+				BF4217534501 /* XCWorkspaceDataElement.swift in Sources */,
+				BF4909993601 /* XCWorkspaceDataElementLocationType.swift in Sources */,
+				BF2887207901 /* XCWorkspaceDataFileRef.swift in Sources */,
+				BF2605514001 /* XCWorkspaceDataGroup.swift in Sources */,
 				BF8332506301 /* XcodeProj.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +547,10 @@
 				BF3723071402 /* XCVersionGroup.swift in Sources */,
 				BF7333567602 /* XCWorkspace.swift in Sources */,
 				BF8826568102 /* XCWorkspaceData.swift in Sources */,
+				BF4217534502 /* XCWorkspaceDataElement.swift in Sources */,
+				BF4909993602 /* XCWorkspaceDataElementLocationType.swift in Sources */,
+				BF2887207902 /* XCWorkspaceDataFileRef.swift in Sources */,
+				BF2605514002 /* XCWorkspaceDataGroup.swift in Sources */,
 				BF8332506302 /* XcodeProj.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

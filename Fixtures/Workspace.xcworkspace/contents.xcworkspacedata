@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:iOS"
+      name = "iOS">
+      <FileRef
+         location = "group:../WithoutWorkspace/WithoutWorkspace.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:iOS/BuildSettings.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:Schemes"
+      name = "Schemes">
+   </Group>
+   <FileRef
+      location = "absolute:/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app">
+   </FileRef>
+   <FileRef
+      location = "developer:Applications/Simulator.app">
+   </FileRef>
+</Workspace>
