@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Fix Xcode 9.2 warning https://github.com/xcodeswift/xcproj/pull/209 by @keith
+
 ## 2.0.0
 
 ### Added
