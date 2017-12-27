@@ -41,7 +41,7 @@ public enum PBXProductType: String, Decodable {
         case .appExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension:
             return "appex"
         case .commandLineTool:
-            return ""
+            return nil
         case .xpcService:
             return "xpc"
         case .ocUnitTestBundle:

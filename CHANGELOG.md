@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fix Xcode 9.2 warning https://github.com/xcodeswift/xcproj/pull/209 by @keith
+- macOS CLI targets now have a nil extension, instead of an empty string https://github.com/xcodeswift/xcproj/pull/208 by @keith
 
 ## 2.0.0
 
