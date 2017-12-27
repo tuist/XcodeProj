@@ -5,7 +5,7 @@ import PathKit
 final public class XCWorkspace {
 
     /// Workspace data
-    public var data: XCWorkspace.Data
+    public var data: XCWorkspaceData
 
     // MARK: - Init
 
@@ -23,13 +23,13 @@ final public class XCWorkspace {
         if xcworkspaceDataPaths.count == 0 {
             self.init()
         } else {
-            try self.init(data: XCWorkspace.Data(path: xcworkspaceDataPaths.first!))
+            try self.init(data: XCWorkspaceData(path: xcworkspaceDataPaths.first!))
         }
     }
     
     /// Initializes a default workspace with a single reference that points to self:
     public convenience init() {
-        let data = XCWorkspace.Data(references: [ .other(location: "self:") ])
+        let data = XCWorkspaceData(children: [.file(.init(location: .self("")))])
         self.init(data: data)
     }
     
@@ -45,7 +45,7 @@ final public class XCWorkspace {
     ///
     /// - Parameters:
     ///   - data: workspace data.
-    public init(data: XCWorkspace.Data) {
+    public init(data: XCWorkspaceData) {
         self.data = data
     }
     

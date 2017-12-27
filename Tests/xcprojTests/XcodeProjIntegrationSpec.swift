@@ -23,9 +23,15 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                   modify: { $0 })
     }
     
-    func test_init_usesAnEmptyWorkspace_whenItsMissing() {
-        let got = projectWithoutWorkspace()
-        XCTAssertNotNil(got)
+    func test_init_usesAnEmptyWorkspace_whenItsMissing() throws {
+        let got = try projectWithoutWorkspace()
+        XCTAssertEqual(got.workspace.data.children.count, 1)
+
+        if case let XCWorkspaceDataElement.file(fileRef) = got.workspace.data.children[0] {
+            XCTAssertEqual(fileRef.location.schema, "self")
+        } else {
+            XCTAssertTrue(false, "Expected \(XCWorkspaceDataElement.file)")
+        }
     }
 
     func test_init_setsCorrectProjectName() {
@@ -79,7 +85,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         return try? XcodeProj(path: fixtureiOSProjectPath())
     }
     
-    private func projectWithoutWorkspace() -> XcodeProj? {
-        return try? XcodeProj(path: fixtureWithoutWorkspaceProjectPath())
+    private func projectWithoutWorkspace() throws -> XcodeProj {
+        return try XcodeProj(path: fixtureWithoutWorkspaceProjectPath())
     }
 }

@@ -2,155 +2,58 @@ import Foundation
 import PathKit
 import AEXML
 
-// MARK: - XCWorkspace model
-public extension XCWorkspace {
+final public class XCWorkspaceData {
 
-    final public class Data: Equatable, Writable {
+    public var children: [XCWorkspaceDataElement]
 
-        public enum FileRef: Hashable, ExpressibleByStringLiteral, CustomStringConvertible {
-            case project(path: Path)
-            case file(path: Path)
-            case other(location: String)
+    public init(children: [XCWorkspaceDataElement]) {
+        self.children = children
+    }
+}
 
-            // MARK: - Init
+extension XCWorkspaceData: Equatable {
 
-            init(string: String, path: Path? = nil) {
-                var location = string
-                if location == "self:",
-                    let path = path, (path + Path("..")).parent().string.contains(".xcodeproj") {
-                    self = .project(path: (path + Path("..")).parent())
-                } else if location.contains("self:") {
-                    location = location.replacingOccurrences(of: "self:", with: "")
-                    let path = Path(location)
-                    if location.contains(".xcodeproj") {
-                        self = .project(path: path)
-                    } else {
-                        self = .file(path: path)
-                    }
-                } else {
-                    self = .other(location: string)
-                }
-            }
+    public static func == (lhs: XCWorkspaceData, rhs: XCWorkspaceData) -> Bool {
+        return rhs.children == rhs.children
+    }
+}
 
-            // MARK: - <CustomStringConvertible>
+extension XCWorkspaceData: Writable {
 
-            public var description: String {
-                switch self {
-                case .project(let path): return "self:\(path.string)"
-                case .file(let path): return "self:\(path.string)"
-                case .other(let location): return location
-                }
-            }
-
-            // MARK: - <ExpressibleByStringLiteral>
-
-            public init(stringLiteral value: String) {
-                self.init(string: value)
-            }
-
-            public init(extendedGraphemeClusterLiteral value: String) {
-                self.init(string: value)
-            }
-
-            public init(unicodeScalarLiteral value: String) {
-                self.init(string: value)
-            }
-
-            // MARK: - Public
-
-            public var project: XcodeProj? {
-                switch self {
-                case .project(let path):
-                    return try? XcodeProj(path: path)
-                default:
-                    return nil
-                }
-            }
-
-            // MARK: - Hashable
-
-            public var hashValue: Int {
-                switch self {
-                case .file(let path):
-                    return path.hashValue
-                case .project(let path):
-                    return path.hashValue
-                case .other(let location):
-                    return location.hashValue
-                }
-            }
-
-            public static func == (lhs: FileRef,
-                                   rhs: FileRef) -> Bool {
-                switch (lhs, rhs) {
-                case (.file(let lhsPath), .file(let rhsPath)):
-                    return lhsPath == rhsPath
-                case (.project(let lhsPath), .project(let rhsPath)):
-                    return lhsPath == rhsPath
-                case (.other(let lhsLocation), .other(let rhsLocation)):
-                    return lhsLocation == rhsLocation
-                default:
-                    return false
-                }
-            }
-
+    /// Initializes the workspace with the path where the workspace is.
+    /// The initializer will try to find an .xcworkspacedata inside the workspace.
+    /// If the .xcworkspacedata cannot be found, the init will fail.
+    ///
+    /// - Parameter path: .xcworkspace path.
+    /// - Throws: throws an error if the workspace cannot be initialized.
+    public convenience init(path: Path) throws {
+        if !path.exists {
+            throw XCWorkspaceDataError.notFound(path: path)
         }
 
-        // MARK: - Attributes
+        let xml = try AEXMLDocument(xml: path.read())
+        let children = try xml
+            .root
+            .children
+            .flatMap(XCWorkspaceDataElement.init(element:))
 
-        /// References to the workspace projects
-        public var references: [FileRef]
-
-        // MARK: - Init
-
-        /// Initializes the XCWorkspaceData reading the content from the file at the given path.
-        ///
-        /// - Parameter path: path where the .xcworkspacedata is.
-        public init(path: Path) throws {
-            if !path.exists {
-                throw XCWorkspaceDataError.notFound(path: path)
-            }
-            let xml = try AEXMLDocument(xml: path.read())
-            self.references = xml
-                .root
-                .children
-                .flatMap { $0.attributes["location"] }
-                .map { FileRef(string: $0!, path: path) }
-        }
-
-        /// Initializes the XCWorkspaceData with its attributes.
-        ///
-        /// - Parameters:
-        ///   - references: references to the files in the workspace.
-        public init(references: [FileRef]) {
-            self.references = references
-        }
-
-        // MARK: - Equatable
-
-        public static func == (lhs: XCWorkspace.Data,
-                               rhs: XCWorkspace.Data) -> Bool {
-            return lhs.references == rhs.references
-        }
-
-        // MARK: - <Writable>
-
-        public func write(path: Path, override: Bool = true) throws {
-            let document = AEXMLDocument()
-            let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
-            references.forEach { (reference) in
-                workspace.addChild(name: "FileRef",
-                                   value: nil,
-                                   attributes: ["location": "\(reference)"])
-            }
-            if override && path.exists {
-                try path.delete()
-            }
-            try path.write(document.xml)
-        }
-
+        self.init(children: children)
     }
 
+    // MARK: - <Writable>
+
+    public func write(path: Path, override: Bool = true) throws {
+        let document = AEXMLDocument()
+        let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
+        _ = children
+            .map({ $0.xmlElement() })
+            .map(workspace.addChild)
+
+        if override && path.exists {
+            try path.delete()
+        }
+        try path.write(document.xml)
+    }
 }
 
 // MARK: - XCWorkspaceData Errors
@@ -169,4 +72,89 @@ public enum XCWorkspaceDataError: Error, CustomStringConvertible {
         }
     }
 
+}
+
+
+// MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding
+
+fileprivate extension XCWorkspaceDataElement {
+
+    init(element: AEXMLElement) throws {
+        switch element.name {
+        case "FileRef":
+            self = try .file(XCWorkspaceDataFileRef(element: element))
+        case "Group":
+            self = try .group(XCWorkspaceDataGroup(element: element))
+        default:
+            throw Error.unknownName(element.name)
+        }
+    }
+
+    fileprivate func xmlElement() -> AEXMLElement {
+        switch self {
+        case .file(let fileRef):
+            return fileRef.xmlElement()
+        case .group(let group):
+            return group.xmlElement()
+        }
+    }
+}
+
+// MARK: - XCWorkspaceDataGroup AEXMLElement decoding and encoding
+
+fileprivate extension XCWorkspaceDataGroup {
+    enum Error: Swift.Error {
+        case wrongElementName
+        case missingLocationAttribute
+    }
+
+    convenience init(element: AEXMLElement) throws {
+        guard element.name == "Group" else {
+            throw Error.wrongElementName
+        }
+        guard let location = element.attributes["location"] else {
+            throw Error.missingLocationAttribute
+        }
+        let locationType = try XCWorkspaceDataElementLocationType(string: location)
+        let name = element.attributes["name"]
+        let children = try element.children.map(XCWorkspaceDataElement.init(element:))
+        self.init(location: locationType, name: name, children: children)
+    }
+
+    func xmlElement() -> AEXMLElement {
+        var attributes = ["location": location.description]
+        attributes["name"] = name
+        let element = AEXMLElement(name: "Group", value: nil, attributes: attributes)
+
+        _ = children
+            .map({ $0.xmlElement() })
+            .map(element.addChild)
+
+        return element
+    }
+}
+
+// MARK: - XCWorkspaceDataFileRef AEXMLElement decoding and encoding
+
+fileprivate extension XCWorkspaceDataFileRef {
+    enum Error: Swift.Error {
+        case wrongElementName
+        case missingLocationAttribute
+    }
+
+    convenience init(element: AEXMLElement) throws {
+        guard element.name == "FileRef" else {
+            throw Error.wrongElementName
+        }
+        guard let location = element.attributes["location"] else {
+            throw Error.missingLocationAttribute
+        }
+        self.init(location: try XCWorkspaceDataElementLocationType(string: location))
+    }
+
+    func xmlElement() -> AEXMLElement {
+        return AEXMLElement(name: "FileRef",
+                            value: nil,
+                            attributes: ["location": location.description])
+    }
 }
