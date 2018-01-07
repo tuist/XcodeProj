@@ -49,7 +49,7 @@ class PBXProjEncoderSpec: XCTestCase {
             ">": ">".quoted,
             ";": ";".quoted,
             "&": "&".quoted,
-            "$": "$".quoted,
+            "$": "$",
             "{": "{".quoted,
             "}": "}".quoted,
             "\\": escapedEscape.quoted,

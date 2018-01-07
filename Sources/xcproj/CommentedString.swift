@@ -19,8 +19,14 @@ struct CommentedString {
         self.comment = comment
     }
 
-    private static let invalidCharacters = CharacterSet.alphanumerics.inverted
-        .subtracting(CharacterSet(charactersIn: "_./"))
+    private static var invalidCharacters: CharacterSet = {
+        var invalidSet = CharacterSet(charactersIn: "_$")
+        invalidSet.insert(charactersIn: UnicodeScalar(".")...UnicodeScalar("9"))
+        invalidSet.insert(charactersIn: UnicodeScalar("A")...UnicodeScalar("Z"))
+        invalidSet.insert(charactersIn: UnicodeScalar("a")...UnicodeScalar("z"))
+        invalidSet.invert()
+        return invalidSet
+    }()
 
     var validString: String {
         switch string {
