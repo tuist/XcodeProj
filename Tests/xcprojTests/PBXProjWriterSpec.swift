@@ -49,7 +49,7 @@ class PBXProjEncoderSpec: XCTestCase {
             ">": ">".quoted,
             ";": ";".quoted,
             "&": "&".quoted,
-            "$": "$".quoted,
+            "$": "$",
             "{": "{".quoted,
             "}": "}".quoted,
             "\\": escapedEscape.quoted,
@@ -77,6 +77,7 @@ class PBXProjEncoderSpec: XCTestCase {
             "\"\"": "\(escapedQuote)\(escapedQuote)".quoted,
             "".quoted.quoted: "\(escapedQuote)\(escapedQuote)\(escapedQuote)\(escapedQuote)".quoted,
             "a=\"\"": "a=\(escapedQuote)\(escapedQuote)".quoted,
+            "马旭": "马旭".quoted,
         ]
 
         for (initial, expected) in values {
