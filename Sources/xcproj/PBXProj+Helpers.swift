@@ -1,6 +1,18 @@
 import Foundation
 import PathKit
 
+// MARK: - PBXProj Extension (Public)
+
+public extension PBXProj {
+
+    /// Returns project's root group
+    public var rootGroup: PBXGroup {
+        let groupRef = objects.projects[rootObject]!.mainGroup
+        return objects.groups[groupRef]!
+    }
+
+}
+
 // MARK: - PBXProj Extension (Getters)
 
 extension PBXProj {
