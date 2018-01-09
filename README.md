@@ -155,8 +155,8 @@ try project.write(path: "MyApp.xcodeproj")
 #### Adding `Home` group inside `Sources` group
 
 ```swift
-guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources"})?.value else { return }    
-let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources" || $0.value.path == "Sources"})?.value else { return }    
+let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: "Home")
 sourcesGroup.children.append(homeGroup.reference)
 project.pbxproj.objects.addObject(homeGroup)
 ```
@@ -165,14 +165,15 @@ project.pbxproj.objects.addObject(homeGroup)
 
 ```swift
 let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
-let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: "HomeViewController.swift", path: "HomeViewController.swift")
 homeGroup.children.append(homeViewController.reference)
+pbxproj.objects.addObject(homeViewController)
 ```
 
 #### Add `HomeViewController.swift` file to `MyApp` target
 
 ```swift
-let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: "HomeViewController.swift", path: "HomeViewController.swift")
 guard let sourcesBuildPhase = project.pbxproj
     .objects.nativeTargets
     .values
@@ -181,7 +182,7 @@ guard let sourcesBuildPhase = project.pbxproj
         return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
     }) else { return }
 // PBXBuildFile is a proxy model that allows specifying some build attributes to the files
-let buildFile = PBXBuildFile(reference: "yyy", fileRef: homeViewController.reference)
+let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
 project.pbxproj.objects.addObject(buildFile)
 sourcesBuildPhase.files.append(buildFile.reference)
 ```
