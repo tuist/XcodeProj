@@ -91,10 +91,12 @@ public extension PBXProj.Objects {
     ///   - sourceTree: file source tree, default is `.group`.
     ///   - name: file name, by default gets file name from the path
     /// - Returns: new or existing file and its reference.
-    public func addFile(at filePath: Path) throws -> (String, PBXFileReference) {
+    public func addFile(at filePath: Path, sourceRoot: Path) throws -> (String, PBXFileReference) {
         guard filePath.isFile else { throw XCodeProjEditingError.notAFile(path: filePath) }
 
-        if let existingFileReference = fileReferences.first(where: { $0.value.path == filePath.string }) {
+        if let existingFileReference = fileReferences.first(where: {
+            filePath == fullPath(fileElement: $0.value, reference: $0.key, sourceRoot: sourceRoot)
+        }) {
             return existingFileReference
         }
 
@@ -139,6 +141,21 @@ public extension PBXProj.Objects {
         return (reference, buildFile)
     }
 
+    public func fullPath(fileElement: PBXFileElement, reference: String, sourceRoot: Path) -> Path? {
+        switch fileElement.sourceTree {
+        case .absolute?:
+            return fileElement.path.flatMap({ Path($0) })
+        case .sourceRoot?:
+            return fileElement.path.flatMap({ Path($0, relativeTo: sourceRoot) })
+        case .group?:
+            guard let group = groups.first(where: { $0.value.children.contains(reference) }) else { return sourceRoot }
+            guard let groupPath = fullPath(fileElement: group.value, reference: group.key, sourceRoot: sourceRoot) else { return nil }
+            return fileElement.path.flatMap({ Path($0, relativeTo: groupPath) })
+        default:
+            return nil
+        }
+    }
+
 }
 
 public struct GroupAddingOptions: OptionSet {
@@ -158,6 +175,16 @@ public enum XCodeProjEditingError: Error, CustomStringConvertible {
         case .notAFile(let path):
             return "\(path) is not a file path"
         }
+    }
+}
+
+extension Path {
+    init(_ string: String, relativeTo relativePath: Path) {
+        var path = Path(string)
+        if !path.isAbsolute {
+            path = (relativePath + path).absolute()
+        }
+        self.init(path.string)
     }
 }
 
