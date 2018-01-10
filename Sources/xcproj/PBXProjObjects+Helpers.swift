@@ -50,86 +50,60 @@ public extension PBXProj.Objects {
     /// Adds new group with the give name to the given parent group.
     /// Group name can be a path with components separated by `/`.
     /// Will create new groups for intermediate path components or use existing groups.
-    /// Returns new group and its reference.
+    /// Returns all new or existing groups in the path and their references.
     ///
     /// - Parameters:
     ///   - groupName: group name, can be a path with components separated by `/`
-    ///   - children: group children, default is empty array.
-    ///   - sourceTree: group source tree, default is `.group`.
-    ///   - name: group name.
-    ///   - path: group path.
-    ///   - usesTabs: group uses tabs.
+    ///   - toGroup: parent group
     ///   - options: additional options, default is empty set.
-    /// - Returns: new group and its reference.
-    public func addGroup(
-        named groupName: String,
-        to toGroup: PBXGroup,
-        children: [String] = [],
-        sourceTree: PBXSourceTree = .group,
-        usesTabs: Int? = nil,
-        indentWidth: Int? = nil,
-        tabWidth: Int? = nil,
-        options: GroupAddingOptions = []) -> (String, PBXGroup) {
+    /// - Returns: all new or existing groups in the path and their references.
+    public func addGroup(named groupName: String, to toGroup: PBXGroup, options: GroupAddingOptions = []) -> [(String, PBXGroup)] {
+        return addGroups(groupName.components(separatedBy: "/"), to: toGroup, options: options)
+    }
 
-        var toGroup = toGroup
-        var newGroup: PBXGroup!
-        var reference: String!
-        for groupName in groupName.components(separatedBy: "/") {
-            if let existingGroup = group(named: groupName, inGroup: toGroup) {
-                reference = existingGroup.0
-                newGroup = existingGroup.1
-            } else {
-                newGroup = PBXGroup(
-                    children: children,
-                    sourceTree: .group,
-                    name: groupName,
-                    path: options.contains(.withoutFolder) ? nil : groupName,
-                    usesTabs: usesTabs,
-                    indentWidth: indentWidth,
-                    tabWidth: tabWidth
-                )
-                reference = generateReference(newGroup, groupName)
-                addObject(newGroup, reference: reference)
-                toGroup.children.append(reference)
-            }
-            toGroup = newGroup
+    private func addGroups(_ groupNames: [String], to toGroup: PBXGroup, options: GroupAddingOptions) -> [(String, PBXGroup)] {
+        guard !groupNames.isEmpty else { return [] }
+        let newGroup = createOrGetGroup(named: groupNames[0], in: toGroup, options: options)
+        return [newGroup] + addGroups(Array(groupNames.dropFirst()), to: newGroup.1, options: options)
+    }
+
+    private func createOrGetGroup(named groupName: String, in parentGroup: PBXGroup, options: GroupAddingOptions) -> (String, PBXGroup) {
+        if let existingGroup = group(named: groupName, inGroup: parentGroup) {
+            return existingGroup
         }
+
+        let newGroup = PBXGroup(
+            children: [],
+            sourceTree: .group,
+            name: groupName,
+            path: options.contains(.withoutFolder) ? nil : groupName
+        )
+        let reference = generateReference(newGroup, groupName)
+        addObject(newGroup, reference: reference)
+        parentGroup.children.append(reference)
         return (reference, newGroup)
     }
 
-    /// Adds file at the give path to the project. Returns new file and its reference.
+    /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
     ///   - filePath: path to the file
     ///   - sourceTree: file source tree, default is `.group`.
     ///   - name: file name, by default gets file name from the path
-    /// - Returns: new file and its reference.
-    public func addFile(at filePath: Path,
-        sourceTree: PBXSourceTree = .group,
-        name: String? = nil,
-        fileEncoding: Int? = nil,
-        explicitFileType: String? = nil,
-        lastKnownFileType: String? = nil,
-        includeInIndex: Int? = nil,
-        usesTabs: Int? = nil,
-        lineEnding: Int? = nil,
-        xcLanguageSpecificationIdentifier: String? = nil
-        ) -> (String, PBXFileReference) {
+    /// - Returns: new or existing file and its reference.
+    public func addFile(at filePath: Path) throws -> (String, PBXFileReference) {
+        guard filePath.isFile else { throw XCodeProjEditingError.notAFile(path: filePath) }
 
         if let existingFileReference = fileReferences.first(where: { $0.value.path == filePath.string }) {
             return existingFileReference
         }
 
         let fileReference = PBXFileReference(
-            sourceTree: sourceTree,
-            name: name ?? filePath.lastComponent,
-            fileEncoding: fileEncoding,
-            explicitFileType: explicitFileType ?? PBXFileReference.fileType(path: filePath),
-            lastKnownFileType: lastKnownFileType ?? PBXFileReference.fileType(path: filePath),
-            path: filePath.string,
-            includeInIndex: includeInIndex,
-            usesTabs: usesTabs,
-            xcLanguageSpecificationIdentifier: xcLanguageSpecificationIdentifier
+            sourceTree: .group,
+            name: filePath.lastComponent,
+            explicitFileType: PBXFileReference.fileType(path: filePath),
+            lastKnownFileType: PBXFileReference.fileType(path: filePath),
+            path: filePath.string
         )
         let reference = generateReference(fileReference, filePath.string)
         addObject(fileReference, reference: reference)
@@ -146,19 +120,23 @@ public extension PBXProj.Objects {
         group.children.append(reference)
     }
 
-    /// Adds file to the given target's sources build phase
-    /// If target's sources build phase can't be found or it already contains file with given reference method does nothing.
+    /// Adds file to the given target's sources build phase or returns existing build file and its reference.
+    /// If target's sources build phase can't be found returns nil.
     ///
     /// - Parameter target: target obejct
     /// - Parameter reference: file reference
-    public func addBuildFile(toTarget target: PBXTarget, reference: String) {
-        guard let sourcesBuildPhase = sourcesBuildPhase(target: target) else { return }
-        guard !buildFiles.contains(where: { $0.value.fileRef == reference }) else { return }
+    /// - Returns: new or existing build file and its reference
+    public func addBuildFile(toTarget target: PBXTarget, reference: String) -> (String, PBXBuildFile)? {
+        guard let sourcesBuildPhase = sourcesBuildPhase(target: target) else { return nil }
+        if let existingBuildFile = buildFiles.first(where: { $0.value.fileRef == reference }) {
+            return existingBuildFile
+        }
 
         let buildFile = PBXBuildFile(fileRef: reference)
-        let buildFileRef = generateReference(buildFile, reference)
-        addObject(buildFile, reference: buildFileRef)
-        sourcesBuildPhase.files.append(buildFileRef)
+        let reference = generateReference(buildFile, reference)
+        addObject(buildFile, reference: reference)
+        sourcesBuildPhase.files.append(reference)
+        return (reference, buildFile)
     }
 
 }
@@ -170,6 +148,17 @@ public struct GroupAddingOptions: OptionSet {
     }
     /// Create group without reference to folder
     static let withoutFolder    = GroupAddingOptions(rawValue: 1 << 0)
+}
+
+public enum XCodeProjEditingError: Error, CustomStringConvertible {
+    case notAFile(path: Path)
+
+    public var description: String {
+        switch self {
+        case .notAFile(let path):
+            return "\(path) is not a file path"
+        }
+    }
 }
 
 // MARK: - PBXProj.Objects Extension (Internal)

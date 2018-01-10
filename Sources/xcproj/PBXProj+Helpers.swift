@@ -5,10 +5,20 @@ import PathKit
 
 public extension PBXProj {
 
-    /// Returns project's root group
+    /// Returns root project.
+    public var rootProject: PBXProject? {
+        return objects.projects[rootObject]
+    }
+
+    /// Returns root project's root group.
     public var rootGroup: PBXGroup {
-        let groupRef = objects.projects[rootObject]!.mainGroup
-        return objects.groups[groupRef]!
+        guard let rootProject = self.rootProject else {
+            fatalError("Missing root project")
+        }
+        guard let rootGroup = objects.groups[rootProject.mainGroup] else {
+            fatalError("Root project has no root group")
+        }
+        return rootGroup
     }
 
 }
