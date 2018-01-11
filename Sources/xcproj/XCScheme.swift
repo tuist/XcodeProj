@@ -614,24 +614,25 @@ extension XCScheme: Writable {
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
         schemeAttributes["version"] = version
         let scheme = document.addChild(name: "Scheme", value: nil, attributes: schemeAttributes)
+        if let buildAction = buildAction {
+            scheme.addChild(buildAction.xmlElement())
+        }
+        if let testAction = testAction {
+            scheme.addChild(testAction.xmlElement())
+        }
+        if let launchAction = launchAction {
+            scheme.addChild(launchAction.xmlElement())
+        }
+        if let profileAction = profileAction {
+            scheme.addChild(profileAction.xmlElement())
+        }
         if let analyzeAction = analyzeAction {
             scheme.addChild(analyzeAction.xmlElement())
         }
         if let archiveAction = archiveAction {
             scheme.addChild(archiveAction.xmlElement())
         }
-        if let testAction = testAction {
-            scheme.addChild(testAction.xmlElement())
-        }
-        if let profileAction = profileAction {
-            scheme.addChild(profileAction.xmlElement())
-        }
-        if let buildAction = buildAction {
-            scheme.addChild(buildAction.xmlElement())
-        }
-        if let launchAction = launchAction {
-            scheme.addChild(launchAction.xmlElement())
-        }
+
         if override && path.exists {
             try path.delete()
         }
