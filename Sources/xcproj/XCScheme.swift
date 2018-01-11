@@ -635,7 +635,7 @@ extension XCScheme: Writable {
         if override && path.exists {
             try path.delete()
         }
-        try path.write(document.xml)
+        try path.write(document.xmlXcodeFormat)
     }
 
 }
