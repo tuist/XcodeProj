@@ -12,6 +12,7 @@
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
 - Improved README examples. https://github.com/xcodeswift/xcproj/pull/212 by @ilyapuchka
 - Added methods to get paths to workspace, project and breakpoints and shemes files, added public methods to write them separatery. https://github.com/xcodeswift/xcproj/pull/215 by @ilyapuchka
+- Added helper methods for adding source file to the project. https://github.com/xcodeswift/xcproj/pull/213 by @ilyapuchka
 
 ## 2.0.0
 
