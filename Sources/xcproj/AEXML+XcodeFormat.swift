@@ -11,6 +11,54 @@ extension AEXMLDocument {
 
 }
 
+let attributesOrder: [String: [String]] = [
+    "BuildActionEntry": [
+        "buildForTesting",
+        "buildForRunning",
+        "buildForProfiling",
+        "buildForArchiving",
+        "buildForAnalyzing"
+    ],
+    "BuildableReference": [
+        "BuildableIdentifier",
+        "BlueprintIdentifier",
+        "BuildableName",
+        "BlueprintName",
+        "ReferencedContainer"
+    ],
+    "TestAction": [
+        "buildConfiguration",
+        "selectedDebuggerIdentifier",
+        "selectedLauncherIdentifier",
+        "language",
+        "region",
+        "shouldUseLaunchSchemeArgsEnv",
+        "codeCoverageEnabled"
+    ],
+    "LaunchAction": [
+        "buildConfiguration",
+        "selectedDebuggerIdentifier",
+        "selectedLauncherIdentifier",
+        "language",
+        "region",
+        "launchStyle",
+        "useCustomWorkingDirectory",
+        "ignoresPersistentStateOnLaunch",
+        "debugDocumentVersioning",
+        "debugServiceExtension",
+        "allowLocationSimulation"
+    ],
+    "ProfileAction": [
+        "buildConfiguration",
+        "shouldUseLaunchSchemeArgsEnv",
+        "savedToolIdentifier",
+        "useCustomWorkingDirectory",
+        "ignoresPersistentStateOnLaunch",
+        "debugDocumentVersioning",
+        "enableTestabilityWhenProfilingTests"
+    ]
+]
+
 extension AEXMLElement {
 
     fileprivate var _xmlXcodeFormat: String {
@@ -22,6 +70,15 @@ extension AEXMLElement {
 
         if attributes.count > 0 {
             // insert attributes
+            var attributes = self.attributes
+            for key in attributesOrder[self.name] ?? [] {
+                if let value = attributes.removeValue(forKey: key) {
+                    xml += "\n"
+                    xml += indent(withDepth: parentsCount)
+                    xml += "\(key) = \"\(value.xmlEscaped)\""
+                }
+            }
+
             for (key, value) in attributes {
                 xml += "\n"
                 xml += indent(withDepth: parentsCount)
