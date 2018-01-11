@@ -9,7 +9,7 @@
 
 ### Changed
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
-- Improved README examples
+- Added methods to get paths to workspace, project and breakpoints and shemes files, added public methods to write them separatery.
 
 ## 2.0.0
 
