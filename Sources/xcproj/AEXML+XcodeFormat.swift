@@ -4,8 +4,8 @@ import AEXML
 extension AEXMLDocument {
 
     var xmlXcodeFormat: String {
-        var xml = "<?xml version=\"\(options.documentHeader.version)\" encoding=\"\(options.documentHeader.encoding)\"?>\n"
-        xml += root._xmlXcodeFormat
+        var xml = "<?xml version=\"\(options.documentHeader.version)\" encoding=\"\(options.documentHeader.encoding.uppercased())\"?>\n"
+        xml += root._xmlXcodeFormat + "\n"
         return xml
     }
 
@@ -70,7 +70,7 @@ extension AEXMLElement {
         var indent = String()
 
         while count > 0 {
-            indent += "\t"
+            indent += "   "
             count -= 1
         }
 
