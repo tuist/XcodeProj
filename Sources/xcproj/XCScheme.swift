@@ -276,6 +276,7 @@ final public class XCScheme {
         }
 
         public var buildableProductRunnable: BuildableProductRunnable?
+        public var macroExpansion: BuildableReference?
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
         public var buildConfiguration: String
@@ -292,6 +293,7 @@ final public class XCScheme {
 
         public init(buildableProductRunnable: BuildableProductRunnable?,
                     buildConfiguration: String,
+                    macroExpansion: BuildableReference? = nil,
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
@@ -305,6 +307,7 @@ final public class XCScheme {
                     language: String? = nil,
                     region: String? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
+            self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
             self.launchStyle = launchStyle
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
@@ -334,6 +337,10 @@ final public class XCScheme {
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
             if buildableProductRunnableElement.error == nil {
                 self.buildableProductRunnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
+            }
+            let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
+            if buildableReferenceElement.error == nil {
+                self.macroExpansion = try BuildableReference(element: buildableReferenceElement)
             }
 
             if element["LocationScenarioReference"].all?.first != nil {
@@ -378,6 +385,11 @@ final public class XCScheme {
                 element.attributes["region"] = region
             }
 
+            if let macroExpansion = macroExpansion {
+                let macro = element.addChild(name: "MacroExpansion")
+                macro.addChild(macroExpansion.xmlElement())
+            }
+
             element.addChild(AEXMLElement(name: "AdditionalOptions"))
             return element
         }
@@ -394,23 +406,29 @@ final public class XCScheme {
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
         public var commandlineArguments: CommandLineArguments?
+        public var macroExpansion: BuildableReference?
+        public var enableTestabilityWhenProfilingTests: Bool
 
         public init(buildableProductRunnable: BuildableProductRunnable?,
                     buildConfiguration: String,
+                    macroExpansion: BuildableReference? = nil,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     savedToolIdentifier: String = "",
                     ignoresPersistentStateOnLaunch: Bool = false,
                     useCustomWorkingDirectory: Bool = false,
                     debugDocumentVersioning: Bool = true,
-                    commandlineArguments: CommandLineArguments? = nil) {
+                    commandlineArguments: CommandLineArguments? = nil,
+                    enableTestabilityWhenProfilingTests: Bool = true) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
+            self.macroExpansion = macroExpansion
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.savedToolIdentifier = savedToolIdentifier
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.debugDocumentVersioning = debugDocumentVersioning
             self.commandlineArguments = commandlineArguments
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
+            self.enableTestabilityWhenProfilingTests = enableTestabilityWhenProfilingTests
         }
         init(element: AEXMLElement) throws {
             self.buildConfiguration = element.attributes["buildConfiguration"] ?? ProfileAction.defaultBuildConfiguration
@@ -424,10 +442,15 @@ final public class XCScheme {
             if buildableProductRunnableElement.error == nil {
                 self.buildableProductRunnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
             }
+            let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
+            if buildableReferenceElement.error == nil {
+                self.macroExpansion = try BuildableReference(element: buildableReferenceElement)
+            }
             let commandlineOptions = element["CommandLineArguments"]
             if commandlineOptions.error == nil {
                 self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
             }
+            enableTestabilityWhenProfilingTests = element.attributes["enableTestabilityWhenProfilingTests"].map { $0 != "No" } ?? true
         }
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "ProfileAction",
@@ -437,15 +460,26 @@ final public class XCScheme {
                                         "shouldUseLaunchSchemeArgsEnv": shouldUseLaunchSchemeArgsEnv.xmlString,
                                         "savedToolIdentifier": savedToolIdentifier,
                                         "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
-                                        "debugDocumentVersioning": debugDocumentVersioning.xmlString,
-                                        "ignoresPersistentStateOnLaunch": ignoresPersistentStateOnLaunch.xmlString
+                                        "debugDocumentVersioning": debugDocumentVersioning.xmlString
                 ])
+            if ignoresPersistentStateOnLaunch {
+                element.attributes["ignoresPersistentStateOnLaunch"] = ignoresPersistentStateOnLaunch.xmlString
+            }
+            if !enableTestabilityWhenProfilingTests {
+                element.attributes["enableTestabilityWhenProfilingTests"] = "No"
+            }
             if let buildableProductRunnable = buildableProductRunnable {
                 element.addChild(buildableProductRunnable.xmlElement())
             }
             if let commandlineArguments = commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
+
+            if let macroExpansion = macroExpansion {
+                let macro = element.addChild(name: "MacroExpansion")
+                macro.addChild(macroExpansion.xmlElement())
+            }
+
             return element
         }
     }
@@ -530,7 +564,9 @@ final public class XCScheme {
             attributes["language"] = language
             attributes["region"] = region
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
-            attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
+            if codeCoverageEnabled {
+                attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
+            }
             attributes["systemAttachmentLifetime"] = systemAttachmentLifetime?.rawValue
             if case .keepAlways? = userAttachmentLifetime {
                 attributes["userAttachmentLifetime"] = userAttachmentLifetime?.rawValue
