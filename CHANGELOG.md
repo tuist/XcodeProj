@@ -6,6 +6,7 @@
 - Fix Xcode 9.2 warning https://github.com/xcodeswift/xcproj/pull/209 by @keith
 - macOS CLI targets now have a nil extension, instead of an empty string https://github.com/xcodeswift/xcproj/pull/208 by @keith
 - Fix unnecessary quotations in CommentedString https://github.com/xcodeswift/xcproj/pull/211 by @allu22
+- Fixed xml files format not matching Xcode format
 
 ### Changed
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
