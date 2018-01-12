@@ -9,6 +9,7 @@
 
 ### Changed
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
+- Improved README examples
 
 ## 2.0.0
 

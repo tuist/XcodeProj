@@ -155,24 +155,66 @@ try project.write(path: "MyApp.xcodeproj")
 #### Adding `Home` group inside `Sources` group
 
 ```swift
-guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources"})?.value else { return }    
-let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources" || $0.value.path == "Sources"})?.value else { return }    
+let homeGroup = PBXGroup(children: [], sourceTree: .group, path: "Home")
+let groupRef = pbxproj.objects.generateReference(homeGroup, "Home")
+sourcesGroup.children.append(homeGroup, reference: groupRef)
+project.pbxproj.objects.addObject(groupRef)
+```
+
+<details>
+<summary>Versions <2.0</summary>
+
+```swift
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources" || $0.value.path == "Sources"})?.value else { return }    
+let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: "Home")
 sourcesGroup.children.append(homeGroup.reference)
 project.pbxproj.objects.addObject(homeGroup)
 ```
 
+</details>
+
 #### Add `HomeViewController.swift` file inside `HomeGroup`
 
 ```swift
-let homeGroup = PBXGroup(reference: "xxx", children: [], sourceTree: .group, path: "Home")
-let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
-homeGroup.children.append(homeViewController.reference)
+let homeViewController = PBXFileReference(sourceTree: .group, name: "HomeViewController.swift", path: "HomeViewController.swift")
+let fileRef = pbxproj.objects.generateReference(homeViewController, "HomeViewController.swift")
+homeGroup.children.append(fileRef)
+project.pbxproj.objects.addObject(homeViewController, reference: fileRef)
 ```
 
+<details>
+<summary>Versions <2.0</summary>
+
+```swift
+let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: "HomeViewController.swift", path: "HomeViewController.swift")
+homeGroup.children.append(homeViewController.reference)
+project.pbxproj.objects.addObject(homeViewController)
+```
+
+</details>
+  
 #### Add `HomeViewController.swift` file to `MyApp` target
 
 ```swift
-let homeViewController = PBXFileReference(reference: "xxx", sourceTree: .group, path: "HomeViewController.swift")
+guard let sourcesBuildPhase = project.pbxproj
+    .objects.nativeTargets
+    .values
+    .first(where: {$0.name == "MyApp"})
+    .flatMap({ target -> PBXSourcesBuildPhase? in
+        return project.pbxproj.objects.sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key) })?.value
+    }) else { return }
+// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
+let buildFile = PBXBuildFile(fileRef: fileRef)
+let buildFileRef = project.pbxproj.objects.generateReference(buildFile, "HomeViewController.swift")
+project.pbxproj.objects.addObject(buildFile, reference: buildFileRef)
+sourcesBuildPhase.files.append(buildFileRef)
+```
+
+<details>
+<summary>Versions <2.0</summary>
+
+```swift
 guard let sourcesBuildPhase = project.pbxproj
     .objects.nativeTargets
     .values
@@ -181,10 +223,12 @@ guard let sourcesBuildPhase = project.pbxproj
         return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
     }) else { return }
 // PBXBuildFile is a proxy model that allows specifying some build attributes to the files
-let buildFile = PBXBuildFile(reference: "yyy", fileRef: homeViewController.reference)
+let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
 project.pbxproj.objects.addObject(buildFile)
 sourcesBuildPhase.files.append(buildFile.reference)
 ```
+
+</details>
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
