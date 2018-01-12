@@ -71,6 +71,32 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(output, rawProj)
     }
 
+    // MARK: - Paths
+
+    func test_workspacePath() {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        XCTAssertEqual(XcodeProj.workspacePath(path),
+                       fixturesPath() + "iOS/BuildSettings.xcodeproj/project.xcworkspace")
+    }
+
+    func test_pbxprojPath() {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        XCTAssertEqual(XcodeProj.pbxprojPath(path),
+                       fixturesPath() + "iOS/BuildSettings.xcodeproj/project.pbxproj")
+    }
+
+    func test_schemePath() {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        XCTAssertEqual(XcodeProj.schemePath(path, schemeName: "Scheme"),
+                       fixturesPath() + "iOS/BuildSettings.xcodeproj/xcshareddata/xcschemes/Scheme.xcscheme")
+    }
+
+    func test_breakPointsPath() {
+        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        XCTAssertEqual(XcodeProj.breakPointsPath(path),
+                       fixturesPath() + "iOS/BuildSettings.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist")
+    }
+
     // MARK: - Private
 
     private func fixtureWithoutWorkspaceProjectPath() -> Path {

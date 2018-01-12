@@ -75,7 +75,7 @@ extension XcodeProj: Writable {
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: worspace file path relative to the given path.
-    public func workspacePath(_ path: Path) -> Path {
+    public static func workspacePath(_ path: Path) -> Path {
         return path + "project.xcworkspace"
     }
 
@@ -85,14 +85,14 @@ extension XcodeProj: Writable {
     /// - Parameter override: if workspace should be overridden. Default is true.
     ///   If false will throw error if workspace already exists at the given path.
     public func writeWorkspace(path: Path, override: Bool = true) throws {
-        try workspace.write(path: workspacePath(path), override: override)
+        try workspace.write(path: XcodeProj.workspacePath(path), override: override)
     }
 
     /// Returns project file path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: project file path relative to the given path.
-    public func projectPath(_ path: Path) -> Path {
+    public static func pbxprojPath(_ path: Path) -> Path {
         return path + "project.pbxproj"
     }
 
@@ -102,14 +102,14 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If false will throw error if project already exists at the given path.
     public func writePBXProj(path: Path, override: Bool = true) throws {
-        try pbxproj.write(path: projectPath(path), override: override)
+        try pbxproj.write(path: XcodeProj.pbxprojPath(path), override: override)
     }
 
     /// Returns shared data path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: shared data path relative to the given path.
-    public func sharedDataPath(_ path: Path) -> Path {
+    public static func sharedDataPath(_ path: Path) -> Path {
         return path + "xcshareddata"
     }
 
@@ -117,8 +117,8 @@ extension XcodeProj: Writable {
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: schemes folder path relative to the given path.
-    public func schemesPath(_ path: Path) -> Path {
-        return sharedDataPath(path) + "xcschemes"
+    public static func schemesPath(_ path: Path) -> Path {
+        return XcodeProj.sharedDataPath(path) + "xcschemes"
     }
 
     /// Returns scheme file path relative to the given path.
@@ -126,8 +126,8 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
-    public func schemePath(_ path: Path, schemeName: String) -> Path {
-        return schemesPath(path) + "\(schemeName).xcscheme"
+    public static func schemePath(_ path: Path, schemeName: String) -> Path {
+        return XcodeProj.schemesPath(path) + "\(schemeName).xcscheme"
     }
 
     /// Writes all project schemes to the given path.
@@ -139,13 +139,13 @@ extension XcodeProj: Writable {
     public func writeSchemes(path: Path, override: Bool = true) throws {
         guard let sharedData = sharedData else { return }
 
-        let schemesPath = self.schemesPath(path)
+        let schemesPath = XcodeProj.schemesPath(path)
         if override && schemesPath.exists {
             try schemesPath.delete()
         }
         try schemesPath.mkpath()
         for scheme in sharedData.schemes {
-            try scheme.write(path: schemePath(path, schemeName: scheme.name), override: override)
+            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
         }
     }
 
@@ -154,8 +154,8 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: debugger folder path relative to the given path.
-    public func debuggerPath(_ path: Path) -> Path {
-        return sharedDataPath(path) + "xcdebugger"
+    public static func debuggerPath(_ path: Path) -> Path {
+        return XcodeProj.sharedDataPath(path) + "xcdebugger"
     }
 
     /// Returns breakpoints plist path relative to the given path.
@@ -163,8 +163,8 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: breakpoints plist path relative to the given path.
-    public func breakPointsPath(_ path: Path) -> Path {
-        return debuggerPath(path) + "Breakpoints_v2.xcbkptlist"
+    public static func breakPointsPath(_ path: Path) -> Path {
+        return XcodeProj.debuggerPath(path) + "Breakpoints_v2.xcbkptlist"
     }
 
     /// Writes all project breakpoints to the given path.
@@ -176,12 +176,12 @@ extension XcodeProj: Writable {
     public func writeBreakPoints(path: Path, override: Bool = true) throws {
         guard let sharedData = sharedData else { return }
 
-        let debuggerPath = self.debuggerPath(path)
+        let debuggerPath = XcodeProj.debuggerPath(path)
         if override && debuggerPath.exists {
             try debuggerPath.delete()
         }
         try debuggerPath.mkpath()
-        try sharedData.breakpoints?.write(path: breakPointsPath(path), override: override)
+        try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
     }
 }
 
