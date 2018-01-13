@@ -15,6 +15,8 @@
 		BF1286225402 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6357036901 /* KeyedDecodingContainer+Additions.swift */; };
 		BF1398928001 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2458458701 /* PBXProject.swift */; };
 		BF1398928002 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR2458458701 /* PBXProject.swift */; };
+		BF1456930601 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3463446801 /* AEXML+XcodeFormat.swift */; };
+		BF1456930602 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3463446801 /* AEXML+XcodeFormat.swift */; };
 		BF1618407401 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8785334801 /* PBXRezBuildPhase.swift */; };
 		BF1618407402 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8785334801 /* PBXRezBuildPhase.swift */; };
 		BF1641641601 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR6447358001 /* AEXML.framework */; };
@@ -145,6 +147,7 @@
 		FR3255351901 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
 		FR3300528101 /* Referenceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Referenceable.swift; sourceTree = "<group>"; };
 		FR3402716401 /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
+		FR3463446801 /* AEXML+XcodeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AEXML+XcodeFormat.swift"; sourceTree = "<group>"; };
 		FR3546471301 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR3952162601 /* PBXAggregateTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXAggregateTarget.swift; sourceTree = "<group>"; };
 		FR4128075701 /* PBXBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildPhase.swift; sourceTree = "<group>"; };
@@ -255,6 +258,7 @@
 		G48093636701 /* xcproj */ = {
 			isa = PBXGroup;
 			children = (
+				FR3463446801 /* AEXML+XcodeFormat.swift */,
 				FR3255351901 /* Bool+Extras.swift */,
 				FR4602369901 /* BuildPhase.swift */,
 				FR3402716401 /* BuildSettings.swift */,
@@ -433,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF1456930601 /* AEXML+XcodeFormat.swift in Sources */,
 				BF2311546501 /* Bool+Extras.swift in Sources */,
 				BF9042303701 /* BuildPhase.swift in Sources */,
 				BF6966109201 /* BuildSettings.swift in Sources */,
@@ -496,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF1456930602 /* AEXML+XcodeFormat.swift in Sources */,
 				BF2311546502 /* Bool+Extras.swift in Sources */,
 				BF9042303702 /* BuildPhase.swift in Sources */,
 				BF6966109202 /* BuildSettings.swift in Sources */,
