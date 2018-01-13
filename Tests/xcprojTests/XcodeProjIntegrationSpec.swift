@@ -97,6 +97,106 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                        fixturesPath() + "iOS/BuildSettings.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist")
     }
 
+    // MARK: - File add
+
+    func test_add_new_group() throws {
+        let project = projectiOS()!
+        let groups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
+        let (reference, group) = groups[0]
+
+        XCTAssertEqual(group.name, "Group")
+        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: reference))
+        XCTAssertEqual(project.pbxproj.objects.groups[reference], group)
+
+        let existingGroups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
+        XCTAssertTrue(groups[0] == existingGroups[0])
+    }
+
+    func test_add_nested_group() throws {
+        let project = projectiOS()!
+        let groups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
+        let (reference1, group1) = groups[0]
+        let (reference2, group2) = groups[1]
+
+        XCTAssertEqual(group1.name, "New")
+        XCTAssertEqual(group2.name, "Group")
+
+        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: reference1))
+        XCTAssertNotNil(group1.children.index(of: reference2))
+
+        XCTAssertEqual(project.pbxproj.objects.groups[reference1], group1)
+        XCTAssertEqual(project.pbxproj.objects.groups[reference2], group2)
+
+        let existingGroups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
+
+        XCTAssertTrue(groups[0] == existingGroups[0])
+
+        let newGroups = project.pbxproj.objects.addGroup(named: "New/Group1", to: project.pbxproj.rootGroup)
+
+        XCTAssertTrue(newGroups[0] == existingGroups[0])
+        XCTAssertNotNil(newGroups[0].group.children.index(of: groups[1].reference))
+        XCTAssertEqual(project.pbxproj.objects.groups[newGroups[1].reference], newGroups[1].group)
+    }
+
+    func test_add_new_file() throws {
+        let proj = projectiOS()!.pbxproj
+        let filePath = fixturesPath() + "iOS/iOS/newfile.swift"
+        let file = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+
+        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.file)
+        XCTAssertEqual(file.file.name, "newfile.swift")
+        XCTAssertEqual(file.file.sourceTree, PBXSourceTree.absolute)
+        XCTAssertEqual(file.file.path, filePath.string)
+
+        let existingFile = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+
+        XCTAssertTrue(file == existingFile)
+    }
+
+    func test_add_not_a_file() throws {
+        let proj = projectiOS()!.pbxproj
+        let path = fixturesPath() + "iOS/iOS"
+        do {
+            _ = try proj.objects.addFile(at: path, sourceRoot: fixturesPath() + "iOS")
+            XCTFail("Adding not file path should throw error")
+        } catch {}
+    }
+
+    func test_add_new_build_file() throws {
+        let proj = projectiOS()!.pbxproj
+        let target = proj.objects.targets(named: "iOS").first!
+        let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target)!
+        let filePath = fixturesPath() + "iOS/iOS/newfile.swift"
+        let file = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+
+        let buildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
+
+        XCTAssertEqual(proj.objects.buildFiles[buildFile.reference], buildFile.file)
+        XCTAssertNotNil(sourcesBuildPhase.files.index(of: buildFile.reference))
+
+        let existingBuildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
+
+        XCTAssertTrue(existingBuildFile == buildFile)
+    }
+
+    func test_fullFilePath() throws {
+        let proj = projectiOS()!.pbxproj
+        let sourceRoot = fixturesPath() + "iOS"
+        let filePath = sourceRoot + "iOS"
+
+        let appDelegate = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "AppDelegate.swift" })!
+        let groupFullPath = proj.objects.fullPath(fileElement: appDelegate.value, reference: appDelegate.key, sourceRoot: sourceRoot)
+        XCTAssertEqual(groupFullPath, filePath + "AppDelegate.swift")
+
+        let viewController = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "ViewController.swift" })!
+        let absoluteFullPath = proj.objects.fullPath(fileElement: viewController.value, reference: viewController.key, sourceRoot: sourceRoot)
+        XCTAssertEqual(absoluteFullPath, filePath + "ViewController.swift")
+
+        let tests = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "iOSTests.swift" })!
+        let sourceRootFullPath = proj.objects.fullPath(fileElement: tests.value, reference: tests.key, sourceRoot: sourceRoot)
+        XCTAssertEqual(sourceRootFullPath, sourceRoot + "iOSTests/iOSTests.swift")
+    }
+
     // MARK: - Private
 
     private func fixtureWithoutWorkspaceProjectPath() -> Path {

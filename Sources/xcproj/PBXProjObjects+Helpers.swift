@@ -57,17 +57,17 @@ public extension PBXProj.Objects {
     ///   - toGroup: parent group
     ///   - options: additional options, default is empty set.
     /// - Returns: all new or existing groups in the path and their references.
-    public func addGroup(named groupName: String, to toGroup: PBXGroup, options: GroupAddingOptions = []) -> [(String, PBXGroup)] {
+    public func addGroup(named groupName: String, to toGroup: PBXGroup, options: GroupAddingOptions = []) -> [(reference: String, group: PBXGroup)] {
         return addGroups(groupName.components(separatedBy: "/"), to: toGroup, options: options)
     }
 
-    private func addGroups(_ groupNames: [String], to toGroup: PBXGroup, options: GroupAddingOptions) -> [(String, PBXGroup)] {
+    private func addGroups(_ groupNames: [String], to toGroup: PBXGroup, options: GroupAddingOptions) -> [(reference: String, group: PBXGroup)] {
         guard !groupNames.isEmpty else { return [] }
         let newGroup = createOrGetGroup(named: groupNames[0], in: toGroup, options: options)
         return [newGroup] + addGroups(Array(groupNames.dropFirst()), to: newGroup.1, options: options)
     }
 
-    private func createOrGetGroup(named groupName: String, in parentGroup: PBXGroup, options: GroupAddingOptions) -> (String, PBXGroup) {
+    private func createOrGetGroup(named groupName: String, in parentGroup: PBXGroup, options: GroupAddingOptions) -> (reference: String, group: PBXGroup) {
         if let existingGroup = group(named: groupName, inGroup: parentGroup) {
             return existingGroup
         }
@@ -87,21 +87,20 @@ public extension PBXProj.Objects {
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
-    ///   - filePath: path to the file
-    ///   - sourceTree: file source tree, default is `.group`.
-    ///   - name: file name, by default gets file name from the path
+    ///   - filePath: path to the file.
+    ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
-    public func addFile(at filePath: Path, sourceRoot: Path) throws -> (String, PBXFileReference) {
+    public func addFile(at filePath: Path, sourceRoot: Path) throws -> (reference: String, file: PBXFileReference) {
         guard filePath.isFile else { throw XCodeProjEditingError.notAFile(path: filePath) }
 
         if let existingFileReference = fileReferences.first(where: {
             filePath == fullPath(fileElement: $0.value, reference: $0.key, sourceRoot: sourceRoot)
         }) {
-            return existingFileReference
+            return (existingFileReference.key, existingFileReference.value)
         }
 
         let fileReference = PBXFileReference(
-            sourceTree: .group,
+            sourceTree: .absolute,
             name: filePath.lastComponent,
             explicitFileType: PBXFileReference.fileType(path: filePath),
             lastKnownFileType: PBXFileReference.fileType(path: filePath),
@@ -125,13 +124,13 @@ public extension PBXProj.Objects {
     /// Adds file to the given target's sources build phase or returns existing build file and its reference.
     /// If target's sources build phase can't be found returns nil.
     ///
-    /// - Parameter target: target obejct
+    /// - Parameter target: target object
     /// - Parameter reference: file reference
     /// - Returns: new or existing build file and its reference
-    public func addBuildFile(toTarget target: PBXTarget, reference: String) -> (String, PBXBuildFile)? {
+    public func addBuildFile(toTarget target: PBXTarget, reference: String) -> (reference: String, file: PBXBuildFile)? {
         guard let sourcesBuildPhase = sourcesBuildPhase(target: target) else { return nil }
         if let existingBuildFile = buildFiles.first(where: { $0.value.fileRef == reference }) {
-            return existingBuildFile
+            return (existingBuildFile.key, existingBuildFile.value)
         }
 
         let buildFile = PBXBuildFile(fileRef: reference)
@@ -141,6 +140,13 @@ public extension PBXProj.Objects {
         return (reference, buildFile)
     }
 
+    /// Returns full path of the file element.
+    ///
+    /// - Parameters:
+    ///   - fileElement: a file element
+    ///   - reference: a reference to this file element
+    ///   - sourceRoot: path to the project's sourceRoot
+    /// - Returns: fully qualified file element path
     public func fullPath(fileElement: PBXFileElement, reference: String, sourceRoot: Path) -> Path? {
         switch fileElement.sourceTree {
         case .absolute?:
@@ -178,7 +184,7 @@ public enum XCodeProjEditingError: Error, CustomStringConvertible {
     }
 }
 
-extension Path {
+fileprivate extension Path {
     init(_ string: String, relativeTo relativePath: Path) {
         var path = Path(string)
         if !path.isAbsolute {
