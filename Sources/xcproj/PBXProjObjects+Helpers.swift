@@ -29,10 +29,11 @@ public extension PBXProj.Objects {
     ///
     /// - Parameter target: target object.
     /// - Returns: all files in target's sources build phase, or empty array if sources build phase is not found.
-    public func sourceFiles(target: PBXTarget) -> [PBXFileElement] {
+    public func sourceFiles(target: PBXTarget) -> [(reference: String, file: PBXFileElement)] {
         return sourcesBuildPhase(target: target)?.files
             .flatMap({ buildFiles[$0]?.fileRef })
-            .flatMap(getFileElement(reference:)) ?? []
+            .flatMap({ fileRef in getFileElement(reference: fileRef).map({ (fileRef, $0) })})
+            ?? []
     }
 
     /// Returns group with the given name contained in the given parent group and its reference.
@@ -40,11 +41,11 @@ public extension PBXProj.Objects {
     /// - Parameter groupName: group name.
     /// - Parameter inGroup: parent group.
     /// - Returns: group with the given name contained in the given parent group and its reference.
-    public func group(named groupName: String, inGroup: PBXGroup) -> (String, PBXGroup)? {
+    public func group(named groupName: String, inGroup: PBXGroup) -> (reference: String, group: PBXGroup)? {
         let children = inGroup.children
         return groups.first(where: {
             children.contains($0.key) && ($0.value.name == groupName || $0.value.path == groupName)
-        })
+        }).map({ ($0.0, $0.1) })
     }
 
     /// Adds new group with the give name to the given parent group.
@@ -84,41 +85,62 @@ public extension PBXProj.Objects {
         return (reference, newGroup)
     }
 
-    /// Adds file at the give path to the project or returns existing file and its reference.
+    /// Adds file at the give path to the project and given group or returns existing file and its reference.
     ///
     /// - Parameters:
     ///   - filePath: path to the file.
+    ///   - toGroup: group to add file to.
+    ///   - sourceTree: file sourceTree, default is `.group`
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
-    public func addFile(at filePath: Path, sourceRoot: Path) throws -> (reference: String, file: PBXFileReference) {
-        guard filePath.isFile else { throw XCodeProjEditingError.notAFile(path: filePath) }
+    public func addFile(at filePath: Path, toGroup: PBXGroup, sourceTree: PBXSourceTree = .group, sourceRoot: Path) throws -> (reference: String, file: PBXFileReference) {
+        guard filePath.isFile else {
+            throw XCodeProjEditingError.notAFile(path: filePath)
+        }
+
+        guard let groupReference = groups.first(where: { $0.value == toGroup })?.key else {
+            throw XCodeProjEditingError.groupNotFound(group: toGroup)
+        }
+        let groupPath = fullPath(fileElement: toGroup, reference: groupReference, sourceRoot: sourceRoot)
 
         if let existingFileReference = fileReferences.first(where: {
             filePath == fullPath(fileElement: $0.value, reference: $0.key, sourceRoot: sourceRoot)
         }) {
-            return (existingFileReference.key, existingFileReference.value)
+            let file = (existingFileReference.key, existingFileReference.value)
+            if !toGroup.children.contains(file.0) {
+                file.1.path = groupPath.flatMap({ filePath.relativeTo($0) })?.string
+                toGroup.children.append(file.0)
+            }
+            return file
+        }
+
+        let path: Path?
+        switch sourceTree {
+        case .group:
+            path = groupPath.map({ filePath.relativeTo($0) })
+        case .sourceRoot:
+            path = filePath.relativeTo(sourceRoot)
+        case .absolute:
+            path = filePath.absolute()
+        default:
+            path = nil
         }
 
         let fileReference = PBXFileReference(
-            sourceTree: .absolute,
+            sourceTree: sourceTree,
             name: filePath.lastComponent,
             explicitFileType: PBXFileReference.fileType(path: filePath),
             lastKnownFileType: PBXFileReference.fileType(path: filePath),
-            path: filePath.string
+            path: path?.string
         )
         let reference = generateReference(fileReference, filePath.string)
         addObject(fileReference, reference: reference)
-        return (reference, fileReference)
-    }
 
-    /// Adds file to the given group.
-    /// If group already contains file with given reference method does nothing.
-    ///
-    /// - Parameter group: group to add file to
-    /// - Parameter reference: file reference
-    public func addFile(toGroup group: PBXGroup, reference: String) {
-        guard !group.children.contains(reference) else { return }
-        group.children.append(reference)
+        if !toGroup.children.contains(reference) {
+            toGroup.children.append(reference)
+        }
+
+        return (reference, fileReference)
     }
 
     /// Adds file to the given target's sources build phase or returns existing build file and its reference.
@@ -175,22 +197,42 @@ public struct GroupAddingOptions: OptionSet {
 
 public enum XCodeProjEditingError: Error, CustomStringConvertible {
     case notAFile(path: Path)
+    case groupNotFound(group: PBXGroup)
 
     public var description: String {
         switch self {
         case .notAFile(let path):
             return "\(path) is not a file path"
+        case .groupNotFound(let group):
+            return "Group not found in project: \(group)"
         }
     }
 }
 
-fileprivate extension Path {
-    init(_ string: String, relativeTo relativePath: Path) {
+extension Path {
+    fileprivate init(_ string: String, relativeTo relativePath: Path) {
         var path = Path(string)
         if !path.isAbsolute {
             path = (relativePath + path).absolute()
         }
         self.init(path.string)
+    }
+
+    public func relativeTo(_ relativePath: Path) -> Path {
+        let components = self.absolute().components
+        let relativePathComponents = relativePath.absolute().components
+
+        var commonPathComponents = [String]()
+        for component in components {
+            guard relativePathComponents.count > commonPathComponents.count else { break }
+            guard relativePathComponents[commonPathComponents.count] == component else { break }
+            commonPathComponents.append(component)
+        }
+
+        let relative = Array(repeating: "..", count: (relativePathComponents.count - commonPathComponents.count))
+        let suffix = components.suffix(components.count - commonPathComponents.count)
+        let path = Path(components: relative + suffix)
+        return path
     }
 }
 

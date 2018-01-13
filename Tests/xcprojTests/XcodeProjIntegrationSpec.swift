@@ -140,25 +140,31 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_add_new_file() throws {
         let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "iOS/iOS/newfile.swift"
-        let file = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+        let filePath = fixturesPath() + "newfile.swift"
+        let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceRoot: fixturesPath() + "iOS")
 
         XCTAssertEqual(proj.objects.fileReferences[file.reference], file.file)
         XCTAssertEqual(file.file.name, "newfile.swift")
-        XCTAssertEqual(file.file.sourceTree, PBXSourceTree.absolute)
-        XCTAssertEqual(file.file.path, filePath.string)
+        XCTAssertEqual(file.file.sourceTree, PBXSourceTree.group)
+        XCTAssertEqual(file.file.path, "../../newfile.swift")
+        XCTAssertNotNil(iOSGroup.children.index(of: file.reference))
 
-        let existingFile = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+        let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
 
         XCTAssertTrue(file == existingFile)
     }
 
     func test_add_not_a_file() throws {
         let proj = projectiOS()!.pbxproj
-        let path = fixturesPath() + "iOS/iOS"
         do {
-            _ = try proj.objects.addFile(at: path, sourceRoot: fixturesPath() + "iOS")
+            _ = try proj.objects.addFile(at: fixturesPath() + "iOS/iOS", toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
             XCTFail("Adding not file path should throw error")
+        } catch {}
+
+        do {
+            _ = try proj.objects.addFile(at: fixturesPath() + "iOS/iOS/newfile.swift", toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
+            XCTFail("Adding not existing file should throw error")
         } catch {}
     }
 
@@ -166,8 +172,8 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let proj = projectiOS()!.pbxproj
         let target = proj.objects.targets(named: "iOS").first!
         let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target)!
-        let filePath = fixturesPath() + "iOS/iOS/newfile.swift"
-        let file = try proj.objects.addFile(at: filePath, sourceRoot: fixturesPath() + "iOS")
+        let filePath = fixturesPath() + "newfile.swift"
+        let file = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
 
         let buildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
 
@@ -180,21 +186,63 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     }
 
     func test_fullFilePath() throws {
-        let proj = projectiOS()!.pbxproj
         let sourceRoot = fixturesPath() + "iOS"
-        let filePath = sourceRoot + "iOS"
+        var proj = projectiOS()!.pbxproj
+        var iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
 
-        let appDelegate = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "AppDelegate.swift" })!
-        let groupFullPath = proj.objects.fullPath(fileElement: appDelegate.value, reference: appDelegate.key, sourceRoot: sourceRoot)
-        XCTAssertEqual(groupFullPath, filePath + "AppDelegate.swift")
+        let rootGroupPath = proj.objects.fullPath(fileElement: proj.rootGroup, reference: proj.rootProject!.mainGroup, sourceRoot: sourceRoot)
+        XCTAssertEqual(rootGroupPath, sourceRoot)
 
-        let viewController = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "ViewController.swift" })!
-        let absoluteFullPath = proj.objects.fullPath(fileElement: viewController.value, reference: viewController.key, sourceRoot: sourceRoot)
-        XCTAssertEqual(absoluteFullPath, filePath + "ViewController.swift")
+        let filePath = fixturesPath() + "newfile.swift"
+        var file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .group, sourceRoot: sourceRoot)
+        var fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
 
-        let tests = proj.objects.fileReferences.first(where: { Path($0.value.path!).lastComponent == "iOSTests.swift" })!
-        let sourceRootFullPath = proj.objects.fullPath(fileElement: tests.value, reference: tests.key, sourceRoot: sourceRoot)
-        XCTAssertEqual(sourceRootFullPath, sourceRoot + "iOSTests/iOSTests.swift")
+        XCTAssertEqual(file.file.path, "../../newfile.swift")
+        XCTAssertEqual(fullFilePath, filePath)
+
+        proj = projectiOS()!.pbxproj
+        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .sourceRoot, sourceRoot: sourceRoot)
+        fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
+
+        XCTAssertEqual(file.file.path, "../newfile.swift")
+        XCTAssertEqual(fullFilePath, filePath)
+
+        proj = projectiOS()!.pbxproj
+        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .absolute, sourceRoot: sourceRoot)
+        fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
+
+        XCTAssertEqual(file.file.path, filePath.string)
+        XCTAssertEqual(fullFilePath, filePath)
+    }
+
+    func test_path_relativeToPath() {
+        let sourceRoot = fixturesPath() + "iOS"
+
+        var filePath = sourceRoot + "iOS/file.swift"
+        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("iOS/file.swift"))
+        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../.."))
+        XCTAssertEqual(filePath + Path("../.."), sourceRoot)
+
+        filePath = sourceRoot + "file.swift"
+        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("file.swift"))
+        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path(".."))
+        XCTAssertEqual(filePath + Path(".."), sourceRoot)
+
+        filePath = sourceRoot
+        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("."))
+        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("."))
+
+        filePath = sourceRoot + "../file.swift"
+        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("../file.swift"))
+        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../iOS"))
+        XCTAssertEqual(filePath + Path("../iOS"), sourceRoot)
+
+        filePath = sourceRoot + "../../file.swift"
+        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("../../file.swift"))
+        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../Fixtures/iOS"))
+        XCTAssertEqual(filePath + Path("../Fixtures/iOS"), sourceRoot)
     }
 
     // MARK: - Private
