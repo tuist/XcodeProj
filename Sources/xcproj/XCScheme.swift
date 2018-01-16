@@ -169,6 +169,42 @@ final public class XCScheme {
         }
     }
 
+    final public class ExecutionAction {
+        public var title: String
+        public var scriptText: String
+        public var environmentBuildable: BuildableReference?
+
+        public init(scriptText: String, title: String? = nil, environmentBuildable: BuildableReference? = nil) {
+            self.scriptText = scriptText
+            self.title = title ?? "Run Script"
+            self.environmentBuildable = environmentBuildable
+        }
+
+        init(element: AEXMLElement) throws {
+            self.scriptText = element["ActionContent"].attributes["scriptText"] ?? ""
+            self.title = element["ActionContent"].attributes["title"] ?? "Run Script"
+            self.environmentBuildable = try BuildableReference(element: element["ActionContent"]["EnvironmentBuildable"]["BuildableReference"])
+        }
+
+        private static let ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction"
+
+        fileprivate func xmlElement() -> AEXMLElement {
+            let element = AEXMLElement(name: "ExecutionAction",
+                                       value: nil,
+                                       attributes: [ "ActionType": ExecutionAction.ActionType ])
+            let content = AEXMLElement(name: "ActionContent",
+                                       value: nil,
+                                       attributes: [ "title": title,
+                                                     "scriptText": scriptText ])
+            element.addChild(content)
+            if let environmentBuildable = environmentBuildable {
+                let environment = content.addChild(name: "EnvironmentBuildable")
+                environment.addChild(environmentBuildable.xmlElement())
+            }
+            return element
+        }
+    }
+
     // MARK: - Build Action
 
     final public class BuildAction {
@@ -225,14 +261,20 @@ final public class XCScheme {
             }
         }
 
+        public var preActions: [ExecutionAction]
+        public var postActions: [ExecutionAction]
         public var buildActionEntries: [Entry]
         public var parallelizeBuild: Bool
         public var buildImplicitDependencies: Bool
 
         public init(buildActionEntries: [Entry] = [],
+                    preActions: [ExecutionAction] = [],
+                    postActions: [ExecutionAction] = [],
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false) {
             self.buildActionEntries = buildActionEntries
+            self.preActions = preActions
+            self.postActions = postActions
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
         }
@@ -240,6 +282,8 @@ final public class XCScheme {
         init(element: AEXMLElement) throws {
             parallelizeBuild = element.attributes["parallelizeBuildables"].map { $0 == "YES" } ?? true
             buildImplicitDependencies = element.attributes["buildImplicitDependencies"].map { $0 == "YES" } ?? true
+            preActions = try element["PreActions"].all?.map(ExecutionAction.init) ?? []
+            postActions = try element["PostActions"].all?.map(ExecutionAction.init) ?? []
             self.buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
@@ -250,6 +294,18 @@ final public class XCScheme {
                                        value: nil,
                                        attributes: ["parallelizeBuildables": parallelizeBuild.xmlString,
                                                     "buildImplicitDependencies": buildImplicitDependencies.xmlString])
+            if !self.preActions.isEmpty {
+                let preActions = element.addChild(name: "PreActions")
+                self.preActions.forEach { (preAction) in
+                    preActions.addChild(preAction.xmlElement())
+                }
+            }
+            if !self.postActions.isEmpty {
+                let postActions = element.addChild(name: "PostActions")
+                self.postActions.forEach { (postAction) in
+                    postActions.addChild(postAction.xmlElement())
+                }
+            }
             let entries = element.addChild(name: "BuildActionEntries")
             buildActionEntries.forEach { (entry) in
                 entries.addChild(entry.xmlElement())
