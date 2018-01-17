@@ -207,7 +207,37 @@ final public class XCScheme {
 
     // MARK: - Build Action
 
-    final public class BuildAction {
+    public class SerialAction {
+        public var preActions: [ExecutionAction]
+        public var postActions: [ExecutionAction]
+
+        init(_ preActions: [ExecutionAction], _ postActions: [ExecutionAction]) {
+            self.preActions = preActions
+            self.postActions = postActions
+        }
+
+        init(element: AEXMLElement) throws {
+            self.preActions = try element["PreActions"].all?.map(ExecutionAction.init) ?? []
+            self.postActions = try element["PostActions"].all?.map(ExecutionAction.init) ?? []
+        }
+
+        fileprivate func addPreActionsPostActions(_ element: AEXMLElement) {
+            if !self.preActions.isEmpty {
+                let preActions = element.addChild(name: "PreActions")
+                self.preActions.forEach { (preAction) in
+                    preActions.addChild(preAction.xmlElement())
+                }
+            }
+            if !self.postActions.isEmpty {
+                let postActions = element.addChild(name: "PostActions")
+                self.postActions.forEach { (postAction) in
+                    postActions.addChild(postAction.xmlElement())
+                }
+            }
+        }
+    }
+
+    final public class BuildAction: SerialAction {
 
         final public class Entry {
 
@@ -261,8 +291,6 @@ final public class XCScheme {
             }
         }
 
-        public var preActions: [ExecutionAction]
-        public var postActions: [ExecutionAction]
         public var buildActionEntries: [Entry]
         public var parallelizeBuild: Bool
         public var buildImplicitDependencies: Bool
@@ -273,20 +301,18 @@ final public class XCScheme {
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false) {
             self.buildActionEntries = buildActionEntries
-            self.preActions = preActions
-            self.postActions = postActions
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
+            super.init(preActions, postActions)
         }
 
-        init(element: AEXMLElement) throws {
+        override init(element: AEXMLElement) throws {
             parallelizeBuild = element.attributes["parallelizeBuildables"].map { $0 == "YES" } ?? true
             buildImplicitDependencies = element.attributes["buildImplicitDependencies"].map { $0 == "YES" } ?? true
-            preActions = try element["PreActions"].all?.map(ExecutionAction.init) ?? []
-            postActions = try element["PostActions"].all?.map(ExecutionAction.init) ?? []
             self.buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
+            try super.init(element: element)
         }
 
         fileprivate func xmlElement() -> AEXMLElement {
@@ -294,18 +320,7 @@ final public class XCScheme {
                                        value: nil,
                                        attributes: ["parallelizeBuildables": parallelizeBuild.xmlString,
                                                     "buildImplicitDependencies": buildImplicitDependencies.xmlString])
-            if !self.preActions.isEmpty {
-                let preActions = element.addChild(name: "PreActions")
-                self.preActions.forEach { (preAction) in
-                    preActions.addChild(preAction.xmlElement())
-                }
-            }
-            if !self.postActions.isEmpty {
-                let postActions = element.addChild(name: "PostActions")
-                self.postActions.forEach { (postAction) in
-                    postActions.addChild(postAction.xmlElement())
-                }
-            }
+            super.addPreActionsPostActions(element)
             let entries = element.addChild(name: "BuildActionEntries")
             buildActionEntries.forEach { (entry) in
                 entries.addChild(entry.xmlElement())
