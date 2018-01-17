@@ -93,7 +93,12 @@ public extension PBXProj.Objects {
     ///   - sourceTree: file sourceTree, default is `.group`
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
-    public func addFile(at filePath: Path, toGroup: PBXGroup, sourceTree: PBXSourceTree = .group, sourceRoot: Path) throws -> (reference: String, file: PBXFileReference) {
+    public func addFile(
+        at filePath: Path,
+        toGroup: PBXGroup,
+        sourceTree: PBXSourceTree = .group,
+        sourceRoot: Path) throws -> (reference: String, file: PBXFileReference) {
+
         guard filePath.isFile else {
             throw XCodeProjEditingError.notAFile(path: filePath)
         }
