@@ -13,7 +13,7 @@
     <a title="xcproj  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcproj Docs</a> (69% documented)</p>
+        <p><a href="index.html">xcproj Docs</a> (67% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -353,30 +353,75 @@
 <pre class="highlight swift"><code><span class="k">try</span> <span class="n">project</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyApp.xcodeproj"</span><span class="p">)</span>
 </code></pre>
 <h4 id='adding-code-home-code-group-inside-code-sources-code-group' class='heading'>Adding <code>Home</code> group inside <code>Sources</code> group</h4>
-<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">var</span> <span class="nv">sourcesGroup</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span><span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"Sources"</span><span class="p">})?</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>    
-<span class="k">let</span> <span class="nv">homeGroup</span> <span class="o">=</span> <span class="kt">PBXGroup</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="s">"xxx"</span><span class="p">,</span> <span class="nv">children</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"Home"</span><span class="p">)</span>
-<span class="n">sourcesGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">homeGroup</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">homeGroup</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">var</span> <span class="nv">sourcesGroup</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span><span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"Sources"</span> <span class="o">||</span> <span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s">"Sources"</span><span class="p">})?</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>    
+<span class="k">let</span> <span class="nv">homeGroup</span> <span class="o">=</span> <span class="kt">PBXGroup</span><span class="p">(</span><span class="nv">children</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"Home"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">groupRef</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">homeGroup</span><span class="p">,</span> <span class="s">"Home"</span><span class="p">)</span>
+<span class="n">sourcesGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">homeGroup</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">groupRef</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">groupRef</span><span class="p">)</span>
 </code></pre>
+
+<details>
+<summary>Versions <2.0</summary>
+
+&ldquo;`swift
+guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == &quot;Sources&rdquo; || $0.value.path == &ldquo;Sources&rdquo;})?.value else { return }    
+let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: &ldquo;Home&rdquo;)
+sourcesGroup.children.append(homeGroup.reference)
+project.pbxproj.objects.addObject(homeGroup)
+&ldquo;`
+
+</details>
 <h4 id='add-code-homeviewcontroller-swift-code-file-inside-code-homegroup-code' class='heading'>Add <code>HomeViewController.swift</code> file inside <code>HomeGroup</code></h4>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">homeGroup</span> <span class="o">=</span> <span class="kt">PBXGroup</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="s">"xxx"</span><span class="p">,</span> <span class="nv">children</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"Home"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">homeViewController</span> <span class="o">=</span> <span class="kt">PBXFileReference</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="s">"xxx"</span><span class="p">,</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
-<span class="n">homeGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">homeViewController</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">homeViewController</span> <span class="o">=</span> <span class="kt">PBXFileReference</span><span class="p">(</span><span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">fileRef</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">homeViewController</span><span class="p">,</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
+<span class="n">homeGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">fileRef</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">homeViewController</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">fileRef</span><span class="p">)</span>
 </code></pre>
+
+<details>
+<summary>Versions <2.0</summary>
+
+&rdquo;`swift
+let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: &ldquo;HomeViewController.swift&rdquo;, path: &ldquo;HomeViewController.swift&rdquo;)
+homeGroup.children.append(homeViewController.reference)
+project.pbxproj.objects.addObject(homeViewController)
+&ldquo;`
+
+</details>
+  
 <h4 id='add-code-homeviewcontroller-swift-code-file-to-code-myapp-code-target' class='heading'>Add <code>HomeViewController.swift</code> file to <code>MyApp</code> target</h4>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">homeViewController</span> <span class="o">=</span> <span class="kt">PBXFileReference</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="s">"xxx"</span><span class="p">,</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
-<span class="k">guard</span> <span class="k">let</span> <span class="nv">sourcesBuildPhase</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span>
+<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">let</span> <span class="nv">sourcesBuildPhase</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span>
     <span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">nativeTargets</span>
     <span class="o">.</span><span class="n">values</span>
     <span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span><span class="nv">$0</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"MyApp"</span><span class="p">})</span>
-    <span class="o">.</span><span class="nf">flatMap</span><span class="p">({</span>  <span class="n">target</span> <span class="o">-&gt;</span> <span class="kt">PBXSourcesBuildPhase</span><span class="p">?</span> <span class="k">in</span>
-        <span class="k">return</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">sourcesBuildPhases</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span> <span class="n">target</span><span class="o">.</span><span class="n">buildPhases</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span> <span class="p">})</span>
+    <span class="o">.</span><span class="nf">flatMap</span><span class="p">({</span> <span class="n">target</span> <span class="o">-&gt;</span> <span class="kt">PBXSourcesBuildPhase</span><span class="p">?</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">sourcesBuildPhases</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span> <span class="n">target</span><span class="o">.</span><span class="n">buildPhases</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">key</span><span class="p">)</span> <span class="p">})?</span><span class="o">.</span><span class="n">value</span>
     <span class="p">})</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
 <span class="c1">// PBXBuildFile is a proxy model that allows specifying some build attributes to the files</span>
-<span class="k">let</span> <span class="nv">buildFile</span> <span class="o">=</span> <span class="kt">PBXBuildFile</span><span class="p">(</span><span class="nv">reference</span><span class="p">:</span> <span class="s">"yyy"</span><span class="p">,</span> <span class="nv">fileRef</span><span class="p">:</span> <span class="n">homeViewController</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">buildFile</span><span class="p">)</span>
-<span class="n">sourcesBuildPhase</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">buildFile</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">buildFile</span> <span class="o">=</span> <span class="kt">PBXBuildFile</span><span class="p">(</span><span class="nv">fileRef</span><span class="p">:</span> <span class="n">fileRef</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">buildFileRef</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">buildFile</span><span class="p">,</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
+<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">buildFile</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">buildFileRef</span><span class="p">)</span>
+<span class="n">sourcesBuildPhase</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">buildFileRef</span><span class="p">)</span>
 </code></pre>
+
+<details>
+<summary>Versions <2.0</summary>
+
+&rdquo;`swift
+guard let sourcesBuildPhase = project.pbxproj
+    .objects.nativeTargets
+    .values
+    .first(where: {$0.name == &ldquo;MyApp&rdquo;})
+    .flatMap({  target -> PBXSourcesBuildPhase? in
+        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
+    }) else { return }
+// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
+let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
+project.pbxproj.objects.addObject(buildFile)
+sourcesBuildPhase.files.append(buildFile.reference)
+&ldquo;`
+
+</details>
 <h2 id='documentation' class='heading'>Documentation 📄</h2>
 
 <p>You can check out the documentation on the following <a href="https://xcodeswift.github.io/xcproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
