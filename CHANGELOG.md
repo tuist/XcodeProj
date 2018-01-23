@@ -2,6 +2,9 @@
 
 ## next version
 
+### Changed
+- **Breaking:** Changed the return type of some helper functions that create or fetch PBXObjects to be `ObjectReference`, which includes the reference as well as the object https://github.com/xcodeswift/xcproj/pull/218 by @yonaskolb 
+
 ## 3.0.0
 
 ### Fixed

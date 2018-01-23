@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element indicates a file reference that is used in a PBXBuildPhase (either as an include or resource).
-final public class PBXBuildFile: PBXObject, Equatable {
+final public class PBXBuildFile: PBXObject {
 
     // MARK: - Attributes
 

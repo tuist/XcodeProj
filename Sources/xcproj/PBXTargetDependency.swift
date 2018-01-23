@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for referencing other targets through content proxies.
-final public class PBXTargetDependency: PBXObject, Equatable {
+final public class PBXTargetDependency: PBXObject {
     
     // MARK: - Attributes
     
