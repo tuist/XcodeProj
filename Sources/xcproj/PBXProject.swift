@@ -1,6 +1,6 @@
 import Foundation
 
-final public class PBXProject: PBXObject, Equatable {
+final public class PBXProject: PBXObject {
     
     // MARK: - Attributes
   

@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for listing build configurations.
-final public class XCBuildConfiguration: PBXObject, Equatable {
+final public class XCBuildConfiguration: PBXObject {
    
     // MARK: - Attributes
     

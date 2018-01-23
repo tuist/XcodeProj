@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for specialized targets.
-public class PBXTarget: PBXObject, Equatable {
+public class PBXTarget: PBXObject {
 
     /// Target build configuration list.
     public var buildConfigurationList: String?

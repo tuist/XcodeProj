@@ -1,7 +1,7 @@
 import Foundation
 
 /// Class that represents a project element.
-public class PBXObject: Decodable {
+public class PBXObject: Decodable, Equatable {
 
     // MARK: - Init
     
@@ -17,6 +17,11 @@ public class PBXObject: Decodable {
     
     public static var isa: String {
         return String(describing: self)
+    }
+
+    public static func == (lhs: PBXObject,
+                           rhs: PBXObject) -> Bool {
+        return true
     }
 
     //swiftlint:disable function_body_length
