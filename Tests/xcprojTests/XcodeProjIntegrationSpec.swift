@@ -102,11 +102,11 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_add_new_group() throws {
         let project = projectiOS()!
         let groups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
-        let (reference, group) = groups[0]
+        let group = groups[0]
 
-        XCTAssertEqual(group.name, "Group")
-        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: reference))
-        XCTAssertEqual(project.pbxproj.objects.groups[reference], group)
+        XCTAssertEqual(group.object.name, "Group")
+        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: group.reference))
+        XCTAssertEqual(project.pbxproj.objects.groups[group.reference], group.object)
 
         let existingGroups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
         XCTAssertTrue(groups[0] == existingGroups[0])
@@ -115,17 +115,17 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_add_nested_group() throws {
         let project = projectiOS()!
         let groups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
-        let (reference1, group1) = groups[0]
-        let (reference2, group2) = groups[1]
+        let group1 = groups[0]
+        let group2 = groups[1]
 
-        XCTAssertEqual(group1.name, "New")
-        XCTAssertEqual(group2.name, "Group")
+        XCTAssertEqual(group1.object.name, "New")
+        XCTAssertEqual(group2.object.name, "Group")
 
-        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: reference1))
-        XCTAssertNotNil(group1.children.index(of: reference2))
+        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: group1.reference))
+        XCTAssertNotNil(group1.object.children.index(of: group2.reference))
 
-        XCTAssertEqual(project.pbxproj.objects.groups[reference1], group1)
-        XCTAssertEqual(project.pbxproj.objects.groups[reference2], group2)
+        XCTAssertEqual(project.pbxproj.objects.groups[group1.reference], group1.object)
+        XCTAssertEqual(project.pbxproj.objects.groups[group2.reference], group2.object)
 
         let existingGroups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
 
@@ -134,21 +134,21 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let newGroups = project.pbxproj.objects.addGroup(named: "New/Group1", to: project.pbxproj.rootGroup)
 
         XCTAssertTrue(newGroups[0] == existingGroups[0])
-        XCTAssertNotNil(newGroups[0].group.children.index(of: groups[1].reference))
-        XCTAssertEqual(project.pbxproj.objects.groups[newGroups[1].reference], newGroups[1].group)
+        XCTAssertNotNil(newGroups[0].object.children.index(of: groups[1].reference))
+        XCTAssertEqual(project.pbxproj.objects.groups[newGroups[1].reference], newGroups[1].object)
     }
 
     func test_add_new_file() throws {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "newfile.swift"
-        let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
-        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceRoot: fixturesPath() + "iOS")
+        let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
+        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup.object, sourceRoot: fixturesPath() + "iOS")
 
-        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.file)
-        XCTAssertEqual(file.file.name, "newfile.swift")
-        XCTAssertEqual(file.file.sourceTree, PBXSourceTree.group)
-        XCTAssertEqual(file.file.path, "../../newfile.swift")
-        XCTAssertNotNil(iOSGroup.children.index(of: file.reference))
+        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
+        XCTAssertEqual(file.object.name, "newfile.swift")
+        XCTAssertEqual(file.object.sourceTree, PBXSourceTree.group)
+        XCTAssertEqual(file.object.path, "../../newfile.swift")
+        XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
 
         let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
 
@@ -171,16 +171,16 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_add_new_build_file() throws {
         let proj = projectiOS()!.pbxproj
         let target = proj.objects.targets(named: "iOS").first!
-        let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target)!
+        let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target.object)!
         let filePath = fixturesPath() + "newfile.swift"
         let file = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
 
-        let buildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
+        let buildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
 
-        XCTAssertEqual(proj.objects.buildFiles[buildFile.reference], buildFile.file)
+        XCTAssertEqual(proj.objects.buildFiles[buildFile.reference], buildFile.object)
         XCTAssertNotNil(sourcesBuildPhase.files.index(of: buildFile.reference))
 
-        let existingBuildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
+        let existingBuildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
 
         XCTAssertTrue(existingBuildFile == buildFile)
     }
@@ -188,32 +188,32 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_fullFilePath() throws {
         let sourceRoot = fixturesPath() + "iOS"
         var proj = projectiOS()!.pbxproj
-        var iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        var iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
 
         let rootGroupPath = proj.objects.fullPath(fileElement: proj.rootGroup, reference: proj.rootProject!.mainGroup, sourceRoot: sourceRoot)
         XCTAssertEqual(rootGroupPath, sourceRoot)
 
         let filePath = fixturesPath() + "newfile.swift"
         var file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .group, sourceRoot: sourceRoot)
-        var fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
+        var fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
 
-        XCTAssertEqual(file.file.path, "../../newfile.swift")
+        XCTAssertEqual(file.object.path, "../../newfile.swift")
         XCTAssertEqual(fullFilePath, filePath)
 
         proj = projectiOS()!.pbxproj
-        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
         file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .sourceRoot, sourceRoot: sourceRoot)
-        fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
+        fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
 
-        XCTAssertEqual(file.file.path, "../newfile.swift")
+        XCTAssertEqual(file.object.path, "../newfile.swift")
         XCTAssertEqual(fullFilePath, filePath)
 
         proj = projectiOS()!.pbxproj
-        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.group
+        iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
         file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .absolute, sourceRoot: sourceRoot)
-        fullFilePath = proj.objects.fullPath(fileElement: file.file, reference: file.reference, sourceRoot: sourceRoot)
+        fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
 
-        XCTAssertEqual(file.file.path, filePath.string)
+        XCTAssertEqual(file.object.path, filePath.string)
         XCTAssertEqual(fullFilePath, filePath)
     }
 
