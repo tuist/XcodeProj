@@ -217,8 +217,8 @@ final public class XCScheme {
         }
 
         init(element: AEXMLElement) throws {
-            self.preActions = try element["PreActions"].all?.map(ExecutionAction.init) ?? []
-            self.postActions = try element["PostActions"].all?.map(ExecutionAction.init) ?? []
+            self.preActions = try element["PreActions"]["ExecutionAction"].all?.map(ExecutionAction.init) ?? []
+            self.postActions = try element["PostActions"]["ExecutionAction"].all?.map(ExecutionAction.init) ?? []
         }
 
         fileprivate func addPreActionsPostActions(_ element: AEXMLElement) {
