@@ -183,7 +183,7 @@ final public class XCScheme {
         init(element: AEXMLElement) throws {
             self.scriptText = element["ActionContent"].attributes["scriptText"] ?? ""
             self.title = element["ActionContent"].attributes["title"] ?? "Run Script"
-            self.environmentBuildable = try BuildableReference(element: element["ActionContent"]["EnvironmentBuildable"]["BuildableReference"])
+            self.environmentBuildable = try? BuildableReference(element: element["ActionContent"]["EnvironmentBuildable"]["BuildableReference"])
         }
 
         private static let ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction"
