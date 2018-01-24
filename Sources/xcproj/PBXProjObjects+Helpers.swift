@@ -361,10 +361,10 @@ extension PBXProj.Objects {
     /// - Parameter reference: configuration list reference.
     /// - Returns: target or project with the given configuration list.
     func objectWithConfigurationList(reference: String) -> ObjectReference<PBXObject>? {
-        if let project: ObjectReference<PBXObject> = projects.first(where: { $0.value.buildConfigurationList == reference}).map(ObjectReference.init) {
-            return project
-        }
-        return nativeTargets.first(where: { $0.value.buildConfigurationList == reference}).map(ObjectReference.init)
+        return projects.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
+            nativeTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
+            aggregateTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
+            legacyTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init)
     }
     
 }
