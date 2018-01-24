@@ -24,6 +24,8 @@
 		BF1993286802 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR4384942301 /* PBXHeadersBuildPhase.swift */; };
 		BF2033307201 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8483796101 /* PBXFileReference.swift */; };
 		BF2033307202 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR8483796101 /* PBXFileReference.swift */; };
+		BF2203003301 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5708343501 /* ObjectReference.swift */; };
+		BF2203003302 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR5708343501 /* ObjectReference.swift */; };
 		BF2241362001 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6006730201 /* Dictionary+Extras.swift */; };
 		BF2241362002 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR6006730201 /* Dictionary+Extras.swift */; };
 		BF2311546501 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR3255351901 /* Bool+Extras.swift */; };
@@ -165,6 +167,7 @@
 		FR5296652601 /* PBXProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
 		FR5395076701 /* XCWorkspaceDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataGroup.swift; sourceTree = "<group>"; };
 		FR5460675201 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
+		FR5708343501 /* ObjectReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectReference.swift; sourceTree = "<group>"; };
 		FR6006730201 /* Dictionary+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extras.swift"; sourceTree = "<group>"; };
 		FR6189630601 /* XCWorkspaceDataFileRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataFileRef.swift; sourceTree = "<group>"; };
 		FR6357036901 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
@@ -267,6 +270,7 @@
 				FR6006730201 /* Dictionary+Extras.swift */,
 				FR8599247801 /* JSONDecoding.swift */,
 				FR6357036901 /* KeyedDecodingContainer+Additions.swift */,
+				FR5708343501 /* ObjectReference.swift */,
 				FR3952162601 /* PBXAggregateTarget.swift */,
 				FR6980748501 /* PBXBuildFile.swift */,
 				FR4128075701 /* PBXBuildPhase.swift */,
@@ -446,6 +450,7 @@
 				BF2241362001 /* Dictionary+Extras.swift in Sources */,
 				BF6518149701 /* JSONDecoding.swift in Sources */,
 				BF1286225401 /* KeyedDecodingContainer+Additions.swift in Sources */,
+				BF2203003301 /* ObjectReference.swift in Sources */,
 				BF3873193301 /* PBXAggregateTarget.swift in Sources */,
 				BF4432284801 /* PBXBuildFile.swift in Sources */,
 				BF6638647201 /* PBXBuildPhase.swift in Sources */,
@@ -510,6 +515,7 @@
 				BF2241362002 /* Dictionary+Extras.swift in Sources */,
 				BF6518149702 /* JSONDecoding.swift in Sources */,
 				BF1286225402 /* KeyedDecodingContainer+Additions.swift in Sources */,
+				BF2203003302 /* ObjectReference.swift in Sources */,
 				BF3873193302 /* PBXAggregateTarget.swift in Sources */,
 				BF4432284802 /* PBXBuildFile.swift in Sources */,
 				BF6638647202 /* PBXBuildPhase.swift in Sources */,

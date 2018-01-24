@@ -2,6 +2,11 @@
 
 ## next version
 
+### Changed
+- **Breaking:** Changed the return type of some helper functions that create or fetch PBXObjects to be `ObjectReference`, which includes the reference as well as the object https://github.com/xcodeswift/xcproj/pull/218 by @yonaskolb 
+
+## 3.0.0
+
 ### Fixed
 - Fix Xcode 9.2 warning https://github.com/xcodeswift/xcproj/pull/209 by @keith
 - macOS CLI targets now have a nil extension, instead of an empty string https://github.com/xcodeswift/xcproj/pull/208 by @keith
@@ -12,6 +17,7 @@
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
 - Improved README examples. https://github.com/xcodeswift/xcproj/pull/212 by @ilyapuchka
 - Added methods to get paths to workspace, project and breakpoints and shemes files, added public methods to write them separatery. https://github.com/xcodeswift/xcproj/pull/215 by @ilyapuchka
+- Added helper methods for adding source file to the project. https://github.com/xcodeswift/xcproj/pull/213 by @ilyapuchka
 
 ## 2.0.0
 

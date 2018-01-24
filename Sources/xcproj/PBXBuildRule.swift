@@ -1,7 +1,7 @@
 import Foundation
 
 /// A PBXBuildRule is used to specify a method for transforming an input file in to an output file(s).
-final public class PBXBuildRule: PBXObject, Equatable {
+final public class PBXBuildRule: PBXObject {
 
     // MARK: - Attributes
 
