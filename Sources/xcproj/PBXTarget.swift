@@ -95,7 +95,12 @@ public class PBXTarget: PBXObject {
                 let comment = proj.objects.buildPhaseName(buildPhaseReference: buildPhase)
                 return .string(CommentedString(buildPhase, comment: comment))
         })
-        dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
+
+        // Xcode doesn't write empty PBXLegacyTarget buildRules
+        if !(self is PBXLegacyTarget) || !buildRules.isEmpty {
+            dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
+        }
+        
         dictionary["dependencies"] = .array(dependencies.map {.string(CommentedString($0, comment: PBXTargetDependency.isa))})
         dictionary["name"] = .string(CommentedString(name))
         if let productName = productName {
