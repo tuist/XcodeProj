@@ -56,6 +56,10 @@ let attributesOrder: [String: [String]] = [
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
         "enableTestabilityWhenProfilingTests"
+    ],
+    "ActionContent": [
+        "title",
+        "scriptText"
     ]
 ]
 
