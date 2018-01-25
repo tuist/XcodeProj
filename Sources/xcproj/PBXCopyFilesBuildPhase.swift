@@ -47,7 +47,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 files: [String] = [],
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
+                runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
@@ -78,8 +78,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.dstPath = try container.decodeIfPresent(.dstPath)
-        let dstSubfolderSpecString: String? = try container.decodeIfPresent(.dstSubfolderSpec)
-        self.dstSubfolderSpec = dstSubfolderSpecString.flatMap(UInt.init).flatMap(SubFolder.init)
+        self.dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolder.init)
         self.name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }

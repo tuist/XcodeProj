@@ -21,7 +21,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellScript: String?
 
     /// Show environment variables in the logs.
-    public var showEnvVarsInLog: UInt?
+    public var showEnvVarsInLog: Bool
 
     public override var buildPhase: BuildPhase {
         return .runScript
@@ -45,8 +45,8 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
                 shellPath: String = "/bin/sh",
                 shellScript: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: UInt = 0,
-                showEnvVarsInLog: UInt? = nil) {
+                runOnlyForDeploymentPostprocessing: Bool = false,
+                showEnvVarsInLog: Bool = false) {
         self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
@@ -76,8 +76,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
         self.shellPath = try container.decodeIfPresent(.shellPath)
         self.shellScript = try container.decodeIfPresent(.shellScript)
-        let showEnvVarsInLogString: String? = try container.decodeIfPresent(.showEnvVarsInLog)
-        self.showEnvVarsInLog = showEnvVarsInLogString.flatMap(UInt.init)
+        self.showEnvVarsInLog = try container.decodeIntBool(.showEnvVarsInLog)
         try super.init(from: decoder)
     }
 
@@ -114,9 +113,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        if let showEnvVarsInLog = showEnvVarsInLog {
-            dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog)"))
-        }
+        dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
         return (key: CommentedString(reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
 

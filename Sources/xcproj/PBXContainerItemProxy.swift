@@ -59,8 +59,7 @@ final public class PBXContainerItemProxy: PBXObject {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.containerPortal = try container.decode(.containerPortal)
-        let proxyTypeString: String? = try container.decodeIfPresent(.proxyType)
-        self.proxyType = proxyTypeString.flatMap(UInt.init).flatMap(ProxyType.init)
+        self.proxyType = try container.decodeIntIfPresent(.proxyType).flatMap(ProxyType.init)
         self.remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString)
         self.remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)

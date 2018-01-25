@@ -68,8 +68,7 @@ final public class PBXBuildRule: PBXObject {
         self.compilerSpec = try container.decodeIfPresent(.compilerSpec) ?? ""
         self.filePatterns = try container.decodeIfPresent(.filePatterns)
         self.fileType = try container.decodeIfPresent(.fileType) ?? ""
-        let isEditable: String? = try container.decodeIfPresent(.isEditable)
-        self.isEditable = (isEditable.flatMap(UInt.init) ?? 0) == 1
+        self.isEditable = try container.decodeIntBool(.isEditable)
         self.name = try container.decodeIfPresent(.name)
         self.outputFiles = try container.decodeIfPresent(.outputFiles) ?? []
         self.outputFilesCompilerFlags = try container.decodeIfPresent(.outputFilesCompilerFlags)
@@ -116,7 +115,7 @@ extension PBXBuildRule: PlistSerializable {
             dictionary["filePatterns"] = .string(CommentedString(filePatterns))
         }
         dictionary["fileType"] = .string(CommentedString(fileType))
-        dictionary["isEditable"] = .string(CommentedString("\(isEditable ? 1 : 0)"))
+        dictionary["isEditable"] = .string(CommentedString("\(isEditable.int)"))
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }

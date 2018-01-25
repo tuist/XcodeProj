@@ -8,13 +8,13 @@ final public class PBXGroup: PBXFileElement {
     public var children: [String]
 
     /// Element uses tabs.
-    public var usesTabs: Int?
+    public var usesTabs: Bool?
     
     /// Element indent width.
-    public var indentWidth: Int?
+    public var indentWidth: UInt?
     
     /// Element tab width.
-    public var tabWidth: Int?
+    public var tabWidth: UInt?
 
     // MARK: - Init
 
@@ -30,9 +30,9 @@ final public class PBXGroup: PBXFileElement {
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil,
-                usesTabs: Int? = nil,
-                indentWidth: Int? = nil,
-                tabWidth: Int? = nil) {
+                usesTabs: Bool? = nil,
+                indentWidth: UInt? = nil,
+                tabWidth: UInt? = nil) {
         self.children = children
         self.usesTabs = usesTabs
         self.indentWidth = indentWidth
@@ -63,12 +63,9 @@ final public class PBXGroup: PBXFileElement {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = (try container.decodeIfPresent(.children)) ?? []
-        let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
-        self.usesTabs = usesTabString.flatMap(Int.init)
-        let indentWidthString: String? = try container.decodeIfPresent(.indentWidth)
-        self.indentWidth = indentWidthString.flatMap(Int.init)
-        let tabWidthString: String? = try container.decodeIfPresent(.tabWidth)
-        self.tabWidth = tabWidthString.flatMap(Int.init)
+        self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
+        self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
+        self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
         try super.init(from: decoder)
     }
     
@@ -81,9 +78,13 @@ final public class PBXGroup: PBXFileElement {
             let comment = proj.objects.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
-        [("usesTabs" as CommentedString, usesTabs),
-         ("indentWidth", indentWidth),
-         ("tabWidth", tabWidth)].forEach { name, valueOption in
+        if let usesTabs = usesTabs {
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
+        }
+
+        [("indentWidth" as CommentedString, indentWidth),
+         ("tabWidth", tabWidth)]
+            .forEach { name, valueOption in
             if let value = valueOption {
                 dictionary[name] = .string(CommentedString("\(value)"))
             }

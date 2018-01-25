@@ -9,4 +9,9 @@ public extension Bool {
         return self ? "YES": "NO"
     }
 
+    /// Returns a 1 for true and 0 for false
+    var int: UInt {
+        return self ? 1 : 0
+    }
+
 }

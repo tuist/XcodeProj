@@ -8,7 +8,7 @@ final public class PBXFileReference: PBXFileElement {
     // MARK: - Attributes
     
     /// Element file encoding.
-    public var fileEncoding: Int?
+    public var fileEncoding: UInt?
     
     /// Element explicit file type.
     public var explicitFileType: String?
@@ -17,13 +17,13 @@ final public class PBXFileReference: PBXFileElement {
     public var lastKnownFileType: String?
     
     /// Element include in index.
-    public var includeInIndex: Int?
+    public var includeInIndex: Bool?
     
     /// Element uses tabs.
-    public var usesTabs: Int?
+    public var usesTabs: Bool?
     
     /// Element line ending.
-    public var lineEnding: Int?
+    public var lineEnding: UInt?
     
     /// Element xc language specification identifier
     public var xcLanguageSpecificationIdentifier: String?
@@ -32,13 +32,13 @@ final public class PBXFileReference: PBXFileElement {
     
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
-                fileEncoding: Int? = nil,
+                fileEncoding: UInt? = nil,
                 explicitFileType: String? = nil,
                 lastKnownFileType: String? = nil,
                 path: String? = nil,
-                includeInIndex: Int? = nil,
-                usesTabs: Int? = nil,
-                lineEnding: Int? = nil,
+                includeInIndex: Bool? = nil,
+                usesTabs: Bool? = nil,
+                lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
@@ -78,16 +78,12 @@ final public class PBXFileReference: PBXFileElement {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let fileEncodingString: String? = try container.decodeIfPresent(.fileEncoding)
-        self.fileEncoding = fileEncodingString.flatMap(Int.init)
+        self.fileEncoding = try container.decodeIntIfPresent(.fileEncoding)
         self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
-        let includeInIndexString: String? = try container.decodeIfPresent(.includeInIndex)
-        self.includeInIndex = includeInIndexString.flatMap({Int($0)})
-        let usesTabString: String? = try container.decodeIfPresent(.usesTabs)
-        self.usesTabs = usesTabString.flatMap(Int.init)
-        let lineEndingString: String? = try container.decodeIfPresent(.lineEnding)
-        self.lineEnding = lineEndingString.flatMap(Int.init)
+        self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
+        self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
+        self.lineEnding = try container.decodeIntIfPresent(.lineEnding)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
         try super.init(from: decoder)
     }
@@ -110,10 +106,10 @@ final public class PBXFileReference: PBXFileElement {
             dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
         }
         if let includeInIndex = includeInIndex {
-            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex)"))
+            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
         if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
         }
         if let lineEnding = lineEnding {
             dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))

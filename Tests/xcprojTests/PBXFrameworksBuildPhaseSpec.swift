@@ -9,7 +9,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXFrameworksBuildPhase(files: ["33"],
-                                          runOnlyForDeploymentPostprocessing: 0)
+                                          runOnlyForDeploymentPostprocessing: false)
     }
 
     func test_isa_returnsTheRightValue() {
@@ -18,7 +18,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
 
     func test_init_initializesTheBuildPhaseWithTheCorrectAttributes() {
         XCTAssertEqual(subject.files, ["33"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
+        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_init_fails_whenTheFilesAreMissing() {
@@ -34,7 +34,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
 
     func test_equals_returnsTheCorrectValue() {
         let another = PBXFrameworksBuildPhase(files: ["33"],
-                                              runOnlyForDeploymentPostprocessing: 0)
+                                              runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
 

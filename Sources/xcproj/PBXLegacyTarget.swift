@@ -53,8 +53,7 @@ final public class PBXLegacyTarget: PBXTarget {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.buildToolPath = try container.decodeIfPresent(.buildToolPath)
         self.buildArgumentsString = try container.decodeIfPresent(.buildArgumentsString)
-        let passBuildSettingsInEnvironmentString: String? = try container.decodeIfPresent(.passBuildSettingsInEnvironment)
-        self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironmentString.flatMap(Int.init).map { $0 == 1 } ?? false
+        self.passBuildSettingsInEnvironment = try container.decodeIntBool(.passBuildSettingsInEnvironment)
         self.buildWorkingDirectory = try container.decodeIfPresent(.buildWorkingDirectory)
         try super.init(from: decoder)
     }
@@ -82,7 +81,7 @@ final public class PBXLegacyTarget: PBXTarget {
                     PlistValue.string(CommentedString(buildArgumentsString))
             }
             dict["passBuildSettingsInEnvironment"] =
-                PlistValue.string(passBuildSettingsInEnvironment ? "1" : "0")
+                PlistValue.string(CommentedString(passBuildSettingsInEnvironment.int.description))
             if let buildWorkingDirectory = buildWorkingDirectory {
                 dict["buildWorkingDirectory"] =
                     PlistValue.string(CommentedString(buildWorkingDirectory))
