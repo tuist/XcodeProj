@@ -81,7 +81,7 @@ final public class PBXLegacyTarget: PBXTarget {
                     PlistValue.string(CommentedString(buildArgumentsString))
             }
             dict["passBuildSettingsInEnvironment"] =
-                PlistValue.string(passBuildSettingsInEnvironment ? "1" : "0")
+                PlistValue.string(CommentedString(passBuildSettingsInEnvironment.int.description))
             if let buildWorkingDirectory = buildWorkingDirectory {
                 dict["buildWorkingDirectory"] =
                     PlistValue.string(CommentedString(buildWorkingDirectory))

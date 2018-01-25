@@ -79,7 +79,7 @@ final public class PBXGroup: PBXFileElement {
             return .string(CommentedString(fileReference, comment: comment))
         }))
         if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
         }
 
         [("indentWidth" as CommentedString, indentWidth),

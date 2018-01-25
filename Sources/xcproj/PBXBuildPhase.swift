@@ -61,7 +61,7 @@ public class PBXBuildPhase: PBXObject {
             let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
             return .string(CommentedString(fileReference, comment: comment))
         })
-        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing)"))
+        dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
     }
 }

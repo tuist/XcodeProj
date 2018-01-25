@@ -106,10 +106,10 @@ final public class PBXFileReference: PBXFileElement {
             dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
         }
         if let includeInIndex = includeInIndex {
-            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex)"))
+            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
         if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs)"))
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
         }
         if let lineEnding = lineEnding {
             dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))

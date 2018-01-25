@@ -115,7 +115,7 @@ extension PBXBuildRule: PlistSerializable {
             dictionary["filePatterns"] = .string(CommentedString(filePatterns))
         }
         dictionary["fileType"] = .string(CommentedString(fileType))
-        dictionary["isEditable"] = .string(CommentedString("\(isEditable ? 1 : 0)"))
+        dictionary["isEditable"] = .string(CommentedString("\(isEditable.int)"))
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }

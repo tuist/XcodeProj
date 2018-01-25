@@ -113,7 +113,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog)"))
+        dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
         return (key: CommentedString(reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
 
