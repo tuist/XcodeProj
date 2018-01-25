@@ -14,7 +14,7 @@
     <a title="XCConfigurationList Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcproj Docs</a> (67% documented)</p>
+        <p><a href="../index.html">xcproj Docs</a> (63% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -126,6 +126,9 @@
             <a href="../Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/ObjectReference.html">ObjectReference</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a>
               </li>
               <li class="nav-group-task">
@@ -197,7 +200,7 @@
             <h1>XCConfigurationList</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                 </div>
               </div>
@@ -244,9 +247,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSuv"></a>
+                    <a name="/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSbv"></a>
                     <a name="//apple_ref/swift/Property/defaultConfigurationIsVisible" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSuv">defaultConfigurationIsVisible</a>
+                    <a class="token" href="#/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSbv">defaultConfigurationIsVisible</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -261,7 +264,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">defaultConfigurationIsVisible</span><span class="p">:</span> <span class="kt">UInt</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">defaultConfigurationIsVisible</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -309,9 +312,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj19XCConfigurationListCACSaySSG19buildConfigurations_SSSg24defaultConfigurationNameSu0fG9IsVisibletcfc"></a>
+                    <a name="/s:6xcproj19XCConfigurationListCACSaySSG19buildConfigurations_SSSg24defaultConfigurationNameSb0fG9IsVisibletcfc"></a>
                     <a name="//apple_ref/swift/Method/init(buildConfigurations:defaultConfigurationName:defaultConfigurationIsVisible:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj19XCConfigurationListCACSaySSG19buildConfigurations_SSSg24defaultConfigurationNameSu0fG9IsVisibletcfc">init(buildConfigurations:defaultConfigurationName:defaultConfigurationIsVisible:)</a>
+                    <a class="token" href="#/s:6xcproj19XCConfigurationListCACSaySSG19buildConfigurations_SSSg24defaultConfigurationNameSb0fG9IsVisibletcfc">init(buildConfigurations:defaultConfigurationName:defaultConfigurationIsVisible:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -328,7 +331,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">buildConfigurations</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
             <span class="n"><a href="../Classes/XCConfigurationList.html#/s:6xcproj19XCConfigurationListC24defaultConfigurationNameSSSgv">defaultConfigurationName</a></span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="n"><a href="../Classes/XCConfigurationList.html#/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSuv">defaultConfigurationIsVisible</a></span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+            <span class="n"><a href="../Classes/XCConfigurationList.html#/s:6xcproj19XCConfigurationListC29defaultConfigurationIsVisibleSbv">defaultConfigurationIsVisible</a></span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -374,33 +377,6 @@
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:s9EquatableP2eeoiSbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s9EquatableP2eeoiSbx_xtFZ">==(_:_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">XCConfigurationList</span><span class="p">,</span>
-                       <span class="nv">rhs</span><span class="p">:</span> <span class="kt">XCConfigurationList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>

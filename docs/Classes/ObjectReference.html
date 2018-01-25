@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PBXHeadersBuildPhase Class Reference</title>
+    <title>ObjectReference Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/PBXHeadersBuildPhase" class="dashAnchor"></a>
-    <a title="PBXHeadersBuildPhase Class Reference"></a>
+    <a name="//apple_ref/swift/Class/ObjectReference" class="dashAnchor"></a>
+    <a title="ObjectReference Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">xcproj Docs</a> (63% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">xcproj Reference</a>
         <img id="carat" src="../img/carat.png" />
-        PBXHeadersBuildPhase Class Reference
+        ObjectReference Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -197,14 +197,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>PBXHeadersBuildPhase</h1>
+            <h1>ObjectReference</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ObjectReference</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>This is the element for the framework headers build phase.</p>
+            <p>contains a PBXObject as well as it&rsquo;s reference</p>
 
           </section>
           <section class="section task-group-section">
@@ -213,9 +213,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj20PBXHeadersBuildPhaseC05buildD0AA0cD0Ov"></a>
-                    <a name="//apple_ref/swift/Property/buildPhase" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj20PBXHeadersBuildPhaseC05buildD0AA0cD0Ov">buildPhase</a>
+                    <a name="/s:s9EquatableP2eeoiSbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s9EquatableP2eeoiSbx_xtFZ">==(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -229,7 +229,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="k">var</span> <span class="nv">buildPhase</span><span class="p">:</span> <span class="kt"><a href="../Other Enums.html#/s:6xcproj10BuildPhaseO">BuildPhase</a></span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">ObjectReference</span><span class="p">,</span>
+                       <span class="nv">rhs</span><span class="p">:</span> <span class="kt">ObjectReference</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

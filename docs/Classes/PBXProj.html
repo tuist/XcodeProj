@@ -14,7 +14,7 @@
     <a title="PBXProj Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcproj Docs</a> (67% documented)</p>
+        <p><a href="../index.html">xcproj Docs</a> (63% documented)</p>
         <p class="header-right"><a href="https://github.com/xcodeswift/xcproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -126,6 +126,9 @@
             <a href="../Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Classes/ObjectReference.html">ObjectReference</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a>
               </li>
               <li class="nav-group-task">
@@ -217,9 +220,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjC14archiveVersionSiv"></a>
+                    <a name="/s:6xcproj7PBXProjC14archiveVersionSuv"></a>
                     <a name="//apple_ref/swift/Property/archiveVersion" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjC14archiveVersionSiv">archiveVersion</a>
+                    <a class="token" href="#/s:6xcproj7PBXProjC14archiveVersionSuv">archiveVersion</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -234,7 +237,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">UInt</span></code></pre>
 
                         </div>
                       </div>
@@ -244,9 +247,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjC13objectVersionSiv"></a>
+                    <a name="/s:6xcproj7PBXProjC13objectVersionSuv"></a>
                     <a name="//apple_ref/swift/Property/objectVersion" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjC13objectVersionSiv">objectVersion</a>
+                    <a class="token" href="#/s:6xcproj7PBXProjC13objectVersionSuv">objectVersion</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -261,7 +264,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">UInt</span></code></pre>
 
                         </div>
                       </div>
@@ -325,9 +328,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(objectVersion:rootObject:archiveVersion:classes:objects:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj7PBXProjCACSi13objectVersion_SS10rootObjectSi07archiveD0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc">init(objectVersion:rootObject:archiveVersion:classes:objects:)</a>
+                    <a name="/s:6xcproj7PBXProjCACSS10rootObject_Su13objectVersionSu07archiveF0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rootObject:objectVersion:archiveVersion:classes:objects:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj7PBXProjCACSS10rootObject_Su13objectVersionSu07archiveF0s10DictionaryVySSypG7classesAHySSAA9PBXObjectCG7objectstcfc">init(rootObject:objectVersion:archiveVersion:classes:objects:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -342,9 +345,9 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-            <span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-            <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rootObject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">objectVersion</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nv">archiveVersion</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="nv">classes</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:],</span>
             <span class="nv">objects</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
 
@@ -357,24 +360,24 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>objectVersion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>project object version.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
                                 <em>rootObject</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
                                   <p>project root object.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objectVersion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>project object version.</p>
                                 </div>
                               </td>
                             </tr>
