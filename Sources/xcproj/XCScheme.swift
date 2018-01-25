@@ -174,9 +174,9 @@ final public class XCScheme {
         public var scriptText: String
         public var environmentBuildable: BuildableReference?
 
-        public init(scriptText: String, title: String? = nil, environmentBuildable: BuildableReference? = nil) {
+        public init(scriptText: String, title: String = "Run Script", environmentBuildable: BuildableReference? = nil) {
             self.scriptText = scriptText
-            self.title = title ?? "Run Script"
+            self.title = title
             self.environmentBuildable = environmentBuildable
         }
 
