@@ -151,6 +151,7 @@ fileprivate let fileTypeHash: [String: String] = [
     "sks": "file.sks",
     "storyboard": "file.storyboard",
     "strings": "text.plist.strings",
+    "stringsdict": "text.plist.strings",
     "swift": "sourcecode.swift",
     "xcassets": "folder.assetcatalog",
     "xcconfig": "text.xcconfig",

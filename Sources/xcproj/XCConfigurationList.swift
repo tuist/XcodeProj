@@ -78,8 +78,8 @@ extension XCConfigurationList: PlistSerializable {
         let objectReference = proj.objects.objectWithConfigurationList(reference: reference)
         if let project = objectReference?.object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
-        } else if let target = objectReference?.object as? PBXNativeTarget {
-            return "Build configuration list for PBXNativeTarget \"\(target.name)\""
+        } else if let target = objectReference?.object as? PBXTarget {
+            return "Build configuration list for \(type(of: target).isa) \"\(target.name)\""
         }
         return nil
     }
