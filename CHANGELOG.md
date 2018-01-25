@@ -4,7 +4,7 @@
 
 ### 4.0.0
 
-### Changed
+### Added
 - Added support for scheme pre-actions and post-actions https://github.com/xcodeswift/xcproj/pull/217 by @kastiglione
 
 ### Changed
