@@ -13,7 +13,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
                                               name: "name",
                                               buildActionMask: 4,
                                               files: ["33"],
-                                              runOnlyForDeploymentPostprocessing: 0)
+                                              runOnlyForDeploymentPostprocessing: false)
     }
 
     func test_subFolder_absolutePath_hasTheCorrectValue() {
@@ -60,7 +60,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         XCTAssertEqual(subject.dstSubfolderSpec, .absolutePath)
         XCTAssertEqual(subject.buildActionMask, 4)
         XCTAssertEqual(subject.files, ["33"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
+        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_init_fails_whenDstPathIsMissing() {
@@ -128,7 +128,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
                                              name: "name",
                                              buildActionMask: 4,
                                              files: ["33"],
-                                             runOnlyForDeploymentPostprocessing: 0)
+                                             runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
 

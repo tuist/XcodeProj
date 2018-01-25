@@ -9,12 +9,12 @@ final class PBXRezBuildPhaseSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXRezBuildPhase(files: ["123"],
-                                   runOnlyForDeploymentPostprocessing: 0)
+                                   runOnlyForDeploymentPostprocessing: false)
     }
 
     func test_init_initializesTheBuildPhaseWithTheRightValues() {
         XCTAssertEqual(subject.files, ["123"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
+        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_isa_returnsTheCorrectValue() {
@@ -23,7 +23,7 @@ final class PBXRezBuildPhaseSpec: XCTestCase {
 
     func test_equals_returnsTheCorrectValue() {
         let another = PBXResourcesBuildPhase(files: ["123"],
-                                             runOnlyForDeploymentPostprocessing: 0)
+                                             runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
 }

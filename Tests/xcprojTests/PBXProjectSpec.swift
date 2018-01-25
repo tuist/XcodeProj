@@ -42,7 +42,7 @@ final class PBXProjectSpec: XCTestCase {
     }
 
     func test_plistKeyAndValue() {
-        let proj = PBXProj(objectVersion: 1, rootObject: "", archiveVersion: 1)
+        let proj = PBXProj(rootObject: "", objectVersion: 1, archiveVersion: 1)
         let (_, plistValue) = subject.plistKeyAndValue(proj: proj, reference: "ref")
         guard let v = plistValue.dictionary?["buildConfigurationList"]?.string else {
             XCTFail()
@@ -105,8 +105,8 @@ final class PBXProjectSpec: XCTestCase {
                  sourceTree: .group,
                  name: "Foo")
 
-        let proj = PBXProj(objectVersion: 48,
-                rootObject: "rootObject",
+        let proj = PBXProj(rootObject: "rootObject",
+                objectVersion: 48,
                 archiveVersion: 1,
                 classes: [:],
                 objects: ["group": productsGroup])

@@ -35,7 +35,7 @@ final class PBXGroupSpec: XCTestCase {
         let withUsesTabs = PBXGroup(children: ["333"],
                                     sourceTree: .group,
                                     name: "name",
-                                    usesTabs: 1)
+                                    usesTabs: true)
         XCTAssertFalse(withUsesTabs == subject)
     }
 

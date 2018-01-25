@@ -11,7 +11,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         super.setUp()
         subject = PBXHeadersBuildPhase(files: ["333"],
                                        buildActionMask: 0,
-                                       runOnlyForDeploymentPostprocessing: 0)
+                                       runOnlyForDeploymentPostprocessing: false)
     }
 
     func test_isa_returnsTheCorrectValue() {
@@ -21,7 +21,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_init_initializesTheBuildPhaseWithTheRightAttributes() {
         XCTAssertEqual(subject.buildActionMask, 0)
         XCTAssertEqual(subject.files, ["333"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, 0)
+        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_init_failsWhenTheBuildActionMaskIsMissing() {
@@ -60,7 +60,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
     func test_equals_returnsTheCorrectValue() {
         let another = PBXHeadersBuildPhase(files: ["333"],
                                            buildActionMask: 0,
-                                           runOnlyForDeploymentPostprocessing: 0)
+                                           runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
 

@@ -228,10 +228,10 @@ final public class PBXProj: Decodable {
     public let objects: Objects
 
     /// Project archive version.
-    public var archiveVersion: Int
+    public var archiveVersion: UInt
 
     /// Project object version.
-    public var objectVersion: Int
+    public var objectVersion: UInt
 
     /// Project classes.
     public var classes: [String: Any]
@@ -242,14 +242,14 @@ final public class PBXProj: Decodable {
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
-    ///   - objectVersion: project object version.
     ///   - rootObject: project root object.
+    ///   - objectVersion: project object version.
     ///   - archiveVersion: project archive version.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(objectVersion: Int,
-                rootObject: String,
-                archiveVersion: Int = 1,
+    public init(rootObject: String,
+                objectVersion: UInt = 0,
+                archiveVersion: UInt = 1,
                 classes: [String: Any] = [:],
                 objects: [String: PBXObject] = [:]) {
         self.archiveVersion = archiveVersion
@@ -271,11 +271,9 @@ final public class PBXProj: Decodable {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let archiveVersionString: String? = try container.decodeIfPresent(.archiveVersion)
-        self.archiveVersion = archiveVersionString.flatMap(Int.init) ?? 1
-        let objectVersionString: String = try container.decode(.objectVersion)
-        self.objectVersion = Int(objectVersionString) ?? 0
         self.rootObject = try container.decode(.rootObject)
+        self.objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
+        self.archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         self.classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]        
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]

@@ -6,9 +6,6 @@ public class PBXBuildPhase: PBXObject {
     /// Default build action mask.
     public static let defaultBuildActionMask: UInt = 2147483647
 
-    /// Default runOnlyForDeploymentPostprocessing value.
-    public static let defaultRunOnlyForDeploymentPostprocessing: UInt = 0
-
     /// Element build action mask.
     public var buildActionMask: UInt
 
@@ -16,7 +13,7 @@ public class PBXBuildPhase: PBXObject {
     public var files: [String]
 
     /// Element run only for deployment post processing value.
-    public var runOnlyForDeploymentPostprocessing: UInt
+    public var runOnlyForDeploymentPostprocessing: Bool
 
     /// The build phase type of the build phase
     public var buildPhase: BuildPhase {
@@ -25,7 +22,7 @@ public class PBXBuildPhase: PBXObject {
 
     public init(files: [String] = [],
                 buildActionMask: UInt = defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: UInt = 0) {
+                runOnlyForDeploymentPostprocessing: Bool = false) {
         self.files = files
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
@@ -42,11 +39,9 @@ public class PBXBuildPhase: PBXObject {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let buildActionMaskString: String? = try container.decodeIfPresent(.buildActionMask)
-        self.buildActionMask = buildActionMaskString.flatMap(UInt.init) ?? PBXBuildPhase.defaultBuildActionMask
+        self.buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
         self.files = try container.decodeIfPresent(.files) ?? []
-        let runOnlyForDeploymentPostprocessingString: String? = try container.decodeIfPresent(.runOnlyForDeploymentPostprocessing)
-        self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessingString.flatMap(UInt.init) ?? 0
+        self.runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
         try super.init(from: decoder)
     }
 

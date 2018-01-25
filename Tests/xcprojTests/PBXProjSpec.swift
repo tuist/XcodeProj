@@ -5,13 +5,13 @@ import xcproj
 
 extension PBXProj {
 
-    static func testData(archiveVersion: Int = 0,
-                objectVersion: Int = 1,
+    static func testData(archiveVersion: UInt = 0,
+                objectVersion: UInt = 1,
                 rootObject: String = "rootObject",
                 classes: [String: Any] = [:],
                 objects: [String: PBXObject] = [:]) -> PBXProj {
-        return PBXProj(objectVersion: objectVersion,
-                       rootObject: rootObject,
+        return PBXProj(rootObject: rootObject,
+                       objectVersion: objectVersion,
                        archiveVersion: archiveVersion,
                        classes: classes,
                        objects: objects)
@@ -27,8 +27,8 @@ final class PBXProjSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         object = PBXBuildFile(fileRef: "333")
-        subject = PBXProj(objectVersion: 46,
-                          rootObject: "root",
+        subject = PBXProj(rootObject: "root",
+                          objectVersion: 46,
                           archiveVersion: 1,
                           classes: [:],
                           objects: ["ref": object])
@@ -47,7 +47,7 @@ final class PBXProjSpec: XCTestCase {
     }
 
     func test_buildPhases_returnsAllBuildPhases() {
-        let subject = PBXProj(objectVersion: 0, rootObject: "root")
+        let subject = PBXProj(rootObject: "root")
         subject.objects.addObject(PBXCopyFilesBuildPhase(), reference: "ref1")
         subject.objects.addObject(PBXSourcesBuildPhase(), reference: "ref2")
         subject.objects.addObject(PBXShellScriptBuildPhase(files: [], inputPaths: [], outputPaths: [], shellScript: nil), reference: "ref3")

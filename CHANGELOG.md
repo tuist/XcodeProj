@@ -4,6 +4,7 @@
 
 ### Changed
 - **Breaking:** Changed the return type of some helper functions that create or fetch PBXObjects to be `ObjectReference`, which includes the reference as well as the object https://github.com/xcodeswift/xcproj/pull/218 by @yonaskolb 
+- **Breaking:** Changed some `Int` properties into `Bool` or `UInt` https://github.com/xcodeswift/xcproj/pull/221 by @yonaskolb 
 - Changed the writing of some properties to minimise diffs when opening projects in Xcode https://github.com/xcodeswift/xcproj/pull/220 by @yonaskolb
 
 ## 3.0.0
