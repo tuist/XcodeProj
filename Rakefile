@@ -57,8 +57,8 @@ def current_version
   Semantic::Version.new last_tag
 end
 
-def next_version
-  current_version.increment! :minor
+def next_version(type)
+  current_version.increment! type
 end
 
 def bump_to_version(from, to)
@@ -133,6 +133,7 @@ end
 
 desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
 task :release => [:clean] do
+  abort "You should specify the type (e.g. RELEASE_TYPE=minor rake task release)" unless ENV["RELEASE_TYPE"]
   abort 'Commit all your changes before starting the release' unless !any_git_changes?
   print("Building xcproj")
   build
@@ -142,7 +143,7 @@ task :release => [:clean] do
   build_carthage_project()
   print "Generating docs"
   generate_docs
-  version = next_version
+  version = next_version(ENV["RELEASE_TYPE"].to_sym)
   print "Bumping version to #{next_version}"
   bump_to_version(current_version, next_version)
   print "Commiting and pushing changes to GitHub"
