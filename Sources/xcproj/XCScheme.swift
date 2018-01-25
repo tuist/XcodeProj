@@ -221,7 +221,7 @@ final public class XCScheme {
             self.postActions = try element["PostActions"]["ExecutionAction"].all?.map(ExecutionAction.init) ?? []
         }
 
-        fileprivate func addPreActionsPostActions(_ element: AEXMLElement) {
+        fileprivate func writeXML(parent element: AEXMLElement) {
             if !self.preActions.isEmpty {
                 let preActions = element.addChild(name: "PreActions")
                 self.preActions.forEach { (preAction) in
@@ -320,7 +320,7 @@ final public class XCScheme {
                                        value: nil,
                                        attributes: ["parallelizeBuildables": parallelizeBuild.xmlString,
                                                     "buildImplicitDependencies": buildImplicitDependencies.xmlString])
-            super.addPreActionsPostActions(element)
+            super.writeXML(parent: element)
             let entries = element.addChild(name: "BuildActionEntries")
             buildActionEntries.forEach { (entry) in
                 entries.addChild(entry.xmlElement())
@@ -444,7 +444,7 @@ final public class XCScheme {
                                                     "debugDocumentVersioning": debugDocumentVersioning.xmlString,
                                                     "debugServiceExtension": debugServiceExtension,
                                                     "allowLocationSimulation": allowLocationSimulation.xmlString])
-            super.addPreActionsPostActions(element)
+            super.writeXML(parent: element)
             if let buildableProductRunnable = buildableProductRunnable {
                 element.addChild(buildableProductRunnable.xmlElement())
             }
@@ -542,7 +542,7 @@ final public class XCScheme {
                                         "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
                                         "debugDocumentVersioning": debugDocumentVersioning.xmlString
                 ])
-            super.addPreActionsPostActions(element)
+            super.writeXML(parent: element)
             if ignoresPersistentStateOnLaunch {
                 element.attributes["ignoresPersistentStateOnLaunch"] = ignoresPersistentStateOnLaunch.xmlString
             }
@@ -658,7 +658,7 @@ final public class XCScheme {
             }
 
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
-            super.addPreActionsPostActions(element)
+            super.writeXML(parent: element)
             let testablesElement = element.addChild(name: "Testables")
             testables.forEach { (testable) in
                 testablesElement.addChild(testable.xmlElement())
@@ -724,7 +724,7 @@ final public class XCScheme {
             attributes["customArchiveName"] = customArchiveName
             attributes["revealArchiveInOrganizer"] = revealArchiveInOrganizer.xmlString
             let element = AEXMLElement(name: "ArchiveAction", value: nil, attributes: attributes)
-            super.addPreActionsPostActions(element)
+            super.writeXML(parent: element)
             return element
         }
     }
