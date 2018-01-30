@@ -646,7 +646,7 @@ final public class XCScheme {
             attributes["buildConfiguration"] = buildConfiguration
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
             attributes["selectedLauncherIdentifier"] = selectedLauncherIdentifier
-            attributes["language"] = language
+            attributes["language"] = language ?? ""
             attributes["region"] = region
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
             if codeCoverageEnabled {
