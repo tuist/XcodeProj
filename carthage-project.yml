@@ -6,6 +6,7 @@ targets:
     sources: Sources/xcproj
     scheme: {}
     settings:
+      INFOPLIST_FILE: CarthageInfo.plist
       PRODUCT_BUNDLE_IDENTIFIER: swift.xcode.xcproj
       SWIFT_VERSION: 4.0
     dependencies:
