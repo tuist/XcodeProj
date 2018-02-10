@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Added support for scheme environment variables https://github.com/xcodeswift/xcproj/pull/227 by @turekj
+
 ### Fixed
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
 
