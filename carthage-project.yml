@@ -9,6 +9,8 @@ targets:
       INFOPLIST_FILE: CarthageInfo.plist
       PRODUCT_BUNDLE_IDENTIFIER: swift.xcode.xcproj
       SWIFT_VERSION: 4.0
+      IPHONEOS_DEPLOYMENT_TARGET: 9.0
+      MACOSX_DEPLOYMENT_TARGET: 10.11
     dependencies:
       - carthage: PathKit
       - carthage: AEXML
