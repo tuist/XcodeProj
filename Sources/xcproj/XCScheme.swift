@@ -512,6 +512,11 @@ final public class XCScheme {
                 element.addChild(locationScenarioReference.xmlElement())
             }
 
+            if let macroExpansion = macroExpansion {
+                let macro = element.addChild(name: "MacroExpansion")
+                macro.addChild(macroExpansion.xmlElement())
+            }
+
             if let commandlineArguments = commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
@@ -522,11 +527,6 @@ final public class XCScheme {
 
             if let region = region {
                 element.attributes["region"] = region
-            }
-
-            if let macroExpansion = macroExpansion {
-                let macro = element.addChild(name: "MacroExpansion")
-                macro.addChild(macroExpansion.xmlElement())
             }
 
             element.addChild(AEXMLElement(name: "AdditionalOptions"))
