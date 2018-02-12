@@ -3,6 +3,7 @@
 ## next version
 
 ### Fixed
+- Fixed PBXObject sublasses from checking Equatable properly https://github.com/xcodeswift/xcproj/pull/224 by @yonaskolb
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
 
 ### Changed
