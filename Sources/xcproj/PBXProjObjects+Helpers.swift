@@ -99,10 +99,14 @@ public extension PBXProj.Objects {
         sourceTree: PBXSourceTree = .group,
         sourceRoot: Path) throws -> ObjectReference<PBXFileReference> {
 
-        guard filePath.isFile else {
-            throw XCodeProjEditingError.notAFile(path: filePath)
+        guard filePath.exists else {
+            throw XCodeProjEditingError.fileNotExists(path: filePath)
         }
 
+        guard let fileType = PBXFileReference.fileType(path: filePath) else {
+            throw XCodeProjEditingError.unsupportedFileType(path: filePath)
+        }
+        
         guard let groupReference = groups.first(where: { $0.value == toGroup })?.key else {
             throw XCodeProjEditingError.groupNotFound(group: toGroup)
         }
@@ -133,8 +137,8 @@ public extension PBXProj.Objects {
         let fileReference = PBXFileReference(
             sourceTree: sourceTree,
             name: filePath.lastComponent,
-            explicitFileType: PBXFileReference.fileType(path: filePath),
-            lastKnownFileType: PBXFileReference.fileType(path: filePath),
+            explicitFileType: fileType,
+            lastKnownFileType: fileType,
             path: path?.string
         )
         let reference = generateReference(fileReference, filePath.string)
@@ -200,13 +204,16 @@ public struct GroupAddingOptions: OptionSet {
 }
 
 public enum XCodeProjEditingError: Error, CustomStringConvertible {
-    case notAFile(path: Path)
+    case unsupportedFileType(path: Path)
+    case fileNotExists(path: Path)
     case groupNotFound(group: PBXGroup)
 
     public var description: String {
         switch self {
-        case .notAFile(let path):
-            return "\(path) is not a file path"
+        case .unsupportedFileType(let path):
+            return "\(path) is not supported."
+        case .fileNotExists(let path):
+            return "\(path) doesn't exist."
         case .groupNotFound(let group):
             return "Group not found in project: \(group)"
         }
