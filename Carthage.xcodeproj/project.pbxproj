@@ -8,125 +8,247 @@
 
 /* Begin PBXBuildFile section */
 		BF_100849539797 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753508207372 /* PBXFileReference.swift */; };
+		BF_101548842057 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_345385210871 /* PBXLegacyTarget.swift */; };
 		BF_107218696993 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_487766461346 /* BuildPhase.swift */; };
+		BF_116125884111 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_880710663053 /* PBXProjObjects+Helpers.swift */; };
 		BF_118670594622 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_486803725803 /* XCSharedData.swift */; };
+		BF_119839146543 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_677268769775 /* AEXML+XcodeFormat.swift */; };
+		BF_120222899886 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_360739631408 /* AEXML.framework */; };
 		BF_121525428963 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_693866816003 /* XCConfigurationList.swift */; };
 		BF_127958136818 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
 		BF_130526944472 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_409003374776 /* PBXRezBuildPhase.swift */; };
+		BF_132051839856 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_487766461346 /* BuildPhase.swift */; };
+		BF_134877956059 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753508207372 /* PBXFileReference.swift */; };
+		BF_135621213980 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_587989700167 /* PBXTargetDependency.swift */; };
 		BF_136594930249 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452433311839 /* Writable.swift */; };
+		BF_137035089733 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_194697253485 /* PBXContainerItemProxy.swift */; };
 		BF_149536476677 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
 		BF_150859360886 = {isa = PBXBuildFile; fileRef = FR_509991616182 /* xcproj.framework */; };
+		BF_152457955687 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_788872842986 /* PBXGroup.swift */; };
 		BF_153506846655 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_233593682006 /* XCScheme.swift */; };
 		BF_162715657218 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576810495642 /* PBXProjEncoder.swift */; };
+		BF_164217290589 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_685613406722 /* PathKit.framework */; };
+		BF_164533514267 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
 		BF_171353859927 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
 		BF_180459579420 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_757027346462 /* PBXObject.swift */; };
 		BF_180597576485 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
 		BF_183165796490 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_587989700167 /* PBXTargetDependency.swift */; };
 		BF_189050466790 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_461689836471 /* ObjectReference.swift */; };
+		BF_189271189230 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576630623760 /* Decodable+Dictionary.swift */; };
 		BF_189455282640 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_693866816003 /* XCConfigurationList.swift */; };
 		BF_190552443487 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
 		BF_193463345839 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_677268769775 /* AEXML+XcodeFormat.swift */; };
+		BF_197339107955 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540968018524 /* CommentedString.swift */; };
 		BF_199932632107 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
 		BF_200793912846 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_345385210871 /* PBXLegacyTarget.swift */; };
+		BF_207027417028 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
 		BF_211212486188 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_473541966361 /* PBXBuildPhase.swift */; };
 		BF_213934473857 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_487766461346 /* BuildPhase.swift */; };
+		BF_215935130772 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
 		BF_216649760389 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_221078219606 /* PBXProjError.swift */; };
 		BF_219668827664 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
 		BF_222223406697 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
 		BF_222958324054 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_760923500700 /* PBXAggregateTarget.swift */; };
+		BF_223588338891 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
 		BF_223871478452 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_869538972327 /* PBXFileElement.swift */; };
 		BF_225781828025 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753689446669 /* PBXProject.swift */; };
 		BF_226961157750 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_461689836471 /* ObjectReference.swift */; };
+		BF_228217597928 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_487766461346 /* BuildPhase.swift */; };
+		BF_232314226366 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
 		BF_236677653241 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452125827828 /* XCWorkspaceDataElement.swift */; };
+		BF_244850829577 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_112687526616 /* XCWorkspaceDataGroup.swift */; };
 		BF_245806424879 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_121340420221 /* String+Extras.swift */; };
 		BF_250410292172 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_115502168014 /* XCWorkspace.swift */; };
 		BF_252670213938 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_514422632986 /* XCConfig.swift */; };
+		BF_255778816149 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_826197332984 /* Bool+Extras.swift */; };
 		BF_258116106712 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_444580546237 /* PBXTarget.swift */; };
 		BF_260498074317 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_880710663053 /* PBXProjObjects+Helpers.swift */; };
 		BF_262746863952 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_486803725803 /* XCSharedData.swift */; };
+		BF_264003267448 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_569579805119 /* PBXResourcesBuildPhase.swift */; };
 		BF_275053870809 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_677268769775 /* AEXML+XcodeFormat.swift */; };
+		BF_277058783634 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_869538972327 /* PBXFileElement.swift */; };
 		BF_280989103969 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_688313131782 /* XCWorkspaceDataElementLocationType.swift */; };
 		BF_294387370378 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_409003374776 /* PBXRezBuildPhase.swift */; };
 		BF_299433224348 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_640375224086 /* PBXFrameworksBuildPhase.swift */; };
 		BF_303527020486 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
+		BF_313557078871 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_785377831609 /* PBXShellScriptBuildPhase.swift */; };
+		BF_314156153707 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
 		BF_322454694394 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_826197332984 /* Bool+Extras.swift */; };
 		BF_325886938022 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_514422632986 /* XCConfig.swift */; };
 		BF_329682203687 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_236533062777 /* PBXProductType.swift */; };
+		BF_330788969615 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_396286678237 /* JSONDecoding.swift */; };
 		BF_334763457566 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
+		BF_335409574283 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_791567841149 /* AEXML.framework */; };
+		BF_337620897652 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_591573173582 /* PBXSourcesBuildPhase.swift */; };
+		BF_340889555148 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_760923500700 /* PBXAggregateTarget.swift */; };
 		BF_341137306401 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_757027346462 /* PBXObject.swift */; };
 		BF_341290655982 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_236533062777 /* PBXProductType.swift */; };
 		BF_341653096557 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
+		BF_351428652357 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
 		BF_363708474724 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
+		BF_368295940121 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
+		BF_370086358951 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
+		BF_372483883769 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852367716413 /* PBXProj+Helpers.swift */; };
 		BF_387846167886 /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_646438073479 /* XCVersionGroup.swift */; };
+		BF_388442335726 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_595642817891 /* PlistValue.swift */; };
 		BF_389184731012 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
+		BF_391690042575 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_788872842986 /* PBXGroup.swift */; };
+		BF_392692625971 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_796834358564 /* PBXSourceTree.swift */; };
 		BF_393711454683 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
 		BF_395910669776 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_396286678237 /* JSONDecoding.swift */; };
+		BF_396001620595 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_808945070044 /* XCBuildConfiguration.swift */; };
+		BF_399860543920 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_444580546237 /* PBXTarget.swift */; };
 		BF_402583061196 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_369164148994 /* KeyedDecodingContainer+Additions.swift */; };
 		BF_409111004520 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576810495642 /* PBXProjEncoder.swift */; };
+		BF_414170282907 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_688313131782 /* XCWorkspaceDataElementLocationType.swift */; };
+		BF_419462248287 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452433311839 /* Writable.swift */; };
+		BF_422154548543 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_221078219606 /* PBXProjError.swift */; };
 		BF_425137087767 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753508207372 /* PBXFileReference.swift */; };
+		BF_425290576788 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753508207372 /* PBXFileReference.swift */; };
 		BF_426927855778 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_692089783518 /* AEXML.framework */; };
 		BF_432819904035 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_345385210871 /* PBXLegacyTarget.swift */; };
+		BF_433827842104 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_191604473041 /* PBXBuildRule.swift */; };
 		BF_437045913759 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
+		BF_442240016208 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_693866816003 /* XCConfigurationList.swift */; };
 		BF_448617412505 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_205773741306 /* PathKit.framework */; };
 		BF_449167813753 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852367716413 /* PBXProj+Helpers.swift */; };
+		BF_452528712557 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576810495642 /* PBXProjEncoder.swift */; };
+		BF_452728679222 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
+		BF_452980074675 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_757027346462 /* PBXObject.swift */; };
 		BF_455098138370 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_233593682006 /* XCScheme.swift */; };
+		BF_461567992807 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
+		BF_465991367036 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_473541966361 /* PBXBuildPhase.swift */; };
+		BF_466129653283 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
 		BF_467107176803 = {isa = PBXBuildFile; fileRef = FR_416349087825 /* xcproj.framework */; };
+		BF_468122099961 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
 		BF_472444461252 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_115502168014 /* XCWorkspace.swift */; };
 		BF_473795221109 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_569579805119 /* PBXResourcesBuildPhase.swift */; };
+		BF_474009348544 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
+		BF_479195535763 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452433311839 /* Writable.swift */; };
 		BF_480935739408 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_880710663053 /* PBXProjObjects+Helpers.swift */; };
+		BF_482487748485 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
 		BF_484160889385 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_699059045022 /* PBXProj.swift */; };
+		BF_484645144773 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452125827828 /* XCWorkspaceDataElement.swift */; };
+		BF_488099116490 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_236533062777 /* PBXProductType.swift */; };
+		BF_489273936375 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_240508634712 /* PathKit.framework */; };
+		BF_493387625731 /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_693866816003 /* XCConfigurationList.swift */; };
+		BF_494810120435 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_461689836471 /* ObjectReference.swift */; };
+		BF_495858574288 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_808945070044 /* XCBuildConfiguration.swift */; };
+		BF_496078531478 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_112687526616 /* XCWorkspaceDataGroup.swift */; };
 		BF_496503727859 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_595642817891 /* PlistValue.swift */; };
 		BF_497250532679 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452125827828 /* XCWorkspaceDataElement.swift */; };
 		BF_506747336569 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852424823857 /* XcodeProj.swift */; };
 		BF_514469998107 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_591573173582 /* PBXSourcesBuildPhase.swift */; };
+		BF_515258794140 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_569579805119 /* PBXResourcesBuildPhase.swift */; };
+		BF_525420467422 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_345385210871 /* PBXLegacyTarget.swift */; };
 		BF_542441223615 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852367716413 /* PBXProj+Helpers.swift */; };
 		BF_542456775260 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_788872842986 /* PBXGroup.swift */; };
 		BF_546051856235 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_221078219606 /* PBXProjError.swift */; };
 		BF_547260107173 /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_491863126733 /* AEXML.framework */; };
 		BF_549116695836 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540968018524 /* CommentedString.swift */; };
 		BF_549794542058 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_591573173582 /* PBXSourcesBuildPhase.swift */; };
+		BF_551580263495 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
 		BF_553331683590 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_444580546237 /* PBXTarget.swift */; };
+		BF_554010637731 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
+		BF_555361077593 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452125827828 /* XCWorkspaceDataElement.swift */; };
+		BF_555529016894 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_587989700167 /* PBXTargetDependency.swift */; };
 		BF_556112094985 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
+		BF_556722767719 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_396286678237 /* JSONDecoding.swift */; };
+		BF_559712739725 /* PBXProjObjects+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_880710663053 /* PBXProjObjects+Helpers.swift */; };
 		BF_562538716299 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_688313131782 /* XCWorkspaceDataElementLocationType.swift */; };
+		BF_567300894440 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
 		BF_570656661189 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540968018524 /* CommentedString.swift */; };
+		BF_571398155104 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_221078219606 /* PBXProjError.swift */; };
+		BF_576942083058 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
+		BF_577893570530 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852424823857 /* XcodeProj.swift */; };
+		BF_585244343361 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_514422632986 /* XCConfig.swift */; };
 		BF_592727145318 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_785377831609 /* PBXShellScriptBuildPhase.swift */; };
+		BF_593434831231 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852367716413 /* PBXProj+Helpers.swift */; };
+		BF_593655041476 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_514422632986 /* XCConfig.swift */; };
 		BF_595254031779 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_640375224086 /* PBXFrameworksBuildPhase.swift */; };
+		BF_597322854766 /* ObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_461689836471 /* ObjectReference.swift */; };
+		BF_599063095134 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_486803725803 /* XCSharedData.swift */; };
+		BF_618107432485 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_409003374776 /* PBXRezBuildPhase.swift */; };
+		BF_618623849227 = {isa = PBXBuildFile; fileRef = FR_418160515868 /* xcproj.framework */; };
 		BF_624272360032 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_452433311839 /* Writable.swift */; };
+		BF_624796194058 /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_757027346462 /* PBXObject.swift */; };
+		BF_626018937793 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_191604473041 /* PBXBuildRule.swift */; };
 		BF_628033325963 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_473541966361 /* PBXBuildPhase.swift */; };
+		BF_635948054625 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_236533062777 /* PBXProductType.swift */; };
 		BF_639862332631 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_192331524202 /* XCBreakpointList.swift */; };
 		BF_641206902760 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_191604473041 /* PBXBuildRule.swift */; };
 		BF_643157343618 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_569579805119 /* PBXResourcesBuildPhase.swift */; };
+		BF_645839674047 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_473541966361 /* PBXBuildPhase.swift */; };
+		BF_646877698205 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_640375224086 /* PBXFrameworksBuildPhase.swift */; };
+		BF_647818218205 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_699059045022 /* PBXProj.swift */; };
+		BF_653483830658 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576630623760 /* Decodable+Dictionary.swift */; };
+		BF_657478790467 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753689446669 /* PBXProject.swift */; };
 		BF_663074308006 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
 		BF_668674861308 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_194697253485 /* PBXContainerItemProxy.swift */; };
 		BF_668863962066 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_808945070044 /* XCBuildConfiguration.swift */; };
 		BF_669576479010 /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_587989700167 /* PBXTargetDependency.swift */; };
 		BF_677935361120 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
+		BF_678973873536 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
+		BF_682057181319 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_194697253485 /* PBXContainerItemProxy.swift */; };
 		BF_695268522750 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
+		BF_697699574638 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
+		BF_698942412038 = {isa = PBXBuildFile; fileRef = FR_269634880674 /* xcproj.framework */; };
+		BF_706362998148 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_640375224086 /* PBXFrameworksBuildPhase.swift */; };
 		BF_708645136714 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753689446669 /* PBXProject.swift */; };
+		BF_715796593895 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_121340420221 /* String+Extras.swift */; };
 		BF_716034120680 /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_646438073479 /* XCVersionGroup.swift */; };
+		BF_716917727859 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_688313131782 /* XCWorkspaceDataElementLocationType.swift */; };
 		BF_728579753146 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_121340420221 /* String+Extras.swift */; };
+		BF_729243069547 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
 		BF_731385059937 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
 		BF_741460219624 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
 		BF_746930636620 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_396286678237 /* JSONDecoding.swift */; };
+		BF_747423937097 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_699059045022 /* PBXProj.swift */; };
+		BF_751462928292 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753689446669 /* PBXProject.swift */; };
 		BF_757805779589 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_808945070044 /* XCBuildConfiguration.swift */; };
+		BF_758640233000 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_192331524202 /* XCBreakpointList.swift */; };
+		BF_760691198994 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_115502168014 /* XCWorkspace.swift */; };
 		BF_765937972367 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_785377831609 /* PBXShellScriptBuildPhase.swift */; };
+		BF_768181606007 /* String+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_121340420221 /* String+Extras.swift */; };
+		BF_770642804470 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_369164148994 /* KeyedDecodingContainer+Additions.swift */; };
+		BF_773081978198 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_192331524202 /* XCBreakpointList.swift */; };
+		BF_778254560494 /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_646438073479 /* XCVersionGroup.swift */; };
+		BF_784939195969 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_486803725803 /* XCSharedData.swift */; };
 		BF_787529811209 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_191604473041 /* PBXBuildRule.swift */; };
+		BF_789708924463 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540968018524 /* CommentedString.swift */; };
+		BF_790224690630 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_826197332984 /* Bool+Extras.swift */; };
+		BF_792284879041 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_115502168014 /* XCWorkspace.swift */; };
 		BF_793424925406 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_869538972327 /* PBXFileElement.swift */; };
+		BF_796452314497 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_595642817891 /* PlistValue.swift */; };
+		BF_799350912634 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_591573173582 /* PBXSourcesBuildPhase.swift */; };
 		BF_799777217027 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_112687526616 /* XCWorkspaceDataGroup.swift */; };
+		BF_800362376162 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_760923500700 /* PBXAggregateTarget.swift */; };
 		BF_803819424409 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_788872842986 /* PBXGroup.swift */; };
 		BF_830694964816 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852424823857 /* XcodeProj.swift */; };
 		BF_834686732390 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
+		BF_835274989962 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576810495642 /* PBXProjEncoder.swift */; };
+		BF_836410926571 /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_646438073479 /* XCVersionGroup.swift */; };
+		BF_839164836847 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_785377831609 /* PBXShellScriptBuildPhase.swift */; };
+		BF_840258377178 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_369164148994 /* KeyedDecodingContainer+Additions.swift */; };
+		BF_840440649933 /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_444580546237 /* PBXTarget.swift */; };
+		BF_842329844425 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_869538972327 /* PBXFileElement.swift */; };
+		BF_850891259492 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_796834358564 /* PBXSourceTree.swift */; };
 		BF_854069389980 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_760923500700 /* PBXAggregateTarget.swift */; };
+		BF_861474949209 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852424823857 /* XcodeProj.swift */; };
 		BF_862052697727 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_192331524202 /* XCBreakpointList.swift */; };
+		BF_868049252303 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_677268769775 /* AEXML+XcodeFormat.swift */; };
 		BF_868835969906 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_595642817891 /* PlistValue.swift */; };
 		BF_870204533149 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_699059045022 /* PBXProj.swift */; };
 		BF_870801902035 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_796834358564 /* PBXSourceTree.swift */; };
+		BF_874381802913 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_233593682006 /* XCScheme.swift */; };
 		BF_875293589289 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576630623760 /* Decodable+Dictionary.swift */; };
 		BF_877357089165 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_826197332984 /* Bool+Extras.swift */; };
 		BF_883158619256 /* Decodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576630623760 /* Decodable+Dictionary.swift */; };
 		BF_887169331851 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_786932701930 /* PathKit.framework */; };
+		BF_889439859463 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_409003374776 /* PBXRezBuildPhase.swift */; };
 		BF_890777353952 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_369164148994 /* KeyedDecodingContainer+Additions.swift */; };
 		BF_900547023005 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_796834358564 /* PBXSourceTree.swift */; };
+		BF_914501768414 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_233593682006 /* XCScheme.swift */; };
 		BF_968779134996 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_112687526616 /* XCWorkspaceDataGroup.swift */; };
 		BF_992120767289 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_194697253485 /* PBXContainerItemProxy.swift */; };
 /* End PBXBuildFile section */
@@ -144,12 +266,16 @@
 		FR_221078219606 /* PBXProjError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProjError.swift; sourceTree = "<group>"; };
 		FR_233593682006 /* XCScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
 		FR_236533062777 /* PBXProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProductType.swift; sourceTree = "<group>"; };
+		FR_240508634712 /* PathKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PathKit.framework; sourceTree = "<group>"; };
+		FR_269634880674 /* xcproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xcproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_335866194901 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
 		FR_345385210871 /* PBXLegacyTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXLegacyTarget.swift; sourceTree = "<group>"; };
+		FR_360739631408 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
 		FR_369164148994 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
 		FR_396286678237 /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		FR_409003374776 /* PBXRezBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXRezBuildPhase.swift; sourceTree = "<group>"; };
 		FR_416349087825 /* xcproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xcproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_418160515868 /* xcproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xcproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_441115400167 /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_444580546237 /* PBXTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTarget.swift; sourceTree = "<group>"; };
 		FR_452125827828 /* XCWorkspaceDataElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElement.swift; sourceTree = "<group>"; };
@@ -175,6 +301,7 @@
 		FR_645440424672 /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
 		FR_646438073479 /* XCVersionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCVersionGroup.swift; sourceTree = "<group>"; };
 		FR_677268769775 /* AEXML+XcodeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AEXML+XcodeFormat.swift"; sourceTree = "<group>"; };
+		FR_685613406722 /* PathKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PathKit.framework; sourceTree = "<group>"; };
 		FR_688313131782 /* XCWorkspaceDataElementLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElementLocationType.swift; sourceTree = "<group>"; };
 		FR_690330849341 /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
 		FR_692089783518 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
@@ -188,6 +315,7 @@
 		FR_785377831609 /* PBXShellScriptBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhase.swift; sourceTree = "<group>"; };
 		FR_786932701930 /* PathKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PathKit.framework; sourceTree = "<group>"; };
 		FR_788872842986 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
+		FR_791567841149 /* AEXML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEXML.framework; sourceTree = "<group>"; };
 		FR_796834358564 /* PBXSourceTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourceTree.swift; sourceTree = "<group>"; };
 		FR_808945070044 /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
 		FR_826197332984 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
@@ -199,12 +327,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FBP_26963488067 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF_164217290589 /* PathKit.framework in Frameworks */,
+				BF_120222899886 /* AEXML.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBP_41634908782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				BF_448617412505 /* PathKit.framework in Frameworks */,
 				BF_426927855778 /* AEXML.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBP_41816051586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF_489273936375 /* PathKit.framework in Frameworks */,
+				BF_335409574283 /* AEXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +397,8 @@
 			children = (
 				G_2262017442691 /* Mac */,
 				G_2262017438925 /* iOS */,
+				G_8628897169668 /* tvOS */,
+				G_8244488572839 /* watchOS */,
 			);
 			name = Carthage;
 			path = Carthage/Build;
@@ -322,6 +470,15 @@
 			path = Sources/xcproj;
 			sourceTree = "<group>";
 		};
+		G_8244488572839 /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				FR_360739631408 /* AEXML.framework */,
+				FR_685613406722 /* PathKit.framework */,
+			);
+			path = watchOS;
+			sourceTree = "<group>";
+		};
 		G_8448771205358 = {
 			isa = PBXGroup;
 			children = (
@@ -334,15 +491,42 @@
 		G_8620238527590 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				FR_418160515868 /* xcproj.framework */,
+				FR_269634880674 /* xcproj.framework */,
 				FR_416349087825 /* xcproj.framework */,
 				FR_509991616182 /* xcproj.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+		G_8628897169668 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				FR_791567841149 /* AEXML.framework */,
+				FR_240508634712 /* PathKit.framework */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		NT_269634880674 /* xcproj_watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CL_269634880674 /* Build configuration list for PBXNativeTarget "xcproj_watchOS" */;
+			buildPhases = (
+				SBP_26963488067 /* Sources */,
+				FBP_26963488067 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xcproj_watchOS;
+			productName = xcproj_watchOS;
+			productReference = FR_269634880674 /* xcproj.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		NT_416349087825 /* xcproj_iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CL_416349087825 /* Build configuration list for PBXNativeTarget "xcproj_iOS" */;
@@ -357,6 +541,22 @@
 			name = xcproj_iOS;
 			productName = xcproj_iOS;
 			productReference = FR_416349087825 /* xcproj.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		NT_418160515868 /* xcproj_tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CL_418160515868 /* Build configuration list for PBXNativeTarget "xcproj_tvOS" */;
+			buildPhases = (
+				SBP_41816051586 /* Sources */,
+				FBP_41816051586 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xcproj_tvOS;
+			productName = xcproj_tvOS;
+			productReference = FR_418160515868 /* xcproj.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		NT_509991616182 /* xcproj_macOS */ = {
@@ -395,11 +595,78 @@
 			targets = (
 				NT_416349087825 /* xcproj_iOS */,
 				NT_509991616182 /* xcproj_macOS */,
+				NT_418160515868 /* xcproj_tvOS */,
+				NT_269634880674 /* xcproj_watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		SBP_26963488067 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF_119839146543 /* AEXML+XcodeFormat.swift in Sources */,
+				BF_255778816149 /* Bool+Extras.swift in Sources */,
+				BF_132051839856 /* BuildPhase.swift in Sources */,
+				BF_351428652357 /* BuildSettings.swift in Sources */,
+				BF_197339107955 /* CommentedString.swift in Sources */,
+				BF_653483830658 /* Decodable+Dictionary.swift in Sources */,
+				BF_551580263495 /* Dictionary+Extras.swift in Sources */,
+				BF_556722767719 /* JSONDecoding.swift in Sources */,
+				BF_840258377178 /* KeyedDecodingContainer+Additions.swift in Sources */,
+				BF_597322854766 /* ObjectReference.swift in Sources */,
+				BF_340889555148 /* PBXAggregateTarget.swift in Sources */,
+				BF_567300894440 /* PBXBuildFile.swift in Sources */,
+				BF_465991367036 /* PBXBuildPhase.swift in Sources */,
+				BF_433827842104 /* PBXBuildRule.swift in Sources */,
+				BF_137035089733 /* PBXContainerItemProxy.swift in Sources */,
+				BF_554010637731 /* PBXCopyFilesBuildPhase.swift in Sources */,
+				BF_842329844425 /* PBXFileElement.swift in Sources */,
+				BF_134877956059 /* PBXFileReference.swift in Sources */,
+				BF_646877698205 /* PBXFrameworksBuildPhase.swift in Sources */,
+				BF_152457955687 /* PBXGroup.swift in Sources */,
+				BF_678973873536 /* PBXHeadersBuildPhase.swift in Sources */,
+				BF_525420467422 /* PBXLegacyTarget.swift in Sources */,
+				BF_215935130772 /* PBXNativeTarget.swift in Sources */,
+				BF_452980074675 /* PBXObject.swift in Sources */,
+				BF_635948054625 /* PBXProductType.swift in Sources */,
+				BF_372483883769 /* PBXProj+Helpers.swift in Sources */,
+				BF_747423937097 /* PBXProj.swift in Sources */,
+				BF_835274989962 /* PBXProjEncoder.swift in Sources */,
+				BF_571398155104 /* PBXProjError.swift in Sources */,
+				BF_559712739725 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_657478790467 /* PBXProject.swift in Sources */,
+				BF_452728679222 /* PBXReferenceProxy.swift in Sources */,
+				BF_264003267448 /* PBXResourcesBuildPhase.swift in Sources */,
+				BF_618107432485 /* PBXRezBuildPhase.swift in Sources */,
+				BF_839164836847 /* PBXShellScriptBuildPhase.swift in Sources */,
+				BF_392692625971 /* PBXSourceTree.swift in Sources */,
+				BF_337620897652 /* PBXSourcesBuildPhase.swift in Sources */,
+				BF_399860543920 /* PBXTarget.swift in Sources */,
+				BF_555529016894 /* PBXTargetDependency.swift in Sources */,
+				BF_461567992807 /* PBXVariantGroup.swift in Sources */,
+				BF_796452314497 /* PlistValue.swift in Sources */,
+				BF_232314226366 /* Referenceable.swift in Sources */,
+				BF_768181606007 /* String+Extras.swift in Sources */,
+				BF_479195535763 /* Writable.swift in Sources */,
+				BF_773081978198 /* XCBreakpointList.swift in Sources */,
+				BF_495858574288 /* XCBuildConfiguration.swift in Sources */,
+				BF_585244343361 /* XCConfig.swift in Sources */,
+				BF_493387625731 /* XCConfigurationList.swift in Sources */,
+				BF_874381802913 /* XCScheme.swift in Sources */,
+				BF_599063095134 /* XCSharedData.swift in Sources */,
+				BF_836410926571 /* XCVersionGroup.swift in Sources */,
+				BF_792284879041 /* XCWorkspace.swift in Sources */,
+				BF_697699574638 /* XCWorkspaceData.swift in Sources */,
+				BF_555361077593 /* XCWorkspaceDataElement.swift in Sources */,
+				BF_716917727859 /* XCWorkspaceDataElementLocationType.swift in Sources */,
+				BF_576942083058 /* XCWorkspaceDataFileRef.swift in Sources */,
+				BF_244850829577 /* XCWorkspaceDataGroup.swift in Sources */,
+				BF_577893570530 /* XcodeProj.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		SBP_41634908782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -462,6 +729,71 @@
 				BF_363708474724 /* XCWorkspaceDataFileRef.swift in Sources */,
 				BF_968779134996 /* XCWorkspaceDataGroup.swift in Sources */,
 				BF_506747336569 /* XcodeProj.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		SBP_41816051586 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF_868049252303 /* AEXML+XcodeFormat.swift in Sources */,
+				BF_790224690630 /* Bool+Extras.swift in Sources */,
+				BF_228217597928 /* BuildPhase.swift in Sources */,
+				BF_474009348544 /* BuildSettings.swift in Sources */,
+				BF_789708924463 /* CommentedString.swift in Sources */,
+				BF_189271189230 /* Decodable+Dictionary.swift in Sources */,
+				BF_468122099961 /* Dictionary+Extras.swift in Sources */,
+				BF_330788969615 /* JSONDecoding.swift in Sources */,
+				BF_770642804470 /* KeyedDecodingContainer+Additions.swift in Sources */,
+				BF_494810120435 /* ObjectReference.swift in Sources */,
+				BF_800362376162 /* PBXAggregateTarget.swift in Sources */,
+				BF_729243069547 /* PBXBuildFile.swift in Sources */,
+				BF_645839674047 /* PBXBuildPhase.swift in Sources */,
+				BF_626018937793 /* PBXBuildRule.swift in Sources */,
+				BF_682057181319 /* PBXContainerItemProxy.swift in Sources */,
+				BF_207027417028 /* PBXCopyFilesBuildPhase.swift in Sources */,
+				BF_277058783634 /* PBXFileElement.swift in Sources */,
+				BF_425290576788 /* PBXFileReference.swift in Sources */,
+				BF_706362998148 /* PBXFrameworksBuildPhase.swift in Sources */,
+				BF_391690042575 /* PBXGroup.swift in Sources */,
+				BF_368295940121 /* PBXHeadersBuildPhase.swift in Sources */,
+				BF_101548842057 /* PBXLegacyTarget.swift in Sources */,
+				BF_466129653283 /* PBXNativeTarget.swift in Sources */,
+				BF_624796194058 /* PBXObject.swift in Sources */,
+				BF_488099116490 /* PBXProductType.swift in Sources */,
+				BF_593434831231 /* PBXProj+Helpers.swift in Sources */,
+				BF_647818218205 /* PBXProj.swift in Sources */,
+				BF_452528712557 /* PBXProjEncoder.swift in Sources */,
+				BF_422154548543 /* PBXProjError.swift in Sources */,
+				BF_116125884111 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_751462928292 /* PBXProject.swift in Sources */,
+				BF_314156153707 /* PBXReferenceProxy.swift in Sources */,
+				BF_515258794140 /* PBXResourcesBuildPhase.swift in Sources */,
+				BF_889439859463 /* PBXRezBuildPhase.swift in Sources */,
+				BF_313557078871 /* PBXShellScriptBuildPhase.swift in Sources */,
+				BF_850891259492 /* PBXSourceTree.swift in Sources */,
+				BF_799350912634 /* PBXSourcesBuildPhase.swift in Sources */,
+				BF_840440649933 /* PBXTarget.swift in Sources */,
+				BF_135621213980 /* PBXTargetDependency.swift in Sources */,
+				BF_223588338891 /* PBXVariantGroup.swift in Sources */,
+				BF_388442335726 /* PlistValue.swift in Sources */,
+				BF_370086358951 /* Referenceable.swift in Sources */,
+				BF_715796593895 /* String+Extras.swift in Sources */,
+				BF_419462248287 /* Writable.swift in Sources */,
+				BF_758640233000 /* XCBreakpointList.swift in Sources */,
+				BF_396001620595 /* XCBuildConfiguration.swift in Sources */,
+				BF_593655041476 /* XCConfig.swift in Sources */,
+				BF_442240016208 /* XCConfigurationList.swift in Sources */,
+				BF_914501768414 /* XCScheme.swift in Sources */,
+				BF_784939195969 /* XCSharedData.swift in Sources */,
+				BF_778254560494 /* XCVersionGroup.swift in Sources */,
+				BF_760691198994 /* XCWorkspace.swift in Sources */,
+				BF_482487748485 /* XCWorkspaceData.swift in Sources */,
+				BF_484645144773 /* XCWorkspaceDataElement.swift in Sources */,
+				BF_414170282907 /* XCWorkspaceDataElementLocationType.swift in Sources */,
+				BF_164533514267 /* XCWorkspaceDataFileRef.swift in Sources */,
+				BF_496078531478 /* XCWorkspaceDataGroup.swift in Sources */,
+				BF_861474949209 /* XcodeProj.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +894,35 @@
 			};
 			name = Debug;
 		};
+		BC_205383736086 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = CarthageInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.xcode.xcproj;
+				PRODUCT_NAME = xcproj;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		BC_206506269027 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -587,6 +948,35 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		BC_260604854771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = CarthageInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.xcode.xcproj;
+				PRODUCT_NAME = xcproj;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -648,6 +1038,62 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
+		};
+		BC_412885877206 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = CarthageInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.xcode.xcproj;
+				PRODUCT_NAME = xcproj;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		BC_437952720696 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = CarthageInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = swift.xcode.xcproj;
+				PRODUCT_NAME = xcproj;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
 		};
 		BC_479945831424 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -756,6 +1202,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CL_269634880674 /* Build configuration list for PBXNativeTarget "xcproj_watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC_437952720696 /* Debug */,
+				BC_412885877206 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "";
+		};
 		CL_288369015301 /* Build configuration list for PBXProject "Carthage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -770,6 +1225,15 @@
 			buildConfigurations = (
 				BC_206506269027 /* Debug */,
 				BC_408314728529 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "";
+		};
+		CL_418160515868 /* Build configuration list for PBXNativeTarget "xcproj_tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC_260604854771 /* Debug */,
+				BC_205383736086 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "";

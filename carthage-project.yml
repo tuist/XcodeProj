@@ -2,7 +2,7 @@ name: Carthage
 targets:
   xcproj:
     type: framework
-    platform: [iOS, macOS]
+    platform: [iOS, tvOS, watchOS, macOS]
     sources: Sources/xcproj
     scheme: {}
     settings:
