@@ -322,6 +322,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
 // This could be code generated (e.g. using sourcery)
 extension XCodeProjEditingError: Equatable {
+
     static public func == (lhs: XCodeProjEditingError, rhs: XCodeProjEditingError) -> Bool {
         switch (lhs, rhs) {
         case (.unsupportedFileType(let path1), .unsupportedFileType(let path2)):
