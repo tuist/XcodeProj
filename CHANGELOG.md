@@ -2,11 +2,14 @@
 
 ## next version
 
+#### Added
+- Added `tvOS` and `watchOS` Carthage support https://github.com/xcodeswift/xcproj/pull/232 by @yonaskolb
+
 ### Fixed
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
 
 ### Changed
-- Carthage minimum Deployment Target:  https://github.com/xcodeswift/xcproj/pull/229 by @olbrichj
+- Carthage minimum Deployment Target https://github.com/xcodeswift/xcproj/pull/229 by @olbrichj
 
 ### 4.0.0
 
