@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0920"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT4163490801"
+               BlueprintIdentifier = "NT_416349087825"
                BuildableName = "xcproj.framework"
                BlueprintName = "xcproj_iOS"
                ReferencedContainer = "container:Carthage.xcodeproj">
@@ -33,12 +33,14 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT4163490801"
+            BlueprintIdentifier = "NT_416349087825"
             BuildableName = "xcproj.framework"
             BlueprintName = "xcproj_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -57,12 +59,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT4163490801"
+            BlueprintIdentifier = "NT_416349087825"
             BuildableName = "xcproj.framework"
             BlueprintName = "xcproj_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -76,12 +80,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT4163490801"
+            BlueprintIdentifier = "NT_416349087825"
             BuildableName = "xcproj.framework"
             BlueprintName = "xcproj_iOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

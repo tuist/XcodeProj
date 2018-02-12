@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT_509991616182"
+               BlueprintIdentifier = "NT_418160515868"
                BuildableName = "xcproj.framework"
-               BlueprintName = "xcproj_macOS"
+               BlueprintName = "xcproj_tvOS"
                ReferencedContainer = "container:Carthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_509991616182"
+            BlueprintIdentifier = "NT_418160515868"
             BuildableName = "xcproj.framework"
-            BlueprintName = "xcproj_macOS"
+            BlueprintName = "xcproj_tvOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -59,9 +59,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_509991616182"
+            BlueprintIdentifier = "NT_418160515868"
             BuildableName = "xcproj.framework"
-            BlueprintName = "xcproj_macOS"
+            BlueprintName = "xcproj_tvOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,9 +80,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_509991616182"
+            BlueprintIdentifier = "NT_418160515868"
             BuildableName = "xcproj.framework"
-            BlueprintName = "xcproj_macOS"
+            BlueprintName = "xcproj_tvOS"
             ReferencedContainer = "container:Carthage.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
