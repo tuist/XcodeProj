@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
+- Fix adding file reference to bundle and package files https://github.com/xcodeswift/xcproj/pull/234 by @fuzza
 
 ### Changed
 - Carthage minimum Deployment Target:  https://github.com/xcodeswift/xcproj/pull/229 by @olbrichj
