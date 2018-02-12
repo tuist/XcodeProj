@@ -27,8 +27,6 @@
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = E4C06A7B1FC1CA8500A9AB51;
 			productRefGroup = E4C06A7B1FC1CA8500A9AB51;
 			projectDirPath = "";
