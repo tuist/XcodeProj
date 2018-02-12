@@ -22,7 +22,7 @@ final class PBXRezBuildPhaseSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let another = PBXResourcesBuildPhase(files: ["123"],
+        let another = PBXRezBuildPhase(files: ["123"],
                                              runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
