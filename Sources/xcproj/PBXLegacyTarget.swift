@@ -58,8 +58,12 @@ final public class PBXLegacyTarget: PBXTarget {
         try super.init(from: decoder)
     }
     
-    public static func == (lhs: PBXLegacyTarget,
-                           rhs: PBXLegacyTarget) -> Bool {
+    public override func isEqual(to object: PBXObject) -> Bool {
+        guard super.isEqual(to: self),
+            let rhs = object as? PBXLegacyTarget else {
+                return false
+        }
+        let lhs = self
         return (lhs as PBXTarget) == (rhs as PBXTarget) &&
             lhs.buildToolPath == rhs.buildToolPath &&
             lhs.buildArgumentsString == rhs.buildArgumentsString &&
