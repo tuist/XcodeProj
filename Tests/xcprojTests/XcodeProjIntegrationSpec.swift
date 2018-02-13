@@ -138,34 +138,66 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(project.pbxproj.objects.groups[newGroups[1].reference], newGroups[1].object)
     }
 
-    func test_add_new_file() throws {
+    func test_add_new_source_file() throws {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "newfile.swift"
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
         let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup.object, sourceRoot: fixturesPath() + "iOS")
 
+        let expectedFile = PBXFileReference(sourceTree: .group,
+                                            name: "newfile.swift",
+                                            explicitFileType: "sourcecode.swift",
+                                            lastKnownFileType: "sourcecode.swift",
+                                            path: "../../newfile.swift")
+        
         XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
-        XCTAssertEqual(file.object.name, "newfile.swift")
-        XCTAssertEqual(file.object.sourceTree, PBXSourceTree.group)
-        XCTAssertEqual(file.object.path, "../../newfile.swift")
+        XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
 
         let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
 
         XCTAssertTrue(file == existingFile)
     }
-
-    func test_add_not_a_file() throws {
+    
+    func test_add_new_dynamic_framework() throws {
         let proj = projectiOS()!.pbxproj
-        do {
-            _ = try proj.objects.addFile(at: fixturesPath() + "iOS/iOS", toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
-            XCTFail("Adding not file path should throw error")
-        } catch {}
-
-        do {
-            _ = try proj.objects.addFile(at: fixturesPath() + "iOS/iOS/newfile.swift", toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
-            XCTFail("Adding not existing file should throw error")
-        } catch {}
+        let filePath = fixturesPath() + "dummy.framework"
+        
+        let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
+        let file = try proj.objects.addFile(at: filePath,
+                                            toGroup: iOSGroup.object,
+                                            sourceRoot: fixtureiOSSourcePath())
+        
+        let expectedFile = PBXFileReference(sourceTree: .group,
+                                            name: "dummy.framework",
+                                            explicitFileType: "wrapper.framework",
+                                            lastKnownFileType: "wrapper.framework",
+                                            path: "../../dummy.framework")
+        
+        
+        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
+        XCTAssertEqual(file.object, expectedFile)
+        XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
+    }
+    
+    func test_add_existing_file_returns_existing_object() throws {
+        let proj = projectiOS()!.pbxproj
+        let filePath = fixturesPath() + "newfile.swift"
+        let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
+        
+        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceRoot: fixtureiOSSourcePath())
+        let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath())
+        XCTAssertTrue(file == existingFile)
+    }
+    
+    func test_add_nonexisting_file_throws() {
+        let proj = projectiOS()!.pbxproj
+        let filePath = fixturesPath() + "nonexisting.swift"
+        XCTAssertThrowsSpecificError(
+            try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath()),
+            XCodeProjEditingError.fileNotExists(path: filePath),
+            "Adding a reference to non existing file should throw an error"
+        )
     }
 
     func test_add_new_build_file() throws {
@@ -255,11 +287,30 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         return fixturesPath() + "iOS/Project.xcodeproj"
     }
     
+    private func fixtureiOSSourcePath() -> Path {
+        return fixturesPath() + "iOS"
+    }
+    
     private func projectiOS() -> XcodeProj? {
         return try? XcodeProj(path: fixtureiOSProjectPath())
     }
     
     private func projectWithoutWorkspace() throws -> XcodeProj {
         return try XcodeProj(path: fixtureWithoutWorkspaceProjectPath())
+    }
+}
+
+// This could be code generated (e.g. using sourcery)
+extension XCodeProjEditingError: Equatable {
+
+    static public func == (lhs: XCodeProjEditingError, rhs: XCodeProjEditingError) -> Bool {
+        switch (lhs, rhs) {
+        case (.fileNotExists(let path1), .fileNotExists(let path2)):
+            return path1 == path2
+        case (.groupNotFound(let group1), .groupNotFound(let group2)):
+            return group1 == group2
+        default:
+            return false
+        }
     }
 }
