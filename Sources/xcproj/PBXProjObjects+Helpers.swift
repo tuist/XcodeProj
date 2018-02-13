@@ -196,7 +196,7 @@ public struct GroupAddingOptions: OptionSet {
         self.rawValue = rawValue
     }
     /// Create group without reference to folder
-    static let withoutFolder    = GroupAddingOptions(rawValue: 1 << 0)
+    public static let withoutFolder = GroupAddingOptions(rawValue: 1 << 0)
 }
 
 public enum XCodeProjEditingError: Error, CustomStringConvertible {

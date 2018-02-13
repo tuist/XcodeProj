@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 import PathKit
-@testable import xcproj
+import xcproj
 
 final class XcodeProjIntegrationSpec: XCTestCase {
 
@@ -50,8 +50,8 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         for path in pathsToProjectsToTest {
             let rawProj: String = try (path + "project.pbxproj").read()
             let proj = try XcodeProj(path: path)
-            let encoder = PBXProjEncoder()
-            let output = encoder.encode(proj: proj.pbxproj)
+            
+            let output = proj.pbxproj.encode()
             
             XCTAssertEqual(output, rawProj)
         }
@@ -65,8 +65,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let buildConfiguration = proj.pbxproj.objects.buildConfigurations.first!.value
         buildConfiguration.buildSettings["a_quoted"] = "a".quoted
 
-        let encoder = PBXProjEncoder()
-        let output = encoder.encode(proj: proj.pbxproj)
+        let output = proj.pbxproj.encode()
 
         XCTAssertEqual(output, rawProj)
     }
@@ -100,18 +99,35 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     // MARK: - File add
 
     func test_add_new_group() throws {
-        let project = projectiOS()!
-        let groups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
-        let group = groups[0]
-
-        XCTAssertEqual(group.object.name, "Group")
-        XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: group.reference))
-        XCTAssertEqual(project.pbxproj.objects.groups[group.reference], group.object)
-
-        let existingGroups = project.pbxproj.objects.addGroup(named: "Group", to: project.pbxproj.rootGroup)
-        XCTAssertTrue(groups[0] == existingGroups[0])
+        let project = projectiOS()!.pbxproj
+        
+        let groups = project.objects.addGroup(named: "Group", to: project.rootGroup)
+        let groupRef = XCTAssertNotNilAndUnwrap(groups.first)
+        
+        let group = groupRef.object
+        XCTAssertEqual(group.name, "Group")
+        XCTAssertEqual(group.path, "Group")
+        
+        let reference = groupRef.reference
+        XCTAssertNotNil(project.rootGroup.children.index(of: reference))
+        XCTAssertEqual(project.objects.groups[reference], group)
+    }
+    
+    func test_add_new_group_without_folder_has_nil_path() {
+        let project = projectiOS()!.pbxproj
+        let groups = project.objects.addGroup(named: "Group", to: project.rootGroup, options: [.withoutFolder])
+        let group = XCTAssertNotNilAndUnwrap(groups.first).object
+        XCTAssertEqual(group.name, "Group")
+        XCTAssertNil(group.path)
     }
 
+    func test_add_existing_group_returns_existing_object() {
+        let project = projectiOS()!.pbxproj
+        let groups = project.objects.addGroup(named: "Group", to: project.rootGroup)
+        let existingGroups = project.objects.addGroup(named: "Group", to: project.rootGroup)
+        XCTAssertEqual(groups[0], existingGroups[0])
+    }
+    
     func test_add_nested_group() throws {
         let project = projectiOS()!
         let groups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
