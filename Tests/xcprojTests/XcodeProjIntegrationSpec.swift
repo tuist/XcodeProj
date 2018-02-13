@@ -190,26 +190,6 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertTrue(file == existingFile)
     }
     
-    func test_add_unsupported_file_throws() {
-        let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "unsupported.xyz"
-        XCTAssertThrowsSpecificError(
-            try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath()),
-            XCodeProjEditingError.unsupportedFileType(path: filePath),
-            "Adding file reference to unsupported file type should throw an error"
-        )
-    }
-    
-    func test_add_directory_throws() {
-        let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "directory"
-        XCTAssertThrowsSpecificError(
-            try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath()),
-            XCodeProjEditingError.unsupportedFileType(path: filePath),
-            "Adding a directory as a file reference should throw an error"
-        )
-    }
-    
     func test_add_nonexisting_file_throws() {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "nonexisting.swift"
@@ -325,8 +305,6 @@ extension XCodeProjEditingError: Equatable {
 
     static public func == (lhs: XCodeProjEditingError, rhs: XCodeProjEditingError) -> Bool {
         switch (lhs, rhs) {
-        case (.unsupportedFileType(let path1), .unsupportedFileType(let path2)):
-            return path1 == path2
         case (.fileNotExists(let path1), .fileNotExists(let path2)):
             return path1 == path2
         case (.groupNotFound(let group1), .groupNotFound(let group2)):
