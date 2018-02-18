@@ -174,6 +174,12 @@ final public class XCScheme {
         public let value: String
         public let enabled: Bool
 
+        public init(variable: String, value: String, enabled: Bool) {
+            self.variable = variable
+            self.value = value
+            self.enabled = enabled
+        }
+
         fileprivate func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "EnvironmentVariable",
                                 value: nil,
