@@ -169,33 +169,19 @@ final public class XCScheme {
         }
     }
 
-    final public class EnvironmentVariables {
-        public struct EnvironmentVariable {
-            public let key: String
-            public let value: String
-            public let enabled: Bool
+    public struct EnvironmentVariable {
+        public let variable: String
+        public let value: String
+        public let enabled: Bool
 
-            public init(key: String, value: String, enabled: Bool) {
-                self.key = key
-                self.value = value
-                self.enabled = enabled
-            }
-
-            fileprivate func xmlElement() -> AEXMLElement {
-                return AEXMLElement(name: "EnvironmentVariable",
-                                    value: nil,
-                                    attributes: ["key": key, "value": value, "isEnabled": enabled ? "YES" : "NO" ])
-            }
+        fileprivate func xmlElement() -> AEXMLElement {
+            return AEXMLElement(name: "EnvironmentVariable",
+                                value: nil,
+                                attributes: ["key": variable, "value": value, "isEnabled": enabled ? "YES" : "NO" ])
         }
 
-        public let variables: [EnvironmentVariable]
-
-        public init(variables: [EnvironmentVariable]) {
-            self.variables = variables
-        }
-
-        init(element: AEXMLElement) throws {
-            self.variables = try element.children.map { elt in
+        fileprivate static func parseVariables(from element: AEXMLElement) throws -> [EnvironmentVariable] {
+            return try element.children.map { elt in
                 guard let variableKey = elt.attributes["key"] else {
                     throw XCSchemeError.missing(property: "key")
                 }
@@ -205,16 +191,18 @@ final public class XCScheme {
                 guard let variableEnabledRaw = elt.attributes["isEnabled"] else {
                     throw XCSchemeError.missing(property: "isEnabled")
                 }
-                return EnvironmentVariable(key: variableKey, value: variableValue, enabled: variableEnabledRaw == "YES")
+
+                return EnvironmentVariable(variable: variableKey, value: variableValue, enabled: variableEnabledRaw == "YES")
             }
         }
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        fileprivate static func xmlElement(from variables: [EnvironmentVariable]) -> AEXMLElement {
             let element = AEXMLElement(name: "EnvironmentVariables",
                                        value: nil)
             variables.forEach { arg in
                 element.addChild(arg.xmlElement())
             }
+
             return element
         }
     }
@@ -409,7 +397,7 @@ final public class XCScheme {
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
         public var commandlineArguments: CommandLineArguments?
-        public var environmentVariables: EnvironmentVariables?
+        public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
         public var region: String?
 
@@ -428,7 +416,7 @@ final public class XCScheme {
                     allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil,
                     commandlineArguments: CommandLineArguments? = nil,
-                    environmentVariables: EnvironmentVariables? = nil,
+                    environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
                     region: String? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
@@ -483,7 +471,7 @@ final public class XCScheme {
 
             let environmentVariables = element["EnvironmentVariables"]
             if environmentVariables.error == nil {
-                self.environmentVariables = try EnvironmentVariables(element: environmentVariables)
+                self.environmentVariables = try EnvironmentVariable.parseVariables(from: environmentVariables)
             }
 
             self.language = element.attributes["language"]
@@ -522,7 +510,7 @@ final public class XCScheme {
             }
 
             if let environmentVariables = environmentVariables {
-                element.addChild(environmentVariables.xmlElement())
+                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
             if let region = region {
@@ -545,7 +533,7 @@ final public class XCScheme {
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
         public var commandlineArguments: CommandLineArguments?
-        public var environmentVariables: EnvironmentVariables?
+        public var environmentVariables: [EnvironmentVariable]?
         public var macroExpansion: BuildableReference?
         public var enableTestabilityWhenProfilingTests: Bool
 
@@ -560,7 +548,7 @@ final public class XCScheme {
                     useCustomWorkingDirectory: Bool = false,
                     debugDocumentVersioning: Bool = true,
                     commandlineArguments: CommandLineArguments? = nil,
-                    environmentVariables: EnvironmentVariables? = nil,
+                    environmentVariables: [EnvironmentVariable]? = nil,
                     enableTestabilityWhenProfilingTests: Bool = true) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
@@ -597,7 +585,7 @@ final public class XCScheme {
             }
             let environmentVariables = element["EnvironmentVariables"]
             if environmentVariables.error == nil {
-                self.environmentVariables = try EnvironmentVariables(element: environmentVariables)
+                self.environmentVariables = try EnvironmentVariable.parseVariables(from: environmentVariables)
             }
             enableTestabilityWhenProfilingTests = element.attributes["enableTestabilityWhenProfilingTests"].map { $0 != "No" } ?? true
             try super.init(element: element)
@@ -626,7 +614,7 @@ final public class XCScheme {
                 element.addChild(commandlineArguments.xmlElement())
             }
             if let environmentVariables = environmentVariables {
-                element.addChild(environmentVariables.xmlElement())
+                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
             if let macroExpansion = macroExpansion {
@@ -649,7 +637,7 @@ final public class XCScheme {
         public var codeCoverageEnabled: Bool
         public var macroExpansion: BuildableReference?
         public var commandlineArguments: CommandLineArguments?
-        public var environmentVariables: EnvironmentVariables?
+        public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
         public var region: String?
 
@@ -669,7 +657,7 @@ final public class XCScheme {
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     codeCoverageEnabled: Bool = false,
                     commandlineArguments: CommandLineArguments? = nil,
-                    environmentVariables: EnvironmentVariables? = nil,
+                    environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
                     region: String? = nil,
                     systemAttachmentLifetime: AttachmentLifetime? = nil,
@@ -711,7 +699,7 @@ final public class XCScheme {
 
             let environmentVariables = element["EnvironmentVariables"]
             if environmentVariables.error == nil {
-                self.environmentVariables = try EnvironmentVariables(element: environmentVariables)
+                self.environmentVariables = try EnvironmentVariable.parseVariables(from: environmentVariables)
             }
 
             self.language = element.attributes["language"]
@@ -755,7 +743,7 @@ final public class XCScheme {
             }
 
             if let environmentVariables = environmentVariables {
-                element.addChild(environmentVariables.xmlElement())
+                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
             element.addChild(AEXMLElement(name: "AdditionalOptions"))

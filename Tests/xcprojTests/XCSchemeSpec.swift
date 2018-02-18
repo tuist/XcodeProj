@@ -87,10 +87,10 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.testAction?.macroExpansion?.referencedContainer, "container:Project.xcodeproj")
 
         let testEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.testAction?.environmentVariables)
-        XCTAssertEqual(testEnvironmentVariables.variables.count, 1)
-        XCTAssertEqual(testEnvironmentVariables.variables[0].key, "ENV_VAR")
-        XCTAssertEqual(testEnvironmentVariables.variables[0].value, "TEST")
-        XCTAssertFalse(testEnvironmentVariables.variables[0].enabled)
+        XCTAssertEqual(testEnvironmentVariables.count, 1)
+        XCTAssertEqual(testEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(testEnvironmentVariables[0].value, "TEST")
+        XCTAssertFalse(testEnvironmentVariables[0].enabled)
 
         let testCLIArgs = XCTAssertNotNilAndUnwrap(scheme.testAction?.commandlineArguments)
         XCTAssertTrue(testCLIArgs.arguments.count > 0)
@@ -125,10 +125,10 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.postActions.first?.scriptText, "echo analysis done")
 
         let profileEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.profileAction?.environmentVariables)
-        XCTAssertEqual(profileEnvironmentVariables.variables.count, 1)
-        XCTAssertEqual(profileEnvironmentVariables.variables[0].key, "ENV_VAR")
-        XCTAssertEqual(profileEnvironmentVariables.variables[0].value, "PROFILE")
-        XCTAssertTrue(profileEnvironmentVariables.variables[0].enabled)
+        XCTAssertEqual(profileEnvironmentVariables.count, 1)
+        XCTAssertEqual(profileEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(profileEnvironmentVariables[0].value, "PROFILE")
+        XCTAssertTrue(profileEnvironmentVariables[0].enabled)
 
         let profileCLIArgs = XCTAssertNotNilAndUnwrap(scheme.profileAction?.commandlineArguments)
         XCTAssertTrue(profileCLIArgs.arguments.count > 0)
@@ -169,10 +169,10 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.postActions.first?.environmentBuildable?.referencedContainer, "container:Project.xcodeproj")
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
-        XCTAssertEqual(launchEnvironmentVariables.variables.count, 1)
-        XCTAssertEqual(launchEnvironmentVariables.variables[0].key, "ENV_VAR")
-        XCTAssertEqual(launchEnvironmentVariables.variables[0].value, "RUN")
-        XCTAssertTrue(launchEnvironmentVariables.variables[0].enabled)
+        XCTAssertEqual(launchEnvironmentVariables.count, 1)
+        XCTAssertEqual(launchEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(launchEnvironmentVariables[0].value, "RUN")
+        XCTAssertTrue(launchEnvironmentVariables[0].enabled)
 
         let launchCLIArgs = XCTAssertNotNilAndUnwrap(scheme.launchAction?.commandlineArguments)
         XCTAssertTrue(launchCLIArgs.arguments.count > 0)
@@ -224,10 +224,10 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertNil(scheme.launchAction?.commandlineArguments)
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
-        XCTAssertEqual(launchEnvironmentVariables.variables.count, 1)
-        XCTAssertEqual(launchEnvironmentVariables.variables[0].key, "AI_TEST_MODE")
-        XCTAssertEqual(launchEnvironmentVariables.variables[0].value, "integration")
-        XCTAssertTrue(launchEnvironmentVariables.variables[0].enabled)
+        XCTAssertEqual(launchEnvironmentVariables.count, 1)
+        XCTAssertEqual(launchEnvironmentVariables[0].variable, "AI_TEST_MODE")
+        XCTAssertEqual(launchEnvironmentVariables[0].value, "integration")
+        XCTAssertTrue(launchEnvironmentVariables[0].enabled)
 
         // Profile action
         XCTAssertNil(scheme.profileAction?.buildableProductRunnable)
