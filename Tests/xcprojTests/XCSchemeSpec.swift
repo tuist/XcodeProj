@@ -86,6 +86,12 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.testAction?.macroExpansion?.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.testAction?.macroExpansion?.referencedContainer, "container:Project.xcodeproj")
 
+        let testEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.testAction?.environmentVariables)
+        XCTAssertEqual(testEnvironmentVariables.count, 1)
+        XCTAssertEqual(testEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(testEnvironmentVariables[0].value, "TEST")
+        XCTAssertFalse(testEnvironmentVariables[0].enabled)
+
         let testCLIArgs = XCTAssertNotNilAndUnwrap(scheme.testAction?.commandlineArguments)
         XCTAssertTrue(testCLIArgs.arguments.count > 0)
         XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
@@ -117,6 +123,12 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.preActions.isEmpty, true)
         XCTAssertEqual(scheme.profileAction?.postActions.first?.title, "Run Script")
         XCTAssertEqual(scheme.profileAction?.postActions.first?.scriptText, "echo analysis done")
+
+        let profileEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.profileAction?.environmentVariables)
+        XCTAssertEqual(profileEnvironmentVariables.count, 1)
+        XCTAssertEqual(profileEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(profileEnvironmentVariables[0].value, "PROFILE")
+        XCTAssertTrue(profileEnvironmentVariables[0].enabled)
 
         let profileCLIArgs = XCTAssertNotNilAndUnwrap(scheme.profileAction?.commandlineArguments)
         XCTAssertTrue(profileCLIArgs.arguments.count > 0)
@@ -156,6 +168,12 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.postActions.first?.environmentBuildable?.blueprintName, "iOSTests")
         XCTAssertEqual(scheme.launchAction?.postActions.first?.environmentBuildable?.referencedContainer, "container:Project.xcodeproj")
 
+        let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
+        XCTAssertEqual(launchEnvironmentVariables.count, 1)
+        XCTAssertEqual(launchEnvironmentVariables[0].variable, "ENV_VAR")
+        XCTAssertEqual(launchEnvironmentVariables[0].value, "RUN")
+        XCTAssertTrue(launchEnvironmentVariables[0].enabled)
+
         let launchCLIArgs = XCTAssertNotNilAndUnwrap(scheme.launchAction?.commandlineArguments)
         XCTAssertTrue(launchCLIArgs.arguments.count > 0)
         XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
@@ -189,6 +207,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertTrue(scheme.testAction?.codeCoverageEnabled == false)
         XCTAssertNil(scheme.testAction?.macroExpansion)
         XCTAssertNil(scheme.testAction?.commandlineArguments)
+        XCTAssertNil(scheme.testAction?.environmentVariables)
 
         // Launch action
         XCTAssertNil(scheme.launchAction?.buildableProductRunnable)
@@ -204,6 +223,12 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertNil(scheme.launchAction?.locationScenarioReference)
         XCTAssertNil(scheme.launchAction?.commandlineArguments)
 
+        let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
+        XCTAssertEqual(launchEnvironmentVariables.count, 1)
+        XCTAssertEqual(launchEnvironmentVariables[0].variable, "AI_TEST_MODE")
+        XCTAssertEqual(launchEnvironmentVariables[0].value, "integration")
+        XCTAssertTrue(launchEnvironmentVariables[0].enabled)
+
         // Profile action
         XCTAssertNil(scheme.profileAction?.buildableProductRunnable)
         XCTAssertEqual(scheme.profileAction?.buildConfiguration, "Release")
@@ -212,6 +237,7 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertTrue(scheme.profileAction?.useCustomWorkingDirectory == false)
         XCTAssertTrue(scheme.profileAction?.debugDocumentVersioning == true)
         XCTAssertNil(scheme.profileAction?.commandlineArguments)
+        XCTAssertNil(scheme.profileAction?.environmentVariables)
 
         // Analzye action
         XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
