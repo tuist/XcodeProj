@@ -173,8 +173,11 @@ extension PBXProject: PlistSerializable {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-        dictionary["knownRegions"] = PlistValue.array(knownRegions
+
+        if !knownRegions.isEmpty {
+            dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
+        }
         
         dictionary["mainGroup"] = .string(CommentedString(mainGroup))
         if let productRefGroup = productRefGroup {
