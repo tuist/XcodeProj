@@ -2,6 +2,8 @@
 
 ## next version
 
+## 4.1.0
+
 ### Added
 - Added `tvOS` and `watchOS` Carthage support https://github.com/xcodeswift/xcproj/pull/232 by @yonaskolb
 - Added support for scheme environment variables https://github.com/xcodeswift/xcproj/pull/227 by @turekj
