@@ -84,7 +84,7 @@ end
 
 def generate_carthage_project
   throw "Mint is necessary. Make sure it's installed in your system" unless command?("mint")
-  sh "mint run yonaskolb/xcodegen@#{XCODEGEN_VERSION} 'xcodegen --spec carthage-project.yml'"
+  # sh "mint run yonaskolb/xcodegen@#{XCODEGEN_VERSION} 'xcodegen --spec carthage-project.yml'"
 end
 
 def print(message)
