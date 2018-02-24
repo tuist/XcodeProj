@@ -11,6 +11,7 @@
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
 - Fix adding file reference to bundle and package files https://github.com/xcodeswift/xcproj/pull/234 by @fuzza
 - Fix adding PBXGroup without folder reference https://github.com/xcodeswift/xcproj/pull/235 by @fuzza
+- Fixed some more diffs from Xcode https://github.com/xcodeswift/xcproj/pull/233 by @yonaskolb
 
 ### Changed
 - Carthage minimum Deployment Target https://github.com/xcodeswift/xcproj/pull/229 by @olbrichj
