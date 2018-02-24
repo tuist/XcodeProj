@@ -64,8 +64,7 @@ final public class PBXLegacyTarget: PBXTarget {
                 return false
         }
         let lhs = self
-        return (lhs as PBXTarget) == (rhs as PBXTarget) &&
-            lhs.buildToolPath == rhs.buildToolPath &&
+        return lhs.buildToolPath == rhs.buildToolPath &&
             lhs.buildArgumentsString == rhs.buildArgumentsString &&
             lhs.passBuildSettingsInEnvironment == rhs.passBuildSettingsInEnvironment &&
             lhs.buildWorkingDirectory == rhs.buildWorkingDirectory
