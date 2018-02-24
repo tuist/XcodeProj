@@ -144,10 +144,10 @@ task :release => [:clean] do
   print "Generating docs"
   generate_docs
   version = next_version(ENV["RELEASE_TYPE"].to_sym)
-  print "Bumping version to #{next_version}"
-  bump_to_version(current_version, next_version)
+  print "Bumping version to #{version}"
+  bump_to_version(current_version, version)
   print "Commiting and pushing changes to GitHub"
-  commit_changes_and_push(next_version)
+  commit_changes_and_push(version)
   print "Pushing new version to CocoaPods"
   sh "bundle exec pod trunk push --verbose --allow-warnings"
 end
