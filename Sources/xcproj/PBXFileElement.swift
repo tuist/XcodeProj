@@ -31,8 +31,8 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     }
     
     public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: self),
-            let rhs = object as? PBXFileElement else {
+        guard let rhs = object as? PBXFileElement,
+            super.isEqual(to: rhs) else {
                 return false
         }
         let lhs = self

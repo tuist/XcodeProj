@@ -46,9 +46,9 @@ public class PBXBuildPhase: PBXObject {
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: self),
-            let rhs = object as? PBXBuildPhase else {
-            return false
+        guard let rhs = object as? PBXBuildPhase,
+            super.isEqual(to: rhs) else {
+                return false
         }
         let lhs = self
         return lhs.files == rhs.files &&
