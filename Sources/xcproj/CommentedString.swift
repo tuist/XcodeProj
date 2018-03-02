@@ -54,7 +54,11 @@ struct CommentedString {
             escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
         }
 
-        if !escaped.isQuoted && escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil {
+        if !escaped.isQuoted &&
+            (escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil ||
+             escaped.range(of: "___") != nil ||
+             escaped.range(of: "//") != nil) {
+
             escaped = escaped.quoted
         }
 
