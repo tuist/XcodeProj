@@ -25,12 +25,14 @@ final public class PBXGroup: PBXFileElement {
     ///   - sourceTree: group source tree.
     ///   - name: group name.
     ///   - path: group path.
+    ///   - includeInIndex: should the IDE index the files in the group?
     ///   - wrapsLines: should the IDE wrap lines for files in the group?
     ///   - usesTabs: group uses tabs.
     public init(children: [String],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil,
+                includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
@@ -39,7 +41,7 @@ final public class PBXGroup: PBXFileElement {
         self.usesTabs = usesTabs
         self.indentWidth = indentWidth
         self.tabWidth = tabWidth
-        super.init(sourceTree: sourceTree, path: path, name: name, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {

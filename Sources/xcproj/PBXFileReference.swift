@@ -16,9 +16,6 @@ final public class PBXFileReference: PBXFileElement {
     /// Element last known file type.
     public var lastKnownFileType: String?
     
-    /// Element include in index.
-    public var includeInIndex: Bool?
-    
     /// Element uses tabs.
     public var usesTabs: Bool?
     
@@ -30,6 +27,7 @@ final public class PBXFileReference: PBXFileElement {
     
     // MARK: - Init
     
+    ///   - includeInIndex: should the IDE index the file?
     ///   - wrapsLines: should the IDE wrap lines when editing the file?
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
@@ -45,11 +43,10 @@ final public class PBXFileReference: PBXFileElement {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
-        self.includeInIndex = includeInIndex
         self.usesTabs = usesTabs
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(sourceTree: sourceTree, path: path, name: name, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {
@@ -64,7 +61,6 @@ final public class PBXFileReference: PBXFileElement {
             lhs.name == rhs.name &&
             lhs.path == rhs.path &&
             lhs.sourceTree == rhs.sourceTree &&
-            lhs.includeInIndex == rhs.includeInIndex &&
             lhs.usesTabs == rhs.usesTabs &&
             lhs.lineEnding == rhs.lineEnding &&
             lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier
@@ -76,7 +72,6 @@ final public class PBXFileReference: PBXFileElement {
         case fileEncoding
         case explicitFileType
         case lastKnownFileType
-        case includeInIndex
         case usesTabs
         case lineEnding
         case xcLanguageSpecificationIdentifier
@@ -87,7 +82,6 @@ final public class PBXFileReference: PBXFileElement {
         self.fileEncoding = try container.decodeIntIfPresent(.fileEncoding)
         self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
-        self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
         self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
         self.lineEnding = try container.decodeIntIfPresent(.lineEnding)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
@@ -110,9 +104,6 @@ final public class PBXFileReference: PBXFileElement {
         }
         if let explicitFileType = self.explicitFileType {
             dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
-        }
-        if let includeInIndex = includeInIndex {
-            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
         if let usesTabs = usesTabs {
             dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
