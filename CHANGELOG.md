@@ -11,6 +11,7 @@
 ### Fixed
 - `PBXObject.isEqual(to:)` overrides correctly call super https://github.com/xcodeswift/xcproj/pull/239 by @briantkelley
 - `PBXAggregateTarget` does not write `buildRules` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
+- Writes showEnvVarsInLog only when false https://github.com/xcodeswift/xcproj/pull/240 by @briantkelley
 
 ## 4.1.0
 

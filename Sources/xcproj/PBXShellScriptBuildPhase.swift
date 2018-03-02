@@ -46,7 +46,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
                 shellScript: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false,
-                showEnvVarsInLog: Bool = false) {
+                showEnvVarsInLog: Bool = true) {
         self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
@@ -76,7 +76,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
         self.shellPath = try container.decodeIfPresent(.shellPath)
         self.shellScript = try container.decodeIfPresent(.shellScript)
-        self.showEnvVarsInLog = try container.decodeIntBool(.showEnvVarsInLog)
+        self.showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
         try super.init(from: decoder)
     }
 
@@ -117,7 +117,10 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
+        if !showEnvVarsInLog {
+            // Xcode only writes this key if it's set to false; default is true and is omitted
+            dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
+        }
         return (key: CommentedString(reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
     }
 
