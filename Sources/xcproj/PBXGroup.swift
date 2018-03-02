@@ -7,9 +7,6 @@ final public class PBXGroup: PBXFileElement {
     /// Element children.
     public var children: [String]
 
-    /// Element uses tabs.
-    public var usesTabs: Bool?
-    
     /// Element indent width.
     public var indentWidth: UInt?
     
@@ -37,10 +34,9 @@ final public class PBXGroup: PBXFileElement {
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil) {
         self.children = children
-        self.usesTabs = usesTabs
         self.indentWidth = indentWidth
         self.tabWidth = tabWidth
-        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, usesTabs: usesTabs, wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {
@@ -53,7 +49,6 @@ final public class PBXGroup: PBXFileElement {
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
-            lhs.usesTabs == rhs.usesTabs &&
             lhs.indentWidth == rhs.indentWidth &&
             lhs.tabWidth == rhs.tabWidth
     }
@@ -62,7 +57,6 @@ final public class PBXGroup: PBXFileElement {
     
     fileprivate enum CodingKeys: String, CodingKey {
         case children
-        case usesTabs
         case indentWidth
         case tabWidth
     }
@@ -70,7 +64,6 @@ final public class PBXGroup: PBXFileElement {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = (try container.decodeIfPresent(.children)) ?? []
-        self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
         self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
         self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
         try super.init(from: decoder)
@@ -85,9 +78,6 @@ final public class PBXGroup: PBXFileElement {
             let comment = proj.objects.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
-        if let usesTabs = usesTabs {
-            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
-        }
 
         [("indentWidth" as CommentedString, indentWidth),
          ("tabWidth", tabWidth)]
