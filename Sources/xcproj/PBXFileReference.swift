@@ -30,6 +30,7 @@ final public class PBXFileReference: PBXFileElement {
     
     // MARK: - Init
     
+    ///   - wrapsLines: should the IDE wrap lines when editing the file?
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: UInt? = nil,
@@ -37,6 +38,7 @@ final public class PBXFileReference: PBXFileElement {
                 lastKnownFileType: String? = nil,
                 path: String? = nil,
                 includeInIndex: Bool? = nil,
+                wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
                 lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
@@ -47,7 +49,7 @@ final public class PBXFileReference: PBXFileElement {
         self.usesTabs = usesTabs
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(sourceTree: sourceTree, path: path, name: name)
+        super.init(sourceTree: sourceTree, path: path, name: name, wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {

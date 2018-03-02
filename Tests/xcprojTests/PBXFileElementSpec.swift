@@ -10,7 +10,8 @@ final class PBXFileElementSpec: XCTestCase {
         super.setUp()
         subject = PBXFileElement(sourceTree: .absolute,
                                  path: "path",
-                                 name: "name")
+                                 name: "name",
+                                 wrapsLines: true)
     }
 
     func test_isa_returnsTheCorrectValue() {
@@ -21,12 +22,14 @@ final class PBXFileElementSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .absolute)
         XCTAssertEqual(subject.path, "path")
         XCTAssertEqual(subject.name, "name")
+        XCTAssertEqual(subject.wrapsLines, true)
     }
 
     func test_equal_returnsTheCorrectValue() {
         let another = PBXFileElement(sourceTree: .absolute,
                                      path: "path",
-                                     name: "name")
+                                     name: "name",
+                                     wrapsLines: true)
         XCTAssertEqual(subject, another)
     }
 
@@ -34,7 +37,8 @@ final class PBXFileElementSpec: XCTestCase {
         return [
             "sourceTree": "absolute",
             "path": "path",
-            "name": "name"
+            "name": "name",
+            "wrapsLines": "1"
         ]
     }
 }

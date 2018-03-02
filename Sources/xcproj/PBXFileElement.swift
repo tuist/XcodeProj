@@ -13,7 +13,10 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     
     /// Element name.
     public var name: String?
-    
+
+    /// Element wraps lines.
+    public var wrapsLines: Bool?
+
     // MARK: - Init
     
     /// Initializes the file element with its properties.
@@ -21,12 +24,15 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     /// - Parameters:
     ///   - sourceTree: file source tree.
     ///   - name: file name.
+    ///   - wrapsLines: should the IDE wrap lines when editing the object?
     public init(sourceTree: PBXSourceTree? = nil,
                 path: String? = nil,
-                name: String? = nil) {
+                name: String? = nil,
+                wrapsLines: Bool? = nil) {
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
+        self.wrapsLines = wrapsLines
         super.init()
     }
     
@@ -38,7 +44,8 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         let lhs = self
         return lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
-            lhs.name == rhs.name
+            lhs.name == rhs.name &&
+            lhs.wrapsLines == rhs.wrapsLines
     }
     
     // MARK: - Decodable
@@ -47,6 +54,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         case sourceTree
         case name
         case path
+        case wrapsLines
     }
     
     public required init(from decoder: Decoder) throws {
@@ -54,6 +62,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.sourceTree = try container.decodeIfPresent(String.self, forKey: .sourceTree).map { PBXSourceTree(value: $0) }
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
+        self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
     
@@ -72,6 +81,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         }
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
+        }
+        if let wrapsLines = wrapsLines {
+            dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
         }
         return (key: CommentedString(reference,
                                      comment: self.name),
