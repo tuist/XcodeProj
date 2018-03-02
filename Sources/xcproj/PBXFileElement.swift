@@ -14,6 +14,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     /// Element name.
     public var name: String?
 
+    /// Element include in index.
+    public var includeInIndex: Bool?
+
     /// Element wraps lines.
     public var wrapsLines: Bool?
 
@@ -28,10 +31,12 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     public init(sourceTree: PBXSourceTree? = nil,
                 path: String? = nil,
                 name: String? = nil,
+                includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil) {
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
+        self.includeInIndex = includeInIndex
         self.wrapsLines = wrapsLines
         super.init()
     }
@@ -45,6 +50,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         return lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
             lhs.name == rhs.name &&
+            lhs.includeInIndex == rhs.includeInIndex &&
             lhs.wrapsLines == rhs.wrapsLines
     }
     
@@ -54,6 +60,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         case sourceTree
         case name
         case path
+        case includeInIndex
         case wrapsLines
     }
     
@@ -62,6 +69,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.sourceTree = try container.decodeIfPresent(String.self, forKey: .sourceTree).map { PBXSourceTree(value: $0) }
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
+        self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
         self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
@@ -81,6 +89,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         }
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
+        }
+        if let includeInIndex = includeInIndex {
+            dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
         if let wrapsLines = wrapsLines {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))

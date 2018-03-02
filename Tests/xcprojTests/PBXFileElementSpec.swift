@@ -11,6 +11,7 @@ final class PBXFileElementSpec: XCTestCase {
         subject = PBXFileElement(sourceTree: .absolute,
                                  path: "path",
                                  name: "name",
+                                 includeInIndex: false,
                                  wrapsLines: true)
     }
 
@@ -22,6 +23,7 @@ final class PBXFileElementSpec: XCTestCase {
         XCTAssertEqual(subject.sourceTree, .absolute)
         XCTAssertEqual(subject.path, "path")
         XCTAssertEqual(subject.name, "name")
+        XCTAssertEqual(subject.includeInIndex, false)
         XCTAssertEqual(subject.wrapsLines, true)
     }
 
@@ -29,6 +31,7 @@ final class PBXFileElementSpec: XCTestCase {
         let another = PBXFileElement(sourceTree: .absolute,
                                      path: "path",
                                      name: "name",
+                                     includeInIndex: false,
                                      wrapsLines: true)
         XCTAssertEqual(subject, another)
     }
@@ -38,6 +41,7 @@ final class PBXFileElementSpec: XCTestCase {
             "sourceTree": "absolute",
             "path": "path",
             "name": "name",
+            "includeInIndex": "0",
             "wrapsLines": "1"
         ]
     }
