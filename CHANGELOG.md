@@ -22,6 +22,7 @@
 - Writes `PBXProject.projectReferences` to the plist https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
 - Comment generation for `PBXProject`, `PBXTarget`, and `PBXVariantGroup` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
 - `fullPath` now returns the path for a file inside a group without a folder https://github.com/xcodeswift/xcproj/pull/246 by @ileitch
+- Quotes strings containing a triple underscore or double forward slash in .pbxproj file https://github.com/xcodeswift/xcproj/pull/245 by @briantkelley
 
 ## 4.1.0
 
