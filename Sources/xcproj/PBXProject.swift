@@ -130,8 +130,8 @@ final public class PBXProject: PBXObject {
     // MARK: - Hashable
     
     public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: self),
-            let rhs = object as? PBXProject else {
+        guard let rhs = object as? PBXProject,
+            super.isEqual(to: rhs) else {
                 return false
         }
         let lhs = self

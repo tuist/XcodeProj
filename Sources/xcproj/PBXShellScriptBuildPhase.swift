@@ -81,8 +81,8 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: self),
-            let rhs = object as? PBXShellScriptBuildPhase else {
+        guard let rhs = object as? PBXShellScriptBuildPhase,
+            super.isEqual(to: rhs) else {
                 return false
         }
         let lhs = self

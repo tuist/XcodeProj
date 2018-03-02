@@ -28,8 +28,8 @@ final public class PBXTargetDependency: PBXObject {
     // MARK: - Hashable
     
     public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: self),
-            let rhs = object as? PBXTargetDependency else {
+        guard let rhs = object as? PBXTargetDependency,
+            super.isEqual(to: rhs) else {
                 return false
         }
         let lhs = self
