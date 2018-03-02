@@ -17,6 +17,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     /// Element include in index.
     public var includeInIndex: Bool?
 
+    /// Element uses tabs.
+    public var usesTabs: Bool?
+
     /// Element wraps lines.
     public var wrapsLines: Bool?
 
@@ -28,16 +31,19 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     ///   - sourceTree: file source tree.
     ///   - name: file name.
     ///   - includeInIndex: should the IDE index the object?
+    ///   - usesTabs: object uses tabs.
     ///   - wrapsLines: should the IDE wrap lines when editing the object?
     public init(sourceTree: PBXSourceTree? = nil,
                 path: String? = nil,
                 name: String? = nil,
                 includeInIndex: Bool? = nil,
+                usesTabs: Bool? = nil,
                 wrapsLines: Bool? = nil) {
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
         self.includeInIndex = includeInIndex
+        self.usesTabs = usesTabs
         self.wrapsLines = wrapsLines
         super.init()
     }
@@ -52,6 +58,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
             lhs.path == rhs.path &&
             lhs.name == rhs.name &&
             lhs.includeInIndex == rhs.includeInIndex &&
+            lhs.usesTabs == rhs.usesTabs &&
             lhs.wrapsLines == rhs.wrapsLines
     }
     
@@ -62,6 +69,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         case name
         case path
         case includeInIndex
+        case usesTabs
         case wrapsLines
     }
     
@@ -71,6 +79,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.name = try container.decodeIfPresent(.name)
         self.path = try container.decodeIfPresent(.path)
         self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
+        self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
         self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
@@ -93,6 +102,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         }
         if let includeInIndex = includeInIndex {
             dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
+        }
+        if let usesTabs = usesTabs {
+            dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
         }
         if let wrapsLines = wrapsLines {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
