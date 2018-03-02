@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import xcproj
+@testable import xcproj
 
 final class PBXShellScriptBuildPhaseSpec: XCTestCase {
 
@@ -28,6 +28,28 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         let one = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
         let another = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
         XCTAssertEqual(one, another)
+    }
+
+    func test_write_showEnvVarsInLog() {
+        let show = PBXShellScriptBuildPhase(showEnvVarsInLog: true)
+        let doNotShow = PBXShellScriptBuildPhase(showEnvVarsInLog: false)
+
+        let proj = PBXProj(rootObject: "rootObject",
+                objectVersion: 48,
+                objects: ["show": show,
+                          "doNotShow": doNotShow])
+
+        let (_, showPlistValue) = show.plistKeyAndValue(proj: proj, reference: "ref")
+        let (_, doNotShowPlistValue) = doNotShow.plistKeyAndValue(proj: proj, reference: "ref")
+
+        if case PlistValue.dictionary(let showDictionary) = showPlistValue,
+            case PlistValue.dictionary(let doNotShowDictionary) = doNotShowPlistValue {
+
+            XCTAssertNil(showDictionary["showEnvVarsInLog"])
+            XCTAssertEqual(doNotShowDictionary["showEnvVarsInLog"]?.string, "0")
+        } else {
+            XCTAssert(false)
+        }
     }
 
     private func testDictionary() -> [String: Any] {
