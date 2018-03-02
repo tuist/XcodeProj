@@ -41,7 +41,9 @@
 		BF_197339107955 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540968018524 /* CommentedString.swift */; };
 		BF_199932632107 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
 		BF_200793912846 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_345385210871 /* PBXLegacyTarget.swift */; };
+		BF_203164426079 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_160410851218 /* PBXContainerItem.swift */; };
 		BF_207027417028 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
+		BF_209470488351 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_160410851218 /* PBXContainerItem.swift */; };
 		BF_211212486188 /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_473541966361 /* PBXBuildPhase.swift */; };
 		BF_213934473857 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_487766461346 /* BuildPhase.swift */; };
 		BF_215935130772 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
@@ -92,6 +94,7 @@
 		BF_387846167886 /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_646438073479 /* XCVersionGroup.swift */; };
 		BF_388442335726 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_595642817891 /* PlistValue.swift */; };
 		BF_389184731012 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
+		BF_389386174257 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_160410851218 /* PBXContainerItem.swift */; };
 		BF_391690042575 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_788872842986 /* PBXGroup.swift */; };
 		BF_392692625971 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_796834358564 /* PBXSourceTree.swift */; };
 		BF_393711454683 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
@@ -190,6 +193,7 @@
 		BF_677935361120 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
 		BF_678973873536 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
 		BF_682057181319 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_194697253485 /* PBXContainerItemProxy.swift */; };
+		BF_693559444770 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_160410851218 /* PBXContainerItem.swift */; };
 		BF_695268522750 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_441115400167 /* PBXCopyFilesBuildPhase.swift */; };
 		BF_697699574638 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_335866194901 /* XCWorkspaceData.swift */; };
 		BF_698942412038 = {isa = PBXBuildFile; fileRef = FR_269634880674 /* xcproj.framework */; };
@@ -258,6 +262,7 @@
 		FR_112687526616 /* XCWorkspaceDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataGroup.swift; sourceTree = "<group>"; };
 		FR_115502168014 /* XCWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
 		FR_121340420221 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
+		FR_160410851218 /* PBXContainerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXContainerItem.swift; sourceTree = "<group>"; };
 		FR_169222806073 /* PBXReferenceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXReferenceProxy.swift; sourceTree = "<group>"; };
 		FR_191604473041 /* PBXBuildRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildRule.swift; sourceTree = "<group>"; };
 		FR_192331524202 /* XCBreakpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBreakpointList.swift; sourceTree = "<group>"; };
@@ -421,6 +426,7 @@
 				FR_854808332905 /* PBXBuildFile.swift */,
 				FR_473541966361 /* PBXBuildPhase.swift */,
 				FR_191604473041 /* PBXBuildRule.swift */,
+				FR_160410851218 /* PBXContainerItem.swift */,
 				FR_194697253485 /* PBXContainerItemProxy.swift */,
 				FR_441115400167 /* PBXCopyFilesBuildPhase.swift */,
 				FR_869538972327 /* PBXFileElement.swift */,
@@ -620,6 +626,7 @@
 				BF_567300894440 /* PBXBuildFile.swift in Sources */,
 				BF_465991367036 /* PBXBuildPhase.swift in Sources */,
 				BF_433827842104 /* PBXBuildRule.swift in Sources */,
+				BF_389386174257 /* PBXContainerItem.swift in Sources */,
 				BF_137035089733 /* PBXContainerItemProxy.swift in Sources */,
 				BF_554010637731 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF_842329844425 /* PBXFileElement.swift in Sources */,
@@ -685,6 +692,7 @@
 				BF_834686732390 /* PBXBuildFile.swift in Sources */,
 				BF_628033325963 /* PBXBuildPhase.swift in Sources */,
 				BF_641206902760 /* PBXBuildRule.swift in Sources */,
+				BF_209470488351 /* PBXContainerItem.swift in Sources */,
 				BF_992120767289 /* PBXContainerItemProxy.swift in Sources */,
 				BF_695268522750 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF_223871478452 /* PBXFileElement.swift in Sources */,
@@ -750,6 +758,7 @@
 				BF_729243069547 /* PBXBuildFile.swift in Sources */,
 				BF_645839674047 /* PBXBuildPhase.swift in Sources */,
 				BF_626018937793 /* PBXBuildRule.swift in Sources */,
+				BF_203164426079 /* PBXContainerItem.swift in Sources */,
 				BF_682057181319 /* PBXContainerItemProxy.swift in Sources */,
 				BF_207027417028 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF_277058783634 /* PBXFileElement.swift in Sources */,
@@ -815,6 +824,7 @@
 				BF_222223406697 /* PBXBuildFile.swift in Sources */,
 				BF_211212486188 /* PBXBuildPhase.swift in Sources */,
 				BF_787529811209 /* PBXBuildRule.swift in Sources */,
+				BF_693559444770 /* PBXContainerItem.swift in Sources */,
 				BF_668674861308 /* PBXContainerItemProxy.swift in Sources */,
 				BF_556112094985 /* PBXCopyFilesBuildPhase.swift in Sources */,
 				BF_793424925406 /* PBXFileElement.swift in Sources */,
