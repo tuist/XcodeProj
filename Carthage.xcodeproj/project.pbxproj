@@ -47,6 +47,7 @@
 		BF_215935130772 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
 		BF_216649760389 /* PBXProjError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_221078219606 /* PBXProjError.swift */; };
 		BF_219668827664 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
+		BF_220622934847 /* PBXProject+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_131053434429 /* PBXProject+Deprecations.swift */; };
 		BF_222223406697 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
 		BF_222958324054 /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_760923500700 /* PBXAggregateTarget.swift */; };
 		BF_223588338891 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_690330849341 /* PBXVariantGroup.swift */; };
@@ -73,6 +74,7 @@
 		BF_303527020486 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_465638731034 /* PBXNativeTarget.swift */; };
 		BF_313557078871 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_785377831609 /* PBXShellScriptBuildPhase.swift */; };
 		BF_314156153707 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
+		BF_322276309017 /* PBXProject+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_131053434429 /* PBXProject+Deprecations.swift */; };
 		BF_322454694394 /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_826197332984 /* Bool+Extras.swift */; };
 		BF_325886938022 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_514422632986 /* XCConfig.swift */; };
 		BF_329682203687 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_236533062777 /* PBXProductType.swift */; };
@@ -86,6 +88,7 @@
 		BF_341653096557 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
 		BF_351428652357 /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_645440424672 /* BuildSettings.swift */; };
 		BF_363708474724 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_718456312730 /* XCWorkspaceDataFileRef.swift */; };
+		BF_367792059165 /* PBXProject+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_131053434429 /* PBXProject+Deprecations.swift */; };
 		BF_368295940121 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_597764883424 /* PBXHeadersBuildPhase.swift */; };
 		BF_370086358951 /* Referenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_636382421107 /* Referenceable.swift */; };
 		BF_372483883769 /* PBXProj+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_852367716413 /* PBXProj+Helpers.swift */; };
@@ -202,6 +205,7 @@
 		BF_729243069547 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_854808332905 /* PBXBuildFile.swift */; };
 		BF_731385059937 /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_106943741494 /* Dictionary+Extras.swift */; };
 		BF_741460219624 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_169222806073 /* PBXReferenceProxy.swift */; };
+		BF_743839753387 /* PBXProject+Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_131053434429 /* PBXProject+Deprecations.swift */; };
 		BF_746930636620 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_396286678237 /* JSONDecoding.swift */; };
 		BF_747423937097 /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_699059045022 /* PBXProj.swift */; };
 		BF_751462928292 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_753689446669 /* PBXProject.swift */; };
@@ -258,6 +262,7 @@
 		FR_112687526616 /* XCWorkspaceDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataGroup.swift; sourceTree = "<group>"; };
 		FR_115502168014 /* XCWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspace.swift; sourceTree = "<group>"; };
 		FR_121340420221 /* String+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extras.swift"; sourceTree = "<group>"; };
+		FR_131053434429 /* PBXProject+Deprecations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBXProject+Deprecations.swift"; sourceTree = "<group>"; };
 		FR_169222806073 /* PBXReferenceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXReferenceProxy.swift; sourceTree = "<group>"; };
 		FR_191604473041 /* PBXBuildRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildRule.swift; sourceTree = "<group>"; };
 		FR_192331524202 /* XCBreakpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBreakpointList.swift; sourceTree = "<group>"; };
@@ -437,6 +442,7 @@
 				FR_576810495642 /* PBXProjEncoder.swift */,
 				FR_221078219606 /* PBXProjError.swift */,
 				FR_880710663053 /* PBXProjObjects+Helpers.swift */,
+				FR_131053434429 /* PBXProject+Deprecations.swift */,
 				FR_753689446669 /* PBXProject.swift */,
 				FR_169222806073 /* PBXReferenceProxy.swift */,
 				FR_569579805119 /* PBXResourcesBuildPhase.swift */,
@@ -636,6 +642,7 @@
 				BF_835274989962 /* PBXProjEncoder.swift in Sources */,
 				BF_571398155104 /* PBXProjError.swift in Sources */,
 				BF_559712739725 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_743839753387 /* PBXProject+Deprecations.swift in Sources */,
 				BF_657478790467 /* PBXProject.swift in Sources */,
 				BF_452728679222 /* PBXReferenceProxy.swift in Sources */,
 				BF_264003267448 /* PBXResourcesBuildPhase.swift in Sources */,
@@ -701,6 +708,7 @@
 				BF_162715657218 /* PBXProjEncoder.swift in Sources */,
 				BF_216649760389 /* PBXProjError.swift in Sources */,
 				BF_260498074317 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_367792059165 /* PBXProject+Deprecations.swift in Sources */,
 				BF_225781828025 /* PBXProject.swift in Sources */,
 				BF_190552443487 /* PBXReferenceProxy.swift in Sources */,
 				BF_643157343618 /* PBXResourcesBuildPhase.swift in Sources */,
@@ -766,6 +774,7 @@
 				BF_452528712557 /* PBXProjEncoder.swift in Sources */,
 				BF_422154548543 /* PBXProjError.swift in Sources */,
 				BF_116125884111 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_220622934847 /* PBXProject+Deprecations.swift in Sources */,
 				BF_751462928292 /* PBXProject.swift in Sources */,
 				BF_314156153707 /* PBXReferenceProxy.swift in Sources */,
 				BF_515258794140 /* PBXResourcesBuildPhase.swift in Sources */,
@@ -831,6 +840,7 @@
 				BF_409111004520 /* PBXProjEncoder.swift in Sources */,
 				BF_546051856235 /* PBXProjError.swift in Sources */,
 				BF_480935739408 /* PBXProjObjects+Helpers.swift in Sources */,
+				BF_322276309017 /* PBXProject+Deprecations.swift in Sources */,
 				BF_708645136714 /* PBXProject.swift in Sources */,
 				BF_741460219624 /* PBXReferenceProxy.swift in Sources */,
 				BF_473795221109 /* PBXResourcesBuildPhase.swift in Sources */,

@@ -34,8 +34,8 @@ final public class PBXProject: PBXObject {
     /// Project references.
     public var projectReferences: [[String:String]]
     
-    /// The relative root path of the project.
-    public var projectRoot: String
+    /// The relative root paths of the project.
+    public var projectRoots: [String]
     
     /// The objects are a reference to a PBXTarget element.
     public var targets: [String]
@@ -58,7 +58,7 @@ final public class PBXProject: PBXObject {
     ///   - productRefGroup: product reference group.
     ///   - projectDirPath: project dir path.
     ///   - projectReferences: project references.
-    ///   - projectRoot: project root.
+    ///   - projectRoots: project roots.
     ///   - targets: project targets.
     ///   - attributes: project attributes.
     public init(name: String,
@@ -71,7 +71,7 @@ final public class PBXProject: PBXObject {
                 productRefGroup: String? = nil,
                 projectDirPath: String = "",
                 projectReferences: [[String : String]] = [],
-                projectRoot: String = "",
+                projectRoots: [String] = [],
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
         self.name = name
@@ -84,7 +84,7 @@ final public class PBXProject: PBXObject {
         self.productRefGroup = productRefGroup
         self.projectDirPath = projectDirPath
         self.projectReferences = projectReferences
-        self.projectRoot = projectRoot
+        self.projectRoots = projectRoots
         self.targets = targets
         self.attributes = attributes
         super.init()
@@ -104,6 +104,7 @@ final public class PBXProject: PBXObject {
         case projectDirPath
         case projectReferences
         case projectRoot
+        case projectRoots
         case targets
         case attributes
     }
@@ -121,7 +122,13 @@ final public class PBXProject: PBXObject {
         self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
         self.projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
         self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
-        self.projectRoot = try container.decodeIfPresent(.projectRoot) ?? ""
+        if let projectRoots: [String] = try container.decodeIfPresent(.projectRoots) {
+            self.projectRoots = projectRoots
+        } else if let projectRoot: String = try container.decodeIfPresent(.projectRoot) {
+            self.projectRoots = [projectRoot]
+        } else {
+            self.projectRoots = []
+        }
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
@@ -139,7 +146,7 @@ final public class PBXProject: PBXObject {
         let equalHasScannedForEncodings = lhs.hasScannedForEncodings == rhs.hasScannedForEncodings
         let equalProductRefGroup = lhs.productRefGroup == rhs.productRefGroup
         let equalProjectDirPath = lhs.projectDirPath == rhs.projectDirPath
-        let equalProjectRoot = lhs.projectRoot == rhs.projectRoot
+        let equalProjectRoots = lhs.projectRoots == rhs.projectRoots
         let equalProjectReferences = NSArray(array: lhs.projectReferences).isEqual(to: rhs.projectReferences)
         let equalAttributes = NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes)
         
@@ -152,7 +159,7 @@ final public class PBXProject: PBXObject {
             equalProductRefGroup &&
             equalProjectDirPath &&
             equalProjectReferences &&
-            equalProjectRoot &&
+            equalProjectRoots &&
             lhs.targets == rhs.targets &&
             equalAttributes
     }
@@ -186,22 +193,13 @@ extension PBXProject: PlistSerializable {
                                                                     comment: productRefGroupComment))
         }
         dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
-        dictionary["projectRoot"] = .string(CommentedString(projectRoot))
-        if projectReferences.count > 0 {
-            dictionary["projectReferences"] = .array(projectReferences.flatMap { reference in
-                guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
-                    return nil
-                }
-
-                let groupName = proj.objects.groups.getReference(productGroup)?.name
-                let fileRef = proj.objects.fileReferences.getReference(projectRef)
-                let fileRefName = fileRef?.name ?? fileRef?.path
-
-                return [
-                    CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
-                    CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
-                ]
-            })
+        if projectRoots.count > 1 {
+            dictionary["projectRoots"] = projectRoots.plist()
+        } else {
+            dictionary["projectRoot"] = .string(CommentedString(projectRoots.first ?? ""))
+        }
+        if let projectReferences = projectReferencesPlistValue(proj: proj) {
+            dictionary["projectReferences"] = projectReferences
         }
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
@@ -212,6 +210,26 @@ extension PBXProject: PlistSerializable {
         return (key: CommentedString(reference,
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
+    }
+
+    private func projectReferencesPlistValue(proj: PBXProj) -> PlistValue? {
+        guard projectReferences.count > 0 else {
+            return nil
+        }
+        return .array(projectReferences.flatMap { reference in
+            guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
+                return nil
+            }
+
+            let groupName = proj.objects.groups.getReference(productGroup)?.name
+            let fileRef = proj.objects.fileReferences.getReference(projectRef)
+            let fileRefName = fileRef?.name ?? fileRef?.path
+    
+            return [
+                CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
+                CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
+            ]
+        })
     }
     
 }
