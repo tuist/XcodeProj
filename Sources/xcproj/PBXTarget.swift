@@ -102,7 +102,7 @@ public class PBXTarget: PBXContainerItem {
 
         // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
         if !(self is PBXAggregateTarget), !(self is PBXLegacyTarget) || !buildRules.isEmpty {
-            dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
+            dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0, comment: PBXBuildRule.isa))})
         }
         
         dictionary["dependencies"] = .array(dependencies.map {.string(CommentedString($0, comment: PBXTargetDependency.isa))})
