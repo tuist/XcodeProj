@@ -34,6 +34,7 @@ final public class PBXFileReference: PBXFileElement {
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
+                tabWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
@@ -47,6 +48,7 @@ final public class PBXFileReference: PBXFileElement {
                    includeInIndex: includeInIndex,
                    usesTabs: usesTabs,
                    indentWidth: indentWidth,
+                   tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
 

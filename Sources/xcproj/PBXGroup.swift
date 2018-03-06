@@ -7,9 +7,6 @@ final public class PBXGroup: PBXFileElement {
     /// Element children.
     public var children: [String]
 
-    /// Element tab width.
-    public var tabWidth: UInt?
-
     // MARK: - Init
 
     /// Initializes the group with its attributes.
@@ -31,13 +28,13 @@ final public class PBXGroup: PBXFileElement {
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil) {
         self.children = children
-        self.tabWidth = tabWidth
         super.init(sourceTree: sourceTree,
                    path: path,
                    name: name,
                    includeInIndex: includeInIndex,
                    usesTabs: usesTabs,
                    indentWidth: indentWidth,
+                   tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
 
@@ -50,21 +47,18 @@ final public class PBXGroup: PBXFileElement {
         return lhs.children == rhs.children &&
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
-            lhs.path == rhs.path &&
-            lhs.tabWidth == rhs.tabWidth
+            lhs.path == rhs.path
     }
     
     // MARK: - Decodable
     
     fileprivate enum CodingKeys: String, CodingKey {
         case children
-        case tabWidth
     }
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = (try container.decodeIfPresent(.children)) ?? []
-        self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
         try super.init(from: decoder)
     }
     
@@ -77,10 +71,6 @@ final public class PBXGroup: PBXFileElement {
             let comment = proj.objects.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))
         }))
-
-        if let tabWidth = tabWidth {
-            dictionary["tabWidth"] = .string(CommentedString("\(tabWidth)"))
-        }
 
         return (key: CommentedString(reference,
                                      comment: self.name ?? self.path),
