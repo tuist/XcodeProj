@@ -15,7 +15,7 @@ final public class PBXGroup: PBXFileElement {
     ///   - children: group children.
     ///   - sourceTree: group source tree.
     ///   - name: group name.
-    ///   - path: group path.
+    ///   - path: group relative path from `sourceTree`, if different than `name`.
     ///   - includeInIndex: should the IDE index the files in the group?
     ///   - wrapsLines: should the IDE wrap lines for files in the group?
     ///   - usesTabs: group uses tabs.

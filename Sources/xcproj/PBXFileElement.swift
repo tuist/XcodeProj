@@ -35,7 +35,8 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     ///
     /// - Parameters:
     ///   - sourceTree: file source tree.
-    ///   - name: file name.
+    ///   - path: object relative path from `sourceTree`, if different than `name`.
+    ///   - name: object name.
     ///   - includeInIndex: should the IDE index the object?
     ///   - usesTabs: object uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code

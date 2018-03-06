@@ -19,16 +19,35 @@ final public class PBXFileReference: PBXFileElement {
     /// Element line ending.
     public var lineEnding: UInt?
     
+    /// Element language specification identifier
+    public var languageSpecificationIdentifier: String?
+
     /// Element xc language specification identifier
     public var xcLanguageSpecificationIdentifier: String?
     
+    /// Element plist structure definition identifier
+    public var plistStructureDefinitionIdentifier: String?
+
     // MARK: - Init
     
+    /// Initializes the file reference with its properties.
+    ///
+    /// - Parameters:
+    ///   - sourceTree: file source tree.
+    ///   - name: file name.
+    ///   - fileEncoding: text encoding of file content.
+    ///   - explicitFileType: user-specified file type.
+    ///   - lastKnownFileType: derived file type.
+    ///   - path: file relative path from `sourceTree`, if different than `name`.
     ///   - includeInIndex: should the IDE index the file?
     ///   - wrapsLines: should the IDE wrap lines when editing the file?
     ///   - usesTabs: file uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
+    ///   - lineEnding: the line ending type for the file.
+    ///   - languageSpecificationIdentifier: legacy programming language identifier.
+    ///   - xcLanguageSpecificationIdentifier: the programming language identifier.
+    ///   - plistStructureDefinitionIdentifier: the plist organizational family identifier.
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: UInt? = nil,
@@ -41,12 +60,16 @@ final public class PBXFileReference: PBXFileElement {
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
-                xcLanguageSpecificationIdentifier: String? = nil) {
+                languageSpecificationIdentifier: String? = nil,
+                xcLanguageSpecificationIdentifier: String? = nil,
+                plistStructureDefinitionIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
         self.lineEnding = lineEnding
+        self.languageSpecificationIdentifier = languageSpecificationIdentifier
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
+        self.plistStructureDefinitionIdentifier = plistStructureDefinitionIdentifier
         super.init(sourceTree: sourceTree,
                    path: path,
                    name: name,
@@ -67,7 +90,9 @@ final public class PBXFileReference: PBXFileElement {
             lhs.explicitFileType == rhs.explicitFileType &&
             lhs.lastKnownFileType == rhs.lastKnownFileType &&
             lhs.lineEnding == rhs.lineEnding &&
-            lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier
+            lhs.languageSpecificationIdentifier == rhs.languageSpecificationIdentifier &&
+            lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier &&
+            lhs.plistStructureDefinitionIdentifier == rhs.plistStructureDefinitionIdentifier
     }
     
     // MARK: - Decodable
@@ -77,7 +102,9 @@ final public class PBXFileReference: PBXFileElement {
         case explicitFileType
         case lastKnownFileType
         case lineEnding
+        case languageSpecificationIdentifier
         case xcLanguageSpecificationIdentifier
+        case plistStructureDefinitionIdentifier
     }
     
     public required init(from decoder: Decoder) throws {
@@ -86,7 +113,9 @@ final public class PBXFileReference: PBXFileElement {
         self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
         self.lineEnding = try container.decodeIntIfPresent(.lineEnding)
+        self.languageSpecificationIdentifier = try container.decodeIfPresent(.languageSpecificationIdentifier)
         self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
+        self.plistStructureDefinitionIdentifier = try container.decodeIfPresent(.plistStructureDefinitionIdentifier)
         try super.init(from: decoder)
     }
     
@@ -110,8 +139,14 @@ final public class PBXFileReference: PBXFileElement {
         if let lineEnding = lineEnding {
             dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
         }
+        if let languageSpecificationIdentifier = languageSpecificationIdentifier {
+            dictionary["languageSpecificationIdentifier"] = .string(CommentedString(languageSpecificationIdentifier))
+        }
         if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
             dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
+        }
+        if let plistStructureDefinitionIdentifier = plistStructureDefinitionIdentifier {
+            dictionary["plistStructureDefinitionIdentifier"] = .string(CommentedString(plistStructureDefinitionIdentifier))
         }
         return (key: CommentedString(reference, comment: name ?? path),
                 value: .dictionary(dictionary))
