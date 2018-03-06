@@ -58,8 +58,7 @@ final public class PBXVariantGroup: PBXFileElement {
         dictionary["isa"] = .string(CommentedString(PBXVariantGroup.isa))
         dictionary["children"] = .array(children
             .map({PlistValue.string(CommentedString($0, comment: proj.objects.fileName(fileReference: $0)))}))
-        return (key: CommentedString(reference,
-                                                 comment: name),
+        return (key: CommentedString(reference, comment: name ?? path),
                 value: .dictionary(dictionary))
     }
 }
