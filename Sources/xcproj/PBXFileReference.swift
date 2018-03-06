@@ -28,6 +28,7 @@ final public class PBXFileReference: PBXFileElement {
     ///   - wrapsLines: should the IDE wrap lines when editing the file?
     ///   - usesTabs: file uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
+    ///   - tabWidth: the visual width of tab characters
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: UInt? = nil,
@@ -38,6 +39,7 @@ final public class PBXFileReference: PBXFileElement {
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
+                tabWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
@@ -51,6 +53,7 @@ final public class PBXFileReference: PBXFileElement {
                    includeInIndex: includeInIndex,
                    usesTabs: usesTabs,
                    indentWidth: indentWidth,
+                   tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
 

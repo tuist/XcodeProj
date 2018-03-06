@@ -23,6 +23,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     /// Element indent width.
     public var indentWidth: UInt?
 
+    /// Element tab width.
+    public var tabWidth: UInt?
+
     /// Element wraps lines.
     public var wrapsLines: Bool?
 
@@ -36,6 +39,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     ///   - includeInIndex: should the IDE index the object?
     ///   - usesTabs: object uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
+    ///   - tabWidth: the visual width of tab characters
     ///   - wrapsLines: should the IDE wrap lines when editing the object?
     public init(sourceTree: PBXSourceTree? = nil,
                 path: String? = nil,
@@ -43,6 +47,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
                 includeInIndex: Bool? = nil,
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
+                tabWidth: UInt? = nil,
                 wrapsLines: Bool? = nil) {
         self.sourceTree = sourceTree
         self.path = path
@@ -50,6 +55,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.includeInIndex = includeInIndex
         self.usesTabs = usesTabs
         self.indentWidth = indentWidth
+        self.tabWidth = tabWidth
         self.wrapsLines = wrapsLines
         super.init()
     }
@@ -66,6 +72,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
             lhs.includeInIndex == rhs.includeInIndex &&
             lhs.usesTabs == rhs.usesTabs &&
             lhs.indentWidth == rhs.indentWidth &&
+            lhs.tabWidth == rhs.tabWidth &&
             lhs.wrapsLines == rhs.wrapsLines
     }
     
@@ -78,6 +85,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         case includeInIndex
         case usesTabs
         case indentWidth
+        case tabWidth
         case wrapsLines
     }
     
@@ -89,6 +97,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
         self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
         self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
+        self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
         self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
@@ -118,6 +127,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         }
         if let indentWidth = indentWidth {
             dictionary["indentWidth"] = .string(CommentedString("\(indentWidth)"))
+        }
+        if let tabWidth = tabWidth {
+            dictionary["tabWidth"] = .string(CommentedString("\(tabWidth)"))
         }
         if let wrapsLines = wrapsLines {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
