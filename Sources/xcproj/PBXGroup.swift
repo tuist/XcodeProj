@@ -44,10 +44,7 @@ final public class PBXGroup: PBXFileElement {
                 return false
         }
         let lhs = self
-        return lhs.children == rhs.children &&
-            lhs.name == rhs.name &&
-            lhs.sourceTree == rhs.sourceTree &&
-            lhs.path == rhs.path
+        return lhs.children == rhs.children
     }
     
     // MARK: - Decodable
