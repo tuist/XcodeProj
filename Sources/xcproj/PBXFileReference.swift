@@ -33,6 +33,7 @@ final public class PBXFileReference: PBXFileElement {
                 includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
+                indentWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
@@ -40,7 +41,13 @@ final public class PBXFileReference: PBXFileElement {
         self.lastKnownFileType = lastKnownFileType
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, usesTabs: usesTabs, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree,
+                   path: path,
+                   name: name,
+                   includeInIndex: includeInIndex,
+                   usesTabs: usesTabs,
+                   indentWidth: indentWidth,
+                   wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {

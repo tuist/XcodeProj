@@ -20,6 +20,9 @@ public class PBXFileElement: PBXObject, PlistSerializable {
     /// Element uses tabs.
     public var usesTabs: Bool?
 
+    /// Element indent width.
+    public var indentWidth: UInt?
+
     /// Element wraps lines.
     public var wrapsLines: Bool?
 
@@ -37,12 +40,14 @@ public class PBXFileElement: PBXObject, PlistSerializable {
                 name: String? = nil,
                 includeInIndex: Bool? = nil,
                 usesTabs: Bool? = nil,
+                indentWidth: UInt? = nil,
                 wrapsLines: Bool? = nil) {
         self.sourceTree = sourceTree
         self.path = path
         self.name = name
         self.includeInIndex = includeInIndex
         self.usesTabs = usesTabs
+        self.indentWidth = indentWidth
         self.wrapsLines = wrapsLines
         super.init()
     }
@@ -58,6 +63,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
             lhs.name == rhs.name &&
             lhs.includeInIndex == rhs.includeInIndex &&
             lhs.usesTabs == rhs.usesTabs &&
+            lhs.indentWidth == rhs.indentWidth &&
             lhs.wrapsLines == rhs.wrapsLines
     }
     
@@ -69,6 +75,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         case path
         case includeInIndex
         case usesTabs
+        case indentWidth
         case wrapsLines
     }
     
@@ -79,6 +86,7 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         self.path = try container.decodeIfPresent(.path)
         self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
         self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
+        self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
         self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
@@ -99,11 +107,15 @@ public class PBXFileElement: PBXObject, PlistSerializable {
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
         }
+
         if let includeInIndex = includeInIndex {
             dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
         if let usesTabs = usesTabs {
             dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
+        }
+        if let indentWidth = indentWidth {
+            dictionary["indentWidth"] = .string(CommentedString("\(indentWidth)"))
         }
         if let wrapsLines = wrapsLines {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
