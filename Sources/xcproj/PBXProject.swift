@@ -187,6 +187,22 @@ extension PBXProject: PlistSerializable {
         }
         dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
         dictionary["projectRoot"] = .string(CommentedString(projectRoot))
+        if projectReferences.count > 0 {
+            dictionary["projectReferences"] = .array(projectReferences.flatMap { reference in
+                guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
+                    return nil
+                }
+
+                let groupName = proj.objects.groups.getReference(productGroup)?.name
+                let fileRef = proj.objects.fileReferences.getReference(projectRef)
+                let fileRefName = fileRef?.name ?? fileRef?.path
+
+                return [
+                    CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
+                    CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
+                ]
+            })
+        }
         dictionary["targets"] = PlistValue.array(targets
             .map { target in
                 let targetName = proj.objects.getTarget(reference: target)?.name
