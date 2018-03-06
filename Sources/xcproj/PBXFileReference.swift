@@ -66,9 +66,6 @@ final public class PBXFileReference: PBXFileElement {
         return lhs.fileEncoding == rhs.fileEncoding &&
             lhs.explicitFileType == rhs.explicitFileType &&
             lhs.lastKnownFileType == rhs.lastKnownFileType &&
-            lhs.name == rhs.name &&
-            lhs.path == rhs.path &&
-            lhs.sourceTree == rhs.sourceTree &&
             lhs.lineEnding == rhs.lineEnding &&
             lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier
     }
