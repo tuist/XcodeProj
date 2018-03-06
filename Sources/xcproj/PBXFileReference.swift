@@ -27,6 +27,7 @@ final public class PBXFileReference: PBXFileElement {
     ///   - includeInIndex: should the IDE index the file?
     ///   - wrapsLines: should the IDE wrap lines when editing the file?
     ///   - usesTabs: file uses tabs.
+    ///   - indentWidth: the number of positions to indent blocks of code
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 fileEncoding: UInt? = nil,
@@ -36,6 +37,7 @@ final public class PBXFileReference: PBXFileElement {
                 includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
+                indentWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil) {
         self.fileEncoding = fileEncoding
@@ -43,7 +45,13 @@ final public class PBXFileReference: PBXFileElement {
         self.lastKnownFileType = lastKnownFileType
         self.lineEnding = lineEnding
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
-        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, usesTabs: usesTabs, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree,
+                   path: path,
+                   name: name,
+                   includeInIndex: includeInIndex,
+                   usesTabs: usesTabs,
+                   indentWidth: indentWidth,
+                   wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {

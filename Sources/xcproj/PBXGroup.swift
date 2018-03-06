@@ -7,9 +7,6 @@ final public class PBXGroup: PBXFileElement {
     /// Element children.
     public var children: [String]
 
-    /// Element indent width.
-    public var indentWidth: UInt?
-    
     /// Element tab width.
     public var tabWidth: UInt?
 
@@ -25,6 +22,7 @@ final public class PBXGroup: PBXFileElement {
     ///   - includeInIndex: should the IDE index the files in the group?
     ///   - wrapsLines: should the IDE wrap lines for files in the group?
     ///   - usesTabs: group uses tabs.
+    ///   - indentWidth: the number of positions to indent blocks of code
     public init(children: [String],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
@@ -35,9 +33,14 @@ final public class PBXGroup: PBXFileElement {
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil) {
         self.children = children
-        self.indentWidth = indentWidth
         self.tabWidth = tabWidth
-        super.init(sourceTree: sourceTree, path: path, name: name, includeInIndex: includeInIndex, usesTabs: usesTabs, wrapsLines: wrapsLines)
+        super.init(sourceTree: sourceTree,
+                   path: path,
+                   name: name,
+                   includeInIndex: includeInIndex,
+                   usesTabs: usesTabs,
+                   indentWidth: indentWidth,
+                   wrapsLines: wrapsLines)
     }
 
     public override func isEqual(to object: PBXObject) -> Bool {
@@ -50,7 +53,6 @@ final public class PBXGroup: PBXFileElement {
             lhs.name == rhs.name &&
             lhs.sourceTree == rhs.sourceTree &&
             lhs.path == rhs.path &&
-            lhs.indentWidth == rhs.indentWidth &&
             lhs.tabWidth == rhs.tabWidth
     }
     
@@ -58,14 +60,12 @@ final public class PBXGroup: PBXFileElement {
     
     fileprivate enum CodingKeys: String, CodingKey {
         case children
-        case indentWidth
         case tabWidth
     }
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = (try container.decodeIfPresent(.children)) ?? []
-        self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
         self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
         try super.init(from: decoder)
     }
@@ -80,14 +80,10 @@ final public class PBXGroup: PBXFileElement {
             return .string(CommentedString(fileReference, comment: comment))
         }))
 
-        [("indentWidth" as CommentedString, indentWidth),
-         ("tabWidth", tabWidth)]
-            .forEach { name, valueOption in
-            if let value = valueOption {
-                dictionary[name] = .string(CommentedString("\(value)"))
-            }
+        if let tabWidth = tabWidth {
+            dictionary["tabWidth"] = .string(CommentedString("\(tabWidth)"))
         }
-        
+
         return (key: CommentedString(reference,
                                      comment: self.name ?? self.path),
                 value: .dictionary(dictionary))
