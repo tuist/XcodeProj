@@ -178,10 +178,12 @@ extension PBXProject: PlistSerializable {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
             .map {.string(CommentedString("\($0)")) })
         }
-        
-        dictionary["mainGroup"] = .string(CommentedString(mainGroup))
+
+        let mainGroupObject = proj.objects.groups[mainGroup]
+        dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
         if let productRefGroup = productRefGroup {
-            let productRefGroupComment = proj.objects.groups[productRefGroup]?.name
+            let productRefGroupObject = proj.objects.groups[productRefGroup]
+            let productRefGroupComment = productRefGroupObject?.name ?? productRefGroupObject?.path
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
                                                                     comment: productRefGroupComment))
         }
