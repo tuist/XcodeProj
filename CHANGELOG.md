@@ -4,9 +4,12 @@
 
 ### Added
 - `PBXNativeTarget.productInstallPath`, `PBXTargetDependency.name` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
+- `PBXFileElement.wrapsLines`property https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
+- `PBXFileReference` `languageSpecificationIdentifier` and `plistStructureDefinitionIdentifier` properties https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Changed
 - Support for `XCConfig` project-relative includes https://github.com/xcodeswift/xcproj/pull/238 by @briantkelley
+- Moved `PBXFileElement.includeInIndex` and `PBXGroup`'s `usesTabs`, `indentWidth`, and `tabWidth` properties to `PBXFileElement` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Fixed
 - `PBXObject.isEqual(to:)` overrides correctly call super https://github.com/xcodeswift/xcproj/pull/239 by @briantkelley
