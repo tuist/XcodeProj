@@ -100,8 +100,8 @@ public class PBXTarget: PBXObject {
                 return .string(CommentedString(buildPhase, comment: comment))
         })
 
-        // Xcode doesn't write empty PBXLegacyTarget buildRules
-        if !(self is PBXLegacyTarget) || !buildRules.isEmpty {
+        // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
+        if !(self is PBXAggregateTarget), !(self is PBXLegacyTarget) || !buildRules.isEmpty {
             dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0))})
         }
         

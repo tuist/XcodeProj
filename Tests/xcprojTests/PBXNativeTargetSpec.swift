@@ -13,6 +13,7 @@ final class PBXNativeTargetSpec: XCTestCase {
                                   buildPhases: ["phase"],
                                   buildRules: ["rule"],
                                   dependencies: ["dependency"],
+                                  productInstallPath: "/usr/local/bin",
                                   productName: "productname",
                                   productReference: "productreference",
                                   productType: .application)
@@ -28,6 +29,7 @@ final class PBXNativeTargetSpec: XCTestCase {
         XCTAssertEqual(subject.buildRules, ["rule"])
         XCTAssertEqual(subject.dependencies, ["dependency"])
         XCTAssertEqual(subject.name, "name")
+        XCTAssertEqual(subject.productInstallPath, "/usr/local/bin")
         XCTAssertEqual(subject.productName, "productname")
         XCTAssertEqual(subject.productReference, "productreference")
         XCTAssertEqual(subject.productType, .application)
@@ -50,6 +52,7 @@ final class PBXNativeTargetSpec: XCTestCase {
                                       buildPhases: ["phase"],
                                       buildRules: ["rule"],
                                       dependencies: ["dependency"],
+                                      productInstallPath: "/usr/local/bin",
                                       productName: "productname",
                                       productReference: "productreference",
                                       productType: .application)
@@ -62,7 +65,8 @@ final class PBXNativeTargetSpec: XCTestCase {
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dependency"],
-            "name": "name"
+            "name": "name",
+            "productInstallPath": "/usr/local/bin"
         ]
     }
 
