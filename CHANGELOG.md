@@ -4,9 +4,11 @@
 
 ### Changed
 - Support for `XCConfig` project-relative includes https://github.com/xcodeswift/xcproj/pull/238 by @briantkelley
+- Migrated `PBXProject.projectRoot` to `PBXProject.projectRoots` https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
 
 ### Fixed
 - `PBXObject.isEqual(to:)` overrides correctly call super https://github.com/xcodeswift/xcproj/pull/239 by @briantkelley
+- Writes `PBXProject.projectReferences` to the plist https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
 
 ## 4.1.0
 
