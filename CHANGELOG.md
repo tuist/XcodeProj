@@ -5,10 +5,15 @@
 ### Added
 - `PBXNativeTarget.productInstallPath`, `PBXTargetDependency.name` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
 - `PBXContainerItem` super class of `PBXBuildPhase` and `PBXTarget` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
+- `PBXFileElement.wrapsLines`property https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
+- `PBXFileReference` `languageSpecificationIdentifier` and `plistStructureDefinitionIdentifier` properties https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Changed
 - Support for `XCConfig` project-relative includes https://github.com/xcodeswift/xcproj/pull/238 by @briantkelley
 - Migrated `PBXProject.projectRoot` to `PBXProject.projectRoots` https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
+- Moved `PBXFileElement.includeInIndex` and `PBXGroup`'s `usesTabs`, `indentWidth`, and `tabWidth` properties to `PBXFileElement` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
+- `PBXContainerItem` super class of `PBXFileElement` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
+- `PBXVariantGroup` and `XCVersionGroup` now inherit from `PBXGroup` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Fixed
 - `PBXObject.isEqual(to:)` overrides correctly call super https://github.com/xcodeswift/xcproj/pull/239 by @briantkelley
