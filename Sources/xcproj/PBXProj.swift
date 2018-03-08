@@ -87,6 +87,10 @@ final public class PBXProj: Decodable {
         ///   - reference: object reference.
         public func addObject(_ object: PBXObject, reference: String) {
             switch object {
+            // subclass of PBXGroup; must be tested before PBXGroup
+            case let object as PBXVariantGroup: variantGroups.append(object, reference: reference)
+
+            // everything else
             case let object as PBXBuildFile: buildFiles.append(object, reference: reference)
             case let object as PBXAggregateTarget: aggregateTargets.append(object, reference: reference)
             case let object as PBXLegacyTarget: legacyTargets.append(object, reference: reference)
@@ -95,7 +99,6 @@ final public class PBXProj: Decodable {
             case let object as PBXGroup: groups.append(object, reference: reference)
             case let object as XCConfigurationList: configurationLists.append(object, reference: reference)
             case let object as XCBuildConfiguration: buildConfigurations.append(object, reference: reference)
-            case let object as PBXVariantGroup: variantGroups.append(object, reference: reference)
             case let object as PBXTargetDependency: targetDependencies.append(object, reference: reference)
             case let object as PBXSourcesBuildPhase: sourcesBuildPhases.append(object, reference: reference)
             case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases.append(object, reference: reference)

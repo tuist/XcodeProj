@@ -1,6 +1,6 @@
 import Foundation
 
-final public class PBXGroup: PBXFileElement {
+public class PBXGroup: PBXFileElement {
 
     // MARK: - Attributes
 
@@ -66,7 +66,7 @@ final public class PBXGroup: PBXFileElement {
     
     override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
-        dictionary["isa"] = .string(CommentedString(PBXGroup.isa))
+        dictionary["isa"] = .string(CommentedString(type(of: self).isa))
         dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
             let comment = proj.objects.fileName(fileReference: fileReference)
             return .string(CommentedString(fileReference, comment: comment))

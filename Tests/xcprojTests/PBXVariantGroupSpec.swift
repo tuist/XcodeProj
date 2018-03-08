@@ -9,8 +9,8 @@ final class PBXVariantGroupSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         self.subject = PBXVariantGroup(children: ["child"],
-                                       name: "name",
-                                       sourceTree: .group)
+                                       sourceTree: .group,
+                                       name: "name")
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
@@ -24,8 +24,8 @@ final class PBXVariantGroupSpec: XCTestCase {
     }
 
     func test_equals_returnsTheCorrectValue() {
-        let one = PBXVariantGroup(children: ["a"], name: "name", sourceTree: .group)
-        let another = PBXVariantGroup(children: ["a"], name: "name", sourceTree: .group)
+        let one = PBXVariantGroup(children: ["a"], sourceTree: .group, name: "name")
+        let another = PBXVariantGroup(children: ["a"], sourceTree: .group, name: "name")
         XCTAssertEqual(one, another)
     }
 

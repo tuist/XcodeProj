@@ -1,7 +1,7 @@
-extension PBXProject {
+public extension PBXProject {
 
     @available(*, deprecated, message: "Use projectRoots instead")
-    public var projectRoot: String {
+    var projectRoot: String {
         get {
             return projectRoots.first ?? ""
         }
