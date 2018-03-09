@@ -4,6 +4,7 @@
 
 ### Added
 - `PBXNativeTarget.productInstallPath`, `PBXTargetDependency.name` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
+- `PBXContainerItem` super class of `PBXBuildPhase` and `PBXTarget` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
 
 ### Changed
 - Support for `XCConfig` project-relative includes https://github.com/xcodeswift/xcproj/pull/238 by @briantkelley
@@ -14,6 +15,7 @@
 - `PBXAggregateTarget` does not write `buildRules` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
 - Writes showEnvVarsInLog only when false https://github.com/xcodeswift/xcproj/pull/240 by @briantkelley
 - Writes `PBXProject.projectReferences` to the plist https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
+- Comment generation for `PBXProject`, `PBXTarget`, and `PBXVariantGroup` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
 
 ## 4.1.0
 
