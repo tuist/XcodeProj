@@ -248,6 +248,13 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(file.object.path, "../../newfile.swift")
         XCTAssertEqual(fullFilePath, filePath)
 
+        let groupWithoutFolder = proj.objects.group(named: "GroupWithoutFolder", inGroup: iOSGroup)!.object
+        file = try proj.objects.addFile(at: filePath, toGroup: groupWithoutFolder, sourceTree: .group, sourceRoot: sourceRoot)
+        fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
+
+        XCTAssertEqual(file.object.path, "../../newfile.swift")
+        XCTAssertEqual(fullFilePath, filePath)
+
         proj = projectiOS()!.pbxproj
         iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
         file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .sourceRoot, sourceRoot: sourceRoot)

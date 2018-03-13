@@ -94,7 +94,7 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.objects.aggregateTargets.count, 0)
         XCTAssertEqual(proj.objects.containerItemProxies.count, 1)
         XCTAssertEqual(proj.objects.copyFilesBuildPhases.count, 1)
-        XCTAssertEqual(proj.objects.groups.count, 5)
+        XCTAssertEqual(proj.objects.groups.count, 6)
         XCTAssertEqual(proj.objects.configurationLists.count, 3)
         XCTAssertEqual(proj.objects.buildConfigurations.count, 6)
         XCTAssertEqual(proj.objects.variantGroups.count, 2)

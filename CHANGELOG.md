@@ -16,6 +16,7 @@
 - Writes showEnvVarsInLog only when false https://github.com/xcodeswift/xcproj/pull/240 by @briantkelley
 - Writes `PBXProject.projectReferences` to the plist https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
 - Comment generation for `PBXProject`, `PBXTarget`, and `PBXVariantGroup` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
+- `fullPath` now returns the path for a file inside a group without a folder https://github.com/xcodeswift/xcproj/pull/246 by @ileitch
 
 ## 4.1.0
 
