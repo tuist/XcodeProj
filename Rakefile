@@ -91,19 +91,13 @@ def print(message)
   puts "> #{message.colorize(:yellow)}"
 end
 
-desc "Removes the build folder"
-task :clean do
-  print "Cleaning build/ folder"
-  `rm -rf build`
-end
-
 desc "Generates the Carthage project"
 task :generate_carthage_project do
   generate_carthage_project()
 end
 
 desc "Executes all the validation steps for CI"
-task :ci => [:clean] do
+task :ci do
   print "Linting project"
   sh "swiftlint"
   print "CocoaPods linting"
@@ -132,7 +126,7 @@ task :deploy_to_integration do
 end
 
 desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
-task :release => [:clean] do
+task :release do
   abort "You should specify the type (e.g. RELEASE_TYPE=minor rake task release)" unless ENV["RELEASE_TYPE"]
   abort 'Commit all your changes before starting the release' unless !any_git_changes?
   print("Building xcproj")
