@@ -2,6 +2,8 @@
 
 ## next version
 
+## 4.2.0
+
 ### Added
 - `PBXNativeTarget.productInstallPath`, `PBXTargetDependency.name` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
 - `PBXContainerItem` super class of `PBXBuildPhase` and `PBXTarget` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
