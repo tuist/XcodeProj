@@ -135,6 +135,9 @@
                 <a href="../Classes/PBXBuildRule.html">PBXBuildRule</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other Classes.html#/s:6xcproj16PBXContainerItemC">PBXContainerItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
               </li>
               <li class="nav-group-task">
@@ -200,7 +203,7 @@
             <h1>XCConfig</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfig</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfig</span></code></pre>
 
                 </div>
               </div>
@@ -237,7 +240,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">includes</span><span class="p">:</span> <span class="p">[</span><span class="kt">XCConfigInclude</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">includes</span><span class="p">:</span> <span class="p">[</span><span class="kt">XCConfigInclude</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -264,7 +267,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildSettings</span><span class="p">:</span> <span class="kt">BuildSettings</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildSettings</span><span class="p">:</span> <span class="kt">BuildSettings</span></code></pre>
 
                         </div>
                       </div>
@@ -302,7 +305,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">includes</span><span class="p">:</span> <span class="p">[</span><span class="kt">XCConfigInclude</span><span class="p">],</span> <span class="nv">buildSettings</span><span class="p">:</span> <span class="kt">BuildSettings</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">includes</span><span class="p">:</span> <span class="p">[</span><span class="kt">XCConfigInclude</span><span class="p">],</span> <span class="nv">buildSettings</span><span class="p">:</span> <span class="kt">BuildSettings</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
 
                         </div>
                       </div>
@@ -343,9 +346,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6xcproj8XCConfigCAC7PathKit0C0V4path_tKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(path:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6xcproj8XCConfigCAC7PathKit0C0V4path_tKcfc">init(path:)</a>
+                    <a name="/s:6xcproj8XCConfigCAC7PathKit0C0V4path_AFSg07projectC0tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(path:projectPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6xcproj8XCConfigCAC7PathKit0C0V4path_AFSg07projectC0tKcfc">init(path:projectPath:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -365,7 +368,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">projectPath</span><span class="p">:</span> <span class="kt">Path</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -382,6 +385,18 @@
                               <td>
                                 <div>
                                   <p>path where the .xcconfig file is.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>projectPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>path where the .xcodeproj is, for resolving project-relative includes.</p>
                                 </div>
                               </td>
                             </tr>
@@ -414,7 +429,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">XCConfig</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">XCConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">XCConfig</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">XCConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -445,7 +460,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">flattenedBuildSettings</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">flattenedBuildSettings</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -479,7 +494,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -492,7 +507,7 @@
         </section>
         <section id="footer">
           <p>Copyright © 2017 xcode.swift. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
