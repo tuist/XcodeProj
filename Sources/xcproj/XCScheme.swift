@@ -490,7 +490,6 @@ final public class XCScheme {
                                        attributes: ["buildConfiguration": buildConfiguration,
                                                     "selectedDebuggerIdentifier": selectedDebuggerIdentifier,
                                                     "selectedLauncherIdentifier": selectedLauncherIdentifier,
-                                                    "language": language ?? "",
                                                     "launchStyle": launchStyle.rawValue,
                                                     "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
                                                     "ignoresPersistentStateOnLaunch": ignoresPersistentStateOnLaunch.xmlString,
@@ -517,6 +516,10 @@ final public class XCScheme {
 
             if let environmentVariables = environmentVariables {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
+            }
+
+            if let language = language {
+                element.attributes["language"] = language
             }
 
             if let region = region {
@@ -722,7 +725,9 @@ final public class XCScheme {
             attributes["buildConfiguration"] = buildConfiguration
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
             attributes["selectedLauncherIdentifier"] = selectedLauncherIdentifier
-            attributes["language"] = language ?? ""
+            if let language = language {
+              attributes["language"] = language
+            }
             attributes["region"] = region
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
             if codeCoverageEnabled {
