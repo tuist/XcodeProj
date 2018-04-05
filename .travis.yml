@@ -7,8 +7,8 @@ env: SWIFT_VERSION=4.1
 sudo: required
 dist: trusty
 install:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; carthage update --platform iOS,macOS; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then carthage update --platform iOS,macOS; fi
 - bundle install
 before_script:
 - bundle exec danger
