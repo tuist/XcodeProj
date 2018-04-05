@@ -14,6 +14,6 @@ Pod::Spec.new do |s|
 
   s.source_files = "Sources/**/*.{swift}"
 
-  s.dependency "PathKit", "~> 0.8"
-  s.dependency "AEXML", "~> 4.1"
+  s.dependency "PathKit", "~> 0.9.1"
+  s.dependency "AEXML", "~> 4.3"
 end

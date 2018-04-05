@@ -3,10 +3,10 @@ import Foundation
 final public class PBXProject: PBXObject {
     
     // MARK: - Attributes
-  
+    
     /// xcodeproj's name
     public var name: String
-
+    
     /// The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
     
@@ -32,7 +32,7 @@ final public class PBXProject: PBXObject {
     public var projectDirPath: String
     
     /// Project references.
-    public var projectReferences: [[String:String]]
+    public var projectReferences: [[String: String]]
     
     /// The relative root paths of the project.
     public var projectRoots: [String]
@@ -70,7 +70,7 @@ final public class PBXProject: PBXObject {
                 knownRegions: [String] = [],
                 productRefGroup: String? = nil,
                 projectDirPath: String = "",
-                projectReferences: [[String : String]] = [],
+                projectReferences: [[String: String]] = [],
                 projectRoots: [String] = [],
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
@@ -161,7 +161,7 @@ final public class PBXProject: PBXObject {
             equalProjectReferences &&
             equalProjectRoots &&
             lhs.targets == rhs.targets &&
-            equalAttributes
+        equalAttributes
     }
 }
 
@@ -180,12 +180,12 @@ extension PBXProject: PlistSerializable {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-
+        
         if !knownRegions.isEmpty {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
-            .map {.string(CommentedString("\($0)")) })
+                .map {.string(CommentedString("\($0)")) })
         }
-
+        
         let mainGroupObject = proj.objects.groups[mainGroup]
         dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
         if let productRefGroup = productRefGroup {
@@ -213,23 +213,23 @@ extension PBXProject: PlistSerializable {
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-
+    
     private func projectReferencesPlistValue(proj: PBXProj) -> PlistValue? {
         guard projectReferences.count > 0 else {
             return nil
         }
-        return .array(projectReferences.flatMap { reference in
+        return .array(projectReferences.compactMap { reference in
             guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-
+            
             let groupName = proj.objects.groups.getReference(productGroup)?.name
             let fileRef = proj.objects.fileReferences.getReference(projectRef)
             let fileRefName = fileRef?.name ?? fileRef?.path
-    
+            
             return [
-                CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
-                CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
+                CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroup, comment: groupName)),
+                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef, comment: fileRefName))
             ]
         })
     }

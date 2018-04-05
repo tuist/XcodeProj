@@ -1,5 +1,4 @@
 import Foundation
-import Spectre
 import PathKit
 import XCTest
 import xcproj
