@@ -87,16 +87,8 @@ def generate_carthage_project
   sh "mint run yonaskolb/xcodegen@#{XCODEGEN_VERSION} 'xcodegen --spec carthage-project.yml'"
 end
 
-def osx
-  if ENV["TRAVIS_OS_NAME"] == "linux"
-    return :linux
-  else
-    return :macos
-  end
-end
-
 def is_macos
-  osx == :macos
+  !ENV["TRAVIS_OS_NAME"] || ENV["TRAVIS_OS_NAME"] == "osx"
 end
 
 def print(message)
