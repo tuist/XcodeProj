@@ -3,10 +3,10 @@ import Foundation
 final public class PBXProject: PBXObject {
     
     // MARK: - Attributes
-  
+    
     /// xcodeproj's name
     public var name: String
-
+    
     /// The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
     
@@ -161,7 +161,7 @@ final public class PBXProject: PBXObject {
             equalProjectReferences &&
             equalProjectRoots &&
             lhs.targets == rhs.targets &&
-            equalAttributes
+        equalAttributes
     }
 }
 
@@ -180,12 +180,12 @@ extension PBXProject: PlistSerializable {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-
+        
         if !knownRegions.isEmpty {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
-            .map {.string(CommentedString("\($0)")) })
+                .map {.string(CommentedString("\($0)")) })
         }
-
+        
         let mainGroupObject = proj.objects.groups[mainGroup]
         dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
         if let productRefGroup = productRefGroup {
@@ -213,7 +213,7 @@ extension PBXProject: PlistSerializable {
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-
+    
     private func projectReferencesPlistValue(proj: PBXProj) -> PlistValue? {
         guard projectReferences.count > 0 else {
             return nil
@@ -222,14 +222,14 @@ extension PBXProject: PlistSerializable {
             guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-
+            
             let groupName = proj.objects.groups.getReference(productGroup)?.name
             let fileRef = proj.objects.fileReferences.getReference(projectRef)
             let fileRefName = fileRef?.name ?? fileRef?.path
-    
+            
             return [
-                CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
-                CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName))
+                CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroup, comment: groupName)),
+                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef, comment: fileRefName))
             ]
         })
     }
