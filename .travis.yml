@@ -10,11 +10,10 @@ matrix:
     - os: osx
       language: generic
       sudo: required
-      osx_image: xcode9.3
+      osx_image: xcode9.3beta
       env:
         - SWIFT_VERSION=4.1
 install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew upgrade carthage; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then carthage update --platform iOS,macOS; fi
 - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
 - bundle install

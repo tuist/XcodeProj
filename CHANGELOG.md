@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- CI pipeline runs also on a Linux environment https://github.com/xcodeswift/xcproj/pull/249 by @pepibumur
+
 ## 4.2.0
 
 ### Added
