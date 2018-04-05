@@ -1,12 +1,17 @@
 os:
 - osx
+- linux
 language: generic
 osx_image: xcode9.2
+env: SWIFT_VERSION=4.1
+sudo: required
+dist: trusty
 install:
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; carthage update --platform iOS,macOS; fi
 - bundle install
 before_script:
 - bundle exec danger
-- carthage update --platform iOS,macOS
 script:
 - bundle exec rake ci
 after_success:

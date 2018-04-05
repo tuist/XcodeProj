@@ -87,6 +87,18 @@ def generate_carthage_project
   sh "mint run yonaskolb/xcodegen@#{XCODEGEN_VERSION} 'xcodegen --spec carthage-project.yml'"
 end
 
+def osx
+  if ENV["TRAVIS_OS_NAME"] == "linux"
+    return :linux
+  else
+    return :macos
+  end
+end
+
+def is_macos
+  osx == :macos
+end
+
 def print(message)
   puts "> #{message.colorize(:yellow)}"
 end
@@ -99,11 +111,11 @@ end
 desc "Executes all the validation steps for CI"
 task :ci do
   print "Linting project"
-  sh "swiftlint"
+  sh "swiftlint" if is_macos
   print "CocoaPods linting"
-  pod_lint()
+  pod_lint() if is_macos
   print "Building Carthage project"
-  build_carthage_project()
+  build_carthage_project() if is_macos
   print "Building the project"
   build()
   print "Executing tests"
