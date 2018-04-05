@@ -2,7 +2,8 @@ import Foundation
 import PathKit
 
 #if os(Linux)
-import Darwin
+import Glibc
+import SwiftShims
 #endif
 
 /// Model that represents a .xcodeproj project.
