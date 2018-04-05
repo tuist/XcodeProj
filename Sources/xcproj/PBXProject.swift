@@ -218,7 +218,7 @@ extension PBXProject: PlistSerializable {
         guard projectReferences.count > 0 else {
             return nil
         }
-        return .array(projectReferences.flatMap { reference in
+        return .array(projectReferences.compactMap { reference in
             guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }

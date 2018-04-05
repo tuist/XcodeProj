@@ -35,10 +35,10 @@ final public class XCConfig {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
-            .flatMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
+            .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
         var buildSettings: [String: String] = [:]
         fileLines
-            .flatMap(XCConfigParser.settingFrom)
+            .compactMap(XCConfigParser.settingFrom)
             .forEach { buildSettings[$0.key] = $0.value }
         self.buildSettings = buildSettings
     }
@@ -58,13 +58,13 @@ final class XCConfigParser {
                                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                  range: NSRange(location: 0,
                                                                 length: line.count))
-                .flatMap { (match) -> String? in
+                .compactMap { (match) -> String? in
                     if match.numberOfRanges == 2 {
                         return NSString(string: line).substring(with: match.range(at: 1))
                     }
                     return nil
                 }
-                .flatMap { pathString in
+                .compactMap { pathString in
                     let includePath: Path = Path(pathString)
                     var config: XCConfig?
                     if includePath.isRelative {
@@ -91,7 +91,7 @@ final class XCConfigParser {
                                              options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                              range: NSRange(location: 0,
                                                             length: line.count))
-            .flatMap { (match) -> (key: String, value: String)?  in
+            .compactMap { (match) -> (key: String, value: String)?  in
                 if match.numberOfRanges == 3 {
                     let key: String = NSString(string: line).substring(with: match.range(at: 1))
                     let value: String = NSString(string: line).substring(with: match.range(at: 2))

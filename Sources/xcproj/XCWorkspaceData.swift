@@ -35,7 +35,7 @@ extension XCWorkspaceData: Writable {
         let children = try xml
             .root
             .children
-            .flatMap(XCWorkspaceDataElement.init(element:))
+            .compactMap(XCWorkspaceDataElement.init(element:))
 
         self.init(children: children)
     }
