@@ -1,6 +1,10 @@
 import Foundation
 import PathKit
 
+#if os(Linux)
+import Darwin
+#end
+
 /// Model that represents a .xcodeproj project.
 final public class XcodeProj {
 
