@@ -32,7 +32,7 @@ final public class PBXProject: PBXObject {
     public var projectDirPath: String
     
     /// Project references.
-    public var projectReferences: [[String:String]]
+    public var projectReferences: [[String: String]]
     
     /// The relative root paths of the project.
     public var projectRoots: [String]
@@ -70,7 +70,7 @@ final public class PBXProject: PBXObject {
                 knownRegions: [String] = [],
                 productRefGroup: String? = nil,
                 projectDirPath: String = "",
-                projectReferences: [[String : String]] = [],
+                projectReferences: [[String: String]] = [],
                 projectRoots: [String] = [],
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {
@@ -229,7 +229,7 @@ extension PBXProject: PlistSerializable {
     
             return [
                 CommentedString("ProductGroup") : PlistValue.string(CommentedString(productGroup, comment: groupName)),
-                CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
+                CommentedString("ProjectRef") : PlistValue.string(CommentedString(projectRef, comment: fileRefName))
             ]
         })
     }

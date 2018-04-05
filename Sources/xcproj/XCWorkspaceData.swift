@@ -74,7 +74,6 @@ public enum XCWorkspaceDataError: Error, CustomStringConvertible {
 
 }
 
-
 // MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding
 
 fileprivate extension XCWorkspaceDataElement {

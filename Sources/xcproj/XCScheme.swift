@@ -114,7 +114,7 @@ final public class XCScheme {
         }
         init(element: AEXMLElement) throws {
             self.runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
-            self.buildableReference = try BuildableReference(element:  element["BuildableReference"])
+            self.buildableReference = try BuildableReference(element: element["BuildableReference"])
         }
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildableProductRunnable",
@@ -143,7 +143,7 @@ final public class XCScheme {
         }
         public let arguments: [CommandLineArgument]
 
-        public init(arguments args:[CommandLineArgument]) {
+        public init(arguments args: [CommandLineArgument]) {
             self.arguments = args
         }
 

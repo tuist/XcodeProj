@@ -24,7 +24,7 @@ public extension PBXProject {
                 knownRegions: [String] = [],
                 productRefGroup: String? = nil,
                 projectDirPath: String = "",
-                projectReferences: [[String : String]] = [],
+                projectReferences: [[String: String]] = [],
                 projectRoot: String,
                 targets: [String] = [],
                 attributes: [String: Any] = [:]) {

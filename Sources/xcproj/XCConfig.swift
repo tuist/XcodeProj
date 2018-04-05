@@ -114,9 +114,9 @@ extension XCConfig: Equatable {
 
     public static func == (lhs: XCConfig, rhs: XCConfig) -> Bool {
         if lhs.includes.count != rhs.includes.count { return false }
-        for i in 0..<lhs.includes.count {
-            let lhsInclude = lhs.includes[i]
-            let rhsInclude = rhs.includes[i]
+        for index in 0..<lhs.includes.count {
+            let lhsInclude = lhs.includes[index]
+            let rhsInclude = rhs.includes[index]
             if lhsInclude.config != rhsInclude.config || lhsInclude.include != rhsInclude.include {
                 return false
             }
