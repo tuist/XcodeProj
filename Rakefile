@@ -6,7 +6,7 @@ require 'fileutils'
 require 'git'
 
 DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.3"
-XCODEGEN_VERSION = "1.6.0"
+XCODEGEN_VERSION = "1.8.0"
 
 def git
   Git.open(".")

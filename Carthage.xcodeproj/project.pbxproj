@@ -605,8 +605,6 @@
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = G_8448771205358;
 			projectDirPath = "";
 			projectRoot = "";
