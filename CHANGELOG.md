@@ -5,6 +5,9 @@
 ### Added
 - CI pipeline runs also on a Linux environment https://github.com/xcodeswift/xcproj/pull/249 by @pepibumur
 
+### Fixed
+- Some updates to match the Xcode 9.3 project format https://github.com/xcodeswift/xcproj/pull/247 by @LinusU
+
 ## 4.2.0
 
 ### Added
