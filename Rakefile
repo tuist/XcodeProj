@@ -5,7 +5,7 @@ require 'colorize'
 require 'fileutils'
 require 'git'
 
-DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.2"
+DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.3"
 XCODEGEN_VERSION = "1.6.0"
 
 def git
