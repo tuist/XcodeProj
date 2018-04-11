@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
+
 ## 4.3.0
 
 ### Added
