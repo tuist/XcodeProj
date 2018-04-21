@@ -61,22 +61,6 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         super.init()
     }
     
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXFileElement,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.sourceTree == rhs.sourceTree &&
-            lhs.path == rhs.path &&
-            lhs.name == rhs.name &&
-            lhs.includeInIndex == rhs.includeInIndex &&
-            lhs.usesTabs == rhs.usesTabs &&
-            lhs.indentWidth == rhs.indentWidth &&
-            lhs.tabWidth == rhs.tabWidth &&
-            lhs.wrapsLines == rhs.wrapsLines
-    }
-    
     // MARK: - Decodable
     
     fileprivate enum CodingKeys: String, CodingKey {

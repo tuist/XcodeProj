@@ -40,15 +40,6 @@ public class PBXGroup: PBXFileElement {
                    tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
-
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXGroup,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.children == rhs.children
-    }
     
     // MARK: - Decodable
     

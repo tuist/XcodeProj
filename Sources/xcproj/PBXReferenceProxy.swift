@@ -50,19 +50,6 @@ final public class PBXReferenceProxy: PBXObject {
         try super.init(from: decoder)
     }
     
-    // MARK: - Hashable
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXReferenceProxy,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.fileType == rhs.fileType &&
-            lhs.path == rhs.path &&
-            lhs.remoteRef == rhs.remoteRef &&
-            lhs.sourceTree == rhs.sourceTree
-    }
 }
 
 // MARK: - PBXReferenceProxy

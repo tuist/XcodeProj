@@ -1,7 +1,8 @@
+// sourcery:file: skipEquality
 import Foundation
 
 /// Class that represents a project element.
-public class PBXObject: Decodable, Equatable {
+public class PBXObject: Decodable, Equatable, AutoEquatable {
 
     // MARK: - Init
     
@@ -24,7 +25,7 @@ public class PBXObject: Decodable, Equatable {
         return lhs.isEqual(to: rhs)
     }
 
-    func isEqual(to object: PBXObject) -> Bool {
+    @objc dynamic func isEqual(to object: Any?) -> Bool {
         return true
     }
 

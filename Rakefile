@@ -7,6 +7,7 @@ require 'git'
 
 DESTINATION = "platform=iOS Simulator,name=iPhone 6,OS=11.3"
 XCODEGEN_VERSION = "1.8.0"
+SOURCERY_VERSION = "0.13.0"
 
 def git
   Git.open(".")
@@ -148,6 +149,12 @@ task :release do
   commit_changes_and_push(version)
   print "Pushing new version to CocoaPods"
   sh "bundle exec pod trunk push --verbose --allow-warnings"
+end
+
+desc "Runs sourcery"
+task :sourcery do
+  throw "Mint is necessary. Make sure it's installed in your system" unless command?("mint")
+  sh "mint run krzysztofzablocki/Sourcery@#{SOURCERY_VERSION} 'sourcery --config sourcery.yml'"
 end
 
 task :docs do

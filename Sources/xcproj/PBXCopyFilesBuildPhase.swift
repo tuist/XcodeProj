@@ -56,20 +56,6 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
                    runOnlyForDeploymentPostprocessing:
             runOnlyForDeploymentPostprocessing)
     }
-
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXCopyFilesBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.dstPath == rhs.dstPath &&
-            lhs.name == rhs.name &&
-            lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.dstSubfolderSpec == rhs.dstSubfolderSpec &&
-            lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
     
     // MARK: - Decodable
     

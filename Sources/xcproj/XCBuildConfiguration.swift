@@ -9,6 +9,7 @@ final public class XCBuildConfiguration: PBXObject {
     public var baseConfigurationReference: String?
     
     /// A map of build settings.
+    // sourcery: notEquatableDictionary
     public var buildSettings: BuildSettings
     
     /// The configuration name.
@@ -29,17 +30,6 @@ final public class XCBuildConfiguration: PBXObject {
         self.buildSettings = buildSettings
         self.name = name
         super.init()
-    }
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? XCBuildConfiguration,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.baseConfigurationReference == rhs.baseConfigurationReference &&
-            lhs.name == rhs.name &&
-            NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
     
     // MARK: - Decodable

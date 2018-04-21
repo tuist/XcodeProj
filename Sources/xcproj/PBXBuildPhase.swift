@@ -45,16 +45,6 @@ public class PBXBuildPhase: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
-
     override func plistValues(proj: PBXProj, reference: String) -> [CommentedString: PlistValue] {
         var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))

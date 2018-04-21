@@ -72,21 +72,6 @@ public class PBXTarget: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXTarget,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildConfigurationList == rhs.buildConfigurationList &&
-            lhs.buildPhases == rhs.buildPhases &&
-            lhs.buildRules == rhs.buildRules &&
-            lhs.dependencies == rhs.dependencies &&
-            lhs.name == rhs.name &&
-            lhs.productReference == rhs.productReference &&
-            lhs.productType == rhs.productType
-    }
-
     func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(isa))

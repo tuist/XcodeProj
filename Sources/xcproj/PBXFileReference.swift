@@ -80,21 +80,6 @@ final public class PBXFileReference: PBXFileElement {
                    wrapsLines: wrapsLines)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXFileReference,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.fileEncoding == rhs.fileEncoding &&
-            lhs.explicitFileType == rhs.explicitFileType &&
-            lhs.lastKnownFileType == rhs.lastKnownFileType &&
-            lhs.lineEnding == rhs.lineEnding &&
-            lhs.languageSpecificationIdentifier == rhs.languageSpecificationIdentifier &&
-            lhs.xcLanguageSpecificationIdentifier == rhs.xcLanguageSpecificationIdentifier &&
-            lhs.plistStructureDefinitionIdentifier == rhs.plistStructureDefinitionIdentifier
-    }
-    
     // MARK: - Decodable
     
     fileprivate enum CodingKeys: String, CodingKey {

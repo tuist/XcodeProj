@@ -25,15 +25,6 @@ public class PBXContainerItem: PBXObject {
         try super.init(from: decoder)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard super.isEqual(to: object),
-            let rhs = object as? PBXContainerItem else {
-                return false
-        }
-        let lhs = self
-        return lhs.comments == rhs.comments
-    }
-
     func plistValues(proj: PBXProj, reference: String) -> [CommentedString: PlistValue] {
         var dictionary = [CommentedString: PlistValue]()
         if let comments = comments {

@@ -7,17 +7,6 @@ final public class PBXHeadersBuildPhase: PBXBuildPhase {
     public override var buildPhase: BuildPhase {
         return .headers
     }
-
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXHeadersBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (Extras)

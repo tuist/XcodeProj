@@ -41,6 +41,7 @@ final public class PBXProject: PBXObject {
     public var targets: [String]
     
     /// Project attributes.
+    // sourcery: notEquatableDictionary
     public var attributes: [String: Any]
     
     // MARK: - Init
@@ -132,36 +133,6 @@ final public class PBXProject: PBXObject {
         self.targets = (try container.decodeIfPresent(.targets)) ?? []
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
-    }
-    
-    // MARK: - Hashable
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXProject,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        let equalRegion = lhs.developmentRegion == rhs.developmentRegion
-        let equalHasScannedForEncodings = lhs.hasScannedForEncodings == rhs.hasScannedForEncodings
-        let equalProductRefGroup = lhs.productRefGroup == rhs.productRefGroup
-        let equalProjectDirPath = lhs.projectDirPath == rhs.projectDirPath
-        let equalProjectRoots = lhs.projectRoots == rhs.projectRoots
-        let equalProjectReferences = NSArray(array: lhs.projectReferences).isEqual(to: rhs.projectReferences)
-        let equalAttributes = NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes)
-        
-        return lhs.buildConfigurationList == rhs.buildConfigurationList &&
-            lhs.compatibilityVersion == rhs.compatibilityVersion &&
-            equalRegion &&
-            equalHasScannedForEncodings &&
-            lhs.knownRegions == rhs.knownRegions &&
-            lhs.mainGroup == rhs.mainGroup &&
-            equalProductRefGroup &&
-            equalProjectDirPath &&
-            equalProjectReferences &&
-            equalProjectRoots &&
-            lhs.targets == rhs.targets &&
-        equalAttributes
     }
 }
 
