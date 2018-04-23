@@ -7,6 +7,10 @@ extension PBXAggregateTarget {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXAggregateTarget else { return false }
+      // (
+    PBXTarget,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -16,6 +20,10 @@ extension PBXBuildFile {
       guard let rhs = object as? PBXBuildFile else { return false }
       if self.fileRef != rhs.fileRef { return false }
       if !NSDictionary(dictionary: self.settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -26,6 +34,9 @@ extension PBXBuildPhase {
       if self.buildActionMask != rhs.buildActionMask { return false }
       if self.files != rhs.files { return false }
       if self.runOnlyForDeploymentPostprocessing != rhs.runOnlyForDeploymentPostprocessing { return false }
+      // (
+    PBXContainerItem
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -41,6 +52,10 @@ extension PBXBuildRule {
       if self.outputFiles != rhs.outputFiles { return false }
       if self.outputFilesCompilerFlags != rhs.outputFilesCompilerFlags { return false }
       if self.script != rhs.script { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -49,6 +64,9 @@ extension PBXContainerItem {
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXContainerItem else { return false }
       if self.comments != rhs.comments { return false }
+      // (
+    PBXObject
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -60,6 +78,10 @@ extension PBXContainerItemProxy {
       if self.proxyType != rhs.proxyType { return false }
       if self.remoteGlobalIDString != rhs.remoteGlobalIDString { return false }
       if self.remoteInfo != rhs.remoteInfo { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -70,6 +92,10 @@ extension PBXCopyFilesBuildPhase {
       if self.dstPath != rhs.dstPath { return false }
       if self.dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
       if self.name != rhs.name { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -85,6 +111,10 @@ extension PBXFileElement {
       if self.indentWidth != rhs.indentWidth { return false }
       if self.tabWidth != rhs.tabWidth { return false }
       if self.wrapsLines != rhs.wrapsLines { return false }
+      // (
+    PBXContainerItem,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -99,6 +129,9 @@ extension PBXFileReference {
       if self.languageSpecificationIdentifier != rhs.languageSpecificationIdentifier { return false }
       if self.xcLanguageSpecificationIdentifier != rhs.xcLanguageSpecificationIdentifier { return false }
       if self.plistStructureDefinitionIdentifier != rhs.plistStructureDefinitionIdentifier { return false }
+      // (
+    PBXFileElement
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -106,6 +139,10 @@ extension PBXFrameworksBuildPhase {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXFrameworksBuildPhase else { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -114,6 +151,9 @@ extension PBXGroup {
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXGroup else { return false }
       if self.children != rhs.children { return false }
+      // (
+    PBXFileElement
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -121,6 +161,10 @@ extension PBXHeadersBuildPhase {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXHeadersBuildPhase else { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -132,6 +176,10 @@ extension PBXLegacyTarget {
       if self.buildArgumentsString != rhs.buildArgumentsString { return false }
       if self.passBuildSettingsInEnvironment != rhs.passBuildSettingsInEnvironment { return false }
       if self.buildWorkingDirectory != rhs.buildWorkingDirectory { return false }
+      // (
+    PBXTarget,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -140,6 +188,10 @@ extension PBXNativeTarget {
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXNativeTarget else { return false }
       if self.productInstallPath != rhs.productInstallPath { return false }
+      // (
+    PBXTarget,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -160,6 +212,10 @@ extension PBXProject {
       if self.projectRoots != rhs.projectRoots { return false }
       if self.targets != rhs.targets { return false }
       if !NSDictionary(dictionary: self.attributes ).isEqual(to: rhs.attributes ) { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -171,6 +227,10 @@ extension PBXReferenceProxy {
       if self.path != rhs.path { return false }
       if self.remoteRef != rhs.remoteRef { return false }
       if self.sourceTree != rhs.sourceTree { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -178,6 +238,10 @@ extension PBXResourcesBuildPhase {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXResourcesBuildPhase else { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -185,6 +249,10 @@ extension PBXRezBuildPhase {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXRezBuildPhase else { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -198,6 +266,10 @@ extension PBXShellScriptBuildPhase {
       if self.shellPath != rhs.shellPath { return false }
       if self.shellScript != rhs.shellScript { return false }
       if self.showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -205,6 +277,10 @@ extension PBXSourcesBuildPhase {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXSourcesBuildPhase else { return false }
+      // (
+    PBXBuildPhase,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -220,6 +296,9 @@ extension PBXTarget {
       if self.productName != rhs.productName { return false }
       if self.productReference != rhs.productReference { return false }
       if self.productType != rhs.productType { return false }
+      // (
+    PBXContainerItem
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -230,6 +309,10 @@ extension PBXTargetDependency {
       if self.name != rhs.name { return false }
       if self.target != rhs.target { return false }
       if self.targetProxy != rhs.targetProxy { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -237,6 +320,9 @@ extension PBXVariantGroup {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
       guard let rhs = object as? PBXVariantGroup else { return false }
+      // (
+    PBXGroup
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -247,6 +333,10 @@ extension XCBuildConfiguration {
       if self.baseConfigurationReference != rhs.baseConfigurationReference { return false }
       if !NSDictionary(dictionary: self.buildSettings ).isEqual(to: rhs.buildSettings ) { return false }
       if self.name != rhs.name { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -257,6 +347,128 @@ extension XCConfigurationList {
       if self.buildConfigurations != rhs.buildConfigurations { return false }
       if self.defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
       if self.defaultConfigurationName != rhs.defaultConfigurationName { return false }
+      // (
+    PBXObject,
+    PlistSerializable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme else { return false }
+      if self.buildAction != rhs.buildAction { return false }
+      if self.testAction != rhs.testAction { return false }
+      if self.launchAction != rhs.launchAction { return false }
+      if self.profileAction != rhs.profileAction { return false }
+      if self.analyzeAction != rhs.analyzeAction { return false }
+      if self.archiveAction != rhs.archiveAction { return false }
+      if self.lastUpgradeVersion != rhs.lastUpgradeVersion { return false }
+      if self.version != rhs.version { return false }
+      if self.name != rhs.name { return false }
+      // (
+    AutoEquatable,
+    Writable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.AnalyzeAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.AnalyzeAction else { return false }
+      if self.buildConfiguration != rhs.buildConfiguration { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.BuildableProductRunnable {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.BuildableProductRunnable else { return false }
+      if self.runnableDebuggingMode != rhs.runnableDebuggingMode { return false }
+      if self.buildableReference != rhs.buildableReference { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.BuildableReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.BuildableReference else { return false }
+      if self.referencedContainer != rhs.referencedContainer { return false }
+      if self.blueprintIdentifier != rhs.blueprintIdentifier { return false }
+      if self.buildableName != rhs.buildableName { return false }
+      if self.buildableIdentifier != rhs.buildableIdentifier { return false }
+      if self.blueprintName != rhs.blueprintName { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.CommandLineArguments {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.CommandLineArguments else { return false }
+      if self.arguments != rhs.arguments { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.ExecutionAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.ExecutionAction else { return false }
+      if self.title != rhs.title { return false }
+      if self.scriptText != rhs.scriptText { return false }
+      if self.environmentBuildable != rhs.environmentBuildable { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.LocationScenarioReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.LocationScenarioReference else { return false }
+      if self.identifier != rhs.identifier { return false }
+      if self.referenceType != rhs.referenceType { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.SerialAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.SerialAction else { return false }
+      if self.preActions != rhs.preActions { return false }
+      if self.postActions != rhs.postActions { return false }
+      // (
+    AutoEquatable
+)
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.TestableReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.TestableReference else { return false }
+      if self.skipped != rhs.skipped { return false }
+      if self.buildableReference != rhs.buildableReference { return false }
+      // (
+    AutoEquatable
+)
       return super.isEqual(to: rhs)
     }
 }
@@ -266,6 +478,9 @@ extension XCVersionGroup {
       guard let rhs = object as? XCVersionGroup else { return false }
       if self.currentVersion != rhs.currentVersion { return false }
       if self.versionGroupType != rhs.versionGroupType { return false }
+      // (
+    PBXGroup
+)
       return super.isEqual(to: rhs)
     }
 }
