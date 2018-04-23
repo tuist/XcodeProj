@@ -9,7 +9,6 @@ final public class XCBuildConfiguration: PBXObject {
     public var baseConfigurationReference: String?
     
     /// A map of build settings.
-    // sourcery: notEquatableDictionary
     public var buildSettings: BuildSettings
     
     /// The configuration name.

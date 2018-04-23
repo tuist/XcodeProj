@@ -9,7 +9,6 @@ final public class PBXBuildFile: PBXObject {
     public var fileRef: String?
 
     /// Element settings
-    // sourcery: notEquatableDictionary
     public var settings: [String: Any]?
 
     // MARK: - Init

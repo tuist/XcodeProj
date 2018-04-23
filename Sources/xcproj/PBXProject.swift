@@ -41,7 +41,6 @@ final public class PBXProject: PBXObject {
     public var targets: [String]
     
     /// Project attributes.
-    // sourcery: notEquatableDictionary
     public var attributes: [String: Any]
     
     // MARK: - Init
