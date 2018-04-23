@@ -8,7 +8,8 @@
 ## 4.3.0
 
 ### Added
-- CI pipeline runs also on a Linux environment https://github.com/xcodeswift/xcproj/pull/249 by @pepibumur
+- CI pipeline runs also on a Linux environment https://github.com/xcodeswift/xcproj/pull/249 by @pepibumur.
+- Auto-generation of Equatable conformances using Sourcery https://github.com/xcodeswift/xcproj/pull/189 @by pepibumur.
 
 ### Fixed
 - Some updates to match the Xcode 9.3 project format https://github.com/xcodeswift/xcproj/pull/247 by @LinusU
