@@ -76,33 +76,6 @@ final public class PBXBuildRule: PBXObject {
         try super.init(from: decoder)
     }
     
-    // MARK: - Equatable
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXBuildRule,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        let outputFilesCompilerFlagsAreEqual: Bool = {
-            switch (lhs.outputFilesCompilerFlags, rhs.outputFilesCompilerFlags) {
-            case (.none, .none):
-                return true
-            case (.none, .some), (.some, .none):
-                return false
-            case (.some(let lhsOutputFilesCompilerFlags), .some(let rhsOutputFilesCompilerFlags)):
-                return lhsOutputFilesCompilerFlags == rhsOutputFilesCompilerFlags
-            }
-        }()
-        return lhs.compilerSpec == rhs.compilerSpec &&
-            lhs.filePatterns == rhs.filePatterns &&
-            lhs.fileType == rhs.fileType &&
-            lhs.isEditable == rhs.isEditable &&
-            lhs.name == rhs.name &&
-            lhs.outputFiles == rhs.outputFiles &&
-            outputFilesCompilerFlagsAreEqual &&
-            lhs.script == rhs.script
-    }
 }
 
 // MARK: - PBXBuildRule Extension (PlistSerializable)

@@ -6,17 +6,6 @@ final public class PBXResourcesBuildPhase: PBXBuildPhase {
     public override var buildPhase: BuildPhase {
         return .resources
     }
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXResourcesBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildActionMask == rhs.buildActionMask &&
-            lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
 
 }
 

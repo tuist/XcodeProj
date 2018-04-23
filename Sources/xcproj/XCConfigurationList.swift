@@ -31,16 +31,6 @@ final public class XCConfigurationList: PBXObject {
         super.init()
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? XCConfigurationList,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildConfigurations == rhs.buildConfigurations &&
-            lhs.defaultConfigurationIsVisible == rhs.defaultConfigurationIsVisible
-    }
-
     // MARK: - Decodable
         
     fileprivate enum CodingKeys: String, CodingKey {

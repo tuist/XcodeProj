@@ -31,19 +31,6 @@ final public class PBXTargetDependency: PBXObject {
         super.init()
     }
     
-    // MARK: - Hashable
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXTargetDependency,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.name == rhs.name &&
-            lhs.target == rhs.target &&
-            lhs.targetProxy == rhs.targetProxy
-    }
-    
     // MARK: - Decodable
     
     fileprivate enum CodingKeys: String, CodingKey {

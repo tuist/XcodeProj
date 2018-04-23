@@ -58,18 +58,6 @@ final public class PBXLegacyTarget: PBXTarget {
         try super.init(from: decoder)
     }
     
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXLegacyTarget,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildToolPath == rhs.buildToolPath &&
-            lhs.buildArgumentsString == rhs.buildArgumentsString &&
-            lhs.passBuildSettingsInEnvironment == rhs.passBuildSettingsInEnvironment &&
-            lhs.buildWorkingDirectory == rhs.buildWorkingDirectory
-    }
-    
     override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
         let (key, value) = super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
         var dict: [CommentedString: PlistValue]!

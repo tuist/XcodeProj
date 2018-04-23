@@ -53,16 +53,6 @@ final public class XCVersionGroup: PBXGroup {
                    tabWidth: tabWidth)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? XCVersionGroup,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.currentVersion == rhs.currentVersion &&
-            lhs.versionGroupType == rhs.versionGroupType
-    }
-
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {

@@ -7,18 +7,6 @@ final public class PBXSourcesBuildPhase: PBXBuildPhase {
         return .sources
     }
 
-    // MARK: - Hashable
-    
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXSourcesBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.buildActionMask == rhs.buildActionMask &&
-        lhs.files == rhs.files &&
-        lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
 }
 
 extension PBXSourcesBuildPhase: PlistSerializable {

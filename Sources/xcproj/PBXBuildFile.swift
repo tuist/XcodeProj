@@ -39,27 +39,6 @@ final public class PBXBuildFile: PBXObject {
         try super.init(from: decoder)
     }
 
-    // MARK: - Hashable
-
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXBuildFile,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        let settingsAreEqual: Bool = {
-            switch (lhs.settings, rhs.settings) {
-            case (.none, .none):
-                return true
-            case (.none, .some), (.some, .none):
-                return false
-            case (.some(let lhsSettings), .some(let rhsSettings)):
-                return NSDictionary(dictionary: lhsSettings).isEqual(to: rhsSettings)
-            }
-        }()
-        return lhs.fileRef == rhs.fileRef &&
-            settingsAreEqual
-    }
 }
 
 // MARK: - PBXBuildFile Extension (PlistSerializable)

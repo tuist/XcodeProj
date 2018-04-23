@@ -1,7 +1,6 @@
 // swift-tools-version:4.0
 
 import PackageDescription
-
 let package = Package(
     name: "xcproj",
     products: [
@@ -13,7 +12,8 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0")
         ],
     targets: [
-        .target(name: "xcproj", dependencies: ["PathKit", "AEXML"]),
+        .target(name: "xcproj",
+                dependencies: ["PathKit", "AEXML"]),
         .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
         .testTarget(name: "xcprojIntegrationTests", dependencies: ["xcproj", "PathKit", "ShellOut"]),
     ]

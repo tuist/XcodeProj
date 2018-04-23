@@ -7,15 +7,6 @@ final public class PBXFrameworksBuildPhase: PBXBuildPhase {
         return .frameworks
     }
     
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXFrameworksBuildPhase,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.files == rhs.files &&
-            lhs.runOnlyForDeploymentPostprocessing == rhs.runOnlyForDeploymentPostprocessing
-    }
 }
 
 // MARK: - PBXFrameworksBuildPhase Extension (PlistSerializable)

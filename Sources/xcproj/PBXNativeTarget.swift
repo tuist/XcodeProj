@@ -38,15 +38,6 @@ final public class PBXNativeTarget: PBXTarget {
         try super.init(from: decoder)
     }
 
-    public override func isEqual(to object: PBXObject) -> Bool {
-        guard let rhs = object as? PBXNativeTarget,
-            super.isEqual(to: rhs) else {
-                return false
-        }
-        let lhs = self
-        return lhs.productInstallPath == rhs.productInstallPath
-    }
-
     override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
         let (key, value) = super.plistValues(proj: proj, isa: isa, reference: reference)
         guard case PlistValue.dictionary(var dict) = value else {
