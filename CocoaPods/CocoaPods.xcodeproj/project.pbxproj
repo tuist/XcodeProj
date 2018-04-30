@@ -160,7 +160,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = xcode.swift;
+				ORGANIZATIONNAME = xcbuddy;
 				TargetAttributes = {
 					04F4733C1F8058B80059DA8D = {
 						CreatedOnToolsVersion = 9.0;

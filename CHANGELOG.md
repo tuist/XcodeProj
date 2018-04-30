@@ -2,6 +2,9 @@
 
 ## next version
 
+### Breaking
+- Rename project to xcodeproj by @pepibumur.
+
 ### Added
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
 

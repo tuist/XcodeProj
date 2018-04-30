@@ -10,11 +10,11 @@ describe "execute" do
     allow(@dangerfile).to receive(:git) { @git }
   end
 
-  context "when files in Sources/xcproj have been added/deleted" do
+  context "when files in Sources/xcodeproj have been added/deleted" do
 
     before :each do
-      allow(@git).to receive(:added_files) { ["Sources/xcproj/added.swift", "Tests/something.swift"] }
-      allow(@git).to receive(:deleted_files) { ["Sources/xcproj/removed.swift", "test"] }
+      allow(@git).to receive(:added_files) { ["Sources/xcodeproj/added.swift", "Tests/something.swift"] }
+      allow(@git).to receive(:deleted_files) { ["Sources/xcodeproj/removed.swift", "test"] }
       allow(@git).to receive(:modified_files) { [] }
     end
 
@@ -25,7 +25,7 @@ describe "execute" do
 
   end
 
-  context "when none files in Sources/xcproj have been added/deleted" do
+  context "when none files in Sources/xcodeproj have been added/deleted" do
 
     before :each do
       allow(@git).to receive(:added_files) { ["Tests/something.swift"] }

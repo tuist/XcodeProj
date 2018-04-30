@@ -2,9 +2,9 @@
 
 import PackageDescription
 let package = Package(
-    name: "xcproj",
+    name: "xcodeproj",
     products: [
-        .library(name: "xcproj", targets: ["xcproj"]),
+        .library(name: "xcodeproj", targets: ["xcodeproj"]),
         ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit.git", .upToNextMajor(from: "0.9.1")),
@@ -12,9 +12,9 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0")
         ],
     targets: [
-        .target(name: "xcproj",
+        .target(name: "xcodeproj",
                 dependencies: ["PathKit", "AEXML"]),
-        .testTarget(name: "xcprojTests", dependencies: ["xcproj"]),
-        .testTarget(name: "xcprojIntegrationTests", dependencies: ["xcproj", "PathKit", "ShellOut"]),
+        .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj"]),
+        .testTarget(name: "xcodeprojIntegrationTests", dependencies: ["xcodeproj", "PathKit", "ShellOut"]),
     ]
 )

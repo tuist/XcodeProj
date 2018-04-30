@@ -1,8 +1,8 @@
-author: xcode.swift
-module: xcproj
+author: xcbuddy
+module: xcodeproj
 module_version: 0.0.1
 github_url: https://github.com/xcbuddy/xcodeproj
-copyright: 'Copyright © 2017 xcode.swift. All rights reserved.'
+copyright: 'Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md
 custom_categories:

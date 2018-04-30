@@ -14,7 +14,7 @@ module Danger
       private
 
       def added_or_deleted_sources
-         (git.added_files + git.deleted_files).select {|path| path.include?("Sources/xcproj")}
+         (git.added_files + git.deleted_files).select {|path| path.include?("Sources/xcodeproj")}
       end
 
       def project_modified

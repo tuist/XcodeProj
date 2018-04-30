@@ -43,12 +43,12 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/xcbuddy/xcproj.git", .upToNextMajor(from: "4.2.0")),
+        .package(url: "https://github.com/xcbuddy/xcodeproj.git", .upToNextMajor(from: "4.2.0")),
         ],
     targets: [
         .target(
             name: "myproject",
-            dependencies: ["xcproj"]),
+            dependencies: ["xcodeproj"]),
         ]
 )
 
@@ -59,7 +59,7 @@ let package = Package(
 Edit your `Marathonfile` and specify the dependency in there:
 
 ```bash
-https://github.com/xcbuddy/xcproj.git
+https://github.com/xcbuddy/xcodeproj.git
 ```
 
 #### Using [CocoaPods](https://cocoapods.org)
@@ -67,7 +67,7 @@ https://github.com/xcbuddy/xcproj.git
 Edit your `Podfile` and specify the dependency:
 
 ```ruby
-pod "xcproj"
+pod "xcodeproj"
 ```
 
 #### Using [Carthage](https://github.com/carthage)
@@ -75,12 +75,12 @@ pod "xcproj"
 Edit your `Cartfile` and specify the dependency:
 
 ```bash
-github "xcbuddy/xcproj"
+github "xcbuddy/xcodeproj"
 ```
 
-> Note: xcproj is only available for macOS and iOS projects.
+> Note: xcodeproj is only available for macOS and iOS projects.
 
-## How to use xcproj 🐒
+## How to use xcodeproj 🐒
 
 Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the `XcodeProj` or the `XCWorkspace` model. Modifications in your projects are usually executed in three steps:
 
@@ -117,8 +117,8 @@ You can read more about what each of these objects is for on the [following link
 
 ### Considerations
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
-- The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
-- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcbuddy/xcproj/issues/new) on the repository.
+- The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcodeproj`.
+- New versions of Xcode might introduce new models or property that are not supported by `xcodeproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcbuddy/xcodeproj/issues/new) on the repository.
 
 ## Examples
 
@@ -213,7 +213,7 @@ sourcesBuildPhase.files.append(buildFile.reference)
 </details>
 
 ## Documentation 📄
-You can check out the documentation on the following [link](https://xcbuddy.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ## References 📚
 

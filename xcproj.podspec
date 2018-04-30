@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = "xcproj"
+  s.name             = "xcodeproj"
   s.version          = "4.3.0"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/xcbuddy/xcodeproj"

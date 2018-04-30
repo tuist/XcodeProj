@@ -25,6 +25,6 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 xcode.swift. All rights reserved.</string>
+	<string>Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.</string>
 </dict>
 </plist>

@@ -16,7 +16,7 @@ end
 def generate_docs
   print "Generating docs"
   sh "swift package generate-xcodeproj"
-  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -project,xcproj.xcodeproj,-scheme,xcproj-Package --skip-undocumented"
+  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -project,xcodeproj.xcodeproj,-scheme,xcodeproj-Package --skip-undocumented"
 end
 
 def any_git_changes?
@@ -33,8 +33,8 @@ def build
 end
 
 def build_carthage_project
-  sh "xcodebuild -project Carthage.xcodeproj -scheme xcproj_macOS -config Debug clean build"
-  sh "xcodebuild -project Carthage.xcodeproj -scheme xcproj_iOS -config Debug -destination '#{DESTINATION}' clean build"
+  sh "xcodebuild -project Carthage.xcodeproj -scheme xcodeproj_macOS -config Debug clean build"
+  sh "xcodebuild -project Carthage.xcodeproj -scheme xcodeproj_iOS -config Debug -destination '#{DESTINATION}' clean build"
 end
 
 task :carthage do
@@ -42,11 +42,11 @@ task :carthage do
 end
 
 def test_swift
-  sh "xcodebuild -project xcproj.xcodeproj -scheme xcproj-Package -only-testing:xcprojTests -config Debug test -enableCodeCoverage YES"
+  sh "xcodebuild -project xcodeproj.xcodeproj -scheme xcodeproj-Package -only-testing:xcodeprojTests -config Debug test -enableCodeCoverage YES"
 end
 
 def test_swift_integration
-  sh "swift test --filter xcprojIntegrationTests"
+  sh "swift test --filter xcodeprojIntegrationTests"
 end
 
 def test_ruby
@@ -63,7 +63,7 @@ def next_version(type)
 end
 
 def bump_to_version(from, to)
-  spec_path = "xcproj.podspec"
+  spec_path = "xcodeproj.podspec"
   content = File.read(spec_path)
   File.open(spec_path, "w"){|f| f.write(content.sub(from.to_s, to.to_s)) }
 end
@@ -132,11 +132,11 @@ task :deploy_to_integration do
    end
 end
 
-desc "Bumps the version of xcproj. It creates a new tagged commit and archives the binary to be published with the release"
+desc "Bumps the version of xcodeproj. It creates a new tagged commit and archives the binary to be published with the release"
 task :release do
   abort "You should specify the type (e.g. RELEASE_TYPE=minor rake task release)" unless ENV["RELEASE_TYPE"]
   # abort 'Commit all your changes before starting the release' unless !any_git_changes?
-  print("Building xcproj")
+  print("Building xcodeproj")
   build
   print "Generating Carthage project"
   generate_carthage_project()
