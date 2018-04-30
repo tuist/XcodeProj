@@ -1,19 +1,10 @@
-<img src="Assets/header.png" width="400"/><br/>
+# xcodeproj
 
-<a href="#backers" alt="sponsors on Open Collective">
-  <img src="https://opencollective.com/xcproj/backers/badge.svg"/>
-</a>
-<a href="#sponsors" alt="Sponsors on Open Collective">
-  <img src="https://opencollective.com/xcproj/sponsors/badge.svg"/>
-</a> 
 <a href="https://swift.org/package-manager">
 <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
 </a>
-<a href="https://twitter.com/xcodedotswift">
-  <img src="https://img.shields.io/badge/contact-@xcodedotswift-blue.svg?style=flat" alt="Twitter: @xcodedotswift" />
-</a>
-<a href="https://github.com/xcodeswift/xcproj/releases">
-  <img src="https://img.shields.io/github/release/xcodeswift/xcproj.svg"/>
+<a href="https://github.com/xcbuddy/xcodeproj/releases">
+  <img src="https://img.shields.io/github/release/xcbuddy/xcodeproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
@@ -22,12 +13,12 @@
   <img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" />
 </a>
 
-xcproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
+xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 ## Continuous Integration ✅
 
-- **Master:** [![Build Status](https://travis-ci.org/xcodeswift/xcproj.svg?branch=master)](https://travis-ci.org/xcodeswift/xcproj)
-- **Integration:** [![Build Status](https://travis-ci.org/xcodeswift/xcproj.svg?branch=integration)](https://travis-ci.org/xcodeswift/xcproj)
+- **Master:** [![Build Status](https://travis-ci.org/xcodeswift/xcodeproj.svg?branch=master)](https://travis-ci.org/xcodeswift/xcodeproj)
+- **Integration:** [![Build Status](https://travis-ci.org/xcodeswift/xcodeproj.svg?branch=integration)](https://travis-ci.org/xcodeswift/xcodeproj)
 
 ## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
@@ -36,19 +27,11 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 - Update the project `Build Settings`.
 - Create new `Schemes`.
 
-## Projects that benefit from xcproj ❤️
-
-| **Project** | **Description** |
-|---------|-------------|
-| [XcodeGen](https://github.com/yonaskolb/XcodeGen)     | Generate Xcode projects dynamically from a YAML file |
-| [xclint](https://github.com/xcodeswift/xclint) | Lint the format of your Xcode projects|
-| [xctools](https://github.com/xcodeswift/xctools) | Handy command line tools |
-
 ## Contribute 👨‍👩‍👧
 
-1. Git clone the repository `git@github.com:xcodeswift/xcproj.git`.
-2. Generate xcproj with  `swift package generate-xcodeproj`.
-3. Open `xcproj.xcodeproj`.
+1. Git clone the repository `git@github.com:xcodeswift/xcodeproj.git`.
+2. Generate xcodeproj with  `swift package generate-xcodeproj`.
+3. Open `xcodeproj.xcodeproj`.
 
 ## Setup 🦋
 
@@ -245,41 +228,12 @@ You can check out the documentation on the following [link](https://xcodeswift.g
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
 
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="https://github.com/xcodeswift/xcproj/graphs/contributors"><img src="https://opencollective.com/xcproj/contributors.svg?width=890" /></a>
-
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/xcproj#backer)]
-
-<a href="https://opencollective.com/xcproj#backers" target="_blank"><img src="https://opencollective.com/xcproj/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/xcproj#sponsor)]
-
-<a href="https://opencollective.com/xcproj/sponsor/0/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/1/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/2/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/3/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/4/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/5/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/6/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/7/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/8/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/xcproj/sponsor/9/website" target="_blank"><img src="https://opencollective.com/xcproj/sponsor/9/avatar.svg"></a>
-
-
 ## License
 
 ```
 MIT License
 
-Copyright (c) 2017 xcode.swift
+Copyright (c) from 2018 Pedro Piñera
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
