@@ -103,6 +103,8 @@ end
 
 desc "Executes all the validation steps for CI"
 task :ci do
+  print "Generate Xcode project"
+  sh "swift package generate-xcodeproj"
   print "Linting project"
   sh "swiftlint" if is_macos
   print "CocoaPods linting"
