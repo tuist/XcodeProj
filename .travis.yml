@@ -24,3 +24,4 @@ script:
 - bundle exec rake ci
 after_success:
 - bundle exec rake deploy_to_integration
+- bash <(curl -s https://codecov.io/bash)

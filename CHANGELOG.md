@@ -11,6 +11,7 @@
 
 ### Added
 - Update Danger to warn if the PR title contains WIP https://github.com/xcodeswift/xcproj/pull/259 by @pepibumur.
+- Test coverage reports https://github.com/xcodeswift/xcproj/pull/258 by @pepibumur
 
 ## 4.3.0
 
