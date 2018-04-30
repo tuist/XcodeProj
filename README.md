@@ -15,6 +15,8 @@
 
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
+**This project is a fork and evolution from [xcproj](https://github.com/xcodeswift/xcproj)**
+
 ## Continuous Integration ✅
 
 - **Master:** [![Build Status](https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.org/xcbuddy/xcodeproj)
