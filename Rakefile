@@ -14,7 +14,7 @@ def git
 end
 
 def generate_docs
-  print "Executing tests"
+  print "Generating docs"
   sh "swift package generate-xcodeproj"
   sh "jazzy --clean --sdk macosx --xcodebuild-arguments -project,xcproj.xcodeproj,-scheme,xcproj-Package --skip-undocumented"
 end
@@ -42,7 +42,7 @@ task :carthage do
 end
 
 def test_swift
-  sh "swift test --filter xcprojTests"
+  sh "xcodebuild -project xcproj.xcodeproj -scheme xcproj-Package -only-testing:xcprojTests -config Debug test -enableCodeCoverage YES"
 end
 
 def test_swift_integration
