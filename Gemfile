@@ -9,3 +9,4 @@ gem 'danger-xcodeswift', :git => "https://github.com/xcodeswift/danger", require
 gem "git"
 gem "rspec"
 gem "xcpretty"
+gem 'danger-swiftlint'
