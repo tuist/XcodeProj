@@ -216,13 +216,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-macOS/Pods-macOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AEXML-macOS/AEXML.framework",
 				"${BUILT_PRODUCTS_DIR}/PathKit-macOS/PathKit.framework",
-				"${BUILT_PRODUCTS_DIR}/xcproj-macOS/xcproj.framework",
+				"${BUILT_PRODUCTS_DIR}/xcodeproj-macOS/xcodeproj.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEXML.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PathKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/xcproj.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/xcodeproj.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -256,13 +256,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-iOS/Pods-iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AEXML-iOS/AEXML.framework",
 				"${BUILT_PRODUCTS_DIR}/PathKit-iOS/PathKit.framework",
-				"${BUILT_PRODUCTS_DIR}/xcproj-iOS/xcproj.framework",
+				"${BUILT_PRODUCTS_DIR}/xcodeproj-iOS/xcodeproj.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEXML.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PathKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/xcproj.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/xcodeproj.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
