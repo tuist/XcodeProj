@@ -22,7 +22,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                   initModel: { try? XcodeProj(path: $0) },
                   modify: { $0 })
     }
-    
+
     func test_init_usesAnEmptyWorkspace_whenItsMissing() throws {
         let got = try projectWithoutWorkspace()
         XCTAssertEqual(got.workspace.data.children.count, 1)
@@ -50,9 +50,9 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         for path in pathsToProjectsToTest {
             let rawProj: String = try (path + "project.pbxproj").read()
             let proj = try XcodeProj(path: path)
-            
+
             let output = proj.pbxproj.encode()
-            
+
             XCTAssertEqual(output, rawProj)
         }
     }
@@ -100,19 +100,19 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_add_new_group() throws {
         let project = projectiOS()!.pbxproj
-        
+
         let groups = project.objects.addGroup(named: "Group", to: project.rootGroup)
         let groupRef = XCTAssertNotNilAndUnwrap(groups.first)
-        
+
         let group = groupRef.object
         XCTAssertEqual(group.name, "Group")
         XCTAssertEqual(group.path, "Group")
-        
+
         let reference = groupRef.reference
         XCTAssertNotNil(project.rootGroup.children.index(of: reference))
         XCTAssertEqual(project.objects.groups[reference], group)
     }
-    
+
     func test_add_new_group_without_folder_has_nil_path() {
         let project = projectiOS()!.pbxproj
         let groups = project.objects.addGroup(named: "Group", to: project.rootGroup, options: [.withoutFolder])
@@ -127,7 +127,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let existingGroups = project.objects.addGroup(named: "Group", to: project.rootGroup)
         XCTAssertEqual(groups[0], existingGroups[0])
     }
-    
+
     func test_add_nested_group() throws {
         let project = projectiOS()!
         let groups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
@@ -165,7 +165,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                                             explicitFileType: "sourcecode.swift",
                                             lastKnownFileType: "sourcecode.swift",
                                             path: "../../newfile.swift")
-        
+
         XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
         XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
@@ -174,38 +174,38 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         XCTAssertTrue(file == existingFile)
     }
-    
+
     func test_add_new_dynamic_framework() throws {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "dummy.framework"
-        
+
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
         let file = try proj.objects.addFile(at: filePath,
                                             toGroup: iOSGroup.object,
                                             sourceRoot: fixtureiOSSourcePath())
-        
+
         let expectedFile = PBXFileReference(sourceTree: .group,
                                             name: "dummy.framework",
                                             explicitFileType: "wrapper.framework",
                                             lastKnownFileType: "wrapper.framework",
                                             path: "../../dummy.framework")
-        
-        
+
+
         XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
         XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
     }
-    
+
     func test_add_existing_file_returns_existing_object() throws {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "newfile.swift"
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
-        
+
         let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceRoot: fixtureiOSSourcePath())
         let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath())
         XCTAssertTrue(file == existingFile)
     }
-    
+
     func test_add_nonexisting_file_throws() {
         let proj = projectiOS()!.pbxproj
         let filePath = fixturesPath() + "nonexisting.swift"
@@ -270,6 +270,11 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         XCTAssertEqual(file.object.path, filePath.string)
         XCTAssertEqual(fullFilePath, filePath)
+
+        let mainStoryboard = proj.objects.variantGroups.first { $0.value.name == "Main.storyboard" }!
+        let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value, reference: mainStoryboard.key, sourceRoot: sourceRoot)
+
+        XCTAssertEqual(mainStoryboardfullPath, fixturesPath() + "iOS/iOS/Base.lproj/Main.storyboard")
     }
 
     func test_path_relativeToPath() {
@@ -305,19 +310,19 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     private func fixtureWithoutWorkspaceProjectPath() -> Path {
         return fixturesPath() + "WithoutWorkspace/WithoutWorkspace.xcodeproj"
     }
-    
+
     private func fixtureiOSProjectPath() -> Path {
         return fixturesPath() + "iOS/Project.xcodeproj"
     }
-    
+
     private func fixtureiOSSourcePath() -> Path {
         return fixturesPath() + "iOS"
     }
-    
+
     private func projectiOS() -> XcodeProj? {
         return try? XcodeProj(path: fixtureiOSProjectPath())
     }
-    
+
     private func projectWithoutWorkspace() throws -> XcodeProj {
         return try XcodeProj(path: fixtureWithoutWorkspaceProjectPath())
     }

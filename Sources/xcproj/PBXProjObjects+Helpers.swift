@@ -182,13 +182,20 @@ public extension PBXProj.Objects {
         case .group?:
             guard let group = groups.first(where: { $0.value.children.contains(reference) }) else { return sourceRoot }
             guard let groupPath = fullPath(fileElement: group.value, reference: group.key, sourceRoot: sourceRoot) else { return nil }
-            guard let fileElementPath = fileElement.path else { return groupPath }
-            return Path(fileElementPath, relativeTo: groupPath)
+            guard let filePath = fileElement is PBXVariantGroup ? baseVariantGroupPath(for: reference) : fileElement.path else { return groupPath }
+            return Path(filePath, relativeTo: groupPath)
         default:
             return nil
         }
     }
 
+    private func baseVariantGroupPath(for reference: String) -> String? {
+      guard let variantGroup = variantGroups[reference],
+        let baseReference = variantGroup.children.first(where: { fileReferences[$0]?.name == "Base" }),
+        let baseVariant = fileReferences[baseReference] else { return nil }
+
+      return baseVariant.path
+    }
 }
 
 public struct GroupAddingOptions: OptionSet {
@@ -244,7 +251,7 @@ extension Path {
 // MARK: - PBXProj.Objects Extension (Internal)
 
 extension PBXProj.Objects {
-    
+
     /// Returns the file name from a build file reference.
     ///
     /// - Parameter buildFileReference: file reference.
@@ -256,7 +263,7 @@ extension PBXProj.Objects {
         }
         return fileName(fileReference: fileReference)
     }
-    
+
     /// Returns the file name from a file reference.
     ///
     /// - Parameter fileReference: file reference.
@@ -267,7 +274,7 @@ extension PBXProj.Objects {
         }
         return fileElement.name ?? fileElement.path
     }
-    
+
     /// Returns the configNamefile reference.
     ///
     /// - Parameter configReference: reference of the XCBuildConfiguration.
@@ -275,7 +282,7 @@ extension PBXProj.Objects {
     func configName(configReference: String) -> String? {
         return buildConfigurations[configReference]?.name
     }
-    
+
     /// Returns the build phase a file is in.
     ///
     /// - Parameter reference: reference of the file whose type will be returned.
@@ -296,7 +303,7 @@ extension PBXProj.Objects {
         }
         return nil
     }
-    
+
     /// Returns the build phase type from its reference.
     ///
     /// - Parameter reference: build phase reference.
@@ -319,7 +326,7 @@ extension PBXProj.Objects {
         }
         return nil
     }
-    
+
     /// Get the build phase name given its reference (mostly used for comments).
     ///
     /// - Parameter buildPhaseReference: build phase reference.
@@ -342,7 +349,7 @@ extension PBXProj.Objects {
         }
         return nil
     }
-    
+
     /// Returns the build phase name a file is in (mostly used for comments).
     ///
     /// - Parameter reference: reference of the file whose type name will be returned.
@@ -356,7 +363,7 @@ extension PBXProj.Objects {
             return type?.rawValue
         }
     }
-    
+
     /// Returns the object with the given configuration list (project or target)
     ///
     /// - Parameter reference: configuration list reference.
@@ -367,5 +374,5 @@ extension PBXProj.Objects {
             aggregateTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
             legacyTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init)
     }
-    
+
 }
