@@ -17,8 +17,8 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ## Continuous Integration ✅
 
-- **Master:** [![Build Status](https://travis-ci.org/xcodeswift/xcodeproj.svg?branch=master)](https://travis-ci.org/xcodeswift/xcodeproj)
-- **Integration:** [![Build Status](https://travis-ci.org/xcodeswift/xcodeproj.svg?branch=integration)](https://travis-ci.org/xcodeswift/xcodeproj)
+- **Master:** [![Build Status](https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.org/xcbuddy/xcodeproj)
+- **Integration:** [![Build Status](https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=integration)](https://travis-ci.org/xcbuddy/xcodeproj)
 
 ## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
@@ -29,7 +29,7 @@ Being able to write command line scripts in Swift to update your Xcode projects 
 
 ## Contribute 👨‍👩‍👧
 
-1. Git clone the repository `git@github.com:xcodeswift/xcodeproj.git`.
+1. Git clone the repository `git@github.com:xcbuddy/xcodeproj.git`.
 2. Generate xcodeproj with  `swift package generate-xcodeproj`.
 3. Open `xcodeproj.xcodeproj`.
 
@@ -43,7 +43,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/xcodeswift/xcproj.git", .upToNextMajor(from: "4.2.0")),
+        .package(url: "https://github.com/xcbuddy/xcproj.git", .upToNextMajor(from: "4.2.0")),
         ],
     targets: [
         .target(
@@ -59,7 +59,7 @@ let package = Package(
 Edit your `Marathonfile` and specify the dependency in there:
 
 ```bash
-https://github.com/xcodeswift/xcproj.git
+https://github.com/xcbuddy/xcproj.git
 ```
 
 #### Using [CocoaPods](https://cocoapods.org)
@@ -75,7 +75,7 @@ pod "xcproj"
 Edit your `Cartfile` and specify the dependency:
 
 ```bash
-github "xcodeswift/xcproj"
+github "xcbuddy/xcproj"
 ```
 
 > Note: xcproj is only available for macOS and iOS projects.
@@ -118,7 +118,7 @@ You can read more about what each of these objects is for on the [following link
 ### Considerations
 - Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.
 - The write doesn't validate the structure of the project. It's up to the developer to validate the changes that have been done using `xcproj`.
-- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcodeswift/xcproj/issues/new) on the repository.
+- New versions of Xcode might introduce new models or property that are not supported by `xcproj`. If you find any, don't hesitate to [open an issue](https://github.com/xcbuddy/xcproj/issues/new) on the repository.
 
 ## Examples
 
@@ -213,7 +213,7 @@ sourcesBuildPhase.files.append(buildFile.reference)
 </details>
 
 ## Documentation 📄
-You can check out the documentation on the following [link](https://xcodeswift.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://xcbuddy.github.io/xcproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ## References 📚
 

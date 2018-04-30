@@ -1,7 +1,7 @@
 author: xcode.swift
 module: xcproj
 module_version: 0.0.1
-github_url: https://github.com/xcodeswift/xcproj
+github_url: https://github.com/xcbuddy/xcodeproj
 copyright: 'Copyright © 2017 xcode.swift. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md

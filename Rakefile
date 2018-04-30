@@ -127,7 +127,7 @@ task :deploy_to_integration do
    if git.current_branch == "master" || ENV["TRAVIS_BRANCH"] == "master"
     token = ENV["GITHUB_TOKEN"]
     return abort("GITHUB_TOKEN environment variable is missing") unless token
-    git.add_remote("origin-travis", "https://#{token}@github.com/xcodeswift/xcproj.git")
+    git.add_remote("origin-travis", "https://#{token}@github.com/xcbuddy/xcodeproj.git")
     git.push("origin-travis", "master:integration")
    end
 end
