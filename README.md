@@ -146,18 +146,6 @@ sourcesGroup.children.append(homeGroup, reference: groupRef)
 project.pbxproj.objects.addObject(groupRef)
 ```
 
-<details>
-<summary>Versions <2.0</summary>
-
-```swift
-guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == "Sources" || $0.value.path == "Sources"})?.value else { return }    
-let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: "Home")
-sourcesGroup.children.append(homeGroup.reference)
-project.pbxproj.objects.addObject(homeGroup)
-```
-
-</details>
-
 #### Add `HomeViewController.swift` file inside `HomeGroup`
 
 ```swift
@@ -166,17 +154,6 @@ let fileRef = pbxproj.objects.generateReference(homeViewController, "HomeViewCon
 homeGroup.children.append(fileRef)
 project.pbxproj.objects.addObject(homeViewController, reference: fileRef)
 ```
-
-<details>
-<summary>Versions <2.0</summary>
-
-```swift
-let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: "HomeViewController.swift", path: "HomeViewController.swift")
-homeGroup.children.append(homeViewController.reference)
-project.pbxproj.objects.addObject(homeViewController)
-```
-
-</details>
   
 #### Add `HomeViewController.swift` file to `MyApp` target
 
@@ -195,25 +172,6 @@ project.pbxproj.objects.addObject(buildFile, reference: buildFileRef)
 sourcesBuildPhase.files.append(buildFileRef)
 ```
 
-<details>
-<summary>Versions <2.0</summary>
-
-```swift
-guard let sourcesBuildPhase = project.pbxproj
-    .objects.nativeTargets
-    .values
-    .first(where: {$0.name == "MyApp"})
-    .flatMap({  target -> PBXSourcesBuildPhase? in
-        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
-    }) else { return }
-// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
-let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
-project.pbxproj.objects.addObject(buildFile)
-sourcesBuildPhase.files.append(buildFile.reference)
-```
-
-</details>
-
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
@@ -229,29 +187,3 @@ You can check out the documentation on the following [link](https://xcbuddy.gith
 - [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
-
-## License
-
-```
-MIT License
-
-Copyright (c) from 2018 Pedro Piñera
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
