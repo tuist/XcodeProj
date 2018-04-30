@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
+
 ### Fixed
 - XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
 - `fullPath(fileElement:reference:sourceRoot:)` now returns the correct path for files that exist within a variant group https://github.com/xcodeswift/xcproj/pull/255 by @ileitch

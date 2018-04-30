@@ -171,6 +171,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   colorize
+  danger-swiftlint
   danger-xcodeswift!
   git
   jazzy
