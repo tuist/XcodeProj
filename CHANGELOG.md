@@ -6,6 +6,9 @@
 - XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
 - `fullPath(fileElement:reference:sourceRoot:)` now returns the correct path for files that exist within a variant group https://github.com/xcodeswift/xcproj/pull/255 by @ileitch
 
+### Added
+- Update Danger to warn if the PR title contains WIP https://github.com/xcodeswift/xcproj/pull/259 by @pepibumur.
+
 ## 4.3.0
 
 ### Added
