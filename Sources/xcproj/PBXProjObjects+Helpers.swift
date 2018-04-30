@@ -182,14 +182,14 @@ public extension PBXProj.Objects {
         case .group?:
             guard let group = groups.first(where: { $0.value.children.contains(reference) }) else { return sourceRoot }
             guard let groupPath = fullPath(fileElement: group.value, reference: group.key, sourceRoot: sourceRoot) else { return nil }
-            guard let filePath = fileElement is PBXVariantGroup ? baseVarientGroupPath(for: reference) : fileElement.path else { return groupPath }
+            guard let filePath = fileElement is PBXVariantGroup ? baseVariantGroupPath(for: reference) : fileElement.path else { return groupPath }
             return Path(filePath, relativeTo: groupPath)
         default:
             return nil
         }
     }
 
-    private func baseVarientGroupPath(for reference: String) -> String? {
+    private func baseVariantGroupPath(for reference: String) -> String? {
       guard let variantGroup = variantGroups[reference],
         let baseReference = variantGroup.children.first(where: { fileReferences[$0]?.name == "Base" }),
         let baseVariant = fileReferences[baseReference] else { return nil }
