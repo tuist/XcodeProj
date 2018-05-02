@@ -64,21 +64,6 @@ Edit your `Marathonfile` and specify the dependency in there:
 https://github.com/xcbuddy/xcodeproj.git
 ```
 
-#### Using [CocoaPods](https://cocoapods.org)
-
-Edit your `Podfile` and specify the dependency:
-
-```ruby
-pod "xcodeproj"
-```
-
-#### Using [Carthage](https://github.com/carthage)
-
-Edit your `Cartfile` and specify the dependency:
-
-```bash
-github "xcbuddy/xcodeproj"
-```
 
 > Note: xcodeproj is only available for macOS and iOS projects.
 
