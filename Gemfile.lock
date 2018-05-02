@@ -150,12 +150,12 @@ GEM
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.2.4)
+    xcpretty (0.1.12)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  cocoapods
   colorize
   danger-swiftlint
   git
@@ -163,6 +163,7 @@ DEPENDENCIES
   rake
   rspec
   semantic
+  xcpretty
 
 BUNDLED WITH
    1.16.1
