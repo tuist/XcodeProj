@@ -78,7 +78,7 @@ final public class XCVersionGroup: PBXGroup {
         if let currentVersion = currentVersion {
             dictionary["currentVersion"] = .string(CommentedString(currentVersion, comment: proj.objects.fileName(fileReference: currentVersion)))
         }
-        return (key: CommentedString(reference, comment: path.flatMap({Path($0)})?.lastComponent),
+        return (key: CommentedString(reference, comment: path.flatMap({AbsolutePath($0)})?.lastComponent),
                 value: .dictionary(dictionary))
     }
 }

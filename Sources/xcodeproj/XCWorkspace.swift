@@ -56,7 +56,7 @@ final public class XCWorkspace {
 extension XCWorkspace: Writable {
 
     public func write(path: AbsolutePath, override: Bool = true) throws {
-        let dataPath = path + "contents.xcworkspacedata"
+        let dataPath = path.appending(component: "contents.xcworkspacedata")
         if override && dataPath.exists {
             try dataPath.delete()
         }
@@ -81,15 +81,15 @@ extension XCWorkspace: Equatable {
 /// - notFound: the project cannot be found.
 public enum XCWorkspaceError: Error, CustomStringConvertible {
 
-    case notFound(path: Path)
-    case xcworkspaceDataNotFound(path: Path)
+    case notFound(path: AbsolutePath)
+    case xcworkspaceDataNotFound(path: AbsolutePath)
 
     public var description: String {
         switch self {
         case .notFound(let path):
-            return "The project cannot be found at \(path)"
+            return "The project cannot be found at \(path.asString)"
         case .xcworkspaceDataNotFound(let path):
-            return "Workspace doesn't contain a .xcworkspacedata file at \(path)"
+            return "Workspace doesn't contain a .xcworkspacedata file at \(path.asString)"
 
         }
     }

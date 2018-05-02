@@ -181,7 +181,7 @@ extension PBXFileReference {
     ///
     /// - Parameter path: path whose file type will be returned.
     /// - Returns: file type (if supported).
-    public static func fileType(path: RelativePath) -> String? {
+    public static func fileType(path: AbsolutePath) -> String? {
         return path.extension.flatMap({fileTypeHash[$0]})
     }
     

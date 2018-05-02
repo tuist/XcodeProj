@@ -875,7 +875,7 @@ final public class XCScheme {
 
 extension XCScheme: Writable {
 
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: AbsolutePath, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
@@ -915,13 +915,13 @@ extension XCScheme: Writable {
 /// - notFound: returned when the .xcscheme cannot be found.
 /// - missing: returned when there's a property missing in the .xcscheme.
 public enum XCSchemeError: Error, CustomStringConvertible {
-    case notFound(path: Path)
+    case notFound(path: AbsolutePath)
     case missing(property: String)
 
     public var description: String {
         switch self {
         case .notFound(let path):
-            return ".xcscheme couldn't be found at path \(path)"
+            return ".xcscheme couldn't be found at path \(path.asString)"
         case .missing(let property):
             return "Property \(property) missing"
         }

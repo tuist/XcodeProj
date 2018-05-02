@@ -94,10 +94,10 @@ public extension PBXProj.Objects {
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
     public func addFile(
-        at filePath: Path,
+        at filePath: AbsolutePath,
         toGroup: PBXGroup,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: Path) throws -> ObjectReference<PBXFileReference> {
+        sourceRoot: AbsolutePath) throws -> ObjectReference<PBXFileReference> {
 
         guard filePath.exists else {
             throw XCodeProjEditingError.fileNotExists(path: filePath)
@@ -112,20 +112,20 @@ public extension PBXProj.Objects {
             filePath == fullPath(fileElement: $0.object, reference: $0.reference, sourceRoot: sourceRoot)
         }) {
             if !toGroup.children.contains(existingFileReference.reference) {
-                existingFileReference.object.path = groupPath.flatMap { filePath.relativeTo($0) }?.string
+                existingFileReference.object.path = groupPath.flatMap { filePath.relative(to: $0) }?.asString
                 toGroup.children.append(existingFileReference.reference)
             }
             return existingFileReference
         }
 
-        let path: Path?
+        let path: String?
         switch sourceTree {
         case .group:
-            path = groupPath.map({ filePath.relativeTo($0) })
+            path = groupPath.map({ filePath.relative(to: $0) })?.asString
         case .sourceRoot:
-            path = filePath.relativeTo(sourceRoot)
+            path = filePath.relative(to: sourceRoot).asString
         case .absolute:
-            path = filePath.absolute()
+            path = filePath.asString
         default:
             path = nil
         }
@@ -135,9 +135,9 @@ public extension PBXProj.Objects {
             name: filePath.lastComponent,
             explicitFileType: PBXFileReference.fileType(path: filePath),
             lastKnownFileType: PBXFileReference.fileType(path: filePath),
-            path: path?.string
+            path: path
         )
-        let reference = generateReference(fileReference, filePath.string)
+        let reference = generateReference(fileReference, filePath.asString)
         addObject(fileReference, reference: reference)
 
         if !toGroup.children.contains(reference) {
@@ -173,17 +173,17 @@ public extension PBXProj.Objects {
     ///   - reference: a reference to this file element
     ///   - sourceRoot: path to the project's sourceRoot
     /// - Returns: fully qualified file element path
-    public func fullPath(fileElement: PBXFileElement, reference: String, sourceRoot: Path) -> Path? {
+    public func fullPath(fileElement: PBXFileElement, reference: String, sourceRoot: AbsolutePath) -> AbsolutePath? {
         switch fileElement.sourceTree {
         case .absolute?:
-            return fileElement.path.flatMap({ Path($0) })
+            return fileElement.path.flatMap({ AbsolutePath($0) })
         case .sourceRoot?:
-            return fileElement.path.flatMap({ Path($0, relativeTo: sourceRoot) })
+            return fileElement.path.flatMap({ sourceRoot.appending(RelativePath($0)) })
         case .group?:
             guard let group = groups.first(where: { $0.value.children.contains(reference) }) else { return sourceRoot }
             guard let groupPath = fullPath(fileElement: group.value, reference: group.key, sourceRoot: sourceRoot) else { return nil }
             guard let filePath = fileElement is PBXVariantGroup ? baseVariantGroupPath(for: reference) : fileElement.path else { return groupPath }
-            return Path(filePath, relativeTo: groupPath)
+            return groupPath.appending(RelativePath(filePath))
         default:
             return nil
         }
