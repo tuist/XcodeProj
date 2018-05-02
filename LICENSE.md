@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2017 xcode.swift
+Copyright (c) from 2018 Pedro Piñera Buendía
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

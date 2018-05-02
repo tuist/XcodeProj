@@ -29,7 +29,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = xcodeswift;
+				ORGANIZATIONNAME = xcbuddy;
 			};
 			buildConfigurationList = E4966A3A1FBAFF5F00CDE63E /* Build configuration list for PBXProject "BuildSettings" */;
 			compatibilityVersion = "Xcode 8.0";

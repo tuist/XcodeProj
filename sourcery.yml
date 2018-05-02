@@ -3,4 +3,4 @@ sources:
 templates:
   - templates
 output:
-  Sources/xcproj
+  Sources/xcodeproj

@@ -2,6 +2,10 @@
 
 ## next version
 
+### Breaking
+- Rename project to xcodeproj by @pepibumur.
+- Drop Carthage and CocoaPods support by @pepibumur https://github.com/xcbuddy/xcodeproj/pull/8.
+
 ### Added
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
 

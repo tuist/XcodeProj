@@ -6,6 +6,3 @@
 
 ## Proposal 🎉
 > Attach your own proposal *(if you have it)*. We'll discuss in on the issue to find the best one that fits into the library.
-
-<!-- Love xcproj? Please consider supporting our collective:
-👉  https://opencollective.com/xcproj/donate -->
