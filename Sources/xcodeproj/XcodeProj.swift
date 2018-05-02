@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 #if os(Linux)
 import Glibc

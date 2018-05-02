@@ -1,7 +1,7 @@
 import Foundation
-import PathKit
+import Basic
 
-public typealias XCConfigInclude = (include: Path, config: XCConfig)
+public typealias XCConfigInclude = (include: AbsolutePath, config: XCConfig)
 
 /// .xcconfig configuration file.
 final public class XCConfig {
@@ -31,7 +31,7 @@ final public class XCConfig {
     /// - Parameter path: path where the .xcconfig file is.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     /// - Throws: an error if the config file cannot be found or it has an invalid format.
-    public init(path: Path, projectPath: Path? = nil) throws {
+    public init(path: AbsolutePath, projectPath: AbsolutePath? = nil) throws {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
         self.includes = fileLines
@@ -52,7 +52,7 @@ final class XCConfigParser {
     /// - Parameter path: path of the config file that the line belongs to.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     /// - Returns: function that parses the line.
-    static func configFrom(path: Path, projectPath: Path?) -> (String) -> (include: Path, config: XCConfig)? {
+    static func configFrom(path: AbsolutePath, projectPath: AbsolutePath?) -> (String) -> (include: AbsolutePath, config: XCConfig)? {
         return { line in
             return includeRegex.matches(in: line,
                                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
@@ -153,7 +153,7 @@ extension XCConfig {
 
 extension XCConfig: Writable {
 
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: AbsolutePath, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
@@ -209,11 +209,11 @@ extension Array where Element == XCConfig {
 ///
 /// - notFound: returned when the configuration file couldn't be found.
 public enum XCConfigError: Error, CustomStringConvertible {
-    case notFound(path: Path)
+    case notFound(path: AbsolutePath)
     public var description: String {
         switch self {
         case .notFound(let path):
-            return ".xcconfig file not found at \(path)"
+            return ".xcconfig file not found at \(path.asString)"
         }
     }
 }

@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 ///  A PBXFileReference is used to track every external file referenced by
 ///  the project: source files, resource files, libraries, generated application files, and so on.
@@ -181,7 +181,7 @@ extension PBXFileReference {
     ///
     /// - Parameter path: path whose file type will be returned.
     /// - Returns: file type (if supported).
-    public static func fileType(path: Path) -> String? {
+    public static func fileType(path: RelativePath) -> String? {
         return path.extension.flatMap({fileTypeHash[$0]})
     }
     

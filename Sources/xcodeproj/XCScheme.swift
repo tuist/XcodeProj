@@ -1,6 +1,6 @@
 import Foundation
-import PathKit
-import PathKit
+import Basic
+import Basic
 import AEXML
 
 // swiftlint:disable:next type_body_length
@@ -832,7 +832,7 @@ final public class XCScheme {
     ///
     /// - Parameters:
     ///   - path: scheme path.
-    public init(path: Path) throws {
+    public init(path: AbsolutePath) throws {
         if !path.exists {
             throw XCSchemeError.notFound(path: path)
         }

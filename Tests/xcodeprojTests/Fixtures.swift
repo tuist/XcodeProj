@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 import xcodeproj
 
 func fixturesPath() -> Path {

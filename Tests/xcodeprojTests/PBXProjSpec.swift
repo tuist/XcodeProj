@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import PathKit
+import Basic
 import xcodeproj
 
 extension PBXProj {

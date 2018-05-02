@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 /// Model that represents a Xcode workspace.
 final public class XCWorkspace {
@@ -15,7 +15,7 @@ final public class XCWorkspace {
     ///
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
-    public convenience init(path: Path) throws {
+    public convenience init(path: AbsolutePath) throws {
         if !path.exists {
             throw XCWorkspaceError.notFound(path: path)
         }
@@ -38,7 +38,7 @@ final public class XCWorkspace {
     /// - Parameter pathString: path string.
     /// - Throws: throws an error if the initialization fails.
     public convenience init(pathString: String) throws {
-        try self.init(path: Path(pathString))
+        try self.init(path: AbsolutePath(pathString))
     }
 
     /// Initializes the workspace with its properties.
@@ -55,7 +55,7 @@ final public class XCWorkspace {
 
 extension XCWorkspace: Writable {
 
-    public func write(path: Path, override: Bool = true) throws {
+    public func write(path: AbsolutePath, override: Bool = true) throws {
         let dataPath = path + "contents.xcworkspacedata"
         if override && dataPath.exists {
             try dataPath.delete()

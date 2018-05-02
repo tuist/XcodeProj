@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 /// Group that contains multiple files references to the different versions of a resource.
 /// Used to contain the different versions of a xcdatamodel

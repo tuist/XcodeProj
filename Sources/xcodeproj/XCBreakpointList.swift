@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 import AEXML
 
 // swiftlint:disable:next type_body_length
@@ -297,7 +297,7 @@ final public class XCBreakpointList {
     ///
     /// - Parameters:
     ///   - path: breakpoints path.
-    public init(path: Path) throws {
+    public init(path: AbsolutePath) throws {
         if !path.exists {
             throw XCBreakpointListError.notFound(path: path)
         }
@@ -330,7 +330,7 @@ final public class XCBreakpointList {
 
 extension XCBreakpointList: Writable {
     
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: AbsolutePath, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["type"] = type
@@ -356,13 +356,13 @@ extension XCBreakpointList: Writable {
 /// - notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.
 /// - missing: returned when there's a property missing in the Breakpoints_v2.xcbkptlist.
 public enum XCBreakpointListError: Error, CustomStringConvertible {
-    case notFound(path: Path)
+    case notFound(path: AbsolutePath)
     case missing(property: String)
     
     public var description: String {
         switch self {
         case .notFound(let path):
-            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path)"
+            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.asString)"
         case .missing(let property):
             return "Property \(property) missing"
         }

@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 /// This is the element for the framework headers build phase.
 final public class PBXHeadersBuildPhase: PBXBuildPhase {
@@ -17,7 +17,7 @@ extension PBXHeadersBuildPhase {
     ///
     /// - Parameter path: path to be checked.
     /// - Returns: true if the path points to a header file.
-    static func isHeader(path: Path) -> Bool {
+    static func isHeader(path: RelativePath) -> Bool {
         return path.extension.flatMap({isHeader(fileExtension: $0)}) ?? false
     }
     

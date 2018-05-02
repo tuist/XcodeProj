@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 // MARK: - PBXProj.Objects Extension (Public)
 
@@ -208,43 +208,16 @@ public struct GroupAddingOptions: OptionSet {
 }
 
 public enum XCodeProjEditingError: Error, CustomStringConvertible {
-    case fileNotExists(path: Path)
+    case fileNotExists(path: AbsolutePath)
     case groupNotFound(group: PBXGroup)
 
     public var description: String {
         switch self {
         case .fileNotExists(let path):
-            return "\(path) does not exist"
+            return "\(path.asString) does not exist"
         case .groupNotFound(let group):
             return "Group not found in project: \(group)"
         }
-    }
-}
-
-extension Path {
-    fileprivate init(_ string: String, relativeTo relativePath: Path) {
-        var path = Path(string)
-        if !path.isAbsolute {
-            path = (relativePath + path).absolute()
-        }
-        self.init(path.string)
-    }
-
-    public func relativeTo(_ relativePath: Path) -> Path {
-        let components = self.absolute().components
-        let relativePathComponents = relativePath.absolute().components
-
-        var commonPathComponents = [String]()
-        for component in components {
-            guard relativePathComponents.count > commonPathComponents.count else { break }
-            guard relativePathComponents[commonPathComponents.count] == component else { break }
-            commonPathComponents.append(component)
-        }
-
-        let relative = Array(repeating: "..", count: (relativePathComponents.count - commonPathComponents.count))
-        let suffix = components.suffix(components.count - commonPathComponents.count)
-        let path = Path(components: relative + suffix)
-        return path
     }
 }
 

@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 @testable import xcodeproj
-import PathKit
+import Basic
 
 final class XCConfigSpec: XCTestCase {
 
