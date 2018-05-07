@@ -1,13 +1,14 @@
 import Foundation
 import XCTest
 import Basic
-import xcodeproj
+
+@testable import xcodeproj
 
 final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_init_throwsIfThePathIsWrong() {
         do {
-            _ = try XcodeProj(path: Path("test"))
+            _ = try XcodeProj(path: AbsolutePath("/test"))
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -43,12 +44,12 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_noChanges_encodesSameValue() throws {
         let pathsToProjectsToTest = [
-            fixturesPath() + "iOS/BuildSettings.xcodeproj",
-            fixturesPath() + "iOS/ProjectWithoutProductsGroup.xcodeproj"
+            fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj")),
+            fixturesPath().appending(RelativePath("iOS/ProjectWithoutProductsGroup.xcodeproj"))
         ]
 
         for path in pathsToProjectsToTest {
-            let rawProj: String = try (path + "project.pbxproj").read()
+            let rawProj: String = try (path.appending(component: "project.pbxproj")).read()
             let proj = try XcodeProj(path: path)
 
             let output = proj.pbxproj.encode()
@@ -58,8 +59,8 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     }
 
     func test_aQuoted_encodesSameValue() throws {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
-        let rawProj: String = try (path + "project.pbxproj").read()
+        let path = fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj"))
+        let rawProj: String = try (path.appending(component: "project.pbxproj")).read()
 
         let proj = try XcodeProj(path: path)
         let buildConfiguration = proj.pbxproj.objects.buildConfigurations.first!.value
@@ -73,27 +74,27 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     // MARK: - Paths
 
     func test_workspacePath() {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let path = fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj"))
         XCTAssertEqual(XcodeProj.workspacePath(path),
-                       fixturesPath() + "iOS/BuildSettings.xcodeproj/project.xcworkspace")
+                       fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj/project.xcworkspace")))
     }
 
     func test_pbxprojPath() {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let path = fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj"))
         XCTAssertEqual(XcodeProj.pbxprojPath(path),
-                       fixturesPath() + "iOS/BuildSettings.xcodeproj/project.pbxproj")
+                       fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj/project.pbxproj")))
     }
 
     func test_schemePath() {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let path = fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj"))
         XCTAssertEqual(XcodeProj.schemePath(path, schemeName: "Scheme"),
-                       fixturesPath() + "iOS/BuildSettings.xcodeproj/xcshareddata/xcschemes/Scheme.xcscheme")
+                       fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj/xcshareddata/xcschemes/Scheme.xcscheme")))
     }
 
     func test_breakPointsPath() {
-        let path = fixturesPath() + "iOS/BuildSettings.xcodeproj"
+        let path = fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj"))
         XCTAssertEqual(XcodeProj.breakPointsPath(path),
-                       fixturesPath() + "iOS/BuildSettings.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist")
+                       fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist")))
     }
 
     // MARK: - File add
@@ -156,9 +157,9 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_add_new_source_file() throws {
         let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "newfile.swift"
+        let filePath = fixturesPath().appending(component: "newfile.swift")
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
-        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup.object, sourceRoot: fixturesPath() + "iOS")
+        let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup.object, sourceRoot: fixturesPath().appending(component: "iOS"))
 
         let expectedFile = PBXFileReference(sourceTree: .group,
                                             name: "newfile.swift",
@@ -170,14 +171,14 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
 
-        let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
+        let existingFile = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath().appending(component: "iOS"))
 
         XCTAssertTrue(file == existingFile)
     }
 
     func test_add_new_dynamic_framework() throws {
         let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "dummy.framework"
+        let filePath = fixturesPath().appending(component: "dummy.framework")
 
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!
         let file = try proj.objects.addFile(at: filePath,
@@ -198,7 +199,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_add_existing_file_returns_existing_object() throws {
         let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "newfile.swift"
+        let filePath = fixturesPath().appending(component: "newfile.swift")
         let iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
 
         let file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceRoot: fixtureiOSSourcePath())
@@ -208,7 +209,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
     func test_add_nonexisting_file_throws() {
         let proj = projectiOS()!.pbxproj
-        let filePath = fixturesPath() + "nonexisting.swift"
+        let filePath = fixturesPath().appending(component: "nonexisting.swift")
         XCTAssertThrowsSpecificError(
             try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixtureiOSSourcePath()),
             XCodeProjEditingError.fileNotExists(path: filePath),
@@ -220,8 +221,8 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let proj = projectiOS()!.pbxproj
         let target = proj.objects.targets(named: "iOS").first!
         let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target.object)!
-        let filePath = fixturesPath() + "newfile.swift"
-        let file = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath() + "iOS")
+        let filePath = fixturesPath().appending(component: "newfile.swift")
+        let file = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath().appending(component: "iOS"))
 
         let buildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
 
@@ -234,14 +235,14 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     }
 
     func test_fullFilePath() throws {
-        let sourceRoot = fixturesPath() + "iOS"
+        let sourceRoot = fixturesPath().appending(RelativePath("iOS"))
         var proj = projectiOS()!.pbxproj
         var iOSGroup = proj.objects.group(named: "iOS", inGroup: proj.rootGroup)!.object
 
         let rootGroupPath = proj.objects.fullPath(fileElement: proj.rootGroup, reference: proj.rootProject!.mainGroup, sourceRoot: sourceRoot)
         XCTAssertEqual(rootGroupPath, sourceRoot)
 
-        let filePath = fixturesPath() + "newfile.swift"
+        let filePath = fixturesPath().appending(RelativePath("newfile.swift"))
         var file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .group, sourceRoot: sourceRoot)
         var fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
 
@@ -268,55 +269,55 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         file = try proj.objects.addFile(at: filePath, toGroup: iOSGroup, sourceTree: .absolute, sourceRoot: sourceRoot)
         fullFilePath = proj.objects.fullPath(fileElement: file.object, reference: file.reference, sourceRoot: sourceRoot)
 
-        XCTAssertEqual(file.object.path, filePath.string)
+        XCTAssertEqual(file.object.path, filePath.asString)
         XCTAssertEqual(fullFilePath, filePath)
 
         let mainStoryboard = proj.objects.variantGroups.first { $0.value.name == "Main.storyboard" }!
         let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value, reference: mainStoryboard.key, sourceRoot: sourceRoot)
 
-        XCTAssertEqual(mainStoryboardfullPath, fixturesPath() + "iOS/iOS/Base.lproj/Main.storyboard")
+        XCTAssertEqual(mainStoryboardfullPath, fixturesPath().appending(RelativePath("iOS/iOS/Base.lproj/Main.storyboard")))
     }
 
     func test_path_relativeToPath() {
-        let sourceRoot = fixturesPath() + "iOS"
+        let sourceRoot = fixturesPath().appending(component: "iOS")
 
-        var filePath = sourceRoot + "iOS/file.swift"
-        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("iOS/file.swift"))
-        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../.."))
-        XCTAssertEqual(filePath + Path("../.."), sourceRoot)
+        var filePath = sourceRoot.appending(RelativePath("iOS/file.swift"))
+        XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("iOS/file.swift"))
+        XCTAssertEqual(sourceRoot.relative(to: filePath), RelativePath("../.."))
+        XCTAssertEqual(filePath.appending(RelativePath("../..")), sourceRoot)
 
-        filePath = sourceRoot + "file.swift"
-        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("file.swift"))
-        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path(".."))
-        XCTAssertEqual(filePath + Path(".."), sourceRoot)
+        filePath = sourceRoot.appending(RelativePath("file.swift"))
+        XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("file.swift"))
+        XCTAssertEqual(sourceRoot.relative(to: filePath), RelativePath(".."))
+        XCTAssertEqual(filePath.appending(RelativePath("..")), sourceRoot)
 
         filePath = sourceRoot
-        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("."))
-        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("."))
+        XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("."))
+        XCTAssertEqual(sourceRoot.relative(to: filePath), RelativePath("."))
 
-        filePath = sourceRoot + "../file.swift"
-        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("../file.swift"))
-        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../iOS"))
-        XCTAssertEqual(filePath + Path("../iOS"), sourceRoot)
+        filePath = sourceRoot.appending(RelativePath("../file.swift"))
+        XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("../file.swift"))
+        XCTAssertEqual(sourceRoot.relative(to:  filePath), RelativePath("../iOS"))
+        XCTAssertEqual(filePath.appending(RelativePath("../iOS")), sourceRoot)
 
-        filePath = sourceRoot + "../../file.swift"
-        XCTAssertEqual(filePath.relativeTo(sourceRoot), Path("../../file.swift"))
-        XCTAssertEqual(sourceRoot.relativeTo(filePath), Path("../Fixtures/iOS"))
-        XCTAssertEqual(filePath + Path("../Fixtures/iOS"), sourceRoot)
+        filePath = sourceRoot.appending(RelativePath("../../file.swift"))
+        XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("../../file.swift"))
+        XCTAssertEqual(sourceRoot.relative(to: filePath), RelativePath("../Fixtures/iOS"))
+        XCTAssertEqual(filePath.appending(RelativePath("../Fixtures/iOS")), sourceRoot)
     }
 
     // MARK: - Private
 
-    private func fixtureWithoutWorkspaceProjectPath() -> Path {
-        return fixturesPath() + "WithoutWorkspace/WithoutWorkspace.xcodeproj"
+    private func fixtureWithoutWorkspaceProjectPath() -> AbsolutePath {
+        return fixturesPath().appending(RelativePath("WithoutWorkspace/WithoutWorkspace.xcodeproj"))
     }
 
-    private func fixtureiOSProjectPath() -> Path {
-        return fixturesPath() + "iOS/Project.xcodeproj"
+    private func fixtureiOSProjectPath() -> AbsolutePath {
+        return fixturesPath().appending(RelativePath("iOS/Project.xcodeproj"))
     }
 
-    private func fixtureiOSSourcePath() -> Path {
-        return fixturesPath() + "iOS"
+    private func fixtureiOSSourcePath() -> AbsolutePath {
+        return fixturesPath().appending(RelativePath("iOS"))
     }
 
     private func projectiOS() -> XcodeProj? {

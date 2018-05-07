@@ -1,7 +1,8 @@
 import Foundation
 import XCTest
 import Basic
-import xcodeproj
+
+@testable import xcodeproj
 
 extension PBXProj {
 
@@ -81,8 +82,8 @@ final class PBXProjIntegrationSpec: XCTestCase {
                   modify: { $0 })
     }
 
-    private func fixturePath() -> Path {
-        let path = fixturesPath() + Path("iOS/Project.xcodeproj/project.pbxproj")
+    private func fixturePath() -> AbsolutePath {
+        let path = fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/project.pbxproj"))
         return path
     }
 

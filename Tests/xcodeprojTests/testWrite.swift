@@ -1,19 +1,20 @@
 import Foundation
 import Basic
 import XCTest
-import xcodeproj
 
-func testWrite<T: Writable & Equatable>(from path: Path,
-               initModel: (Path) -> T?,
+@testable import xcodeproj
+
+func testWrite<T: Writable & Equatable>(from path: AbsolutePath,
+               initModel: (AbsolutePath) -> T?,
                modify: (T) -> (T)) {
     testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
 }
 
-func testWrite<T: Writable>(from path: Path,
-                       initModel: (Path) -> T?,
+func testWrite<T: Writable>(from path: AbsolutePath,
+                       initModel: (AbsolutePath) -> T?,
                        modify: (T) -> (T),
                        assertion: (_ before: T, _ after: T) -> ()) {
-    let copyPath = path.parent() + "copy.\(path.extension!)"
+    let copyPath = path.parentDirectory.appending(component: "copy.\(path.extension!)")
     try? copyPath.delete()
     try? path.copy(copyPath)
     let got = initModel(copyPath)

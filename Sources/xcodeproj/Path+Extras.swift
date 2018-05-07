@@ -57,6 +57,14 @@ extension AbsolutePath {
         try FileManager.default.createDirectory(atPath: self.asString, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
     }
     
+    /// Copies a file to another path.
+    ///
+    /// - Parameter to: path the file/directory will be copied  to.
+    func copy(_ to: AbsolutePath) throws {
+        try FileManager.default.copyItem(atPath: self.asString,
+                                     toPath: to.asString)
+    }
+    
     /// Finds files and directories using the given glob pattern.
     ///
     /// - Parameter pattern: glob pattern.
