@@ -4,6 +4,10 @@ import Foundation
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
 
+    /// A weak reference to the instance that contains all the project objects.
+    /// This is necessary to provide convenient methods from PBXObject subclasses.
+    weak var objects: PBXProj.Objects?
+    
     // MARK: - Init
     
     init() {}

@@ -86,6 +86,7 @@ final public class PBXProj: Decodable {
         ///   - object: object.
         ///   - reference: object reference.
         public func addObject(_ object: PBXObject, reference: String) {
+            object.objects = self
             switch object {
             // subclasses of PBXGroup; must be tested before PBXGroup
             case let object as PBXVariantGroup: variantGroups.append(object, reference: reference)
