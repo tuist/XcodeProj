@@ -32,7 +32,7 @@ final public class PBXProj: Decodable {
 
         // MARK: - Computed Properties
         public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
-            var phases: [String: PBXBuildPhase] = [:]
+            var phases: [PBXObjectReference: PBXBuildPhase] = [:]
             phases.merge(self.copyFilesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
             phases.merge(self.sourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
             phases.merge(self.shellScriptBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { (first, _) in return first })
@@ -47,7 +47,7 @@ final public class PBXProj: Decodable {
         ///
         /// - Parameters:
         ///   - objects: project objects
-        public init(objects: [String: PBXObject]) {
+        public init(objects: [PBXObjectReference: PBXObject]) {
             objects.forEach { self.addObject($0.value, reference: $0.key) }
         }
         
@@ -85,7 +85,7 @@ final public class PBXProj: Decodable {
         /// - Parameters:
         ///   - object: object.
         ///   - reference: object reference.
-        public func addObject(_ object: PBXObject, reference: String) {
+        public func addObject(_ object: PBXObject, reference: PBXObjectReference) {
             object.objects = self
             switch object {
             // subclasses of PBXGroup; must be tested before PBXGroup
@@ -154,7 +154,7 @@ final public class PBXProj: Decodable {
         ///
         /// - Parameter reference: file reference.
         /// - Returns: file element.
-        public func getFileElement(reference: String) -> PBXFileElement? {
+        public func getFileElement(reference: PBXObjectReference) -> PBXFileElement? {
             return fileReferences[reference] ??
                 groups[reference] ??
                 variantGroups[reference] ??
@@ -166,7 +166,7 @@ final public class PBXProj: Decodable {
         /// - Parameter reference: file reference.
         /// - Returns: object.
         // swiftlint:disable function_body_length
-        public func getReference(_ reference: String) -> PBXObject? {
+        public func getReference(_ reference: PBXObjectReference) -> PBXObject? {
             // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
             // with Swift 4, this compiler error:
             //     Expression was too complex to be solved in reasonable time;

@@ -2,11 +2,11 @@ import Foundation
 
 // Typealias that represents dictionary from string -> T where T is Referenceable (i.e. PBXObjects)
 
-public typealias ReferenceableCollection<T: Equatable> = [String: T]
+public typealias ReferenceableCollection<T: Equatable> = [PBXObjectReference: T]
 
-extension Dictionary where Key == String {
+extension Dictionary where Key == PBXObjectReference {
 
-    public var references: [String] {
+    public var references: [PBXObjectReference] {
         return Array(self.keys)
     }
 
@@ -22,7 +22,7 @@ extension Dictionary where Key == String {
         return self[reference]
     }
 
-    mutating public func append(_ value: Value, reference: String) {
+    mutating public func append(_ value: Value, reference: PBXObjectReference) {
         self[reference] = value
     }
 }

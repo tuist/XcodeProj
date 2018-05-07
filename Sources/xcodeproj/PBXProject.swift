@@ -154,12 +154,11 @@ extension PBXProject: PlistSerializable {
         if !knownRegions.isEmpty {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map {.string(CommentedString("\($0)")) })
-        }
-        
-        let mainGroupObject = proj.objects.groups[mainGroup]
+        }        
+        let mainGroupObject = proj.objects.groups[PBXObjectReference(mainGroup)]
         dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
         if let productRefGroup = productRefGroup {
-            let productRefGroupObject = proj.objects.groups[productRefGroup]
+            let productRefGroupObject = proj.objects.groups[PBXObjectReference(productRefGroup)]
             let productRefGroupComment = productRefGroupObject?.name ?? productRefGroupObject?.path
             dictionary["productRefGroup"] = .string(CommentedString(productRefGroup,
                                                                     comment: productRefGroupComment))
@@ -193,7 +192,7 @@ extension PBXProject: PlistSerializable {
                 return nil
             }
             
-            let groupName = proj.objects.groups.getReference(productGroup)?.name
+            let groupName = proj.objects.groups.getReference(PBXObjectReference(productGroup))?.name
             let fileRef = proj.objects.fileReferences.getReference(projectRef)
             let fileRefName = fileRef?.name ?? fileRef?.path
             
