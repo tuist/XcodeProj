@@ -19,8 +19,8 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ## Continuous Integration ✅
 
-- **Master:** [![Build Status](https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.org/xcbuddy/xcodeproj)
-- **Integration:** [![Build Status](https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=integration)](https://travis-ci.org/xcbuddy/xcodeproj)
+- **Master:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.com/xcbuddy/xcodeproj)
+- **Integration:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=integration)](https://travis-ci.com/xcbuddy/xcodeproj)
 
 ## Motivation 💅
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
