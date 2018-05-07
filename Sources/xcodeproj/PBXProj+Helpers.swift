@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 // MARK: - PBXProj Extension (Public)
 
@@ -33,13 +33,13 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
-    func updateProjectName(path: Path) {
-        guard path.parent().extension == "xcodeproj" else {
+    func updateProjectName(path: AbsolutePath) {
+        guard path.parentDirectory.extension == "xcodeproj" else {
             return
         }
-        let projectName = path.parent().lastComponentWithoutExtension
+        let projectName = path.parentDirectory.components.last?.split(separator: ".").first
         let rootProject = objects.projects.getReference(rootObject)
-        rootProject?.name = projectName
+        rootProject?.name = projectName.map(String.init) ?? ""
     }
 
 }
@@ -48,7 +48,7 @@ extension PBXProj {
 
 extension PBXProj: Writable {
 
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: AbsolutePath, override: Bool) throws {
         let encoder = PBXProjEncoder()
         let output = encoder.encode(proj: self)
         if override && path.exists {

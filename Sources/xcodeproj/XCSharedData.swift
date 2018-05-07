@@ -1,5 +1,5 @@
 import Foundation
-import PathKit
+import Basic
 
 final public class XCSharedData {
 
@@ -26,13 +26,13 @@ final public class XCSharedData {
     /// Initializes the XCSharedData reading the content from the disk.
     ///
     /// - Parameter path: path where the .xcshareddata is.
-    public init(path: Path) throws {
+    public init(path: AbsolutePath) throws {
         if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
         self.schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        self.breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
+        self.breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
     }
 
 }
@@ -41,12 +41,12 @@ final public class XCSharedData {
 ///
 /// - notFound: the share data hasn't been found.
 public enum XCSharedDataError: Error, CustomStringConvertible {
-    case notFound(path: Path)
+    case notFound(path: AbsolutePath)
 
     public var description: String {
         switch self {
         case .notFound(let path):
-            return "xcshareddata not found at path \(path)"
+            return "xcshareddata not found at path \(path.asString)"
         }
     }
 

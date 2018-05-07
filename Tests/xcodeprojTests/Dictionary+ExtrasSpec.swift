@@ -1,15 +1,15 @@
 import Foundation
-import PathKit
+import Basic
 import XCTest
 import xcodeproj
 
 class DictionaryExtrasSpec: XCTestCase {
 
-    var fixtures: Path!
+    var fixtures: AbsolutePath!
 
     override func setUp() {
         super.setUp()
-        fixtures = Path(#file).parent().parent().parent() + Path("Fixtures")
+        fixtures = AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
     }
 
     func test_loadPlist_returnsANilValue_whenTheFileDoesntExist() {
@@ -17,8 +17,8 @@ class DictionaryExtrasSpec: XCTestCase {
     }
 
     func test_loadPlist_returnsTheDictionary_whenTheFileDoesExist() {
-        let iosProject = fixtures + Path("iOS/Project.xcodeproj/project.pbxproj")
-        XCTAssertNotNil(loadPlist(path: iosProject.absolute().string))
+        let iosProject = fixtures.appending(RelativePath("iOS/Project.xcodeproj/project.pbxproj"))
+        XCTAssertNotNil(loadPlist(path: iosProject.asString))
     }
 }
 

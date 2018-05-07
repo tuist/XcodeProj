@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-import PathKit
+import Basic
 import xcodeproj
 
 final class XCBreakpointListIntegrationSpec: XCTestCase {
@@ -107,8 +107,8 @@ final class XCBreakpointListIntegrationSpec: XCTestCase {
         XCTAssertNotNil(ideTestFailureAppleScriptAction.actionContent)
     }
 
-    private func fixturePath() -> Path {
-        return fixturesPath() + Path("iOS/Project.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist")
+    private func fixturePath() -> AbsolutePath {
+        return fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist"))
     }
 
 }
