@@ -9,6 +9,7 @@
 
 ### Added
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
+- Xcode constants https://github.com/xcbuddy/xcodeproj/pull/6#issuecomment-387565036 by @pepibumur.
 
 ### Fixed
 - XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
