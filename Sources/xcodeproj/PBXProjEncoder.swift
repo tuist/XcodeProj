@@ -112,7 +112,7 @@ final class PBXProjEncoder {
         writeNewLine()
         object.sorted(by: { $0.key < $1.key })
             .forEach { key, value in
-                let element = value.plistKeyAndValue(proj: proj, reference: key.reference)
+                let element = value.plistKeyAndValue(proj: proj, reference: key.value)
                 write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: value.multiline)
             }
         write(string: "/* End \(section) section */")

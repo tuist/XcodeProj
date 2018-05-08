@@ -11,6 +11,18 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
 
     init() {}
 
+    // MARK: - Helpers
+
+    func materialize<T>(reference: PBXObjectReference) throws -> T {
+        guard let objects = objects else {
+            throw PBXObjectError.objectsReleased
+        }
+        guard let object = objects.getReference(reference.value) as? T else {
+            throw PBXObjectError.objectNotFound(reference.value)
+        }
+        return object
+    }
+
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {
@@ -101,13 +113,19 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
 public enum PBXObjectError: Error, CustomStringConvertible {
     case missingIsa
     case unknownElement(String)
+    case objectsReleased
+    case objectNotFound(String)
 
     public var description: String {
         switch self {
         case .missingIsa:
-            return "Isa property is missing"
+            return "Isa property is missing."
         case let .unknownElement(element):
-            return "The element \(element) is not supported"
+            return "The element \(element) is not supported."
+        case .objectsReleased:
+            return "The PBXProj.Objects instance has been released before saving."
+        case let .objectNotFound(reference):
+            return "PBXObject with reference \"\(reference)\" not found."
         }
     }
 }

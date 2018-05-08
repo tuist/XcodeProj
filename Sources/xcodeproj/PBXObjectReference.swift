@@ -7,25 +7,25 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     private(set) var temporary: Bool
 
     /// String reference.
-    private(set) var reference: String
+    private(set) var value: String
 
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
     init(_ reference: String) {
-        self.reference = reference
+        value = reference
         temporary = false
     }
 
     /// Initializes a temporary reference
     init() {
-        reference = String.random()
+        value = String.random()
         temporary = true
     }
 
     /// Hash value.
     public var hashValue: Int {
-        return reference.hashValue
+        return value.hashValue
     }
 
     /// Compares two instances of PBXObjectReference
@@ -35,7 +35,7 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are equal.
     public static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.reference == rhs.reference &&
+        return lhs.value == rhs.value &&
             lhs.temporary == rhs.temporary
     }
 
@@ -46,12 +46,12 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     ///   - rhs: second instance to be compared.
     /// - Returns: comparison result.
     public static func < (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.reference < rhs.reference
+        return lhs.value < rhs.value
     }
 
     // MARK: - CustomStringConvertible
 
-    public var description: String { return reference }
+    public var description: String { return value }
 
     // MARK: - ExpressibleByStringLiteral
 
@@ -67,7 +67,7 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     }
 
     public required init(stringLiteral value: StringLiteralType) {
-        reference = value
+        self.value = value
         temporary = false
     }
 }

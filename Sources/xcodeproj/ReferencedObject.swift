@@ -33,6 +33,6 @@ public class ReferencedObject<T: PBXObject>: Equatable {
 
 extension Dictionary where Key == PBXObjectReference, Value: PBXObject {
     public var objectReferences: [ReferencedObject<Value>] {
-        return map({ ReferencedObject(reference: $0.key.reference, object: $0.value) })
+        return map({ ReferencedObject(reference: $0.key.value, object: $0.value) })
     }
 }

@@ -6,7 +6,7 @@ public typealias ReferenceableCollection<T: Equatable> = [PBXObjectReference: T]
 
 extension Dictionary where Key == PBXObjectReference {
     public var references: [String] {
-        return Array(keys.map({ $0.reference }))
+        return Array(keys.map({ $0.value }))
     }
 
     public var referenceValues: [Value] {

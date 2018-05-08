@@ -270,7 +270,9 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(fullFilePath, filePath)
 
         let mainStoryboard = proj.objects.variantGroups.first { $0.value.name == "Main.storyboard" }!
-        let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value, reference: mainStoryboard.key.reference, sourceRoot: sourceRoot)
+        let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value,
+                                                           reference: mainStoryboard.key.value,
+                                                           sourceRoot: sourceRoot)
 
         XCTAssertEqual(mainStoryboardfullPath, fixturesPath().appending(RelativePath("iOS/iOS/Base.lproj/Main.storyboard")))
     }
