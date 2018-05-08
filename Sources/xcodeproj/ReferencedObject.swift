@@ -2,14 +2,12 @@ import Foundation
 
 /// Contains a PBXObject as well as it's reference
 public class ReferencedObject<T: PBXObject>: Equatable {
-    
     /// Reference.
     public let reference: String
-    
+
     /// Object.
     public let object: T
 
-    
     /// Initializes ReferencedObject with the reference and the object it referes to.
     ///
     /// - Parameters:

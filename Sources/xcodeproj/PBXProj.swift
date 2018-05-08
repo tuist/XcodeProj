@@ -121,29 +121,6 @@ public final class PBXProj: Decodable {
             }
         }
 
-        /// Generates a deterministic reference from an object type and identifier.
-        /// It ensures that the generated reference doesn't collide with any existing one.
-        ///
-        /// - Parameters:
-        ///   - object: the object to generate the reference for.
-        ///   - id: object identifier (e.g. path or name)
-        /// - Returns: reference.
-        public func generateReference(_ object: PBXObject, _ identifier: String) -> String {
-            var uuid: String = ""
-            var counter: UInt = 0
-            let characterCount = 16
-            let className: String = String(describing: type(of: object))
-                .replacingOccurrences(of: "PBX", with: "")
-                .replacingOccurrences(of: "XC", with: "")
-            let classAcronym = String(className.filter { String($0).lowercased() != String($0) })
-            let stringID = String(abs(identifier.hashValue).description.prefix(characterCount - classAcronym.count - 2))
-            repeat {
-                uuid = "\(classAcronym)_\(stringID)\(counter > 0 ? "-\(counter)" : "")"
-                counter += 1
-            } while (contains(reference: uuid))
-            return uuid
-        }
-
         /// It returns the target with reference.
         ///
         /// - Parameter reference: target reference.
