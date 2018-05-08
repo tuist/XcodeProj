@@ -88,6 +88,7 @@ public final class PBXProj: Decodable {
         /// - Parameters:
         ///   - object: object.
         ///   - reference: object reference.
+        @discardableResult
         public func addObject(_ object: PBXObject, reference: String) -> PBXObjectReference {
             object.objects = self
             switch object {
