@@ -1,36 +1,36 @@
 import Foundation
 
 /// A PBXBuildRule is used to specify a method for transforming an input file in to an output file(s).
-final public class PBXBuildRule: PBXObject {
-    
+public final class PBXBuildRule: PBXObject {
+
     // MARK: - Attributes
-    
+
     /// Element compiler spec.
     public var compilerSpec: String
-    
+
     /// Element file patterns.
     public var filePatterns: String?
-    
+
     /// Element file type.
     public var fileType: String
-    
+
     /// Element is editable.
     public var isEditable: Bool
-    
+
     /// Element name.
     public var name: String?
-    
+
     /// Element output files.
     public var outputFiles: [String]
-    
+
     /// Element output files compiler flags.
     public var outputFilesCompilerFlags: [String]?
-    
+
     /// Element script.
     public var script: String?
-    
+
     // MARK: - Init
-    
+
     public init(compilerSpec: String,
                 fileType: String,
                 isEditable: Bool = true,
@@ -49,9 +49,9 @@ final public class PBXBuildRule: PBXObject {
         self.script = script
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     enum CodingKeys: String, CodingKey {
         case compilerSpec
         case filePatterns
@@ -62,29 +62,27 @@ final public class PBXBuildRule: PBXObject {
         case outputFilesCompilerFlags
         case script
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.compilerSpec = try container.decodeIfPresent(.compilerSpec) ?? ""
-        self.filePatterns = try container.decodeIfPresent(.filePatterns)
-        self.fileType = try container.decodeIfPresent(.fileType) ?? ""
-        self.isEditable = try container.decodeIntBool(.isEditable)
-        self.name = try container.decodeIfPresent(.name)
-        self.outputFiles = try container.decodeIfPresent(.outputFiles) ?? []
-        self.outputFilesCompilerFlags = try container.decodeIfPresent(.outputFilesCompilerFlags)
-        self.script = try container.decodeIfPresent(.script)
+        compilerSpec = try container.decodeIfPresent(.compilerSpec) ?? ""
+        filePatterns = try container.decodeIfPresent(.filePatterns)
+        fileType = try container.decodeIfPresent(.fileType) ?? ""
+        isEditable = try container.decodeIntBool(.isEditable)
+        name = try container.decodeIfPresent(.name)
+        outputFiles = try container.decodeIfPresent(.outputFiles) ?? []
+        outputFilesCompilerFlags = try container.decodeIfPresent(.outputFilesCompilerFlags)
+        script = try container.decodeIfPresent(.script)
         try super.init(from: decoder)
     }
-    
 }
 
 // MARK: - PBXBuildRule Extension (PlistSerializable)
 
 extension PBXBuildRule: PlistSerializable {
-    
     var multiline: Bool { return true }
-    
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildRule.isa))
         dictionary["compilerSpec"] = .string(CommentedString(compilerSpec))
@@ -106,5 +104,4 @@ extension PBXBuildRule: PlistSerializable {
         return (key: CommentedString(reference, comment: PBXBuildRule.isa),
                 value: .dictionary(dictionary))
     }
-    
 }

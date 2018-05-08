@@ -2,15 +2,15 @@ import Foundation
 
 /// This element is an abstract parent for file and group elements.
 public class PBXFileElement: PBXContainerItem, PlistSerializable {
-    
+
     // MARK: - Attributes
 
     /// Element source tree.
     public var sourceTree: PBXSourceTree?
-    
+
     /// Element path.
     public var path: String?
-    
+
     /// Element name.
     public var name: String?
 
@@ -30,7 +30,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     public var wrapsLines: Bool?
 
     // MARK: - Init
-    
+
     /// Initializes the file element with its properties.
     ///
     /// - Parameters:
@@ -60,9 +60,9 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         self.wrapsLines = wrapsLines
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case sourceTree
         case name
@@ -73,25 +73,25 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         case tabWidth
         case wrapsLines
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceTree = try container.decodeIfPresent(String.self, forKey: .sourceTree).map { PBXSourceTree(value: $0) }
-        self.name = try container.decodeIfPresent(.name)
-        self.path = try container.decodeIfPresent(.path)
-        self.includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
-        self.usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
-        self.indentWidth = try container.decodeIntIfPresent(.indentWidth)
-        self.tabWidth = try container.decodeIntIfPresent(.tabWidth)
-        self.wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
+        sourceTree = try container.decodeIfPresent(String.self, forKey: .sourceTree).map { PBXSourceTree(value: $0) }
+        name = try container.decodeIfPresent(.name)
+        path = try container.decodeIfPresent(.path)
+        includeInIndex = try container.decodeIntBoolIfPresent(.includeInIndex)
+        usesTabs = try container.decodeIntBoolIfPresent(.usesTabs)
+        indentWidth = try container.decodeIntIfPresent(.indentWidth)
+        tabWidth = try container.decodeIntIfPresent(.tabWidth)
+        wrapsLines = try container.decodeIntBoolIfPresent(.wrapsLines)
         try super.init(from: decoder)
     }
-    
+
     // MARK: - PlistSerializable
 
     var multiline: Bool { return true }
-    
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileElement.isa))
         if let name = name {
@@ -120,8 +120,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
         }
         return (key: CommentedString(reference,
-                                     comment: self.name),
+                                     comment: name),
                 value: .dictionary(dictionary))
     }
-    
 }

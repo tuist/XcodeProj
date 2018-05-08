@@ -1,19 +1,18 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
-
     var subject: PBXCopyFilesBuildPhase!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXCopyFilesBuildPhase(dstPath: "dest",
-                                              dstSubfolderSpec: .absolutePath,
-                                              name: "name",
-                                              buildActionMask: 4,
-                                              files: ["33"],
-                                              runOnlyForDeploymentPostprocessing: false)
+        subject = PBXCopyFilesBuildPhase(dstPath: "dest",
+                                         dstSubfolderSpec: .absolutePath,
+                                         name: "name",
+                                         buildActionMask: 4,
+                                         files: ["33"],
+                                         runOnlyForDeploymentPostprocessing: false)
     }
 
     func test_subFolder_absolutePath_hasTheCorrectValue() {
@@ -31,6 +30,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
     func test_subFolder_executables_hasTheCorrectValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.executables.rawValue, 6)
     }
+
     func test_subFolder_resources_hasTheCorrectValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.resources.rawValue, 7)
     }
@@ -139,7 +139,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
             "dstSubfolderSpec": 12,
             "files": ["a", "b"],
             "runOnlyForDeploymentPostprocessing": 0,
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
 }

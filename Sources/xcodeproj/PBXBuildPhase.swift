@@ -2,9 +2,8 @@ import Foundation
 
 /// An absctract class for all the build phase objects
 public class PBXBuildPhase: PBXContainerItem {
-    
     /// Default build action mask.
-    public static let defaultBuildActionMask: UInt = 2147483647
+    public static let defaultBuildActionMask: UInt = 2_147_483_647
 
     /// Element build action mask.
     public var buildActionMask: UInt
@@ -39,9 +38,9 @@ public class PBXBuildPhase: PBXContainerItem {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
-        self.files = try container.decodeIfPresent(.files) ?? []
-        self.runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
+        buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
+        files = try container.decodeIfPresent(.files) ?? []
+        runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
         try super.init(from: decoder)
     }
 

@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXNativeTargetSpec: XCTestCase {
-
     var subject: PBXNativeTarget!
 
     override func setUp() {
@@ -66,8 +65,7 @@ final class PBXNativeTargetSpec: XCTestCase {
             "buildRules": ["rule"],
             "dependencies": ["dependency"],
             "name": "name",
-            "productInstallPath": "/usr/local/bin"
+            "productInstallPath": "/usr/local/bin",
         ]
     }
-
 }

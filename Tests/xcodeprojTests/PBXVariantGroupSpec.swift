@@ -1,16 +1,15 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXVariantGroupSpec: XCTestCase {
-
     var subject: PBXVariantGroup!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXVariantGroup(children: ["child"],
-                                       sourceTree: .group,
-                                       name: "name")
+        subject = PBXVariantGroup(children: ["child"],
+                                  sourceTree: .group,
+                                  name: "name")
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
@@ -34,8 +33,7 @@ final class PBXVariantGroupSpec: XCTestCase {
             "children": ["child1", "child2"],
             "name": "name",
             "sourceTree": "SDKROOT",
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
-
 }

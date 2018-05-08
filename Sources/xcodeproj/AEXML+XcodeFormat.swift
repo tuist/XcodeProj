@@ -1,14 +1,12 @@
-import Foundation
 import AEXML
+import Foundation
 
 extension AEXMLDocument {
-
     var xmlXcodeFormat: String {
         var xml = "<?xml version=\"\(options.documentHeader.version)\" encoding=\"\(options.documentHeader.encoding.uppercased())\"?>\n"
         xml += root._xmlXcodeFormat + "\n"
         return xml
     }
-
 }
 
 let attributesOrder: [String: [String]] = [
@@ -17,14 +15,14 @@ let attributesOrder: [String: [String]] = [
         "buildForRunning",
         "buildForProfiling",
         "buildForArchiving",
-        "buildForAnalyzing"
+        "buildForAnalyzing",
     ],
     "BuildableReference": [
         "BuildableIdentifier",
         "BlueprintIdentifier",
         "BuildableName",
         "BlueprintName",
-        "ReferencedContainer"
+        "ReferencedContainer",
     ],
     "TestAction": [
         "buildConfiguration",
@@ -33,7 +31,7 @@ let attributesOrder: [String: [String]] = [
         "language",
         "region",
         "codeCoverageEnabled",
-        "shouldUseLaunchSchemeArgsEnv"
+        "shouldUseLaunchSchemeArgsEnv",
     ],
     "LaunchAction": [
         "buildConfiguration",
@@ -46,7 +44,7 @@ let attributesOrder: [String: [String]] = [
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
         "debugServiceExtension",
-        "allowLocationSimulation"
+        "allowLocationSimulation",
     ],
     "ProfileAction": [
         "buildConfiguration",
@@ -55,21 +53,20 @@ let attributesOrder: [String: [String]] = [
         "useCustomWorkingDirectory",
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
-        "enableTestabilityWhenProfilingTests"
+        "enableTestabilityWhenProfilingTests",
     ],
     "ActionContent": [
         "title",
-        "scriptText"
+        "scriptText",
     ],
     "EnvironmentVariable": [
         "key",
         "value",
-        "isEnabled"
-    ]
+        "isEnabled",
+    ],
 ]
 
 extension AEXMLElement {
-
     fileprivate var _xmlXcodeFormat: String {
         var xml = String()
 
@@ -142,5 +139,4 @@ extension AEXMLElement {
 
         return indent
     }
-
 }

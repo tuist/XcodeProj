@@ -1,17 +1,16 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXReferenceProxySpec: XCTestCase {
-
     var subject: PBXReferenceProxy!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXReferenceProxy(fileType: "fileType",
-                                         path: "path",
-                                         remoteRef: "remoteRef",
-                                         sourceTree: .absolute)
+        subject = PBXReferenceProxy(fileType: "fileType",
+                                    path: "path",
+                                    remoteRef: "remoteRef",
+                                    sourceTree: .absolute)
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
@@ -26,7 +25,7 @@ final class PBXReferenceProxySpec: XCTestCase {
             "fileType": "fileType",
             "path": "path",
             "remoteRef": "remoteRef",
-            "sourceTree": "<absolute>"
+            "sourceTree": "<absolute>",
         ]
     }
 }

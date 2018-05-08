@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXFrameworksBuildPhaseSpec: XCTestCase {
-
     var subject: PBXFrameworksBuildPhase!
 
     override func setUp() {
@@ -42,7 +41,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
         return [
             "files": ["file1"],
             "runOnlyForDeploymentPostprocessing": 0,
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
 }

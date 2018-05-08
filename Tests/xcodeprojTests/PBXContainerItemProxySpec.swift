@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXContainerItemProxySpec: XCTestCase {
-
     var subject: PBXContainerItemProxy!
 
     override func setUp() {
@@ -43,8 +42,7 @@ final class PBXContainerItemProxySpec: XCTestCase {
             "containerPortal": "containerPortal",
             "remoteGlobalIDString": "remoteGlobalIDString",
             "remoteInfo": "remoteInfo",
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
-
 }

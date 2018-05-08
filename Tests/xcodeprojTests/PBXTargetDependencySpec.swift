@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXTargetDependencySpec: XCTestCase {
-
     var subject: PBXTargetDependency!
 
     override func setUp() {
@@ -33,7 +32,7 @@ final class PBXTargetDependencySpec: XCTestCase {
             "name": "name",
             "target": "target",
             "targetProxy": "targetProxy",
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
 }

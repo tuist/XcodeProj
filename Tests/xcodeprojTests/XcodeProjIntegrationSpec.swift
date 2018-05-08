@@ -1,11 +1,9 @@
-import Foundation
-import XCTest
 import Basic
-
+import Foundation
 @testable import xcodeproj
+import XCTest
 
 final class XcodeProjIntegrationSpec: XCTestCase {
-
     func test_init_throwsIfThePathIsWrong() {
         do {
             _ = try XcodeProj(path: AbsolutePath("/test"))
@@ -45,7 +43,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_noChanges_encodesSameValue() throws {
         let pathsToProjectsToTest = [
             fixturesPath().appending(RelativePath("iOS/BuildSettings.xcodeproj")),
-            fixturesPath().appending(RelativePath("iOS/ProjectWithoutProductsGroup.xcodeproj"))
+            fixturesPath().appending(RelativePath("iOS/ProjectWithoutProductsGroup.xcodeproj")),
         ]
 
         for path in pathsToProjectsToTest {
@@ -111,7 +109,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         let reference = groupRef.reference
         XCTAssertNotNil(project.rootGroup.children.index(of: reference))
-        XCTAssertEqual(project.objects.groups[reference], group)
+        XCTAssertEqual(project.objects.groups.getReference(reference), group)
     }
 
     func test_add_new_group_without_folder_has_nil_path() {
@@ -141,8 +139,8 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertNotNil(project.pbxproj.rootGroup.children.index(of: group1.reference))
         XCTAssertNotNil(group1.object.children.index(of: group2.reference))
 
-        XCTAssertEqual(project.pbxproj.objects.groups[group1.reference], group1.object)
-        XCTAssertEqual(project.pbxproj.objects.groups[group2.reference], group2.object)
+        XCTAssertEqual(project.pbxproj.objects.groups.getReference(group1.reference), group1.object)
+        XCTAssertEqual(project.pbxproj.objects.groups.getReference(group2.reference), group2.object)
 
         let existingGroups = project.pbxproj.objects.addGroup(named: "New/Group", to: project.pbxproj.rootGroup)
 
@@ -152,7 +150,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         XCTAssertTrue(newGroups[0] == existingGroups[0])
         XCTAssertNotNil(newGroups[0].object.children.index(of: groups[1].reference))
-        XCTAssertEqual(project.pbxproj.objects.groups[newGroups[1].reference], newGroups[1].object)
+        XCTAssertEqual(project.pbxproj.objects.groups.getReference(newGroups[1].reference), newGroups[1].object)
     }
 
     func test_add_new_source_file() throws {
@@ -167,7 +165,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                                             lastKnownFileType: "sourcecode.swift",
                                             path: "../../newfile.swift")
 
-        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
+        XCTAssertEqual(proj.objects.fileReferences.getReference(file.reference), file.object)
         XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
 
@@ -191,8 +189,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
                                             lastKnownFileType: "wrapper.framework",
                                             path: "../../dummy.framework")
 
-
-        XCTAssertEqual(proj.objects.fileReferences[file.reference], file.object)
+        XCTAssertEqual(proj.objects.fileReferences.getReference(file.reference), file.object)
         XCTAssertEqual(file.object, expectedFile)
         XCTAssertNotNil(iOSGroup.object.children.index(of: file.reference))
     }
@@ -226,7 +223,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         let buildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
 
-        XCTAssertEqual(proj.objects.buildFiles[buildFile.reference], buildFile.object)
+        XCTAssertEqual(proj.objects.buildFiles.getReference(buildFile.reference), buildFile.object)
         XCTAssertNotNil(sourcesBuildPhase.files.index(of: buildFile.reference))
 
         let existingBuildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
@@ -273,7 +270,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(fullFilePath, filePath)
 
         let mainStoryboard = proj.objects.variantGroups.first { $0.value.name == "Main.storyboard" }!
-        let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value, reference: mainStoryboard.key, sourceRoot: sourceRoot)
+        let mainStoryboardfullPath = proj.objects.fullPath(fileElement: mainStoryboard.value, reference: mainStoryboard.key.reference, sourceRoot: sourceRoot)
 
         XCTAssertEqual(mainStoryboardfullPath, fixturesPath().appending(RelativePath("iOS/iOS/Base.lproj/Main.storyboard")))
     }
@@ -297,7 +294,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
         filePath = sourceRoot.appending(RelativePath("../file.swift"))
         XCTAssertEqual(filePath.relative(to: sourceRoot), RelativePath("../file.swift"))
-        XCTAssertEqual(sourceRoot.relative(to:  filePath), RelativePath("../iOS"))
+        XCTAssertEqual(sourceRoot.relative(to: filePath), RelativePath("../iOS"))
         XCTAssertEqual(filePath.appending(RelativePath("../iOS")), sourceRoot)
 
         filePath = sourceRoot.appending(RelativePath("../../file.swift"))
@@ -331,12 +328,11 @@ final class XcodeProjIntegrationSpec: XCTestCase {
 
 // This could be code generated (e.g. using sourcery)
 extension XCodeProjEditingError: Equatable {
-
-    static public func == (lhs: XCodeProjEditingError, rhs: XCodeProjEditingError) -> Bool {
+    public static func == (lhs: XCodeProjEditingError, rhs: XCodeProjEditingError) -> Bool {
         switch (lhs, rhs) {
-        case (.fileNotExists(let path1), .fileNotExists(let path2)):
+        case let (.fileNotExists(path1), .fileNotExists(path2)):
             return path1 == path2
-        case (.groupNotFound(let group1), .groupNotFound(let group2)):
+        case let (.groupNotFound(group1), .groupNotFound(group2)):
             return group1 == group2
         default:
             return false

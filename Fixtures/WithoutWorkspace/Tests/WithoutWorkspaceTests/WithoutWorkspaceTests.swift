@@ -1,5 +1,5 @@
-import XCTest
 @testable import WithoutWorkspace
+import XCTest
 
 class WithoutWorkspaceTests: XCTestCase {
     func testExample() {
@@ -8,7 +8,6 @@ class WithoutWorkspaceTests: XCTestCase {
         // results.
         XCTAssertEqual(WithoutWorkspace().text, "Hello, World!")
     }
-
 
     static var allTests = [
         ("testExample", testExample),

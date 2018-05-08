@@ -1,35 +1,35 @@
-import Foundation
 import Basic
+import Foundation
 
 ///  A PBXFileReference is used to track every external file referenced by
 ///  the project: source files, resource files, libraries, generated application files, and so on.
-final public class PBXFileReference: PBXFileElement {
- 
+public final class PBXFileReference: PBXFileElement {
+
     // MARK: - Attributes
-    
+
     /// Element file encoding.
     public var fileEncoding: UInt?
-    
+
     /// Element explicit file type.
     public var explicitFileType: String?
-    
+
     /// Element last known file type.
     public var lastKnownFileType: String?
-    
+
     /// Element line ending.
     public var lineEnding: UInt?
-    
+
     /// Element language specification identifier
     public var languageSpecificationIdentifier: String?
 
     /// Element xc language specification identifier
     public var xcLanguageSpecificationIdentifier: String?
-    
+
     /// Element plist structure definition identifier
     public var plistStructureDefinitionIdentifier: String?
 
     // MARK: - Init
-    
+
     /// Initializes the file reference with its properties.
     ///
     /// - Parameters:
@@ -81,7 +81,7 @@ final public class PBXFileReference: PBXFileElement {
     }
 
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case fileEncoding
         case explicitFileType
@@ -91,23 +91,23 @@ final public class PBXFileReference: PBXFileElement {
         case xcLanguageSpecificationIdentifier
         case plistStructureDefinitionIdentifier
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileEncoding = try container.decodeIntIfPresent(.fileEncoding)
-        self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
-        self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
-        self.lineEnding = try container.decodeIntIfPresent(.lineEnding)
-        self.languageSpecificationIdentifier = try container.decodeIfPresent(.languageSpecificationIdentifier)
-        self.xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
-        self.plistStructureDefinitionIdentifier = try container.decodeIfPresent(.plistStructureDefinitionIdentifier)
+        fileEncoding = try container.decodeIntIfPresent(.fileEncoding)
+        explicitFileType = try container.decodeIfPresent(.explicitFileType)
+        lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
+        lineEnding = try container.decodeIntIfPresent(.lineEnding)
+        languageSpecificationIdentifier = try container.decodeIfPresent(.languageSpecificationIdentifier)
+        xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
+        plistStructureDefinitionIdentifier = try container.decodeIfPresent(.plistStructureDefinitionIdentifier)
         try super.init(from: decoder)
     }
-    
+
     // MARK: - PlistSerializable
-    
+
     override var multiline: Bool { return false }
-    
+
     override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))
@@ -170,19 +170,17 @@ private let fileTypeHash: [String: String] = [
     "xcodeproj": "wrapper.pb-project",
     "xctest": "wrapper.cfbundle",
     "xib": "file.xib",
-    "zip": "archive.zip"
+    "zip": "archive.zip",
 ]
 
 // MARK: - PBXFileReference Extension (Extras)
 
 extension PBXFileReference {
-    
     /// Returns the file type for a given path.
     ///
     /// - Parameter path: path whose file type will be returned.
     /// - Returns: file type (if supported).
     public static func fileType(path: AbsolutePath) -> String? {
-        return path.extension.flatMap({fileTypeHash[$0]})
+        return path.extension.flatMap({ fileTypeHash[$0] })
     }
-    
 }

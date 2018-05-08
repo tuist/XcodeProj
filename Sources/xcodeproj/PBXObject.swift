@@ -3,23 +3,22 @@ import Foundation
 
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
-
     /// A weak reference to the instance that contains all the project objects.
     /// This is necessary to provide convenient methods from PBXObject subclasses.
     weak var objects: PBXProj.Objects?
-    
+
     // MARK: - Init
-    
+
     init() {}
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case reference
     }
-    
-    public required init(from decoder: Decoder) throws {}
-    
+
+    public required init(from _: Decoder) throws {}
+
     public static var isa: String {
         return String(describing: self)
     }
@@ -29,11 +28,11 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         return lhs.isEqual(to: rhs)
     }
 
-    @objc dynamic func isEqual(to object: Any?) -> Bool {
+    @objc dynamic func isEqual(to _: Any?) -> Bool {
         return true
     }
 
-    //swiftlint:disable function_body_length
+    // swiftlint:disable function_body_length
     public static func parse(reference: String,
                              dictionary: [String: Any]) throws -> PBXObject {
         let decoder = JSONDecoder()
@@ -92,7 +91,7 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
             throw PBXObjectError.unknownElement(isa)
         }
     }
-    //swiftlint:enable function_body_length
+    // swiftlint:enable function_body_length
 }
 
 /// PBXObjectError
@@ -107,7 +106,7 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         switch self {
         case .missingIsa:
             return "Isa property is missing"
-        case .unknownElement(let element):
+        case let .unknownElement(element):
             return "The element \(element) is not supported"
         }
     }

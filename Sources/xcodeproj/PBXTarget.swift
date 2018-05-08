@@ -2,7 +2,6 @@ import Foundation
 
 /// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXContainerItem {
-
     /// Target build configuration list.
     public var buildConfigurationList: String?
 
@@ -45,9 +44,9 @@ public class PBXTarget: PBXContainerItem {
         self.productType = productType
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case buildConfigurationList
         case buildPhases
@@ -58,17 +57,17 @@ public class PBXTarget: PBXContainerItem {
         case productReference
         case productType
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(.name)
-        self.buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList)
-        self.buildPhases = try container.decodeIfPresent(.buildPhases) ?? []
-        self.buildRules = try container.decodeIfPresent(.buildRules) ?? []
-        self.dependencies = try container.decodeIfPresent(.dependencies) ?? []
-        self.productName = try container.decodeIfPresent(.productName)
-        self.productReference = try container.decodeIfPresent(.productReference)
-        self.productType = try container.decodeIfPresent(.productType)
+        name = try container.decode(.name)
+        buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList)
+        buildPhases = try container.decodeIfPresent(.buildPhases) ?? []
+        buildRules = try container.decodeIfPresent(.buildRules) ?? []
+        dependencies = try container.decodeIfPresent(.dependencies) ?? []
+        productName = try container.decodeIfPresent(.productName)
+        productReference = try container.decodeIfPresent(.productReference)
+        productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
     }
 
@@ -87,10 +86,10 @@ public class PBXTarget: PBXContainerItem {
 
         // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
         if !(self is PBXAggregateTarget), !(self is PBXLegacyTarget) || !buildRules.isEmpty {
-            dictionary["buildRules"] = .array(buildRules.map {.string(CommentedString($0, comment: PBXBuildRule.isa))})
+            dictionary["buildRules"] = .array(buildRules.map { .string(CommentedString($0, comment: PBXBuildRule.isa)) })
         }
-        
-        dictionary["dependencies"] = .array(dependencies.map {.string(CommentedString($0, comment: PBXTargetDependency.isa))})
+
+        dictionary["dependencies"] = .array(dependencies.map { .string(CommentedString($0, comment: PBXTargetDependency.isa)) })
         dictionary["name"] = .string(CommentedString(name))
         if let productName = productName {
             dictionary["productName"] = .string(CommentedString(productName))
@@ -105,5 +104,4 @@ public class PBXTarget: PBXContainerItem {
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
-    
 }

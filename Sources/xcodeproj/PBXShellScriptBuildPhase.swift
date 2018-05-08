@@ -1,7 +1,7 @@
 import Foundation
 
 /// This is the element for the shell script build phase.
-final public class PBXShellScriptBuildPhase: PBXBuildPhase {
+public final class PBXShellScriptBuildPhase: PBXBuildPhase {
 
     // MARK: - Attributes
 
@@ -59,7 +59,7 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
     }
 
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case name
         case inputPaths
@@ -68,15 +68,15 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
         case shellScript
         case showEnvVarsInLog
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decodeIfPresent(.name)
-        self.inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
-        self.outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
-        self.shellPath = try container.decodeIfPresent(.shellPath)
-        self.shellScript = try container.decodeIfPresent(.shellScript)
-        self.showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
+        name = try container.decodeIfPresent(.name)
+        inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
+        outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
+        shellPath = try container.decodeIfPresent(.shellPath)
+        shellScript = try container.decodeIfPresent(.shellScript)
+        showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
         try super.init(from: decoder)
     }
 }
@@ -84,18 +84,17 @@ final public class PBXShellScriptBuildPhase: PBXBuildPhase {
 // MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)
 
 extension PBXShellScriptBuildPhase: PlistSerializable {
-
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         if let shellPath = shellPath {
             dictionary["shellPath"] = .string(CommentedString(shellPath))
         }
-        dictionary["inputPaths"] = .array(inputPaths.map({.string(CommentedString($0))}))
+        dictionary["inputPaths"] = .array(inputPaths.map({ .string(CommentedString($0)) }))
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        dictionary["outputPaths"] = .array(outputPaths.map({.string(CommentedString($0))}))
+        dictionary["outputPaths"] = .array(outputPaths.map({ .string(CommentedString($0)) }))
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
@@ -103,7 +102,6 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
             // Xcode only writes this key if it's set to false; default is true and is omitted
             dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
         }
-        return (key: CommentedString(reference, comment: self.name ?? "ShellScript"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: name ?? "ShellScript"), value: .dictionary(dictionary))
     }
-
 }

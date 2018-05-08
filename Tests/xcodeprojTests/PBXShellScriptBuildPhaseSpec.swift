@@ -1,14 +1,13 @@
 import Foundation
-import XCTest
 @testable import xcodeproj
+import XCTest
 
 final class PBXShellScriptBuildPhaseSpec: XCTestCase {
-
     var subject: PBXShellScriptBuildPhase!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
+        subject = PBXShellScriptBuildPhase(files: ["file"], name: "name", inputPaths: ["input"], outputPaths: ["output"], shellPath: "shell", shellScript: "script")
     }
 
     func test_init_initializesTheBuildPhaseWithTheCorrectValues() {
@@ -35,16 +34,17 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         let doNotShow = PBXShellScriptBuildPhase(showEnvVarsInLog: false)
 
         let proj = PBXProj(rootObject: "rootObject",
-                objectVersion: 48,
-                objects: ["show": show,
-                          "doNotShow": doNotShow])
+                           objectVersion: 48,
+                           objects: [
+                               "show": show,
+                               "doNotShow": doNotShow,
+        ])
 
         let (_, showPlistValue) = show.plistKeyAndValue(proj: proj, reference: "ref")
         let (_, doNotShowPlistValue) = doNotShow.plistKeyAndValue(proj: proj, reference: "ref")
 
-        if case PlistValue.dictionary(let showDictionary) = showPlistValue,
-            case PlistValue.dictionary(let doNotShowDictionary) = doNotShowPlistValue {
-
+        if case let PlistValue.dictionary(showDictionary) = showPlistValue,
+            case let PlistValue.dictionary(doNotShowDictionary) = doNotShowPlistValue {
             XCTAssertNil(showDictionary["showEnvVarsInLog"])
             XCTAssertEqual(doNotShowDictionary["showEnvVarsInLog"]?.string, "0")
         } else {
@@ -58,7 +58,7 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
             "inputPaths": ["input"],
             "outputPaths": ["output"],
             "shellPath": "shellPath",
-            "shellScript": "shellScript"
+            "shellScript": "shellScript",
         ]
     }
 }

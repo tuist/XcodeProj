@@ -1,7 +1,7 @@
-import Foundation
 import Basic
+import Foundation
 
-final public class XCSharedData {
+public final class XCSharedData {
 
     // MARK: - Attributes
 
@@ -30,11 +30,10 @@ final public class XCSharedData {
         if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
-        self.schemes = path.glob("xcschemes/*.xcscheme")
+        schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        self.breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
+        breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
     }
-
 }
 
 /// XCSharedData errors.
@@ -45,9 +44,8 @@ public enum XCSharedDataError: Error, CustomStringConvertible {
 
     public var description: String {
         switch self {
-        case .notFound(let path):
+        case let .notFound(path):
             return "xcshareddata not found at path \(path.asString)"
         }
     }
-
 }

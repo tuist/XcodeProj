@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXRezBuildPhaseSpec: XCTestCase {
-
     var subject: PBXRezBuildPhase!
 
     override func setUp() {
@@ -23,7 +22,7 @@ final class PBXRezBuildPhaseSpec: XCTestCase {
 
     func test_equals_returnsTheCorrectValue() {
         let another = PBXRezBuildPhase(files: ["123"],
-                                             runOnlyForDeploymentPostprocessing: false)
+                                       runOnlyForDeploymentPostprocessing: false)
         XCTAssertEqual(subject, another)
     }
 }

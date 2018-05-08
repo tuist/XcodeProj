@@ -1,10 +1,9 @@
-import Foundation
-import XCTest
 import Basic
+import Foundation
 import xcodeproj
+import XCTest
 
 final class XCSchemeIntegrationSpec: XCTestCase {
-
     func test_read_iosScheme() {
         let subject = try? XCScheme(path: iosSchemePath)
 
@@ -97,7 +96,6 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
         XCTAssertTrue(testCLIArgs.arguments[0].enabled)
 
-
         // Archive action
         XCTAssertEqual(scheme.archiveAction?.buildConfiguration, "Release")
         XCTAssertEqual(scheme.archiveAction?.revealArchiveInOrganizer, true)
@@ -178,7 +176,6 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         XCTAssertTrue(launchCLIArgs.arguments.count > 0)
         XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
         XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
-
     }
 
     private func assert(minimalScheme scheme: XCScheme) {
@@ -257,5 +254,4 @@ final class XCSchemeIntegrationSpec: XCTestCase {
         // but minimal in the sense it doesn't have most of the standard elements and attributes.
         return fixturesPath().appending(RelativePath("Schemes/MinimalInformation.xcscheme"))
     }
-
 }

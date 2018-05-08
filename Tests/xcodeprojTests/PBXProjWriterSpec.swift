@@ -1,18 +1,16 @@
-import Foundation
-import XCTest
 import Basic
-
+import Foundation
 @testable import xcodeproj
+import XCTest
 
 class PBXProjEncoderSpec: XCTestCase {
-
     func test_dictionaryPlistValue_returnsTheCorrectValue() {
         let dictionary: [String: Any] = [
             "a": "b",
             "c": ["d", "e"],
             "f": [
-                "g": "h"
-            ]
+                "g": "h",
+            ],
         ]
         let plist = dictionary.plist()
         XCTAssertEqual(plist.dictionary?[CommentedString("a")], .string(CommentedString("b")))
@@ -24,7 +22,7 @@ class PBXProjEncoderSpec: XCTestCase {
         let array: [Any] = [
             "a",
             ["b", "c"],
-            ["d": "e"]
+            ["d": "e"],
         ]
         let plist = array.plist()
         XCTAssertEqual(plist.array?[0], .string(CommentedString("a")))
@@ -33,7 +31,6 @@ class PBXProjEncoderSpec: XCTestCase {
     }
 
     func test_commentedStringEscaping() {
-
         let quote = "\""
         let escapedNewline = "\\n"
         let escapedQuote = "\\\""
@@ -89,5 +86,4 @@ class PBXProjEncoderSpec: XCTestCase {
             }
         }
     }
-
 }

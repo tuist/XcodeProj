@@ -1,5 +1,4 @@
 public extension PBXVariantGroup {
-    
     /// Initializes the PBXVariantGroup with its values.
     ///
     /// - Parameters:
@@ -17,5 +16,4 @@ public extension PBXVariantGroup {
                   name: name,
                   path: path)
     }
-    
 }

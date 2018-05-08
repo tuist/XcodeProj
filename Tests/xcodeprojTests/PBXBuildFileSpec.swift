@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXBuildFileSpec: XCTestCase {
-
     var subject: PBXBuildFile!
 
     override func setUp() {
@@ -16,7 +15,7 @@ final class PBXBuildFileSpec: XCTestCase {
         XCTAssertEqual(subject.fileRef, "fileref")
         XCTAssertEqual(subject.settings as! [String: String], ["a": "b"])
     }
-    
+
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXBuildFile.isa, "PBXBuildFile")
     }
@@ -30,7 +29,7 @@ final class PBXBuildFileSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "fileRef": "fileRef",
-            "settings": ["a": "b"]
+            "settings": ["a": "b"],
         ]
     }
 }

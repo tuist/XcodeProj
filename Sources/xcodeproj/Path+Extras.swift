@@ -1,70 +1,69 @@
-import Foundation
 import Basic
+import Foundation
 
 // MARK: - AbsolutePath extras.
 
 let systemGlob = Darwin.glob
 
 extension AbsolutePath {
-    
     /// Returns the URL that points to the file path.
     var url: URL {
-        return URL(fileURLWithPath: self.asString)
+        return URL(fileURLWithPath: asString)
     }
-    
+
     /// Returns true if a file exists at the given path.
     var exists: Bool {
-        return FileManager.default.fileExists(atPath: self.asString)
+        return FileManager.default.fileExists(atPath: asString)
     }
-    
+
     /// Returns the last path component.
     var lastComponent: String {
-        return self.components.last ?? ""
+        return components.last ?? ""
     }
-    
+
     /// Returns last path component without the extension.
     var lastComponentWithoutExtension: String {
-        return self.components.last?.split(separator: ".").first.map(String.init) ?? ""
+        return components.last?.split(separator: ".").first.map(String.init) ?? ""
     }
-    
+
     /// Deletes the file at the given path.
     ///
     /// - Throws: an error if the deletion fails.
     func delete() throws {
-        try FileManager.default.removeItem(atPath: self.asString)
+        try FileManager.default.removeItem(atPath: asString)
     }
-    
+
     /// Writes the string atomically into a file at the given path.
     ///
     /// - Parameter content: content to be written.
     /// - Throws: an error if the writing fails.
     func write(_ content: String) throws {
-        try content.write(toFile: self.asString, atomically: true, encoding: .utf8)
+        try content.write(toFile: asString, atomically: true, encoding: .utf8)
     }
-    
+
     /// Reads the content (string) at the given path.
     ///
     /// - Returns: file content.
     /// - Throws: an error if the content cannot be read.
     func read() throws -> String {
-        return try String.init(contentsOf: URL(fileURLWithPath: self.asString))
+        return try String(contentsOf: URL(fileURLWithPath: asString))
     }
-    
+
     /// Creates a directory
     ///
     /// - Throws: an errof if the directory cannot be created.
     func mkpath(withIntermediateDirectories: Bool = true) throws {
-        try FileManager.default.createDirectory(atPath: self.asString, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
+        try FileManager.default.createDirectory(atPath: asString, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
     }
-    
+
     /// Copies a file to another path.
     ///
     /// - Parameter to: path the file/directory will be copied  to.
     func copy(_ to: AbsolutePath) throws {
-        try FileManager.default.copyItem(atPath: self.asString,
-                                     toPath: to.asString)
+        try FileManager.default.copyItem(atPath: asString,
+                                         toPath: to.asString)
     }
-    
+
     /// Finds files and directories using the given glob pattern.
     ///
     /// - Parameter pattern: glob pattern.
@@ -76,7 +75,7 @@ extension AbsolutePath {
             globfree(&gt)
             free(cPattern)
         }
-        
+
         let flags = GLOB_TILDE | GLOB_BRACE | GLOB_MARK
         if systemGlob(cPattern, flags, nil, &gt) == 0 {
             let matchc = gt.gl_matchc

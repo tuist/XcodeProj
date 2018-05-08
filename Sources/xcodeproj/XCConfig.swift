@@ -1,10 +1,10 @@
-import Foundation
 import Basic
+import Foundation
 
 public typealias XCConfigInclude = (include: RelativePath, config: XCConfig)
 
 /// .xcconfig configuration file.
-final public class XCConfig {
+public final class XCConfig {
 
     // MARK: - Attributes
 
@@ -34,7 +34,7 @@ final public class XCConfig {
     public init(path: AbsolutePath, projectPath: AbsolutePath? = nil) throws {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
-        self.includes = fileLines
+        includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
         var buildSettings: [String: String] = [:]
         fileLines
@@ -45,7 +45,6 @@ final public class XCConfig {
 }
 
 final class XCConfigParser {
-
     /// Given the path the line is being parsed from, it returns a function that parses a line,
     /// and returns the include path and the config that the include is pointing to.
     ///
@@ -54,10 +53,10 @@ final class XCConfigParser {
     /// - Returns: function that parses the line.
     static func configFrom(path: AbsolutePath, projectPath: AbsolutePath?) -> (String) -> (include: RelativePath, config: XCConfig)? {
         return { line in
-            return includeRegex.matches(in: line,
-                                                 options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                                 range: NSRange(location: 0,
-                                                                length: line.count))
+            includeRegex.matches(in: line,
+                                 options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                 range: NSRange(location: 0,
+                                                length: line.count))
                 .compactMap { (match) -> String? in
                     if match.numberOfRanges == 2 {
                         return NSString(string: line).substring(with: match.range(at: 1))
@@ -84,10 +83,10 @@ final class XCConfigParser {
 
     static func settingFrom(line: String) -> (key: String, value: String)? {
         return settingRegex.matches(in: line,
-                                             options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                             range: NSRange(location: 0,
-                                                            length: line.count))
-            .compactMap { (match) -> (key: String, value: String)?  in
+                                    options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                    range: NSRange(location: 0,
+                                                   length: line.count))
+            .compactMap { (match) -> (key: String, value: String)? in
                 if match.numberOfRanges == 3 {
                     let key: String = NSString(string: line).substring(with: match.range(at: 1))
                     let value: String = NSString(string: line).substring(with: match.range(at: 2))
@@ -107,10 +106,9 @@ final class XCConfigParser {
 // MARK: - XCConfig Extension (Equatable)
 
 extension XCConfig: Equatable {
-
     public static func == (lhs: XCConfig, rhs: XCConfig) -> Bool {
         if lhs.includes.count != rhs.includes.count { return false }
-        for index in 0..<lhs.includes.count {
+        for index in 0 ..< lhs.includes.count {
             let lhsInclude = lhs.includes[index]
             let rhsInclude = rhs.includes[index]
             if lhsInclude.config != rhsInclude.config || lhsInclude.include != rhsInclude.include {
@@ -119,13 +117,11 @@ extension XCConfig: Equatable {
         }
         return NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
     }
-
 }
 
 // MARK: - XCConfig Extension (Helpers)
 
 extension XCConfig {
-
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
@@ -135,20 +131,18 @@ extension XCConfig {
             .map { $0.1 }
             .flattened()
             .map { $0.buildSettings }
-            .forEach { (configDictionary) in
-                configDictionary.forEach { (key, value) in
+            .forEach { configDictionary in
+                configDictionary.forEach { key, value in
                     if content[key] == nil { content[key] = value }
                 }
-        }
+            }
         return content
     }
-
 }
 
 // MARK: - XCConfig Extension (Writable)
 
 extension XCConfig: Writable {
-
     public func write(path: AbsolutePath, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
@@ -162,7 +156,7 @@ extension XCConfig: Writable {
 
     private func writeIncludes() -> String {
         var content = ""
-        includes.forEach { (include) in
+        includes.forEach { include in
             content.append("#include \"\(include.0.asString)\"\n")
         }
         content.append("\n")
@@ -171,19 +165,17 @@ extension XCConfig: Writable {
 
     private func writeBuildSettings() -> String {
         var content = ""
-        buildSettings.forEach { (key, value) in
+        buildSettings.forEach { key, value in
             content.append("\(key) = \(value)\n")
         }
         content.append("\n")
         return content
     }
-
 }
 
 // MARK: - Array Extension (XCConfig)
 
 extension Array where Element == XCConfig {
-
     /// It returns an array with the XCConfig reversely flattened. It's useful for resolving the build settings.
     ///
     /// - Returns: flattened configurations array.
@@ -193,10 +185,9 @@ extension Array where Element == XCConfig {
                 var configs = [XCConfig(includes: [], buildSettings: config.buildSettings)]
                 configs.append(contentsOf: config.includes.map { $0.1 }.flattened())
                 return configs
-        }
+            }
         return reversed
     }
-
 }
 
 // MARK: - XCConfigError
@@ -208,7 +199,7 @@ public enum XCConfigError: Error, CustomStringConvertible {
     case notFound(path: AbsolutePath)
     public var description: String {
         switch self {
-        case .notFound(let path):
+        case let .notFound(path):
             return ".xcconfig file not found at \(path.asString)"
         }
     }

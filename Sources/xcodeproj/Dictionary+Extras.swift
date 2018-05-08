@@ -9,11 +9,9 @@ public func loadPlist(path: String) -> [String: AnyObject]? {
 }
 
 extension Dictionary {
-    
     func mapValuesWithKeys<T>(_ map: (_ key: Key, _ value: Value) throws -> T) throws -> [Key: T] {
         var output = [Key: T]()
-        try self.forEach { try output[$0.key] = map($0.key, $0.value) }
+        try forEach { try output[$0.key] = map($0.key, $0.value) }
         return output
     }
-    
 }

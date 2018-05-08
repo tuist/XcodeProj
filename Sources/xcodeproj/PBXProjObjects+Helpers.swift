@@ -1,19 +1,18 @@
-import Foundation
 import Basic
+import Foundation
 
 // MARK: - PBXProj.Objects Extension (Public)
 
 public extension PBXProj.Objects {
-
     /// Returns all the targets with the given name.
     ///
     /// - Parameter name: target name.
     /// - Returns: all existing targets with the given name.
     public func targets(named name: String) -> [ObjectReference<PBXTarget>] {
         var targets: [ObjectReference<PBXTarget>] = []
-        targets.append(contentsOf: nativeTargets.map(ObjectReference.init))
-        targets.append(contentsOf: legacyTargets.map(ObjectReference.init))
-        targets.append(contentsOf: aggregateTargets.map(ObjectReference.init))
+        targets.append(contentsOf: nativeTargets.map({ ObjectReference(reference: $0.key.reference, object: $0.value) }))
+        targets.append(contentsOf: legacyTargets.map({ ObjectReference(reference: $0.key.reference, object: $0.value) }))
+        targets.append(contentsOf: aggregateTargets.map({ ObjectReference(reference: $0.key.reference, object: $0.value) }))
         return targets.filter { $0.object.name == name }
     }
 
@@ -22,7 +21,7 @@ public extension PBXProj.Objects {
     /// - Parameter target: target object.
     /// - Returns: target's sources build phase, if found.
     public func sourcesBuildPhase(target: PBXTarget) -> PBXSourcesBuildPhase? {
-        return sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key) })?.value
+        return sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key.reference) })?.value
     }
 
     /// Returns all files in target's sources build phase.
@@ -31,8 +30,8 @@ public extension PBXProj.Objects {
     /// - Returns: all files in target's sources build phase, or empty array if sources build phase is not found.
     public func sourceFiles(target: PBXTarget) -> [ObjectReference<PBXFileElement>] {
         return sourcesBuildPhase(target: target)?.files
-            .compactMap { buildFiles[$0]?.fileRef }
-            .compactMap { fileRef in getFileElement(reference: fileRef).map { ObjectReference(reference: fileRef, object: $0) }}
+            .compactMap { buildFiles.getReference($0)?.fileRef }
+            .compactMap { fileRef in getFileElement(reference: fileRef).map { ObjectReference(reference: fileRef, object: $0) } }
             ?? []
     }
 
@@ -43,6 +42,7 @@ public extension PBXProj.Objects {
     /// - Returns: group with the given name contained in the given parent group and its reference.
     public func group(named groupName: String, inGroup: PBXGroup) -> ObjectReference<PBXGroup>? {
         let children = inGroup.children
+
         return groups.objectReferences.first {
             children.contains($0.reference) && ($0.object.name == groupName || $0.object.path == groupName)
         }
@@ -80,7 +80,7 @@ public extension PBXProj.Objects {
             path: options.contains(.withoutFolder) ? nil : groupName
         )
         let reference = generateReference(newGroup, groupName)
-        addObject(newGroup, reference: reference)
+        _ = addObject(newGroup, reference: reference)
         parentGroup.children.append(reference)
         return ObjectReference(reference: reference, object: newGroup)
     }
@@ -98,7 +98,6 @@ public extension PBXProj.Objects {
         toGroup: PBXGroup,
         sourceTree: PBXSourceTree = .group,
         sourceRoot: AbsolutePath) throws -> ObjectReference<PBXFileReference> {
-
         guard filePath.exists else {
             throw XCodeProjEditingError.fileNotExists(path: filePath)
         }
@@ -106,7 +105,7 @@ public extension PBXProj.Objects {
         guard let groupReference = groups.first(where: { $0.value == toGroup })?.key else {
             throw XCodeProjEditingError.groupNotFound(group: toGroup)
         }
-        let groupPath = fullPath(fileElement: toGroup, reference: groupReference, sourceRoot: sourceRoot)
+        let groupPath = fullPath(fileElement: toGroup, reference: groupReference.reference, sourceRoot: sourceRoot)
 
         if let existingFileReference = fileReferences.objectReferences.first(where: {
             filePath == fullPath(fileElement: $0.object, reference: $0.reference, sourceRoot: sourceRoot)
@@ -138,7 +137,7 @@ public extension PBXProj.Objects {
             path: path
         )
         let reference = generateReference(fileReference, filePath.asString)
-        addObject(fileReference, reference: reference)
+        _ = addObject(fileReference, reference: reference)
 
         if !toGroup.children.contains(reference) {
             toGroup.children.append(reference)
@@ -161,7 +160,7 @@ public extension PBXProj.Objects {
 
         let buildFile = PBXBuildFile(fileRef: reference)
         let reference = generateReference(buildFile, reference)
-        addObject(buildFile, reference: reference)
+        _ = addObject(buildFile, reference: reference)
         sourcesBuildPhase.files.append(reference)
         return ObjectReference(reference: reference, object: buildFile)
     }
@@ -181,7 +180,7 @@ public extension PBXProj.Objects {
             return fileElement.path.flatMap({ sourceRoot.appending(RelativePath($0)) })
         case .group?:
             guard let group = groups.first(where: { $0.value.children.contains(reference) }) else { return sourceRoot }
-            guard let groupPath = fullPath(fileElement: group.value, reference: group.key, sourceRoot: sourceRoot) else { return nil }
+            guard let groupPath = fullPath(fileElement: group.value, reference: group.key.reference, sourceRoot: sourceRoot) else { return nil }
             guard let filePath = fileElement is PBXVariantGroup ? baseVariantGroupPath(for: reference) : fileElement.path else { return groupPath }
             return groupPath.appending(RelativePath(filePath))
         default:
@@ -190,11 +189,11 @@ public extension PBXProj.Objects {
     }
 
     private func baseVariantGroupPath(for reference: String) -> String? {
-      guard let variantGroup = variantGroups[reference],
-        let baseReference = variantGroup.children.first(where: { fileReferences[$0]?.name == "Base" }),
-        let baseVariant = fileReferences[baseReference] else { return nil }
+        guard let variantGroup = variantGroups.getReference(reference),
+            let baseReference = variantGroup.children.first(where: { fileReferences.getReference($0)?.name == "Base" }),
+            let baseVariant = fileReferences.getReference(baseReference) else { return nil }
 
-      return baseVariant.path
+        return baseVariant.path
     }
 }
 
@@ -203,6 +202,7 @@ public struct GroupAddingOptions: OptionSet {
     public init(rawValue: Int) {
         self.rawValue = rawValue
     }
+
     /// Create group without reference to folder
     public static let withoutFolder = GroupAddingOptions(rawValue: 1 << 0)
 }
@@ -213,9 +213,9 @@ public enum XCodeProjEditingError: Error, CustomStringConvertible {
 
     public var description: String {
         switch self {
-        case .fileNotExists(let path):
+        case let .fileNotExists(path):
             return "\(path.asString) does not exist"
-        case .groupNotFound(let group):
+        case let .groupNotFound(group):
             return "Group not found in project: \(group)"
         }
     }
@@ -224,7 +224,6 @@ public enum XCodeProjEditingError: Error, CustomStringConvertible {
 // MARK: - PBXProj.Objects Extension (Internal)
 
 extension PBXProj.Objects {
-
     /// Returns the file name from a build file reference.
     ///
     /// - Parameter buildFileReference: file reference.
@@ -232,7 +231,7 @@ extension PBXProj.Objects {
     func fileName(buildFileReference: String) -> String? {
         guard let buildFile: PBXBuildFile = buildFiles.getReference(buildFileReference),
             let fileReference = buildFile.fileRef else {
-                return nil
+            return nil
         }
         return fileName(fileReference: fileReference)
     }
@@ -253,7 +252,7 @@ extension PBXProj.Objects {
     /// - Parameter configReference: reference of the XCBuildConfiguration.
     /// - Returns: config name.
     func configName(configReference: String) -> String? {
-        return buildConfigurations[configReference]?.name
+        return buildConfigurations.getReference(configReference)?.name
     }
 
     /// Returns the build phase a file is in.
@@ -261,17 +260,17 @@ extension PBXProj.Objects {
     /// - Parameter reference: reference of the file whose type will be returned.
     /// - Returns: String with the type of file.
     func buildPhaseType(buildFileReference: String) -> BuildPhase? {
-        if sourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        if sourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .sources
-        } else if frameworksBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        } else if frameworksBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .frameworks
-        } else if resourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        } else if resourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .resources
-        } else if copyFilesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        } else if copyFilesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .copyFiles
-        } else if headersBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        } else if headersBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .headers
-        } else if carbonResourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference)}) {
+        } else if carbonResourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .carbonResources
         }
         return nil
@@ -312,7 +311,7 @@ extension PBXProj.Objects {
         } else if resourcesBuildPhases.contains(reference: buildPhaseReference) {
             return "Resources"
         } else if let copyFilesBuildPhase = copyFilesBuildPhases.getReference(buildPhaseReference) {
-            return  copyFilesBuildPhase.name ?? "CopyFiles"
+            return copyFilesBuildPhase.name ?? "CopyFiles"
         } else if let shellScriptBuildPhase = shellScriptBuildPhases.getReference(buildPhaseReference) {
             return shellScriptBuildPhase.name ?? "ShellScript"
         } else if headersBuildPhases.contains(reference: buildPhaseReference) {
@@ -331,7 +330,7 @@ extension PBXProj.Objects {
         let type = buildPhaseType(buildFileReference: buildFileReference)
         switch type {
         case .copyFiles?:
-            return copyFilesBuildPhases.first(where: { _, val in val.files.contains(buildFileReference)})?.value.name ?? type?.rawValue
+            return copyFilesBuildPhases.first(where: { _, val in val.files.contains(buildFileReference) })?.value.name ?? type?.rawValue
         default:
             return type?.rawValue
         }
@@ -342,10 +341,9 @@ extension PBXProj.Objects {
     /// - Parameter reference: configuration list reference.
     /// - Returns: target or project with the given configuration list.
     func objectWithConfigurationList(reference: String) -> ObjectReference<PBXObject>? {
-        return projects.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
-            nativeTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
-            aggregateTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init) ??
-            legacyTargets.first(where: { $0.value.buildConfigurationList == reference}).flatMap(ObjectReference.init)
+        return projects.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ ObjectReference(reference: $0.key.reference, object: $0.value) }) ??
+            nativeTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ ObjectReference(reference: $0.key.reference, object: $0.value) }) ??
+            aggregateTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ ObjectReference(reference: $0.key.reference, object: $0.value) }) ??
+            legacyTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ ObjectReference(reference: $0.key.reference, object: $0.value) })
     }
-
 }

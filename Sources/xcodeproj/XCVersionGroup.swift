@@ -1,9 +1,9 @@
-import Foundation
 import Basic
+import Foundation
 
 /// Group that contains multiple files references to the different versions of a resource.
 /// Used to contain the different versions of a xcdatamodel
-final public class XCVersionGroup: PBXGroup {
+public final class XCVersionGroup: PBXGroup {
 
     // MARK: - Attributes
 
@@ -62,8 +62,8 @@ final public class XCVersionGroup: PBXGroup {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.currentVersion = try container.decodeIfPresent(String.self, forKey: .currentVersion)
-        self.versionGroupType = try container.decodeIfPresent(String.self, forKey: .versionGroupType)
+        currentVersion = try container.decodeIfPresent(String.self, forKey: .currentVersion)
+        versionGroupType = try container.decodeIfPresent(String.self, forKey: .versionGroupType)
         try super.init(from: decoder)
     }
 

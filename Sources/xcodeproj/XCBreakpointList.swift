@@ -1,26 +1,26 @@
-import Foundation
-import Basic
 import AEXML
+import Basic
+import Foundation
 
 // swiftlint:disable:next type_body_length
-final public class XCBreakpointList {
-    
+public final class XCBreakpointList {
+
     // MARK: - Breakpoint Proxy
-    
+
     // swiftlint:disable type_body_length
-    final public class BreakpointProxy {
-        
+    public final class BreakpointProxy {
+
         // MARK: - Breakpoint Content
-        
-        final public class BreakpointContent {
-            
+
+        public final class BreakpointContent {
+
             // MARK: - Breakpoint Action Proxy
-            
-            final public class BreakpointActionProxy {
-                
+
+            public final class BreakpointActionProxy {
+
                 // MARK: - Breakpoint Action Content
-                
-                final public class ActionContent {
+
+                public final class ActionContent {
                     public var consoleCommand: String?
                     public var message: String?
                     public var conveyanceType: String?
@@ -29,7 +29,7 @@ final public class XCBreakpointList {
                     public var waitUntilDone: Bool?
                     public var script: String?
                     public var soundName: String?
-                    
+
                     public init(consoleCommand: String? = nil,
                                 message: String? = nil,
                                 conveyanceType: String? = nil,
@@ -47,6 +47,7 @@ final public class XCBreakpointList {
                         self.script = script
                         self.soundName = soundName
                     }
+
                     init(element: AEXMLElement) throws {
                         consoleCommand = element.attributes["consoleCommand"]
                         message = element.attributes["message"]
@@ -59,6 +60,7 @@ final public class XCBreakpointList {
                         script = element.attributes["script"]
                         soundName = element.attributes["soundName"]
                     }
+
                     fileprivate func xmlElement() -> AEXMLElement {
                         var attributes: [String: String] = [:]
                         attributes["consoleCommand"] = consoleCommand
@@ -71,16 +73,16 @@ final public class XCBreakpointList {
                         }
                         attributes["script"] = script
                         attributes["soundName"] = soundName
-                        
+
                         let element = AEXMLElement(name: "ActionContent",
                                                    value: nil,
                                                    attributes: attributes)
                         return element
                     }
                 }
-                
+
                 // MARK: - Breakpoint Action Extension ID
-                
+
                 public enum ActionExtensionID: String {
                     case debuggerCommand = "Xcode.BreakpointAction.DebuggerCommand"
                     case log = "Xcode.BreakpointAction.Log"
@@ -90,25 +92,25 @@ final public class XCBreakpointList {
                     case sound = "Xcode.BreakpointAction.Sound"
                     case openGLError = "Xcode.BreakpointAction.OpenGLError"
                 }
-                
+
                 public var actionExtensionID: ActionExtensionID
                 public var actionContent: ActionContent
-                
+
                 public init(actionExtensionID: ActionExtensionID,
                             actionContent: ActionContent) {
                     self.actionExtensionID = actionExtensionID
                     self.actionContent = actionContent
                 }
-                
+
                 init(element: AEXMLElement) throws {
                     guard let actionExtensionIDString = element.attributes["ActionExtensionID"],
                         let actionExtensionID = ActionExtensionID(rawValue: actionExtensionIDString) else {
-                            throw XCBreakpointListError.missing(property: "ActionExtensionID")
+                        throw XCBreakpointListError.missing(property: "ActionExtensionID")
                     }
                     self.actionExtensionID = actionExtensionID
                     actionContent = try ActionContent(element: element["ActionContent"])
                 }
-                
+
                 fileprivate func xmlElement() -> AEXMLElement {
                     let element = AEXMLElement(name: "BreakpointActionProxy",
                                                value: nil,
@@ -117,15 +119,14 @@ final public class XCBreakpointList {
                     return element
                 }
             }
-            
+
             // MARK: - Breakpoint Location Proxy
-            
-            final public class BreakpointLocationProxy {
-                
+
+            public final class BreakpointLocationProxy {
                 public init() {}
-                
-                init(element: AEXMLElement) throws {}
-                
+
+                init(element _: AEXMLElement) throws {}
+
                 fileprivate func xmlElement() -> AEXMLElement {
                     let element = AEXMLElement(name: "BreakpointLocationProxy",
                                                value: nil,
@@ -133,7 +134,7 @@ final public class XCBreakpointList {
                     return element
                 }
             }
-            
+
             public var enabled: Bool
             public var ignoreCount: String
             public var continueAfterRunningActions: Bool
@@ -151,7 +152,7 @@ final public class XCBreakpointList {
             public var condition: String?
             public var actions: [BreakpointActionProxy]
             public var locations: [BreakpointLocationProxy]
-            
+
             public init(enabled: Bool = true,
                         ignoreCount: String = "0",
                         continueAfterRunningActions: Bool = false,
@@ -187,7 +188,7 @@ final public class XCBreakpointList {
                 self.actions = actions
                 self.locations = locations
             }
-            
+
             init(element: AEXMLElement) throws {
                 enabled = element.attributes["shouldBeEnabled"] == "Yes"
                 ignoreCount = element.attributes["ignoreCount"] ?? "0"
@@ -204,7 +205,7 @@ final public class XCBreakpointList {
                 scope = element.attributes["scope"]
                 stopOnStyle = element.attributes["stopOnStyle"]
                 condition = element.attributes["condition"]
-                
+
                 actions = try element["Actions"]["BreakpointActionProxy"]
                     .all?
                     .map(BreakpointActionProxy.init) ?? []
@@ -212,6 +213,7 @@ final public class XCBreakpointList {
                     .all?
                     .map(BreakpointLocationProxy.init) ?? []
             }
+
             fileprivate func xmlElement() -> AEXMLElement {
                 var attributes: [String: String] = [:]
                 attributes["shouldBeEnabled"] = enabled ? "Yes" : "No"
@@ -229,25 +231,25 @@ final public class XCBreakpointList {
                 attributes["scope"] = scope
                 attributes["stopOnStyle"] = stopOnStyle
                 attributes["condition"] = condition
-                
+
                 let element = AEXMLElement(name: "BreakpointContent",
                                            value: nil,
                                            attributes: attributes)
-                
+
                 let actions = AEXMLElement(name: "Actions", value: nil, attributes: [:])
                 self.actions.map({ $0.xmlElement() }).forEach({ actions.addChild($0) })
                 element.addChild(actions)
-                
+
                 let locations = AEXMLElement(name: "Locations", value: nil, attributes: [:])
                 self.locations.map({ $0.xmlElement() }).forEach({ locations.addChild($0) })
                 element.addChild(locations)
-                
+
                 return element
             }
         }
-        
+
         // MARK: - Breakpoint Extension ID
-        
+
         public enum BreakpointExtensionID: String {
             case file = "Xcode.Breakpoint.FileBreakpoint"
             case exception = "Xcode.Breakpoint.ExceptionBreakpoint"
@@ -257,25 +259,25 @@ final public class XCBreakpointList {
             case ideConstraintError = "Xcode.Breakpoint.IDEConstraintErrorBreakpoint"
             case ideTestFailure = "Xcode.Breakpoint.IDETestFailureBreakpoint"
         }
-        
+
         public var breakpointExtensionID: BreakpointExtensionID
         public var breakpointContent: BreakpointContent
-        
+
         public init(breakpointExtensionID: BreakpointExtensionID,
                     breakpointContent: BreakpointContent) {
             self.breakpointExtensionID = breakpointExtensionID
             self.breakpointContent = breakpointContent
         }
-        
+
         init(element: AEXMLElement) throws {
             guard let breakpointExtensionIDString = element.attributes["BreakpointExtensionID"],
                 let breakpointExtensionID = BreakpointExtensionID(rawValue: breakpointExtensionIDString) else {
-                    throw XCBreakpointListError.missing(property: "BreakpointExtensionID")
+                throw XCBreakpointListError.missing(property: "BreakpointExtensionID")
             }
             self.breakpointExtensionID = breakpointExtensionID
             breakpointContent = try BreakpointContent(element: element["BreakpointContent"])
         }
-        
+
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BreakpointProxy",
                                        value: nil,
@@ -284,15 +286,15 @@ final public class XCBreakpointList {
             return element
         }
     }
-    
+
     // MARK: - Properties
-    
+
     public var breakpoints: [BreakpointProxy]
     public var type: String?
     public var version: String?
-    
+
     // MARK: - Init
-    
+
     /// Initializes the breakpoints reading the content from the disk.
     ///
     /// - Parameters:
@@ -309,7 +311,7 @@ final public class XCBreakpointList {
             .all?
             .map(BreakpointProxy.init) ?? []
     }
-    
+
     public init(type: String? = nil,
                 version: String? = nil,
                 breakpoints: [BreakpointProxy] = []) {
@@ -317,36 +319,33 @@ final public class XCBreakpointList {
         self.version = version
         self.breakpoints = breakpoints
     }
-    
+
     public func add(breakpointProxy: BreakpointProxy) -> XCBreakpointList {
         var breakpoints = self.breakpoints
         breakpoints.append(breakpointProxy)
         return XCBreakpointList(type: type, version: version, breakpoints: breakpoints)
     }
-    
 }
 
 // MARK: - XCBreakpointList Extension (Writable)
 
 extension XCBreakpointList: Writable {
-    
     public func write(path: AbsolutePath, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["type"] = type
         schemeAttributes["version"] = version
         let bucket = document.addChild(name: "Bucket", value: nil, attributes: schemeAttributes)
-        
+
         let breakpoints = AEXMLElement(name: "Breakpoints", value: nil, attributes: [:])
         self.breakpoints.map({ $0.xmlElement() }).forEach({ breakpoints.addChild($0) })
         bucket.addChild(breakpoints)
-        
+
         if override && path.exists {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)
     }
-    
 }
 
 // MARK: - XCBreakpointList Errors.
@@ -358,12 +357,12 @@ extension XCBreakpointList: Writable {
 public enum XCBreakpointListError: Error, CustomStringConvertible {
     case notFound(path: AbsolutePath)
     case missing(property: String)
-    
+
     public var description: String {
         switch self {
-        case .notFound(let path):
+        case let .notFound(path):
             return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.asString)"
-        case .missing(let property):
+        case let .missing(property):
             return "Property \(property) missing"
         }
     }

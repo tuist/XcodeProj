@@ -1,15 +1,14 @@
 import Foundation
-import XCTest
-
 @testable import xcodeproj
+import XCTest
 
 extension XCVersionGroup {
     static func testData(currentVersion: String = "currentVersion",
-                  path: String = "path",
-                  name: String? = "name",
-                  sourceTree: PBXSourceTree = .group,
-                  versionGroupType: String = "versionGroupType",
-                  children: [String] = ["child"]) -> XCVersionGroup {
+                         path: String = "path",
+                         name: String? = "name",
+                         sourceTree: PBXSourceTree = .group,
+                         versionGroupType: String = "versionGroupType",
+                         children: [String] = ["child"]) -> XCVersionGroup {
         return XCVersionGroup(currentVersion: currentVersion,
                               path: path,
                               name: name,
@@ -20,7 +19,6 @@ extension XCVersionGroup {
 }
 
 final class XCVersionGroupSpec: XCTestCase {
-
     func test_init_initializesThePropertiesProperly() {
         let subject = XCVersionGroup.testData()
         XCTAssertEqual(subject.currentVersion, "currentVersion")
@@ -36,7 +34,7 @@ final class XCVersionGroupSpec: XCTestCase {
         let b = XCVersionGroup.testData()
         XCTAssertEqual(a, b)
     }
-    
+
     // MARK: - Private
 
     private func testData() -> [String: Any] {
@@ -47,7 +45,7 @@ final class XCVersionGroupSpec: XCTestCase {
             "sourceTree": "<group>",
             "versionGroupType": "versionGroupType",
             "children": ["child"],
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
 }

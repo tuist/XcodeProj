@@ -1,21 +1,21 @@
 import Foundation
 
 /// This is the element for listing build configurations.
-final public class XCBuildConfiguration: PBXObject {
-   
+public final class XCBuildConfiguration: PBXObject {
+
     // MARK: - Attributes
-    
+
     /// The path to a xcconfig file
     public var baseConfigurationReference: String?
-    
+
     /// A map of build settings.
     public var buildSettings: BuildSettings
-    
+
     /// The configuration name.
     public var name: String
-    
+
     // MARK: - Init
-    
+
     /// Initializes a build configuration.
     ///
     /// - Parameters:
@@ -30,29 +30,27 @@ final public class XCBuildConfiguration: PBXObject {
         self.name = name
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case baseConfigurationReference
         case buildSettings
         case name
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
-        self.buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
-        self.name = try container.decode(.name)
+        baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
+        buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
+        name = try container.decode(.name)
         try super.init(from: decoder)
     }
-    
 }
 
 // MARK: - XCBuildConfiguration Extension (PlistSerializable)
 
 extension XCBuildConfiguration: PlistSerializable {
-    
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
@@ -64,5 +62,4 @@ extension XCBuildConfiguration: PlistSerializable {
         }
         return (key: CommentedString(reference, comment: name), value: .dictionary(dictionary))
     }
-    
 }

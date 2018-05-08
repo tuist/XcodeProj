@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element indicates a file reference that is used in a PBXBuildPhase (either as an include or resource).
-final public class PBXBuildFile: PBXObject {
+public final class PBXBuildFile: PBXObject {
 
     // MARK: - Attributes
 
@@ -34,17 +34,15 @@ final public class PBXBuildFile: PBXObject {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.fileRef = try container.decodeIfPresent(.fileRef)
-        self.settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
+        fileRef = try container.decodeIfPresent(.fileRef)
+        settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
     }
-
 }
 
 // MARK: - PBXBuildFile Extension (PlistSerializable)
 
 extension PBXBuildFile: PlistSerializable {
-
     var multiline: Bool { return false }
 
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
@@ -59,9 +57,8 @@ extension PBXBuildFile: PlistSerializable {
             dictionary["settings"] = settings.plist()
         }
         let buildPhaseName = proj.objects.buildPhaseName(buildFileReference: reference)
-        let comment = buildPhaseName.flatMap({"\(fileName ?? "(null)") in \($0)"})
+        let comment = buildPhaseName.flatMap({ "\(fileName ?? "(null)") in \($0)" })
         return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
     }
-
 }

@@ -1,7 +1,7 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXObjectSpec: XCTestCase {
-    //TODO
+    // TODO:
 }

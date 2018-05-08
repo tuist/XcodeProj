@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXAggregateTargetSpec: XCTestCase {
-
     var subject: PBXAggregateTarget!
 
     override func setUp() {
@@ -62,7 +61,7 @@ final class PBXAggregateTargetSpec: XCTestCase {
             "buildPhases": ["phase"],
             "buildRules": ["rule"],
             "dependencies": ["dep"],
-            "name": "name"
+            "name": "name",
         ]
     }
 }

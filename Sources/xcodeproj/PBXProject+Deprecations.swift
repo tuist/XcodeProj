@@ -1,5 +1,4 @@
 public extension PBXProject {
-    
     @available(*, deprecated, message: "Use projectRoots instead")
     var projectRoot: String {
         get {
@@ -13,7 +12,7 @@ public extension PBXProject {
             }
         }
     }
-    
+
     @available(*, deprecated, message: "use init(name: ... projectRoots: ... attributes:) instead")
     convenience init(name: String,
                      buildConfigurationList: String,

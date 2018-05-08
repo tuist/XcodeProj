@@ -1,50 +1,50 @@
 import Foundation
 
-final public class PBXProject: PBXObject {
-    
+public final class PBXProject: PBXObject {
+
     // MARK: - Attributes
-    
+
     /// xcodeproj's name
     public var name: String
-    
+
     /// The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
-    
+
     /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
-    
+
     /// The region of development.
     public var developmentRegion: String?
-    
+
     /// Whether file encodings have been scanned.
     public var hasScannedForEncodings: Int
-    
+
     /// The known regions for localized files.
     public var knownRegions: [String]
-    
+
     /// The object is a reference to a PBXGroup element.
     public var mainGroup: String
-    
+
     /// The object is a reference to a PBXGroup element.
     public var productRefGroup: String?
-    
+
     /// The relative path of the project.
     public var projectDirPath: String
-    
+
     /// Project references.
     public var projectReferences: [[String: String]]
-    
+
     /// The relative root paths of the project.
     public var projectRoots: [String]
-    
+
     /// The objects are a reference to a PBXTarget element.
     public var targets: [String]
-    
+
     /// Project attributes.
     public var attributes: [String: Any]
-    
+
     // MARK: - Init
-    
+
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
@@ -89,9 +89,9 @@ final public class PBXProject: PBXObject {
         self.attributes = attributes
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case name
         case buildConfigurationList
@@ -108,36 +108,36 @@ final public class PBXProject: PBXObject {
         case targets
         case attributes
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = (try container.decodeIfPresent(.name)) ?? ""
-        self.buildConfigurationList = try container.decode(.buildConfigurationList)
-        self.compatibilityVersion = try container.decode(.compatibilityVersion)
-        self.developmentRegion = try container.decodeIfPresent(.developmentRegion)
+        name = (try container.decodeIfPresent(.name)) ?? ""
+        buildConfigurationList = try container.decode(.buildConfigurationList)
+        compatibilityVersion = try container.decode(.compatibilityVersion)
+        developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
-        self.hasScannedForEncodings = hasScannedForEncodingsString.flatMap({Int($0)}) ?? 0
-        self.knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
-        self.mainGroup = try container.decode(.mainGroup)
-        self.productRefGroup = try container.decodeIfPresent(.productRefGroup)
-        self.projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
-        self.projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
+        hasScannedForEncodings = hasScannedForEncodingsString.flatMap({ Int($0) }) ?? 0
+        knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
+        mainGroup = try container.decode(.mainGroup)
+        productRefGroup = try container.decodeIfPresent(.productRefGroup)
+        projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
+        projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
         if let projectRoots: [String] = try container.decodeIfPresent(.projectRoots) {
             self.projectRoots = projectRoots
         } else if let projectRoot: String = try container.decodeIfPresent(.projectRoot) {
-            self.projectRoots = [projectRoot]
+            projectRoots = [projectRoot]
         } else {
-            self.projectRoots = []
+            projectRoots = []
         }
-        self.targets = (try container.decodeIfPresent(.targets)) ?? []
-        self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
+        targets = (try container.decodeIfPresent(.targets)) ?? []
+        attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
 }
 
 // MARK: - PlistSerializable
+
 extension PBXProject: PlistSerializable {
-    
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
@@ -150,11 +150,11 @@ extension PBXProject: PlistSerializable {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-        
+
         if !knownRegions.isEmpty {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
-                .map {.string(CommentedString("\($0)")) })
-        }        
+                .map { .string(CommentedString("\($0)")) })
+        }
         let mainGroupObject = proj.objects.groups[PBXObjectReference(mainGroup)]
         dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
         if let productRefGroup = productRefGroup {
@@ -182,7 +182,7 @@ extension PBXProject: PlistSerializable {
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-    
+
     private func projectReferencesPlistValue(proj: PBXProj) -> PlistValue? {
         guard projectReferences.count > 0 else {
             return nil
@@ -191,16 +191,15 @@ extension PBXProject: PlistSerializable {
             guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-            
-            let groupName = proj.objects.groups.getReference(PBXObjectReference(productGroup))?.name
+
+            let groupName = proj.objects.groups.getReference(productGroup)?.name
             let fileRef = proj.objects.fileReferences.getReference(projectRef)
             let fileRefName = fileRef?.name ?? fileRef?.path
-            
+
             return [
                 CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroup, comment: groupName)),
-                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef, comment: fileRefName))
+                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef, comment: fileRefName)),
             ]
         })
     }
-    
 }

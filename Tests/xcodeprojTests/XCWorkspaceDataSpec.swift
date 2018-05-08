@@ -1,10 +1,9 @@
-import Foundation
-import XCTest
 import Basic
+import Foundation
 import xcodeproj
+import XCTest
 
 final class XCWorkspaceDataSpec: XCTestCase {
-
     var subject: XCWorkspaceData!
     var fileRef: XCWorkspaceDataFileRef!
 
@@ -16,16 +15,13 @@ final class XCWorkspaceDataSpec: XCTestCase {
         subject = XCWorkspaceData(children: [])
     }
 
-
     func test_equal_returnsTheCorrectValue() {
         let another = XCWorkspaceData(children: [])
         XCTAssertEqual(subject, another)
     }
-
 }
 
 final class XCWorkspaceDataIntegrationSpec: XCTestCase {
-
     func test_init_returnsTheModelWithTheRightProperties() throws {
         let path = fixturePath()
         let got = try XCWorkspaceData(path: path)
@@ -55,8 +51,8 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
                     )
                 )
                 return $0
-        },
-            assertion: { (before, after) in
+            },
+            assertion: { before, after in
                 XCTAssertEqual(before, after)
                 XCTAssertEqual(after.children.count, 2)
 
@@ -123,5 +119,4 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
         let path = fixturesPath().appending(RelativePath("Workspace.xcworkspace"))
         return try XCWorkspace(path: path)
     }
-
 }

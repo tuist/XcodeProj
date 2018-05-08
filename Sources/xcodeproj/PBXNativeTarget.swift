@@ -1,8 +1,7 @@
 import Foundation
 
 /// This is the element for a build target that produces a binary content (application or library).
-final public class PBXNativeTarget: PBXTarget {
-
+public final class PBXNativeTarget: PBXTarget {
     // Target product install path.
     public var productInstallPath: String?
 
@@ -34,13 +33,13 @@ final public class PBXNativeTarget: PBXTarget {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.productInstallPath = try container.decodeIfPresent(.productInstallPath)
+        productInstallPath = try container.decodeIfPresent(.productInstallPath)
         try super.init(from: decoder)
     }
 
     override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
         let (key, value) = super.plistValues(proj: proj, isa: isa, reference: reference)
-        guard case PlistValue.dictionary(var dict) = value else {
+        guard case var PlistValue.dictionary(dict) = value else {
             fatalError("Expected super to give a dictionary")
         }
         if let productInstallPath = productInstallPath {
@@ -48,15 +47,12 @@ final public class PBXNativeTarget: PBXTarget {
         }
         return (key: key, value: .dictionary(dict))
     }
-
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXNativeTarget: PlistSerializable {
-    
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         return plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
-    
 }

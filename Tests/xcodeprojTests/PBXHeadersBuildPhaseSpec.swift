@@ -1,10 +1,8 @@
 import Foundation
+@testable import xcodeproj
 import XCTest
 
-@testable import xcodeproj
-
 final class PBXHeadersBuildPhaseSpec: XCTestCase {
-
     var subject: PBXHeadersBuildPhase!
 
     override func setUp() {
@@ -80,7 +78,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
             "buildActionMask": 3,
             "files": ["file"],
             "runOnlyForDeploymentPostprocessing": 2,
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
 }

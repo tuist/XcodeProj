@@ -1,27 +1,23 @@
-import Foundation
-import XCTest
 import Basic
-
+import Foundation
 @testable import xcodeproj
+import XCTest
 
 extension PBXProj {
-
     static func testData(archiveVersion: UInt = 0,
-                objectVersion: UInt = 1,
-                rootObject: String = "rootObject",
-                classes: [String: Any] = [:],
-                objects: [String: PBXObject] = [:]) -> PBXProj {
+                         objectVersion: UInt = 1,
+                         rootObject: String = "rootObject",
+                         classes: [String: Any] = [:],
+                         objects: [String: PBXObject] = [:]) -> PBXProj {
         return PBXProj(rootObject: rootObject,
                        objectVersion: objectVersion,
                        archiveVersion: archiveVersion,
                        classes: classes,
                        objects: objects)
     }
-
 }
 
 final class PBXProjSpec: XCTestCase {
-
     var subject: PBXProj!
     var object: PBXObject!
 
@@ -61,13 +57,12 @@ final class PBXProjSpec: XCTestCase {
 }
 
 final class PBXProjIntegrationSpec: XCTestCase {
-
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
         let decoder = PropertyListDecoder()
         let proj = try? decoder.decode(PBXProj.self, from: data)
         XCTAssertNotNil(proj)
-        if let proj = proj{
+        if let proj = proj {
             assert(proj: proj)
         }
     }
@@ -75,10 +70,10 @@ final class PBXProjIntegrationSpec: XCTestCase {
     func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { path -> PBXProj? in
-                    let data = try! Data(contentsOf: path.url)
-                    let decoder = PropertyListDecoder()
-                    return try? decoder.decode(PBXProj.self, from: data)
-                    },
+                      let data = try! Data(contentsOf: path.url)
+                      let decoder = PropertyListDecoder()
+                      return try? decoder.decode(PBXProj.self, from: data)
+                  },
                   modify: { $0 })
     }
 
@@ -111,5 +106,4 @@ final class PBXProjIntegrationSpec: XCTestCase {
         XCTAssertEqual(proj.objects.versionGroups.count, 1)
         XCTAssertEqual(proj.objects.projects.count, 1)
     }
-
 }

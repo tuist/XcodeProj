@@ -1,14 +1,13 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 class PBXSourcesBuildPhaseSpec: XCTestCase {
-
     var subject: PBXSourcesBuildPhase!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXSourcesBuildPhase(files: ["file"])
+        subject = PBXSourcesBuildPhase(files: ["file"])
     }
 
     func test_init_initializesThePropertiesCorrectly() {
@@ -23,13 +22,13 @@ class PBXSourcesBuildPhaseSpec: XCTestCase {
 
     func test_equals_returnsTheCorrectValue() {
         let one = PBXSourcesBuildPhase(files: ["file"])
-        let another =  PBXSourcesBuildPhase(files: ["file"])
+        let another = PBXSourcesBuildPhase(files: ["file"])
         XCTAssertEqual(one, another)
     }
 
     private func testDictionary() -> [String: Any] {
         return [
-            "files": ["file"]
+            "files": ["file"],
         ]
     }
 }

@@ -1,17 +1,15 @@
 import Foundation
+@testable import xcodeproj
 import XCTest
 
-@testable import xcodeproj
-
 final class PBXProjObjectsHelpersSpec: XCTestCase {
- 
     var subject: PBXProj.Objects!
-    
+
     override func setUp() {
         super.setUp()
         subject = PBXProj.Objects(objects: [:])
     }
-    
+
     func test_targetsNamed_returnsTheCorrectValue() {
         let nativeTarget = PBXNativeTarget(name: "test")
         let legacyTarget = PBXLegacyTarget(name: "test")
@@ -24,5 +22,4 @@ final class PBXProjObjectsHelpersSpec: XCTestCase {
         XCTAssertTrue(got.contains(legacyTarget))
         XCTAssertTrue(got.contains(aggregateTarget))
     }
-    
 }

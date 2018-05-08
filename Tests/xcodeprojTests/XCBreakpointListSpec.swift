@@ -1,10 +1,9 @@
-import Foundation
-import XCTest
 import Basic
+import Foundation
 import xcodeproj
+import XCTest
 
 final class XCBreakpointListIntegrationSpec: XCTestCase {
-
     var subject: XCBreakpointList?
 
     override func setUp() {
@@ -110,5 +109,4 @@ final class XCBreakpointListIntegrationSpec: XCTestCase {
     private func fixturePath() -> AbsolutePath {
         return fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist"))
     }
-
 }

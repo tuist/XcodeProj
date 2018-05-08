@@ -1,16 +1,15 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXGroupSpec: XCTestCase {
-
     var subject: PBXGroup!
 
     override func setUp() {
         super.setUp()
-        self.subject = PBXGroup(children: ["333"],
-                                sourceTree: .group,
-                                name: "name")
+        subject = PBXGroup(children: ["333"],
+                           sourceTree: .group,
+                           name: "name")
     }
 
     func test_init_initializesTheGroupWithTheRightProperties() {
@@ -43,7 +42,7 @@ final class PBXGroupSpec: XCTestCase {
         return [
             "children": ["child"],
             "name": "name",
-            "sourceTree": "absolute"
+            "sourceTree": "absolute",
         ]
     }
 }

@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXFileReferenceSpec: XCTestCase {
-
     var subject: PBXFileReference!
 
     override func setUp() {
@@ -42,7 +41,7 @@ final class PBXFileReferenceSpec: XCTestCase {
     private func testDictionary() -> [String: Any] {
         return [
             "name": "name",
-            "sourceTree": "group"
+            "sourceTree": "group",
         ]
     }
 }

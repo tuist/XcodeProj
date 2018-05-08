@@ -1,9 +1,8 @@
-import Foundation
 import Basic
+import Foundation
 
 /// Protocol that defines how an entity can be writed into disk
 public protocol Writable {
-    
     /// Writes the object that conforms the protocol.
     ///
     /// - Parameter path: The path to write to
@@ -20,7 +19,6 @@ public protocol Writable {
 }
 
 extension Writable {
-
     public func write(pathString: String, override: Bool) throws {
         let path = AbsolutePath(pathString)
         try write(path: path, override: override)

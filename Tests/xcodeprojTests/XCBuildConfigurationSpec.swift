@@ -1,10 +1,8 @@
 import Foundation
+import xcodeproj
 import XCTest
 
-import xcodeproj
-
 final class XCBuildConfigurationSpec: XCTestCase {
-
     var subject: XCBuildConfiguration!
 
     override func setUp() {
@@ -47,8 +45,7 @@ final class XCBuildConfigurationSpec: XCTestCase {
             "baseConfigurationReference": "baseConfigurationReference",
             "buildSettings": [:],
             "name": "name",
-            "reference": "reference"
+            "reference": "reference",
         ]
     }
-
 }

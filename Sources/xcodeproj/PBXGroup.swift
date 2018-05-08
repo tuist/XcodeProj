@@ -40,21 +40,21 @@ public class PBXGroup: PBXFileElement {
                    tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case children
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.children = (try container.decodeIfPresent(.children)) ?? []
+        children = (try container.decodeIfPresent(.children)) ?? []
         try super.init(from: decoder)
     }
-    
+
     // MARK: - PlistSerializable
-    
+
     override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
@@ -64,7 +64,7 @@ public class PBXGroup: PBXFileElement {
         }))
 
         return (key: CommentedString(reference,
-                                     comment: self.name ?? self.path),
+                                     comment: name ?? path),
                 value: .dictionary(dictionary))
     }
 }
