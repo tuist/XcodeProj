@@ -162,7 +162,6 @@ You can check out the documentation on the following [link](https://xcbuddy.gith
 
 ## References 📚
 
-- [PathKit](https://github.com/kylef/PathKit)
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
 - [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
 - [pbexplorer](https://github.com/mjmsmith/pbxplorer)
