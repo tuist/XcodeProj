@@ -108,7 +108,7 @@ Xcode provides models that represent Xcode projects and are initialized by parsi
 ```swift
 // Removing all frameworks build phases
 let project = try! XcodeProj(path: "myproject.xcodeproj")
-project.pbxproj.frameworksBuildPhases.removeAll()
+project.pbxproj.objects.frameworksBuildPhases.removeAll()
 try! project.write(path: "myproject.xcodeproj")
 ```
 
