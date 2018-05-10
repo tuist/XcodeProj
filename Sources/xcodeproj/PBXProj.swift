@@ -121,27 +121,6 @@ public final class PBXProj: Decodable {
             }
         }
 
-        /// It returns the target with reference.
-        ///
-        /// - Parameter reference: target reference.
-        /// - Returns: target.
-        public func getTarget(reference: String) -> PBXTarget? {
-            return aggregateTargets.getReference(reference) ??
-                nativeTargets.getReference(reference) ??
-                legacyTargets.getReference(reference)
-        }
-
-        /// It returns the file element with the given reference.
-        ///
-        /// - Parameter reference: file reference.
-        /// - Returns: file element.
-        public func getFileElement(reference: String) -> PBXFileElement? {
-            return fileReferences.getReference(reference) ??
-                groups.getReference(reference) ??
-                variantGroups.getReference(reference) ??
-                versionGroups.getReference(reference)
-        }
-
         /// It returns the object with the given reference.
         ///
         /// - Parameter reference: file reference.

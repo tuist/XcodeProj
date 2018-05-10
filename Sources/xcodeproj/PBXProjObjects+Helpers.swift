@@ -1,19 +1,96 @@
 import Basic
 import Foundation
 
+/// PBXObject Helpers.
+class PBXObjectHelpers {
+    /// It returns the target with reference.
+    ///
+    /// - Parameters:
+    ///   - reference: target reference.
+    ///   - objects: project objects.
+    /// - Returns: target.
+    static func getTarget(reference: String, objects: PBXProj.Objects) -> PBXTarget? {
+        return objects.aggregateTargets.getReference(reference) ??
+            objects.nativeTargets.getReference(reference) ??
+            objects.legacyTargets.getReference(reference)
+    }
+
+    /// It returns the file element with the given reference.
+    ///
+    /// - Parameters:
+    ///     - reference: file reference.
+    ///     - objects: project objects.
+    /// - Returns: file element.
+    static func getFileElement(reference: String, objects: PBXProj.Objects) -> PBXFileElement? {
+        return objects.fileReferences.getReference(reference) ??
+            objects.groups.getReference(reference) ??
+            objects.variantGroups.getReference(reference) ??
+            objects.versionGroups.getReference(reference)
+    }
+
+    /// Returns all the targets with the given name.
+    ///
+    /// - Parameters:
+    ///   - name: target name.
+    ///   - objects: project objects.
+    /// - Returns: targets with the given name.
+    static func targets(named name: String, objects: PBXProj.Objects) -> [ReferencedObject<PBXTarget>] {
+        var targets: [ReferencedObject<PBXTarget>] = []
+        targets.append(contentsOf: objects.nativeTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
+        targets.append(contentsOf: objects.legacyTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
+        targets.append(contentsOf: objects.aggregateTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
+        return targets.filter { $0.object.name == name }
+    }
+
+    /// Returns the target's sources build phase.
+    ///
+    /// - Parameters:
+    ///   - target: target.
+    ///   - objects: project objects.
+    /// - Returns: target's sources build phase, if found.
+    static func sourcesBuildPhase(target: PBXTarget, objects: PBXProj.Objects) -> PBXSourcesBuildPhase? {
+        return objects.sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key.value) })?.value
+    }
+
+    /// Returns all files in target's sources build phase.
+    ///
+    /// - Parameters:
+    ///   - target: target.
+    ///   - objects: project objects.
+    /// - Returns: all files in target's sources build phase, or empty array if sources build phase is not found.
+    static func sourceFiles(target: PBXTarget, objects: PBXProj.Objects) -> [ReferencedObject<PBXFileElement>] {
+        return sourcesBuildPhase(target: target, objects: objects)?.files
+            .compactMap { objects.buildFiles.getReference($0)?.fileRef }
+            .compactMap { fileRef in getFileElement(reference: fileRef, objects: objects).map { ReferencedObject(reference: fileRef, object: $0) } }
+            ?? []
+    }
+}
+
 // MARK: - PBXProj.Objects Extension (Public)
 
 public extension PBXProj.Objects {
+    /// It returns the target with reference.
+    ///
+    /// - Parameter reference: target reference.
+    /// - Returns: target.
+    public func getTarget(reference: String) -> PBXTarget? {
+        return PBXObjectHelpers.getTarget(reference: reference, objects: self)
+    }
+
+    /// It returns the file element with the given reference.
+    ///
+    /// - Parameter reference: file reference.
+    /// - Returns: file element.
+    public func getFileElement(reference: String) -> PBXFileElement? {
+        return PBXObjectHelpers.getFileElement(reference: reference, objects: self)
+    }
+
     /// Returns all the targets with the given name.
     ///
     /// - Parameter name: target name.
     /// - Returns: all existing targets with the given name.
     public func targets(named name: String) -> [ReferencedObject<PBXTarget>] {
-        var targets: [ReferencedObject<PBXTarget>] = []
-        targets.append(contentsOf: nativeTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
-        targets.append(contentsOf: legacyTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
-        targets.append(contentsOf: aggregateTargets.map({ ReferencedObject(reference: $0.key.value, object: $0.value) }))
-        return targets.filter { $0.object.name == name }
+        return PBXObjectHelpers.targets(named: name, objects: self)
     }
 
     /// Retruns target's sources build phase.
@@ -21,7 +98,7 @@ public extension PBXProj.Objects {
     /// - Parameter target: target object.
     /// - Returns: target's sources build phase, if found.
     public func sourcesBuildPhase(target: PBXTarget) -> PBXSourcesBuildPhase? {
-        return sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key.value) })?.value
+        return PBXObjectHelpers.sourcesBuildPhase(target: target, objects: self)
     }
 
     /// Returns all files in target's sources build phase.
