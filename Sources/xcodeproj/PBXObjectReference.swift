@@ -1,7 +1,7 @@
 import Foundation
 
 /// Object used as a reference to PBXObjects from PBXProj.Objects.
-public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleByStringLiteral, Comparable {
+public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
@@ -15,15 +15,17 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
-    init(_ reference: String) {
+    init(_ reference: String, objects: PBXProj.Objects) {
         value = reference
         temporary = false
+        self.objects = objects
     }
 
     /// Initializes a temporary reference
-    init() {
+    init(objects: PBXProj.Objects) {
         value = String.random()
         temporary = true
+        self.objects = objects
     }
 
     /// Hash value.
@@ -55,22 +57,4 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
     // MARK: - CustomStringConvertible
 
     public var description: String { return value }
-
-    // MARK: - ExpressibleByStringLiteral
-
-    public typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
-    public typealias UnicodeScalarLiteralType = StringLiteralType
-
-    public required convenience init(extendedGraphemeClusterLiteral path: StringLiteralType) {
-        self.init(stringLiteral: path)
-    }
-
-    public required convenience init(unicodeScalarLiteral path: StringLiteralType) {
-        self.init(stringLiteral: path)
-    }
-
-    public required init(stringLiteral value: StringLiteralType) {
-        self.value = value
-        temporary = false
-    }
 }
