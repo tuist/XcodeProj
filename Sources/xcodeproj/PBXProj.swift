@@ -18,7 +18,7 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
-    public var rootObject: String
+    public var rootObject: PBXObjectReference?
 
     /// Initializes the project with its attributes.
     ///
@@ -28,7 +28,7 @@ public final class PBXProj: Decodable {
     ///   - archiveVersion: project archive version.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(rootObject: String,
+    public init(rootObject: PBXObjectReference? = nil,
                 objectVersion: UInt = 0,
                 archiveVersion: UInt = 1,
                 classes: [String: Any] = [:],
@@ -51,14 +51,16 @@ public final class PBXProj: Decodable {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        rootObject = try container.decode(.rootObject)
+        let rootObjectReference: String = try container.decode(.rootObject)
+        rootObject = objectReferenceRepository.getOrCreate(reference: rootObjectReference, objects: objects)
         objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        let objects = decoder.context.objects
         try objectsDictionaries.forEach { reference, dictionary in
             let object = try PBXObject.parse(reference: reference, dictionary: dictionary, userInfo: decoder.userInfo)
             objects.addObject(object)

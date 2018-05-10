@@ -5,7 +5,7 @@ public class PBXGroup: PBXFileElement {
     // MARK: - Attributes
 
     /// Element children.
-    public var children: [String]
+    public var children: [PBXObjectReference]
 
     // MARK: - Init
 
@@ -21,7 +21,7 @@ public class PBXGroup: PBXFileElement {
     ///   - usesTabs: group uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
-    public init(children: [String],
+    public init(children: [PBXObjectReference] = [],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
                 path: String? = nil,
@@ -48,23 +48,66 @@ public class PBXGroup: PBXFileElement {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        children = (try container.decodeIfPresent(.children)) ?? []
+        let childrenReferences: [String] = (try container.decodeIfPresent(.children)) ?? []
+        children = childrenReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         try super.init(from: decoder)
     }
 
     // MARK: - PlistSerializable
 
-    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["children"] = .array(children.map({ (fileReference) -> PlistValue in
-            let comment = proj.objects.fileName(fileReference: fileReference)
-            return .string(CommentedString(fileReference, comment: comment))
+        dictionary["children"] = try .array(children.map({ (fileReference) -> PlistValue in
+            let fileElement: PBXFileElement = try fileReference.object()
+            return .string(CommentedString(fileReference.value, comment: fileElement.fileName()))
         }))
 
         return (key: CommentedString(reference,
                                      comment: name ?? path),
                 value: .dictionary(dictionary))
+    }
+}
+
+/// Options passed when adding new groups.
+public struct GroupAddingOptions: OptionSet {
+    /// Raw value.
+    public let rawValue: Int
+
+    /// Initializes the options with the raw value.
+    ///
+    /// - Parameter rawValue: raw value.
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+
+    /// Create group without reference to folder
+    public static let withoutFolder = GroupAddingOptions(rawValue: 1 << 0)
+}
+
+// MARK: - PBXGroup + Convenient
+
+public extension PBXGroup {
+    /// Returns group with the given name contained in the given parent group.
+    ///
+    /// - Parameter groupName: group name.
+    /// - Returns: group with the given name contained in the given parent group.
+    public func group(named name: String) -> PBXGroup? {
+        return children
+            .compactMap({ try? $0.object() as PBXGroup })
+            .first(where: { $0.name == name })
+    }
+
+    public func addGroup(named groupName: String, options: GroupAddingOptions = []) -> [PBXGroup] {
+        return addGroups(groupName.components(separatedBy: "/"), options: options)
+    }
+
+    public func addGroups(_ groupNames: [String], options: GroupAddingOptions) -> [PBXGroup] {
+        guard !groupNames.isEmpty else { return [] }
+        let newGroup = createOrGetGroup(named: groupNames[0], in: toGroup, options: options)
+        return [newGroup] + addGroups(Array(groupNames.dropFirst()), to: newGroup.object, options: options)
     }
 }

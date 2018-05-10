@@ -4,51 +4,6 @@ import Foundation
 // MARK: - PBXObjects Extension (Public)
 
 public extension PBXObjects {
-    @available(*, deprecated, message: "Will be deleted")
-    public func getFileElement(reference: String) -> PBXFileElement? {
-        return PBXObjectsHelpers.getFileElement(reference: reference, objects: self)
-    }
-
-    /// Returns all the targets with the given name.
-    ///
-    /// - Parameter name: target name.
-    /// - Returns: all existing targets with the given name.
-    public func targets(named name: String) -> [PBXTarget] {
-        return PBXObjectsHelpers.targets(named: name, objects: self)
-    }
-
-    @available(*, deprecated, message: "Will be deleted")
-    public func sourceFiles(target: PBXTarget) -> [PBXFileElement] {
-        return PBXObjectsHelpers.sourceFiles(target: target, objects: self)
-    }
-
-    @available(*, deprecated, message: "Will be deleted")
-    public func group(named groupName: String, inGroup: PBXGroup) -> PBXGroup? {
-        return PBXObjectsHelpers.group(named: groupName, inGroup: inGroup, objects: self)
-    }
-
-    /// Adds new group with the give name to the given parent group.
-    /// Group name can be a path with components separated by `/`.
-    /// Will create new groups for intermediate path components or use existing groups.
-    /// Returns all new or existing groups in the path and their references.
-    ///
-    /// - Parameters:
-    ///   - groupName: group name, can be a path with components separated by `/`
-    ///   - toGroup: parent group
-    ///   - options: additional options, default is empty set.
-    /// - Returns: all new or existing groups in the path and their references.
-
-    // TODO:
-//    public func addGroup(named groupName: String, to toGroup: PBXGroup, options: GroupAddingOptions = []) -> [PBXReferencedObject<PBXGroup>] {
-//        return addGroups(groupName.components(separatedBy: "/"), to: toGroup, options: options)
-//    }
-//
-//    private func addGroups(_ groupNames: [String], to toGroup: PBXGroup, options: GroupAddingOptions) -> [PBXReferencedObject<PBXGroup>] {
-//        guard !groupNames.isEmpty else { return [] }
-//        let newGroup = createOrGetGroup(named: groupNames[0], in: toGroup, options: options)
-//        return [newGroup] + addGroups(Array(groupNames.dropFirst()), to: newGroup.object, options: options)
-//    }
-//
 //    private func createOrGetGroup(named groupName: String, in parentGroup: PBXGroup, options: GroupAddingOptions) -> PBXReferencedObject<PBXGroup> {
 //        if let existingGroup = group(named: groupName, inGroup: parentGroup) {
 //            return existingGroup
@@ -121,24 +76,6 @@ public extension PBXObjects {
             toGroup.children.append(reference.value)
         }
         return PBXReferencedObject(reference: reference.value, object: fileReference)
-    }
-
-    /// Adds file to the given target's sources build phase or returns existing build file and its reference.
-    /// If target's sources build phase can't be found returns nil.
-    ///
-    /// - Parameter target: target object
-    /// - Parameter reference: file reference
-    /// - Returns: new or existing build file and its reference
-    public func addBuildFile(toTarget target: PBXTarget, reference: String) -> PBXReferencedObject<PBXBuildFile>? {
-        guard let sourcesBuildPhase = sourcesBuildPhase(target: target) else { return nil }
-        if let existingBuildFile = buildFiles.referencedObjects.first(where: { $0.object.fileRef == reference }) {
-            return existingBuildFile
-        }
-
-        let buildFile = PBXBuildFile(fileRef: reference)
-        let reference = addObject(buildFile)
-        sourcesBuildPhase.files.append(reference.value)
-        return PBXReferencedObject(reference: reference.value, object: buildFile)
     }
 
     /// Returns full path of the file element.

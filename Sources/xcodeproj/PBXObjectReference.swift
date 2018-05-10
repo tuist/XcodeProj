@@ -1,13 +1,13 @@
 import Foundation
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
+public class PBXObjectReference: Hashable, Comparable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
 
     /// String reference.
-    public private(set) var value: String
+    private(set) var value: String
 
     /// Weak reference to the objects instance that contains the project objects.
     internal(set) weak var objects: PBXObjects?
@@ -22,7 +22,7 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     }
 
     /// Initializes a temporary reference
-    init(objects: PBXObjects) {
+    init(objects: PBXObjects? = nil) {
         value = String.random()
         temporary = true
         self.objects = objects
@@ -61,15 +61,11 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
         return lhs.value < rhs.value
     }
 
-    // MARK: - CustomStringConvertible
-
-    public var description: String { return value }
-
     /// Returns the object the reference is referfing to.
     ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    public func object<T>() throws -> T {
+    func object<T>() throws -> T {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }

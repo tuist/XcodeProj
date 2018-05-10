@@ -5,19 +5,14 @@ import Foundation
 
 public extension PBXProj {
     /// Returns root project.
-    public var rootProject: PBXProject? {
-        return objects.projects.getReference(rootObject)
+    public func rootProject() throws -> PBXProject? {
+        return try rootObject?.object()
     }
 
     /// Returns root project's root group.
-    public var rootGroup: PBXGroup {
-        guard let rootProject = self.rootProject else {
-            fatalError("Missing root project")
-        }
-        guard let rootGroup: PBXGroup = objects.getReference(rootProject.mainGroup) as? PBXGroup else {
-            fatalError("Root project has no root group")
-        }
-        return rootGroup
+    public func rootGroup() throws -> PBXGroup? {
+        let project = try rootProject()
+        return try project?.mainGroup.object()
     }
 }
 
@@ -30,13 +25,12 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
-    func updateProjectName(path: AbsolutePath) {
+    func updateProjectName(path: AbsolutePath) throws {
         guard path.parentDirectory.extension == "xcodeproj" else {
             return
         }
         let projectName = path.parentDirectory.components.last?.split(separator: ".").first
-        let rootProject = objects.projects.getReference(rootObject)
-        rootProject?.name = projectName.map(String.init) ?? ""
+        try rootProject()?.name = projectName.map(String.init) ?? ""
     }
 }
 

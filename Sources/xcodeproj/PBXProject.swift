@@ -8,7 +8,7 @@ public final class PBXProject: PBXObject {
     public var name: String
 
     /// The object is a reference to a XCConfigurationList element.
-    public var buildConfigurationList: String
+    public var buildConfigurationList: PBXObjectReference
 
     /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
@@ -23,10 +23,10 @@ public final class PBXProject: PBXObject {
     public var knownRegions: [String]
 
     /// The object is a reference to a PBXGroup element.
-    public var mainGroup: String
+    public var mainGroup: PBXObjectReference
 
     /// The object is a reference to a PBXGroup element.
-    public var productRefGroup: String?
+    public var productRefGroup: PBXObjectReference?
 
     /// The relative path of the project.
     public var projectDirPath: String

@@ -86,18 +86,9 @@ public class PBXObjects: Equatable {
     ///   - object: object.
     ///   - reference: object reference.
     @discardableResult
-    public func addObject(_ object: PBXObject, reference: String? = nil) -> PBXObjectReference {
-        let objectReference: PBXObjectReference!
-        if object.reference == nil {
-            if let reference = reference {
-                objectReference = PBXObjectReference(reference, objects: self)
-            } else {
-                objectReference = PBXObjectReference(objects: self)
-            }
-            object.reference = objectReference
-        } else {
-            objectReference = object.reference!
-        }
+    public func addObject(_ object: PBXObject, reference _: String? = nil) -> PBXObjectReference {
+        let objectReference: PBXObjectReference = object.reference
+        objectReference.objects = self
 
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup
@@ -128,72 +119,5 @@ public class PBXObjects: Equatable {
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
         return objectReference
-    }
-
-    /// It returns the object with the given reference.
-    ///
-    /// - Parameter reference: file reference.
-    /// - Returns: object.
-    // swiftlint:disable function_body_length
-    public func getReference(_ reference: String) -> PBXObject? {
-        // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
-        // with Swift 4, this compiler error:
-        //     Expression was too complex to be solved in reasonable time;
-        //     consider breaking up the expression into distinct sub-expressions
-        if let object = buildFiles.getReference(reference) {
-            return object
-        } else if let object = aggregateTargets.getReference(reference) {
-            return object
-        } else if let object = legacyTargets.getReference(reference) {
-            return object
-        } else if let object = containerItemProxies.getReference(reference) {
-            return object
-        } else if let object = groups.getReference(reference) {
-            return object
-        } else if let object = configurationLists.getReference(reference) {
-            return object
-        } else if let object = buildConfigurations.getReference(reference) {
-            return object
-        } else if let object = variantGroups.getReference(reference) {
-            return object
-        } else if let object = targetDependencies.getReference(reference) {
-            return object
-        } else if let object = nativeTargets.getReference(reference) {
-            return object
-        } else if let object = fileReferences.getReference(reference) {
-            return object
-        } else if let object = projects.getReference(reference) {
-            return object
-        } else if let object = versionGroups.getReference(reference) {
-            return object
-        } else if let object = referenceProxies.getReference(reference) {
-            return object
-        } else if let object = copyFilesBuildPhases.getReference(reference) {
-            return object
-        } else if let object = shellScriptBuildPhases.getReference(reference) {
-            return object
-        } else if let object = resourcesBuildPhases.getReference(reference) {
-            return object
-        } else if let object = frameworksBuildPhases.getReference(reference) {
-            return object
-        } else if let object = headersBuildPhases.getReference(reference) {
-            return object
-        } else if let object = sourcesBuildPhases.getReference(reference) {
-            return object
-        } else if let object = carbonResourcesBuildPhases.getReference(reference) {
-            return object
-        } else if let object = buildRules.getReference(reference) {
-            return object
-        } else {
-            return nil
-        }
-    }
-
-    /// Returns true if objects contains any object with the given reference.
-    ///
-    /// - Parameter reference: reference.
-    /// - Returns: true if it contains the reference.
-    public func contains(reference: String) -> Bool {
-        return getReference(reference) != nil
     }
 }

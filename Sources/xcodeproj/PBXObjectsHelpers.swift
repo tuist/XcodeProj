@@ -44,29 +44,6 @@ class PBXObjectsHelpers {
             .compactMap { fileRef in getFileElement(reference: fileRef, objects: objects) }
             ?? []
     }
-
-    /// Returns group with the given name contained in the given parent group and its reference.
-    ///
-    /// - Parameter groupName: group name.
-    /// - Parameter inGroup: parent group.
-    ///   - objects: project objects.
-    /// - Returns: group with the given name contained in the given parent group and its reference.
-    static func group(named groupName: String, inGroup: PBXGroup, objects: PBXObjects) -> PBXGroup? {
-        let children = inGroup.children
-        return objects.groups.first {
-            children.contains($0.key.value) && ($0.value.name == groupName || $0.value.path == groupName)
-        }?.value
-    }
-}
-
-public struct GroupAddingOptions: OptionSet {
-    public let rawValue: Int
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
-    }
-
-    /// Create group without reference to folder
-    public static let withoutFolder = GroupAddingOptions(rawValue: 1 << 0)
 }
 
 public enum XCodeProjEditingError: Error, CustomStringConvertible {
@@ -86,80 +63,15 @@ public enum XCodeProjEditingError: Error, CustomStringConvertible {
 // MARK: - PBXObjects Extension (Internal)
 
 extension PBXObjects {
-    /// Returns the file name from a build file reference.
-    ///
-    /// - Parameter buildFileReference: file reference.
-    /// - Returns: build file name.
-    func fileName(buildFileReference: String) -> String? {
-        guard let buildFile: PBXBuildFile = buildFiles.getReference(buildFileReference),
-            let fileReference = buildFile.fileRef else {
-            return nil
-        }
-        return fileName(fileReference: fileReference)
-    }
-
-    /// Returns the file name from a file reference.
-    ///
-    /// - Parameter fileReference: file reference.
-    /// - Returns: file name.
-    func fileName(fileReference: String) -> String? {
-        guard let fileElement = getFileElement(reference: fileReference) else {
-            return nil
-        }
-        return fileElement.name ?? fileElement.path
-    }
-
-    /// Returns the configNamefile reference.
-    ///
-    /// - Parameter configReference: reference of the XCBuildConfiguration.
-    /// - Returns: config name.
-    func configName(configReference: String) -> String? {
-        return buildConfigurations.getReference(configReference)?.name
-    }
-
-    /// Returns the build phase a file is in.
-    ///
-    /// - Parameter reference: reference of the file whose type will be returned.
-    /// - Returns: String with the type of file.
-    func buildPhaseType(buildFileReference: String) -> BuildPhase? {
-        if sourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .sources
-        } else if frameworksBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .frameworks
-        } else if resourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .resources
-        } else if copyFilesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .copyFiles
-        } else if headersBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .headers
-        } else if carbonResourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
-            return .carbonResources
-        }
-        return nil
-    }
-
-    /// Returns the build phase name a file is in (mostly used for comments).
-    ///
-    /// - Parameter reference: reference of the file whose type name will be returned.
-    /// - Returns: the build phase name.
-    func buildPhaseName(buildFileReference: String) -> String? {
-        let type = buildPhaseType(buildFileReference: buildFileReference)
-        switch type {
-        case .copyFiles?:
-            return copyFilesBuildPhases.first(where: { _, val in val.files.contains(buildFileReference) })?.value.name ?? type?.rawValue
-        default:
-            return type?.rawValue
-        }
-    }
-
-    /// Returns the object with the given configuration list (project or target)
-    ///
-    /// - Parameter reference: configuration list reference.
-    /// - Returns: target or project with the given configuration list.
-    func objectWithConfigurationList(reference: String) -> PBXReferencedObject<PBXObject>? {
-        return projects.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
-            nativeTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
-            aggregateTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
-            legacyTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) })
-    }
+//
+//    /// Returns the object with the given configuration list (project or target)
+//    ///
+//    /// - Parameter reference: configuration list reference.
+//    /// - Returns: target or project with the given configuration list.
+//    func objectWithConfigurationList(reference: String) -> PBXReferencedObject<PBXObject>? {
+//        return projects.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
+//            nativeTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
+//            aggregateTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) }) ??
+//            legacyTargets.first(where: { $0.value.buildConfigurationList == reference }).flatMap({ PBXReferencedObject(reference: $0.key.value, object: $0.value) })
+//    }
 }

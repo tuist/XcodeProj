@@ -33,10 +33,64 @@ public final class PBXBuildFile: PBXObject {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        fileRef = try container.decodeIfPresent(.fileRef)
+        if let fileRefString: String = try container.decodeIfPresent(.fileRef) {
+            fileRef = objectReferenceRepository.getOrCreate(reference: fileRefString, objects: objects)
+        }
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
+    }
+}
+
+// MARK: - Internal utils
+
+extension PBXBuildFile {
+    /// Returns the name of the file the build file points to.
+    ///
+    /// - Returns: file name.
+    /// - Throws: an error if the name cannot be obtained.
+    func fileName() throws -> String? {
+        guard let fileElement: PBXFileElement = try fileRef?.object() else { return nil }
+        return fileElement.fileName()
+    }
+
+    /// Returns the type of the build phase the build file belongs to.
+    ///
+    /// - Returns: build phase type.
+    /// - Throws: an error if this method is called before the build file is added to any project.
+    func buildPhaseType() throws -> BuildPhase? {
+        let projectObjects = try objects()
+        if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .sources
+        } else if projectObjects.frameworksBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .frameworks
+        } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .resources
+        } else if projectObjects.copyFilesBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .copyFiles
+        } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .headers
+        } else if projectObjects.carbonResourcesBuildPhases.contains(where: { _, val in val.files.map({ $0.value }).contains(reference.value) }) {
+            return .carbonResources
+        }
+        return nil
+    }
+
+    /// Returns the name of the build phase the build file belongs to.
+    ///
+    /// - Returns: build phase name.
+    /// - Throws: an error if the name cannot be obtained.
+    func buildPhaseName() throws -> String? {
+        let type = try buildPhaseType()
+        let projectObjects = try objects()
+        switch type {
+        case .copyFiles?:
+            return projectObjects.copyFilesBuildPhases.first(where: { _, val in val.files.contains(self.reference) })?.value.name ?? type?.rawValue
+        default:
+            return type?.rawValue
+        }
     }
 }
 
@@ -45,19 +99,17 @@ public final class PBXBuildFile: PBXObject {
 extension PBXBuildFile: PlistSerializable {
     var multiline: Bool { return false }
 
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
-        var fileName: String?
         if let fileRef = fileRef {
-            fileName = proj.objects.fileName(fileReference: fileRef)
-            dictionary["fileRef"] = .string(CommentedString(fileRef, comment: fileName))
+            let fileElement: PBXFileElement = try fileRef.object()
+            dictionary["fileRef"] = .string(CommentedString(fileRef.value, comment: fileElement.fileName()))
         }
         if let settings = settings {
             dictionary["settings"] = settings.plist()
         }
-        let buildPhaseName = proj.objects.buildPhaseName(buildFileReference: reference)
-        let comment = buildPhaseName.flatMap({ "\(fileName ?? "(null)") in \($0)" })
+        let comment = try buildPhaseName().flatMap({ "\(try fileName() ?? "(null)") in \($0)" })
         return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
     }

@@ -3,13 +3,14 @@ import Foundation
 
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
-    /// A weak reference to the instance that contains all the project objects.
-    /// This is necessary to provide convenient methods from PBXObject subclasses.
-    public weak var reference: PBXObjectReference?
+    /// The object reference in the project that contains it.
+    public let reference: PBXObjectReference
 
     // MARK: - Init
 
-    init() {}
+    init() {
+        reference = PBXObjectReference()
+    }
 
     // MARK: - Decodable
 
@@ -17,6 +18,10 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         case reference
     }
 
+    /// Initializes the object from its project representation.
+    ///
+    /// - Parameter decoder: XcodeprojPropertyListDecoder decoder.
+    /// - Throws: an error if the object cannot be parsed.
     public required init(from decoder: Decoder) throws {
         let referenceRepository = decoder.context.objectReferenceRepository
         let objects = decoder.context.objects
@@ -25,6 +30,7 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         self.reference = referenceRepository.getOrCreate(reference: reference, objects: objects)
     }
 
+    /// Object isa (type id)
     public static var isa: String {
         return String(describing: self)
     }
@@ -97,7 +103,20 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
             throw PBXObjectError.unknownElement(isa)
         }
     }
+
     // swiftlint:enable function_body_length
+
+    /// Returns the objects the object belong to.
+    ///
+    /// - Returns: objects the object belongs to.
+    /// - Throws: an error if this method is accessed before the object has been added to a project.
+    func objects() throws -> PBXObjects {
+        guard let objects = self.reference.objects else {
+            let objectType = String(describing: type(of: self))
+            throw PBXObjectError.orphaned(type: objectType, reference: reference.value)
+        }
+        return objects
+    }
 }
 
 /// PBXObjectError
@@ -109,6 +128,7 @@ public enum PBXObjectError: Error, CustomStringConvertible {
     case unknownElement(String)
     case objectsReleased
     case objectNotFound(String)
+    case orphaned(type: String, reference: String)
 
     public var description: String {
         switch self {
@@ -120,13 +140,8 @@ public enum PBXObjectError: Error, CustomStringConvertible {
             return "The PBXObjects instance has been released before saving."
         case let .objectNotFound(reference):
             return "PBXObject with reference \"\(reference)\" not found."
+        case let .orphaned(type, reference):
+            return "Trying to use object \(type) with reference '\(reference)' before being added to any project"
         }
-    }
-}
-
-// MARK: - Extras
-
-extension PBXObject {
-    func getFileElement(reference _: PBXObjectReference) {
     }
 }

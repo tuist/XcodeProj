@@ -8,7 +8,7 @@ public final class XCVersionGroup: PBXGroup {
     // MARK: - Attributes
 
     /// Current version.
-    public let currentVersion: String?
+    public let currentVersion: PBXObjectReference?
 
     /// Version group type.
     public let versionGroupType: String?
@@ -29,12 +29,12 @@ public final class XCVersionGroup: PBXGroup {
     ///   - usesTabs: group uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
-    public init(currentVersion: String? = nil,
+    public init(currentVersion: PBXObjectReference? = nil,
                 path: String? = nil,
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil,
                 versionGroupType: String? = nil,
-                children: [String] = [],
+                children: [PBXObjectReference] = [],
                 includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
@@ -61,22 +61,29 @@ public final class XCVersionGroup: PBXGroup {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        currentVersion = try container.decodeIfPresent(String.self, forKey: .currentVersion)
+        if let currentVersionReference = try container.decodeIfPresent(String.self, forKey: .currentVersion) {
+            currentVersion = objectReferenceRepository.getOrCreate(reference: currentVersionReference, objects: objects)
+        } else {
+            currentVersion = nil
+        }
         versionGroupType = try container.decodeIfPresent(String.self, forKey: .versionGroupType)
         try super.init(from: decoder)
     }
 
     // MARK: - XCVersionGroup Extension (PlistSerializable)
 
-    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(XCVersionGroup.isa))
         if let versionGroupType = versionGroupType {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))
         }
         if let currentVersion = currentVersion {
-            dictionary["currentVersion"] = .string(CommentedString(currentVersion, comment: proj.objects.fileName(fileReference: currentVersion)))
+            let fileElement: PBXFileElement = try currentVersion.object()
+            dictionary["currentVersion"] = .string(CommentedString(currentVersion.value, comment: fileElement.fileName()))
         }
         return (key: CommentedString(reference, comment: path?.split(separator: "/").last.map(String.init)),
                 value: .dictionary(dictionary))
