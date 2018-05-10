@@ -2,7 +2,7 @@ import Foundation
 
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue)
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue)
     var multiline: Bool { get }
 }
 
@@ -17,7 +17,7 @@ final class PBXProjEncoder {
     var multiline: Bool = true
 
     // swiftlint:disable function_body_length
-    func encode(proj: PBXProj) -> String {
+    func encode(proj: PBXProj) throws -> String {
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
@@ -28,28 +28,28 @@ final class PBXProjEncoder {
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
-        write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
-        write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
-        write(section: "PBXBuildRule", proj: proj, object: proj.objects.buildRules)
-        write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
-        write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
-        write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
-        write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
-        write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
-        write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
-        write(section: "PBXLegacyTarget", proj: proj, object: proj.objects.legacyTargets)
-        write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
-        write(section: "PBXProject", proj: proj, object: proj.objects.projects)
-        write(section: "PBXReferenceProxy", proj: proj, object: proj.objects.referenceProxies)
-        write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
-        write(section: "PBXRezBuildPhase", proj: proj, object: proj.objects.carbonResourcesBuildPhases)
-        write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
-        write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
-        write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
-        write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
-        write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
-        write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
-        write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups)
+        try write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
+        try write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
+        try write(section: "PBXBuildRule", proj: proj, object: proj.objects.buildRules)
+        try write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
+        try write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
+        try write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
+        try write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
+        try write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
+        try write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
+        try write(section: "PBXLegacyTarget", proj: proj, object: proj.objects.legacyTargets)
+        try write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
+        try write(section: "PBXProject", proj: proj, object: proj.objects.projects)
+        try write(section: "PBXReferenceProxy", proj: proj, object: proj.objects.referenceProxies)
+        try write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
+        try write(section: "PBXRezBuildPhase", proj: proj, object: proj.objects.carbonResourcesBuildPhases)
+        try write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
+        try write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
+        try write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
+        try write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
+        try write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
+        try write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
+        try write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups)
         decreaseIndent()
         writeIndent()
         write(string: "};")
@@ -105,14 +105,14 @@ final class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
 
-    private func write<T: PlistSerializable & Equatable>(section: String, proj: PBXProj, object: ReferenceableCollection<T>) {
+    private func write<T: PlistSerializable & Equatable>(section: String, proj: PBXProj, object: ReferenceableCollection<T>) throws {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        object.sorted(by: { $0.key < $1.key })
+        try object.sorted(by: { $0.key < $1.key })
             .forEach { key, value in
-                let element = value.plistKeyAndValue(proj: proj, reference: key.value)
+                let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
                 write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: value.multiline)
             }
         write(string: "/* End \(section) section */")

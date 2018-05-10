@@ -8,21 +8,21 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
 
     /// String reference.
     private(set) var value: String
-    
+
     /// Weak reference to the objects instance that contains the project objects.
-    weak internal(set) var objects: PBXProj.Objects?
+    internal(set) weak var objects: PBXProj.Objects?
 
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
-    init(_ reference: String, objects: PBXProj.Objects) {
+    init(_ reference: String, objects: PBXProj.Objects? = nil) {
         value = reference
         temporary = false
         self.objects = objects
     }
 
     /// Initializes a temporary reference
-    init(objects: PBXProj.Objects) {
+    init(objects: PBXProj.Objects? = nil) {
         value = String.random()
         temporary = true
         self.objects = objects
