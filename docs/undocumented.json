@@ -458,7 +458,7 @@
     {
       "file": "/Users/pedropinera/code/xcbuddy/xcodeproj/Sources/xcodeproj/Referenceable.swift",
       "line": 5,
-      "symbol": "ReferenceableCollection",
+      "symbol": "PBXObjectsCollection",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },

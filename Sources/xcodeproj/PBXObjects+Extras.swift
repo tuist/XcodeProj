@@ -91,8 +91,7 @@ public extension PBXObjects {
             name: groupName,
             path: options.contains(.withoutFolder) ? nil : groupName
         )
-        let reference = PBXObjectReference() // TODO:
-        _ = addObject(newGroup, reference: reference.value)
+        let reference = addObject(newGroup)
         parentGroup.children.append(reference.value)
         return PBXReferencedObject(reference: reference.value, object: newGroup)
     }
@@ -148,13 +147,10 @@ public extension PBXObjects {
             lastKnownFileType: PBXFileReference.fileType(path: filePath),
             path: path
         )
-        let reference = PBXObjectReference() // TODO:
-        _ = addObject(fileReference, reference: reference.value)
-
+        let reference = addObject(fileReference)
         if !toGroup.children.contains(reference.value) {
             toGroup.children.append(reference.value)
         }
-
         return PBXReferencedObject(reference: reference.value, object: fileReference)
     }
 
@@ -171,8 +167,7 @@ public extension PBXObjects {
         }
 
         let buildFile = PBXBuildFile(fileRef: reference)
-        let reference = PBXObjectReference() // TODO:
-        _ = addObject(buildFile, reference: reference.value)
+        let reference = addObject(buildFile)
         sourcesBuildPhase.files.append(reference.value)
         return PBXReferencedObject(reference: reference.value, object: buildFile)
     }

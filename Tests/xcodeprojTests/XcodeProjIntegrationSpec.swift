@@ -217,16 +217,16 @@ final class XcodeProjIntegrationSpec: XCTestCase {
     func test_add_new_build_file() throws {
         let proj = projectiOS()!.pbxproj
         let target = proj.objects.targets(named: "iOS").first!
-        let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target.object)!
+        let sourcesBuildPhase = proj.objects.sourcesBuildPhase(target: target)!
         let filePath = fixturesPath().appending(component: "newfile.swift")
         let file = try proj.objects.addFile(at: filePath, toGroup: proj.rootGroup, sourceRoot: fixturesPath().appending(component: "iOS"))
 
-        let buildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
+        let buildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
 
         XCTAssertEqual(proj.objects.buildFiles.getReference(buildFile.reference), buildFile.object)
         XCTAssertNotNil(sourcesBuildPhase.files.index(of: buildFile.reference))
 
-        let existingBuildFile = proj.objects.addBuildFile(toTarget: target.object, reference: file.reference)!
+        let existingBuildFile = proj.objects.addBuildFile(toTarget: target, reference: file.reference)!
 
         XCTAssertTrue(existingBuildFile == buildFile)
     }

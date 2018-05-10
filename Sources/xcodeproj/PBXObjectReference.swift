@@ -15,17 +15,23 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
-    init(_ reference: String, objects: PBXObjects? = nil) {
+    public init(_ reference: String, objects: PBXObjects) {
         value = reference
         temporary = false
         self.objects = objects
     }
 
     /// Initializes a temporary reference
-    init(objects: PBXObjects? = nil) {
+    public init(objects: PBXObjects) {
         value = String.random()
         temporary = true
         self.objects = objects
+    }
+
+    // TODO: Delete
+    init(_ reference: String) {
+        value = reference
+        temporary = false
     }
 
     /// Hash value.
@@ -40,8 +46,7 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are equal.
     public static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.value == rhs.value &&
-            lhs.temporary == rhs.temporary
+        return lhs.value == rhs.value
     }
 
     /// Compares two instances.
@@ -57,4 +62,18 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     // MARK: - CustomStringConvertible
 
     public var description: String { return value }
+
+    /// Returns the object the reference is referfing to.
+    ///
+    /// - Returns: object the reference is referring to.
+    /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
+    public func materialize<T>() throws -> T {
+        guard let objects = objects else {
+            throw PBXObjectError.objectsReleased
+        }
+        guard let object = objects.getReference(value) as? T else {
+            throw PBXObjectError.objectNotFound(value)
+        }
+        return object
+    }
 }

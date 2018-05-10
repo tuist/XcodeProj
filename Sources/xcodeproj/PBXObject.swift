@@ -5,23 +5,11 @@ import Foundation
 public class PBXObject: Decodable, Equatable, AutoEquatable {
     /// A weak reference to the instance that contains all the project objects.
     /// This is necessary to provide convenient methods from PBXObject subclasses.
-    weak var objects: PBXObjects?
+    weak var reference: PBXObjectReference?
 
     // MARK: - Init
 
     init() {}
-
-    // MARK: - Helpers
-
-    func materialize<T>(reference: PBXObjectReference) throws -> T {
-        guard let objects = objects else {
-            throw PBXObjectError.objectsReleased
-        }
-        guard let object = objects.getReference(reference.value) as? T else {
-            throw PBXObjectError.objectNotFound(reference.value)
-        }
-        return object
-    }
 
     // MARK: - Decodable
 
@@ -127,5 +115,12 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         case let .objectNotFound(reference):
             return "PBXObject with reference \"\(reference)\" not found."
         }
+    }
+}
+
+// MARK: - Extras
+
+extension PBXObject {
+    func getFileElement(reference _: PBXObjectReference) {
     }
 }

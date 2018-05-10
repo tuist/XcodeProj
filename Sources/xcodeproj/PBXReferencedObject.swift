@@ -3,6 +3,7 @@ import Foundation
 /// Contains a PBXObject as well as it's reference
 public class PBXReferencedObject<T: PBXObject>: Equatable {
     /// Reference.
+    // TODO: It should be PBXObjectReference
     public let reference: String
 
     /// Object.

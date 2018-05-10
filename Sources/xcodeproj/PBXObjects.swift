@@ -4,42 +4,42 @@ public class PBXObjects: Equatable {
 
     // MARK: - Properties
 
-    public var buildFiles: ReferenceableCollection<PBXBuildFile> = [:]
-    public var legacyTargets: ReferenceableCollection<PBXLegacyTarget> = [:]
-    public var aggregateTargets: ReferenceableCollection<PBXAggregateTarget> = [:]
-    public var containerItemProxies: ReferenceableCollection<PBXContainerItemProxy> = [:]
-    public var groups: ReferenceableCollection<PBXGroup> = [:]
-    public var configurationLists: ReferenceableCollection<XCConfigurationList> = [:]
-    public var versionGroups: ReferenceableCollection<XCVersionGroup> = [:]
-    public var buildConfigurations: ReferenceableCollection<XCBuildConfiguration> = [:]
-    public var variantGroups: ReferenceableCollection<PBXVariantGroup> = [:]
-    public var targetDependencies: ReferenceableCollection<PBXTargetDependency> = [:]
-    public var nativeTargets: ReferenceableCollection<PBXNativeTarget> = [:]
-    public var fileReferences: ReferenceableCollection<PBXFileReference> = [:]
-    public var projects: ReferenceableCollection<PBXProject> = [:]
-    public var referenceProxies: ReferenceableCollection<PBXReferenceProxy> = [:]
-    public var buildRules: ReferenceableCollection<PBXBuildRule> = [:]
+    public var buildFiles: PBXObjectsCollection<PBXBuildFile> = [:]
+    public var legacyTargets: PBXObjectsCollection<PBXLegacyTarget> = [:]
+    public var aggregateTargets: PBXObjectsCollection<PBXAggregateTarget> = [:]
+    public var containerItemProxies: PBXObjectsCollection<PBXContainerItemProxy> = [:]
+    public var groups: PBXObjectsCollection<PBXGroup> = [:]
+    public var configurationLists: PBXObjectsCollection<XCConfigurationList> = [:]
+    public var versionGroups: PBXObjectsCollection<XCVersionGroup> = [:]
+    public var buildConfigurations: PBXObjectsCollection<XCBuildConfiguration> = [:]
+    public var variantGroups: PBXObjectsCollection<PBXVariantGroup> = [:]
+    public var targetDependencies: PBXObjectsCollection<PBXTargetDependency> = [:]
+    public var nativeTargets: PBXObjectsCollection<PBXNativeTarget> = [:]
+    public var fileReferences: PBXObjectsCollection<PBXFileReference> = [:]
+    public var projects: PBXObjectsCollection<PBXProject> = [:]
+    public var referenceProxies: PBXObjectsCollection<PBXReferenceProxy> = [:]
+    public var buildRules: PBXObjectsCollection<PBXBuildRule> = [:]
 
     // Build Phases
-    public var copyFilesBuildPhases: ReferenceableCollection<PBXCopyFilesBuildPhase> = [:]
-    public var shellScriptBuildPhases: ReferenceableCollection<PBXShellScriptBuildPhase> = [:]
-    public var resourcesBuildPhases: ReferenceableCollection<PBXResourcesBuildPhase> = [:]
-    public var frameworksBuildPhases: ReferenceableCollection<PBXFrameworksBuildPhase> = [:]
-    public var headersBuildPhases: ReferenceableCollection<PBXHeadersBuildPhase> = [:]
-    public var sourcesBuildPhases: ReferenceableCollection<PBXSourcesBuildPhase> = [:]
-    public var carbonResourcesBuildPhases: ReferenceableCollection<PBXRezBuildPhase> = [:]
+    public var copyFilesBuildPhases: PBXObjectsCollection<PBXCopyFilesBuildPhase> = [:]
+    public var shellScriptBuildPhases: PBXObjectsCollection<PBXShellScriptBuildPhase> = [:]
+    public var resourcesBuildPhases: PBXObjectsCollection<PBXResourcesBuildPhase> = [:]
+    public var frameworksBuildPhases: PBXObjectsCollection<PBXFrameworksBuildPhase> = [:]
+    public var headersBuildPhases: PBXObjectsCollection<PBXHeadersBuildPhase> = [:]
+    public var sourcesBuildPhases: PBXObjectsCollection<PBXSourcesBuildPhase> = [:]
+    public var carbonResourcesBuildPhases: PBXObjectsCollection<PBXRezBuildPhase> = [:]
 
     // MARK: - Computed Properties
 
-    public var buildPhases: ReferenceableCollection<PBXBuildPhase> {
+    public var buildPhases: PBXObjectsCollection<PBXBuildPhase> {
         var phases: [PBXObjectReference: PBXBuildPhase] = [:]
-        phases.merge(copyFilesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(sourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(shellScriptBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(resourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(headersBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(carbonResourcesBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(frameworksBuildPhases as ReferenceableCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(copyFilesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(sourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(shellScriptBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(resourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(headersBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(carbonResourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(frameworksBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
         return phases
     }
 
@@ -86,36 +86,45 @@ public class PBXObjects: Equatable {
     ///   - object: object.
     ///   - reference: object reference.
     @discardableResult
-    public func addObject(_ object: PBXObject, reference: String) -> PBXObjectReference {
-        object.objects = self
+    public func addObject(_ object: PBXObject, reference: String? = nil) -> PBXObjectReference {
+        if object.reference != nil {}
+        let objectReference: PBXObjectReference!
+        if let reference = reference {
+            objectReference = PBXObjectReference(reference, objects: self)
+        } else {
+            objectReference = PBXObjectReference(objects: self)
+        }
+        object.reference = objectReference
+
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup
-        case let object as PBXVariantGroup: return variantGroups.append(object, reference: reference)
-        case let object as XCVersionGroup: return versionGroups.append(object, reference: reference)
+        case let object as PBXVariantGroup: variantGroups[objectReference] = object
+        case let object as XCVersionGroup: versionGroups[objectReference] = object
 
         // everything else
-        case let object as PBXBuildFile: return buildFiles.append(object, reference: reference)
-        case let object as PBXAggregateTarget: return aggregateTargets.append(object, reference: reference)
-        case let object as PBXLegacyTarget: return legacyTargets.append(object, reference: reference)
-        case let object as PBXContainerItemProxy: return containerItemProxies.append(object, reference: reference)
-        case let object as PBXCopyFilesBuildPhase: return copyFilesBuildPhases.append(object, reference: reference)
-        case let object as PBXGroup: return groups.append(object, reference: reference)
-        case let object as XCConfigurationList: return configurationLists.append(object, reference: reference)
-        case let object as XCBuildConfiguration: return buildConfigurations.append(object, reference: reference)
-        case let object as PBXTargetDependency: return targetDependencies.append(object, reference: reference)
-        case let object as PBXSourcesBuildPhase: return sourcesBuildPhases.append(object, reference: reference)
-        case let object as PBXShellScriptBuildPhase: return shellScriptBuildPhases.append(object, reference: reference)
-        case let object as PBXResourcesBuildPhase: return resourcesBuildPhases.append(object, reference: reference)
-        case let object as PBXFrameworksBuildPhase: return frameworksBuildPhases.append(object, reference: reference)
-        case let object as PBXHeadersBuildPhase: return headersBuildPhases.append(object, reference: reference)
-        case let object as PBXNativeTarget: return nativeTargets.append(object, reference: reference)
-        case let object as PBXFileReference: return fileReferences.append(object, reference: reference)
-        case let object as PBXProject: return projects.append(object, reference: reference)
-        case let object as PBXReferenceProxy: return referenceProxies.append(object, reference: reference)
-        case let object as PBXRezBuildPhase: return carbonResourcesBuildPhases.append(object, reference: reference)
-        case let object as PBXBuildRule: return buildRules.append(object, reference: reference)
+        case let object as PBXBuildFile: buildFiles[objectReference] = object
+        case let object as PBXAggregateTarget: aggregateTargets[objectReference] = object
+        case let object as PBXLegacyTarget: legacyTargets[objectReference] = object
+        case let object as PBXContainerItemProxy: containerItemProxies[objectReference] = object
+        case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases[objectReference] = object
+        case let object as PBXGroup: groups[objectReference] = object
+        case let object as XCConfigurationList: configurationLists[objectReference] = object
+        case let object as XCBuildConfiguration: buildConfigurations[objectReference] = object
+        case let object as PBXTargetDependency: targetDependencies[objectReference] = object
+        case let object as PBXSourcesBuildPhase: sourcesBuildPhases[objectReference] = object
+        case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases[objectReference] = object
+        case let object as PBXResourcesBuildPhase: resourcesBuildPhases[objectReference] = object
+        case let object as PBXFrameworksBuildPhase: frameworksBuildPhases[objectReference] = object
+        case let object as PBXHeadersBuildPhase: headersBuildPhases[objectReference] = object
+        case let object as PBXNativeTarget: nativeTargets[objectReference] = object
+        case let object as PBXFileReference: fileReferences[objectReference] = object
+        case let object as PBXProject: projects[objectReference] = object
+        case let object as PBXReferenceProxy: referenceProxies[objectReference] = object
+        case let object as PBXRezBuildPhase: carbonResourcesBuildPhases[objectReference] = object
+        case let object as PBXBuildRule: buildRules[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
+        return objectReference
     }
 
     /// It returns the object with the given reference.
