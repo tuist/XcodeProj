@@ -5,11 +5,6 @@ import Foundation
 
 public extension PBXObjects {
     @available(*, deprecated, message: "Will be deleted")
-    public func getTarget(reference: String) -> PBXTarget? {
-        return PBXObjectsHelpers.getTarget(reference: reference, objects: self)
-    }
-
-    @available(*, deprecated, message: "Will be deleted")
     public func getFileElement(reference: String) -> PBXFileElement? {
         return PBXObjectsHelpers.getFileElement(reference: reference, objects: self)
     }

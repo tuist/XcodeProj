@@ -38,7 +38,7 @@ public final class PBXProject: PBXObject {
     public var projectRoots: [String]
 
     /// The objects are a reference to a PBXTarget element.
-    public var targets: [String]
+    public var targets: [PBXObjectReference]
 
     /// Project attributes.
     public var attributes: [String: Any]
@@ -72,7 +72,7 @@ public final class PBXProject: PBXObject {
                 projectDirPath: String = "",
                 projectReferences: [[String: String]] = [],
                 projectRoots: [String] = [],
-                targets: [String] = [],
+                targets: [PBXObjectReference] = [],
                 attributes: [String: Any] = [:]) {
         self.name = name
         self.buildConfigurationList = buildConfigurationList
@@ -111,6 +111,8 @@ public final class PBXProject: PBXObject {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        let referenceRepository = decoder.context.objectReferenceRepository
+        let objects = decoder.context.objects
         name = (try container.decodeIfPresent(.name)) ?? ""
         buildConfigurationList = try container.decode(.buildConfigurationList)
         compatibilityVersion = try container.decode(.compatibilityVersion)
@@ -129,7 +131,8 @@ public final class PBXProject: PBXObject {
         } else {
             projectRoots = []
         }
-        targets = (try container.decodeIfPresent(.targets)) ?? []
+        let targetsReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
+        targets = targetsReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
         attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
@@ -138,7 +141,7 @@ public final class PBXProject: PBXObject {
 // MARK: - PlistSerializable
 
 extension PBXProject: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
@@ -172,10 +175,10 @@ extension PBXProject: PlistSerializable {
         if let projectReferences = projectReferencesPlistValue(proj: proj) {
             dictionary["projectReferences"] = projectReferences
         }
-        dictionary["targets"] = PlistValue.array(targets
+        dictionary["targets"] = try PlistValue.array(targets
             .map { target in
-                let targetName = proj.objects.getTarget(reference: target)?.name
-                return .string(CommentedString(target, comment: targetName))
+                let referencedTarget: PBXReferencedObject<PBXTarget> = try target.materialize()
+                return .string(CommentedString(referencedTarget.reference, comment: referencedTarget.object.name))
         })
         dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(reference,
