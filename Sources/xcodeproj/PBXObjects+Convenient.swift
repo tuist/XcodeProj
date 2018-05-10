@@ -18,11 +18,6 @@ public extension PBXObjects {
     }
 
     @available(*, deprecated, message: "Will be deleted")
-    public func sourcesBuildPhase(target: PBXTarget) -> PBXSourcesBuildPhase? {
-        return PBXObjectsHelpers.sourcesBuildPhase(target: target, objects: self)
-    }
-
-    @available(*, deprecated, message: "Will be deleted")
     public func sourceFiles(target: PBXTarget) -> [PBXFileElement] {
         return PBXObjectsHelpers.sourceFiles(target: target, objects: self)
     }

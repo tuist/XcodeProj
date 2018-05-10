@@ -7,7 +7,7 @@ public final class PBXNativeTarget: PBXTarget {
 
     public init(name: String,
                 buildConfigurationList: String? = nil,
-                buildPhases: [String] = [],
+                buildPhases: [PBXObjectReference] = [],
                 buildRules: [String] = [],
                 dependencies: [String] = [],
                 productInstallPath: String? = nil,
@@ -37,8 +37,8 @@ public final class PBXNativeTarget: PBXTarget {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = super.plistValues(proj: proj, isa: isa, reference: reference)
+    override func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = try super.plistValues(proj: proj, isa: isa, reference: reference)
         guard case var PlistValue.dictionary(dict) = value else {
             fatalError("Expected super to give a dictionary")
         }
@@ -52,7 +52,7 @@ public final class PBXNativeTarget: PBXTarget {
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXNativeTarget: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        return try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
 }

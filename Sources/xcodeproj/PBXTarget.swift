@@ -6,7 +6,7 @@ public class PBXTarget: PBXContainerItem {
     public var buildConfigurationList: String?
 
     /// Target build phases.
-    public var buildPhases: [String]
+    public var buildPhases: [PBXObjectReference]
 
     /// Target build rules.
     public var buildRules: [String]
@@ -28,7 +28,7 @@ public class PBXTarget: PBXContainerItem {
 
     public init(name: String,
                 buildConfigurationList: String? = nil,
-                buildPhases: [String] = [],
+                buildPhases: [PBXObjectReference] = [],
                 buildRules: [String] = [],
                 dependencies: [String] = [],
                 productName: String? = nil,
@@ -60,9 +60,12 @@ public class PBXTarget: PBXContainerItem {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
+        let objects = decoder.context.objects
         name = try container.decode(.name)
         buildConfigurationList = try container.decodeIfPresent(.buildConfigurationList)
-        buildPhases = try container.decodeIfPresent(.buildPhases) ?? []
+        let buildPhasesReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
+        buildPhases = buildPhasesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         buildRules = try container.decodeIfPresent(.buildRules) ?? []
         dependencies = try container.decodeIfPresent(.dependencies) ?? []
         productName = try container.decodeIfPresent(.productName)
@@ -71,17 +74,17 @@ public class PBXTarget: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
         if let buildConfigurationList = buildConfigurationList {
             dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList, comment: buildConfigurationListComment))
         }
-        dictionary["buildPhases"] = .array(buildPhases
-            .map { buildPhase in
-                let comment = proj.objects.buildPhaseName(buildPhaseReference: buildPhase)
-                return .string(CommentedString(buildPhase, comment: comment))
+        dictionary["buildPhases"] = try .array(buildPhases
+            .map { (buildPhaseReference: PBXObjectReference) in
+                let buildPhase: PBXBuildPhase = try buildPhaseReference.object()
+                return .string(CommentedString(buildPhaseReference.value, comment: buildPhase.name()))
         })
 
         // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
@@ -106,5 +109,28 @@ public class PBXTarget: PBXContainerItem {
     }
 }
 
+// MARK: - PBXTarget (Convenient)
+
 public extension PBXTarget {
+    /// Returns the sources build phase.
+    ///
+    /// - Returns: sources build phase.
+    /// - Throws: an error if the build phase cannot be obtained.
+    public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
+        return try buildPhases
+            .compactMap({ try $0.object() as PBXSourcesBuildPhase })
+            .filter({ $0.type() == .sources })
+            .first
+    }
+
+    /// Returns the resources build phase.
+    ///
+    /// - Returns: sources build phase.
+    /// - Throws: an error if the build phase cannot be obtained.
+    public func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
+        return try buildPhases
+            .compactMap({ try $0.object() as PBXResourcesBuildPhase })
+            .filter({ $0.type() == .sources })
+            .first
+    }
 }

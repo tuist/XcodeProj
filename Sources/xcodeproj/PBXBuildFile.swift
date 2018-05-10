@@ -6,7 +6,7 @@ public final class PBXBuildFile: PBXObject {
     // MARK: - Attributes
 
     /// Element file reference.
-    public var fileRef: String?
+    public var fileRef: PBXObjectReference?
 
     /// Element settings
     public var settings: [String: Any]?
@@ -18,7 +18,7 @@ public final class PBXBuildFile: PBXObject {
     /// - Parameters:
     ///   - fileRef: build file reference.
     ///   - settings: build file settings.
-    public init(fileRef: String,
+    public init(fileRef: PBXObjectReference,
                 settings: [String: Any]? = nil) {
         self.fileRef = fileRef
         self.settings = settings

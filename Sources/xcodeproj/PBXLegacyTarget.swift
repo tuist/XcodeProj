@@ -20,7 +20,7 @@ public final class PBXLegacyTarget: PBXTarget {
                 passBuildSettingsInEnvironment: Bool = false,
                 buildWorkingDirectory: String? = nil,
                 buildConfigurationList: String? = nil,
-                buildPhases: [String] = [],
+                buildPhases: [PBXObjectReference] = [],
                 buildRules: [String] = [],
                 dependencies: [String] = [],
                 productName: String? = nil,
@@ -58,8 +58,8 @@ public final class PBXLegacyTarget: PBXTarget {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, isa _: String, reference: String) -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
+    override func plistValues(proj: PBXProj, isa _: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = try super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
         var dict: [CommentedString: PlistValue]!
         switch value {
         case let .dictionary(dictValue):
@@ -87,7 +87,7 @@ public final class PBXLegacyTarget: PBXTarget {
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXLegacyTarget: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        return try plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
     }
 }

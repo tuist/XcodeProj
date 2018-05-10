@@ -32,16 +32,6 @@ class PBXObjectsHelpers {
         return targets.filter { $0.name == name }
     }
 
-    /// Returns the target's sources build phase.
-    ///
-    /// - Parameters:
-    ///   - target: target.
-    ///   - objects: project objects.
-    /// - Returns: target's sources build phase, if found.
-    static func sourcesBuildPhase(target: PBXTarget, objects: PBXObjects) -> PBXSourcesBuildPhase? {
-        return objects.sourcesBuildPhases.first(where: { target.buildPhases.contains($0.key.value) })?.value
-    }
-
     /// Returns all files in target's sources build phase.
     ///
     /// - Parameters:
@@ -144,52 +134,6 @@ extension PBXObjects {
             return .headers
         } else if carbonResourcesBuildPhases.contains(where: { _, val in val.files.contains(buildFileReference) }) {
             return .carbonResources
-        }
-        return nil
-    }
-
-    /// Returns the build phase type from its reference.
-    ///
-    /// - Parameter reference: build phase reference.
-    /// - Returns: string with the build phase type.
-    func buildPhaseType(buildPhaseReference: String) -> BuildPhase? {
-        if sourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return .sources
-        } else if frameworksBuildPhases.contains(reference: buildPhaseReference) {
-            return .frameworks
-        } else if resourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return .resources
-        } else if copyFilesBuildPhases.contains(reference: buildPhaseReference) {
-            return .copyFiles
-        } else if shellScriptBuildPhases.contains(reference: buildPhaseReference) {
-            return .runScript
-        } else if headersBuildPhases.contains(reference: buildPhaseReference) {
-            return .headers
-        } else if carbonResourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return .carbonResources
-        }
-        return nil
-    }
-
-    /// Get the build phase name given its reference (mostly used for comments).
-    ///
-    /// - Parameter buildPhaseReference: build phase reference.
-    /// - Returns: the build phase name.
-    func buildPhaseName(buildPhaseReference: String) -> String? {
-        if sourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return "Sources"
-        } else if frameworksBuildPhases.contains(reference: buildPhaseReference) {
-            return "Frameworks"
-        } else if resourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return "Resources"
-        } else if let copyFilesBuildPhase = copyFilesBuildPhases.getReference(buildPhaseReference) {
-            return copyFilesBuildPhase.name ?? "CopyFiles"
-        } else if let shellScriptBuildPhase = shellScriptBuildPhases.getReference(buildPhaseReference) {
-            return shellScriptBuildPhase.name ?? "ShellScript"
-        } else if headersBuildPhases.contains(reference: buildPhaseReference) {
-            return "Headers"
-        } else if carbonResourcesBuildPhases.contains(reference: buildPhaseReference) {
-            return "Rez"
         }
         return nil
     }

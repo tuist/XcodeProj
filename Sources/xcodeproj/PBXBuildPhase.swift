@@ -9,7 +9,7 @@ public class PBXBuildPhase: PBXContainerItem {
     public var buildActionMask: UInt
 
     /// Element files.
-    public var files: [String]
+    public var files: [PBXObjectReference]
 
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: Bool
@@ -19,7 +19,7 @@ public class PBXBuildPhase: PBXContainerItem {
         fatalError("This property must be override")
     }
 
-    public init(files: [String] = [],
+    public init(files: [PBXObjectReference] = [],
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.files = files
@@ -56,5 +56,50 @@ public class PBXBuildPhase: PBXContainerItem {
         })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
+    }
+
+    /// Returns the build phase type.
+    ///
+    /// - Returns: build phase type.
+    public func type() -> BuildPhase? {
+        if self is PBXSourcesBuildPhase {
+            return .sources
+        } else if self is PBXFrameworksBuildPhase {
+            return .frameworks
+        } else if self is PBXResourcesBuildPhase {
+            return .resources
+        } else if self is PBXCopyFilesBuildPhase {
+            return .copyFiles
+        } else if self is PBXShellScriptBuildPhase {
+            return .runScript
+        } else if self is PBXHeadersBuildPhase {
+            return .headers
+        } else if self is PBXRezBuildPhase {
+            return .carbonResources
+        } else {
+            return nil
+        }
+    }
+
+    /// Build phase name.
+    ///
+    /// - Returns: build phase name.
+    func name() -> String? {
+        if self is PBXSourcesBuildPhase {
+            return "Sources"
+        } else if self is PBXFrameworksBuildPhase {
+            return "Frameworks"
+        } else if self is PBXResourcesBuildPhase {
+            return "Resources"
+        } else if let phase = self as? PBXCopyFilesBuildPhase {
+            return phase.name ?? "CopyFiles"
+        } else if let phase = self as? PBXShellScriptBuildPhase {
+            return phase.name ?? "ShellScript"
+        } else if self is PBXHeadersBuildPhase {
+            return "Headers"
+        } else if self is PBXRezBuildPhase {
+            return "Rez"
+        }
+        return nil
     }
 }

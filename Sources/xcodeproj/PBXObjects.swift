@@ -4,42 +4,42 @@ public class PBXObjects: Equatable {
 
     // MARK: - Properties
 
-    public var buildFiles: PBXObjectsCollection<PBXBuildFile> = [:]
-    public var legacyTargets: PBXObjectsCollection<PBXLegacyTarget> = [:]
-    public var aggregateTargets: PBXObjectsCollection<PBXAggregateTarget> = [:]
-    public var containerItemProxies: PBXObjectsCollection<PBXContainerItemProxy> = [:]
-    public var groups: PBXObjectsCollection<PBXGroup> = [:]
-    public var configurationLists: PBXObjectsCollection<XCConfigurationList> = [:]
-    public var versionGroups: PBXObjectsCollection<XCVersionGroup> = [:]
-    public var buildConfigurations: PBXObjectsCollection<XCBuildConfiguration> = [:]
-    public var variantGroups: PBXObjectsCollection<PBXVariantGroup> = [:]
-    public var targetDependencies: PBXObjectsCollection<PBXTargetDependency> = [:]
-    public var nativeTargets: PBXObjectsCollection<PBXNativeTarget> = [:]
-    public var fileReferences: PBXObjectsCollection<PBXFileReference> = [:]
-    public var projects: PBXObjectsCollection<PBXProject> = [:]
-    public var referenceProxies: PBXObjectsCollection<PBXReferenceProxy> = [:]
-    public var buildRules: PBXObjectsCollection<PBXBuildRule> = [:]
+    public var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
+    public var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
+    public var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
+    public var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
+    public var groups: [PBXObjectReference: PBXGroup] = [:]
+    public var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+    public var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
+    public var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
+    public var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
+    public var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
+    public var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
+    public var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
+    public var projects: [PBXObjectReference: PBXProject] = [:]
+    public var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+    public var buildRules: [PBXObjectReference: PBXBuildRule] = [:]
 
     // Build Phases
-    public var copyFilesBuildPhases: PBXObjectsCollection<PBXCopyFilesBuildPhase> = [:]
-    public var shellScriptBuildPhases: PBXObjectsCollection<PBXShellScriptBuildPhase> = [:]
-    public var resourcesBuildPhases: PBXObjectsCollection<PBXResourcesBuildPhase> = [:]
-    public var frameworksBuildPhases: PBXObjectsCollection<PBXFrameworksBuildPhase> = [:]
-    public var headersBuildPhases: PBXObjectsCollection<PBXHeadersBuildPhase> = [:]
-    public var sourcesBuildPhases: PBXObjectsCollection<PBXSourcesBuildPhase> = [:]
-    public var carbonResourcesBuildPhases: PBXObjectsCollection<PBXRezBuildPhase> = [:]
+    public var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
+    public var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
+    public var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
+    public var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
+    public var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
+    public var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
+    public var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
 
     // MARK: - Computed Properties
 
-    public var buildPhases: PBXObjectsCollection<PBXBuildPhase> {
+    public var buildPhases: [PBXObjectReference: PBXBuildPhase] {
         var phases: [PBXObjectReference: PBXBuildPhase] = [:]
-        phases.merge(copyFilesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(sourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(shellScriptBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(resourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(headersBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(carbonResourcesBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
-        phases.merge(frameworksBuildPhases as PBXObjectsCollection<PBXBuildPhase>, uniquingKeysWith: { first, _ in return first })
+        phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(shellScriptBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(resourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(headersBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(carbonResourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
         return phases
     }
 
