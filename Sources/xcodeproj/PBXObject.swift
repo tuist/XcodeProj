@@ -5,7 +5,7 @@ import Foundation
 public class PBXObject: Decodable, Equatable, AutoEquatable {
     /// A weak reference to the instance that contains all the project objects.
     /// This is necessary to provide convenient methods from PBXObject subclasses.
-    weak var objects: PBXProj.Objects?
+    weak var objects: PBXObjects?
 
     // MARK: - Init
 
@@ -123,7 +123,7 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         case let .unknownElement(element):
             return "The element \(element) is not supported."
         case .objectsReleased:
-            return "The PBXProj.Objects instance has been released before saving."
+            return "The PBXObjects instance has been released before saving."
         case let .objectNotFound(reference):
             return "PBXObject with reference \"\(reference)\" not found."
         }

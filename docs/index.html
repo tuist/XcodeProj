@@ -339,10 +339,10 @@
 <summary>Versions <2.0</summary>
 
 &ldquo;`swift
-guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == &quot;Sources&rdquo; || $0.value.path == &ldquo;Sources&rdquo;})?.value else { return }    
+guard var sourcesGroup = project.PBXObjects.groups.first(where: {$0.value.name == &quot;Sources&rdquo; || $0.value.path == &ldquo;Sources&rdquo;})?.value else { return }    
 let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: &ldquo;Home&rdquo;)
 sourcesGroup.children.append(homeGroup.reference)
-project.pbxproj.objects.addObject(homeGroup)
+project.PBXObjects.addObject(homeGroup)
 &ldquo;`
 
 </details>
@@ -359,7 +359,7 @@ project.pbxproj.objects.addObject(homeGroup)
 &rdquo;`swift
 let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: &ldquo;HomeViewController.swift&rdquo;, path: &ldquo;HomeViewController.swift&rdquo;)
 homeGroup.children.append(homeViewController.reference)
-project.pbxproj.objects.addObject(homeViewController)
+project.PBXObjects.addObject(homeViewController)
 &ldquo;`
 
 </details>
@@ -388,11 +388,11 @@ guard let sourcesBuildPhase = project.pbxproj
     .values
     .first(where: {$0.name == &ldquo;MyApp&rdquo;})
     .flatMap({  target -> PBXSourcesBuildPhase? in
-        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
+        return project.PBXObjects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
     }) else { return }
 // PBXBuildFile is a proxy model that allows specifying some build attributes to the files
 let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
-project.pbxproj.objects.addObject(buildFile)
+project.PBXObjects.addObject(buildFile)
 sourcesBuildPhase.files.append(buildFile.reference)
 &ldquo;`
 

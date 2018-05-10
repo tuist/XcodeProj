@@ -3,11 +3,11 @@ import Foundation
 import XCTest
 
 final class PBXProjObjectsHelpersSpec: XCTestCase {
-    var subject: PBXProj.Objects!
+    var subject: PBXObjects!
 
     override func setUp() {
         super.setUp()
-        subject = PBXProj.Objects(objects: [:])
+        subject = PBXObjects(objects: [:])
     }
 
     func test_targetsNamed_returnsTheCorrectValue() {

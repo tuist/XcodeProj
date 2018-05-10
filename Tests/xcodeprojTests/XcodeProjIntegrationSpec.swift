@@ -50,7 +50,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
             let rawProj: String = try (path.appending(component: "project.pbxproj")).read()
             let proj = try XcodeProj(path: path)
 
-            let output = proj.pbxproj.encode()
+            let output = try proj.pbxproj.encode()
 
             XCTAssertEqual(output, rawProj)
         }
@@ -64,7 +64,7 @@ final class XcodeProjIntegrationSpec: XCTestCase {
         let buildConfiguration = proj.pbxproj.objects.buildConfigurations.first!.value
         buildConfiguration.buildSettings["a_quoted"] = "a".quoted
 
-        let output = proj.pbxproj.encode()
+        let output = try proj.pbxproj.encode()
 
         XCTAssertEqual(output, rawProj)
     }

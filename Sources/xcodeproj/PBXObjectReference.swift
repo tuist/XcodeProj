@@ -1,6 +1,6 @@
 import Foundation
 
-/// Object used as a reference to PBXObjects from PBXProj.Objects.
+/// Object used as a reference to PBXObjects from PBXObjects.
 public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
@@ -10,19 +10,19 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     private(set) var value: String
 
     /// Weak reference to the objects instance that contains the project objects.
-    internal(set) weak var objects: PBXProj.Objects?
+    internal(set) weak var objects: PBXObjects?
 
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
-    init(_ reference: String, objects: PBXProj.Objects? = nil) {
+    init(_ reference: String, objects: PBXObjects? = nil) {
         value = reference
         temporary = false
         self.objects = objects
     }
 
     /// Initializes a temporary reference
-    init(objects: PBXProj.Objects? = nil) {
+    init(objects: PBXObjects? = nil) {
         value = String.random()
         temporary = true
         self.objects = objects
