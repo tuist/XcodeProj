@@ -8,11 +8,11 @@ public final class PBXNativeTarget: PBXTarget {
     public init(name: String,
                 buildConfigurationList: String? = nil,
                 buildPhases: [PBXObjectReference] = [],
-                buildRules: [String] = [],
-                dependencies: [String] = [],
+                buildRules: [PBXObjectReference] = [],
+                dependencies: [PBXObjectReference] = [],
                 productInstallPath: String? = nil,
                 productName: String? = nil,
-                productReference: String? = nil,
+                productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
         self.productInstallPath = productInstallPath
         super.init(name: name,

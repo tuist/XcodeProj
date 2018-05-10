@@ -105,7 +105,7 @@ final class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
 
-    private func write<T: PlistSerializable & Equatable>(section: String, proj: PBXProj, object: PBXObjectsCollection<T>) throws {
+    private func write<T: PlistSerializable & Equatable>(section: String, proj: PBXProj, object: [PBXObjectReference: T]) throws {
         if object.count == 0 { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")

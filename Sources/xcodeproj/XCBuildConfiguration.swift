@@ -6,7 +6,7 @@ public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
     /// The path to a xcconfig file
-    public var baseConfigurationReference: String?
+    public var baseConfigurationReference: PBXObjectReference?
 
     /// A map of build settings.
     public var buildSettings: BuildSettings
@@ -23,7 +23,7 @@ public final class XCBuildConfiguration: PBXObject {
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
     public init(name: String,
-                baseConfigurationReference: String? = nil,
+                baseConfigurationReference: PBXObjectReference? = nil,
                 buildSettings: BuildSettings = [:]) {
         self.baseConfigurationReference = baseConfigurationReference
         self.buildSettings = buildSettings
@@ -40,8 +40,14 @@ public final class XCBuildConfiguration: PBXObject {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        baseConfigurationReference = try container.decodeIfPresent(.baseConfigurationReference)
+        if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+            self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
+        } else {
+            baseConfigurationReference = nil
+        }
         buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
         name = try container.decode(.name)
         try super.init(from: decoder)
@@ -51,14 +57,14 @@ public final class XCBuildConfiguration: PBXObject {
 // MARK: - XCBuildConfiguration Extension (PlistSerializable)
 
 extension XCBuildConfiguration: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["buildSettings"] = buildSettings.plist()
         if let baseConfigurationReference = baseConfigurationReference {
-            let filename = proj.objects.fileName(fileReference: baseConfigurationReference)
-            dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference, comment: filename))
+            let fileElement: PBXFileElement = try baseConfigurationReference.object()
+            dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference.value, comment: fileElement.fileName()))
         }
         return (key: CommentedString(reference, comment: name), value: .dictionary(dictionary))
     }

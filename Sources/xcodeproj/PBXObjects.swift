@@ -120,4 +120,63 @@ public class PBXObjects: Equatable {
         }
         return objectReference
     }
+
+    /// It returns the object with the given reference.
+    ///
+    /// - Parameter reference: Xcode reference.
+    /// - Returns: object.
+    // swiftlint:disable function_body_length
+    public func getObject(_ reference: PBXObjectReference) -> PBXObject? {
+        // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
+        // with Swift 4, this compiler error:
+        //     Expression was too complex to be solved in reasonable time;
+        //     consider breaking up the expression into distinct sub-expressions
+        if let object = buildFiles[reference] {
+            return object
+        } else if let object = aggregateTargets[reference] {
+            return object
+        } else if let object = legacyTargets[reference] {
+            return object
+        } else if let object = containerItemProxies[reference] {
+            return object
+        } else if let object = groups[reference] {
+            return object
+        } else if let object = configurationLists[reference] {
+            return object
+        } else if let object = buildConfigurations[reference] {
+            return object
+        } else if let object = variantGroups[reference] {
+            return object
+        } else if let object = targetDependencies[reference] {
+            return object
+        } else if let object = nativeTargets[reference] {
+            return object
+        } else if let object = fileReferences[reference] {
+            return object
+        } else if let object = projects[reference] {
+            return object
+        } else if let object = versionGroups[reference] {
+            return object
+        } else if let object = referenceProxies[reference] {
+            return object
+        } else if let object = copyFilesBuildPhases[reference] {
+            return object
+        } else if let object = shellScriptBuildPhases[reference] {
+            return object
+        } else if let object = resourcesBuildPhases[reference] {
+            return object
+        } else if let object = frameworksBuildPhases[reference] {
+            return object
+        } else if let object = headersBuildPhases[reference] {
+            return object
+        } else if let object = sourcesBuildPhases[reference] {
+            return object
+        } else if let object = carbonResourcesBuildPhases[reference] {
+            return object
+        } else if let object = buildRules[reference] {
+            return object
+        } else {
+            return nil
+        }
+    }
 }

@@ -6,7 +6,7 @@ public final class XCConfigurationList: PBXObject {
     // MARK: - Attributes
 
     /// Element build configurations.
-    public var buildConfigurations: [String]
+    public var buildConfigurations: [PBXObjectReference]
 
     /// Element default configuration is visible.
     public var defaultConfigurationIsVisible: Bool
@@ -22,7 +22,7 @@ public final class XCConfigurationList: PBXObject {
     ///   - buildConfigurations: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(buildConfigurations: [String],
+    public init(buildConfigurations: [PBXObjectReference],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
         self.buildConfigurations = buildConfigurations
@@ -40,8 +40,11 @@ public final class XCConfigurationList: PBXObject {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        buildConfigurations = try container.decode(.buildConfigurations)
+        let buildConfigurationsReferences: [String] = try container.decode(.buildConfigurations)
+        buildConfigurations = buildConfigurationsReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
         defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)

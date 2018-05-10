@@ -69,7 +69,7 @@ public class PBXObjectReference: Hashable, Comparable {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
-        guard let object = objects.getReference(value) as? T else {
+        guard let object = objects.getObject(self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
         return object

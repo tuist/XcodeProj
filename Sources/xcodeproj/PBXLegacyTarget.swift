@@ -21,10 +21,10 @@ public final class PBXLegacyTarget: PBXTarget {
                 buildWorkingDirectory: String? = nil,
                 buildConfigurationList: String? = nil,
                 buildPhases: [PBXObjectReference] = [],
-                buildRules: [String] = [],
-                dependencies: [String] = [],
+                buildRules: [PBXObjectReference] = [],
+                dependencies: [PBXObjectReference] = [],
                 productName: String? = nil,
-                productReference: String? = nil,
+                productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
         self.buildToolPath = buildToolPath
         self.buildArgumentsString = buildArgumentsString

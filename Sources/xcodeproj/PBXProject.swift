@@ -62,13 +62,13 @@ public final class PBXProject: PBXObject {
     ///   - targets: project targets.
     ///   - attributes: project attributes.
     public init(name: String,
-                buildConfigurationList: String,
+                buildConfigurationList: PBXObjectReference,
                 compatibilityVersion: String,
-                mainGroup: String,
+                mainGroup: PBXObjectReference,
                 developmentRegion: String? = nil,
                 hasScannedForEncodings: Int = 0,
                 knownRegions: [String] = [],
-                productRefGroup: String? = nil,
+                productRefGroup: PBXObjectReference? = nil,
                 projectDirPath: String = "",
                 projectReferences: [[String: String]] = [],
                 projectRoots: [String] = [],
@@ -114,14 +114,20 @@ public final class PBXProject: PBXObject {
         let referenceRepository = decoder.context.objectReferenceRepository
         let objects = decoder.context.objects
         name = (try container.decodeIfPresent(.name)) ?? ""
-        buildConfigurationList = try container.decode(.buildConfigurationList)
+        let buildConfigurationListReference: String = try container.decode(.buildConfigurationList)
+        buildConfigurationList = referenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
         compatibilityVersion = try container.decode(.compatibilityVersion)
         developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
         hasScannedForEncodings = hasScannedForEncodingsString.flatMap({ Int($0) }) ?? 0
         knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
-        mainGroup = try container.decode(.mainGroup)
-        productRefGroup = try container.decodeIfPresent(.productRefGroup)
+        let mainGroupReference: String = try container.decode(.mainGroup)
+        mainGroup = referenceRepository.getOrCreate(reference: mainGroupReference, objects: objects)
+        if let productRefGroupReference: String = try container.decodeIfPresent(.productRefGroup) {
+            productRefGroup = referenceRepository.getOrCreate(reference: productRefGroupReference, objects: objects)
+        } else {
+            productRefGroup = nil
+        }
         projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
         projectReferences = (try container.decodeIfPresent(.projectReferences)) ?? []
         if let projectRoots: [String] = try container.decodeIfPresent(.projectRoots) {
