@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXContainerItemProxySpec: XCTestCase {
@@ -24,7 +24,7 @@ final class PBXContainerItemProxySpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "containerPortal")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXContainerItemProxy.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

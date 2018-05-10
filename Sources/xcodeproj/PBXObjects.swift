@@ -87,14 +87,17 @@ public class PBXObjects: Equatable {
     ///   - reference: object reference.
     @discardableResult
     public func addObject(_ object: PBXObject, reference: String? = nil) -> PBXObjectReference {
-        if object.reference != nil {}
         let objectReference: PBXObjectReference!
-        if let reference = reference {
-            objectReference = PBXObjectReference(reference, objects: self)
+        if object.reference == nil {
+            if let reference = reference {
+                objectReference = PBXObjectReference(reference, objects: self)
+            } else {
+                objectReference = PBXObjectReference(objects: self)
+            }
+            object.reference = objectReference
         } else {
-            objectReference = PBXObjectReference(objects: self)
+            objectReference = object.reference!
         }
-        object.reference = objectReference
 
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup

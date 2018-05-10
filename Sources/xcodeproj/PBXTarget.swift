@@ -105,3 +105,6 @@ public class PBXTarget: PBXContainerItem {
                 value: .dictionary(dictionary))
     }
 }
+
+public extension PBXTarget {
+}

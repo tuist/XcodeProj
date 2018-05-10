@@ -3,24 +3,14 @@ import Foundation
 
 /// PBXObject Helpers.
 class PBXObjectsHelpers {
-    /// It returns the target with reference.
-    ///
-    /// - Parameters:
-    ///   - reference: target reference.
-    ///   - objects: project objects.
-    /// - Returns: target.
+    @available(*, deprecated, message: "Will be deleted")
     static func getTarget(reference: String, objects: PBXObjects) -> PBXTarget? {
         return objects.aggregateTargets.getReference(reference) ??
             objects.nativeTargets.getReference(reference) ??
             objects.legacyTargets.getReference(reference)
     }
 
-    /// It returns the file element with the given reference.
-    ///
-    /// - Parameters:
-    ///     - reference: file reference.
-    ///     - objects: project objects.
-    /// - Returns: file element.
+    @available(*, deprecated, message: "Will be deleted")
     static func getFileElement(reference: String, objects: PBXObjects) -> PBXFileElement? {
         return objects.fileReferences.getReference(reference) ??
             objects.groups.getReference(reference) ??
@@ -63,6 +53,19 @@ class PBXObjectsHelpers {
             .compactMap { objects.buildFiles.getReference($0)?.fileRef }
             .compactMap { fileRef in getFileElement(reference: fileRef, objects: objects) }
             ?? []
+    }
+
+    /// Returns group with the given name contained in the given parent group and its reference.
+    ///
+    /// - Parameter groupName: group name.
+    /// - Parameter inGroup: parent group.
+    ///   - objects: project objects.
+    /// - Returns: group with the given name contained in the given parent group and its reference.
+    static func group(named groupName: String, inGroup: PBXGroup, objects: PBXObjects) -> PBXGroup? {
+        let children = inGroup.children
+        return objects.groups.first {
+            children.contains($0.key.value) && ($0.value.name == groupName || $0.value.path == groupName)
+        }?.value
     }
 }
 

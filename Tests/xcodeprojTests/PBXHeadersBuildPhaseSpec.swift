@@ -26,7 +26,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildActionMask")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -37,7 +37,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -48,7 +48,7 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

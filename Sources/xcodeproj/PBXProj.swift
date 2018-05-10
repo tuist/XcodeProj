@@ -57,8 +57,13 @@ public final class PBXProj: Decodable {
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
-        let objects: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        self.objects = try PBXObjects(objects: objects.mapValuesWithKeys({ try PBXObject.parse(reference: $0, dictionary: $1) }))
+        let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
+        let objects = decoder.context.objects
+        try objectsDictionaries.forEach { reference, dictionary in
+            let object = try PBXObject.parse(reference: reference, dictionary: dictionary, userInfo: decoder.userInfo)
+            objects.addObject(object)
+        }
+        self.objects = objects
     }
 }
 

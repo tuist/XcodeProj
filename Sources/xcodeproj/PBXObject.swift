@@ -5,7 +5,7 @@ import Foundation
 public class PBXObject: Decodable, Equatable, AutoEquatable {
     /// A weak reference to the instance that contains all the project objects.
     /// This is necessary to provide convenient methods from PBXObject subclasses.
-    weak var reference: PBXObjectReference?
+    public weak var reference: PBXObjectReference?
 
     // MARK: - Init
 
@@ -17,7 +17,13 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         case reference
     }
 
-    public required init(from _: Decoder) throws {}
+    public required init(from decoder: Decoder) throws {
+        let referenceRepository = decoder.context.objectReferenceRepository
+        let objects = decoder.context.objects
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let reference: String = try container.decode(.reference)
+        self.reference = referenceRepository.getOrCreate(reference: reference, objects: objects)
+    }
 
     public static var isa: String {
         return String(describing: self)
@@ -33,9 +39,9 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
     }
 
     // swiftlint:disable function_body_length
-    public static func parse(reference: String,
-                             dictionary: [String: Any]) throws -> PBXObject {
-        let decoder = JSONDecoder()
+    public static func parse(reference: String, dictionary: [String: Any], userInfo: [CodingUserInfoKey: Any]) throws -> PBXObject {
+        let decoder = XcodeprojJSONDecoder()
+        decoder.userInfo = userInfo
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])

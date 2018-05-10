@@ -7,7 +7,7 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     private(set) var temporary: Bool
 
     /// String reference.
-    private(set) var value: String
+    public private(set) var value: String
 
     /// Weak reference to the objects instance that contains the project objects.
     internal(set) weak var objects: PBXObjects?
@@ -15,20 +15,20 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
-    public init(_ reference: String, objects: PBXObjects) {
+    init(_ reference: String, objects: PBXObjects) {
         value = reference
         temporary = false
         self.objects = objects
     }
 
     /// Initializes a temporary reference
-    public init(objects: PBXObjects) {
+    init(objects: PBXObjects) {
         value = String.random()
         temporary = true
         self.objects = objects
     }
 
-    // TODO: Delete
+    @available(*, deprecated, message: "Will be deleted")
     init(_ reference: String) {
         value = reference
         temporary = false

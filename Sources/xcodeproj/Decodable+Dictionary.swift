@@ -8,7 +8,7 @@ extension Decodable {
     /// - Parameter jsonDictionary: json dictionary.
     /// - Throws: throws an error if the initialization fails.
     init(jsonDictionary: [String: Any]) throws {
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: [])
         self = try decoder.decode(Self.self, from: data)
     }

@@ -1,9 +1,8 @@
 import Foundation
 
-/// Contains a PBXObject as well as it's reference
+@available(*, deprecated)
 public class PBXReferencedObject<T: PBXObject>: Equatable {
     /// Reference.
-    // TODO: It should be PBXObjectReference
     public let reference: String
 
     /// Object.
@@ -32,8 +31,11 @@ public class PBXReferencedObject<T: PBXObject>: Equatable {
     }
 }
 
+// MARK: - Dictionary Extension (PBXObjectReference)
+
 extension Dictionary where Key == PBXObjectReference, Value: PBXObject {
-    public var objectReferences: [PBXReferencedObject<Value>] {
+    /// Returns an array of referenced objects.
+    public var referencedObjects: [PBXReferencedObject<Value>] {
         return map({ PBXReferencedObject(reference: $0.key.value, object: $0.value) })
     }
 }

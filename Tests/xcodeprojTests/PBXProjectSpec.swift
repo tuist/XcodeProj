@@ -54,7 +54,7 @@ final class PBXProjectSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildConfigurationList")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -65,7 +65,7 @@ final class PBXProjectSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "compatibilityVersion")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -76,7 +76,7 @@ final class PBXProjectSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "mainGroup")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXProject.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXFrameworksBuildPhaseSpec: XCTestCase {
@@ -24,7 +24,7 @@ final class PBXFrameworksBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

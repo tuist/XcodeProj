@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
@@ -67,7 +67,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "dstPath")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -78,7 +78,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "buildActionMask")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -89,7 +89,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "dstSubfolderSpec")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -100,7 +100,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
@@ -111,7 +111,7 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "runOnlyForDeploymentPostprocessing")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

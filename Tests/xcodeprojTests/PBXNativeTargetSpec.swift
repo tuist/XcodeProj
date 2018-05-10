@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXNativeTargetSpec: XCTestCase {
@@ -38,7 +38,7 @@ final class PBXNativeTargetSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXNativeTarget.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")

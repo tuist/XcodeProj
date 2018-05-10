@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXAggregateTargetSpec: XCTestCase {
@@ -36,7 +36,7 @@ final class PBXAggregateTargetSpec: XCTestCase {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let decoder = JSONDecoder()
+        let decoder = XcodeprojJSONDecoder()
         do {
             _ = try decoder.decode(PBXAggregateTarget.self, from: data)
             XCTAssertTrue(false, "It should throw an error but it didn't")
