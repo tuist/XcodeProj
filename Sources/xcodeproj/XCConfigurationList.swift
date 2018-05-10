@@ -51,28 +51,46 @@ public final class XCConfigurationList: PBXObject {
     }
 }
 
+// MARK: - XCConfigurationList Utils
+
+extension XCConfigurationList {
+    /// Returns the object with the given configuration list (project or target)
+    ///
+    /// - Parameter reference: configuration list reference.
+    /// - Returns: target or project with the given configuration list.
+    func objectWithConfigurationList() throws -> PBXObject? {
+        let projectObjects = try objects()
+        return projectObjects.projects.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.aggregateTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.legacyTargets.first(where: { $0.value.buildConfigurationList == reference })?.value
+    }
+}
+
 // MARK: - XCConfigurationList Extension (PlistSerializable)
 
 extension XCConfigurationList: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
-        dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { .string(CommentedString($0, comment: proj.objects.configName(configReference: $0)))
+        dictionary["buildConfigurations"] = try .array(buildConfigurations
+            .map { configReference in
+                let config: XCBuildConfiguration = try configReference.object()
+                return .string(CommentedString(configReference.value, comment: config.name))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
         if let defaultConfigurationName = defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }
-        return (key: CommentedString(reference, comment: plistComment(proj: proj, reference: reference)),
+        return (key: CommentedString(reference, comment: try plistComment()),
                 value: .dictionary(dictionary))
     }
 
-    private func plistComment(proj: PBXProj, reference: String) -> String? {
-        let objectReference = proj.objects.objectWithConfigurationList(reference: reference)
-        if let project = objectReference?.object as? PBXProject {
+    private func plistComment() throws -> String? {
+        let object = try objectWithConfigurationList()
+        if let project = object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
-        } else if let target = objectReference?.object as? PBXTarget {
+        } else if let target = object as? PBXTarget {
             return "Build configuration list for \(type(of: target).isa) \"\(target.name)\""
         }
         return nil

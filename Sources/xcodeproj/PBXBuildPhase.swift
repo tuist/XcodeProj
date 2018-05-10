@@ -16,7 +16,7 @@ public class PBXBuildPhase: PBXContainerItem {
 
     /// The build phase type of the build phase
     public var buildPhase: BuildPhase {
-        fatalError("This property must be override")
+        fatalError("This property must be overriden")
     }
 
     public init(files: [PBXObjectReference] = [],

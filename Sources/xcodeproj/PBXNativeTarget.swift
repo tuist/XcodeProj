@@ -6,7 +6,7 @@ public final class PBXNativeTarget: PBXTarget {
     public var productInstallPath: String?
 
     public init(name: String,
-                buildConfigurationList: String? = nil,
+                buildConfigurationList: PBXObjectReference? = nil,
                 buildPhases: [PBXObjectReference] = [],
                 buildRules: [PBXObjectReference] = [],
                 dependencies: [PBXObjectReference] = [],

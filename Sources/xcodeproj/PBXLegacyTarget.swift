@@ -19,7 +19,7 @@ public final class PBXLegacyTarget: PBXTarget {
                 buildArgumentsString: String? = nil,
                 passBuildSettingsInEnvironment: Bool = false,
                 buildWorkingDirectory: String? = nil,
-                buildConfigurationList: String? = nil,
+                buildConfigurationList: PBXObjectReference? = nil,
                 buildPhases: [PBXObjectReference] = [],
                 buildRules: [PBXObjectReference] = [],
                 dependencies: [PBXObjectReference] = [],
