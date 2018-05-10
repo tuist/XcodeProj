@@ -8,6 +8,9 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, ExpressibleB
 
     /// String reference.
     private(set) var value: String
+    
+    /// Weak reference to the objects instance that contains the project objects.
+    weak internal(set) var objects: PBXProj.Objects?
 
     /// Initializes a non-temporary reference.
     ///
