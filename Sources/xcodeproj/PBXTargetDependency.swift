@@ -63,11 +63,11 @@ extension PBXTargetDependency: PlistSerializable {
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let target: PBXReferencedObject<PBXTarget> = try target?.materialize() {
-            dictionary["target"] = .string(CommentedString(target.reference, comment: target.object.name))
+        if let targetReference = target, let targetObject: PBXTarget = try target?.object() {
+            dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject.name))
         }
-        if let targetProxy: PBXReferencedObject<PBXTarget> = try targetProxy?.materialize() {
-            dictionary["targetProxy"] = .string(CommentedString(targetProxy.reference, comment: "PBXContainerItemProxy"))
+        if let targetProxyReference = targetProxy {
+            dictionary["targetProxy"] = .string(CommentedString(targetProxyReference.value, comment: "PBXContainerItemProxy"))
         }
         return (key: CommentedString(reference,
                                      comment: "PBXTargetDependency"),

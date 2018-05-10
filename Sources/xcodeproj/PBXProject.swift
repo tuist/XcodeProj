@@ -176,9 +176,9 @@ extension PBXProject: PlistSerializable {
             dictionary["projectReferences"] = projectReferences
         }
         dictionary["targets"] = try PlistValue.array(targets
-            .map { target in
-                let referencedTarget: PBXReferencedObject<PBXTarget> = try target.materialize()
-                return .string(CommentedString(referencedTarget.reference, comment: referencedTarget.object.name))
+            .map { targetReference in
+                let target: PBXTarget = try targetReference.object()
+                return .string(CommentedString(targetReference.value, comment: target.name))
         })
         dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(reference,

@@ -28,7 +28,9 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
         self.objects = objects
     }
 
-    @available(*, deprecated, message: "Will be deleted")
+    /// Initializes the reference without objects.
+    ///
+    /// - Parameter reference: reference.
     init(_ reference: String) {
         value = reference
         temporary = false
@@ -67,13 +69,13 @@ public class PBXObjectReference: Hashable, CustomStringConvertible, Comparable {
     ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    public func materialize<T>() throws -> PBXReferencedObject<T> {
+    public func object<T>() throws -> T {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
         guard let object = objects.getReference(value) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
-        return PBXReferencedObject(reference: value, object: object)
+        return object
     }
 }
