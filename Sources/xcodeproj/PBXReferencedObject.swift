@@ -1,7 +1,7 @@
 import Foundation
 
 /// Contains a PBXObject as well as it's reference
-public class ReferencedObject<T: PBXObject>: Equatable {
+public class PBXReferencedObject<T: PBXObject>: Equatable {
     /// Reference.
     public let reference: String
 
@@ -24,15 +24,15 @@ public class ReferencedObject<T: PBXObject>: Equatable {
     ///   - lhs: first instance to be compared.
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are the same.
-    public static func == (lhs: ReferencedObject,
-                           rhs: ReferencedObject) -> Bool {
+    public static func == (lhs: PBXReferencedObject,
+                           rhs: PBXReferencedObject) -> Bool {
         return lhs.reference == rhs.reference &&
             lhs.object == rhs.object
     }
 }
 
 extension Dictionary where Key == PBXObjectReference, Value: PBXObject {
-    public var objectReferences: [ReferencedObject<Value>] {
-        return map({ ReferencedObject(reference: $0.key.value, object: $0.value) })
+    public var objectReferences: [PBXReferencedObject<Value>] {
+        return map({ PBXReferencedObject(reference: $0.key.value, object: $0.value) })
     }
 }
