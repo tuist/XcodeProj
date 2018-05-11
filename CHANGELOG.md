@@ -13,6 +13,7 @@
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
 - Xcode constants https://github.com/xcbuddy/xcodeproj/pull/6#issuecomment-387565036 by @pepibumur.
 - Convenient API from objects https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
+- `BuildSettingsProvider` https://github.com/xcbuddy/xcodeproj/pull/7 by @pepibumur.
 
 ### Removed
 - Deprecated elements https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
