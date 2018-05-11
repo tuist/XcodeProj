@@ -210,7 +210,7 @@ extension PBXProject: PlistSerializable {
 
             return [
                 CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroupReference.value, comment: groupName)),
-                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef.value, comment: fileRefName))
+                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef.value, comment: fileRefName)),
             ]
         })
     }

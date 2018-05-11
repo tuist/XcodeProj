@@ -124,7 +124,7 @@ end
 
 desc "Runs sourcery"
 task :sourcery do
-  sh "sourcery --config sourcery.yml'"
+  sh "sourcery --config sourcery.yml"
 end
 
 task :docs do

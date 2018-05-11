@@ -59,7 +59,7 @@ public final class XCScheme {
                                     "BlueprintIdentifier": blueprintIdentifier,
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
-                                    "ReferencedContainer": referencedContainer
+                                    "ReferencedContainer": referencedContainer,
             ])
         }
     }
@@ -105,7 +105,7 @@ public final class XCScheme {
                                 value: nil,
                                 attributes: [
                                     "identifier": identifier,
-                                    "referenceType": referenceType
+                                    "referenceType": referenceType,
             ])
         }
     }
@@ -249,7 +249,7 @@ public final class XCScheme {
                                        value: nil,
                                        attributes: [
                                            "title": title,
-                                           "scriptText": scriptText
+                                           "scriptText": scriptText,
             ])
             element.addChild(content)
             if let environmentBuildable = environmentBuildable {
@@ -375,7 +375,7 @@ public final class XCScheme {
                                        value: nil,
                                        attributes: [
                                            "parallelizeBuildables": parallelizeBuild.xmlString,
-                                           "buildImplicitDependencies": buildImplicitDependencies.xmlString
+                                           "buildImplicitDependencies": buildImplicitDependencies.xmlString,
             ])
             super.writeXML(parent: element)
             let entries = element.addChild(name: "BuildActionEntries")
@@ -510,7 +510,7 @@ public final class XCScheme {
                                            "ignoresPersistentStateOnLaunch": ignoresPersistentStateOnLaunch.xmlString,
                                            "debugDocumentVersioning": debugDocumentVersioning.xmlString,
                                            "debugServiceExtension": debugServiceExtension,
-                                           "allowLocationSimulation": allowLocationSimulation.xmlString
+                                           "allowLocationSimulation": allowLocationSimulation.xmlString,
             ])
             super.writeXML(parent: element)
             if let buildableProductRunnable = buildableProductRunnable {
@@ -625,7 +625,7 @@ public final class XCScheme {
                                            "shouldUseLaunchSchemeArgsEnv": shouldUseLaunchSchemeArgsEnv.xmlString,
                                            "savedToolIdentifier": savedToolIdentifier,
                                            "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
-                                           "debugDocumentVersioning": debugDocumentVersioning.xmlString
+                                           "debugDocumentVersioning": debugDocumentVersioning.xmlString,
             ])
             super.writeXML(parent: element)
             if ignoresPersistentStateOnLaunch {
