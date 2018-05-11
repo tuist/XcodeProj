@@ -30,7 +30,10 @@ public extension PBXFileElement {
     /// - Throws: an error if the path cannot be obtained.
     private func baseVariantGroupPath() throws -> String? {
         guard let variantGroup: PBXVariantGroup = try self.reference.object() else { return nil }
-        guard let baseReference = try variantGroup.children.compactMap({ try $0.object() as PBXFileElement }).first(where: { $0.name == "Base" }) else { return nil }
+        guard let baseReference = try variantGroup
+            .children
+            .compactMap({ try $0.object() as PBXFileElement })
+            .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
     }
 }

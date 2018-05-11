@@ -15,14 +15,14 @@ let attributesOrder: [String: [String]] = [
         "buildForRunning",
         "buildForProfiling",
         "buildForArchiving",
-        "buildForAnalyzing",
+        "buildForAnalyzing"
     ],
     "BuildableReference": [
         "BuildableIdentifier",
         "BlueprintIdentifier",
         "BuildableName",
         "BlueprintName",
-        "ReferencedContainer",
+        "ReferencedContainer"
     ],
     "TestAction": [
         "buildConfiguration",
@@ -31,7 +31,7 @@ let attributesOrder: [String: [String]] = [
         "language",
         "region",
         "codeCoverageEnabled",
-        "shouldUseLaunchSchemeArgsEnv",
+        "shouldUseLaunchSchemeArgsEnv"
     ],
     "LaunchAction": [
         "buildConfiguration",
@@ -44,7 +44,7 @@ let attributesOrder: [String: [String]] = [
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
         "debugServiceExtension",
-        "allowLocationSimulation",
+        "allowLocationSimulation"
     ],
     "ProfileAction": [
         "buildConfiguration",
@@ -53,17 +53,17 @@ let attributesOrder: [String: [String]] = [
         "useCustomWorkingDirectory",
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
-        "enableTestabilityWhenProfilingTests",
+        "enableTestabilityWhenProfilingTests"
     ],
     "ActionContent": [
         "title",
-        "scriptText",
+        "scriptText"
     ],
     "EnvironmentVariable": [
         "key",
         "value",
-        "isEnabled",
-    ],
+        "isEnabled"
+    ]
 ]
 
 extension AEXMLElement {

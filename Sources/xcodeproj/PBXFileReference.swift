@@ -170,7 +170,7 @@ private let fileTypeHash: [String: String] = [
     "xcodeproj": "wrapper.pb-project",
     "xctest": "wrapper.cfbundle",
     "xib": "file.xib",
-    "zip": "archive.zip",
+    "zip": "archive.zip"
 ]
 
 // MARK: - PBXFileReference Extension (Extras)

@@ -65,6 +65,7 @@ class XcodeprojPropertyListDecoder: PropertyListDecoder {
 extension Decoder {
     /// Returns the decoding context.
     var context: ProjectDecodingContext {
+        // swiftlint:disable:next force_cast
         return userInfo[.context] as! ProjectDecodingContext
     }
 }

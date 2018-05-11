@@ -91,7 +91,7 @@ public struct Xcode {
             "xcodeproj": "wrapper.pb-project",
             "xctest": "wrapper.cfbundle",
             "xib": "file.xib",
-            "zip": "archive.zip",
+            "zip": "archive.zip"
         ][`extension`]
     }
 }
