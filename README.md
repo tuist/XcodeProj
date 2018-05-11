@@ -49,16 +49,6 @@ let package = Package(
 
 ```
 
-#### Using [Marathon](https://github.com/JohnSundell/Marathon)
-
-Edit your `Marathonfile` and specify the dependency in there:
-
-```bash
-https://github.com/xcbuddy/xcodeproj.git
-```
-
-> Note: xcodeproj is only available for macOS and iOS projects.
-
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
