@@ -3,18 +3,6 @@ import Foundation
 import XCTest
 
 final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
-    var subject: PBXCopyFilesBuildPhase!
-
-    override func setUp() {
-        super.setUp()
-        subject = PBXCopyFilesBuildPhase(dstPath: "dest",
-                                         dstSubfolderSpec: .absolutePath,
-                                         name: "name",
-                                         buildActionMask: 4,
-                                         files: ["33"],
-                                         runOnlyForDeploymentPostprocessing: false)
-    }
-
     func test_subFolder_absolutePath_hasTheCorrectValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.absolutePath.rawValue, 0)
     }
@@ -53,14 +41,6 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
 
     func test_subFolder_plugins_hasTheCorrectValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.plugins.rawValue, 13)
-    }
-
-    func test_init_initializesTheBuildPhaseWiththeRightAttributes() {
-        XCTAssertEqual(subject.dstPath, "dest")
-        XCTAssertEqual(subject.dstSubfolderSpec, .absolutePath)
-        XCTAssertEqual(subject.buildActionMask, 4)
-        XCTAssertEqual(subject.files, ["33"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_init_fails_whenDstPathIsMissing() {
@@ -120,16 +100,6 @@ final class PBXCopyFilesBuildPhaseSpec: XCTestCase {
 
     func test_isa_returnsTheRightValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.isa, "PBXCopyFilesBuildPhase")
-    }
-
-    func test_equals_returnsTheRightValue() {
-        let another = PBXCopyFilesBuildPhase(dstPath: "dest",
-                                             dstSubfolderSpec: .absolutePath,
-                                             name: "name",
-                                             buildActionMask: 4,
-                                             files: ["33"],
-                                             runOnlyForDeploymentPostprocessing: false)
-        XCTAssertEqual(subject, another)
     }
 
     func testDictionary() -> [String: Any] {

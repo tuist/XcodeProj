@@ -8,15 +8,8 @@ final class XCBuildConfigurationSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = XCBuildConfiguration(name: "Debug",
-                                       baseConfigurationReference: "base",
+                                       baseConfigurationReference: PBXObjectReference("base"),
                                        buildSettings: ["name": "value"])
-    }
-
-    func test_init_initializesTheEntityProperly() {
-        let subject = XCBuildConfiguration(name: "name", baseConfigurationReference: "build_reference", buildSettings: [:])
-        XCTAssertEqual(subject.name, "name")
-        XCTAssertEqual(subject.baseConfigurationReference, "build_reference")
-        XCTAssertEqual(subject.buildSettings as! [String: String], [:])
     }
 
     func test_initFails_ifNameIsMissing() {
@@ -32,12 +25,6 @@ final class XCBuildConfigurationSpec: XCTestCase {
 
     func test_isa_hasTheCorrectValue() {
         XCTAssertEqual(XCBuildConfiguration.isa, "XCBuildConfiguration")
-    }
-
-    func test_equals_returnsTheCorrectValue() {
-        let one = XCBuildConfiguration(name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
-        let another = XCBuildConfiguration(name: "name", baseConfigurationReference: "config_reference", buildSettings: ["a": "b"])
-        XCTAssertEqual(one, another)
     }
 
     private func testDictionary() -> [String: Any] {

@@ -3,23 +3,8 @@ import Foundation
 import XCTest
 
 final class PBXHeadersBuildPhaseSpec: XCTestCase {
-    var subject: PBXHeadersBuildPhase!
-
-    override func setUp() {
-        super.setUp()
-        subject = PBXHeadersBuildPhase(files: ["333"],
-                                       buildActionMask: 0,
-                                       runOnlyForDeploymentPostprocessing: false)
-    }
-
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXHeadersBuildPhase.isa, "PBXHeadersBuildPhase")
-    }
-
-    func test_init_initializesTheBuildPhaseWithTheRightAttributes() {
-        XCTAssertEqual(subject.buildActionMask, 0)
-        XCTAssertEqual(subject.files, ["333"])
-        XCTAssertEqual(subject.runOnlyForDeploymentPostprocessing, false)
     }
 
     func test_init_failsWhenTheBuildActionMaskIsMissing() {
@@ -53,13 +38,6 @@ final class PBXHeadersBuildPhaseSpec: XCTestCase {
             _ = try decoder.decode(PBXHeadersBuildPhase.self, from: data)
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
-    }
-
-    func test_equals_returnsTheCorrectValue() {
-        let another = PBXHeadersBuildPhase(files: ["333"],
-                                           buildActionMask: 0,
-                                           runOnlyForDeploymentPostprocessing: false)
-        XCTAssertEqual(subject, another)
     }
 
     func test_isHeader_returnsTheCorrectValue() {

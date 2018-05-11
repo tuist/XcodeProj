@@ -8,15 +8,15 @@ final class PBXProjectSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXProject(name: "App",
-                             buildConfigurationList: "config",
+                             buildConfigurationList: PBXObjectReference("config"),
                              compatibilityVersion: "version",
-                             mainGroup: "main",
+                             mainGroup: PBXObjectReference("main"),
                              developmentRegion: "region",
                              hasScannedForEncodings: 1,
                              knownRegions: ["region"],
-                             productRefGroup: "group",
+                             productRefGroup: PBXObjectReference("group"),
                              projectDirPath: "path",
-                             projectReferences: [["ref": "ref"]],
+                             projectReferences: [["ref": PBXObjectReference("ref")]],
                              projectRoots: ["root"],
                              targets: [PBXObjectReference("target")])
     }

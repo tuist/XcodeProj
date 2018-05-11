@@ -51,7 +51,8 @@ public class PBXBuildPhase: PBXContainerItem {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         dictionary["files"] = try .array(files.map { fileReference in
-            let name = (try fileReference.object() as PBXFileElement).fileName()
+            let buildFile: PBXBuildFile = try fileReference.object()
+            let name = try buildFile.fileName()
             let type = self.name()
             let fileName = name ?? "(null)"
             let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
