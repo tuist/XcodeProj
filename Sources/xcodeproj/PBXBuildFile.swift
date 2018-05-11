@@ -77,7 +77,11 @@ extension PBXBuildFile {
         }
         return nil
     }
+}
 
+// MARK: - Utils
+
+extension PBXBuildFile {
     /// Returns the name of the build phase the build file belongs to.
     ///
     /// - Returns: build phase name.
@@ -94,7 +98,7 @@ extension PBXBuildFile {
     }
 }
 
-// MARK: - PBXBuildFile Extension (PlistSerializable)
+// MARK: - PlistSerializable
 
 extension PBXBuildFile: PlistSerializable {
     var multiline: Bool { return false }

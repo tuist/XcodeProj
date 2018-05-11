@@ -18,6 +18,7 @@ struct CommentedString {
         self.comment = comment
     }
 
+    /// Set of characters that are invalid.
     private static var invalidCharacters: CharacterSet = {
         var invalidSet = CharacterSet(charactersIn: "_$")
         invalidSet.insert(charactersIn: UnicodeScalar(".") ... UnicodeScalar("9"))
@@ -33,6 +34,7 @@ struct CommentedString {
         "//",
     ]
 
+    /// Returns a valid string for Xcode projects.
     var validString: String {
         switch string {
         case "": return "".quoted
@@ -69,7 +71,7 @@ struct CommentedString {
     }
 }
 
-// MARK: - CommentedString Extension (Hashable)
+// MARK: - Hashable
 
 extension CommentedString: Hashable {
     var hashValue: Int { return string.hashValue }
@@ -78,7 +80,7 @@ extension CommentedString: Hashable {
     }
 }
 
-// MARK: - CommentedString Extension (ExpressibleByStringLiteral)
+// MARK: - ExpressibleByStringLiteral
 
 extension CommentedString: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {

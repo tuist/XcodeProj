@@ -60,7 +60,11 @@ public class PBXBuildPhase: PBXContainerItem {
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
     }
+}
 
+// MARK: - Utils
+
+extension PBXBuildPhase {
     /// Returns the build phase type.
     ///
     /// - Returns: build phase type.

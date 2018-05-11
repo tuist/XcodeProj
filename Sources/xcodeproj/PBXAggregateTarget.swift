@@ -1,8 +1,7 @@
 import Foundation
 
 /// This is the element for a build target that aggregates several others.
-public final class PBXAggregateTarget: PBXTarget {
-}
+public final class PBXAggregateTarget: PBXTarget {}
 
 // MARK: - PBXAggregateTarget Extension (PlistSerializable)
 
