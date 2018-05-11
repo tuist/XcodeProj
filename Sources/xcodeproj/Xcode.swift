@@ -39,6 +39,12 @@ public struct Xcode {
     public struct Default {
         /// The default object version for Xcodeproj.
         public static let objectVersion: UInt = 46
+
+        /// Default compatibility version.
+        public static let compatibilityVersion: String = "Xcode 3.2"
+
+        /// Default development region.
+        public static let developmentRegion: String = "English"
     }
 
     /// Inherited keywords used in build settings.
