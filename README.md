@@ -17,25 +17,25 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 **This project is a fork and evolution from [xcproj](https://github.com/xcodeswift/xcproj)**
 
-## Continuous Integration ✅
+## Continuous Integration
 
 - **Master:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.com/xcbuddy/xcodeproj)
 - **Integration:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=integration)](https://travis-ci.com/xcbuddy/xcodeproj)
 
-## Motivation 💅
+## Motivation
 Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:
 
 - Add new `Build phases`.
 - Update the project `Build Settings`.
 - Create new `Schemes`.
 
-## Contribute 👨‍👩‍👧
+## Contribute
 
 1. Git clone the repository `git@github.com:xcbuddy/xcodeproj.git`.
 2. Generate xcodeproj with  `swift package generate-xcodeproj`.
 3. Open `xcodeproj.xcodeproj`.
 
-## Setup 🦋
+## Setup
 
 #### Using Swift Package Manager
 
@@ -45,7 +45,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/xcbuddy/xcodeproj.git", .upToNextMajor(from: "4.2.0")),
+        .package(url: "https://github.com/xcbuddy/xcodeproj.git", .upToNextMajor(from: "5.0.0")),
         ],
     targets: [
         .target(
