@@ -118,30 +118,3 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         return objects
     }
 }
-
-/// PBXObjectError
-///
-/// - missingIsa: the isa attribute is missing.
-/// - unknownElement: the object type is not supported.
-public enum PBXObjectError: Error, CustomStringConvertible {
-    case missingIsa
-    case unknownElement(String)
-    case objectsReleased
-    case objectNotFound(String)
-    case orphaned(type: String, reference: String)
-
-    public var description: String {
-        switch self {
-        case .missingIsa:
-            return "Isa property is missing."
-        case let .unknownElement(element):
-            return "The element \(element) is not supported."
-        case .objectsReleased:
-            return "The PBXObjects instance has been released before saving."
-        case let .objectNotFound(reference):
-            return "PBXObject with reference \"\(reference)\" not found."
-        case let .orphaned(type, reference):
-            return "Trying to use object \(type) with reference '\(reference)' before being added to any project"
-        }
-    }
-}

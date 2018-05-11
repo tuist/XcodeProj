@@ -78,7 +78,7 @@ public final class PBXLegacyTarget: PBXTarget {
                     PlistValue.string(CommentedString(buildWorkingDirectory))
             }
         default:
-            fatalError("Expected super to give a dictionary")
+            throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
         }
         return (key: key, value: .dictionary(dict))
     }

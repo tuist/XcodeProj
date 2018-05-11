@@ -69,20 +69,3 @@ extension XCWorkspace: Equatable {
         return rhs.data == rhs.data
     }
 }
-
-/// XCWorkspace Errors
-///
-/// - notFound: the project cannot be found.
-public enum XCWorkspaceError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    case xcworkspaceDataNotFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return "The project cannot be found at \(path.asString)"
-        case let .xcworkspaceDataNotFound(path):
-            return "Workspace doesn't contain a .xcworkspacedata file at \(path.asString)"
-        }
-    }
-}

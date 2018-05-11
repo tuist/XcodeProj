@@ -53,22 +53,6 @@ extension XCWorkspaceData: Writable {
     }
 }
 
-// MARK: - XCWorkspaceData Errors
-
-/// XCWorkspaceData Errors.
-///
-/// - notFound: returned when the .xcworkspacedata cannot be found.
-public enum XCWorkspaceDataError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return "Workspace not found at \(path.asString)"
-        }
-    }
-}
-
 // MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding
 
 fileprivate extension XCWorkspaceDataElement {

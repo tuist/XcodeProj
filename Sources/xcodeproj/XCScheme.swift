@@ -929,23 +929,3 @@ extension XCScheme: Writable {
         try path.write(document.xmlXcodeFormat)
     }
 }
-
-// MARK: - XCScheme Errors.
-
-/// XCScheme Errors.
-///
-/// - notFound: returned when the .xcscheme cannot be found.
-/// - missing: returned when there's a property missing in the .xcscheme.
-public enum XCSchemeError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    case missing(property: String)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return ".xcscheme couldn't be found at path \(path.asString)"
-        case let .missing(property):
-            return "Property \(property) missing"
-        }
-    }
-}

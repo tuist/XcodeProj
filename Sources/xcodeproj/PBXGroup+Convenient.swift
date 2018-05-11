@@ -1,3 +1,4 @@
+import Basic
 import Foundation
 
 /// Options passed when adding new groups.
@@ -44,61 +45,54 @@ public extension PBXGroup {
         })
     }
 
-//    /// Adds file at the give path to the project and given group or returns existing file and its reference.
-//    ///
-//    /// - Parameters:
-//    ///   - filePath: path to the file.
-//    ///   - toGroup: group to add file to.
-//    ///   - sourceTree: file sourceTree, default is `.group`
-//    ///   - sourceRoot: path to project's source root.
-//    /// - Returns: new or existing file and its reference.
-//    public func addFile(
-//        at filePath: AbsolutePath,
-//        toGroup: PBXGroup,
-//        sourceTree: PBXSourceTree = .group,
-//        sourceRoot: AbsolutePath) throws -> PBXReferencedObject<PBXFileReference> {
-//        guard filePath.exists else {
-//            throw XCodeProjEditingError.fileNotExists(path: filePath)
-//        }
-//
-//        guard let groupReference = groups.first(where: { $0.value == toGroup })?.key else {
-//            throw XCodeProjEditingError.groupNotFound(group: toGroup)
-//        }
-//        let groupPath = fullPath(fileElement: toGroup, reference: groupReference.value, sourceRoot: sourceRoot)
-//
-//        if let existingFileReference = fileReferences.referencedObjects.first(where: {
-//            filePath == fullPath(fileElement: $0.object, reference: $0.reference, sourceRoot: sourceRoot)
-//        }) {
-//            if !toGroup.children.contains(existingFileReference.reference) {
-//                existingFileReference.object.path = groupPath.flatMap { filePath.relative(to: $0) }?.asString
-//                toGroup.children.append(existingFileReference.reference)
-//            }
-//            return existingFileReference
-//        }
-//
-//        let path: String?
-//        switch sourceTree {
-//        case .group:
-//            path = groupPath.map({ filePath.relative(to: $0) })?.asString
-//        case .sourceRoot:
-//            path = filePath.relative(to: sourceRoot).asString
-//        case .absolute:
-//            path = filePath.asString
-//        default:
-//            path = nil
-//        }
-//
-//        let fileReference = PBXFileReference(
-//            sourceTree: sourceTree,
-//            name: filePath.lastComponent,
-//            explicitFileType: PBXFileReference.fileType(path: filePath),
-//            lastKnownFileType: PBXFileReference.fileType(path: filePath),
-//            path: path
-//        )
-//        let reference = addObject(fileReference)
-//        if !toGroup.children.contains(reference.value) {
-//            toGroup.children.append(reference.value)
-//        }
-//        return PBXReferencedObject(reference: reference.value, object: fileReference)
-//    }
+    /// Adds file at the give path to the project or returns existing file and its reference.
+    ///
+    /// - Parameters:
+    ///   - filePath: path to the file.
+    ///   - sourceTree: file sourceTree, default is `.group`
+    ///   - sourceRoot: path to project's source root.
+    /// - Returns: new or existing file and its reference.
+    public func addFile(
+        at filePath: AbsolutePath,
+        sourceTree: PBXSourceTree = .group,
+        sourceRoot: AbsolutePath) throws -> PBXFileReference {
+        let projectObjects = try objects()
+        guard filePath.exists else {
+            throw XcodeprojEditingError.unexistingFile(filePath)
+        }
+        let groupPath = try fullPath(sourceRoot: sourceRoot)
+
+        if let existingFileReference = try projectObjects.fileReferences.first(where: {
+            try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+        }) {
+            if !children.contains(existingFileReference.key) {
+                existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.asString
+                children.append(existingFileReference.key)
+            }
+        }
+
+        let path: String?
+        switch sourceTree {
+        case .group:
+            path = groupPath.map({ filePath.relative(to: $0) })?.asString
+        case .sourceRoot:
+            path = filePath.relative(to: sourceRoot).asString
+        case .absolute:
+            path = filePath.asString
+        default:
+            path = nil
+        }
+        let fileReference = PBXFileReference(
+            sourceTree: sourceTree,
+            name: filePath.lastComponent,
+            explicitFileType: PBXFileReference.fileType(path: filePath),
+            lastKnownFileType: PBXFileReference.fileType(path: filePath),
+            path: path
+        )
+        let reference = projectObjects.addObject(fileReference)
+        if !children.contains(reference) {
+            children.append(reference)
+        }
+        return fileReference
+    }
 }

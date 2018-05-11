@@ -40,7 +40,7 @@ public final class PBXNativeTarget: PBXTarget {
     override func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         let (key, value) = try super.plistValues(proj: proj, isa: isa, reference: reference)
         guard case var PlistValue.dictionary(dict) = value else {
-            fatalError("Expected super to give a dictionary")
+            throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
         }
         if let productInstallPath = productInstallPath {
             dict["productInstallPath"] = .string(CommentedString(productInstallPath))

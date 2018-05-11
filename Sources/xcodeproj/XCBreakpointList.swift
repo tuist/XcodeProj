@@ -347,23 +347,3 @@ extension XCBreakpointList: Writable {
         try path.write(document.xmlXcodeFormat)
     }
 }
-
-// MARK: - XCBreakpointList Errors.
-
-/// XCBreakpointList Errors.
-///
-/// - notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.
-/// - missing: returned when there's a property missing in the Breakpoints_v2.xcbkptlist.
-public enum XCBreakpointListError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    case missing(property: String)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.asString)"
-        case let .missing(property):
-            return "Property \(property) missing"
-        }
-    }
-}

@@ -189,18 +189,3 @@ extension Array where Element == XCConfig {
         return reversed
     }
 }
-
-// MARK: - XCConfigError
-
-/// XCConfig errors.
-///
-/// - notFound: returned when the configuration file couldn't be found.
-public enum XCConfigError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return ".xcconfig file not found at \(path.asString)"
-        }
-    }
-}

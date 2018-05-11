@@ -35,17 +35,3 @@ public final class XCSharedData {
         breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
     }
 }
-
-/// XCSharedData errors.
-///
-/// - notFound: the share data hasn't been found.
-public enum XCSharedDataError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return "xcshareddata not found at path \(path.asString)"
-        }
-    }
-}

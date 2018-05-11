@@ -197,24 +197,3 @@ extension XcodeProj: Equatable {
         // TODO: make SharedData equatable: lhs.sharedData == rhs.sharedData
     }
 }
-
-/// XcodeProj Errors
-///
-/// - notFound: the project cannot be found.
-/// - pbxProjNotFound: the .pbxproj file couldn't be found inside the project folder.
-public enum XCodeProjError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    case pbxprojNotFound(path: AbsolutePath)
-    case xcworkspaceNotFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return "The project cannot be found at \(path.asString)"
-        case let .pbxprojNotFound(path):
-            return "The project doesn't contain a .pbxproj file at path: \(path.asString)"
-        case let .xcworkspaceNotFound(path):
-            return "The project doesn't contain a .xcworkspace at path: \(path.asString)"
-        }
-    }
-}
