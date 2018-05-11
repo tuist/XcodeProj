@@ -20,13 +20,13 @@ public struct Xcode {
         }
 
         /// Last known archive version for Xcodeproj.
-        public static let archiveVersion = "1"
+        public static let archiveVersion: UInt = 1
 
         /// Last known Swift version (stable).
         public static let swiftVersion = "4.1"
 
         /// Last known object version for Xcodeproj.
-        public static let objectVersion = "50"
+        public static let objectVersion: UInt = 50
 
         /// Last known upgrade check.
         public static let upgradeCheck = "0930"
