@@ -7,10 +7,16 @@
 - Drop Carthage and CocoaPods support https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
 - Use Basic AbsolutePath, RelativePath and Process extensions https://github.com/xcbuddy/xcodeproj/pull/1 by @pepibumur.
 - Use `PBXObjectReference` instead of `String` to reference objects from `PBXProj.Objects` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
+- Remove `ObjectReference` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
 
 ### Added
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
 - Xcode constants https://github.com/xcbuddy/xcodeproj/pull/6#issuecomment-387565036 by @pepibumur.
+- Convenient API from objects https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
+
+### Removed
+- Deprecated elements https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
+- Tests that test the conformance of `Equatable` by @pepibumur.
 
 ### Fixed
 - XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
