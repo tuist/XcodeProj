@@ -38,7 +38,7 @@ public struct Xcode {
     /// Default values.
     public struct Default {
         /// The default object version for Xcodeproj.
-        static let objectVersion = "46"
+        static let objectVersion: UInt = 46
     }
 
     /// Inherited keywords used in build settings.
