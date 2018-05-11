@@ -1,26 +1,25 @@
 import Foundation
 
 /// This is the element to decorate a target item.
-final public class PBXContainerItemProxy: PBXObject {
-
+public final class PBXContainerItemProxy: PBXObject {
     public enum ProxyType: UInt, Decodable {
         case nativeTarget = 1
         case reference = 2
         case other
     }
-    
+
     /// The object is a reference to a PBXProject element.
     public var containerPortal: String
-    
+
     /// Element proxy type.
     public var proxyType: ProxyType?
-    
+
     /// Element remote global ID reference.
     public var remoteGlobalIDString: String?
-    
+
     /// Element remote info.
     public var remoteInfo: String?
-    
+
     /// Initializes the container item proxy with its attributes.
     ///
     /// - Parameters:
@@ -38,32 +37,30 @@ final public class PBXContainerItemProxy: PBXObject {
         self.proxyType = proxyType
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case containerPortal
         case proxyType
         case remoteGlobalIDString
         case remoteInfo
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.containerPortal = try container.decode(.containerPortal)
-        self.proxyType = try container.decodeIntIfPresent(.proxyType).flatMap(ProxyType.init)
-        self.remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString)
-        self.remoteInfo = try container.decodeIfPresent(.remoteInfo)
+        containerPortal = try container.decode(.containerPortal)
+        proxyType = try container.decodeIntIfPresent(.proxyType).flatMap(ProxyType.init)
+        remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString)
+        remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }
-    
 }
 
 // MARK: - PBXContainerItemProxy Extension (PlistSerializable)
 
 extension PBXContainerItemProxy: PlistSerializable {
-    
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXContainerItemProxy.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortal, comment: "Project object"))
@@ -77,8 +74,7 @@ extension PBXContainerItemProxy: PlistSerializable {
             dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
         }
         return (key: CommentedString(reference,
-                                                 comment: "PBXContainerItemProxy"),
+                                     comment: "PBXContainerItemProxy"),
                 value: .dictionary(dictionary))
     }
-
 }

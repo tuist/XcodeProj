@@ -1,19 +1,18 @@
 import Foundation
 
 /// This is the element for a build target that produces a binary content (application or library).
-final public class PBXNativeTarget: PBXTarget {
-
+public final class PBXNativeTarget: PBXTarget {
     // Target product install path.
     public var productInstallPath: String?
 
     public init(name: String,
-                buildConfigurationList: String? = nil,
-                buildPhases: [String] = [],
-                buildRules: [String] = [],
-                dependencies: [String] = [],
+                buildConfigurationList: PBXObjectReference? = nil,
+                buildPhases: [PBXObjectReference] = [],
+                buildRules: [PBXObjectReference] = [],
+                dependencies: [PBXObjectReference] = [],
                 productInstallPath: String? = nil,
                 productName: String? = nil,
-                productReference: String? = nil,
+                productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
         self.productInstallPath = productInstallPath
         super.init(name: name,
@@ -34,29 +33,26 @@ final public class PBXNativeTarget: PBXTarget {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.productInstallPath = try container.decodeIfPresent(.productInstallPath)
+        productInstallPath = try container.decodeIfPresent(.productInstallPath)
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = super.plistValues(proj: proj, isa: isa, reference: reference)
-        guard case PlistValue.dictionary(var dict) = value else {
-            fatalError("Expected super to give a dictionary")
+    override func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = try super.plistValues(proj: proj, isa: isa, reference: reference)
+        guard case var PlistValue.dictionary(dict) = value else {
+            throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
         }
         if let productInstallPath = productInstallPath {
             dict["productInstallPath"] = .string(CommentedString(productInstallPath))
         }
         return (key: key, value: .dictionary(dict))
     }
-
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXNativeTarget: PlistSerializable {
-    
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        return plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        return try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
-    
 }

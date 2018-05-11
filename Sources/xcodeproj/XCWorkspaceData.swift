@@ -1,9 +1,8 @@
-import Foundation
-import Basic
 import AEXML
+import Basic
+import Foundation
 
-final public class XCWorkspaceData {
-
+public final class XCWorkspaceData {
     public var children: [XCWorkspaceDataElement]
 
     public init(children: [XCWorkspaceDataElement]) {
@@ -12,14 +11,12 @@ final public class XCWorkspaceData {
 }
 
 extension XCWorkspaceData: Equatable {
-
-    public static func == (lhs: XCWorkspaceData, rhs: XCWorkspaceData) -> Bool {
+    public static func == (_: XCWorkspaceData, rhs: XCWorkspaceData) -> Bool {
         return rhs.children == rhs.children
     }
 }
 
 extension XCWorkspaceData: Writable {
-
     /// Initializes the workspace with the path where the workspace is.
     /// The initializer will try to find an .xcworkspacedata inside the workspace.
     /// If the .xcworkspacedata cannot be found, the init will fail.
@@ -56,28 +53,9 @@ extension XCWorkspaceData: Writable {
     }
 }
 
-// MARK: - XCWorkspaceData Errors
-
-/// XCWorkspaceData Errors.
-///
-/// - notFound: returned when the .xcworkspacedata cannot be found.
-public enum XCWorkspaceDataError: Error, CustomStringConvertible {
-
-    case notFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case .notFound(let path):
-            return "Workspace not found at \(path.asString)"
-        }
-    }
-
-}
-
 // MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding
 
 fileprivate extension XCWorkspaceDataElement {
-
     init(element: AEXMLElement) throws {
         switch element.name {
         case "FileRef":
@@ -91,9 +69,9 @@ fileprivate extension XCWorkspaceDataElement {
 
     fileprivate func xmlElement() -> AEXMLElement {
         switch self {
-        case .file(let fileRef):
+        case let .file(fileRef):
             return fileRef.xmlElement()
-        case .group(let group):
+        case let .group(group):
             return group.xmlElement()
         }
     }

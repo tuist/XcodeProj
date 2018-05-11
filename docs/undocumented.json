@@ -283,21 +283,21 @@
     {
       "file": "/Users/pedropinera/code/xcbuddy/xcodeproj/Sources/xcodeproj/PBXProj.swift",
       "line": null,
-      "symbol": "PBXProj.Objects",
+      "symbol": "PBXObjects",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/code/xcbuddy/xcodeproj/Sources/xcodeproj/PBXProj.swift",
       "line": 6,
-      "symbol": "PBXProj.Objects",
+      "symbol": "PBXObjects",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/code/xcbuddy/xcodeproj/Sources/xcodeproj/PBXProj.swift",
       "line": 232,
-      "symbol": "PBXProj.objects",
+      "symbol": "PBXObjects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -458,7 +458,7 @@
     {
       "file": "/Users/pedropinera/code/xcbuddy/xcodeproj/Sources/xcodeproj/Referenceable.swift",
       "line": 5,
-      "symbol": "ReferenceableCollection",
+      "symbol": "PBXObjectsCollection",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },

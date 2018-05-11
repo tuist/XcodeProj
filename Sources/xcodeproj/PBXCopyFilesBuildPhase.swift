@@ -1,8 +1,7 @@
 import Foundation
 
 /// This is the element for the copy file build phase.
-final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
-
+public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public enum SubFolder: UInt, Decodable {
         case absolutePath = 0
         case productsDirectory = 16
@@ -24,7 +23,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
 
     /// Element destination subfolder spec
     public var dstSubfolderSpec: SubFolder?
-    
+
     /// Copy files build phase name
     public var name: String?
 
@@ -46,7 +45,7 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
                 dstSubfolderSpec: SubFolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
-                files: [String] = [],
+                files: [PBXObjectReference] = [],
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
@@ -54,33 +53,31 @@ final public class PBXCopyFilesBuildPhase: PBXBuildPhase {
         super.init(files: files,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing:
-            runOnlyForDeploymentPostprocessing)
+                   runOnlyForDeploymentPostprocessing)
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case dstPath
         case dstSubfolderSpec
         case name
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.dstPath = try container.decodeIfPresent(.dstPath)
-        self.dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolder.init)
-        self.name = try container.decodeIfPresent(.name)
+        dstPath = try container.decodeIfPresent(.dstPath)
+        dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolder.init)
+        name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
-
 }
 
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
 
 extension PBXCopyFilesBuildPhase: PlistSerializable {
-
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
         if let dstPath = dstPath {
             dictionary["dstPath"] = .string(CommentedString(dstPath))
@@ -91,7 +88,6 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         if let dstSubfolderSpec = dstSubfolderSpec {
             dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
         }
-        return (key: CommentedString(reference, comment: self.name ?? "CopyFiles"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: name ?? "CopyFiles"), value: .dictionary(dictionary))
     }
-
 }

@@ -1,14 +1,12 @@
-import Foundation
 import AEXML
+import Foundation
 
 extension AEXMLDocument {
-
     var xmlXcodeFormat: String {
         var xml = "<?xml version=\"\(options.documentHeader.version)\" encoding=\"\(options.documentHeader.encoding.uppercased())\"?>\n"
         xml += root._xmlXcodeFormat + "\n"
         return xml
     }
-
 }
 
 let attributesOrder: [String: [String]] = [
@@ -69,7 +67,6 @@ let attributesOrder: [String: [String]] = [
 ]
 
 extension AEXMLElement {
-
     fileprivate var _xmlXcodeFormat: String {
         var xml = String()
 
@@ -142,5 +139,4 @@ extension AEXMLElement {
 
         return indent
     }
-
 }

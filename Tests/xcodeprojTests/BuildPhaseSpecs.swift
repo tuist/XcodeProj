@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 class BuildPhaseSpecs: XCTestCase {
-
     func test_sources_hasTheCorrectRawValue() {
         XCTAssertEqual(BuildPhase.sources.rawValue, "Sources")
     }
@@ -59,5 +58,4 @@ class BuildPhaseSpecs: XCTestCase {
     func test_carbonResources_hasTheCorrectBuildPhase() {
         XCTAssertEqual(BuildPhase.carbonResources, PBXRezBuildPhase().buildPhase)
     }
-
 }

@@ -2,8 +2,8 @@ import Foundation
 @testable import xcodeproj
 
 extension PBXProj {
-    func encode() -> String {
+    func encode() throws -> String {
         let encoder = PBXProjEncoder()
-        return encoder.encode(proj: self)
+        return try encoder.encode(proj: self)
     }
 }

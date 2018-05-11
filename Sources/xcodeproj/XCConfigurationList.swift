@@ -1,28 +1,28 @@
 import Foundation
 
 /// This is the element for listing build configurations.
-final public class XCConfigurationList: PBXObject {
-    
+public final class XCConfigurationList: PBXObject {
+
     // MARK: - Attributes
-    
+
     /// Element build configurations.
-    public var buildConfigurations: [String]
-    
+    public var buildConfigurations: [PBXObjectReference]
+
     /// Element default configuration is visible.
     public var defaultConfigurationIsVisible: Bool
-    
+
     /// Element default configuration name
     public var defaultConfigurationName: String?
-    
+
     // MARK: - Init
-    
+
     /// Initializes the element with its properties.
     ///
     /// - Parameters:
     ///   - buildConfigurations: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(buildConfigurations: [String],
+    public init(buildConfigurations: [PBXObjectReference],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
         self.buildConfigurations = buildConfigurations
@@ -32,49 +32,67 @@ final public class XCConfigurationList: PBXObject {
     }
 
     // MARK: - Decodable
-        
+
     fileprivate enum CodingKeys: String, CodingKey {
         case buildConfigurations
         case defaultConfigurationName
         case defaultConfigurationIsVisible
     }
-    
+
     public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.buildConfigurations = try container.decode(.buildConfigurations)
-        self.defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
-        self.defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
+        let buildConfigurationsReferences: [String] = try container.decode(.buildConfigurations)
+        buildConfigurations = buildConfigurationsReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
+        defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)
     }
-    
+}
+
+// MARK: - XCConfigurationList Utils
+
+extension XCConfigurationList {
+    /// Returns the object with the given configuration list (project or target)
+    ///
+    /// - Parameter reference: configuration list reference.
+    /// - Returns: target or project with the given configuration list.
+    func objectWithConfigurationList() throws -> PBXObject? {
+        let projectObjects = try objects()
+        return projectObjects.projects.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.aggregateTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
+            projectObjects.legacyTargets.first(where: { $0.value.buildConfigurationList == reference })?.value
+    }
 }
 
 // MARK: - XCConfigurationList Extension (PlistSerializable)
 
 extension XCConfigurationList: PlistSerializable {
-    
-    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
-        dictionary["buildConfigurations"] = .array(buildConfigurations
-            .map { .string(CommentedString($0, comment: proj.objects.configName(configReference: $0)))
+        dictionary["buildConfigurations"] = try .array(buildConfigurations
+            .map { configReference in
+                let config: XCBuildConfiguration = try configReference.object()
+                return .string(CommentedString(configReference.value, comment: config.name))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
         if let defaultConfigurationName = defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }
-        return (key: CommentedString(reference, comment: plistComment(proj: proj, reference: reference)),
+        return (key: CommentedString(reference, comment: try plistComment()),
                 value: .dictionary(dictionary))
     }
-    
-    private func plistComment(proj: PBXProj, reference: String) -> String? {
-        let objectReference = proj.objects.objectWithConfigurationList(reference: reference)
-        if let project = objectReference?.object as? PBXProject {
+
+    private func plistComment() throws -> String? {
+        let object = try objectWithConfigurationList()
+        if let project = object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
-        } else if let target = objectReference?.object as? PBXTarget {
+        } else if let target = object as? PBXTarget {
             return "Build configuration list for \(type(of: target).isa) \"\(target.name)\""
         }
         return nil
     }
-
 }

@@ -1,10 +1,9 @@
-import Foundation
 import Basic
-import XCTest
+import Foundation
 import xcodeproj
+import XCTest
 
 class DictionaryExtrasSpec: XCTestCase {
-
     var fixtures: AbsolutePath!
 
     override func setUp() {
@@ -21,4 +20,3 @@ class DictionaryExtrasSpec: XCTestCase {
         XCTAssertNotNil(loadPlist(path: iosProject.asString))
     }
 }
-

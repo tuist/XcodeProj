@@ -1,11 +1,9 @@
-import Foundation
-import XCTest
 import Basic
-
+import Foundation
 @testable import xcodeproj
+import XCTest
 
 final class OSSProjectsTests: XCTestCase {
-
     var tempDirectory: AbsolutePath!
 
     override func setUp() {
@@ -24,11 +22,10 @@ final class OSSProjectsTests: XCTestCase {
         try [
             (URL(string: "https://github.com/rnystrom/GitHawk")!, "Freetime.xcodeproj"),
             (URL(string: "https://github.com/insidegui/WWDC")!, "WWDC.xcodeproj"),
-            (URL(string: "https://github.com/artsy/Emergence")!, "Emergence.xcodeproj")
-        ].forEach { (project) in
+            (URL(string: "https://github.com/artsy/Emergence")!, "Emergence.xcodeproj"),
+        ].forEach { project in
             try attemptOpen(gitURL: project.0, projectPath: project.1)
         }
-
     }
 
     fileprivate func attemptOpen(gitURL: URL,
@@ -37,7 +34,7 @@ final class OSSProjectsTests: XCTestCase {
         let clonePath = tempDirectory.appending(RelativePath(name))
         print("> Cloning \(gitURL) to run the integration test")
         try Process.checkNonZeroExit(args: "git", "clone", "--depth=1", gitURL.absoluteString, clonePath.asString)
-        let hash = try Process.popen(args:  "cd", clonePath.asString, "&&", "git", "rev-parse", "HEAD").utf8Output()
+        let hash = try Process.popen(args: "cd", clonePath.asString, "&&", "git", "rev-parse", "HEAD").utf8Output()
         print("> Running tests on commit: \(hash)")
         let projectFullPath = clonePath.appending(RelativePath(projectPath))
         let project = try XcodeProj(path: projectFullPath)

@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXBuildRuleSpec: XCTestCase {
-
     var subject: PBXBuildRule!
 
     override func setUp() {
@@ -13,7 +12,7 @@ final class PBXBuildRuleSpec: XCTestCase {
                                isEditable: true,
                                filePatterns: "pattern",
                                name: "rule",
-                               outputFiles:["a", "b"],
+                               outputFiles: ["a", "b"],
                                outputFilesCompilerFlags: ["-1", "-2"],
                                script: "script")
     }
@@ -39,7 +38,7 @@ final class PBXBuildRuleSpec: XCTestCase {
                                    isEditable: true,
                                    filePatterns: "pattern",
                                    name: "rule",
-                                   outputFiles:["a", "b"],
+                                   outputFiles: ["a", "b"],
                                    outputFilesCompilerFlags: ["-1", "-2"],
                                    script: "script")
         XCTAssertEqual(subject, another)

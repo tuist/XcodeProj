@@ -1,16 +1,15 @@
 import Foundation
 
 public enum XCWorkspaceDataElementLocationType {
-
     public enum Error: Swift.Error {
         case missingSchema
     }
 
-    case absolute(String)   // "Absolute path"
-    case container(String)  // "Relative to container"
-    case developer(String)  // "Relative to Developer Directory"
-    case group(String)      // "Relative to group"
-    case `self`(String)     // Single project workspace in xcodeproj directory
+    case absolute(String) // "Absolute path"
+    case container(String) // "Relative to container"
+    case developer(String) // "Relative to Developer Directory"
+    case group(String) // "Relative to group"
+    case `self`(String) // Single project workspace in xcodeproj directory
     case other(String, String)
 
     public var schema: String {
@@ -71,14 +70,12 @@ public enum XCWorkspaceDataElementLocationType {
 }
 
 extension XCWorkspaceDataElementLocationType: CustomStringConvertible {
-
     public var description: String {
         return "\(schema):\(path)"
     }
 }
 
 extension XCWorkspaceDataElementLocationType: Equatable {
-
     public static func == (lhs: XCWorkspaceDataElementLocationType, rhs: XCWorkspaceDataElementLocationType) -> Bool {
         switch (lhs, rhs) {
         case let (.absolute(lhs), .absolute(rhs)):

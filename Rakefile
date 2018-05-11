@@ -44,6 +44,10 @@ def test_ruby
   sh "bundle exec rspec"
 end
 
+def format
+  sh "swiftformat ."
+end
+
 def current_version
   last_tag = `git describe --tags $(git rev-list --tags --max-count=1)`
   Semantic::Version.new last_tag
@@ -125,4 +129,8 @@ end
 
 task :docs do
   generate_docs
+end
+
+task :format do
+  format
 end

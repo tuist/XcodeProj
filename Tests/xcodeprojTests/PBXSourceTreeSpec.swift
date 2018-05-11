@@ -1,10 +1,8 @@
 import Foundation
+@testable import xcodeproj
 import XCTest
 
-@testable import xcodeproj
-
 final class PBXSourceTreeSpec: XCTestCase {
-
     func test_none_hasTheCorrectValue() {
         XCTAssertEqual(String(describing: PBXSourceTree.none), "")
     }
@@ -28,7 +26,7 @@ final class PBXSourceTreeSpec: XCTestCase {
     func test_sdkRoot_hasTheCorrectValue() {
         XCTAssertEqual(String(describing: PBXSourceTree.sdkRoot), "SDKROOT")
     }
-    
+
     func test_developerDir_hasTheCorrectValue() {
         XCTAssertEqual(String(describing: PBXSourceTree.developerDir), "DEVELOPER_DIR")
     }

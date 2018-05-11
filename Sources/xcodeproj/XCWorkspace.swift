@@ -1,9 +1,8 @@
-import Foundation
 import Basic
+import Foundation
 
 /// Model that represents a Xcode workspace.
-final public class XCWorkspace {
-
+public final class XCWorkspace {
     /// Workspace data
     public var data: XCWorkspaceData
 
@@ -26,13 +25,13 @@ final public class XCWorkspace {
             try self.init(data: XCWorkspaceData(path: xcworkspaceDataPaths.first!))
         }
     }
-    
+
     /// Initializes a default workspace with a single reference that points to self:
     public convenience init() {
         let data = XCWorkspaceData(children: [.file(.init(location: .self("")))])
         self.init(data: data)
     }
-    
+
     /// Initializes the workspace with the path string.
     ///
     /// - Parameter pathString: path string.
@@ -48,13 +47,11 @@ final public class XCWorkspace {
     public init(data: XCWorkspaceData) {
         self.data = data
     }
-    
 }
 
 // MARK: - <Writable>
 
 extension XCWorkspace: Writable {
-
     public func write(path: AbsolutePath, override: Bool = true) throws {
         let dataPath = path.appending(component: "contents.xcworkspacedata")
         if override && dataPath.exists {
@@ -63,35 +60,12 @@ extension XCWorkspace: Writable {
         try dataPath.mkpath()
         try data.write(path: dataPath)
     }
-
 }
 
 // MARK: - XCWorkspace Extension (Equatable)
 
 extension XCWorkspace: Equatable {
-
-    public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
+    public static func == (_: XCWorkspace, rhs: XCWorkspace) -> Bool {
         return rhs.data == rhs.data
     }
-
-}
-
-/// XCWorkspace Errors
-///
-/// - notFound: the project cannot be found.
-public enum XCWorkspaceError: Error, CustomStringConvertible {
-
-    case notFound(path: AbsolutePath)
-    case xcworkspaceDataNotFound(path: AbsolutePath)
-
-    public var description: String {
-        switch self {
-        case .notFound(let path):
-            return "The project cannot be found at \(path.asString)"
-        case .xcworkspaceDataNotFound(let path):
-            return "Workspace doesn't contain a .xcworkspacedata file at \(path.asString)"
-
-        }
-    }
-
 }

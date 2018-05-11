@@ -1,7 +1,6 @@
 import Foundation
 
 public enum XCWorkspaceDataElement {
-
     public enum Error: Swift.Error {
         case unknownName(String)
     }
@@ -11,7 +10,6 @@ public enum XCWorkspaceDataElement {
 }
 
 extension XCWorkspaceDataElement: Equatable {
-
     public static func == (lhs: XCWorkspaceDataElement, rhs: XCWorkspaceDataElement) -> Bool {
         switch (lhs, rhs) {
         case let (.file(lhs), .file(rhs)):

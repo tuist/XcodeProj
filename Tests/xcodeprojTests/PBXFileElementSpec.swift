@@ -1,9 +1,8 @@
 import Foundation
-import XCTest
 import xcodeproj
+import XCTest
 
 final class PBXFileElementSpec: XCTestCase {
-
     var subject: PBXFileElement!
 
     override func setUp() {
@@ -42,7 +41,7 @@ final class PBXFileElementSpec: XCTestCase {
             "path": "path",
             "name": "name",
             "includeInIndex": "0",
-            "wrapsLines": "1"
+            "wrapsLines": "1",
         ]
     }
 }

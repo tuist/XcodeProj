@@ -3,19 +3,34 @@ import Foundation
 
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
+    /// The object reference in the project that contains it.
+    public let reference: PBXObjectReference
 
     // MARK: - Init
-    
-    init() {}
-    
+
+    init() {
+        reference = PBXObjectReference()
+    }
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case reference
     }
-    
-    public required init(from decoder: Decoder) throws {}
-    
+
+    /// Initializes the object from its project representation.
+    ///
+    /// - Parameter decoder: XcodeprojPropertyListDecoder decoder.
+    /// - Throws: an error if the object cannot be parsed.
+    public required init(from decoder: Decoder) throws {
+        let referenceRepository = decoder.context.objectReferenceRepository
+        let objects = decoder.context.objects
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let reference: String = try container.decode(.reference)
+        self.reference = referenceRepository.getOrCreate(reference: reference, objects: objects)
+    }
+
+    /// Object isa (type id)
     public static var isa: String {
         return String(describing: self)
     }
@@ -25,14 +40,14 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         return lhs.isEqual(to: rhs)
     }
 
-    @objc dynamic func isEqual(to object: Any?) -> Bool {
+    @objc dynamic func isEqual(to _: Any?) -> Bool {
         return true
     }
 
-    //swiftlint:disable function_body_length
-    public static func parse(reference: String,
-                             dictionary: [String: Any]) throws -> PBXObject {
-        let decoder = JSONDecoder()
+    // swiftlint:disable function_body_length
+    public static func parse(reference: String, dictionary: [String: Any], userInfo: [CodingUserInfoKey: Any]) throws -> PBXObject {
+        let decoder = XcodeprojJSONDecoder()
+        decoder.userInfo = userInfo
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])
@@ -88,23 +103,18 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
             throw PBXObjectError.unknownElement(isa)
         }
     }
-    //swiftlint:enable function_body_length
-}
 
-/// PBXObjectError
-///
-/// - missingIsa: the isa attribute is missing.
-/// - unknownElement: the object type is not supported.
-public enum PBXObjectError: Error, CustomStringConvertible {
-    case missingIsa
-    case unknownElement(String)
+    // swiftlint:enable function_body_length
 
-    public var description: String {
-        switch self {
-        case .missingIsa:
-            return "Isa property is missing"
-        case .unknownElement(let element):
-            return "The element \(element) is not supported"
+    /// Returns the objects the object belong to.
+    ///
+    /// - Returns: objects the object belongs to.
+    /// - Throws: an error if this method is accessed before the object has been added to a project.
+    func objects() throws -> PBXObjects {
+        guard let objects = self.reference.objects else {
+            let objectType = String(describing: type(of: self))
+            throw PBXObjectError.orphaned(type: objectType, reference: reference.value)
         }
+        return objects
     }
 }
