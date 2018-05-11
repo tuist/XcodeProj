@@ -11,6 +11,3 @@ Resolves https://github.com/xcbuddy/xcodeproj/issues/YYY
 
 - [ ] Step 1
 - [ ] Step 2
-
-### GIF
-![gif]()
