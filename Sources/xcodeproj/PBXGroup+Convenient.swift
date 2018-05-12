@@ -55,7 +55,7 @@ public extension PBXGroup {
     public func addFile(
         at filePath: AbsolutePath,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: AbsolutePath) throws -> PBXFileReference {
+        sourceRoot: AbsolutePath) throws -> PBXObjectReference {
         let projectObjects = try objects()
         guard filePath.exists else {
             throw XcodeprojEditingError.unexistingFile(filePath)
@@ -93,6 +93,6 @@ public extension PBXGroup {
         if !children.contains(reference) {
             children.append(reference)
         }
-        return fileReference
+        return reference
     }
 }
