@@ -27,6 +27,16 @@ public extension PBXGroup {
             .compactMap({ try? $0.object() as PBXGroup })
             .first(where: { $0.name == name })
     }
+    
+    /// Returns the file in the group with the given name.
+    ///
+    /// - Parameter name: file name.
+    /// - Returns: file with the given name contained in the given parent group.
+    public func file(named name: String) -> PBXFileReference? {
+        return children
+            .compactMap({ try? $0.object() as PBXFileReference })
+            .first(where: { $0.name == name })
+    }
 
     /// Creates a group with the given name and returns it.
     ///
