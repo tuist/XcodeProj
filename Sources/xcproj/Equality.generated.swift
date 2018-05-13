@@ -260,6 +260,96 @@ extension XCConfigurationList {
       return super.isEqual(to: rhs)
     }
 }
+extension XCScheme {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme else { return false }
+      if self.buildAction != rhs.buildAction { return false }
+      if self.testAction != rhs.testAction { return false }
+      if self.launchAction != rhs.launchAction { return false }
+      if self.profileAction != rhs.profileAction { return false }
+      if self.analyzeAction != rhs.analyzeAction { return false }
+      if self.archiveAction != rhs.archiveAction { return false }
+      if self.lastUpgradeVersion != rhs.lastUpgradeVersion { return false }
+      if self.version != rhs.version { return false }
+      if self.name != rhs.name { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.AnalyzeAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.AnalyzeAction else { return false }
+      if self.buildConfiguration != rhs.buildConfiguration { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.BuildableProductRunnable {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.BuildableProductRunnable else { return false }
+      if self.runnableDebuggingMode != rhs.runnableDebuggingMode { return false }
+      if self.buildableReference != rhs.buildableReference { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.BuildableReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.BuildableReference else { return false }
+      if self.referencedContainer != rhs.referencedContainer { return false }
+      if self.blueprintIdentifier != rhs.blueprintIdentifier { return false }
+      if self.buildableName != rhs.buildableName { return false }
+      if self.buildableIdentifier != rhs.buildableIdentifier { return false }
+      if self.blueprintName != rhs.blueprintName { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.CommandLineArguments {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.CommandLineArguments else { return false }
+      if self.arguments != rhs.arguments { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.ExecutionAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.ExecutionAction else { return false }
+      if self.title != rhs.title { return false }
+      if self.scriptText != rhs.scriptText { return false }
+      if self.environmentBuildable != rhs.environmentBuildable { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.LocationScenarioReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.LocationScenarioReference else { return false }
+      if self.identifier != rhs.identifier { return false }
+      if self.referenceType != rhs.referenceType { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.SerialAction {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.SerialAction else { return false }
+      if self.preActions != rhs.preActions { return false }
+      if self.postActions != rhs.postActions { return false }
+      return super.isEqual(to: rhs)
+    }
+}
+extension XCScheme.TestableReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+      guard let rhs = object as? XCScheme.TestableReference else { return false }
+      if self.skipped != rhs.skipped { return false }
+      if self.buildableReference != rhs.buildableReference { return false }
+      return super.isEqual(to: rhs)
+    }
+}
 extension XCVersionGroup {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {

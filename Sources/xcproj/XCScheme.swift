@@ -4,14 +4,14 @@ import PathKit
 import AEXML
 
 // swiftlint:disable:next type_body_length
-final public class XCScheme {
+final public class XCScheme: AutoEquatable {
 
     public static let defaultDebugger = "Xcode.DebuggerFoundation.Debugger.LLDB"
     public static let defaultLauncher = "Xcode.DebuggerFoundation.Launcher.LLDB"
 
     // MARK: - BuildableReference
 
-    final public class BuildableReference {
+    final public class BuildableReference: AutoEquatable {
         public var referencedContainer: String
         public var blueprintIdentifier: String
         public var buildableName: String
@@ -64,7 +64,7 @@ final public class XCScheme {
         }
     }
 
-    final public class TestableReference {
+    final public class TestableReference: AutoEquatable {
         public var skipped: Bool
         public var buildableReference: BuildableReference
         public init(skipped: Bool,
@@ -85,7 +85,7 @@ final public class XCScheme {
         }
     }
 
-    final public class LocationScenarioReference {
+    final public class LocationScenarioReference: AutoEquatable {
         public var identifier: String
         public var referenceType: String
         public init(identifier: String, referenceType: String) {
@@ -104,7 +104,7 @@ final public class XCScheme {
         }
     }
 
-    final public class BuildableProductRunnable {
+    final public class BuildableProductRunnable: AutoEquatable {
         public var runnableDebuggingMode: String
         public var buildableReference: BuildableReference
         public init(buildableReference: BuildableReference,
@@ -125,7 +125,7 @@ final public class XCScheme {
         }
     }
 
-    final public class CommandLineArguments {
+    final public class CommandLineArguments: AutoEquatable {
         public struct CommandLineArgument {
             public let name: String
             public let enabled: Bool
@@ -169,7 +169,7 @@ final public class XCScheme {
         }
     }
 
-    public struct EnvironmentVariable {
+    public struct EnvironmentVariable: AutoEquatable {
         public let variable: String
         public let value: String
         public let enabled: Bool
@@ -213,7 +213,7 @@ final public class XCScheme {
         }
     }
 
-    final public class ExecutionAction {
+    final public class ExecutionAction: AutoEquatable {
         public var title: String
         public var scriptText: String
         public var environmentBuildable: BuildableReference?
@@ -251,7 +251,7 @@ final public class XCScheme {
 
     // MARK: - Build Action
 
-    public class SerialAction {
+    public class SerialAction: AutoEquatable {
         public var preActions: [ExecutionAction]
         public var postActions: [ExecutionAction]
 
@@ -762,7 +762,7 @@ final public class XCScheme {
         }
     }
 
-    final public class AnalyzeAction {
+    final public class AnalyzeAction: AutoEquatable {
         // Xcode disables PreActions and PostActions for Analyze actions, so this Action
         // does not exetend SerialAction.
         private static let defaultBuildConfiguration = "Debug"
