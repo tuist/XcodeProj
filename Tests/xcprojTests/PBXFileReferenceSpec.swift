@@ -10,6 +10,7 @@ final class PBXFileReferenceSpec: XCTestCase {
         super.setUp()
         subject = PBXFileReference(sourceTree: .absolute,
                                    name: "name",
+                                   reference: "DB260A3A-043E-40AD-8B48-EAA69E7B31F5",
                                    fileEncoding: 1,
                                    explicitFileType: "type",
                                    lastKnownFileType: "last",
@@ -19,6 +20,7 @@ final class PBXFileReferenceSpec: XCTestCase {
     func test_init_initializesTheReferenceWithTheRightAttributes() {
         XCTAssertEqual(subject.name, "name")
         XCTAssertEqual(subject.sourceTree, .absolute)
+        XCTAssertEqual(subject.reference, "DB260A3A-043E-40AD-8B48-EAA69E7B31F5")
         XCTAssertEqual(subject.fileEncoding, 1)
         XCTAssertEqual(subject.explicitFileType, "type")
         XCTAssertEqual(subject.lastKnownFileType, "last")
@@ -32,6 +34,7 @@ final class PBXFileReferenceSpec: XCTestCase {
     func test_equal_returnsTheCorrectValue() {
         let another = PBXFileReference(sourceTree: .absolute,
                                        name: "name",
+                                       reference: "DB260A3A-043E-40AD-8B48-EAA69E7B31F5",
                                        fileEncoding: 1,
                                        explicitFileType: "type",
                                        lastKnownFileType: "last",
