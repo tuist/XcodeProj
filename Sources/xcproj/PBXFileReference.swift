@@ -7,6 +7,9 @@ final public class PBXFileReference: PBXFileElement {
  
     // MARK: - Attributes
     
+    /// Element reference identifier
+    public var reference: String?
+    
     /// Element file encoding.
     public var fileEncoding: UInt?
     
@@ -35,6 +38,7 @@ final public class PBXFileReference: PBXFileElement {
     /// - Parameters:
     ///   - sourceTree: file source tree.
     ///   - name: file name.
+    ///   - reference: file identifier.
     ///   - fileEncoding: text encoding of file content.
     ///   - explicitFileType: user-specified file type.
     ///   - lastKnownFileType: derived file type.
@@ -50,6 +54,7 @@ final public class PBXFileReference: PBXFileElement {
     ///   - plistStructureDefinitionIdentifier: the plist organizational family identifier.
     public init(sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
+                reference: String? = nil,
                 fileEncoding: UInt? = nil,
                 explicitFileType: String? = nil,
                 lastKnownFileType: String? = nil,
@@ -63,6 +68,7 @@ final public class PBXFileReference: PBXFileElement {
                 languageSpecificationIdentifier: String? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil,
                 plistStructureDefinitionIdentifier: String? = nil) {
+        self.reference = reference
         self.fileEncoding = fileEncoding
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
@@ -83,6 +89,7 @@ final public class PBXFileReference: PBXFileElement {
     // MARK: - Decodable
     
     fileprivate enum CodingKeys: String, CodingKey {
+        case reference
         case fileEncoding
         case explicitFileType
         case lastKnownFileType
@@ -94,6 +101,7 @@ final public class PBXFileReference: PBXFileElement {
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.reference = try container.decodeIfPresent(.reference)
         self.fileEncoding = try container.decodeIntIfPresent(.fileEncoding)
         self.explicitFileType = try container.decodeIfPresent(.explicitFileType)
         self.lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
