@@ -27,7 +27,7 @@ public extension PBXGroup {
             .compactMap({ try? $0.object() as PBXGroup })
             .first(where: { $0.name == name })
     }
-    
+
     /// Returns the file in the group with the given name.
     ///
     /// - Parameter name: file name.
