@@ -43,4 +43,28 @@ final class PBXNativeTargetSpec: XCTestCase {
             "productInstallPath": "/usr/local/bin",
         ]
     }
+
+    func test_addDependency() throws {
+        let objects = PBXObjects(objects: [:])
+        let configurationList = objects.addObject(XCConfigurationList(buildConfigurations: []))
+        let mainGroup = objects.addObject(PBXGroup())
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup)
+        objects.addObject(project)
+        let target = PBXNativeTarget(name: "Target")
+        let dependency = PBXNativeTarget(name: "Dependency")
+        objects.addObject(target)
+        objects.addObject(dependency)
+        _ = try target.addDependency(target: dependency)
+        let targetDependency: PBXTargetDependency? = try target.dependencies.first?.object()
+        XCTAssertEqual(targetDependency?.name, "Dependency")
+        XCTAssertEqual(targetDependency?.target, dependency.reference)
+        let containerItemProxy: PBXContainerItemProxy? = try targetDependency?.targetProxy?.object()
+        XCTAssertEqual(containerItemProxy?.containerPortal, project.reference)
+        XCTAssertEqual(containerItemProxy?.remoteGlobalID, dependency.reference)
+        XCTAssertEqual(containerItemProxy?.proxyType, .nativeTarget)
+        XCTAssertEqual(containerItemProxy?.remoteInfo, "Dependency")
+    }
 }
