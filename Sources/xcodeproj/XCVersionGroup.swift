@@ -8,10 +8,10 @@ public final class XCVersionGroup: PBXGroup {
     // MARK: - Attributes
 
     /// Current version.
-    public let currentVersion: PBXObjectReference?
+    public var currentVersion: PBXObjectReference?
 
     /// Version group type.
-    public let versionGroupType: String?
+    public var versionGroupType: String?
 
     // MARK: - Init
 
