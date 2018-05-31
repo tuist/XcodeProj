@@ -278,7 +278,7 @@ extension XCConfigurationList {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCConfigurationList else { return false }
-        if buildConfigurations != rhs.buildConfigurations { return false }
+        if buildConfigurationsReferences != rhs.buildConfigurationsReferences { return false }
         if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
         if defaultConfigurationName != rhs.defaultConfigurationName { return false }
         return super.isEqual(to: rhs)

@@ -17,6 +17,7 @@
 - Convenient API from objects https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
 - `BuildSettingsProvider` https://github.com/xcbuddy/xcodeproj/pull/7 by @pepibumur.
 - Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
+- Method in `XCConfigurationList` to get the build configurations objects @pepibumur.
 
 ### Removed
 - Deprecated elements https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
