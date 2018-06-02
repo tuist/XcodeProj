@@ -63,24 +63,56 @@ final public class XCScheme {
                                              "ReferencedContainer": referencedContainer])
         }
     }
+    
+    final public class SkippedTest {
+        public var identifier: String
+
+        public init(identifier: String) {
+            self.identifier = identifier
+        }
+
+        init(element: AEXMLElement) throws {
+            self.identifier = element.attributes["Identifier"]!
+        }
+
+        fileprivate func xmlElement() -> AEXMLElement {
+            return AEXMLElement(name: "Test",
+                                value: nil,
+                                attributes: ["Identifier": identifier])
+        }
+    }
 
     final public class TestableReference {
         public var skipped: Bool
         public var buildableReference: BuildableReference
+        public var skippedTests: [SkippedTest]
         public init(skipped: Bool,
-                    buildableReference: BuildableReference) {
+                    buildableReference: BuildableReference,
+                    skippedTests: [SkippedTest] = []) {
             self.skipped = skipped
             self.buildableReference = buildableReference
+            self.skippedTests = skippedTests
         }
         init(element: AEXMLElement) throws {
             self.skipped = element.attributes["skipped"] == "YES"
             self.buildableReference = try BuildableReference(element: element["BuildableReference"])
+            if let skippedTests = element["SkippedTests"]["Test"].all, !skippedTests.isEmpty {
+                self.skippedTests = try skippedTests.map(SkippedTest.init)
+            } else {
+                self.skippedTests = []
+            }
         }
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "TestableReference",
                                        value: nil,
                                        attributes: ["skipped": skipped.xmlString])
             element.addChild(buildableReference.xmlElement())
+            if !skippedTests.isEmpty {
+                let skippedTestsElement = element.addChild(name: "SkippedTests")
+                skippedTests.forEach { (skippedTest) in
+                    skippedTestsElement.addChild(skippedTest.xmlElement())
+                }
+            }
             return element
         }
     }
@@ -380,6 +412,34 @@ final public class XCScheme {
         }
     }
 
+    final public class AdditionalOption {
+        public var key: String
+        public var value: String
+        public var isEnabled: Bool
+
+        public init(key: String, value: String, isEnabled: Bool) {
+            self.key = key
+            self.value = value
+            self.isEnabled = isEnabled
+        }
+
+        init(element: AEXMLElement) throws {
+            self.key = element.attributes["key"]!
+            self.value = element.attributes["value"]!
+            self.isEnabled = element.attributes["isEnabled"] == "YES"
+        }
+
+        fileprivate func xmlElement() -> AEXMLElement {
+            return AEXMLElement(name: "AdditionalOption",
+                                value: nil,
+                                attributes: [
+                                    "key": key,
+                                    "value": value,
+                                    "isEnabled": isEnabled.xmlString
+                ])
+        }
+    }
+
     final public class LaunchAction: SerialAction {
         private static let defaultBuildConfiguration = "Debug"
         public static let defaultDebugServiceExtension = "internal"
@@ -402,6 +462,15 @@ final public class XCScheme {
         public var debugServiceExtension: String
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
+        public var enableAddressSanitizer: Bool
+        public var enableASanStackUseAfterReturn: Bool
+        public var enableThreadSanitizer: Bool
+        public var stopOnEveryThreadSanitizerIssue: Bool
+        public var enableUBSanitizer: Bool
+        public var stopOnEveryUBSanitizerIssue: Bool
+        public var disableMainThreadChecker: Bool
+        public var stopOnEveryMainThreadCheckerIssue: Bool
+        public var additionalOptions: [AdditionalOption]
         public var commandlineArguments: CommandLineArguments?
         public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
@@ -421,6 +490,15 @@ final public class XCScheme {
                     debugServiceExtension: String = LaunchAction.defaultDebugServiceExtension,
                     allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil,
+                    enableAddressSanitizer: Bool = false,
+                    enableASanStackUseAfterReturn: Bool = false,
+                    enableThreadSanitizer: Bool = false,
+                    stopOnEveryThreadSanitizerIssue: Bool = false,
+                    enableUBSanitizer: Bool = false,
+                    stopOnEveryUBSanitizerIssue: Bool = false,
+                    disableMainThreadChecker: Bool = false,
+                    stopOnEveryMainThreadCheckerIssue: Bool = false,
+                    additionalOptions: [AdditionalOption] = [],
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
@@ -437,6 +515,15 @@ final public class XCScheme {
             self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = allowLocationSimulation
             self.locationScenarioReference = locationScenarioReference
+            self.enableAddressSanitizer = enableAddressSanitizer
+            self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
+            self.enableThreadSanitizer = enableThreadSanitizer
+            self.stopOnEveryThreadSanitizerIssue = stopOnEveryThreadSanitizerIssue
+            self.enableUBSanitizer = enableUBSanitizer
+            self.stopOnEveryUBSanitizerIssue = stopOnEveryUBSanitizerIssue
+            self.disableMainThreadChecker = disableMainThreadChecker
+            self.stopOnEveryMainThreadCheckerIssue = stopOnEveryMainThreadCheckerIssue
+            self.additionalOptions = additionalOptions
             self.commandlineArguments = commandlineArguments
             self.environmentVariables = environmentVariables
             self.language = language
@@ -470,6 +557,19 @@ final public class XCScheme {
                 self.locationScenarioReference = nil
             }
 
+            self.enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
+            self.enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
+            self.enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"
+            self.stopOnEveryThreadSanitizerIssue = element.attributes["stopOnEveryThreadSanitizerIssue"] == "YES"
+            self.enableUBSanitizer = element.attributes["enableUBSanitizer"] == "YES"
+            self.stopOnEveryUBSanitizerIssue = element.attributes["stopOnEveryUBSanitizerIssue"] == "YES"
+            self.disableMainThreadChecker = element.attributes["disableMainThreadChecker"] == "YES"
+            self.stopOnEveryMainThreadCheckerIssue = element.attributes["stopOnEveryMainThreadCheckerIssue"] == "YES"
+
+            self.additionalOptions = try element["AdditionalOptions"]["AdditionalOption"]
+                .all?
+                .map(AdditionalOption.init) ?? []
+
             let commandlineOptions = element["CommandLineArguments"]
             if commandlineOptions.error == nil {
                 self.commandlineArguments = try CommandLineArguments(element: commandlineOptions)
@@ -484,18 +584,52 @@ final public class XCScheme {
             self.region = element.attributes["region"]
             try super.init(element: element)
         }
+        
+        private var xmlAttributes: [String: String] {
+            var attributes = [
+                "buildConfiguration": buildConfiguration,
+                "selectedDebuggerIdentifier": selectedDebuggerIdentifier,
+                "selectedLauncherIdentifier": selectedLauncherIdentifier,
+                "launchStyle": launchStyle.rawValue,
+                "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
+                "ignoresPersistentStateOnLaunch": ignoresPersistentStateOnLaunch.xmlString,
+                "debugDocumentVersioning": debugDocumentVersioning.xmlString,
+                "debugServiceExtension": debugServiceExtension,
+                "allowLocationSimulation": allowLocationSimulation.xmlString
+            ]
+        
+            if enableAddressSanitizer {
+                attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
+            }
+            if enableASanStackUseAfterReturn {
+                attributes["enableASanStackUseAfterReturn"] = enableASanStackUseAfterReturn.xmlString
+            }
+            if enableThreadSanitizer {
+                attributes["enableThreadSanitizer"] = enableThreadSanitizer.xmlString
+            }
+            if stopOnEveryThreadSanitizerIssue {
+                attributes["stopOnEveryThreadSanitizerIssue"] = stopOnEveryThreadSanitizerIssue.xmlString
+            }
+            if enableUBSanitizer {
+                attributes["enableUBSanitizer"] = enableUBSanitizer.xmlString
+            }
+            if stopOnEveryUBSanitizerIssue {
+                attributes["stopOnEveryUBSanitizerIssue"] = stopOnEveryUBSanitizerIssue.xmlString
+            }
+            if disableMainThreadChecker {
+                attributes["disableMainThreadChecker"] = disableMainThreadChecker.xmlString
+            }
+            if stopOnEveryMainThreadCheckerIssue {
+                attributes["stopOnEveryMainThreadCheckerIssue"] = stopOnEveryMainThreadCheckerIssue.xmlString
+            }
+            
+            return attributes
+        }
+        
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "LaunchAction",
                                        value: nil,
-                                       attributes: ["buildConfiguration": buildConfiguration,
-                                                    "selectedDebuggerIdentifier": selectedDebuggerIdentifier,
-                                                    "selectedLauncherIdentifier": selectedLauncherIdentifier,
-                                                    "launchStyle": launchStyle.rawValue,
-                                                    "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
-                                                    "ignoresPersistentStateOnLaunch": ignoresPersistentStateOnLaunch.xmlString,
-                                                    "debugDocumentVersioning": debugDocumentVersioning.xmlString,
-                                                    "debugServiceExtension": debugServiceExtension,
-                                                    "allowLocationSimulation": allowLocationSimulation.xmlString])
+                                       attributes: xmlAttributes)
             super.writeXML(parent: element)
             if let buildableProductRunnable = buildableProductRunnable {
                 element.addChild(buildableProductRunnable.xmlElement())
@@ -526,7 +660,10 @@ final public class XCScheme {
                 element.attributes["region"] = region
             }
 
-            element.addChild(AEXMLElement(name: "AdditionalOptions"))
+            let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
+            additionalOptions.forEach { (additionalOption) in
+                additionalOptionsElement.addChild(additionalOption.xmlElement())
+            }
             return element
         }
     }
@@ -644,7 +781,13 @@ final public class XCScheme {
         public var selectedLauncherIdentifier: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var codeCoverageEnabled: Bool
+        public var enableAddressSanitizer: Bool
+        public var enableASanStackUseAfterReturn: Bool
+        public var enableThreadSanitizer: Bool
+        public var enableUBSanitizer: Bool
+        public var disableMainThreadChecker: Bool
         public var macroExpansion: BuildableReference?
+        public var additionalOptions: [AdditionalOption]
         public var commandlineArguments: CommandLineArguments?
         public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
@@ -665,6 +808,12 @@ final public class XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     codeCoverageEnabled: Bool = false,
+                    enableAddressSanitizer: Bool = false,
+                    enableASanStackUseAfterReturn: Bool = false,
+                    enableThreadSanitizer: Bool = false,
+                    enableUBSanitizer: Bool = false,
+                    disableMainThreadChecker: Bool = false,
+                    additionalOptions: [AdditionalOption] = [],
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
@@ -678,6 +827,12 @@ final public class XCScheme {
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.codeCoverageEnabled = codeCoverageEnabled
+            self.enableAddressSanitizer = enableAddressSanitizer
+            self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
+            self.enableThreadSanitizer = enableThreadSanitizer
+            self.enableUBSanitizer = enableUBSanitizer
+            self.disableMainThreadChecker = disableMainThreadChecker
+            self.additionalOptions = additionalOptions
             self.commandlineArguments = commandlineArguments
             self.environmentVariables = environmentVariables
             self.language = language
@@ -692,6 +847,11 @@ final public class XCScheme {
             self.selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             self.shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"].map { $0 == "YES" } ?? true
             self.codeCoverageEnabled = element.attributes["codeCoverageEnabled"] == "YES"
+            self.enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
+            self.enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
+            self.enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"
+            self.enableUBSanitizer = element.attributes["enableUBSanitizer"] == "YES"
+            self.disableMainThreadChecker = element.attributes["disableMainThreadChecker"] == "YES"
             self.testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
@@ -700,6 +860,10 @@ final public class XCScheme {
             if buildableReferenceElement.error == nil {
                 self.macroExpansion = try BuildableReference(element: buildableReferenceElement)
             }
+
+            self.additionalOptions = try element["AdditionalOptions"]["AdditionalOption"]
+                .all?
+                .map(AdditionalOption.init) ?? []
 
             let commandlineOptions = element["CommandLineArguments"]
             if commandlineOptions.error == nil {
@@ -733,6 +897,21 @@ final public class XCScheme {
             if codeCoverageEnabled {
                 attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
             }
+            if enableAddressSanitizer {
+                attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
+            }
+            if enableASanStackUseAfterReturn {
+                attributes["enableASanStackUseAfterReturn"] = enableASanStackUseAfterReturn.xmlString
+            }
+            if enableThreadSanitizer {
+                attributes["enableThreadSanitizer"] = enableThreadSanitizer.xmlString
+            }
+            if enableUBSanitizer {
+                attributes["enableUBSanitizer"] = enableUBSanitizer.xmlString
+            }
+            if disableMainThreadChecker {
+                attributes["disableMainThreadChecker"] = disableMainThreadChecker.xmlString
+            }
             attributes["systemAttachmentLifetime"] = systemAttachmentLifetime?.rawValue
             if case .keepAlways? = userAttachmentLifetime {
                 attributes["userAttachmentLifetime"] = userAttachmentLifetime?.rawValue
@@ -757,7 +936,10 @@ final public class XCScheme {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
-            element.addChild(AEXMLElement(name: "AdditionalOptions"))
+            let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
+            additionalOptions.forEach { (additionalOption) in
+                additionalOptionsElement.addChild(additionalOption.xmlElement())
+            }
             return element
         }
     }
