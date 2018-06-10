@@ -59,7 +59,7 @@ let package = Package(
 There are some useful additions to the API that you can check out on the [CHANGELOG](https://github.com/xcode-project-manager/xcodeproj/blob/master/CHANGELOG.md). 
 
 One of those additions is an improvement on how references are managed.
- When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. That reference can only be obtained when the object gets added to the project so you are responsible for keeping and using it properly. **The value of that reference is an implementation detail that has been abstracted away from you.**
+ When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. **The value of that reference is an implementation detail that has been abstracted away from you.**
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
