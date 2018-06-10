@@ -6,7 +6,7 @@ public final class PBXNativeTarget: PBXTarget {
     public var productInstallPath: String?
 
     public init(name: String,
-                buildConfigurationList: PBXObjectReference? = nil,
+                buildConfigurationListRef: PBXObjectReference? = nil,
                 buildPhases: [PBXObjectReference] = [],
                 buildRules: [PBXObjectReference] = [],
                 dependencies: [PBXObjectReference] = [],
@@ -16,7 +16,7 @@ public final class PBXNativeTarget: PBXTarget {
                 productType: PBXProductType? = nil) {
         self.productInstallPath = productInstallPath
         super.init(name: name,
-                   buildConfigurationList: buildConfigurationList,
+                   buildConfigurationListRef: buildConfigurationListRef,
                    buildPhases: buildPhases,
                    buildRules: buildRules,
                    dependencies: dependencies,

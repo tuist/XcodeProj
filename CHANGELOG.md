@@ -18,6 +18,7 @@
 - `BuildSettingsProvider` https://github.com/xcbuddy/xcodeproj/pull/7 by @pepibumur.
 - Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
 - Method in `XCConfigurationList` to get the build configurations objects @pepibumur.
+- Method to get the configuration list from any target https://github.com/xcode-project-manager/xcodeproj/pull/10 by @pepibumur.
 
 ### Removed
 - Deprecated elements https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.

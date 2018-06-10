@@ -3,7 +3,7 @@ import Foundation
 /// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXContainerItem {
     /// Target build configuration list.
-    public var buildConfigurationList: PBXObjectReference?
+    public var buildConfigurationListRef: PBXObjectReference?
 
     /// Target build phases.
     public var buildPhases: [PBXObjectReference]
@@ -27,14 +27,14 @@ public class PBXTarget: PBXContainerItem {
     public var productType: PBXProductType?
 
     public init(name: String,
-                buildConfigurationList: PBXObjectReference? = nil,
+                buildConfigurationListRef: PBXObjectReference? = nil,
                 buildPhases: [PBXObjectReference] = [],
                 buildRules: [PBXObjectReference] = [],
                 dependencies: [PBXObjectReference] = [],
                 productName: String? = nil,
                 productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
-        self.buildConfigurationList = buildConfigurationList
+        self.buildConfigurationListRef = buildConfigurationListRef
         self.buildPhases = buildPhases
         self.buildRules = buildRules
         self.dependencies = dependencies
@@ -65,9 +65,9 @@ public class PBXTarget: PBXContainerItem {
 
         name = try container.decode(.name)
         if let buildConfigurationListReference: String = try container.decodeIfPresent(.buildConfigurationList) {
-            buildConfigurationList = objectReferenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
+            buildConfigurationListRef = objectReferenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
         } else {
-            buildConfigurationList = nil
+            buildConfigurationListRef = nil
         }
         let buildPhasesReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
         buildPhases = buildPhasesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
@@ -89,8 +89,8 @@ public class PBXTarget: PBXContainerItem {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
-        if let buildConfigurationList = buildConfigurationList {
-            dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationList.value, comment: buildConfigurationListComment))
+        if let buildConfigurationListRef = buildConfigurationListRef {
+            dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListRef.value, comment: buildConfigurationListComment))
         }
         dictionary["buildPhases"] = try .array(buildPhases
             .map { (buildPhaseReference: PBXObjectReference) in

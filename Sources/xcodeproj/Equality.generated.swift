@@ -232,7 +232,7 @@ extension PBXTarget {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTarget else { return false }
-        if buildConfigurationList != rhs.buildConfigurationList { return false }
+        if buildConfigurationListRef != rhs.buildConfigurationListRef { return false }
         if buildPhases != rhs.buildPhases { return false }
         if buildRules != rhs.buildRules { return false }
         if dependencies != rhs.dependencies { return false }

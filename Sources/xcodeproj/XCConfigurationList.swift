@@ -72,9 +72,9 @@ extension XCConfigurationList {
     func objectWithConfigurationList() throws -> PBXObject? {
         let projectObjects = try objects()
         return projectObjects.projects.first(where: { $0.value.buildConfigurationList == reference })?.value ??
-            projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
-            projectObjects.aggregateTargets.first(where: { $0.value.buildConfigurationList == reference })?.value ??
-            projectObjects.legacyTargets.first(where: { $0.value.buildConfigurationList == reference })?.value
+            projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationListRef == reference })?.value ??
+            projectObjects.aggregateTargets.first(where: { $0.value.buildConfigurationListRef == reference })?.value ??
+            projectObjects.legacyTargets.first(where: { $0.value.buildConfigurationListRef == reference })?.value
     }
 }
 

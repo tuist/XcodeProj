@@ -1,6 +1,14 @@
 import Foundation
 
 public extension PBXTarget {
+    /// Returns the build configuration list object.
+    ///
+    /// - Returns: builc configuration list object.
+    /// - Throws: an error if the object doesn't exist in the project.
+    public func buildConfigurationList() throws -> XCConfigurationList? {
+        return try buildConfigurationListRef?.object()
+    }
+
     /// Returns the sources build phase.
     ///
     /// - Returns: sources build phase.

@@ -8,7 +8,7 @@ final class PBXNativeTargetSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXNativeTarget(name: "name",
-                                  buildConfigurationList: PBXObjectReference("list"),
+                                  buildConfigurationListRef: PBXObjectReference("list"),
                                   buildPhases: [PBXObjectReference("phase")],
                                   buildRules: [PBXObjectReference("rule")],
                                   dependencies: [PBXObjectReference("dependency")],

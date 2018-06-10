@@ -19,7 +19,7 @@ public final class PBXLegacyTarget: PBXTarget {
                 buildArgumentsString: String? = nil,
                 passBuildSettingsInEnvironment: Bool = false,
                 buildWorkingDirectory: String? = nil,
-                buildConfigurationList: PBXObjectReference? = nil,
+                buildConfigurationListRef: PBXObjectReference? = nil,
                 buildPhases: [PBXObjectReference] = [],
                 buildRules: [PBXObjectReference] = [],
                 dependencies: [PBXObjectReference] = [],
@@ -31,7 +31,7 @@ public final class PBXLegacyTarget: PBXTarget {
         self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironment
         self.buildWorkingDirectory = buildWorkingDirectory
         super.init(name: name,
-                   buildConfigurationList: buildConfigurationList,
+                   buildConfigurationListRef: buildConfigurationListRef,
                    buildPhases: buildPhases,
                    buildRules: buildRules,
                    dependencies: dependencies,
