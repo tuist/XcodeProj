@@ -14,8 +14,8 @@
     <a title="Models  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcodeproj Docs</a> (66% documented)</p>
-        <p class="header-right"><a href="https://github.com/xcbuddy/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/xcode-project-manager/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -32,6 +32,9 @@
             <a href="Models.html">Models</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Models.html#/s:9xcodeproj13BuildSettingsa">BuildSettings</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/XCConfig.html">XCConfig</a>
               </li>
               <li class="nav-group-task">
@@ -47,7 +50,7 @@
                 <a href="Classes/XCConfigurationList.html">XCConfigurationList</a>
               </li>
               <li class="nav-group-task">
-                <a href="Models.html#/s:9xcodeproj15PBXNativeTargetC">PBXNativeTarget</a>
+                <a href="Classes/PBXNativeTarget.html">PBXNativeTarget</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXProj.html">PBXProj</a>
@@ -126,7 +129,16 @@
             <a href="Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/ObjectReference.html">ObjectReference</a>
+                <a href="Classes/BuildSettingsProvider.html">BuildSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7VariantO">– Variant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC8PlatformO">– Platform</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7ProductO">– Product</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a>
@@ -135,10 +147,13 @@
                 <a href="Classes/PBXBuildRule.html">PBXBuildRule</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other Classes.html#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a>
+                <a href="Classes/PBXContainerItem.html">PBXContainerItem</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -163,11 +178,20 @@
               <li class="nav-group-task">
                 <a href="Enums/XCBreakpointListError.html">XCBreakpointListError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/XcodeprojEditingError.html">XcodeprojEditingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XcodeprojWritingError.html">XcodeprojWritingError</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/AbsolutePath.html">AbsolutePath</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Extensions/Bool.html">Bool</a>
               </li>
@@ -198,6 +222,26 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Other Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/GroupAddingOptions.html">GroupAddingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode.html">Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode/LastKnown.html">– LastKnown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode/Default.html">– Default</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode.html#/s:9xcodeproj5XcodeV9SupportedV">– Supported</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -207,6 +251,37 @@
             
           </section>
           <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj13BuildSettingsa"></a>
+                    <a name="//apple_ref/swift/Alias/BuildSettings" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj13BuildSettingsa">BuildSettings</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Build settings.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">BuildSettings</span> <span class="o">=</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div class="task-group">
               <ul>
                 <li class="item">
@@ -230,7 +305,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfig</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XCConfig</span></code></pre>
 
                         </div>
                       </div>
@@ -262,7 +337,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCWorkspace</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XCWorkspace</span></code></pre>
 
                         </div>
                       </div>
@@ -294,7 +369,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XcodeProj</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XcodeProj</span></code></pre>
 
                         </div>
                       </div>
@@ -326,7 +401,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCBuildConfiguration</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XCBuildConfiguration</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                         </div>
                       </div>
@@ -358,7 +433,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XCConfigurationList</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                         </div>
                       </div>
@@ -384,12 +459,13 @@
                       <div class="abstract">
                         <p>This is the element for a build target that produces a binary content (application or library).</p>
 
+                        <a href="Classes/PBXNativeTarget.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXNativeTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXNativeTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
 
                         </div>
                       </div>
@@ -421,7 +497,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXProj</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXProj</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 
                         </div>
                       </div>
@@ -517,7 +593,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXAggregateTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXAggregateTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
 
                         </div>
                       </div>
@@ -549,7 +625,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXBuildFile</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXBuildFile</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                         </div>
                       </div>
@@ -581,7 +657,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXContainerItemProxy</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXContainerItemProxy</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                         </div>
                       </div>
@@ -613,7 +689,7 @@ Corresponds to the <q>Location</q> dropdown in Xcode&rsquo;s File Inspector</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFileElement</span> <span class="p">:</span> <span class="kt"><a href="Other Classes.html#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a></span><span class="p">,</span> <span class="kt">PlistSerializable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFileElement</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXContainerItem.html">PBXContainerItem</a></span><span class="p">,</span> <span class="kt">PlistSerializable</span></code></pre>
 
                         </div>
                       </div>
@@ -646,7 +722,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFileReference</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXFileElement.html">PBXFileElement</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXFileReference</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXFileElement.html">PBXFileElement</a></span></code></pre>
 
                         </div>
                       </div>
@@ -678,7 +754,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXFrameworksBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXFrameworksBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -710,7 +786,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXHeadersBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -742,7 +818,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXResourcesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXResourcesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -774,7 +850,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXCopyFilesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXCopyFilesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -806,7 +882,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXShellScriptBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXShellScriptBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -838,7 +914,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXSourcesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXSourcesBuildPhase</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a></span></code></pre>
 
                         </div>
                       </div>
@@ -870,7 +946,7 @@ the project: source files, resource files, libraries, generated application file
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                         </div>
                       </div>

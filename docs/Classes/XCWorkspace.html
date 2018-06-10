@@ -14,8 +14,8 @@
     <a title="XCWorkspace Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (66% documented)</p>
-        <p class="header-right"><a href="https://github.com/xcbuddy/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/xcode-project-manager/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -32,6 +32,9 @@
             <a href="../Models.html">Models</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Models.html#/s:9xcodeproj13BuildSettingsa">BuildSettings</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/XCConfig.html">XCConfig</a>
               </li>
               <li class="nav-group-task">
@@ -47,7 +50,7 @@
                 <a href="../Classes/XCConfigurationList.html">XCConfigurationList</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Models.html#/s:9xcodeproj15PBXNativeTargetC">PBXNativeTarget</a>
+                <a href="../Classes/PBXNativeTarget.html">PBXNativeTarget</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXProj.html">PBXProj</a>
@@ -126,7 +129,16 @@
             <a href="../Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/ObjectReference.html">ObjectReference</a>
+                <a href="../Classes/BuildSettingsProvider.html">BuildSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7VariantO">– Variant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC8PlatformO">– Platform</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7ProductO">– Product</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a>
@@ -135,10 +147,13 @@
                 <a href="../Classes/PBXBuildRule.html">PBXBuildRule</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other Classes.html#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a>
+                <a href="../Classes/PBXContainerItem.html">PBXContainerItem</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -163,11 +178,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/XCBreakpointListError.html">XCBreakpointListError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XcodeprojEditingError.html">XcodeprojEditingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XcodeprojWritingError.html">XcodeprojWritingError</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/AbsolutePath.html">AbsolutePath</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Bool.html">Bool</a>
               </li>
@@ -198,6 +222,26 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Other Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/GroupAddingOptions.html">GroupAddingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode.html">Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode/LastKnown.html">– LastKnown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode/Default.html">– Default</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode.html#/s:9xcodeproj5XcodeV9SupportedV">– Supported</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -206,7 +250,7 @@
             <h1>XCWorkspace</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">XCWorkspace</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">XCWorkspace</span></code></pre>
 
                 </div>
               </div>
@@ -257,9 +301,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj11XCWorkspaceCAC7PathKit0C0V4path_tKcfc"></a>
+                    <a name="/s:9xcodeproj11XCWorkspaceCAC5Basic12AbsolutePathV4path_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(path:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj11XCWorkspaceCAC7PathKit0C0V4path_tKcfc">init(path:)</a>
+                    <a class="token" href="#/s:9xcodeproj11XCWorkspaceCAC5Basic12AbsolutePathV4path_tKcfc">init(path:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -281,7 +325,7 @@ If the .xcworkspacedata cannot be found, the init will fail.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">AbsolutePath</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -445,9 +489,9 @@ If the .xcworkspacedata cannot be found, the init will fail.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj8WritableP5writey7PathKit0D0V4path_Sb8overridetKF"></a>
+                    <a name="/s:9xcodeproj8WritableP5writey5Basic12AbsolutePathV4path_Sb8overridetKF"></a>
                     <a name="//apple_ref/swift/Method/write(path:override:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj8WritableP5writey7PathKit0D0V4path_Sb8overridetKF">write(path:override:)</a>
+                    <a class="token" href="#/s:9xcodeproj8WritableP5writey5Basic12AbsolutePathV4path_Sb8overridetKF">write(path:override:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -461,7 +505,7 @@ If the .xcworkspacedata cannot be found, the init will fail.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">AbsolutePath</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -498,7 +542,7 @@ If the .xcworkspacedata cannot be found, the init will fail.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">XCWorkspace</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">XCWorkspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">XCWorkspace</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">XCWorkspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

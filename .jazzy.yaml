@@ -1,7 +1,6 @@
-author: xcbuddy
+author: xcode-project-manager
 module: xcodeproj
-module_version: 0.0.1
-github_url: https://github.com/xcbuddy/xcodeproj
+github_url: https://github.com/xcode-project-manager/xcodeproj
 copyright: 'Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md

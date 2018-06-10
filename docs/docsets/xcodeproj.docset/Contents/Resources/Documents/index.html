@@ -13,8 +13,8 @@
     <a title="xcodeproj  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcodeproj Docs</a> (66% documented)</p>
-        <p class="header-right"><a href="https://github.com/xcbuddy/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/xcode-project-manager/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,6 +31,9 @@
             <a href="Models.html">Models</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Models.html#/s:9xcodeproj13BuildSettingsa">BuildSettings</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/XCConfig.html">XCConfig</a>
               </li>
               <li class="nav-group-task">
@@ -46,7 +49,7 @@
                 <a href="Classes/XCConfigurationList.html">XCConfigurationList</a>
               </li>
               <li class="nav-group-task">
-                <a href="Models.html#/s:9xcodeproj15PBXNativeTargetC">PBXNativeTarget</a>
+                <a href="Classes/PBXNativeTarget.html">PBXNativeTarget</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXProj.html">PBXProj</a>
@@ -125,7 +128,16 @@
             <a href="Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/ObjectReference.html">ObjectReference</a>
+                <a href="Classes/BuildSettingsProvider.html">BuildSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7VariantO">– Variant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC8PlatformO">– Platform</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7ProductO">– Product</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXBuildPhase.html">PBXBuildPhase</a>
@@ -134,10 +146,13 @@
                 <a href="Classes/PBXBuildRule.html">PBXBuildRule</a>
               </li>
               <li class="nav-group-task">
-                <a href="Other Classes.html#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a>
+                <a href="Classes/PBXContainerItem.html">PBXContainerItem</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -162,11 +177,20 @@
               <li class="nav-group-task">
                 <a href="Enums/XCBreakpointListError.html">XCBreakpointListError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Enums/XcodeprojEditingError.html">XcodeprojEditingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/XcodeprojWritingError.html">XcodeprojWritingError</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/AbsolutePath.html">AbsolutePath</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Extensions/Bool.html">Bool</a>
               </li>
@@ -197,6 +221,26 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="Other Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/GroupAddingOptions.html">GroupAddingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode.html">Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode/LastKnown.html">– LastKnown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode/Default.html">– Default</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Xcode.html#/s:9xcodeproj5XcodeV9SupportedV">– Supported</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -208,44 +252,40 @@
 <p><a href="https://swift.org/package-manager">
 <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
 </a>
-<a href="https://github.com/xcbuddy/xcodeproj/releases">
-  <img src="https://img.shields.io/github/release/xcbuddy/xcodeproj.svg"/>
+<a href="https://github.com/xcode-project-manager/xcodeproj/releases">
+  <img src="https://img.shields.io/github/release/xcode-project-manager/xcodeproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
+</a>
+<a href="https://codecov.io/gh/xcodeswift/xcproj">
+  <img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" />
 </a></p>
 
 <p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods XcodeProj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
-<h2 id='continuous-integration' class='heading'>Continuous Integration ✅</h2>
+
+<p><strong>This project is a fork and evolution from <a href="https://github.com/xcodeswift/xcproj">xcproj</a></strong></p>
+<h2 id='continuous-integration' class='heading'>Continuous Integration</h2>
 
 <ul>
-<li><strong>Master:</strong> <a href="https://travis-ci.org/xcbuddy/xcodeproj"><img src="https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=master" alt="Build Status"></a></li>
-<li><strong>Integration:</strong> <a href="https://travis-ci.org/xcbuddy/xcodeproj"><img src="https://travis-ci.org/xcbuddy/xcodeproj.svg?branch=integration" alt="Build Status"></a></li>
+<li><strong>Master:</strong> <a href="https://travis-ci.com/xcode-project-manager/xcodeproj"><img src="https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=master" alt="Build Status"></a></li>
+<li><strong>Integration:</strong> <a href="https://travis-ci.com/xcode-project-manager/xcodeproj"><img src="https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=integration" alt="Build Status"></a></li>
 </ul>
-<h2 id='motivation' class='heading'>Motivation 💅</h2>
-
-<p>Being able to write command line scripts in Swift to update your Xcode projects configuration. Here you have some examples:</p>
-
-<ul>
-<li>Add new <code>Build phases</code>.</li>
-<li>Update the project <code>Build Settings</code>.</li>
-<li>Create new <code>Schemes</code>.</li>
-</ul>
-<h2 id='contribute' class='heading'>Contribute 👨‍👩‍👧</h2>
+<h2 id='contribute' class='heading'>Contribute</h2>
 
 <ol>
-<li>Git clone the repository <code>git@github.com:xcbuddy/xcodeproj.git</code>.</li>
+<li>Git clone the repository <code>git@github.com:xcode-project-manager/xcodeproj.git</code>.</li>
 <li>Generate xcodeproj with  <code>swift package generate-xcodeproj</code>.</li>
 <li>Open <code>xcodeproj.xcodeproj</code>.</li>
 </ol>
-<h2 id='setup' class='heading'>Setup 🦋</h2>
+<h2 id='setup' class='heading'>Setup</h2>
 <h4 id='using-swift-package-manager' class='heading'>Using Swift Package Manager</h4>
 
 <p>Add the dependency in your <code>Package.swift</code> file:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/xcbuddy/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"4.2.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/xcode-project-manager/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"5.0.0"</span><span class="p">)),</span>
         <span class="p">],</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
         <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
@@ -253,157 +293,28 @@
             <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"xcodeproj"</span><span class="p">]),</span>
         <span class="p">]</span>
 <span class="p">)</span>
-
 </code></pre>
-<h4 id='using-a-href-https-github-com-johnsundell-marathon-marathon-a' class='heading'>Using <a href="https://github.com/JohnSundell/Marathon">Marathon</a></h4>
+<h2 id='migrate-to-xcodeproj-5' class='heading'>Migrate to xcodeproj 5</h2>
 
-<p>Edit your <code>Marathonfile</code> and specify the dependency in there:</p>
-<pre class="highlight shell"><code>https://github.com/xcbuddy/xcodeproj.git
-</code></pre>
-<h4 id='using-a-href-https-cocoapods-org-cocoapods-a' class='heading'>Using <a href="https://cocoapods.org">CocoaPods</a></h4>
-
-<p>Edit your <code>Podfile</code> and specify the dependency:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s2">"xcodeproj"</span>
-</code></pre>
-<h4 id='using-a-href-https-github-com-carthage-carthage-a' class='heading'>Using <a href="https://github.com/carthage">Carthage</a></h4>
-
-<p>Edit your <code>Cartfile</code> and specify the dependency:</p>
-<pre class="highlight shell"><code>github <span class="s2">"xcbuddy/xcodeproj"</span>
-</code></pre>
-
-<blockquote>
-<p>Note: xcodeproj is only available for macOS and iOS projects.</p>
-</blockquote>
-<h2 id='how-to-use-xcodeproj' class='heading'>How to use xcodeproj 🐒</h2>
-
-<p>Xcode provides models that represent Xcode projects and are initialized by parsing the content from your project files. The generated models are classes that can be mutated at any time. These mutations in the models are kept in memory until they are persisted by writing them back to disk by writing either the <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> or the <code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> model. Modifications in your projects are usually executed in three steps:</p>
-
-<ol>
-<li>Read the project or workspace initializing a <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> or a <code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> object respectively.</li>
-<li>Modify those objects or any of its dependencies.</li>
-<li>Write it back to disk.</li>
-</ol>
-<pre class="highlight swift"><code><span class="c1">// Removing all frameworks build phases</span>
-<span class="k">let</span> <span class="nv">project</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">XcodeProj</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myproject.xcodeproj"</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">frameworksBuildPhases</span><span class="o">.</span><span class="nf">removeAll</span><span class="p">()</span>
-<span class="k">try!</span> <span class="n">project</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"myproject.xcodeproj"</span><span class="p">)</span>
-</code></pre>
-
-<p>The diagram below shows the sructure of a Xcode project.</p>
-
-<p>A <code><a href="Classes/XcodeProj.html">XcodeProj</a></code> has the following properties:</p>
+<p><code>xcodeproj</code> 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn&rsquo;t been officially released yet but you can already start updating your project for the new version. These are the changes you&rsquo;d need to make in your projects:</p>
 
 <ul>
-<li><code>XCSharedData</code> that contains the information about the schemes of the project.</li>
-<li><code><a href="Classes/XCWorkspace.html">XCWorkspace</a></code> that defines the structure of the project workspace.</li>
-<li><code><a href="Classes/PBXProj.html">PBXProj</a></code> that defines the strcuture of the project.</li>
+<li><code>xcproj</code> has been renamed to <code>xcodeproj</code> so you need to update all your import statements to use the new name.</li>
+<li>There&rsquo;s no support for Carthage nor CocoaPods anymore, if you were using them for fetching <code>xcodeproj</code>, you can use the Swift Package Manager and manually setup the dependency.</li>
+<li>We&rsquo;ve replaced <code>Path</code> with <code>AbsolutePath</code> and <code>RelativePath</code> from the Swift Package Manager&rsquo;s <code>Basic</code> framework. You might need to change some of the usages to use the new type.</li>
+<li>Reference attributes have been renamed to use the naming convention <code>attributeReference</code> where <code>attribute</code> is the name of the attribute. If you are interested in materializing the reference to get the object, objects provide convenient getters that you can use for that purpose. Those getters throw if the object is not found in the project.</li>
 </ul>
 
-<p>Among other properties, the most important one in the <code><a href="Classes/PBXProj.html">PBXProj</a></code> object is <code>Objects</code>. Projects are defined by a list of those objects that can be classified in the following groups:</p>
+<p>There are some useful additions to the API that you can check out on the <a href="https://github.com/xcode-project-manager/xcodeproj/blob/master/CHANGELOG.md">CHANGELOG</a>. </p>
 
-<ul>
-<li><strong>Build phases objects</strong>: Define the available build phases.</li>
-<li><strong>Target objects</strong>: Define your project targets and dependencies between them.</li>
-<li><strong>Configuration objects</strong>: Define the available configs and the link between them and the targets.</li>
-<li><strong>File objects</strong>: Define the project files, build files and groups.</li>
-</ul>
-
-<p>All objects subclass <code><a href="Classes/PBXObject.html">PBXObject</a></code>, and have an unique &amp; deterministic reference. Moreover, they are hashable and conform the <code>Equatable</code> protocol.</p>
-
-<p><img src="Assets/diagram.png" alt="diagram"></p>
-
-<p>You can read more about what each of these objects is for on the <a href="http://www.monobjc.net/xcode-project-file-format.html">following link</a></p>
-<h3 id='considerations' class='heading'>Considerations</h3>
-
-<ul>
-<li>Objects references are used to define dependencies between objects. In the future we might rather use objects references instead of the unique identifier.</li>
-<li>The write doesn&rsquo;t validate the structure of the project. It&rsquo;s up to the developer to validate the changes that have been done using <code>xcodeproj</code>.</li>
-<li>New versions of Xcode might introduce new models or property that are not supported by <code>xcodeproj</code>. If you find any, don&rsquo;t hesitate to <a href="https://github.com/xcbuddy/xcodeproj/issues/new">open an issue</a> on the repository.</li>
-</ul>
-<h2 id='examples' class='heading'>Examples</h2>
-<h4 id='reading-code-myapp-xcodeproj-code' class='heading'>Reading <code>MyApp.xcodeproj</code></h4>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">project</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">XcodeProj</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyApp.xcodeproj"</span><span class="p">)</span>
-</code></pre>
-<h4 id='writing-code-myapp-xcodeproj-code' class='heading'>Writing <code>MyApp.xcodeproj</code></h4>
-<pre class="highlight swift"><code><span class="k">try</span> <span class="n">project</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="s">"MyApp.xcodeproj"</span><span class="p">)</span>
-</code></pre>
-<h4 id='adding-code-home-code-group-inside-code-sources-code-group' class='heading'>Adding <code>Home</code> group inside <code>Sources</code> group</h4>
-<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">var</span> <span class="nv">sourcesGroup</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span><span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"Sources"</span> <span class="o">||</span> <span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s">"Sources"</span><span class="p">})?</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>    
-<span class="k">let</span> <span class="nv">homeGroup</span> <span class="o">=</span> <span class="kt">PBXGroup</span><span class="p">(</span><span class="nv">children</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"Home"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">groupRef</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">homeGroup</span><span class="p">,</span> <span class="s">"Home"</span><span class="p">)</span>
-<span class="n">sourcesGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">homeGroup</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">groupRef</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">groupRef</span><span class="p">)</span>
-</code></pre>
-
-<details>
-<summary>Versions <2.0</summary>
-
-&ldquo;`swift
-guard var sourcesGroup = project.pbxproj.objects.groups.first(where: {$0.value.name == &quot;Sources&rdquo; || $0.value.path == &ldquo;Sources&rdquo;})?.value else { return }    
-let homeGroup = PBXGroup(reference: project.pbxproj.generateUUID(for: PBXGroup.self), children: [], sourceTree: .group, path: &ldquo;Home&rdquo;)
-sourcesGroup.children.append(homeGroup.reference)
-project.pbxproj.objects.addObject(homeGroup)
-&ldquo;`
-
-</details>
-<h4 id='add-code-homeviewcontroller-swift-code-file-inside-code-homegroup-code' class='heading'>Add <code>HomeViewController.swift</code> file inside <code>HomeGroup</code></h4>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">homeViewController</span> <span class="o">=</span> <span class="kt">PBXFileReference</span><span class="p">(</span><span class="nv">sourceTree</span><span class="p">:</span> <span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">fileRef</span> <span class="o">=</span> <span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">homeViewController</span><span class="p">,</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
-<span class="n">homeGroup</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">fileRef</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">homeViewController</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">fileRef</span><span class="p">)</span>
-</code></pre>
-
-<details>
-<summary>Versions <2.0</summary>
-
-&rdquo;`swift
-let homeViewController = PBXFileReference(reference: project.pbxproj.generateUUID(for: PBXFileReference.self), sourceTree: .group, name: &ldquo;HomeViewController.swift&rdquo;, path: &ldquo;HomeViewController.swift&rdquo;)
-homeGroup.children.append(homeViewController.reference)
-project.pbxproj.objects.addObject(homeViewController)
-&ldquo;`
-
-</details>
-  
-<h4 id='add-code-homeviewcontroller-swift-code-file-to-code-myapp-code-target' class='heading'>Add <code>HomeViewController.swift</code> file to <code>MyApp</code> target</h4>
-<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">let</span> <span class="nv">sourcesBuildPhase</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span>
-    <span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">nativeTargets</span>
-    <span class="o">.</span><span class="n">values</span>
-    <span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span><span class="nv">$0</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"MyApp"</span><span class="p">})</span>
-    <span class="o">.</span><span class="nf">flatMap</span><span class="p">({</span> <span class="n">target</span> <span class="o">-&gt;</span> <span class="kt">PBXSourcesBuildPhase</span><span class="p">?</span> <span class="k">in</span>
-        <span class="k">return</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">sourcesBuildPhases</span><span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span> <span class="n">target</span><span class="o">.</span><span class="n">buildPhases</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">key</span><span class="p">)</span> <span class="p">})?</span><span class="o">.</span><span class="n">value</span>
-    <span class="p">})</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
-<span class="c1">// PBXBuildFile is a proxy model that allows specifying some build attributes to the files</span>
-<span class="k">let</span> <span class="nv">buildFile</span> <span class="o">=</span> <span class="kt">PBXBuildFile</span><span class="p">(</span><span class="nv">fileRef</span><span class="p">:</span> <span class="n">fileRef</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">buildFileRef</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">generateReference</span><span class="p">(</span><span class="n">buildFile</span><span class="p">,</span> <span class="s">"HomeViewController.swift"</span><span class="p">)</span>
-<span class="n">project</span><span class="o">.</span><span class="n">pbxproj</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="nf">addObject</span><span class="p">(</span><span class="n">buildFile</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="n">buildFileRef</span><span class="p">)</span>
-<span class="n">sourcesBuildPhase</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">buildFileRef</span><span class="p">)</span>
-</code></pre>
-
-<details>
-<summary>Versions <2.0</summary>
-
-&rdquo;`swift
-guard let sourcesBuildPhase = project.pbxproj
-    .objects.nativeTargets
-    .values
-    .first(where: {$0.name == &ldquo;MyApp&rdquo;})
-    .flatMap({  target -> PBXSourcesBuildPhase? in
-        return project.pbxproj.objects.sourcesBuildPhases.values.first(where: { target.buildPhases.contains($0.reference) })
-    }) else { return }
-// PBXBuildFile is a proxy model that allows specifying some build attributes to the files
-let buildFile = PBXBuildFile(reference: project.pbxproj.generateUUID(for: PBXBuildFile.self), fileRef: homeViewController.reference)
-project.pbxproj.objects.addObject(buildFile)
-sourcesBuildPhase.files.append(buildFile.reference)
-&ldquo;`
-
-</details>
+<p>One of those additions is an improvement on how references are managed.
+ When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. <strong>The value of that reference is an implementation detail that has been abstracted away from you.</strong></p>
 <h2 id='documentation' class='heading'>Documentation 📄</h2>
 
-<p>You can check out the documentation on the following <a href="https://xcbuddy.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
+<p>You can check out the documentation on the following <a href="https://xcode-project-manager.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
 <h2 id='references' class='heading'>References 📚</h2>
 
 <ul>
-<li><a href="https://github.com/kylef/PathKit">PathKit</a></li>
 <li><a href="http://www.monobjc.net/xcode-project-file-format.html">Xcode Project File Format</a></li>
 <li><a href="http://danwright.info/blog/2010/10/xcode-pbxproject-files/">A brief look at the Xcode project format</a></li>
 <li><a href="https://github.com/mjmsmith/pbxplorer">pbexplorer</a></li>
@@ -414,29 +325,6 @@ sourcesBuildPhase.files.append(buildFile.reference)
 <li><a href="https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html">Facebook Buck</a></li>
 <li><a href="https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj">Swift Package Manager - Xcodeproj</a></li>
 </ul>
-<h2 id='license' class='heading'>License</h2>
-<pre class="highlight plaintext"><code>MIT License
-
-Copyright (c) from 2018 Pedro Piñera
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-</code></pre>
 
           </section>
         </section>

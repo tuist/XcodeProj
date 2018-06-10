@@ -14,8 +14,8 @@
     <a title="PBXTargetDependency Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (66% documented)</p>
-        <p class="header-right"><a href="https://github.com/xcbuddy/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p class="header-right"><a href="https://github.com/xcode-project-manager/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -32,6 +32,9 @@
             <a href="../Models.html">Models</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Models.html#/s:9xcodeproj13BuildSettingsa">BuildSettings</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/XCConfig.html">XCConfig</a>
               </li>
               <li class="nav-group-task">
@@ -47,7 +50,7 @@
                 <a href="../Classes/XCConfigurationList.html">XCConfigurationList</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Models.html#/s:9xcodeproj15PBXNativeTargetC">PBXNativeTarget</a>
+                <a href="../Classes/PBXNativeTarget.html">PBXNativeTarget</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXProj.html">PBXProj</a>
@@ -126,7 +129,16 @@
             <a href="../Other Classes.html">Other Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/ObjectReference.html">ObjectReference</a>
+                <a href="../Classes/BuildSettingsProvider.html">BuildSettingsProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7VariantO">– Variant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC8PlatformO">– Platform</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7ProductO">– Product</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXBuildPhase.html">PBXBuildPhase</a>
@@ -135,10 +147,13 @@
                 <a href="../Classes/PBXBuildRule.html">PBXBuildRule</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Other Classes.html#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a>
+                <a href="../Classes/PBXContainerItem.html">PBXContainerItem</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -163,11 +178,20 @@
               <li class="nav-group-task">
                 <a href="../Enums/XCBreakpointListError.html">XCBreakpointListError</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XcodeprojEditingError.html">XcodeprojEditingError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XcodeprojWritingError.html">XcodeprojWritingError</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/AbsolutePath.html">AbsolutePath</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Bool.html">Bool</a>
               </li>
@@ -198,6 +222,26 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Other Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/GroupAddingOptions.html">GroupAddingOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode.html">Xcode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode/LastKnown.html">– LastKnown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode/Default.html">– Default</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Xcode.html#/s:9xcodeproj5XcodeV9SupportedV">– Supported</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -206,7 +250,7 @@
             <h1>PBXTargetDependency</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span> <span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span> <span class="p">:</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span></code></pre>
 
                 </div>
               </div>
@@ -253,9 +297,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj19PBXTargetDependencyC6targetSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/target" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC6targetSSSgvp">target</a>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyC15targetReferenceAA09PBXObjectE0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/targetReference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC15targetReferenceAA09PBXObjectE0CSgvp">targetReference</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -270,7 +314,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">targetReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -280,9 +324,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj19PBXTargetDependencyC11targetProxySSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/targetProxy" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC11targetProxySSSgvp">targetProxy</a>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyC20targetProxyReferenceAA09PBXObjectF0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/targetProxyReference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC20targetProxyReferenceAA09PBXObjectF0CSgvp">targetProxyReference</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -297,7 +341,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">targetProxy</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">targetProxyReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -318,9 +362,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj19PBXTargetDependencyCACSSSg4name_AD6targetAD0E5Proxytcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(name:target:targetProxy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyCACSSSg4name_AD6targetAD0E5Proxytcfc">init(name:target:targetProxy:)</a>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyCACSSSg4name_AA18PBXObjectReferenceCSg06targetF0AH0g5ProxyF0tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:targetReference:targetProxyReference:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyCACSSSg4name_AA18PBXObjectReferenceCSg06targetF0AH0g5ProxyF0tcfc">init(name:targetReference:targetProxyReference:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -336,8 +380,8 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">target</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-            <span class="nv">targetProxy</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+            <span class="nv">targetReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">targetProxyReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -383,6 +427,126 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Decodable"></a>
+                <a name="//apple_ref/swift/Section/Decodable" class="dashAnchor"></a>
+                <a href="#/Decodable">
+                  <h3 class="section-name">Decodable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyCACs7Decoder_p4from_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyCACs7Decoder_p4from_tKcfc">init(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public"></a>
+                <a name="//apple_ref/swift/Section/Public" class="dashAnchor"></a>
+                <a href="#/Public">
+                  <h3 class="section-name">Public</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyC6targetAA0B0CSgyKF"></a>
+                    <a name="//apple_ref/swift/Method/target()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC6targetAA0B0CSgyKF">target()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Materializes the target reference returning the target the object reference refers to.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    an error if the object doesn&rsquo;t exist in the project.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">target</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/PBXTarget.html">PBXTarget</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>target dependency target.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyC11targetProxyAA0B0CSgyKF"></a>
+                    <a name="//apple_ref/swift/Method/targetProxy()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC11targetProxyAA0B0CSgyKF">targetProxy()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Materializes the target proxy reference returning the target the object reference refers to.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    an error if the object doesn&rsquo;t exist in the project.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">targetProxy</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/PBXTarget.html">PBXTarget</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>target dependency proxy target.</p>
                       </div>
                     </section>
                   </div>

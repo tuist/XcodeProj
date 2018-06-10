@@ -3,8 +3,8 @@
 <a href="https://swift.org/package-manager">
 <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
 </a>
-<a href="https://github.com/xcbuddy/xcodeproj/releases">
-  <img src="https://img.shields.io/github/release/xcbuddy/xcodeproj.svg"/>
+<a href="https://github.com/xcode-project-manager/xcodeproj/releases">
+  <img src="https://img.shields.io/github/release/xcode-project-manager/xcodeproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
@@ -19,12 +19,12 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ## Continuous Integration
 
-- **Master:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=master)](https://travis-ci.com/xcbuddy/xcodeproj)
-- **Integration:** [![Build Status](https://travis-ci.com/xcbuddy/xcodeproj.svg?branch=integration)](https://travis-ci.com/xcbuddy/xcodeproj)
+- **Master:** [![Build Status](https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=master)](https://travis-ci.com/xcode-project-manager/xcodeproj)
+- **Integration:** [![Build Status](https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=integration)](https://travis-ci.com/xcode-project-manager/xcodeproj)
 
 ## Contribute
 
-1. Git clone the repository `git@github.com:xcbuddy/xcodeproj.git`.
+1. Git clone the repository `git@github.com:xcode-project-manager/xcodeproj.git`.
 2. Generate xcodeproj with  `swift package generate-xcodeproj`.
 3. Open `xcodeproj.xcodeproj`.
 
@@ -38,7 +38,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/xcbuddy/xcodeproj.git", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/xcode-project-manager/xcodeproj.git", .upToNextMajor(from: "5.0.0")),
         ],
     targets: [
         .target(
@@ -62,7 +62,7 @@ One of those additions is an improvement on how references are managed.
  When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. **The value of that reference is an implementation detail that has been abstracted away from you.**
 
 ## Documentation 📄
-You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
+You can check out the documentation on the following [link](https://xcode-project-manager.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ## References 📚
 
