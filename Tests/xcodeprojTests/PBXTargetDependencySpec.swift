@@ -7,8 +7,8 @@ final class PBXTargetDependencySpec: XCTestCase {
 
     override func setUp() {
         subject = PBXTargetDependency(name: "name",
-                                      target: PBXObjectReference("target"),
-                                      targetProxy: PBXObjectReference("target_proxy"))
+                                      targetReference: PBXObjectReference("target"),
+                                      targetProxyReference: PBXObjectReference("target_proxy"))
     }
 
     func test_hasTheCorrectIsa() {
