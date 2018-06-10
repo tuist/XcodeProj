@@ -46,8 +46,20 @@ let package = Package(
             dependencies: ["xcodeproj"]),
         ]
 )
-
 ```
+
+## Migrate to xcodeproj 5
+`xcodeproj` 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn't been officially released yet but you can already start updating your project for the new version. These are the changes you'd need to make in your projects:
+
+- `xcproj` has been renamed to `xcodeproj` so you need to update all your import statements to use the new name.
+- There's no support for Carthage nor CocoaPods anymore, if you were using them for fetching `xcodeproj`, you can use the Swift Package Manager and manually setup the dependency.
+- We've replaced `Path` with `AbsolutePath` and `RelativePath` from the Swift Package Manager's `Basic` framework. You might need to change some of the usages to use the new type.
+- Reference attributes have been renamed to use the naming convention `attributeReference` where `attribute` is the name of the attribute. If you are interested in materializing the reference to get the object, objects provide convenient getters that you can use for that purpose. Those getters throw if the object is not found in the project.
+
+There are some useful additions to the API that you can check out on the [CHANGELOG](https://github.com/xcode-project-manager/xcodeproj/blob/master/CHANGELOG.md). 
+
+One of those additions is an improvement on how references are managed.
+ When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. **The value of that reference is an implementation detail that has been abstracted away from you.**
 
 ## Documentation 📄
 You can check out the documentation on the following [link](https://xcbuddy.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
