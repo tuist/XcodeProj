@@ -14,7 +14,7 @@ public final class PBXReferenceProxy: PBXObject {
     public var path: String?
 
     /// Element remote reference.
-    public var remoteRef: String?
+    public var remoteReference: PBXObjectReference?
 
     /// Element source tree.
     public var sourceTree: PBXSourceTree?
@@ -23,11 +23,11 @@ public final class PBXReferenceProxy: PBXObject {
 
     public init(fileType: String? = nil,
                 path: String? = nil,
-                remoteRef: String? = nil,
+                remoteReference: PBXObjectReference? = nil,
                 sourceTree: PBXSourceTree? = nil) {
         self.fileType = fileType
         self.path = path
-        self.remoteRef = remoteRef
+        self.remoteReference = remoteReference
         self.sourceTree = sourceTree
         super.init()
     }
@@ -42,10 +42,14 @@ public final class PBXReferenceProxy: PBXObject {
     }
 
     public required init(from decoder: Decoder) throws {
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
+        let objects = decoder.context.objects
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let remoteRefString: String = try container.decodeIfPresent(.remoteRef) {
+            remoteReference = objectReferenceRepository.getOrCreate(reference: remoteRefString, objects: objects)
+        }
         fileType = try container.decodeIfPresent(.fileType)
         path = try container.decodeIfPresent(.path)
-        remoteRef = try container.decodeIfPresent(.remoteRef)
         sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
@@ -63,8 +67,8 @@ extension PBXReferenceProxy: PlistSerializable {
         if let path = path {
             dictionary["path"] = .string(CommentedString(path))
         }
-        if let remoteRef = remoteRef {
-            dictionary["remoteRef"] = .string(CommentedString(remoteRef, comment: "PBXContainerItemProxy"))
+        if let remoteReference = remoteReference {
+            dictionary["remoteRef"] = .string(CommentedString(remoteReference.value, comment: "PBXContainerItemProxy"))
         }
         if let sourceTree = sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()

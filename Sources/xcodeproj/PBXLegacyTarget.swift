@@ -19,10 +19,10 @@ public final class PBXLegacyTarget: PBXTarget {
                 buildArgumentsString: String? = nil,
                 passBuildSettingsInEnvironment: Bool = false,
                 buildWorkingDirectory: String? = nil,
-                buildConfigurationListRef: PBXObjectReference? = nil,
-                buildPhases: [PBXObjectReference] = [],
-                buildRules: [PBXObjectReference] = [],
-                dependencies: [PBXObjectReference] = [],
+                buildConfigurationListReference: PBXObjectReference? = nil,
+                buildPhasesReferences: [PBXObjectReference] = [],
+                buildRulesReferences: [PBXObjectReference] = [],
+                dependenciesReferences: [PBXObjectReference] = [],
                 productName: String? = nil,
                 productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
@@ -31,10 +31,10 @@ public final class PBXLegacyTarget: PBXTarget {
         self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironment
         self.buildWorkingDirectory = buildWorkingDirectory
         super.init(name: name,
-                   buildConfigurationListRef: buildConfigurationListRef,
-                   buildPhases: buildPhases,
-                   buildRules: buildRules,
-                   dependencies: dependencies,
+                   buildConfigurationListReference: buildConfigurationListReference,
+                   buildPhasesReferences: buildPhasesReferences,
+                   buildRulesReferences: buildRulesReferences,
+                   dependenciesReferences: dependenciesReferences,
                    productName: productName,
                    productReference: productReference,
                    productType: productType)

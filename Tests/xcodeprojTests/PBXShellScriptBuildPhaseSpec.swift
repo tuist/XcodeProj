@@ -10,7 +10,7 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
     func test_write_showEnvVarsInLog() throws {
         let show = PBXShellScriptBuildPhase(showEnvVarsInLog: true)
         let doNotShow = PBXShellScriptBuildPhase(showEnvVarsInLog: false)
-        let proj = PBXProj(rootObject: PBXObjectReference("rootObject"),
+        let proj = PBXProj(rootObjectReference: PBXObjectReference("rootObject"),
                            objectVersion: 48,
                            objects: [
                                "show": show,

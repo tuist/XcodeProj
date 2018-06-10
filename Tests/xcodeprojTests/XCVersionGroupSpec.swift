@@ -14,7 +14,7 @@ extension XCVersionGroup {
                               name: name,
                               sourceTree: sourceTree,
                               versionGroupType: versionGroupType,
-                              children: children)
+                              childrenReferences: children)
     }
 }
 

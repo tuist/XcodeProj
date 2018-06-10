@@ -18,17 +18,17 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
-    public var rootObject: PBXObjectReference?
+    public var rootObjectReference: PBXObjectReference?
 
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
-    ///   - rootObject: project root object.
+    ///   - rootObjectReference: project root object.
     ///   - objectVersion: project object version.
     ///   - archiveVersion: project archive version.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(rootObject: PBXObjectReference? = nil,
+    public init(rootObjectReference: PBXObjectReference? = nil,
                 objectVersion: UInt = 0,
                 archiveVersion: UInt = 1,
                 classes: [String: Any] = [:],
@@ -36,7 +36,7 @@ public final class PBXProj: Decodable {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
-        self.rootObject = rootObject
+        self.rootObjectReference = rootObjectReference
         self.objects = PBXObjects(objects: objects)
     }
 
@@ -55,7 +55,7 @@ public final class PBXProj: Decodable {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let rootObjectReference: String = try container.decode(.rootObject)
-        rootObject = objectReferenceRepository.getOrCreate(reference: rootObjectReference, objects: objects)
+        self.rootObjectReference = objectReferenceRepository.getOrCreate(reference: rootObjectReference, objects: objects)
         objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
@@ -84,6 +84,21 @@ extension PBXProj {
         }
         let projectName = path.parentDirectory.components.last?.split(separator: ".").first
         try rootProject()?.name = projectName.map(String.init) ?? ""
+    }
+}
+
+// MARK: - Build
+
+public extension PBXProj {
+    /// Returns root project.
+    public func rootProject() throws -> PBXProject? {
+        return try rootObjectReference?.object()
+    }
+
+    /// Returns root project's root group.
+    public func rootGroup() throws -> PBXGroup? {
+        let project = try rootProject()
+        return try project?.mainGroup.object()
     }
 }
 

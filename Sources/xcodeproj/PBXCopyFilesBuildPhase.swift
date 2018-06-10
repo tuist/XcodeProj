@@ -45,12 +45,12 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
                 dstSubfolderSpec: SubFolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
-                files: [PBXObjectReference] = [],
+                filesReferences: [PBXObjectReference] = [],
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
-        super.init(files: files,
+        super.init(filesReferences: filesReferences,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing:
                    runOnlyForDeploymentPostprocessing)

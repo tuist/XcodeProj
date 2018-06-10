@@ -10,6 +10,7 @@
 - Remove `ObjectReference` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
 - Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
 - Update `PBXNativeTarget` reference attributes to be of type `PBXObjectReference` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
+- Add convenient methods to materialize objects references https://github.com/xcode-project-manager/xcodeproj/pull/12 by @pepibumur.
 
 ### Added
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.

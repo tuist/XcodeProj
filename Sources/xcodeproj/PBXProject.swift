@@ -8,7 +8,7 @@ public final class PBXProject: PBXObject {
     public var name: String
 
     /// The object is a reference to a XCConfigurationList element.
-    public var buildConfigurationList: PBXObjectReference
+    public var buildConfigurationListReference: PBXObjectReference
 
     /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
@@ -38,7 +38,7 @@ public final class PBXProject: PBXObject {
     public var projectRoots: [String]
 
     /// The objects are a reference to a PBXTarget element.
-    public var targets: [PBXObjectReference]
+    public var targetsReferences: [PBXObjectReference]
 
     /// Project attributes.
     public var attributes: [String: Any]
@@ -49,7 +49,7 @@ public final class PBXProject: PBXObject {
     ///
     /// - Parameters:
     ///   - name: xcodeproj's name.
-    ///   - buildConfigurationList: project build configuration list.
+    ///   - buildConfigurationListReference: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
     ///   - mainGroup: project main group.
     ///   - developmentRegion: project has development region.
@@ -59,10 +59,10 @@ public final class PBXProject: PBXObject {
     ///   - projectDirPath: project dir path.
     ///   - projectReferences: project references.
     ///   - projectRoots: project roots.
-    ///   - targets: project targets.
+    ///   - targetsReferences: project targets.
     ///   - attributes: project attributes.
     public init(name: String,
-                buildConfigurationList: PBXObjectReference,
+                buildConfigurationListReference: PBXObjectReference,
                 compatibilityVersion: String,
                 mainGroup: PBXObjectReference,
                 developmentRegion: String? = nil,
@@ -72,10 +72,10 @@ public final class PBXProject: PBXObject {
                 projectDirPath: String = "",
                 projectReferences: [[String: PBXObjectReference]] = [],
                 projectRoots: [String] = [],
-                targets: [PBXObjectReference] = [],
+                targetsReferences: [PBXObjectReference] = [],
                 attributes: [String: Any] = [:]) {
         self.name = name
-        self.buildConfigurationList = buildConfigurationList
+        self.buildConfigurationListReference = buildConfigurationListReference
         self.compatibilityVersion = compatibilityVersion
         self.mainGroup = mainGroup
         self.developmentRegion = developmentRegion
@@ -85,7 +85,7 @@ public final class PBXProject: PBXObject {
         self.projectDirPath = projectDirPath
         self.projectReferences = projectReferences
         self.projectRoots = projectRoots
-        self.targets = targets
+        self.targetsReferences = targetsReferences
         self.attributes = attributes
         super.init()
     }
@@ -115,7 +115,7 @@ public final class PBXProject: PBXObject {
         let objects = decoder.context.objects
         name = (try container.decodeIfPresent(.name)) ?? ""
         let buildConfigurationListReference: String = try container.decode(.buildConfigurationList)
-        buildConfigurationList = referenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
+        self.buildConfigurationListReference = referenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
         compatibilityVersion = try container.decode(.compatibilityVersion)
         developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
@@ -141,7 +141,7 @@ public final class PBXProject: PBXObject {
             projectRoots = []
         }
         let targetsReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
-        targets = targetsReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.targetsReferences = targetsReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
         attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
@@ -154,7 +154,7 @@ extension PBXProject: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
-        let buildConfigurationListCommentedString = CommentedString(buildConfigurationList.value,
+        let buildConfigurationListCommentedString = CommentedString(buildConfigurationListReference.value,
                                                                     comment: buildConfigurationListComment)
         dictionary["buildConfigurationList"] = .string(buildConfigurationListCommentedString)
         dictionary["compatibilityVersion"] = .string(CommentedString(compatibilityVersion))
@@ -184,7 +184,7 @@ extension PBXProject: PlistSerializable {
         if let projectReferences = try projectReferencesPlistValue(proj: proj) {
             dictionary["projectReferences"] = projectReferences
         }
-        dictionary["targets"] = try PlistValue.array(targets
+        dictionary["targets"] = try PlistValue.array(targetsReferences
             .map { targetReference in
                 let target: PBXTarget = try targetReference.object()
                 return .string(CommentedString(targetReference.value, comment: target.name))

@@ -23,7 +23,7 @@ public final class XCVersionGroup: PBXGroup {
     ///   - path: group relative path from `sourceTree`, if different than `name`.
     ///   - sourceTree: group source tree.
     ///   - versionGroupType: identifier of the group type.
-    ///   - children: group children.
+    ///   - childrenReferences: group children references.
     ///   - includeInIndex: should the IDE index the files in the group?
     ///   - wrapsLines: should the IDE wrap lines for files in the group?
     ///   - usesTabs: group uses tabs.
@@ -34,7 +34,7 @@ public final class XCVersionGroup: PBXGroup {
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil,
                 versionGroupType: String? = nil,
-                children: [PBXObjectReference] = [],
+                childrenReferences: [PBXObjectReference] = [],
                 includeInIndex: Bool? = nil,
                 wrapsLines: Bool? = nil,
                 usesTabs: Bool? = nil,
@@ -42,7 +42,7 @@ public final class XCVersionGroup: PBXGroup {
                 tabWidth: UInt? = nil) {
         self.currentVersion = currentVersion
         self.versionGroupType = versionGroupType
-        super.init(children: children,
+        super.init(childrenReferences: childrenReferences,
                    sourceTree: sourceTree,
                    name: name,
                    path: path,
