@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+@testable import xcodeproj
 import XCTest
 
 final class PBXReferenceProxySpec: XCTestCase {
@@ -9,14 +9,14 @@ final class PBXReferenceProxySpec: XCTestCase {
         super.setUp()
         subject = PBXReferenceProxy(fileType: "fileType",
                                     path: "path",
-                                    remoteRef: "remoteRef",
+                                    remoteReference: PBXObjectReference("remoteRef"),
                                     sourceTree: .absolute)
     }
 
     func test_init_initializesTheModelWithTheCorrectAttributes() {
         XCTAssertEqual(subject.fileType, "fileType")
         XCTAssertEqual(subject.path, "path")
-        XCTAssertEqual(subject.remoteRef, "remoteRef")
+        XCTAssertEqual(subject.remoteReference?.value, "remoteRef")
         XCTAssertEqual(subject.sourceTree, .absolute)
     }
 

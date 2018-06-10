@@ -15,7 +15,7 @@ extension PBXBuildFile {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildFile else { return false }
-        if fileRef != rhs.fileRef { return false }
+        if fileReference != rhs.fileReference { return false }
         if !NSDictionary(dictionary: settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
         return super.isEqual(to: rhs)
     }
@@ -26,7 +26,7 @@ extension PBXBuildPhase {
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildPhase else { return false }
         if buildActionMask != rhs.buildActionMask { return false }
-        if files != rhs.files { return false }
+        if filesReferences != rhs.filesReferences { return false }
         if runOnlyForDeploymentPostprocessing != rhs.runOnlyForDeploymentPostprocessing { return false }
         return super.isEqual(to: rhs)
     }
@@ -61,9 +61,9 @@ extension PBXContainerItemProxy {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXContainerItemProxy else { return false }
-        if containerPortal != rhs.containerPortal { return false }
+        if containerPortalReference != rhs.containerPortalReference { return false }
         if proxyType != rhs.proxyType { return false }
-        if remoteGlobalID != rhs.remoteGlobalID { return false }
+        if remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
         if remoteInfo != rhs.remoteInfo { return false }
         return super.isEqual(to: rhs)
     }
@@ -123,7 +123,7 @@ extension PBXGroup {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXGroup else { return false }
-        if children != rhs.children { return false }
+        if childrenReferences != rhs.childrenReferences { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -162,7 +162,7 @@ extension PBXProject {
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXProject else { return false }
         if name != rhs.name { return false }
-        if buildConfigurationList != rhs.buildConfigurationList { return false }
+        if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
         if compatibilityVersion != rhs.compatibilityVersion { return false }
         if developmentRegion != rhs.developmentRegion { return false }
         if hasScannedForEncodings != rhs.hasScannedForEncodings { return false }
@@ -172,7 +172,7 @@ extension PBXProject {
         if projectDirPath != rhs.projectDirPath { return false }
         if projectReferences != rhs.projectReferences { return false }
         if projectRoots != rhs.projectRoots { return false }
-        if targets != rhs.targets { return false }
+        if targetsReferences != rhs.targetsReferences { return false }
         if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
         return super.isEqual(to: rhs)
     }
@@ -184,7 +184,7 @@ extension PBXReferenceProxy {
         guard let rhs = object as? PBXReferenceProxy else { return false }
         if fileType != rhs.fileType { return false }
         if path != rhs.path { return false }
-        if remoteRef != rhs.remoteRef { return false }
+        if remoteReference != rhs.remoteReference { return false }
         if sourceTree != rhs.sourceTree { return false }
         return super.isEqual(to: rhs)
     }
@@ -232,10 +232,10 @@ extension PBXTarget {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTarget else { return false }
-        if buildConfigurationListRef != rhs.buildConfigurationListRef { return false }
-        if buildPhases != rhs.buildPhases { return false }
-        if buildRules != rhs.buildRules { return false }
-        if dependencies != rhs.dependencies { return false }
+        if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
+        if buildPhasesReferences != rhs.buildPhasesReferences { return false }
+        if buildRulesReferences != rhs.buildRulesReferences { return false }
+        if dependenciesReferences != rhs.dependenciesReferences { return false }
         if name != rhs.name { return false }
         if productName != rhs.productName { return false }
         if productReference != rhs.productReference { return false }
@@ -249,8 +249,8 @@ extension PBXTargetDependency {
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTargetDependency else { return false }
         if name != rhs.name { return false }
-        if target != rhs.target { return false }
-        if targetProxy != rhs.targetProxy { return false }
+        if targetReference != rhs.targetReference { return false }
+        if targetProxyReference != rhs.targetProxyReference { return false }
         return super.isEqual(to: rhs)
     }
 }

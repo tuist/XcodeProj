@@ -18,7 +18,7 @@ final class PBXProjEncoder {
 
     // swiftlint:disable function_body_length
     func encode(proj: PBXProj) throws -> String {
-        guard let rootObject = proj.rootObject else { throw PBXProjEncoderError.emptyProjectReference }
+        guard let rootObject = proj.rootObjectReference else { throw PBXProjEncoderError.emptyProjectReference }
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()

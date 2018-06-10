@@ -8,7 +8,7 @@ final class PBXProjectSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         subject = PBXProject(name: "App",
-                             buildConfigurationList: PBXObjectReference("config"),
+                             buildConfigurationListReference: PBXObjectReference("config"),
                              compatibilityVersion: "version",
                              mainGroup: PBXObjectReference("main"),
                              developmentRegion: "region",
@@ -18,7 +18,7 @@ final class PBXProjectSpec: XCTestCase {
                              projectDirPath: "path",
                              projectReferences: [["ref": PBXObjectReference("ref")]],
                              projectRoots: ["root"],
-                             targets: [PBXObjectReference("target")])
+                             targetsReferences: [PBXObjectReference("target")])
     }
 
     func test_isa_returnsTheCorrectValue() {

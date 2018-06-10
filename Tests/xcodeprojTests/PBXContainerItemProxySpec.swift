@@ -7,8 +7,8 @@ final class PBXContainerItemProxySpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXContainerItemProxy(containerPortal: PBXObjectReference("container"),
-                                        remoteGlobalID: PBXObjectReference("remote"),
+        subject = PBXContainerItemProxy(containerPortalReference: PBXObjectReference("container"),
+                                        remoteGlobalIDReference: PBXObjectReference("remote"),
                                         remoteInfo: "remote_info")
     }
 

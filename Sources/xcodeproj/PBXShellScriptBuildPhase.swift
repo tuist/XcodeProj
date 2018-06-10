@@ -38,7 +38,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
-    public init(files: [PBXObjectReference] = [],
+    public init(filesReferences: [PBXObjectReference] = [],
                 name: String? = nil,
                 inputPaths: [String] = [],
                 outputPaths: [String] = [],
@@ -53,7 +53,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.showEnvVarsInLog = showEnvVarsInLog
-        super.init(files: files,
+        super.init(filesReferences: filesReferences,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }

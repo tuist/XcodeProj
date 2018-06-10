@@ -9,10 +9,10 @@ public final class PBXTargetDependency: PBXObject {
     public var name: String?
 
     /// Target reference.
-    public var target: PBXObjectReference?
+    public var targetReference: PBXObjectReference?
 
     /// Target proxy
-    public var targetProxy: PBXObjectReference?
+    public var targetProxyReference: PBXObjectReference?
 
     // MARK: - Init
 
@@ -23,11 +23,11 @@ public final class PBXTargetDependency: PBXObject {
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
     public init(name: String? = nil,
-                target: PBXObjectReference? = nil,
-                targetProxy: PBXObjectReference? = nil) {
+                targetReference: PBXObjectReference? = nil,
+                targetProxyReference: PBXObjectReference? = nil) {
         self.name = name
-        self.target = target
-        self.targetProxy = targetProxy
+        self.targetReference = targetReference
+        self.targetProxyReference = targetProxyReference
         super.init()
     }
 
@@ -45,12 +45,32 @@ public final class PBXTargetDependency: PBXObject {
         let objects = decoder.context.objects
         name = try container.decodeIfPresent(.name)
         if let targetReference: String = try container.decodeIfPresent(.target) {
-            target = referenceRepository.getOrCreate(reference: targetReference, objects: objects)
+            self.targetReference = referenceRepository.getOrCreate(reference: targetReference, objects: objects)
         }
         if let targetProxyReference: String = try container.decodeIfPresent(.targetProxy) {
-            targetProxy = referenceRepository.getOrCreate(reference: targetProxyReference, objects: objects)
+            self.targetProxyReference = referenceRepository.getOrCreate(reference: targetProxyReference, objects: objects)
         }
         try super.init(from: decoder)
+    }
+}
+
+// MARK: - Public
+
+public extension PBXTargetDependency {
+    /// Materializes the target reference returning the target the object reference refers to.
+    ///
+    /// - Returns: target dependency target.
+    /// - Throws: an error if the object doesn't exist in the project.
+    public func target() throws -> PBXTarget? {
+        return try targetReference?.object()
+    }
+
+    /// Materializes the target proxy reference returning the target the object reference refers to.
+    ///
+    /// - Returns: target dependency proxy target.
+    /// - Throws: an error if the object doesn't exist in the project.
+    public func targetProxy() throws -> PBXTarget? {
+        return try targetProxyReference?.object()
     }
 }
 
@@ -63,10 +83,10 @@ extension PBXTargetDependency: PlistSerializable {
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let targetReference = target, let targetObject: PBXTarget = try target?.object() {
+        if let targetReference = targetReference, let targetObject: PBXTarget = try targetReference.object() {
             dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject.name))
         }
-        if let targetProxyReference = targetProxy {
+        if let targetProxyReference = targetProxyReference {
             dictionary["targetProxy"] = .string(CommentedString(targetProxyReference.value, comment: "PBXContainerItemProxy"))
         }
         return (key: CommentedString(reference,

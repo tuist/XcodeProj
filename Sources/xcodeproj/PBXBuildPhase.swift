@@ -8,8 +8,8 @@ public class PBXBuildPhase: PBXContainerItem {
     /// Element build action mask.
     public var buildActionMask: UInt
 
-    /// Element files.
-    public var files: [PBXObjectReference]
+    /// Element files references.
+    public var filesReferences: [PBXObjectReference]
 
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: Bool
@@ -19,10 +19,10 @@ public class PBXBuildPhase: PBXContainerItem {
         fatalError("This property must be overriden")
     }
 
-    public init(files: [PBXObjectReference] = [],
+    public init(filesReferences: [PBXObjectReference] = [],
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
-        self.files = files
+        self.filesReferences = filesReferences
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         super.init()
@@ -42,7 +42,7 @@ public class PBXBuildPhase: PBXContainerItem {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
         let filesReferences: [String] = try container.decodeIfPresent(.files) ?? []
-        files = filesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.filesReferences = filesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
         try super.init(from: decoder)
     }
@@ -50,7 +50,7 @@ public class PBXBuildPhase: PBXContainerItem {
     override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["files"] = try .array(files.map { fileReference in
+        dictionary["files"] = try .array(filesReferences.map { fileReference in
             let buildFile: PBXBuildFile = try fileReference.object()
             let name = try buildFile.fileName()
             let type = self.name()
@@ -60,6 +60,26 @@ public class PBXBuildPhase: PBXContainerItem {
         })
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
+    }
+}
+
+// MARK: - Public
+
+public extension PBXBuildPhase {
+    /// Adds a file to a build phase, creating a proxy build file that points to the given file reference.
+    ///
+    /// - Parameter reference: reference to the file element.
+    /// - Returns: reference to the build file added to the build phase.
+    /// - Throws: an error if the reference cannot be added
+    public func addFile(_ reference: PBXObjectReference) throws -> PBXObjectReference {
+        if let existing = try filesReferences.compactMap({ try $0.object() as PBXBuildFile }).first(where: { $0.fileReference == reference }) {
+            return existing.reference
+        }
+        let projectObjects = try objects()
+        let buildFile = PBXBuildFile(fileReference: reference)
+        let buildFileReference = projectObjects.addObject(buildFile)
+        filesReferences.append(buildFileReference)
+        return buildFileReference
     }
 }
 

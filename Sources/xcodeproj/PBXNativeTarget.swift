@@ -6,20 +6,20 @@ public final class PBXNativeTarget: PBXTarget {
     public var productInstallPath: String?
 
     public init(name: String,
-                buildConfigurationListRef: PBXObjectReference? = nil,
-                buildPhases: [PBXObjectReference] = [],
-                buildRules: [PBXObjectReference] = [],
-                dependencies: [PBXObjectReference] = [],
+                buildConfigurationListReference: PBXObjectReference? = nil,
+                buildPhasesReferences: [PBXObjectReference] = [],
+                buildRulesReferences: [PBXObjectReference] = [],
+                dependenciesReferences: [PBXObjectReference] = [],
                 productInstallPath: String? = nil,
                 productName: String? = nil,
                 productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
         self.productInstallPath = productInstallPath
         super.init(name: name,
-                   buildConfigurationListRef: buildConfigurationListRef,
-                   buildPhases: buildPhases,
-                   buildRules: buildRules,
-                   dependencies: dependencies,
+                   buildConfigurationListReference: buildConfigurationListReference,
+                   buildPhasesReferences: buildPhasesReferences,
+                   buildRulesReferences: buildRulesReferences,
+                   dependenciesReferences: dependenciesReferences,
                    productName: productName,
                    productReference: productReference,
                    productType: productType)
@@ -54,5 +54,32 @@ public final class PBXNativeTarget: PBXTarget {
 extension PBXNativeTarget: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         return try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
+    }
+}
+
+// MARK: - Public
+
+public extension PBXNativeTarget {
+    /// Adds a dependency to the target.
+    ///
+    /// - Parameter target: dependency target.
+    /// - Returns: target dependency reference.
+    /// - Throws: an error if the dependency cannot be created.
+    public func addDependency(target: PBXNativeTarget) throws -> PBXObjectReference? {
+        let objects = try target.objects()
+        guard let project = objects.projects.first?.value else {
+            return nil
+        }
+        let proxy = PBXContainerItemProxy(containerPortalReference: project.reference,
+                                          remoteGlobalIDReference: target.reference,
+                                          proxyType: .nativeTarget,
+                                          remoteInfo: target.name)
+        let proxyReference = objects.addObject(proxy)
+        let targetDependency = PBXTargetDependency(name: target.name,
+                                                   targetReference: target.reference,
+                                                   targetProxyReference: proxyReference)
+        let targetDependencyReference = objects.addObject(targetDependency)
+        dependenciesReferences.append(targetDependencyReference)
+        return targetDependencyReference
     }
 }
