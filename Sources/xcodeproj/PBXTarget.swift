@@ -118,6 +118,32 @@ public class PBXTarget: PBXContainerItem {
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referencedObjects() throws -> [PBXObjectReference] {
+        var references = try super.referencedObjects()
+        if let buildConfigurationListReference = buildConfigurationListReference {
+            references.append(buildConfigurationListReference)
+        }
+        references.append(contentsOf: buildPhasesReferences)
+        references.append(contentsOf: buildRulesReferences)
+        references.append(contentsOf: dependenciesReferences)
+        return references
+    }
+
+    /// Identifiers that should be used to calculate the reference of this object.
+    ///
+    /// - Returns: object identifiers.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers = try super.referenceIdentifiers()
+        identifiers.append(name)
+        return identifiers
+    }
 }
 
 // MARK: - Public

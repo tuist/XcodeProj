@@ -131,6 +131,20 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     func fileName() -> String? {
         return name ?? path
     }
+
+    // MARK: - References
+
+    // Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers: [String] = try super.referenceIdentifiers()
+        if let fileName = self.fileName() {
+            identifiers.append(fileName)
+        }
+        return identifiers
+    }
 }
 
 // MARK: - Public

@@ -71,6 +71,17 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
         name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
+
+    // MARK: - References
+
+    /// Identifiers that should be used to calculate the reference of this object.
+    ///
+    /// - Returns: object identifiers.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers = try super.referenceIdentifiers()
+        if let name = name { identifiers.append(name) }
+        return identifiers
+    }
 }
 
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)

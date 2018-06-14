@@ -71,6 +71,18 @@ public class PBXGroup: PBXFileElement {
                                      comment: name ?? path),
                 value: .dictionary(dictionary))
     }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referencedObjects() throws -> [PBXObjectReference] {
+        var references = try super.referencedObjects()
+        references.append(contentsOf: childrenReferences)
+        return references
+    }
 }
 
 // MARK: - Public

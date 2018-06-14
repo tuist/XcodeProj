@@ -117,4 +117,36 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
         }
         return objects
     }
+
+    /// Fixes the reference of the object reference and its children.
+    ///
+    /// - Parameter identifiers: identifiers that should be used to generate the deterministic reference.
+    func fixReference(identifiers: [String]) throws {
+        var mutableIdentifiers = identifiers
+        mutableIdentifiers.append(String(describing: self))
+        try mutableIdentifiers.append(contentsOf: referenceIdentifiers())
+        if reference.temporary {
+            reference.fix(mutableIdentifiers.joined(separator: "-").md5.uppercased())
+        }
+        try referencedObjects()
+            .map({ try $0.object() as PBXObject })
+            .forEach({ try $0.fixReference(identifiers: mutableIdentifiers) })
+    }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    func referencedObjects() throws -> [PBXObjectReference] {
+        return []
+    }
+
+    /// Identifiers that should be used to calculate the reference of this object.
+    ///
+    /// - Returns: object identifiers.
+    func referenceIdentifiers() throws -> [String] {
+        return []
+    }
 }

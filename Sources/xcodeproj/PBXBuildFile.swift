@@ -42,6 +42,21 @@ public final class PBXBuildFile: PBXObject {
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
     }
+
+    // MARK: - References
+
+    // Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers: [String] = []
+        if let fileElement: PBXFileElement = try fileReference?.object(),
+            let fileName = fileElement.fileName() {
+            identifiers.append(fileName)
+        }
+        return identifiers
+    }
 }
 
 // MARK: - Public

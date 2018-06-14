@@ -61,6 +61,18 @@ public class PBXBuildPhase: PBXContainerItem {
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
     }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referencedObjects() throws -> [PBXObjectReference] {
+        var references = try super.referencedObjects()
+        references.append(contentsOf: filesReferences)
+        return references
+    }
 }
 
 // MARK: - Public
