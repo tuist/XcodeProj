@@ -53,6 +53,27 @@ public final class PBXReferenceProxy: PBXObject {
         sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referencedObjects() throws -> [PBXObjectReference] {
+        var references = try super.referencedObjects()
+
+        return references
+    }
+
+    /// Identifiers that should be used to calculate the reference of this object.
+    ///
+    /// - Returns: object identifiers.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers = try super.referenceIdentifiers()
+
+        return identifiers
+    }
 }
 
 // MARK: - PBXReferenceProxy

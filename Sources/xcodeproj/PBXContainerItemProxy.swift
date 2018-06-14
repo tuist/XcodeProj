@@ -64,6 +64,21 @@ public final class PBXContainerItemProxy: PBXObject {
         remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }
+
+    // MARK: - References
+
+    /// Referenced children objects. Those children are used by -fixReference to
+    /// fix the reference of those objects as well.
+    ///
+    /// - Returns: object children references.
+    override func referencedObjects() throws -> [PBXObjectReference] {
+        var references = try super.referencedObjects()
+        references.append(containerPortalReference)
+        if let remoteGlobalIDReference = remoteGlobalIDReference {
+            references.append(remoteGlobalIDReference)
+        }
+        return references
+    }
 }
 
 // MARK: - PBXContainerItemProxy Extension (PlistSerializable)

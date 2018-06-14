@@ -23,7 +23,7 @@ public class PBXObjectReference: Hashable, Comparable {
 
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
-        value = String.random()
+        value = String.random().uppercased()
         temporary = true
         self.objects = objects
     }
@@ -33,6 +33,14 @@ public class PBXObjectReference: Hashable, Comparable {
     /// - Parameter reference: reference.
     init(_ reference: String) {
         value = reference
+        temporary = false
+    }
+
+    /// Fixes the value of the reference with the given value.
+    ///
+    /// - Parameter value: reference string value.
+    func fix(_ value: String) {
+        self.value = value
         temporary = false
     }
 

@@ -75,6 +75,19 @@ public final class PBXBuildRule: PBXObject {
         script = try container.decodeIfPresent(.script)
         try super.init(from: decoder)
     }
+
+    // MARK: - References
+
+    /// Identifiers that should be used to calculate the reference of this object.
+    ///
+    /// - Returns: object identifiers.
+    override func referenceIdentifiers() throws -> [String] {
+        var identifiers = try super.referenceIdentifiers()
+        if let name = name {
+            identifiers.append(name)
+        }
+        return identifiers
+    }
 }
 
 // MARK: - PBXBuildRule Extension (PlistSerializable)
