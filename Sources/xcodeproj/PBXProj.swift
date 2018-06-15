@@ -98,7 +98,7 @@ public extension PBXProj {
     /// Returns root project's root group.
     public func rootGroup() throws -> PBXGroup? {
         let project = try rootProject()
-        return try project?.mainGroup.object()
+        return try project?.mainGroupReference.object()
     }
 }
 
