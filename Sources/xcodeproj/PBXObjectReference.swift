@@ -36,6 +36,14 @@ public class PBXObjectReference: Hashable, Comparable {
         temporary = false
     }
 
+    /// Fixes its value making it permanent.
+    ///
+    /// - Parameter value: value.
+    func fix(_ value: String) {
+        self.value = value
+        temporary = false
+    }
+
     /// Hash value.
     public var hashValue: Int {
         return value.hashValue
