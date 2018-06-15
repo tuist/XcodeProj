@@ -167,8 +167,8 @@ extension PBXProject {
         if developmentRegion != rhs.developmentRegion { return false }
         if hasScannedForEncodings != rhs.hasScannedForEncodings { return false }
         if knownRegions != rhs.knownRegions { return false }
-        if mainGroup != rhs.mainGroup { return false }
-        if productRefGroup != rhs.productRefGroup { return false }
+        if mainGroupReference != rhs.mainGroupReference { return false }
+        if productsGroupReference != rhs.productsGroupReference { return false }
         if projectDirPath != rhs.projectDirPath { return false }
         if projectReferences != rhs.projectReferences { return false }
         if projectRoots != rhs.projectRoots { return false }

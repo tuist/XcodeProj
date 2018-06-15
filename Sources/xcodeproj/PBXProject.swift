@@ -23,10 +23,10 @@ public final class PBXProject: PBXObject {
     public var knownRegions: [String]
 
     /// The object is a reference to a PBXGroup element.
-    public var mainGroup: PBXObjectReference
+    public var mainGroupReference: PBXObjectReference
 
     /// The object is a reference to a PBXGroup element.
-    public var productRefGroup: PBXObjectReference?
+    public var productsGroupReference: PBXObjectReference?
 
     /// The relative path of the project.
     public var projectDirPath: String
@@ -51,11 +51,11 @@ public final class PBXProject: PBXObject {
     ///   - name: xcodeproj's name.
     ///   - buildConfigurationListReference: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
-    ///   - mainGroup: project main group.
+    ///   - mainGroupReference: project main group.
     ///   - developmentRegion: project has development region.
     ///   - hasScannedForEncodings: project has scanned for encodings.
     ///   - knownRegions: project known regions.
-    ///   - productRefGroup: product reference group.
+    ///   - productsGroupReference: product reference group.
     ///   - projectDirPath: project dir path.
     ///   - projectReferences: project references.
     ///   - projectRoots: project roots.
@@ -64,11 +64,11 @@ public final class PBXProject: PBXObject {
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference,
                 compatibilityVersion: String,
-                mainGroup: PBXObjectReference,
+                mainGroupReference: PBXObjectReference,
                 developmentRegion: String? = nil,
                 hasScannedForEncodings: Int = 0,
                 knownRegions: [String] = [],
-                productRefGroup: PBXObjectReference? = nil,
+                productsGroupReference: PBXObjectReference? = nil,
                 projectDirPath: String = "",
                 projectReferences: [[String: PBXObjectReference]] = [],
                 projectRoots: [String] = [],
@@ -77,11 +77,11 @@ public final class PBXProject: PBXObject {
         self.name = name
         self.buildConfigurationListReference = buildConfigurationListReference
         self.compatibilityVersion = compatibilityVersion
-        self.mainGroup = mainGroup
+        self.mainGroupReference = mainGroupReference
         self.developmentRegion = developmentRegion
         self.hasScannedForEncodings = hasScannedForEncodings
         self.knownRegions = knownRegions
-        self.productRefGroup = productRefGroup
+        self.productsGroupReference = productsGroupReference
         self.projectDirPath = projectDirPath
         self.projectReferences = projectReferences
         self.projectRoots = projectRoots
@@ -122,11 +122,11 @@ public final class PBXProject: PBXObject {
         hasScannedForEncodings = hasScannedForEncodingsString.flatMap({ Int($0) }) ?? 0
         knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
         let mainGroupReference: String = try container.decode(.mainGroup)
-        mainGroup = referenceRepository.getOrCreate(reference: mainGroupReference, objects: objects)
+        self.mainGroupReference = referenceRepository.getOrCreate(reference: mainGroupReference, objects: objects)
         if let productRefGroupReference: String = try container.decodeIfPresent(.productRefGroup) {
-            productRefGroup = referenceRepository.getOrCreate(reference: productRefGroupReference, objects: objects)
+            productsGroupReference = referenceRepository.getOrCreate(reference: productRefGroupReference, objects: objects)
         } else {
-            productRefGroup = nil
+            productsGroupReference = nil
         }
         projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
         let projectReferences: [[String: String]] = (try container.decodeIfPresent(.projectReferences)) ?? []
@@ -167,12 +167,12 @@ extension PBXProject: PlistSerializable {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map { .string(CommentedString("\($0)")) })
         }
-        let mainGroupObject: PBXGroup = try mainGroup.object()
-        dictionary["mainGroup"] = .string(CommentedString(mainGroup.value, comment: mainGroupObject.name ?? mainGroupObject.path))
-        if let productRefGroup = productRefGroup {
-            let productRefGroupObject: PBXGroup = try productRefGroup.object()
+        let mainGroupObject: PBXGroup = try mainGroupReference.object()
+        dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject.name ?? mainGroupObject.path))
+        if let productsGroupReference = productsGroupReference {
+            let productRefGroupObject: PBXGroup = try productsGroupReference.object()
             let productRefGroupComment = productRefGroupObject.name ?? productRefGroupObject.path
-            dictionary["productRefGroup"] = .string(CommentedString(productRefGroup.value,
+            dictionary["productRefGroup"] = .string(CommentedString(productsGroupReference.value,
                                                                     comment: productRefGroupComment))
         }
         dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
