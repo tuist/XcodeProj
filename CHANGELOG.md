@@ -10,6 +10,7 @@
 - Remove `ObjectReference` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
 - Update `PBXNativeTarget` reference attributes to be of type `PBXObjectReference` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
 - Add convenient methods to materialize objects references https://github.com/xcode-project-manager/xcodeproj/pull/12 by @pepibumur.
+- Rename some PBXProject attributes for consistency https://github.com/xcode-project-manager/xcodeproj/pull/268 by @pepibumur.
 
 ### Added
 - Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
