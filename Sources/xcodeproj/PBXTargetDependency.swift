@@ -69,7 +69,7 @@ public extension PBXTargetDependency {
     ///
     /// - Returns: target dependency proxy target.
     /// - Throws: an error if the object doesn't exist in the project.
-    public func targetProxy() throws -> PBXTarget? {
+    public func targetProxy() throws -> PBXContainerItemProxy? {
         return try targetProxyReference?.object()
     }
 }

@@ -161,8 +161,39 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - targetDependency: target dependency instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateTargetDependencyReferences(_: PBXTargetDependency,
-                                                        identifiers _: [String]) throws {
+    fileprivate func generateTargetDependencyReferences(_ targetDependency: PBXTargetDependency,
+                                                        identifiers: [String]) throws {
+        var identifiers = identifiers
+        identifiers.append(String(describing: targetDependency))
+
+        // Target
+        if let targetReference = targetDependency.targetReference,
+            targetReference.temporary,
+            let target = try targetDependency.target() {
+            var identifiers = identifiers
+            identifiers.append(target.name)
+            targetReference.fix(generate(identifiers: identifiers))
+        }
+
+        // Target proxy
+        if let targetProxyReference = targetDependency.targetProxyReference,
+            targetProxyReference.temporary,
+            let targetProxy = try targetDependency.targetProxy(),
+            let remoteTarget: PBXTarget = try targetProxy.remoteGlobalIDReference?.object() {
+            var identifiers = identifiers
+            identifiers.append(remoteTarget.name)
+        }
+
+        // Target dependency
+        if targetDependency.reference.temporary {
+            if let targetReference = targetDependency.targetReference?.value {
+                identifiers.append(targetReference)
+            }
+            if let targetProxyReference = targetDependency.targetProxyReference?.value {
+                identifiers.append(targetProxyReference)
+            }
+            targetDependency.reference.fix(generate(identifiers: identifiers))
+        }
     }
 
     /// Generates the reference for a build phase object.
@@ -205,8 +236,16 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - buildRule: build phase instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateBuildRules(_: PBXBuildRule,
-                                        identifiers _: [String]) throws {
+    fileprivate func generateBuildRules(_ buildRule: PBXBuildRule,
+                                        identifiers: [String]) throws {
+        var identifiers = identifiers
+        identifiers.append(String(describing: buildRule))
+        if let name = buildRule.name {
+            identifiers.append(name)
+        }
+        if buildRule.reference.temporary {
+            buildRule.reference.fix(generate(identifiers: identifiers))
+        }
     }
 
     /// Given a list of identifiers, it returns a deterministic reference.
@@ -215,8 +254,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///
     /// - Parameter identifiers: list of identifiers used to generate the reference of the object.
     /// - Returns: object reference.
-    fileprivate func generate(identifiers _: [String]) -> String {
-        // Check if the identifier already exists
-        return ""
+    fileprivate func generate(identifiers: [String]) -> String {
+        return identifiers.joined(separator: "-").md5.uppercased()
     }
 }
