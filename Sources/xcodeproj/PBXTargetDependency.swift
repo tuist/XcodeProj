@@ -83,8 +83,9 @@ extension PBXTargetDependency: PlistSerializable {
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let targetReference = targetReference, let targetObject: PBXTarget = try targetReference.object() {
-            dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject.name))
+        if let targetReference = targetReference {
+            let targetObject: PBXTarget? = try? targetReference.object()
+            dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject?.name))
         }
         if let targetProxyReference = targetProxyReference {
             dictionary["targetProxy"] = .string(CommentedString(targetProxyReference.value, comment: "PBXContainerItemProxy"))

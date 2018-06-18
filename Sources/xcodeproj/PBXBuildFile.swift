@@ -115,8 +115,8 @@ extension PBXBuildFile: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = fileReference {
-            let fileElement: PBXFileElement = try fileReference.object()
-            dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement.fileName()))
+            let fileElement: PBXFileElement? = try? fileReference.object()
+            dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
         if let settings = settings {
             dictionary["settings"] = settings.plist()

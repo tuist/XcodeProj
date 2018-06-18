@@ -167,13 +167,12 @@ extension PBXProject: PlistSerializable {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map { .string(CommentedString("\($0)")) })
         }
-        let mainGroupObject: PBXGroup = try mainGroupReference.object()
-        dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject.name ?? mainGroupObject.path))
+        let mainGroupObject: PBXGroup? = try? mainGroupReference.object()
+        dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject?.fileName()))
         if let productsGroupReference = productsGroupReference {
-            let productRefGroupObject: PBXGroup = try productsGroupReference.object()
-            let productRefGroupComment = productRefGroupObject.name ?? productRefGroupObject.path
+            let productRefGroupObject: PBXGroup? = try? productsGroupReference.object()
             dictionary["productRefGroup"] = .string(CommentedString(productsGroupReference.value,
-                                                                    comment: productRefGroupComment))
+                                                                    comment: productRefGroupObject?.fileName()))
         }
         dictionary["projectDirPath"] = .string(CommentedString(projectDirPath))
         if projectRoots.count > 1 {
@@ -184,10 +183,10 @@ extension PBXProject: PlistSerializable {
         if let projectReferences = try projectReferencesPlistValue(proj: proj) {
             dictionary["projectReferences"] = projectReferences
         }
-        dictionary["targets"] = try PlistValue.array(targetsReferences
+        dictionary["targets"] = PlistValue.array(targetsReferences
             .map { targetReference in
-                let target: PBXTarget = try targetReference.object()
-                return .string(CommentedString(targetReference.value, comment: target.name))
+                let target: PBXTarget? = try? targetReference.object()
+                return .string(CommentedString(targetReference.value, comment: target?.name))
         })
         dictionary["attributes"] = attributes.plist()
         return (key: CommentedString(reference,
@@ -199,14 +198,14 @@ extension PBXProject: PlistSerializable {
         guard projectReferences.count > 0 else {
             return nil
         }
-        return try .array(projectReferences.compactMap { reference in
+        return .array(projectReferences.compactMap { reference in
             guard let productGroupReference = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-            let producGroup: PBXGroup = try productGroupReference.object()
-            let groupName = producGroup.name
-            let project: PBXFileElement = try projectRef.object()
-            let fileRefName = project.fileName()
+            let producGroup: PBXGroup? = try? productGroupReference.object()
+            let groupName = producGroup?.fileName()
+            let project: PBXFileElement? = try? projectRef.object()
+            let fileRefName = project?.fileName()
 
             return [
                 CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroupReference.value, comment: groupName)),

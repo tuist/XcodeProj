@@ -84,10 +84,10 @@ extension XCConfigurationList: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
-        dictionary["buildConfigurations"] = try .array(buildConfigurationsReferences
+        dictionary["buildConfigurations"] = .array(buildConfigurationsReferences
             .map { configReference in
-                let config: XCBuildConfiguration = try configReference.object()
-                return .string(CommentedString(configReference.value, comment: config.name))
+                let config: XCBuildConfiguration? = try? configReference.object()
+                return .string(CommentedString(configReference.value, comment: config?.name))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
         if let defaultConfigurationName = defaultConfigurationName {

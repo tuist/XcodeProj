@@ -92,10 +92,10 @@ public class PBXTarget: PBXContainerItem {
         if let buildConfigurationListReference = buildConfigurationListReference {
             dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListReference.value, comment: buildConfigurationListComment))
         }
-        dictionary["buildPhases"] = try .array(buildPhasesReferences
+        dictionary["buildPhases"] = .array(buildPhasesReferences
             .map { (buildPhaseReference: PBXObjectReference) in
-                let buildPhase: PBXBuildPhase = try buildPhaseReference.object()
-                return .string(CommentedString(buildPhaseReference.value, comment: buildPhase.name()))
+                let buildPhase: PBXBuildPhase? = try? buildPhaseReference.object()
+                return .string(CommentedString(buildPhaseReference.value, comment: buildPhase?.name()))
         })
 
         // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
@@ -112,8 +112,8 @@ public class PBXTarget: PBXContainerItem {
             dictionary["productType"] = .string(CommentedString(productType.rawValue))
         }
         if let productReference = productReference {
-            let fileElement: PBXFileElement = try productReference.object()
-            dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement.fileName()))
+            let fileElement: PBXFileElement? = try? productReference.object()
+            dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))

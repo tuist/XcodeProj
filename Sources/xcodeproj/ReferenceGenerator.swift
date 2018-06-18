@@ -33,24 +33,26 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Groups
-        let mainGroup: PBXGroup = try project.mainGroupReference.object()
-        try generateGroupReferences(mainGroup, identifiers: identifiers)
+        if let mainGroup: PBXGroup = try? project.mainGroupReference.object() {
+            try generateGroupReferences(mainGroup, identifiers: identifiers)
+        }
         // Note: Groups and files should be generated first because their references
         // are used to generate other references.
 
         // Targets
-        let targets: [PBXTarget] = try project.targetsReferences.map({ try $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
         try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
 
         // Project references
         try project.projectReferences.flatMap({ $0.values }).forEach { objectReference in
-            let fileReference: PBXFileReference = try objectReference.object()
+            guard let fileReference: PBXFileReference = try? objectReference.object() else { return }
             try generateFileReference(fileReference, identifiers: identifiers)
         }
 
         /// Configuration list
-        let configurationList: XCConfigurationList = try project.buildConfigurationListReference.object()
-        try generateConfigurationListReferences(configurationList, identifiers: identifiers)
+        if let configurationList: XCConfigurationList = try? project.buildConfigurationListReference.object() {
+            try generateConfigurationListReferences(configurationList, identifiers: identifiers)
+        }
     }
 
     /// Generates the reference for a group object.
@@ -73,7 +75,7 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Children
         try group.childrenReferences.forEach { child in
-            let childFileElement: PBXFileElement = try child.object()
+            guard let childFileElement: PBXFileElement = try? child.object() else { return }
             if let childGroup = childFileElement as? PBXGroup {
                 try generateGroupReferences(childGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
@@ -143,16 +145,16 @@ final class ReferenceGenerator: ReferenceGenerating {
                                                     identifiers: identifiers)
         }
         // Build phases
-        let buildPhashes = try target.buildPhasesReferences.map({ try $0.object() as PBXBuildPhase })
+        let buildPhashes = target.buildPhasesReferences.compactMap({ try? $0.object() as PBXBuildPhase })
         try buildPhashes.forEach({ try generateBuildPhaseReferences($0,
                                                                     identifiers: identifiers) })
 
         // Build rules
-        let buildRules = try target.buildRulesReferences.map({ try $0.object() as PBXBuildRule })
+        let buildRules = target.buildRulesReferences.compactMap({ try? $0.object() as PBXBuildRule })
         try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
 
         // Dependencies
-        let dependencies = try target.buildRulesReferences.map({ try $0.object() as PBXTargetDependency })
+        let dependencies = target.buildRulesReferences.compactMap({ try? $0.object() as PBXTargetDependency })
         try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
     }
 
@@ -179,7 +181,8 @@ final class ReferenceGenerator: ReferenceGenerating {
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
             let targetProxy = try targetDependency.targetProxy(),
-            let remoteTarget: PBXTarget = try targetProxy.remoteGlobalIDReference?.object() {
+            let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference,
+            let remoteTarget: PBXTarget = try? remoteGlobalIDReference.object() {
             var identifiers = identifiers
             identifiers.append(remoteTarget.name)
         }
@@ -213,18 +216,20 @@ final class ReferenceGenerator: ReferenceGenerating {
             buildPhase.reference.fix(generate(identifiers: identifiers))
         }
 
-        try buildPhase.filesReferences.forEach { buildFileReference in
-            if buildFileReference.temporary { return }
+        buildPhase.filesReferences.forEach { buildFileReference in
+            if !buildFileReference.temporary { return }
 
-            let buildFile: PBXBuildFile = try buildFileReference.object()
+            guard let buildFile: PBXBuildFile = try? buildFileReference.object() else { return }
 
             var identifiers = identifiers
             identifiers.append(String(describing: buildFile))
 
             // Note: At this point the file reference reference shouldn't be temporary so we can
             // use its value to generate the reference of the build file.
-            if let fileReference: PBXFileElement = try buildFile.fileReference?.object(), !fileReference.reference.temporary {
-                identifiers.append(fileReference.reference.value)
+            if let fileReference = buildFile.fileReference,
+                let fileReferenceObject: PBXFileElement = try? fileReference.object(),
+                !fileReferenceObject.reference.temporary {
+                identifiers.append(fileReferenceObject.reference.value)
             }
 
             buildFileReference.fix(generate(identifiers: identifiers))
