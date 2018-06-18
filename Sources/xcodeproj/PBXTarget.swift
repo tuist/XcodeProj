@@ -90,7 +90,8 @@ public class PBXTarget: PBXContainerItem {
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
         if let buildConfigurationListReference = buildConfigurationListReference {
-            dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListReference.value, comment: buildConfigurationListComment))
+            dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListReference.value,
+                                                                           comment: buildConfigurationListComment))
         }
         dictionary["buildPhases"] = .array(buildPhasesReferences
             .map { (buildPhaseReference: PBXObjectReference) in

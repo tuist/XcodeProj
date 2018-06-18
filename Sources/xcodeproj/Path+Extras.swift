@@ -1,3 +1,4 @@
+// swiftlint:disable all
 import Basic
 import Foundation
 
@@ -89,3 +90,5 @@ extension AbsolutePath {
         return []
     }
 }
+
+// swiftlint:enable all

@@ -55,7 +55,8 @@ public final class XCConfigurationList: PBXObject {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let buildConfigurationsReferencesStrings: [String] = try container.decode(.buildConfigurations)
-        buildConfigurationsReferences = buildConfigurationsReferencesStrings.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        buildConfigurationsReferences = buildConfigurationsReferencesStrings
+            .map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
         defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)

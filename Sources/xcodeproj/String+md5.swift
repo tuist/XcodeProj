@@ -1,3 +1,4 @@
+// swiftlint:disable all
 //
 //  String+MD5.swift
 //  Kingfisher
@@ -277,3 +278,5 @@ class MD5: HashProtocol {
         return result
     }
 }
+
+// swiftlint:enable all

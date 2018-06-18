@@ -76,7 +76,8 @@ extension PBXBuildFile {
         let projectObjects = try objects()
         if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .sources
-        } else if projectObjects.frameworksBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.frameworksBuildPhases
+            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .frameworks
         } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .resources
@@ -84,7 +85,8 @@ extension PBXBuildFile {
             return .copyFiles
         } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .headers
-        } else if projectObjects.carbonResourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.carbonResourcesBuildPhases
+            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .carbonResources
         }
         return nil
