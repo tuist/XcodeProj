@@ -1,12 +1,6 @@
 
 matrix:
   include:
-    # - os: linux
-    #   language: generic
-    #   sudo: required
-    #   dist: trusty
-    #   env:
-    #     - SWIFT_VERSION=4.1
     - os: osx
       language: generic
       sudo: required
