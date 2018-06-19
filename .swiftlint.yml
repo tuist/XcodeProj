@@ -5,8 +5,10 @@ excluded:
   - Fixtures
   - Tests
   - .build
+  - Sources/xcodeproj/String+md5.swift
 disabled_rules:
   - trailing_whitespace
+  - trailing_comma
   - nesting
   - cyclomatic_complexity
   - file_length

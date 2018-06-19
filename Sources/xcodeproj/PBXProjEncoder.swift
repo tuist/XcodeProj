@@ -12,12 +12,14 @@ extension PlistSerializable {
 
 /// Encodes your PBXProj files to String
 final class PBXProjEncoder {
+    let referenceGenerator: ReferenceGenerating = ReferenceGenerator()
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
 
     // swiftlint:disable function_body_length
     func encode(proj: PBXProj) throws -> String {
+        try referenceGenerator.generateReferences(proj: proj)
         guard let rootObject = proj.rootObjectReference else { throw PBXProjEncoderError.emptyProjectReference }
         writeUtf8()
         writeNewLine()

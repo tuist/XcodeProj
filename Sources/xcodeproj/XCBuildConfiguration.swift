@@ -63,8 +63,8 @@ extension XCBuildConfiguration: PlistSerializable {
         dictionary["name"] = .string(CommentedString(name))
         dictionary["buildSettings"] = buildSettings.plist()
         if let baseConfigurationReference = baseConfigurationReference {
-            let fileElement: PBXFileElement = try baseConfigurationReference.object()
-            dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference.value, comment: fileElement.fileName()))
+            let fileElement: PBXFileElement? = try? baseConfigurationReference.object()
+            dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference.value, comment: fileElement?.fileName()))
         }
         return (key: CommentedString(reference, comment: name), value: .dictionary(dictionary))
     }

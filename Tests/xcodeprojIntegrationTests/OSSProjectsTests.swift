@@ -4,43 +4,71 @@ import Foundation
 import XCTest
 
 final class OSSProjectsTests: XCTestCase {
-    var tempDirectory: AbsolutePath!
+    var tempDirectory: TemporaryDirectory!
 
     override func setUp() {
         super.setUp()
-        tempDirectory = AbsolutePath(#file).appending(RelativePath("../../../tmp"))
-        try? tempDirectory.delete()
-        try? tempDirectory.mkpath()
+        tempDirectory = try! TemporaryDirectory()
+        try! tempDirectory.path.delete()
+        try! tempDirectory.path.mkpath()
     }
 
     override func tearDown() {
         super.tearDown()
-        try? tempDirectory.delete()
+        try! tempDirectory.path.delete()
     }
 
     func test_projects() throws {
-        try [
-            (URL(string: "https://github.com/rnystrom/GitHawk")!, "Freetime.xcodeproj"),
-            (URL(string: "https://github.com/insidegui/WWDC")!, "WWDC.xcodeproj"),
-            (URL(string: "https://github.com/artsy/Emergence")!, "Emergence.xcodeproj"),
-        ].forEach { project in
-            try attemptOpen(gitURL: project.0, projectPath: project.1)
-        }
+        let gitURL = URL(string: "https://github.com/insidegui/WWDC")!
+        let projectPath = "WWDC.xcodeproj"
+        let clonePath = try clone(gitURL: gitURL, projectPath: projectPath)
+        let projectFullPath = clonePath.appending(RelativePath(projectPath))
+
+        assertOpens(projectPath: projectFullPath)
+        try assertEmptyDiff(projectPath: projectFullPath, clonePath: clonePath)
+        try assertGeneratesAllReferences(projectPath: projectFullPath)
     }
 
-    fileprivate func attemptOpen(gitURL: URL,
-                                 projectPath: String) throws {
-        let name = gitURL.lastPathComponent
-        let clonePath = tempDirectory.appending(RelativePath(name))
-        print("> Cloning \(gitURL) to run the integration test")
-        try Process.checkNonZeroExit(args: "git", "clone", "--depth=1", gitURL.absoluteString, clonePath.asString)
-        let hash = try Process.popen(args: "cd", clonePath.asString, "&&", "git", "rev-parse", "HEAD").utf8Output()
-        print("> Running tests on commit: \(hash)")
-        let projectFullPath = clonePath.appending(RelativePath(projectPath))
-        let project = try XcodeProj(path: projectFullPath)
-        print("> Project \(projectPath) can be opened ✅")
-        try project.write(path: projectFullPath)
+    fileprivate func assertOpens(projectPath: AbsolutePath,
+                                 file _: String = #file,
+                                 line _: UInt = #line) {
+        XCTAssertNoThrow(try XcodeProj(path: projectPath))
+    }
+
+    fileprivate func assertEmptyDiff(projectPath: AbsolutePath,
+                                     clonePath: AbsolutePath,
+                                     file _: String = #file,
+                                     line _: UInt = #line) throws {
+        let project = try XcodeProj(path: projectPath)
+        try project.write(path: projectPath)
         let diff = try Process.popen(args: "cd", clonePath.asString, "&&", "git", "diff").utf8Output()
         XCTAssertTrue(diff == "", "Writing project without changes should not result in changes")
+    }
+
+    func assertGeneratesAllReferences(projectPath: AbsolutePath,
+                                      file _: String = #file,
+                                      line _: UInt = #line) throws {
+        let project = try XcodeProj(path: projectPath)
+        project.pbxproj.objects.invalidateReferences()
+        try project.write(path: projectPath)
+        var temporaryFiles: [PBXObject] = []
+        project.pbxproj.objects.forEach { object in
+            if object.reference.temporary {
+                temporaryFiles.append(object)
+            }
+        }
+        XCTAssertTrue(temporaryFiles.isEmpty, "There are objects whose reference hasn't been generated")
+    }
+
+    fileprivate func clone(gitURL: URL,
+                           projectPath _: String,
+                           file _: String = #file,
+                           line _: UInt = #line) throws -> AbsolutePath {
+        let name = gitURL.lastPathComponent
+        let clonePath = tempDirectory.path.appending(RelativePath(name))
+        print("> Cloning \(gitURL) to run the integration test")
+        _ = try Process.checkNonZeroExit(args: "git", "clone", "--depth=1", gitURL.absoluteString, clonePath.asString)
+        _ = try Process.popen(args: "cd", clonePath.asString, "&&", "git", "rev-parse", "HEAD").utf8Output()
+        return clonePath
     }
 }

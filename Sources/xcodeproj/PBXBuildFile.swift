@@ -51,7 +51,7 @@ public extension PBXBuildFile {
     ///
     /// - Returns: PBXFileReference object that the build file refers to.
     /// - Throws: An error if the object doesn't exist in the project.
-    public func file() throws -> PBXFileReference? {
+    public func file() throws -> PBXFileElement? {
         return try fileReference?.object()
     }
 }
@@ -64,8 +64,8 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        guard let fileElement: PBXFileElement = try fileReference?.object() else { return nil }
-        return fileElement.fileName()
+        guard let fileElement: PBXFileElement? = try? fileReference?.object() else { return nil }
+        return fileElement?.fileName()
     }
 
     /// Returns the type of the build phase the build file belongs to.
@@ -76,7 +76,8 @@ extension PBXBuildFile {
         let projectObjects = try objects()
         if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .sources
-        } else if projectObjects.frameworksBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.frameworksBuildPhases
+            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .frameworks
         } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .resources
@@ -84,7 +85,8 @@ extension PBXBuildFile {
             return .copyFiles
         } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .headers
-        } else if projectObjects.carbonResourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.carbonResourcesBuildPhases
+            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
             return .carbonResources
         }
         return nil
@@ -115,8 +117,8 @@ extension PBXBuildFile: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = fileReference {
-            let fileElement: PBXFileElement = try fileReference.object()
-            dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement.fileName()))
+            let fileElement: PBXFileElement? = try? fileReference.object()
+            dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
         if let settings = settings {
             dictionary["settings"] = settings.plist()

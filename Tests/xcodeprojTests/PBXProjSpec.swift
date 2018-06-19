@@ -8,7 +8,7 @@ extension PBXProj {
                          objectVersion: UInt = 1,
                          rootObject: PBXObjectReference = PBXObjectReference("rootObject"),
                          classes: [String: Any] = [:],
-                         objects: [String: PBXObject] = [:]) -> PBXProj {
+                         objects: [PBXObject] = []) -> PBXProj {
         return PBXProj(rootObjectReference: rootObject,
                        objectVersion: objectVersion,
                        archiveVersion: archiveVersion,
@@ -28,7 +28,7 @@ final class PBXProjSpec: XCTestCase {
                           objectVersion: 46,
                           archiveVersion: 1,
                           classes: [:],
-                          objects: ["ref": object])
+                          objects: [object])
     }
 
     func test_initWithDictionary_hasTheCorrectArchiveVersion() {

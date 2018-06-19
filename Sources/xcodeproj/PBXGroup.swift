@@ -62,9 +62,9 @@ public class PBXGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["children"] = try .array(childrenReferences.map({ (fileReference) -> PlistValue in
-            let fileElement: PBXFileElement = try fileReference.object()
-            return .string(CommentedString(fileReference.value, comment: fileElement.fileName()))
+        dictionary["children"] = .array(childrenReferences.map({ (fileReference) -> PlistValue in
+            let fileElement: PBXFileElement? = try? fileReference.object()
+            return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }))
 
         return (key: CommentedString(reference,

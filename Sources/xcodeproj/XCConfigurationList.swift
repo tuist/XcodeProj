@@ -55,7 +55,8 @@ public final class XCConfigurationList: PBXObject {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let buildConfigurationsReferencesStrings: [String] = try container.decode(.buildConfigurations)
-        buildConfigurationsReferences = buildConfigurationsReferencesStrings.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        buildConfigurationsReferences = buildConfigurationsReferencesStrings
+            .map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
         defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)
@@ -84,10 +85,10 @@ extension XCConfigurationList: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
-        dictionary["buildConfigurations"] = try .array(buildConfigurationsReferences
+        dictionary["buildConfigurations"] = .array(buildConfigurationsReferences
             .map { configReference in
-                let config: XCBuildConfiguration = try configReference.object()
-                return .string(CommentedString(configReference.value, comment: config.name))
+                let config: XCBuildConfiguration? = try? configReference.object()
+                return .string(CommentedString(configReference.value, comment: config?.name))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
         if let defaultConfigurationName = defaultConfigurationName {
