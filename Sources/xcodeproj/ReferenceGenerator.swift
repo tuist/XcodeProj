@@ -1,6 +1,9 @@
 import Foundation
 
-/// Generates the references of the project objects that have a temporary reference.
+/// Generates the deterministic references of the project objects that have a temporary reference.
+/// When objects are added to the project, those are added with a temporary reference that other
+/// objects can refer to. Before saving the project, we make those references permanent giving them
+/// a deterministic value that depends on the object itself and its ancestor.
 protocol ReferenceGenerating: AnyObject {
     /// Generates the references of the objects of the given project.
     ///
@@ -26,11 +29,13 @@ final class ReferenceGenerator: ReferenceGenerating {
             self.proj = nil
         }
 
-        // Projects and targets
+        // Projects, targets, groups and file references.
+        // Note: The references of those type of objects should be generated first.
+        ///      We use them to generate the references of the objects that depend on them.
+        ///      For instance, the reference of a build file, is generated from the reference of
+        ///      the file it refers to.
         let identifiers = [String(describing: project), project.name]
         generateProjectAndTargets(project: project, identifiers: identifiers)
-
-        // Groups
         if let mainGroup: PBXGroup = try? project.mainGroupReference.object() {
             try generateGroupReferences(mainGroup, identifiers: identifiers)
         }
@@ -51,15 +56,20 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
     }
 
+    /// Generates the reference for the project and its target.
+    ///
+    /// - Parameters:
+    ///   - project: project whose reference will be generated.
+    ///   - identifiers: list of identifiers.
     func generateProjectAndTargets(project: PBXProject,
                                    identifiers: [String]) {
+        // Project
         if project.reference.temporary {
             project.reference.fix(generate(identifiers: identifiers))
         }
 
-        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
-
         // Targets
+        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
         targets.forEach { target in
 
             var identifiers = identifiers
@@ -222,10 +232,12 @@ final class ReferenceGenerator: ReferenceGenerating {
             identifiers.append(name)
         }
 
+        // Build phase
         if buildPhase.reference.temporary {
             buildPhase.reference.fix(generate(identifiers: identifiers))
         }
 
+        // Build files
         buildPhase.filesReferences.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
@@ -255,6 +267,8 @@ final class ReferenceGenerator: ReferenceGenerating {
         if let name = buildRule.name {
             identifiers.append(name)
         }
+
+        // Build rule
         if buildRule.reference.temporary {
             buildRule.reference.fix(generate(identifiers: identifiers))
         }
