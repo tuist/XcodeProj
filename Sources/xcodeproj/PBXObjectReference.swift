@@ -1,7 +1,7 @@
 import Foundation
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-public class PBXObjectReference: Hashable, Comparable {
+public class PBXObjectReference: Hashable, Comparable, Equatable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
@@ -37,11 +37,23 @@ public class PBXObjectReference: Hashable, Comparable {
     }
 
     /// Fixes its value making it permanent.
+    /// Since this object is used as a key in to refer objects from the PBXObjects instance, we need to delete
+    /// the object and add it again to index the new reference. Otherwise we cannot access the element using
+    /// the reference with the updated value.
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
+        let object = objects?.delete(self)
         self.value = value
         temporary = false
+        if let object = object {
+            objects?.addObject(object)
+        }
+    }
+
+    /// Invalidates the reference making it temporary.
+    func invalidate() {
+        temporary = true
     }
 
     /// Hash value.
@@ -77,7 +89,7 @@ public class PBXObjectReference: Hashable, Comparable {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
-        guard let object = objects.getObject(self) as? T else {
+        guard let object = objects.get(self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
         return object

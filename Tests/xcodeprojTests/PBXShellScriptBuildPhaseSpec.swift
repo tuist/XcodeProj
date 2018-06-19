@@ -12,10 +12,7 @@ final class PBXShellScriptBuildPhaseSpec: XCTestCase {
         let doNotShow = PBXShellScriptBuildPhase(showEnvVarsInLog: false)
         let proj = PBXProj(rootObjectReference: PBXObjectReference("rootObject"),
                            objectVersion: 48,
-                           objects: [
-                               "show": show,
-                               "doNotShow": doNotShow,
-        ])
+                           objects: [show, doNotShow])
 
         let (_, showPlistValue) = try show.plistKeyAndValue(proj: proj, reference: "ref")
         let (_, doNotShowPlistValue) = try doNotShow.plistKeyAndValue(proj: proj, reference: "ref")

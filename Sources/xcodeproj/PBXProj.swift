@@ -32,7 +32,7 @@ public final class PBXProj: Decodable {
                 objectVersion: UInt = 0,
                 archiveVersion: UInt = 1,
                 classes: [String: Any] = [:],
-                objects: [String: PBXObject] = [:]) {
+                objects: [PBXObject] = []) {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes

@@ -31,7 +31,7 @@ class ProjectDecodingContext {
 
     init() {
         objectReferenceRepository = PBXObjectReferenceRepository()
-        objects = PBXObjects(objects: [:])
+        objects = PBXObjects(objects: [])
     }
 }
 

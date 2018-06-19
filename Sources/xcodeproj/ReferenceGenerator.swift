@@ -26,21 +26,17 @@ final class ReferenceGenerator: ReferenceGenerating {
             self.proj = nil
         }
 
+        // Projects and targets
         let identifiers = [String(describing: project), project.name]
-
-        if project.reference.temporary {
-            project.reference.fix(generate(identifiers: identifiers))
-        }
+        generateProjectAndTargets(project: project, identifiers: identifiers)
 
         // Groups
         if let mainGroup: PBXGroup = try? project.mainGroupReference.object() {
             try generateGroupReferences(mainGroup, identifiers: identifiers)
         }
-        // Note: Groups and files should be generated first because their references
-        // are used to generate other references.
 
         // Targets
-        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXNativeTarget })
         try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
 
         // Project references
@@ -52,6 +48,27 @@ final class ReferenceGenerator: ReferenceGenerating {
         /// Configuration list
         if let configurationList: XCConfigurationList = try? project.buildConfigurationListReference.object() {
             try generateConfigurationListReferences(configurationList, identifiers: identifiers)
+        }
+    }
+
+    func generateProjectAndTargets(project: PBXProject,
+                                   identifiers: [String]) {
+        if project.reference.temporary {
+            project.reference.fix(generate(identifiers: identifiers))
+        }
+
+        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
+
+        // Targets
+        targets.forEach { target in
+
+            var identifiers = identifiers
+            identifiers.append(String(describing: target))
+            identifiers.append(target.name)
+
+            if target.reference.temporary {
+                target.reference.fix(generate(identifiers: identifiers))
+            }
         }
     }
 
@@ -144,17 +161,18 @@ final class ReferenceGenerator: ReferenceGenerating {
             try generateConfigurationListReferences(configurationList,
                                                     identifiers: identifiers)
         }
+
         // Build phases
-        let buildPhashes = target.buildPhasesReferences.compactMap({ try? $0.object() as PBXBuildPhase })
-        try buildPhashes.forEach({ try generateBuildPhaseReferences($0,
-                                                                    identifiers: identifiers) })
+        let buildPhases = target.buildPhasesReferences.compactMap({ try? $0.object() as PBXBuildPhase })
+        try buildPhases.forEach({ try generateBuildPhaseReferences($0,
+                                                                   identifiers: identifiers) })
 
         // Build rules
         let buildRules = target.buildRulesReferences.compactMap({ try? $0.object() as PBXBuildRule })
         try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
 
         // Dependencies
-        let dependencies = target.buildRulesReferences.compactMap({ try? $0.object() as PBXTargetDependency })
+        let dependencies = target.dependenciesReferences.compactMap({ try? $0.object() as PBXTargetDependency })
         try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
     }
 
@@ -168,23 +186,15 @@ final class ReferenceGenerator: ReferenceGenerating {
         var identifiers = identifiers
         identifiers.append(String(describing: targetDependency))
 
-        // Target
-        if let targetReference = targetDependency.targetReference,
-            targetReference.temporary,
-            let target = try targetDependency.target() {
-            var identifiers = identifiers
-            identifiers.append(target.name)
-            targetReference.fix(generate(identifiers: identifiers))
-        }
-
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
             let targetProxy = try targetDependency.targetProxy(),
-            let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference,
-            let remoteTarget: PBXTarget = try? remoteGlobalIDReference.object() {
+            let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
-            identifiers.append(remoteTarget.name)
+            identifiers.append(String(describing: targetProxy))
+            identifiers.append(remoteGlobalIDReference.value)
+            targetProxyReference.fix(generate(identifiers: identifiers))
         }
 
         // Target dependency
@@ -224,11 +234,8 @@ final class ReferenceGenerator: ReferenceGenerating {
             var identifiers = identifiers
             identifiers.append(String(describing: buildFile))
 
-            // Note: At this point the file reference reference shouldn't be temporary so we can
-            // use its value to generate the reference of the build file.
             if let fileReference = buildFile.fileReference,
-                let fileReferenceObject: PBXFileElement = try? fileReference.object(),
-                !fileReferenceObject.reference.temporary {
+                let fileReferenceObject: PBXObject = try? fileReference.object() {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 

@@ -4,23 +4,29 @@ public class PBXObjects: Equatable {
 
     // MARK: - Properties
 
-    public var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
-    public var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
-    public var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
-    public var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
-    public var groups: [PBXObjectReference: PBXGroup] = [:]
-    public var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
-    public var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
-    public var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
-    public var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
-    public var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
-    public var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
-    public var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
     public var projects: [PBXObjectReference: PBXProject] = [:]
     public var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+
+    // File elements
+    public var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
+    public var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
+    public var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
+    public var groups: [PBXObjectReference: PBXGroup] = [:]
+
+    // Configuration
+    public var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
+    public var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+
+    // Targets
+    public var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
+    public var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
+    public var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
+    public var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
+    public var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
     public var buildRules: [PBXObjectReference: PBXBuildRule] = [:]
 
     // Build Phases
+    public var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
     public var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
     public var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
     public var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
@@ -28,6 +34,41 @@ public class PBXObjects: Equatable {
     public var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
     public var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
     public var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
+
+    /// Runs the given closure for each of the objects that are part of the project.
+    ///
+    /// - Parameter closure: closure to be run.
+    public func forEach(_ closure: (PBXObject) -> Void) {
+        buildFiles.values.forEach(closure)
+        legacyTargets.values.forEach(closure)
+        aggregateTargets.values.forEach(closure)
+        containerItemProxies.values.forEach(closure)
+        groups.values.forEach(closure)
+        configurationLists.values.forEach(closure)
+        versionGroups.values.forEach(closure)
+        buildConfigurations.values.forEach(closure)
+        variantGroups.values.forEach(closure)
+        targetDependencies.values.forEach(closure)
+        nativeTargets.values.forEach(closure)
+        fileReferences.values.forEach(closure)
+        projects.values.forEach(closure)
+        referenceProxies.values.forEach(closure)
+        buildRules.values.forEach(closure)
+        copyFilesBuildPhases.values.forEach(closure)
+        shellScriptBuildPhases.values.forEach(closure)
+        resourcesBuildPhases.values.forEach(closure)
+        frameworksBuildPhases.values.forEach(closure)
+        headersBuildPhases.values.forEach(closure)
+        sourcesBuildPhases.values.forEach(closure)
+        carbonResourcesBuildPhases.values.forEach(closure)
+    }
+
+    /// Invalidates all the objects references.
+    public func invalidateReferences() {
+        forEach {
+            $0.reference.invalidate()
+        }
+    }
 
     // MARK: - Computed Properties
 
@@ -47,8 +88,8 @@ public class PBXObjects: Equatable {
     ///
     /// - Parameters:
     ///   - objects: project objects
-    public init(objects: [String: PBXObject] = [:]) {
-        objects.forEach { _ = self.addObject($0.value, reference: $0.key) }
+    public init(objects: [PBXObject] = []) {
+        objects.forEach { _ = self.addObject($0) }
     }
 
     // MARK: - Equatable
@@ -86,7 +127,7 @@ public class PBXObjects: Equatable {
     ///   - object: object.
     ///   - reference: object reference.
     @discardableResult
-    public func addObject(_ object: PBXObject, reference _: String? = nil) -> PBXObjectReference {
+    public func addObject(_ object: PBXObject) -> PBXObjectReference {
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
 
@@ -121,12 +162,65 @@ public class PBXObjects: Equatable {
         return objectReference
     }
 
+    /// Deletes the object with the given reference.
+    ///
+    /// - Parameter reference: referenc of the object to be deleted.
+    /// - Returns: the deleted object.
+    public func delete(_ reference: PBXObjectReference) -> PBXObject? {
+        if let index = buildFiles.index(forKey: reference) {
+            return buildFiles.remove(at: index).value
+        } else if let index = aggregateTargets.index(forKey: reference) {
+            return aggregateTargets.remove(at: index).value
+        } else if let index = legacyTargets.index(forKey: reference) {
+            return legacyTargets.remove(at: index).value
+        } else if let index = containerItemProxies.index(forKey: reference) {
+            return containerItemProxies.remove(at: index).value
+        } else if let index = groups.index(forKey: reference) {
+            return groups.remove(at: index).value
+        } else if let index = configurationLists.index(forKey: reference) {
+            return configurationLists.remove(at: index).value
+        } else if let index = buildConfigurations.index(forKey: reference) {
+            return buildConfigurations.remove(at: index).value
+        } else if let index = variantGroups.index(forKey: reference) {
+            return variantGroups.remove(at: index).value
+        } else if let index = targetDependencies.index(forKey: reference) {
+            return targetDependencies.remove(at: index).value
+        } else if let index = nativeTargets.index(forKey: reference) {
+            return nativeTargets.remove(at: index).value
+        } else if let index = fileReferences.index(forKey: reference) {
+            return fileReferences.remove(at: index).value
+        } else if let index = projects.index(forKey: reference) {
+            return projects.remove(at: index).value
+        } else if let index = versionGroups.index(forKey: reference) {
+            return versionGroups.remove(at: index).value
+        } else if let index = referenceProxies.index(forKey: reference) {
+            return referenceProxies.remove(at: index).value
+        } else if let index = copyFilesBuildPhases.index(forKey: reference) {
+            return copyFilesBuildPhases.remove(at: index).value
+        } else if let index = shellScriptBuildPhases.index(forKey: reference) {
+            return shellScriptBuildPhases.remove(at: index).value
+        } else if let index = resourcesBuildPhases.index(forKey: reference) {
+            return resourcesBuildPhases.remove(at: index).value
+        } else if let index = frameworksBuildPhases.index(forKey: reference) {
+            return frameworksBuildPhases.remove(at: index).value
+        } else if let index = headersBuildPhases.index(forKey: reference) {
+            return headersBuildPhases.remove(at: index).value
+        } else if let index = sourcesBuildPhases.index(forKey: reference) {
+            return sourcesBuildPhases.remove(at: index).value
+        } else if let index = carbonResourcesBuildPhases.index(forKey: reference) {
+            return carbonResourcesBuildPhases.remove(at: index).value
+        } else if let index = buildRules.index(forKey: reference) {
+            return buildRules.remove(at: index).value
+        }
+        return nil
+    }
+
     /// It returns the object with the given reference.
     ///
     /// - Parameter reference: Xcode reference.
     /// - Returns: object.
     // swiftlint:disable function_body_length
-    public func getObject(_ reference: PBXObjectReference) -> PBXObject? {
+    public func get(_ reference: PBXObjectReference) -> PBXObject? {
         // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
         // with Swift 4, this compiler error:
         //     Expression was too complex to be solved in reasonable time;
