@@ -159,7 +159,7 @@ public extension PBXTarget {
     /// - Returns: source files.
     /// - Throws: an error if something goes wrong.
     public func sourceFiles() throws -> [PBXFileElement] {
-        return try sourcesBuildPhase()?.filesReferences
+        return try sourcesBuildPhase()?.fileReferences
             .compactMap { try $0.object() as PBXBuildFile }
             .filter { $0.fileReference != nil }
             .compactMap { try $0.fileReference!.object() as PBXFileElement }

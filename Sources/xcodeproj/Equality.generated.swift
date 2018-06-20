@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.11.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.13.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 import Foundation
@@ -26,7 +26,9 @@ extension PBXBuildPhase {
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildPhase else { return false }
         if buildActionMask != rhs.buildActionMask { return false }
-        if filesReferences != rhs.filesReferences { return false }
+        if fileReferences != rhs.fileReferences { return false }
+        if inputFileListPaths != rhs.inputFileListPaths { return false }
+        if outputFileListPaths != rhs.outputFileListPaths { return false }
         if runOnlyForDeploymentPostprocessing != rhs.runOnlyForDeploymentPostprocessing { return false }
         return super.isEqual(to: rhs)
     }

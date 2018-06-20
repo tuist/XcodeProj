@@ -32,16 +32,20 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     /// Initializes the shell script build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - files: shell script files.
+    ///   - fileReferences: shell script files.
     ///   - inputPaths: input paths.
     ///   - outputPaths: output paths.
+    ///   - inputFileListPaths: input file list paths.
+    ///   - outputFileListPaths: output file list paths.
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
-    public init(filesReferences: [PBXObjectReference] = [],
+    public init(fileReferences: [PBXObjectReference] = [],
                 name: String? = nil,
                 inputPaths: [String] = [],
                 outputPaths: [String] = [],
+                inputFileListPaths: [String]? = nil,
+                outputFileListPaths: [String]? = nil,
                 shellPath: String = "/bin/sh",
                 shellScript: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
@@ -53,7 +57,9 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.showEnvVarsInLog = showEnvVarsInLog
-        super.init(filesReferences: filesReferences,
+        super.init(fileReferences: fileReferences,
+                   inputFileListPaths: inputFileListPaths,
+                   outputFileListPaths: outputFileListPaths,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing: runOnlyForDeploymentPostprocessing)
     }

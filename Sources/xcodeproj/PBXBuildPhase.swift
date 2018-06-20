@@ -9,7 +9,15 @@ public class PBXBuildPhase: PBXContainerItem {
     public var buildActionMask: UInt
 
     /// Element files references.
-    public var filesReferences: [PBXObjectReference]
+    public var fileReferences: [PBXObjectReference]
+
+    /// Paths to the input file lists.
+    /// Note: Introduced in Xcode 10
+    public var inputFileListPaths: [String]?
+
+    /// Paths to the output file lists.
+    /// Note: Introduced in Xcode 10
+    public var outputFileListPaths: [String]?
 
     /// Element run only for deployment post processing value.
     public var runOnlyForDeploymentPostprocessing: Bool
@@ -19,10 +27,14 @@ public class PBXBuildPhase: PBXContainerItem {
         fatalError("This property must be overriden")
     }
 
-    public init(filesReferences: [PBXObjectReference] = [],
+    public init(fileReferences: [PBXObjectReference] = [],
+                inputFileListPaths: [String]? = nil,
+                outputFileListPaths: [String]? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
-        self.filesReferences = filesReferences
+        self.fileReferences = fileReferences
+        self.inputFileListPaths = inputFileListPaths
+        self.outputFileListPaths = outputFileListPaths
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         super.init()
@@ -34,6 +46,8 @@ public class PBXBuildPhase: PBXContainerItem {
         case buildActionMask
         case files
         case runOnlyForDeploymentPostprocessing
+        case inputFileListPaths
+        case outputFileListPaths
     }
 
     public required init(from decoder: Decoder) throws {
@@ -41,8 +55,10 @@ public class PBXBuildPhase: PBXContainerItem {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
-        let filesReferences: [String] = try container.decodeIfPresent(.files) ?? []
-        self.filesReferences = filesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let fileReferences: [String] = try container.decodeIfPresent(.files) ?? []
+        self.fileReferences = fileReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        inputFileListPaths = try container.decodeIfPresent(.inputFileListPaths)
+        outputFileListPaths = try container.decodeIfPresent(.outputFileListPaths)
         runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
         try super.init(from: decoder)
     }
@@ -50,7 +66,7 @@ public class PBXBuildPhase: PBXContainerItem {
     override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        dictionary["files"] = .array(filesReferences.map { fileReference in
+        dictionary["files"] = .array(fileReferences.map { fileReference in
             let buildFile: PBXBuildFile? = try? fileReference.object()
             let name = buildFile.flatMap { try? $0.fileName() } ?? nil
             let fileName: String = name ?? "(null)"
@@ -60,6 +76,12 @@ public class PBXBuildPhase: PBXContainerItem {
             let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
             return .string(CommentedString(fileReference.value, comment: comment))
         })
+        if let inputFileListPaths = inputFileListPaths {
+            dictionary["inputFileListPaths"] = .array(inputFileListPaths.map({ .string(CommentedString($0)) }))
+        }
+        if let outputFileListPaths = outputFileListPaths {
+            dictionary["outputFileListPaths"] = .array(outputFileListPaths.map({ .string(CommentedString($0)) }))
+        }
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
     }
@@ -74,13 +96,13 @@ public extension PBXBuildPhase {
     /// - Returns: reference to the build file added to the build phase.
     /// - Throws: an error if the reference cannot be added
     public func addFile(_ reference: PBXObjectReference) throws -> PBXObjectReference {
-        if let existing = try filesReferences.compactMap({ try $0.object() as PBXBuildFile }).first(where: { $0.fileReference == reference }) {
+        if let existing = try fileReferences.compactMap({ try $0.object() as PBXBuildFile }).first(where: { $0.fileReference == reference }) {
             return existing.reference
         }
         let projectObjects = try objects()
         let buildFile = PBXBuildFile(fileReference: reference)
         let buildFileReference = projectObjects.addObject(buildFile)
-        filesReferences.append(buildFileReference)
+        fileReferences.append(buildFileReference)
         return buildFileReference
     }
 }
