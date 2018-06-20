@@ -9,7 +9,7 @@ public final class XCScheme {
 
     // MARK: - BuildableReference
 
-    public final class BuildableReference {
+    public final class BuildableReference: Equatable {
         public var referencedContainer: String
         public var blueprintIdentifier: String
         public var buildableName: String
@@ -62,9 +62,19 @@ public final class XCScheme {
                                     "ReferencedContainer": referencedContainer,
             ])
         }
+
+        public static func == (lhs: BuildableReference, rhs: BuildableReference) -> Bool {
+            return lhs.referencedContainer == rhs.referencedContainer &&
+                lhs.blueprintIdentifier == rhs.blueprintIdentifier &&
+                lhs.buildableName == rhs.buildableName &&
+                lhs.buildableIdentifier == rhs.buildableIdentifier &&
+                lhs.blueprintName == rhs.blueprintName
+        }
     }
 
-    public final class SkippedTest {
+    // MARK: - SkippedTest
+
+    public final class SkippedTest: Equatable {
         public var identifier: String
 
         public init(identifier: String) {
@@ -80,12 +90,19 @@ public final class XCScheme {
                                 value: nil,
                                 attributes: ["Identifier": identifier])
         }
+
+        public static func == (lhs: SkippedTest, rhs: SkippedTest) -> Bool {
+            return lhs.identifier == rhs.identifier
+        }
     }
 
-    public final class TestableReference {
+    // MARK: - TestableReference
+
+    public final class TestableReference: Equatable {
         public var skipped: Bool
         public var buildableReference: BuildableReference
         public var skippedTests: [SkippedTest]
+
         public init(skipped: Bool,
                     buildableReference: BuildableReference,
                     skippedTests: [SkippedTest] = []) {
@@ -117,11 +134,20 @@ public final class XCScheme {
             }
             return element
         }
+
+        public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
+            return lhs.skipped == rhs.skipped &&
+                lhs.buildableReference == rhs.buildableReference &&
+                lhs.skippedTests == rhs.skippedTests
+        }
     }
 
-    public final class LocationScenarioReference {
+    // MARK: - LocationScenarioReference
+
+    public final class LocationScenarioReference: Equatable {
         public var identifier: String
         public var referenceType: String
+
         public init(identifier: String, referenceType: String) {
             self.identifier = identifier
             self.referenceType = referenceType
@@ -140,11 +166,19 @@ public final class XCScheme {
                                     "referenceType": referenceType,
             ])
         }
+
+        public static func == (lhs: LocationScenarioReference, rhs: LocationScenarioReference) -> Bool {
+            return lhs.identifier == rhs.identifier &&
+                lhs.referenceType == rhs.referenceType
+        }
     }
 
-    public final class BuildableProductRunnable {
+    // MARK: - BuildableProductRunnable
+
+    public final class BuildableProductRunnable: Equatable {
         public var runnableDebuggingMode: String
         public var buildableReference: BuildableReference
+
         public init(buildableReference: BuildableReference,
                     runnableDebuggingMode: String = "0") {
             self.buildableReference = buildableReference
@@ -163,10 +197,17 @@ public final class XCScheme {
             element.addChild(buildableReference.xmlElement())
             return element
         }
+
+        public static func == (lhs: BuildableProductRunnable, rhs: BuildableProductRunnable) -> Bool {
+            return lhs.runnableDebuggingMode == rhs.runnableDebuggingMode &&
+                lhs.buildableReference == rhs.buildableReference
+        }
     }
 
+    // MARK: CommandLineArguments
+
     public final class CommandLineArguments {
-        public struct CommandLineArgument {
+        public struct CommandLineArgument: Equatable {
             public let name: String
             public let enabled: Bool
 
@@ -179,6 +220,11 @@ public final class XCScheme {
                 return AEXMLElement(name: "CommandLineArgument",
                                     value: nil,
                                     attributes: ["argument": name, "isEnabled": enabled ? "YES" : "NO"])
+            }
+
+            public static func == (lhs: CommandLineArgument, rhs: CommandLineArgument) -> Bool {
+                return lhs.name == rhs.name &&
+                    lhs.enabled == rhs.enabled
             }
         }
 
@@ -208,9 +254,15 @@ public final class XCScheme {
             }
             return element
         }
+
+        public static func == (lhs: CommandLineArguments, rhs: CommandLineArguments) -> Bool {
+            return lhs.arguments == rhs.arguments
+        }
     }
 
-    public struct EnvironmentVariable {
+    // MARKK: - EnvironmentVariable
+
+    public struct EnvironmentVariable: Equatable {
         public let variable: String
         public let value: String
         public let enabled: Bool
@@ -252,9 +304,17 @@ public final class XCScheme {
 
             return element
         }
+
+        public static func == (lhs: EnvironmentVariable, rhs: EnvironmentVariable) -> Bool {
+            return lhs.variable == rhs.variable &&
+                lhs.value == rhs.value &&
+                lhs.enabled == rhs.enabled
+        }
     }
 
-    public final class ExecutionAction {
+    // MARK: - ExecutionAction
+
+    public final class ExecutionAction: Equatable {
         public var title: String
         public var scriptText: String
         public var environmentBuildable: BuildableReference?
@@ -290,11 +350,17 @@ public final class XCScheme {
             }
             return element
         }
+
+        public static func == (lhs: ExecutionAction, rhs: ExecutionAction) -> Bool {
+            return lhs.title == rhs.title &&
+                lhs.scriptText == rhs.scriptText &&
+                lhs.environmentBuildable == rhs.environmentBuildable
+        }
     }
 
-    // MARK: - Build Action
+    // MARK: - SerialAction
 
-    public class SerialAction {
+    public class SerialAction: Equatable {
         public var preActions: [ExecutionAction]
         public var postActions: [ExecutionAction]
 
@@ -322,7 +388,14 @@ public final class XCScheme {
                 }
             }
         }
+
+        public static func == (lhs: SerialAction, rhs: SerialAction) -> Bool {
+            return lhs.preActions == rhs.preActions &&
+                lhs.postActions == rhs.postActions
+        }
     }
+
+    // MARK: - BuildAction
 
     public final class BuildAction: SerialAction {
         public final class Entry {
