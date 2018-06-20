@@ -2,6 +2,12 @@
 
 ## next version
 
+### Changed
+- **Breaking** Rename `filesReferences` to `fileReferences` https://github.com/xcode-project-manager/xcodeproj/pull/271 by @pepibumur
+
+### Added
+- Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/xcode-project-manager/xcodeproj/pull/271 by @pepibumur
+
 ## 5.0.0-rc1
 
 ### Breaking

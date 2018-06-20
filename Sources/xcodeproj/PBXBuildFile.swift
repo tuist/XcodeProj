@@ -74,19 +74,19 @@ extension PBXBuildFile {
     /// - Throws: an error if this method is called before the build file is added to any project.
     func buildPhaseType() throws -> BuildPhase? {
         let projectObjects = try objects()
-        if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .sources
         } else if projectObjects.frameworksBuildPhases
-            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+            .contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .frameworks
-        } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .resources
-        } else if projectObjects.copyFilesBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.copyFilesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .copyFiles
-        } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+        } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .headers
         } else if projectObjects.carbonResourcesBuildPhases
-            .contains(where: { _, val in val.filesReferences.map({ $0.value }).contains(reference.value) }) {
+            .contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
             return .carbonResources
         }
         return nil
@@ -101,7 +101,7 @@ extension PBXBuildFile {
         let projectObjects = try objects()
         switch type {
         case .copyFiles?:
-            return projectObjects.copyFilesBuildPhases.first(where: { _, val in val.filesReferences.contains(self.reference) })?.value.name ?? type?.rawValue
+            return projectObjects.copyFilesBuildPhases.first(where: { _, val in val.fileReferences.contains(self.reference) })?.value.name ?? type?.rawValue
         default:
             return type?.rawValue
         }
