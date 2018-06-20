@@ -2,6 +2,8 @@
 
 ## next version
 
+## 5.0.0-rc1
+
 ### Breaking
 - Rename project to xcodeproj by @pepibumur.
 - Drop Carthage and CocoaPods support https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
