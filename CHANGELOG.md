@@ -12,27 +12,27 @@
 
 ### Breaking
 - Rename project to xcodeproj by @pepibumur.
-- Drop Carthage and CocoaPods support https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
-- Use Basic AbsolutePath, RelativePath and Process extensions https://github.com/xcbuddy/xcodeproj/pull/1 by @pepibumur.
-- Use `PBXObjectReference` instead of `String` to reference objects from `PBXProj.Objects` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
-- Remove `ObjectReference` https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
-- Update `PBXNativeTarget` reference attributes to be of type `PBXObjectReference` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
+- Drop Carthage and CocoaPods support by @pepibumur.
+- Use Basic AbsolutePath, RelativePath and Process extensions by @pepibumur.
+- Use `PBXObjectReference` instead of `String` to reference objects from `PBXProj.Objects` by @pepibumur.
+- Remove `ObjectReference` by @pepibumur.
+- Update `PBXNativeTarget` reference attributes to be of type `PBXObjectReference` by @pepibumur.
 - Add convenient methods to materialize objects references https://github.com/xcode-project-manager/xcodeproj/pull/12 by @pepibumur.
 - Rename some PBXProject attributes for consistency https://github.com/xcode-project-manager/xcodeproj/pull/268 by @pepibumur.
 
 ### Added
-- Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
+- Add `addDependency` method to `PBXNativeTarget` by @pepibumur.
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
-- Xcode constants https://github.com/xcbuddy/xcodeproj/pull/6#issuecomment-387565036 by @pepibumur.
-- Convenient API from objects https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
-- `BuildSettingsProvider` https://github.com/xcbuddy/xcodeproj/pull/7 by @pepibumur.
-- Add `addDependency` method to `PBXNativeTarget` https://github.com/xcbuddy/xcodeproj/pull/8 by @pepibumur.
+- Xcode constants by @pepibumur.
+- Convenient API from objects by @pepibumur.
+- `BuildSettingsProvider` by @pepibumur.
+- Add `addDependency` method to `PBXNativeTarget` by @pepibumur.
 - Method in `XCConfigurationList` to get the build configurations objects @pepibumur.
 - Method to get the configuration list from any target https://github.com/xcode-project-manager/xcodeproj/pull/10 by @pepibumur.
 - Migration guidelines https://github.com/xcode-project-manager/xcodeproj/pull/264 by @pepibumur.
 
 ### Removed
-- Deprecated elements https://github.com/xcbuddy/xcodeproj/pull/5 by @pepibumur.
+- Deprecated elements by @pepibumur.
 - Tests that test the conformance of `Equatable` by @pepibumur.
 
 ### Fixed
