@@ -7,311 +7,6 @@ public final class XCScheme {
     public static let defaultDebugger = "Xcode.DebuggerFoundation.Debugger.LLDB"
     public static let defaultLauncher = "Xcode.DebuggerFoundation.Launcher.LLDB"
 
-    // MARK: - BuildableReference
-
-    public final class BuildableReference: Equatable {
-        public var referencedContainer: String
-        public var blueprintIdentifier: String
-        public var buildableName: String
-        public var buildableIdentifier: String
-        public var blueprintName: String
-
-        public init(referencedContainer: String,
-                    blueprintIdentifier: String,
-                    buildableName: String,
-                    blueprintName: String,
-                    buildableIdentifier: String = "primary") {
-            self.referencedContainer = referencedContainer
-            self.blueprintIdentifier = blueprintIdentifier
-            self.buildableName = buildableName
-            self.buildableIdentifier = buildableIdentifier
-            self.blueprintName = blueprintName
-        }
-
-        init(element: AEXMLElement) throws {
-            guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else {
-                throw XCSchemeError.missing(property: "BuildableIdentifier")
-            }
-            guard let blueprintIdentifier = element.attributes["BlueprintIdentifier"] else {
-                throw XCSchemeError.missing(property: "BlueprintIdentifier")
-            }
-            guard let buildableName = element.attributes["BuildableName"] else {
-                throw XCSchemeError.missing(property: "BuildableName")
-            }
-            guard let blueprintName = element.attributes["BlueprintName"] else {
-                throw XCSchemeError.missing(property: "BlueprintName")
-            }
-            guard let referencedContainer = element.attributes["ReferencedContainer"] else {
-                throw XCSchemeError.missing(property: "ReferencedContainer")
-            }
-            self.buildableIdentifier = buildableIdentifier
-            self.blueprintIdentifier = blueprintIdentifier
-            self.buildableName = buildableName
-            self.blueprintName = blueprintName
-            self.referencedContainer = referencedContainer
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "BuildableReference",
-                                value: nil,
-                                attributes: [
-                                    "BuildableIdentifier": buildableIdentifier,
-                                    "BlueprintIdentifier": blueprintIdentifier,
-                                    "BuildableName": buildableName,
-                                    "BlueprintName": blueprintName,
-                                    "ReferencedContainer": referencedContainer,
-            ])
-        }
-
-        public static func == (lhs: BuildableReference, rhs: BuildableReference) -> Bool {
-            return lhs.referencedContainer == rhs.referencedContainer &&
-                lhs.blueprintIdentifier == rhs.blueprintIdentifier &&
-                lhs.buildableName == rhs.buildableName &&
-                lhs.buildableIdentifier == rhs.buildableIdentifier &&
-                lhs.blueprintName == rhs.blueprintName
-        }
-    }
-
-    // MARK: - SkippedTest
-
-    public final class SkippedTest: Equatable {
-        public var identifier: String
-
-        public init(identifier: String) {
-            self.identifier = identifier
-        }
-
-        init(element: AEXMLElement) throws {
-            identifier = element.attributes["Identifier"]!
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "Test",
-                                value: nil,
-                                attributes: ["Identifier": identifier])
-        }
-
-        public static func == (lhs: SkippedTest, rhs: SkippedTest) -> Bool {
-            return lhs.identifier == rhs.identifier
-        }
-    }
-
-    // MARK: - TestableReference
-
-    public final class TestableReference: Equatable {
-        public var skipped: Bool
-        public var buildableReference: BuildableReference
-        public var skippedTests: [SkippedTest]
-
-        public init(skipped: Bool,
-                    buildableReference: BuildableReference,
-                    skippedTests: [SkippedTest] = []) {
-            self.skipped = skipped
-            self.buildableReference = buildableReference
-            self.skippedTests = skippedTests
-        }
-
-        init(element: AEXMLElement) throws {
-            skipped = element.attributes["skipped"] == "YES"
-            buildableReference = try BuildableReference(element: element["BuildableReference"])
-            if let skippedTests = element["SkippedTests"]["Test"].all, !skippedTests.isEmpty {
-                self.skippedTests = try skippedTests.map(SkippedTest.init)
-            } else {
-                skippedTests = []
-            }
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            let element = AEXMLElement(name: "TestableReference",
-                                       value: nil,
-                                       attributes: ["skipped": skipped.xmlString])
-            element.addChild(buildableReference.xmlElement())
-            if !skippedTests.isEmpty {
-                let skippedTestsElement = element.addChild(name: "SkippedTests")
-                skippedTests.forEach { skippedTest in
-                    skippedTestsElement.addChild(skippedTest.xmlElement())
-                }
-            }
-            return element
-        }
-
-        public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
-            return lhs.skipped == rhs.skipped &&
-                lhs.buildableReference == rhs.buildableReference &&
-                lhs.skippedTests == rhs.skippedTests
-        }
-    }
-
-    // MARK: - LocationScenarioReference
-
-    public final class LocationScenarioReference: Equatable {
-        public var identifier: String
-        public var referenceType: String
-
-        public init(identifier: String, referenceType: String) {
-            self.identifier = identifier
-            self.referenceType = referenceType
-        }
-
-        init(element: AEXMLElement) throws {
-            identifier = element.attributes["identifier"]!
-            referenceType = element.attributes["referenceType"]!
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "LocationScenarioReference",
-                                value: nil,
-                                attributes: [
-                                    "identifier": identifier,
-                                    "referenceType": referenceType,
-            ])
-        }
-
-        public static func == (lhs: LocationScenarioReference, rhs: LocationScenarioReference) -> Bool {
-            return lhs.identifier == rhs.identifier &&
-                lhs.referenceType == rhs.referenceType
-        }
-    }
-
-    // MARK: - BuildableProductRunnable
-
-    public final class BuildableProductRunnable: Equatable {
-        public var runnableDebuggingMode: String
-        public var buildableReference: BuildableReference
-
-        public init(buildableReference: BuildableReference,
-                    runnableDebuggingMode: String = "0") {
-            self.buildableReference = buildableReference
-            self.runnableDebuggingMode = runnableDebuggingMode
-        }
-
-        init(element: AEXMLElement) throws {
-            runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
-            buildableReference = try BuildableReference(element: element["BuildableReference"])
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            let element = AEXMLElement(name: "BuildableProductRunnable",
-                                       value: nil,
-                                       attributes: ["runnableDebuggingMode": runnableDebuggingMode])
-            element.addChild(buildableReference.xmlElement())
-            return element
-        }
-
-        public static func == (lhs: BuildableProductRunnable, rhs: BuildableProductRunnable) -> Bool {
-            return lhs.runnableDebuggingMode == rhs.runnableDebuggingMode &&
-                lhs.buildableReference == rhs.buildableReference
-        }
-    }
-
-    // MARK: CommandLineArguments
-
-    public final class CommandLineArguments {
-        public struct CommandLineArgument: Equatable {
-            public let name: String
-            public let enabled: Bool
-
-            public init(name: String, enabled: Bool) {
-                self.name = name
-                self.enabled = enabled
-            }
-
-            fileprivate func xmlElement() -> AEXMLElement {
-                return AEXMLElement(name: "CommandLineArgument",
-                                    value: nil,
-                                    attributes: ["argument": name, "isEnabled": enabled ? "YES" : "NO"])
-            }
-
-            public static func == (lhs: CommandLineArgument, rhs: CommandLineArgument) -> Bool {
-                return lhs.name == rhs.name &&
-                    lhs.enabled == rhs.enabled
-            }
-        }
-
-        public let arguments: [CommandLineArgument]
-
-        public init(arguments args: [CommandLineArgument]) {
-            arguments = args
-        }
-
-        init(element: AEXMLElement) throws {
-            arguments = try element.children.map { elt in
-                guard let argName = elt.attributes["argument"] else {
-                    throw XCSchemeError.missing(property: "argument")
-                }
-                guard let argEnabledRaw = elt.attributes["isEnabled"] else {
-                    throw XCSchemeError.missing(property: "isEnabled")
-                }
-                return CommandLineArgument(name: argName, enabled: argEnabledRaw == "YES")
-            }
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            let element = AEXMLElement(name: "CommandLineArguments",
-                                       value: nil)
-            arguments.forEach { arg in
-                element.addChild(arg.xmlElement())
-            }
-            return element
-        }
-
-        public static func == (lhs: CommandLineArguments, rhs: CommandLineArguments) -> Bool {
-            return lhs.arguments == rhs.arguments
-        }
-    }
-
-    // MARKK: - EnvironmentVariable
-
-    public struct EnvironmentVariable: Equatable {
-        public let variable: String
-        public let value: String
-        public let enabled: Bool
-
-        public init(variable: String, value: String, enabled: Bool) {
-            self.variable = variable
-            self.value = value
-            self.enabled = enabled
-        }
-
-        fileprivate func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "EnvironmentVariable",
-                                value: nil,
-                                attributes: ["key": variable, "value": value, "isEnabled": enabled ? "YES" : "NO"])
-        }
-
-        fileprivate static func parseVariables(from element: AEXMLElement) throws -> [EnvironmentVariable] {
-            return try element.children.map { elt in
-                guard let variableKey = elt.attributes["key"] else {
-                    throw XCSchemeError.missing(property: "key")
-                }
-                guard let variableValue = elt.attributes["value"] else {
-                    throw XCSchemeError.missing(property: "value")
-                }
-                guard let variableEnabledRaw = elt.attributes["isEnabled"] else {
-                    throw XCSchemeError.missing(property: "isEnabled")
-                }
-
-                return EnvironmentVariable(variable: variableKey, value: variableValue, enabled: variableEnabledRaw == "YES")
-            }
-        }
-
-        fileprivate static func xmlElement(from variables: [EnvironmentVariable]) -> AEXMLElement {
-            let element = AEXMLElement(name: "EnvironmentVariables",
-                                       value: nil)
-            variables.forEach { arg in
-                element.addChild(arg.xmlElement())
-            }
-
-            return element
-        }
-
-        public static func == (lhs: EnvironmentVariable, rhs: EnvironmentVariable) -> Bool {
-            return lhs.variable == rhs.variable &&
-                lhs.value == rhs.value &&
-                lhs.enabled == rhs.enabled
-        }
-    }
-
     // MARK: - ExecutionAction
 
     public final class ExecutionAction: Equatable {
@@ -397,8 +92,8 @@ public final class XCScheme {
 
     // MARK: - BuildAction
 
-    public final class BuildAction: SerialAction {
-        public final class Entry {
+    public final class BuildAction: SerialAction, Equatable {
+        public final class Entry: Equatable {
             public enum BuildFor {
                 case running, testing, profiling, archiving, analyzing
                 public static var `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
@@ -449,6 +144,11 @@ public final class XCScheme {
                 element.addChild(buildableReference.xmlElement())
                 return element
             }
+
+            public static func == (lhs: Entry, rhs: Entry) -> Bool {
+                return lhs.buildableReference == rhs.buildableReference &&
+                    lhs.buildFor == rhs.buildFor
+            }
         }
 
         public var buildActionEntries: [Entry]
@@ -488,6 +188,14 @@ public final class XCScheme {
                 entries.addChild(entry.xmlElement())
             }
             return element
+        }
+
+        public static func == (lhs: BuildAction, rhs: BuildAction) -> Bool {
+            return lhs.buildActionEntries == rhs.buildActionEntries &&
+                lhs.parallelizeBuild == rhs.parallelizeBuild &&
+                lhs.buildImplicitDependencies == rhs.buildImplicitDependencies &&
+                lhs.preActions == rhs.preActions &&
+                lhs.postActions == rhs.postActions
         }
 
         public func add(buildActionEntry: Entry) -> BuildAction {
