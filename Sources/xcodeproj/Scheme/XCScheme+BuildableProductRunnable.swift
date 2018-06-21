@@ -24,7 +24,7 @@ extension XCScheme {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BuildableProductRunnable",
                                        value: nil,
                                        attributes: ["runnableDebuggingMode": runnableDebuggingMode])

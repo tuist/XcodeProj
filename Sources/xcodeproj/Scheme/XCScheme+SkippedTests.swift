@@ -20,7 +20,7 @@ extension XCScheme {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "Test",
                                 value: nil,
                                 attributes: ["Identifier": identifier])

@@ -20,13 +20,13 @@ extension XCScheme {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "EnvironmentVariable",
                                 value: nil,
                                 attributes: ["key": variable, "value": value, "isEnabled": enabled ? "YES" : "NO"])
         }
 
-        fileprivate static func parseVariables(from element: AEXMLElement) throws -> [EnvironmentVariable] {
+        static func parseVariables(from element: AEXMLElement) throws -> [EnvironmentVariable] {
             return try element.children.map { elt in
                 guard let variableKey = elt.attributes["key"] else {
                     throw XCSchemeError.missing(property: "key")
@@ -42,7 +42,7 @@ extension XCScheme {
             }
         }
 
-        fileprivate static func xmlElement(from variables: [EnvironmentVariable]) -> AEXMLElement {
+        static func xmlElement(from variables: [EnvironmentVariable]) -> AEXMLElement {
             let element = AEXMLElement(name: "EnvironmentVariables",
                                        value: nil)
             variables.forEach { arg in

@@ -32,7 +32,7 @@ extension XCScheme {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "TestableReference",
                                        value: nil,
                                        attributes: ["skipped": skipped.xmlString])

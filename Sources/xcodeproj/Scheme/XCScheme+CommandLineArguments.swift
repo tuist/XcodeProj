@@ -28,7 +28,7 @@ extension XCScheme {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "CommandLineArguments",
                                        value: nil)
             arguments.forEach { arg in
@@ -62,7 +62,7 @@ extension XCScheme.CommandLineArguments {
 
         // MARK: - XML
 
-        fileprivate func xmlElement() -> AEXMLElement {
+        func xmlElement() -> AEXMLElement {
             return AEXMLElement(name: "CommandLineArgument",
                                 value: nil,
                                 attributes: ["argument": name, "isEnabled": enabled ? "YES" : "NO"])
