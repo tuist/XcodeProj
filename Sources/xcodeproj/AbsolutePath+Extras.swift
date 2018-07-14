@@ -69,7 +69,7 @@ extension AbsolutePath {
     ///
     /// - Parameter pattern: glob pattern.
     /// - Returns: found directories and files.
-    public func glob(_ pattern: String) -> [AbsolutePath] {
+    func glob(_ pattern: String) -> [AbsolutePath] {
         var gt = glob_t()
         let cPattern = strdup(appending(RelativePath(pattern)).asString)
         defer {
