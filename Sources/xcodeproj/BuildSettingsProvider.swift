@@ -45,16 +45,20 @@ public class BuildSettingsProvider {
         if let platform = platform, platform == .iOS {
             buildSettings["SDKROOT"] = "iphoneos"
             buildSettings["CODE_SIGN_IDENTITY"] = "iPhone Developer"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
         }
         if let platform = platform, platform == .macOS {
             buildSettings["SDKROOT"] = "macosx"
             buildSettings["CODE_SIGN_IDENTITY"] = "-"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks"
         }
         if let platform = platform, platform == .watchOS {
             buildSettings["SDKROOT"] = "watchos"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
         }
         if let platform = platform, platform == .tvOS {
             buildSettings["SDKROOT"] = "appletvos"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
         }
         if let platform = platform, let variant = variant, [.iOS, .watchOS, .tvOS].contains(platform), variant == .release {
             buildSettings["VALIDATE_PRODUCT"] = "YES"
@@ -81,21 +85,18 @@ public class BuildSettingsProvider {
             buildSettings["VERSIONING_SYSTEM"] = "apple-generic"
         }
         if let platform = platform, let product = product, platform == .iOS, product == .framework {
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
             buildSettings["TARGETED_DEVICE_FAMILY"] = "1,2"
         }
+        
         if let platform = platform, let product = product, platform == .macOS, product == .framework {
             buildSettings["COMBINE_HIDPI_IMAGES"] = "YES"
             buildSettings["FRAMEWORK_VERSION"] = "A"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks"
         }
         if let platform = platform, let product = product, platform == .watchOS, product == .framework {
             buildSettings["APPLICATION_EXTENSION_API_ONLY"] = "YES"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
             buildSettings["TARGETED_DEVICE_FAMILY"] = "4"
         }
         if let platform = platform, let product = product, platform == .tvOS, product == .framework {
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
             buildSettings["TARGETED_DEVICE_FAMILY"] = "3"
         }
         if let product = product, let swift = swift, product == .framework, swift == true {
