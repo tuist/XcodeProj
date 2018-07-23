@@ -1,4 +1,4 @@
-Resolves https://github.com/xcode-project-manager/xcodeproj/issues/YYY
+Resolves https://github.com/tuist/xcodeproj/issues/YYY
 
 ### Short description 📝
 > Describe here the purpose of your PR.

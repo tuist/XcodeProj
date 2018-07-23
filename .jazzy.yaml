@@ -1,6 +1,6 @@
-author: xcode-project-manager
+author: Tuist
 module: xcodeproj
-github_url: https://github.com/xcode-project-manager/xcodeproj
+github_url: https://github.com/tuist/xcodeproj
 copyright: 'Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.'
 readme: ABOUT.md
 documentation: guides/*.md

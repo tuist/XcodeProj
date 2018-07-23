@@ -1,649 +1,649 @@
 {
   "warnings": [
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 13,
       "symbol": "BuildPhase.sources",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 14,
       "symbol": "BuildPhase.frameworks",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 15,
       "symbol": "BuildPhase.resources",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 16,
       "symbol": "BuildPhase.copyFiles",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 17,
       "symbol": "BuildPhase.runScript",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 18,
       "symbol": "BuildPhase.headers",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildPhase.swift",
       "line": 19,
       "symbol": "BuildPhase.carbonResources",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 11,
       "symbol": "BuildSettingsProvider.Variant.all",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 11,
       "symbol": "BuildSettingsProvider.Variant.debug",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 11,
       "symbol": "BuildSettingsProvider.Variant.release",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 21,
       "symbol": "BuildSettingsProvider.Platform.iOS",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 21,
       "symbol": "BuildSettingsProvider.Platform.macOS",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 21,
       "symbol": "BuildSettingsProvider.Platform.tvOS",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 21,
       "symbol": "BuildSettingsProvider.Platform.watchOS",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 32,
       "symbol": "BuildSettingsProvider.Product.application",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 32,
       "symbol": "BuildSettingsProvider.Product.bundle",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 32,
       "symbol": "BuildSettingsProvider.Product.dynamicLibrary",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 32,
       "symbol": "BuildSettingsProvider.Product.framework",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/BuildSettingsProvider.swift",
       "line": 32,
       "symbol": "BuildSettingsProvider.Product.staticLibrary",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 12,
       "symbol": "XCodeProjError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 13,
       "symbol": "XCodeProjError.pbxprojNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 14,
       "symbol": "XCodeProjError.xcworkspaceNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 34,
       "symbol": "XCSharedDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 50,
       "symbol": "XCWorkspaceError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 66,
       "symbol": "XCWorkspaceDataError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 82,
       "symbol": "XcodeprojEditingError.unexistingFile",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 98,
       "symbol": "XcodeprojWritingError.invalidType",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 118,
       "symbol": "PBXObjectError.missingIsa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 119,
       "symbol": "PBXObjectError.unknownElement",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 120,
       "symbol": "PBXObjectError.objectsReleased",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 121,
       "symbol": "PBXObjectError.objectNotFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 122,
       "symbol": "PBXObjectError.orphaned",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 178,
       "symbol": "XCBreakpointListError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 179,
       "symbol": "XCBreakpointListError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/Errors.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors.swift",
       "line": 197,
       "symbol": "XCConfigError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
       "line": 4,
       "symbol": "KeyedDecodingContainer.decode(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
       "line": 8,
       "symbol": "KeyedDecodingContainer.decodeIfPresent(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
       "line": 12,
       "symbol": "KeyedDecodingContainer.decodeIntIfPresent(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
       "line": 19,
       "symbol": "KeyedDecodingContainer.decodeIntBool(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/KeyedDecodingContainer+Additions.swift",
       "line": 26,
       "symbol": "KeyedDecodingContainer.decodeIntBoolIfPresent(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXBuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXBuildPhase.swift",
       "line": 22,
       "symbol": "PBXBuildPhase.init(filesReferences:buildActionMask:runOnlyForDeploymentPostprocessing:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXBuildRule.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXBuildRule.swift",
       "line": 34,
       "symbol": "PBXBuildRule.init(compilerSpec:fileType:isEditable:filePatterns:name:outputFiles:outputFilesCompilerFlags:script:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXContainerItemProxy.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXContainerItemProxy.swift",
       "line": 5,
       "symbol": "PBXContainerItemProxy.ProxyType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXCopyFilesBuildPhase.swift",
       "line": 5,
       "symbol": "PBXCopyFilesBuildPhase.SubFolder",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
       "line": null,
       "symbol": "PBXGroup",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXGroup.swift",
       "line": 4,
       "symbol": "PBXGroup",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXLegacyTarget.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXLegacyTarget.swift",
       "line": 17,
       "symbol": "PBXLegacyTarget.init(name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXNativeTarget.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXNativeTarget.swift",
       "line": 6,
       "symbol": "PBXNativeTarget.productInstallPath",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXNativeTarget.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXNativeTarget.swift",
       "line": 8,
       "symbol": "PBXNativeTarget.init(name:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productInstallPath:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXObject.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXObject.swift",
       "line": 48,
       "symbol": "PBXObject.parse(reference:dictionary:userInfo:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXObjects.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXObjects.swift",
       "line": null,
       "symbol": "PBXObjects",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXObjects.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXObjects.swift",
       "line": 3,
       "symbol": "PBXObjects",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXProductType.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXProductType.swift",
       "line": 3,
       "symbol": "PBXProductType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXProj.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXProj.swift",
       "line": 9,
       "symbol": "PBXProj.objects",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXProject.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXProject.swift",
       "line": 3,
       "symbol": "PBXProject",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXReferenceProxy.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXReferenceProxy.swift",
       "line": 24,
       "symbol": "PBXReferenceProxy.init(fileType:path:remoteReference:sourceTree:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 6,
       "symbol": "PBXSourceTree.none",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 7,
       "symbol": "PBXSourceTree.absolute",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 8,
       "symbol": "PBXSourceTree.group",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 9,
       "symbol": "PBXSourceTree.sourceRoot",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 10,
       "symbol": "PBXSourceTree.buildProductsDir",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 11,
       "symbol": "PBXSourceTree.sdkRoot",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 12,
       "symbol": "PBXSourceTree.developerDir",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 13,
       "symbol": "PBXSourceTree.custom",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXSourceTree.swift",
       "line": 23,
       "symbol": "PBXSourceTree.init(value:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXTarget.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXTarget.swift",
       "line": 29,
       "symbol": "PBXTarget.init(name:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/PBXVariantGroup.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/PBXVariantGroup.swift",
       "line": 4,
       "symbol": "PBXVariantGroup",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/String+Utils.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/String+Utils.swift",
       "line": 12,
       "symbol": "String.quoted",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/String+Utils.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/String+Utils.swift",
       "line": 16,
       "symbol": "String.isQuoted",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/String+Utils.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/String+Utils.swift",
       "line": 20,
       "symbol": "String.random(length:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCBreakpointList.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCBreakpointList.swift",
       "line": null,
       "symbol": "XCBreakpointList",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCBreakpointList.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCBreakpointList.swift",
       "line": 6,
       "symbol": "XCBreakpointList",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCConfig.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCConfig.swift",
       "line": 4,
       "symbol": "XCConfigInclude",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCScheme.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCScheme.swift",
       "line": null,
       "symbol": "XCScheme",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCScheme.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCScheme.swift",
       "line": 6,
       "symbol": "XCScheme",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCScheme.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCScheme.swift",
       "line": 1119,
       "symbol": "XCSchemeError.notFound",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCScheme.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCScheme.swift",
       "line": 1120,
       "symbol": "XCSchemeError.missing",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCSharedData.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCSharedData.swift",
       "line": 4,
       "symbol": "XCSharedData",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
       "line": null,
       "symbol": "XCWorkspaceData",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
       "line": null,
       "symbol": "XCWorkspaceData",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceData.swift",
       "line": 5,
       "symbol": "XCWorkspaceData",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElement.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElement.swift",
       "line": null,
       "symbol": "XCWorkspaceDataElement",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElement.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElement.swift",
       "line": 3,
       "symbol": "XCWorkspaceDataElement",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
       "line": null,
       "symbol": "XCWorkspaceDataElementLocationType",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
       "line": null,
       "symbol": "XCWorkspaceDataElementLocationType",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataElementLocationType.swift",
       "line": 3,
       "symbol": "XCWorkspaceDataElementLocationType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataFileRef.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataFileRef.swift",
       "line": null,
       "symbol": "XCWorkspaceDataFileRef",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataFileRef.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataFileRef.swift",
       "line": 3,
       "symbol": "XCWorkspaceDataFileRef",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataGroup.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataGroup.swift",
       "line": null,
       "symbol": "XCWorkspaceDataGroup",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XCWorkspaceDataGroup.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XCWorkspaceDataGroup.swift",
       "line": 3,
       "symbol": "XCWorkspaceDataGroup",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
       "line": 25,
       "symbol": "XcodeProj.init(path:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/XcodeProj.swift",
       "line": 45,
       "symbol": "XcodeProj.init(pathString:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/pedropinera/src/github.com/xcode-project-manager/xcodeproj"
+  "source_directory": "/Users/pedropinera/src/github.com/tuist/xcodeproj"
 }

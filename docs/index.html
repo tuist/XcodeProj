@@ -14,7 +14,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">xcodeproj Docs</a> (76% documented)</p>
-        <p class="header-right"><a href="https://github.com/xcode-project-manager/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -252,8 +252,8 @@
 <p><a href="https://swift.org/package-manager">
 <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
 </a>
-<a href="https://github.com/xcode-project-manager/xcodeproj/releases">
-  <img src="https://img.shields.io/github/release/xcode-project-manager/xcodeproj.svg"/>
+<a href="https://github.com/tuist/xcodeproj/releases">
+  <img src="https://img.shields.io/github/release/tuist/xcodeproj.svg"/>
 </a>
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
@@ -268,13 +268,13 @@
 <h2 id='continuous-integration' class='heading'>Continuous Integration</h2>
 
 <ul>
-<li><strong>Master:</strong> <a href="https://travis-ci.com/xcode-project-manager/xcodeproj"><img src="https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=master" alt="Build Status"></a></li>
-<li><strong>Integration:</strong> <a href="https://travis-ci.com/xcode-project-manager/xcodeproj"><img src="https://travis-ci.com/xcode-project-manager/xcodeproj.svg?branch=integration" alt="Build Status"></a></li>
+<li><strong>Master:</strong> <a href="https://travis-ci.com/tuist/xcodeproj"><img src="https://travis-ci.com/tuist/xcodeproj.svg?branch=master" alt="Build Status"></a></li>
+<li><strong>Integration:</strong> <a href="https://travis-ci.com/tuist/xcodeproj"><img src="https://travis-ci.com/tuist/xcodeproj.svg?branch=integration" alt="Build Status"></a></li>
 </ul>
 <h2 id='contribute' class='heading'>Contribute</h2>
 
 <ol>
-<li>Git clone the repository <code>git@github.com:xcode-project-manager/xcodeproj.git</code>.</li>
+<li>Git clone the repository <code>git@github.com:tuist/xcodeproj.git</code>.</li>
 <li>Generate xcodeproj with  <code>swift package generate-xcodeproj</code>.</li>
 <li>Open <code>xcodeproj.xcodeproj</code>.</li>
 </ol>
@@ -285,7 +285,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/xcode-project-manager/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"5.0.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/tuist/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"5.0.0"</span><span class="p">)),</span>
         <span class="p">],</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
         <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
@@ -305,13 +305,13 @@
 <li>Reference attributes have been renamed to use the naming convention <code>attributeReference</code> where <code>attribute</code> is the name of the attribute. If you are interested in materializing the reference to get the object, objects provide convenient getters that you can use for that purpose. Those getters throw if the object is not found in the project.</li>
 </ul>
 
-<p>There are some useful additions to the API that you can check out on the <a href="https://github.com/xcode-project-manager/xcodeproj/blob/master/CHANGELOG.md">CHANGELOG</a>. </p>
+<p>There are some useful additions to the API that you can check out on the <a href="https://github.com/tuist/xcodeproj/blob/master/CHANGELOG.md">CHANGELOG</a>. </p>
 
 <p>One of those additions is an improvement on how references are managed.
  When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. <strong>The value of that reference is an implementation detail that has been abstracted away from you.</strong></p>
 <h2 id='documentation' class='heading'>Documentation 📄</h2>
 
-<p>You can check out the documentation on the following <a href="https://xcode-project-manager.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
+<p>You can check out the documentation on the following <a href="https://tuist.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
 <h2 id='references' class='heading'>References 📚</h2>
 
 <ul>

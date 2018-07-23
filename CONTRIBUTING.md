@@ -1,1 +1,1 @@
-Check out the organization [CONTRIBUTING](https://github.com/xcbuddy/contributors/blob/master/CONTRIBUTING.md) guidelines.
+Check out the organization [CONTRIBUTING](https://github.com/tuist/contributors/blob/master/Contributing.md) guidelines.

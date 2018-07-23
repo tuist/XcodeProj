@@ -3,10 +3,10 @@
 ## next version
 
 ### Changed
-- **Breaking** Rename `filesReferences` to `fileReferences` https://github.com/xcode-project-manager/xcodeproj/pull/271 by @pepibumur
+- **Breaking** Rename `filesReferences` to `fileReferences` https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 
 ### Added
-- Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/xcode-project-manager/xcodeproj/pull/271 by @pepibumur
+- Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 
 ## 5.0.0-rc1
 
@@ -17,8 +17,8 @@
 - Use `PBXObjectReference` instead of `String` to reference objects from `PBXProj.Objects` by @pepibumur.
 - Remove `ObjectReference` by @pepibumur.
 - Update `PBXNativeTarget` reference attributes to be of type `PBXObjectReference` by @pepibumur.
-- Add convenient methods to materialize objects references https://github.com/xcode-project-manager/xcodeproj/pull/12 by @pepibumur.
-- Rename some PBXProject attributes for consistency https://github.com/xcode-project-manager/xcodeproj/pull/268 by @pepibumur.
+- Add convenient methods to materialize objects references https://github.com/tuist/xcodeproj/pull/12 by @pepibumur.
+- Rename some PBXProject attributes for consistency https://github.com/tuist/xcodeproj/pull/268 by @pepibumur.
 
 ### Added
 - Add `addDependency` method to `PBXNativeTarget` by @pepibumur.
@@ -28,8 +28,8 @@
 - `BuildSettingsProvider` by @pepibumur.
 - Add `addDependency` method to `PBXNativeTarget` by @pepibumur.
 - Method in `XCConfigurationList` to get the build configurations objects @pepibumur.
-- Method to get the configuration list from any target https://github.com/xcode-project-manager/xcodeproj/pull/10 by @pepibumur.
-- Migration guidelines https://github.com/xcode-project-manager/xcodeproj/pull/264 by @pepibumur.
+- Method to get the configuration list from any target https://github.com/tuist/xcodeproj/pull/10 by @pepibumur.
+- Migration guidelines https://github.com/tuist/xcodeproj/pull/264 by @pepibumur.
 
 ### Removed
 - Deprecated elements by @pepibumur.
