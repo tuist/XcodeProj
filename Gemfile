@@ -7,4 +7,3 @@ gem "colorize"
 gem "git"
 gem "rspec"
 gem "xcpretty"
-gem 'danger-swiftlint'
