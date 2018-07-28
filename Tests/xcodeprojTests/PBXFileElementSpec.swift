@@ -36,27 +36,23 @@ final class PBXFileElementSpec: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_fullPath() {
+    func test_fullPath() throws {
         let sourceRoot = AbsolutePath("/")
-        do {
-            let fileref = PBXFileReference(sourceTree: .group,
-                                           fileEncoding: 1,
-                                           explicitFileType: "sourcecode.swift",
-                                           lastKnownFileType: nil,
-                                           path: "/a/path")
-            let group = PBXGroup(childrenReferences: [fileref.reference],
-                                 sourceTree: .group,
-                                 name: "/to/be/ignored")
+        let fileref = PBXFileReference(sourceTree: .group,
+                                       fileEncoding: 1,
+                                       explicitFileType: "sourcecode.swift",
+                                       lastKnownFileType: nil,
+                                       path: "/a/path")
+        let group = PBXGroup(childrenReferences: [fileref.reference],
+                             sourceTree: .group,
+                             name: "/to/be/ignored")
 
-            let objects = PBXObjects(objects: [fileref, group])
-            fileref.reference.objects = objects
-            group.reference.objects = objects
+        let objects = PBXObjects(objects: [fileref, group])
+        fileref.reference.objects = objects
+        group.reference.objects = objects
 
-            let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
-            XCTAssertEqual(fullPath?.asString, "/a/path")
-        } catch {
-            XCTFail("error: \(error)")
-        }
+        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
+        XCTAssertEqual(fullPath?.asString, "/a/path")
     }
 
     private func testDictionary() -> [String: Any] {
