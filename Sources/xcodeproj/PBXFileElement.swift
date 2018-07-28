@@ -152,7 +152,13 @@ public extension PBXFileElement {
             guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
             guard let groupPath = try group.value.fullPath(sourceRoot: sourceRoot) else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return groupPath }
-            return groupPath.appending(RelativePath(filePath))
+            if filePath.hasPrefix("/") {
+                // Swift PM generated pbxproj can have AbsolutePath
+                // e.g. OBJ_191 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/toshi0383/Documents/workspace/hackscode/.build/checkouts/AEXML.git--1992474868199569405/Package.swift"; sourceTree = "<group>"; };
+                return AbsolutePath(filePath)
+            } else {
+                return groupPath.appending(RelativePath(filePath))
+            }
         default:
             return nil
         }
