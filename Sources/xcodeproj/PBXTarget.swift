@@ -138,10 +138,7 @@ public extension PBXTarget {
     /// - Throws: an error if the build phase cannot be obtained.
     public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
         return try buildPhasesReferences
-
-            // object() throws internally if failed to cast to inferred type T.
             .compactMap({ try $0.object() as PBXBuildPhase })
-
             .filter({ $0.type() == .sources })
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
