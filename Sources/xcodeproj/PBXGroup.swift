@@ -118,6 +118,7 @@ public extension PBXGroup {
     ///   - groupName: group name.
     ///   - options: creation options.
     /// - Returns: created groups.
+    @discardableResult
     public func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
         let objects = try self.objects()
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
@@ -136,6 +137,7 @@ public extension PBXGroup {
     ///   - sourceTree: file sourceTree, default is `.group`
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
+    @discardableResult
     public func addFile(
         at filePath: AbsolutePath,
         sourceTree: PBXSourceTree = .group,
