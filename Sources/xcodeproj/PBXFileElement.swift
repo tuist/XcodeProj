@@ -152,7 +152,7 @@ public extension PBXFileElement {
             guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
             guard let groupPath = try group.value.fullPath(sourceRoot: sourceRoot) else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return groupPath }
-            return groupPath.appending(RelativePath(filePath))
+            return AbsolutePath(filePath, relativeTo: groupPath)
         default:
             return nil
         }
