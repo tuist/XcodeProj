@@ -8,7 +8,7 @@ class DictionaryExtrasSpec: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        fixtures = AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
+        fixtures = AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
     }
 
     func test_loadPlist_returnsANilValue_whenTheFileDoesntExist() {
