@@ -87,7 +87,7 @@ public class BuildSettingsProvider {
         if let platform = platform, let product = product, platform == .iOS, product == .framework {
             buildSettings["TARGETED_DEVICE_FAMILY"] = "1,2"
         }
-        
+
         if let platform = platform, let product = product, platform == .macOS, product == .framework {
             buildSettings["COMBINE_HIDPI_IMAGES"] = "YES"
             buildSettings["FRAMEWORK_VERSION"] = "A"

@@ -2,7 +2,7 @@ import AEXML
 import Foundation
 
 extension XCScheme {
-    public final class CommandLineArguments {
+    public final class CommandLineArguments: Equatable {
 
         // MARK: - Attributes
 
