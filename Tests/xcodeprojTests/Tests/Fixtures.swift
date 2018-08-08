@@ -3,7 +3,7 @@ import Foundation
 import xcodeproj
 
 func fixturesPath() -> AbsolutePath {
-    return AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
+    return AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
 }
 
 func iosProjectDictionary() -> (AbsolutePath, Dictionary<String, Any>) {

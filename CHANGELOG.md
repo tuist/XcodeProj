@@ -7,6 +7,7 @@
 
 ### Added
 - Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
+- Split up `XCScheme` models and make them conform the `Equatable` protocol https://github.com/tuist/xcodeproj/pull/273 by @pepibumur
 
 ## 5.0.0-rc1
 

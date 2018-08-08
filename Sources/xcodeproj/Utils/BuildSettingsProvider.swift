@@ -40,6 +40,7 @@ public class BuildSettingsProvider {
     ///   - product: target product.
     ///   - swift: true if the target contains Swift code.
     /// - Returns: build settings.
+    // swiftlint:disable:next function_body_length
     public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
         var buildSettings: [String: Any] = [:]
         if let platform = platform, platform == .iOS {
@@ -87,7 +88,7 @@ public class BuildSettingsProvider {
         if let platform = platform, let product = product, platform == .iOS, product == .framework {
             buildSettings["TARGETED_DEVICE_FAMILY"] = "1,2"
         }
-        
+
         if let platform = platform, let product = product, platform == .macOS, product == .framework {
             buildSettings["COMBINE_HIDPI_IMAGES"] = "YES"
             buildSettings["FRAMEWORK_VERSION"] = "A"
@@ -179,6 +180,7 @@ public class BuildSettingsProvider {
 
     // MARK: - Private
 
+    // swiftlint:disable:next function_body_length
     private static func projectAll() -> BuildSettings {
         return [
             "ALWAYS_SEARCH_USER_PATHS": "NO",
