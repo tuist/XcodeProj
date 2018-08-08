@@ -40,6 +40,7 @@ public class BuildSettingsProvider {
     ///   - product: target product.
     ///   - swift: true if the target contains Swift code.
     /// - Returns: build settings.
+    // swiftlint:disable:next function_body_length
     public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
         var buildSettings: [String: Any] = [:]
         if let platform = platform, platform == .iOS {
@@ -179,6 +180,7 @@ public class BuildSettingsProvider {
 
     // MARK: - Private
 
+    // swiftlint:disable:next function_body_length
     private static func projectAll() -> BuildSettings {
         return [
             "ALWAYS_SEARCH_USER_PATHS": "NO",

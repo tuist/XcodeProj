@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint:disable type_body_length
 public class PBXObjects: Equatable {
 
     // MARK: - Properties
@@ -166,6 +167,7 @@ public class PBXObjects: Equatable {
     ///
     /// - Parameter reference: referenc of the object to be deleted.
     /// - Returns: the deleted object.
+    // swiftlint:disable:next function_body_length
     public func delete(_ reference: PBXObjectReference) -> PBXObject? {
         if let index = buildFiles.index(forKey: reference) {
             return buildFiles.remove(at: index).value

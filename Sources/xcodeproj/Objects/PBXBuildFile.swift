@@ -101,7 +101,9 @@ extension PBXBuildFile {
         let projectObjects = try objects()
         switch type {
         case .copyFiles?:
-            return projectObjects.copyFilesBuildPhases.first(where: { _, val in val.fileReferences.contains(self.reference) })?.value.name ?? type?.rawValue
+            return projectObjects.copyFilesBuildPhases
+                .first(where: { _, val in val.fileReferences.contains(self.reference) })?
+                .value.name ?? type?.rawValue
         default:
             return type?.rawValue
         }

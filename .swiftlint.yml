@@ -16,3 +16,7 @@ disabled_rules:
 line_length:
   warning: 150
   error: 170
+identifier_name:
+  min_length:
+    error: 1
+    warning: 1

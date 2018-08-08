@@ -3,6 +3,7 @@ import Basic
 import Foundation
 
 extension XCScheme {
+    // swiftlint:disable:next type_body_length
     public final class LaunchAction: SerialAction {
         public enum Style: String {
             case auto = "0"
