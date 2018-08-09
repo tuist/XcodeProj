@@ -5,11 +5,13 @@ jobs:
       xcode: "9.3.0"
     steps:
       - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Tools
           command: |
             brew install swiftlint
-            bundle install
+            bundle check || bundle install --path vendor/bundle
       - run:
           name: Install dependencies
           command: |
@@ -24,3 +26,8 @@ jobs:
       - run:
           name: Send test coverage report
           command: bash <(curl -s https://codecov.io/bash)
+       - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
