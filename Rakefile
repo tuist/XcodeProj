@@ -1,7 +1,6 @@
 #!/usr/bin/rake
 
 require 'semantic'
-require 'colorize'
 require 'fileutils'
 require 'git'
 
