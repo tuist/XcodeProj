@@ -3,24 +3,27 @@ import Basic
 import Foundation
 
 // swiftlint:disable:next type_body_length
-public final class XCBreakpointList {
+public final class XCBreakpointList: Equatable, Writable {
 
     // MARK: - Breakpoint Proxy
 
     // swiftlint:disable type_body_length
-    public final class BreakpointProxy {
+    public final class BreakpointProxy: Equatable {
 
         // MARK: - Breakpoint Content
 
-        public final class BreakpointContent {
+        public final class BreakpointContent: Equatable {
 
             // MARK: - Breakpoint Action Proxy
 
-            public final class BreakpointActionProxy {
+            public final class BreakpointActionProxy: Equatable {
 
                 // MARK: - Breakpoint Action Content
 
-                public final class ActionContent {
+                public final class ActionContent: Equatable {
+
+                    // MARK: - Attributes
+
                     public var consoleCommand: String?
                     public var message: String?
                     public var conveyanceType: String?
@@ -29,6 +32,8 @@ public final class XCBreakpointList {
                     public var waitUntilDone: Bool?
                     public var script: String?
                     public var soundName: String?
+
+                    // MARK: - Init
 
                     public init(consoleCommand: String? = nil,
                                 message: String? = nil,
@@ -61,6 +66,8 @@ public final class XCBreakpointList {
                         soundName = element.attributes["soundName"]
                     }
 
+                    // MARK: - XML
+
                     fileprivate func xmlElement() -> AEXMLElement {
                         var attributes: [String: String] = [:]
                         attributes["consoleCommand"] = consoleCommand
@@ -79,6 +86,19 @@ public final class XCBreakpointList {
                                                    attributes: attributes)
                         return element
                     }
+
+                    // MARK: - Equatable
+
+                    public static func == (lhs: ActionContent, rhs: ActionContent) -> Bool {
+                        return lhs.consoleCommand == rhs.consoleCommand &&
+                            lhs.message == rhs.message &&
+                            lhs.conveyanceType == rhs.conveyanceType &&
+                            lhs.command == rhs.command &&
+                            lhs.arguments == rhs.arguments &&
+                            lhs.waitUntilDone == rhs.waitUntilDone &&
+                            lhs.script == rhs.script &&
+                            lhs.soundName == rhs.soundName
+                    }
                 }
 
                 // MARK: - Breakpoint Action Extension ID
@@ -93,8 +113,12 @@ public final class XCBreakpointList {
                     case openGLError = "Xcode.BreakpointAction.OpenGLError"
                 }
 
+                // MARK: - Attributes
+
                 public var actionExtensionID: ActionExtensionID
                 public var actionContent: ActionContent
+
+                // MARK: - Init
 
                 public init(actionExtensionID: ActionExtensionID,
                             actionContent: ActionContent) {
@@ -111,6 +135,8 @@ public final class XCBreakpointList {
                     actionContent = try ActionContent(element: element["ActionContent"])
                 }
 
+                // MARK: - XML
+
                 fileprivate func xmlElement() -> AEXMLElement {
                     let element = AEXMLElement(name: "BreakpointActionProxy",
                                                value: nil,
@@ -118,11 +144,18 @@ public final class XCBreakpointList {
                     element.addChild(actionContent.xmlElement())
                     return element
                 }
+
+                // MARK: - Equatable
+
+                public static func == (lhs: BreakpointActionProxy, rhs: BreakpointActionProxy) -> Bool {
+                    return lhs.actionExtensionID == rhs.actionExtensionID &&
+                        lhs.actionContent == rhs.actionContent
+                }
             }
 
             // MARK: - Breakpoint Location Proxy
 
-            public final class BreakpointLocationProxy {
+            public final class BreakpointLocationProxy: Equatable {
                 public init() {}
 
                 init(element _: AEXMLElement) throws {}
@@ -133,7 +166,33 @@ public final class XCBreakpointList {
                                                attributes: [:])
                     return element
                 }
+
+                public static func == (_: BreakpointLocationProxy, _: BreakpointLocationProxy) -> Bool {
+                    return true
+                }
             }
+
+            public static func == (lhs: BreakpointContent, rhs: BreakpointContent) -> Bool {
+                return lhs.enabled == rhs.enabled &&
+                    lhs.ignoreCount == rhs.ignoreCount &&
+                    lhs.continueAfterRunningActions == rhs.continueAfterRunningActions &&
+                    lhs.filePath == rhs.filePath &&
+                    lhs.timestamp == rhs.timestamp &&
+                    lhs.startingColumn == rhs.startingColumn &&
+                    lhs.endingColumn == rhs.endingColumn &&
+                    lhs.startingLine == rhs.startingLine &&
+                    lhs.endingLine == rhs.endingLine &&
+                    lhs.breakpointStackSelectionBehavior == rhs.breakpointStackSelectionBehavior &&
+                    lhs.symbol == rhs.symbol &&
+                    lhs.module == rhs.module &&
+                    lhs.scope == rhs.scope &&
+                    lhs.stopOnStyle == rhs.stopOnStyle &&
+                    lhs.condition == rhs.condition &&
+                    lhs.actions == rhs.actions &&
+                    lhs.locations == rhs.locations
+            }
+
+            // MARK: - Attributes
 
             public var enabled: Bool
             public var ignoreCount: String
@@ -152,6 +211,8 @@ public final class XCBreakpointList {
             public var condition: String?
             public var actions: [BreakpointActionProxy]
             public var locations: [BreakpointLocationProxy]
+
+            // MARK: - Init
 
             public init(enabled: Bool = true,
                         ignoreCount: String = "0",
@@ -214,6 +275,8 @@ public final class XCBreakpointList {
                     .map(BreakpointLocationProxy.init) ?? []
             }
 
+            // MARK: - XML
+
             fileprivate func xmlElement() -> AEXMLElement {
                 var attributes: [String: String] = [:]
                 attributes["shouldBeEnabled"] = enabled ? "Yes" : "No"
@@ -260,8 +323,12 @@ public final class XCBreakpointList {
             case ideTestFailure = "Xcode.Breakpoint.IDETestFailureBreakpoint"
         }
 
+        // MARK: - Attributes
+
         public var breakpointExtensionID: BreakpointExtensionID
         public var breakpointContent: BreakpointContent
+
+        // MARK: - Init
 
         public init(breakpointExtensionID: BreakpointExtensionID,
                     breakpointContent: BreakpointContent) {
@@ -278,6 +345,8 @@ public final class XCBreakpointList {
             breakpointContent = try BreakpointContent(element: element["BreakpointContent"])
         }
 
+        // MARK: - XML
+
         fileprivate func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "BreakpointProxy",
                                        value: nil,
@@ -285,9 +354,16 @@ public final class XCBreakpointList {
             element.addChild(breakpointContent.xmlElement())
             return element
         }
+
+        // MARK: - Equatable
+
+        public static func == (lhs: BreakpointProxy, rhs: BreakpointProxy) -> Bool {
+            return lhs.breakpointExtensionID == rhs.breakpointExtensionID &&
+                lhs.breakpointContent == rhs.breakpointContent
+        }
     }
 
-    // MARK: - Properties
+    // MARK: - Attributes
 
     public var breakpoints: [BreakpointProxy]
     public var type: String?
@@ -320,16 +396,16 @@ public final class XCBreakpointList {
         self.breakpoints = breakpoints
     }
 
+    // MARK: - Public
+
     public func add(breakpointProxy: BreakpointProxy) -> XCBreakpointList {
         var breakpoints = self.breakpoints
         breakpoints.append(breakpointProxy)
         return XCBreakpointList(type: type, version: version, breakpoints: breakpoints)
     }
-}
 
-// MARK: - XCBreakpointList Extension (Writable)
+    // MARK: - Writable
 
-extension XCBreakpointList: Writable {
     public func write(path: AbsolutePath, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
@@ -345,5 +421,13 @@ extension XCBreakpointList: Writable {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)
+    }
+
+    // MARK: - Equatable
+
+    public static func == (lhs: XCBreakpointList, rhs: XCBreakpointList) -> Bool {
+        return lhs.breakpoints == rhs.breakpoints &&
+            lhs.type == rhs.type &&
+            lhs.version == rhs.version
     }
 }
