@@ -12,8 +12,7 @@ jobs:
           name: Install Tools
           command: |
             brew install swiftlint
-            brew install sqlite3
-            brew install libsqlite3-dev
+            brew upgrade sqlite3
             bundle check || bundle install --path vendor/bundle
       - run:
           name: Install dependencies
