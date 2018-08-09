@@ -6,7 +6,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          keys:
+            - 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Tools
           command: |
@@ -27,7 +28,7 @@ jobs:
           name: Send test coverage report
           command: bash <(curl -s https://codecov.io/bash)
        - save_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
