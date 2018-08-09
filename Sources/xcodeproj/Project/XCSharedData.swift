@@ -1,7 +1,7 @@
 import Basic
 import Foundation
 
-public final class XCSharedData {
+public final class XCSharedData: Equatable {
 
     // MARK: - Attributes
 
@@ -33,5 +33,12 @@ public final class XCSharedData {
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
         breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
+    }
+
+    // MARK: - Equatable
+
+    public static func == (lhs: XCSharedData, rhs: XCSharedData) -> Bool {
+        return lhs.schemes == rhs.schemes &&
+            lhs.breakpoints == rhs.breakpoints
     }
 }

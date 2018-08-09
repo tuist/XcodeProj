@@ -1,13 +1,8 @@
 import Basic
 import Foundation
 
-#if os(Linux)
-    import Glibc
-    import SwiftShims
-#endif
-
 /// Model that represents a .xcodeproj project.
-public final class XcodeProj {
+public final class XcodeProj: Equatable {
 
     // MARK: - Properties
 
@@ -55,6 +50,14 @@ public final class XcodeProj {
         self.workspace = workspace
         self.pbxproj = pbxproj
         self.sharedData = sharedData
+    }
+
+    // MARK: - Equatable
+
+    public static func == (lhs: XcodeProj, rhs: XcodeProj) -> Bool {
+        return lhs.workspace == rhs.workspace &&
+            lhs.pbxproj == rhs.pbxproj &&
+            lhs.sharedData == rhs.sharedData
     }
 }
 
@@ -185,15 +188,5 @@ extension XcodeProj: Writable {
         }
         try debuggerPath.mkpath()
         try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
-    }
-}
-
-// MARK: - XcodeProj Extension (Equatable)
-
-extension XcodeProj: Equatable {
-    public static func == (lhs: XcodeProj, rhs: XcodeProj) -> Bool {
-        return lhs.workspace == rhs.workspace &&
-            lhs.pbxproj == rhs.pbxproj
-        // TODO: make SharedData equatable: lhs.sharedData == rhs.sharedData
     }
 }

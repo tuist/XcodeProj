@@ -2,7 +2,7 @@ import Basic
 import Foundation
 
 /// Model that represents a Xcode workspace.
-public final class XCWorkspace {
+public final class XCWorkspace: Writable, Equatable {
     /// Workspace data
     public var data: XCWorkspaceData
 
@@ -47,11 +47,9 @@ public final class XCWorkspace {
     public init(data: XCWorkspaceData) {
         self.data = data
     }
-}
 
-// MARK: - <Writable>
+    // MARK: - Writable
 
-extension XCWorkspace: Writable {
     public func write(path: AbsolutePath, override: Bool = true) throws {
         let dataPath = path.appending(component: "contents.xcworkspacedata")
         if override && dataPath.exists {
@@ -60,11 +58,9 @@ extension XCWorkspace: Writable {
         try dataPath.mkpath()
         try data.write(path: dataPath)
     }
-}
 
-// MARK: - XCWorkspace Extension (Equatable)
+    // MARK: - Equatable
 
-extension XCWorkspace: Equatable {
     public static func == (_: XCWorkspace, rhs: XCWorkspace) -> Bool {
         return rhs.data == rhs.data
     }

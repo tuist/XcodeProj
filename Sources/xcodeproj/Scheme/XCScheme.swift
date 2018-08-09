@@ -16,7 +16,7 @@ public enum XCSchemeError: Error, CustomStringConvertible {
     }
 }
 
-public final class XCScheme: Writable {
+public final class XCScheme: Writable, Equatable {
 
     // MARK: - Static
 
@@ -105,5 +105,19 @@ public final class XCScheme: Writable {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)
+    }
+
+    // MARK: - Equatable
+
+    public static func == (lhs: XCScheme, rhs: XCScheme) -> Bool {
+        return lhs.buildAction == rhs.buildAction &&
+            lhs.testAction == rhs.testAction &&
+            lhs.launchAction == rhs.launchAction &&
+            lhs.profileAction == rhs.profileAction &&
+            lhs.analyzeAction == rhs.analyzeAction &&
+            lhs.archiveAction == rhs.archiveAction &&
+            lhs.lastUpgradeVersion == rhs.lastUpgradeVersion &&
+            lhs.version == rhs.version &&
+            lhs.name == rhs.name
     }
 }
