@@ -25,6 +25,7 @@ jobs:
       - run:
           name: Run tests
           command: |
+            swift package generate-xcodeproj
             xcodebuild test -scheme xcodeproj-Package -enableCodeCoverage YES
       - run:
           name: Send test coverage report
