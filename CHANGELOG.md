@@ -2,6 +2,8 @@
 
 ## next version
 
+## 5.0.0-rc2
+
 ### Changed
 - **Breaking** Rename `filesReferences` to `fileReferences` https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 
