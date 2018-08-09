@@ -22,7 +22,7 @@ public final class XCConfigurationList: PBXObject {
     ///   - buildConfigurationsReferences: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(buildConfigurationsReferences: [PBXObjectReference],
+    public init(buildConfigurationsReferences: [PBXObjectReference] = [],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
         self.buildConfigurationsReferences = buildConfigurationsReferences
@@ -66,11 +66,56 @@ public final class XCConfigurationList: PBXObject {
 // MARK: - XCConfigurationList Utils
 
 extension XCConfigurationList {
+    /// Returns the build configuration with the given name (if it exists)
+    ///
+    /// - Parameter name: configuration name.
+    /// - Returns: build configuration if it exists.
+    public func configuration(name: String) throws -> XCBuildConfiguration? {
+        return try buildConfigurations().first(where: { $0.name == name })
+    }
+
+    /// Adds the default configurations, debug and release
+    ///
+    /// - Returns: the created configurations.
+    public func addDefaultConfigurations() throws -> [XCBuildConfiguration] {
+        var configurations: [XCBuildConfiguration] = []
+        try configurations.append(add(configuration: "Debug"))
+        try configurations.append(add(configuration: "Release"))
+        return configurations
+    }
+
+    /// Adds a build configuration with the given name.
+    /// If a configuration with the given name exists, it returns that one.
+    ///
+    /// - Parameters:
+    ///   - configuration: build configuration name.
+    ///   - baseConfigurationReference: reference to the base configuration.
+    ///   - buildSettings: dictionary that contains the build settings for this configuration.
+    /// - Returns: build configuration.
+    public func add(configuration: String,
+                    baseConfigurationReference: PBXObjectReference? = nil,
+                    buildSettings: BuildSettings = [:]) throws -> XCBuildConfiguration {
+        let buildConfigurations = try self.buildConfigurations()
+        let projectObjects = try objects()
+
+        if let buildConfiguration = buildConfigurations.first(where: { $0.name == configuration }) {
+            return buildConfiguration
+        }
+
+        let buildConfiguration = XCBuildConfiguration(name: configuration,
+                                                      baseConfigurationReference: baseConfigurationReference,
+                                                      buildSettings: buildSettings)
+        let reference = projectObjects.addObject(buildConfiguration)
+        buildConfigurationsReferences.append(reference)
+
+        return buildConfiguration
+    }
+
     /// Returns the object with the given configuration list (project or target)
     ///
     /// - Parameter reference: configuration list reference.
     /// - Returns: target or project with the given configuration list.
-    func objectWithConfigurationList() throws -> PBXObject? {
+    public func objectWithConfigurationList() throws -> PBXObject? {
         let projectObjects = try objects()
         return projectObjects.projects.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
             projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
