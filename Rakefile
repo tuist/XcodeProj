@@ -52,12 +52,6 @@ def next_version(type)
   current_version.increment! type
 end
 
-def bump_to_version(from, to)
-  spec_path = "xcodeproj.podspec"
-  content = File.read(spec_path)
-  File.open(spec_path, "w"){|f| f.write(content.sub(from.to_s, to.to_s)) }
-end
-
 def commit_changes_and_push(tag)
   git.add "."
   git.commit "Bump version to #{tag.to_string}"
@@ -110,8 +104,6 @@ task :release do
   print "Generating docs"
   generate_docs
   version = next_version(ENV["RELEASE_TYPE"].to_sym)
-  print "Bumping version to #{version}"
-  bump_to_version(current_version, version)
   print "Commiting and pushing changes to GitHub"
   commit_changes_and_push(version)
 end

@@ -14,7 +14,7 @@
     <a title="PBXShellScriptBuildPhase Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p><a href="../index.html">xcodeproj Docs</a> (74% documented)</p>
         <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -106,9 +106,6 @@
                 <a href="../Enums/XCConfigError.html">XCConfigError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/XCSchemeError.html">XCSchemeError</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/XCSharedDataError.html">XCSharedDataError</a>
               </li>
               <li class="nav-group-task">
@@ -189,9 +186,6 @@
           <li class="nav-group-name">
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Extensions/AbsolutePath.html">AbsolutePath</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Bool.html">Bool</a>
               </li>
@@ -469,9 +463,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj24PBXShellScriptBuildPhaseCACSayAA18PBXObjectReferenceCG15filesReferences_SSSg4nameSaySSG10inputPathsAJ06outputL0SS9shellPathAH0nC0Su15buildActionMaskSb34runOnlyForDeploymentPostprocessingSb16showEnvVarsInLogtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(filesReferences:name:inputPaths:outputPaths:shellPath:shellScript:buildActionMask:runOnlyForDeploymentPostprocessing:showEnvVarsInLog:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj24PBXShellScriptBuildPhaseCACSayAA18PBXObjectReferenceCG15filesReferences_SSSg4nameSaySSG10inputPathsAJ06outputL0SS9shellPathAH0nC0Su15buildActionMaskSb34runOnlyForDeploymentPostprocessingSb16showEnvVarsInLogtcfc">init(filesReferences:name:inputPaths:outputPaths:shellPath:shellScript:buildActionMask:runOnlyForDeploymentPostprocessing:showEnvVarsInLog:)</a>
+                    <a name="/s:9xcodeproj24PBXShellScriptBuildPhaseCACSayAA18PBXObjectReferenceCG14fileReferences_SSSg4nameSaySSG10inputPathsAJ06outputL0AJSg0k8FileListL0AM0mnoL0SS9shellPathAH0pC0Su15buildActionMaskSb34runOnlyForDeploymentPostprocessingSb16showEnvVarsInLogtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(fileReferences:name:inputPaths:outputPaths:inputFileListPaths:outputFileListPaths:shellPath:shellScript:buildActionMask:runOnlyForDeploymentPostprocessing:showEnvVarsInLog:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj24PBXShellScriptBuildPhaseCACSayAA18PBXObjectReferenceCG14fileReferences_SSSg4nameSaySSG10inputPathsAJ06outputL0AJSg0k8FileListL0AM0mnoL0SS9shellPathAH0pC0Su15buildActionMaskSb34runOnlyForDeploymentPostprocessingSb16showEnvVarsInLogtcfc">init(fileReferences:name:inputPaths:outputPaths:inputFileListPaths:outputFileListPaths:shellPath:shellScript:buildActionMask:runOnlyForDeploymentPostprocessing:showEnvVarsInLog:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -486,10 +480,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">filesReferences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">fileReferences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
             <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">inputPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
             <span class="nv">outputPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+            <span class="nv">inputFileListPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">outputFileListPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">shellPath</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"/bin/sh"</span><span class="p">,</span>
             <span class="nv">shellScript</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="nv">buildActionMask</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="n">defaultBuildActionMask</span><span class="p">,</span>
@@ -505,7 +501,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>files</em>
+                                <em>fileReferences</em>
                                 </code>
                               </td>
                               <td>
@@ -535,6 +531,30 @@
                               <td>
                                 <div>
                                   <p>output paths.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputFileListPaths</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>input file list paths.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outputFileListPaths</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>output file list paths.</p>
                                 </div>
                               </td>
                             </tr>
@@ -623,7 +643,7 @@
         </section>
         <section id="footer">
           <p>Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

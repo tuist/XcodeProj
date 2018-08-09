@@ -14,7 +14,7 @@
     <a title="XCConfigurationList Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (76% documented)</p>
+        <p><a href="../index.html">xcodeproj Docs</a> (74% documented)</p>
         <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -106,9 +106,6 @@
                 <a href="../Enums/XCConfigError.html">XCConfigError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/XCSchemeError.html">XCSchemeError</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/XCSharedDataError.html">XCSharedDataError</a>
               </li>
               <li class="nav-group-task">
@@ -189,9 +186,6 @@
           <li class="nav-group-name">
             <a href="../Other Extensions.html">Other Extensions</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Extensions/AbsolutePath.html">AbsolutePath</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Bool.html">Bool</a>
               </li>
@@ -379,7 +373,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">buildConfigurationsReferences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">],</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">buildConfigurationsReferences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
             <span class="n"><a href="../Classes/XCConfigurationList.html#/s:9xcodeproj19XCConfigurationListC24defaultConfigurationNameSSSgvp">defaultConfigurationName</a></span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
             <span class="n"><a href="../Classes/XCConfigurationList.html#/s:9xcodeproj19XCConfigurationListC29defaultConfigurationIsVisibleSbvp">defaultConfigurationIsVisible</a></span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
@@ -518,11 +512,230 @@ to which the configuration list belongs.
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/XCConfigurationList%20Utils"></a>
+                <a name="//apple_ref/swift/Section/XCConfigurationList Utils" class="dashAnchor"></a>
+                <a href="#/XCConfigurationList%20Utils">
+                  <h3 class="section-name">XCConfigurationList Utils</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19XCConfigurationListC13configurationAA20XCBuildConfigurationCSgSS4name_tKF"></a>
+                    <a name="//apple_ref/swift/Method/configuration(name:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19XCConfigurationListC13configurationAA20XCBuildConfigurationCSgSS4name_tKF">configuration(name:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the build configuration with the given name (if it exists)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">configuration</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>configuration name.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>build configuration if it exists.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19XCConfigurationListC24addDefaultConfigurationsSayAA20XCBuildConfigurationCGyKF"></a>
+                    <a name="//apple_ref/swift/Method/addDefaultConfigurations()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19XCConfigurationListC24addDefaultConfigurationsSayAA20XCBuildConfigurationCGyKF">addDefaultConfigurations()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds the default configurations, debug and release</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addDefaultConfigurations</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the created configurations.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19XCConfigurationListC3addAA20XCBuildConfigurationCSS13configuration_AA18PBXObjectReferenceCSg04basefI0s10DictionaryVySSypG13buildSettingstKF"></a>
+                    <a name="//apple_ref/swift/Method/add(configuration:baseConfigurationReference:buildSettings:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19XCConfigurationListC3addAA20XCBuildConfigurationCSS13configuration_AA18PBXObjectReferenceCSg04basefI0s10DictionaryVySSypG13buildSettingstKF">add(configuration:baseConfigurationReference:buildSettings:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds a build configuration with the given name.
+If a configuration with the given name exists, it returns that one.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                <span class="nv">baseConfigurationReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                <span class="nv">buildSettings</span><span class="p">:</span> <span class="kt"><a href="../Models.html#/s:9xcodeproj13BuildSettingsa">BuildSettings</a></span> <span class="o">=</span> <span class="p">[:])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>build configuration name.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>baseConfigurationReference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>reference to the base configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>buildSettings</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>dictionary that contains the build settings for this configuration.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>build configuration.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj19XCConfigurationListC023objectWithConfigurationC0AA9PBXObjectCSgyKF"></a>
+                    <a name="//apple_ref/swift/Method/objectWithConfigurationList()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19XCConfigurationListC023objectWithConfigurationC0AA9PBXObjectCSgyKF">objectWithConfigurationList()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the object with the given configuration list (project or target)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">objectWithConfigurationList</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/PBXObject.html">PBXObject</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>configuration list reference.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>target or project with the given configuration list.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
           <p>Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
