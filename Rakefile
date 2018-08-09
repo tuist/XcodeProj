@@ -39,10 +39,6 @@ def test_swift_integration
   sh "swift test --filter xcodeprojIntegrationTests"
 end
 
-def test_ruby
-  sh "bundle exec rspec"
-end
-
 def format
   sh "swiftformat ."
 end
@@ -76,7 +72,7 @@ def is_macos
 end
 
 def print(message)
-  puts "> #{message.colorize(:yellow)}"
+  puts "> #{message}"
 end
 
 desc "Executes all the validation steps for CI"
@@ -89,7 +85,6 @@ task :ci do
   build()
   print "Executing tests"
   test_swift()
-  test_ruby()
   if git.current_branch == "integration" || ENV["TRAVIS_BRANCH"] == "integration"
     print "Executing integration tests"
     test_swift_integration()
