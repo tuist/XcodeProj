@@ -363,7 +363,7 @@ public final class XCBreakpointList: Equatable, Writable {
         }
     }
 
-    // MARK: - Attribbutes
+    // MARK: - Attributes
 
     public var breakpoints: [BreakpointProxy]
     public var type: String?
