@@ -19,8 +19,7 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ## Continuous Integration
 
-- **Master:** [![Build Status](https://travis-ci.org/tuist/xcodeproj.svg?branch=master)](https://travis-ci.org/tuist/xcodeproj)
-- **Integration:** [![Build Status](https://travis-ci.org/tuist/xcodeproj.svg?branch=integration)](https://travis-ci.org/tuist/xcodeproj)
+- **Master:** [![CircleCI](https://circleci.com/gh/tuist/xcodeproj.svg?style=svg)](https://circleci.com/gh/tuist/xcodeproj)
 
 ## Contribute
 
