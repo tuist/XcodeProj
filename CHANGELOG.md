@@ -2,6 +2,10 @@
 
 ## next version
 
+## 5.0.0
+
+Nothing new since the release rc2.
+
 ## 5.0.0-rc2
 
 ### Changed
