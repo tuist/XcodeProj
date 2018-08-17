@@ -43,6 +43,7 @@ extension XCScheme {
         public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
         public var region: String?
+        public var launchAutomaticallySubstyle: String?
 
         // MARK: - Init
 
@@ -72,7 +73,8 @@ extension XCScheme {
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
-                    region: String? = nil) {
+                    region: String? = nil,
+                    launchAutomaticallySubstyle: String? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
@@ -98,6 +100,7 @@ extension XCScheme {
             self.environmentVariables = environmentVariables
             self.language = language
             self.region = region
+            self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
             super.init(preActions, postActions)
         }
 
@@ -152,6 +155,7 @@ extension XCScheme {
 
             language = element.attributes["language"]
             region = element.attributes["region"]
+            launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
             try super.init(element: element)
         }
 
@@ -231,6 +235,9 @@ extension XCScheme {
             if let region = region {
                 element.attributes["region"] = region
             }
+            if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
+                element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
+            }
 
             let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
             additionalOptions.forEach { additionalOption in
@@ -268,7 +275,8 @@ extension XCScheme {
                 commandlineArguments == rhs.commandlineArguments &&
                 environmentVariables == rhs.environmentVariables &&
                 language == rhs.language &&
-                region == rhs.region
+                region == rhs.region &&
+                launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle
         }
     }
 }

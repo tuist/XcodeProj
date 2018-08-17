@@ -33,6 +33,7 @@ public final class XCScheme: Writable, Equatable {
     public var archiveAction: ArchiveAction?
     public var lastUpgradeVersion: String?
     public var version: String?
+    public var wasCreatedForAppExtension: Bool?
     public var name: String
 
     // MARK: - Init
@@ -52,6 +53,10 @@ public final class XCScheme: Writable, Equatable {
         analyzeAction = try AnalyzeAction(element: scheme["AnalyzeAction"])
         archiveAction = try ArchiveAction(element: scheme["ArchiveAction"])
         profileAction = try ProfileAction(element: scheme["ProfileAction"])
+
+        if let wasCreatedForAppExtension = scheme.attributes["wasCreatedForAppExtension"] {
+            self.wasCreatedForAppExtension = wasCreatedForAppExtension == "YES"
+        }
     }
 
     public init(name: String,
@@ -62,7 +67,8 @@ public final class XCScheme: Writable, Equatable {
                 launchAction: XCScheme.LaunchAction? = nil,
                 profileAction: ProfileAction? = nil,
                 analyzeAction: AnalyzeAction? = nil,
-                archiveAction: ArchiveAction? = nil) {
+                archiveAction: ArchiveAction? = nil,
+                wasCreatedForAppExtension: Bool? = nil) {
         self.name = name
         self.lastUpgradeVersion = lastUpgradeVersion
         self.version = version
@@ -72,6 +78,7 @@ public final class XCScheme: Writable, Equatable {
         self.profileAction = profileAction
         self.analyzeAction = analyzeAction
         self.archiveAction = archiveAction
+        self.wasCreatedForAppExtension = wasCreatedForAppExtension
     }
 
     // MARK: - Writable
@@ -100,7 +107,9 @@ public final class XCScheme: Writable, Equatable {
         if let archiveAction = archiveAction {
             scheme.addChild(archiveAction.xmlElement())
         }
-
+        if let wasCreatedForAppExtension = wasCreatedForAppExtension {
+            scheme.attributes["wasCreatedForAppExtension"] = wasCreatedForAppExtension.xmlString
+        }
         if override && path.exists {
             try path.delete()
         }
@@ -118,6 +127,7 @@ public final class XCScheme: Writable, Equatable {
             lhs.archiveAction == rhs.archiveAction &&
             lhs.lastUpgradeVersion == rhs.lastUpgradeVersion &&
             lhs.version == rhs.version &&
-            lhs.name == rhs.name
+            lhs.name == rhs.name &&
+            lhs.wasCreatedForAppExtension == rhs.wasCreatedForAppExtension
     }
 }
