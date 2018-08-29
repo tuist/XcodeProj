@@ -86,7 +86,7 @@ extension XCConfigurationList {
     /// - Parameter name: configuration name.
     /// - Returns: build configuration if it exists.
     public func configuration(name: String) throws -> XCBuildConfiguration? {
-        return try buildConfigurations.first(where: { $0.name == name })
+        return buildConfigurations.first(where: { $0.name == name })
     }
 
     /// Adds the default configurations, debug and release
@@ -111,7 +111,7 @@ extension XCConfigurationList {
     public func add(configuration: String,
                     baseConfigurationReference: PBXObjectReference? = nil,
                     buildSettings: BuildSettings = [:]) throws -> XCBuildConfiguration {
-        let buildConfigurations = try self.buildConfigurations
+        let buildConfigurations = self.buildConfigurations
         let projectObjects = try objects()
 
         if let buildConfiguration = buildConfigurations.first(where: { $0.name == configuration }) {
