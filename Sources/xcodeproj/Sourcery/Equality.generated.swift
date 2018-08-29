@@ -174,7 +174,7 @@ extension PBXProject {
         if projectDirPath != rhs.projectDirPath { return false }
         if projectReferences != rhs.projectReferences { return false }
         if projectRoots != rhs.projectRoots { return false }
-        if targetsReferences != rhs.targetsReferences { return false }
+        if targetReferences != rhs.targetReferences { return false }
         if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
         return super.isEqual(to: rhs)
     }
@@ -235,9 +235,9 @@ extension PBXTarget {
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTarget else { return false }
         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
-        if buildPhasesReferences != rhs.buildPhasesReferences { return false }
-        if buildRulesReferences != rhs.buildRulesReferences { return false }
-        if dependenciesReferences != rhs.dependenciesReferences { return false }
+        if buildPhaseReferences != rhs.buildPhaseReferences { return false }
+        if buildRuleReferences != rhs.buildRuleReferences { return false }
+        if dependencyReferences != rhs.dependencyReferences { return false }
         if name != rhs.name { return false }
         if productName != rhs.productName { return false }
         if productReference != rhs.productReference { return false }
@@ -280,7 +280,7 @@ extension XCConfigurationList {
     /// :nodoc:
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCConfigurationList else { return false }
-        if buildConfigurationsReferences != rhs.buildConfigurationsReferences { return false }
+        if buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
         if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
         if defaultConfigurationName != rhs.defaultConfigurationName { return false }
         return super.isEqual(to: rhs)

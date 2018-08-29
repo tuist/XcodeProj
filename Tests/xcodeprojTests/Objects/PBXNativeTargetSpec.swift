@@ -9,9 +9,9 @@ final class PBXNativeTargetSpec: XCTestCase {
         super.setUp()
         subject = PBXNativeTarget(name: "name",
                                   buildConfigurationListReference: PBXObjectReference("list"),
-                                  buildPhasesReferences: [PBXObjectReference("phase")],
-                                  buildRulesReferences: [PBXObjectReference("rule")],
-                                  dependenciesReferences: [PBXObjectReference("dependency")],
+                                  buildPhaseReferences: [PBXObjectReference("phase")],
+                                  buildRuleReferences: [PBXObjectReference("rule")],
+                                  dependencyReferences: [PBXObjectReference("dependency")],
                                   productInstallPath: "/usr/local/bin",
                                   productName: "productname",
                                   productReference: PBXObjectReference("productreference"),
@@ -46,7 +46,7 @@ final class PBXNativeTargetSpec: XCTestCase {
 
     func test_addDependency() throws {
         let objects = PBXObjects(objects: [])
-        let configurationList = objects.addObject(XCConfigurationList(buildConfigurationsReferences: []))
+        let configurationList = objects.addObject(XCConfigurationList(buildConfigurationReferences: []))
         let mainGroup = objects.addObject(PBXGroup())
         let project = PBXProject(name: "Project",
                                  buildConfigurationListReference: configurationList,
@@ -58,7 +58,7 @@ final class PBXNativeTargetSpec: XCTestCase {
         objects.addObject(target)
         objects.addObject(dependency)
         _ = try target.addDependency(target: dependency)
-        let targetDependency: PBXTargetDependency? = try target.dependenciesReferences.first?.object()
+        let targetDependency: PBXTargetDependency? = try target.dependencyReferences.first?.object()
         XCTAssertEqual(targetDependency?.name, "Dependency")
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
         let containerItemProxy: PBXContainerItemProxy? = try targetDependency?.targetProxyReference?.object()

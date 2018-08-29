@@ -6,7 +6,7 @@ public final class XCConfigurationList: PBXObject {
     // MARK: - Attributes
 
     /// Element build configurations.
-    public var buildConfigurationsReferences: [PBXObjectReference]
+    public var buildConfigurationReferences: [PBXObjectReference]
 
     /// Element default configuration is visible.
     public var defaultConfigurationIsVisible: Bool
@@ -19,13 +19,13 @@ public final class XCConfigurationList: PBXObject {
     /// Initializes the element with its properties.
     ///
     /// - Parameters:
-    ///   - buildConfigurationsReferences: element build configurations.
+    ///   - buildConfigurationReferences: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
-    public init(buildConfigurationsReferences: [PBXObjectReference] = [],
+    public init(buildConfigurationReferences: [PBXObjectReference] = [],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
-        self.buildConfigurationsReferences = buildConfigurationsReferences
+        self.buildConfigurationReferences = buildConfigurationReferences
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
         super.init()
@@ -39,7 +39,7 @@ public final class XCConfigurationList: PBXObject {
     /// - Throws: an error if the build configurations are not defined in the project
     /// to which the configuration list belongs.
     public func buildConfigurations() throws -> [XCBuildConfiguration] {
-        return try buildConfigurationsReferences.map({ try $0.object() })
+        return try buildConfigurationReferences.map({ try $0.object() })
     }
 
     // MARK: - Decodable
@@ -54,8 +54,8 @@ public final class XCConfigurationList: PBXObject {
         let objects = decoder.context.objects
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let buildConfigurationsReferencesStrings: [String] = try container.decode(.buildConfigurations)
-        buildConfigurationsReferences = buildConfigurationsReferencesStrings
+        let buildConfigurationReferencesStrings: [String] = try container.decode(.buildConfigurations)
+        buildConfigurationReferences = buildConfigurationReferencesStrings
             .map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         defaultConfigurationIsVisible = try container.decodeIntBool(.defaultConfigurationIsVisible)
         defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
@@ -106,7 +106,7 @@ extension XCConfigurationList {
                                                       baseConfigurationReference: baseConfigurationReference,
                                                       buildSettings: buildSettings)
         let reference = projectObjects.addObject(buildConfiguration)
-        buildConfigurationsReferences.append(reference)
+        buildConfigurationReferences.append(reference)
 
         return buildConfiguration
     }
@@ -130,7 +130,7 @@ extension XCConfigurationList: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
-        dictionary["buildConfigurations"] = .array(buildConfigurationsReferences
+        dictionary["buildConfigurations"] = .array(buildConfigurationReferences
             .map { configReference in
                 let config: XCBuildConfiguration? = try? configReference.object()
                 return .string(CommentedString(configReference.value, comment: config?.name))

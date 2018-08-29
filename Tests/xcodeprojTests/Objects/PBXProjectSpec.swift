@@ -18,7 +18,7 @@ final class PBXProjectSpec: XCTestCase {
                              projectDirPath: "path",
                              projectReferences: [["ref": PBXObjectReference("ref")]],
                              projectRoots: ["root"],
-                             targetsReferences: [PBXObjectReference("target")])
+                             targetReferences: [PBXObjectReference("target")])
     }
 
     func test_isa_returnsTheCorrectValue() {

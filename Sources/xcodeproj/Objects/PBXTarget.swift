@@ -6,13 +6,13 @@ public class PBXTarget: PBXContainerItem {
     public var buildConfigurationListReference: PBXObjectReference?
 
     /// Target build phases.
-    public var buildPhasesReferences: [PBXObjectReference]
+    public var buildPhaseReferences: [PBXObjectReference]
 
     /// Target build rules.
-    public var buildRulesReferences: [PBXObjectReference]
+    public var buildRuleReferences: [PBXObjectReference]
 
     /// Target dependencies.
-    public var dependenciesReferences: [PBXObjectReference]
+    public var dependencyReferences: [PBXObjectReference]
 
     /// Target name.
     public var name: String
@@ -28,16 +28,16 @@ public class PBXTarget: PBXContainerItem {
 
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference? = nil,
-                buildPhasesReferences: [PBXObjectReference] = [],
-                buildRulesReferences: [PBXObjectReference] = [],
-                dependenciesReferences: [PBXObjectReference] = [],
+                buildPhaseReferences: [PBXObjectReference] = [],
+                buildRuleReferences: [PBXObjectReference] = [],
+                dependencyReferences: [PBXObjectReference] = [],
                 productName: String? = nil,
                 productReference: PBXObjectReference? = nil,
                 productType: PBXProductType? = nil) {
         self.buildConfigurationListReference = buildConfigurationListReference
-        self.buildPhasesReferences = buildPhasesReferences
-        self.buildRulesReferences = buildRulesReferences
-        self.dependenciesReferences = dependenciesReferences
+        self.buildPhaseReferences = buildPhaseReferences
+        self.buildRuleReferences = buildRuleReferences
+        self.dependencyReferences = dependencyReferences
         self.name = name
         self.productName = productName
         self.productReference = productReference
@@ -69,12 +69,12 @@ public class PBXTarget: PBXContainerItem {
         } else {
             buildConfigurationListReference = nil
         }
-        let buildPhasesReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
-        self.buildPhasesReferences = buildPhasesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
-        let buildRulesReferences: [String] = try container.decodeIfPresent(.buildRules) ?? []
-        self.buildRulesReferences = buildRulesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
-        let dependenciesReferences: [String] = try container.decodeIfPresent(.dependencies) ?? []
-        self.dependenciesReferences = dependenciesReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let buildPhaseReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
+        self.buildPhaseReferences = buildPhaseReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let buildRuleReferences: [String] = try container.decodeIfPresent(.buildRules) ?? []
+        self.buildRuleReferences = buildRuleReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let dependencyReferences: [String] = try container.decodeIfPresent(.dependencies) ?? []
+        self.dependencyReferences = dependencyReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
         productName = try container.decodeIfPresent(.productName)
         if let productReferenceString: String = try container.decodeIfPresent(.productReference) {
             productReference = objectReferenceRepository.getOrCreate(reference: productReferenceString, objects: objects)
@@ -93,18 +93,18 @@ public class PBXTarget: PBXContainerItem {
             dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListReference.value,
                                                                            comment: buildConfigurationListComment))
         }
-        dictionary["buildPhases"] = .array(buildPhasesReferences
+        dictionary["buildPhases"] = .array(buildPhaseReferences
             .map { (buildPhaseReference: PBXObjectReference) in
                 let buildPhase: PBXBuildPhase? = try? buildPhaseReference.object()
                 return .string(CommentedString(buildPhaseReference.value, comment: buildPhase?.name()))
         })
 
         // Xcode doesn't write PBXAggregateTarget buildRules or empty PBXLegacyTarget buildRules
-        if !(self is PBXAggregateTarget), !(self is PBXLegacyTarget) || !buildRulesReferences.isEmpty {
-            dictionary["buildRules"] = .array(buildRulesReferences.map { .string(CommentedString($0.value, comment: PBXBuildRule.isa)) })
+        if !(self is PBXAggregateTarget), !(self is PBXLegacyTarget) || !buildRuleReferences.isEmpty {
+            dictionary["buildRules"] = .array(buildRuleReferences.map { .string(CommentedString($0.value, comment: PBXBuildRule.isa)) })
         }
 
-        dictionary["dependencies"] = .array(dependenciesReferences.map { .string(CommentedString($0.value, comment: PBXTargetDependency.isa)) })
+        dictionary["dependencies"] = .array(dependencyReferences.map { .string(CommentedString($0.value, comment: PBXTargetDependency.isa)) })
         dictionary["name"] = .string(CommentedString(name))
         if let productName = productName {
             dictionary["productName"] = .string(CommentedString(productName))
@@ -137,7 +137,7 @@ public extension PBXTarget {
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
     public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
-        return try buildPhasesReferences
+        return try buildPhaseReferences
             .compactMap({ try $0.object() as PBXBuildPhase })
             .filter({ $0.type() == .sources })
             .compactMap { $0 as? PBXSourcesBuildPhase }
@@ -149,7 +149,7 @@ public extension PBXTarget {
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
     public func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
-        return try buildPhasesReferences
+        return try buildPhaseReferences
             .compactMap({ try $0.object() as PBXResourcesBuildPhase })
             .filter({ $0.type() == .sources })
             .first

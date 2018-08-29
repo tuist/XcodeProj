@@ -38,7 +38,7 @@ public final class PBXProject: PBXObject {
     public var projectRoots: [String]
 
     /// The objects are a reference to a PBXTarget element.
-    public var targetsReferences: [PBXObjectReference]
+    public var targetReferences: [PBXObjectReference]
 
     /// Project attributes.
     public var attributes: [String: Any]
@@ -59,7 +59,7 @@ public final class PBXProject: PBXObject {
     ///   - projectDirPath: project dir path.
     ///   - projectReferences: project references.
     ///   - projectRoots: project roots.
-    ///   - targetsReferences: project targets.
+    ///   - targetReferences: project targets.
     ///   - attributes: project attributes.
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference,
@@ -72,7 +72,7 @@ public final class PBXProject: PBXObject {
                 projectDirPath: String = "",
                 projectReferences: [[String: PBXObjectReference]] = [],
                 projectRoots: [String] = [],
-                targetsReferences: [PBXObjectReference] = [],
+                targetReferences: [PBXObjectReference] = [],
                 attributes: [String: Any] = [:]) {
         self.name = name
         self.buildConfigurationListReference = buildConfigurationListReference
@@ -85,7 +85,7 @@ public final class PBXProject: PBXObject {
         self.projectDirPath = projectDirPath
         self.projectReferences = projectReferences
         self.projectRoots = projectRoots
-        self.targetsReferences = targetsReferences
+        self.targetReferences = targetReferences
         self.attributes = attributes
         super.init()
     }
@@ -140,8 +140,8 @@ public final class PBXProject: PBXObject {
         } else {
             projectRoots = []
         }
-        let targetsReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
-        self.targetsReferences = targetsReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let targetReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
+        self.targetReferences = targetReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
         attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
@@ -183,7 +183,7 @@ extension PBXProject: PlistSerializable {
         if let projectReferences = try projectReferencesPlistValue(proj: proj) {
             dictionary["projectReferences"] = projectReferences
         }
-        dictionary["targets"] = PlistValue.array(targetsReferences
+        dictionary["targets"] = PlistValue.array(targetReferences
             .map { targetReference in
                 let target: PBXTarget? = try? targetReference.object()
                 return .string(CommentedString(targetReference.value, comment: target?.name))

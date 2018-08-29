@@ -14,7 +14,7 @@ final class XCConfigurationListSpec: XCTestCase {
         let configuration = try configurationList.add(configuration: "Debug")
 
         XCTAssertEqual(configuration.name, "Debug")
-        XCTAssertTrue(configurationList.buildConfigurationsReferences.contains(configuration.reference))
+        XCTAssertTrue(configurationList.buildConfigurationReferences.contains(configuration.reference))
     }
 
     func test_addDefaultConfigurations() throws {

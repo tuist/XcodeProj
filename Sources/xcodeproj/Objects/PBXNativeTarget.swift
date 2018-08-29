@@ -7,9 +7,9 @@ public final class PBXNativeTarget: PBXTarget {
 
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference? = nil,
-                buildPhasesReferences: [PBXObjectReference] = [],
-                buildRulesReferences: [PBXObjectReference] = [],
-                dependenciesReferences: [PBXObjectReference] = [],
+                buildPhaseReferences: [PBXObjectReference] = [],
+                buildRuleReferences: [PBXObjectReference] = [],
+                dependencyReferences: [PBXObjectReference] = [],
                 productInstallPath: String? = nil,
                 productName: String? = nil,
                 productReference: PBXObjectReference? = nil,
@@ -17,9 +17,9 @@ public final class PBXNativeTarget: PBXTarget {
         self.productInstallPath = productInstallPath
         super.init(name: name,
                    buildConfigurationListReference: buildConfigurationListReference,
-                   buildPhasesReferences: buildPhasesReferences,
-                   buildRulesReferences: buildRulesReferences,
-                   dependenciesReferences: dependenciesReferences,
+                   buildPhaseReferences: buildPhaseReferences,
+                   buildRuleReferences: buildRuleReferences,
+                   dependencyReferences: dependencyReferences,
                    productName: productName,
                    productReference: productReference,
                    productType: productType)
@@ -79,7 +79,7 @@ public extension PBXNativeTarget {
                                                    targetReference: target.reference,
                                                    targetProxyReference: proxyReference)
         let targetDependencyReference = objects.addObject(targetDependency)
-        dependenciesReferences.append(targetDependencyReference)
+        dependencyReferences.append(targetDependencyReference)
         return targetDependencyReference
     }
 }
