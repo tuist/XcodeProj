@@ -142,7 +142,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             configurationList.reference.fix(generate(identifiers: identifiers))
         }
 
-        let buildConfigurations: [XCBuildConfiguration] = try configurationList.buildConfigurations()
+        let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
 
         buildConfigurations.forEach { configuration in
             if !configuration.reference.temporary { return }

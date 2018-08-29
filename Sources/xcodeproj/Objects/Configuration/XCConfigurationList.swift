@@ -6,7 +6,18 @@ public final class XCConfigurationList: PBXObject {
     // MARK: - Attributes
 
     /// Element build configurations.
+    @available(*, deprecated, message: "Use buildConfigurationReferences instead")
     public var buildConfigurationReferences: [PBXObjectReference]
+
+    /// Build configurations
+    public var buildConfigurations: [XCBuildConfiguration] {
+        set {
+            buildConfigurationReferences = buildConfigurations.map({ $0.reference })
+        }
+        get {
+            return buildConfigurationReferences.compactMap({ try? $0.object() as XCBuildConfiguration })
+        }
+    }
 
     /// Element default configuration is visible.
     public var defaultConfigurationIsVisible: Bool
@@ -22,6 +33,7 @@ public final class XCConfigurationList: PBXObject {
     ///   - buildConfigurationReferences: element build configurations.
     ///   - defaultConfigurationName: element default configuration name.
     ///   - defaultConfigurationIsVisible: default configuration is visible.
+    @available(*, deprecated, message: "Use constructor that takes objects instead of references")
     public init(buildConfigurationReferences: [PBXObjectReference] = [],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
@@ -31,15 +43,18 @@ public final class XCConfigurationList: PBXObject {
         super.init()
     }
 
-    // MARK: - Public
-
-    /// Returns the build configurations.
+    /// Initializes the element with its properties.
     ///
-    /// - Returns: build configurations.
-    /// - Throws: an error if the build configurations are not defined in the project
-    /// to which the configuration list belongs.
-    public func buildConfigurations() throws -> [XCBuildConfiguration] {
-        return try buildConfigurationReferences.map({ try $0.object() })
+    /// - Parameters:
+    ///   - bbuildConfigurations: build configurations.
+    ///   - defaultConfigurationName: element default configuration name.
+    ///   - defaultConfigurationIsVisible: default configuration is visible.
+    public convenience init(buildConfigurations: [XCBuildConfiguration] = [],
+                            defaultConfigurationName: String? = nil,
+                            defaultConfigurationIsVisible: Bool = false) {
+        self.init(buildConfigurationReferences: buildConfigurations.map({ $0.reference }),
+                  defaultConfigurationName: defaultConfigurationName,
+                  defaultConfigurationIsVisible: defaultConfigurationIsVisible)
     }
 
     // MARK: - Decodable
@@ -71,7 +86,7 @@ extension XCConfigurationList {
     /// - Parameter name: configuration name.
     /// - Returns: build configuration if it exists.
     public func configuration(name: String) throws -> XCBuildConfiguration? {
-        return try buildConfigurations().first(where: { $0.name == name })
+        return try buildConfigurations.first(where: { $0.name == name })
     }
 
     /// Adds the default configurations, debug and release
@@ -92,10 +107,11 @@ extension XCConfigurationList {
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
     /// - Returns: build configuration.
+    @available(*, deprecated, message: "Create an instace of XCBuildConfiguration and add it to the buildConfigurations ")
     public func add(configuration: String,
                     baseConfigurationReference: PBXObjectReference? = nil,
                     buildSettings: BuildSettings = [:]) throws -> XCBuildConfiguration {
-        let buildConfigurations = try self.buildConfigurations()
+        let buildConfigurations = try self.buildConfigurations
         let projectObjects = try objects()
 
         if let buildConfiguration = buildConfigurations.first(where: { $0.name == configuration }) {
