@@ -124,9 +124,30 @@ public class PBXTarget: PBXContainerItem {
 // MARK: - Public
 
 public extension PBXTarget {
+    /// Returns the target build phases
+    ///
+    /// - Returns: target build phases.
+    public func buildPhases() throws -> [PBXBuildPhase] {
+        return try buildPhaseReferences.map({ try $0.object() as PBXBuildPhase })
+    }
+
+    /// Returns the target build rules
+    ///
+    /// - Returns: target build rules.
+    public func buildRules() throws -> [PBXBuildRule] {
+        return try buildRuleReferences.map({ try $0.object() as PBXBuildRule })
+    }
+
+    /// Returns the target dependencies
+    ///
+    /// - Returns: target dependencies.
+    public func dependencies() throws -> [PBXTargetDependency] {
+        return try dependencyReferences.map({ try $0.object() as PBXTargetDependency })
+    }
+
     /// Returns the build configuration list object.
     ///
-    /// - Returns: builc configuration list object.
+    /// - Returns: build configuration list object.
     /// - Throws: an error if the object doesn't exist in the project.
     public func buildConfigurationList() throws -> XCConfigurationList? {
         return try buildConfigurationListReference?.object()

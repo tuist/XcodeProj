@@ -145,6 +145,15 @@ public final class PBXProject: PBXObject {
         attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
+
+    // MARK: - Public
+
+    /// Returns the project targets.
+    ///
+    /// - Returns: project targets.
+    public func targets() throws -> [PBXTarget] {
+        return try targetReferences.map({ try $0.object() as PBXTarget })
+    }
 }
 
 // MARK: - PlistSerializable
