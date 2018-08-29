@@ -6,7 +6,23 @@ public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
     /// The path to a xcconfig file
+    @available(*, deprecated, message: "Use baseConfiguration instead")
     public var baseConfigurationReference: PBXObjectReference?
+
+    /// Base configuration
+    public var baseConfiguration: XCBuildConfiguration? {
+        get {
+            if let baseConfigurationReference = baseConfigurationReference {
+                return try? baseConfigurationReference.object() as XCBuildConfiguration
+            }
+            return nil
+        }
+        set {
+            if let newValue = newValue {
+                baseConfigurationReference = newValue.reference
+            }
+        }
+    }
 
     /// A map of build settings.
     public var buildSettings: BuildSettings
@@ -22,6 +38,7 @@ public final class XCBuildConfiguration: PBXObject {
     ///   - name: build configuration name.
     ///   - baseConfigurationReference: reference to the base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
+    @available(*, deprecated, message: "Use the the other available constructor")
     public init(name: String,
                 baseConfigurationReference: PBXObjectReference? = nil,
                 buildSettings: BuildSettings = [:]) {
@@ -29,6 +46,20 @@ public final class XCBuildConfiguration: PBXObject {
         self.buildSettings = buildSettings
         self.name = name
         super.init()
+    }
+
+    /// Initializes a build configuration.
+    ///
+    /// - Parameters:
+    ///   - name: build configuration name.
+    ///   - baseConfiguration: base configuration.
+    ///   - buildSettings: dictionary that contains the build settings for this configuration.
+    public convenience init(name: String,
+                            baseConfiguration: XCBuildConfiguration? = nil,
+                            buildSettings: BuildSettings = [:]) {
+        self.init(name: name,
+                  baseConfigurationReference: baseConfiguration?.reference,
+                  buildSettings: buildSettings)
     }
 
     // MARK: - Decodable
