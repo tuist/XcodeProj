@@ -2,6 +2,9 @@
 
 ## next version
 
+### Changed
+- **Breaking** Change `blueprintIdentifier` type to `PBXObjectReference` https://github.com/tuist/xcodeproj/pull/289 by @pepibumur
+
 ## 5.0.0
 
 Nothing new since the release rc2.
