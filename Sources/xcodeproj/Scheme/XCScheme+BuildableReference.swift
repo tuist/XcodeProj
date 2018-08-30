@@ -7,7 +7,7 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var referencedContainer: String
-        public var blueprintIdentifier: String
+        public var blueprintIdentifier: PBXObjectReference
         public var buildableName: String
         public var buildableIdentifier: String
         public var blueprintName: String
@@ -15,7 +15,7 @@ extension XCScheme {
         // MARK: - Init
 
         public init(referencedContainer: String,
-                    blueprintIdentifier: String,
+                    blueprintIdentifier: PBXObjectReference,
                     buildableName: String,
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
@@ -45,7 +45,7 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            self.blueprintIdentifier = blueprintIdentifier
+            self.blueprintIdentifier = PBXObjectReference(blueprintIdentifier)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
@@ -56,7 +56,7 @@ extension XCScheme {
                                 value: nil,
                                 attributes: [
                                     "BuildableIdentifier": buildableIdentifier,
-                                    "BlueprintIdentifier": blueprintIdentifier,
+                                    "BlueprintIdentifier": blueprintIdentifier.value,
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
                                     "ReferencedContainer": referencedContainer,
