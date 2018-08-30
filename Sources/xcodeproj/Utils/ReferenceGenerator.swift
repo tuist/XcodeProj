@@ -41,7 +41,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Targets
-        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXNativeTarget })
+        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
         try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
 
         // Project references
