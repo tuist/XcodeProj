@@ -15,7 +15,7 @@ public final class XCConfigurationList: PBXObject {
             buildConfigurationReferences = buildConfigurations.map({ $0.reference })
         }
         get {
-            return buildConfigurationReferences.compactMap({ try? $0.object() as XCBuildConfiguration })
+            return buildConfigurationReferences.compactMap({ try! $0.object() })
         }
     }
 

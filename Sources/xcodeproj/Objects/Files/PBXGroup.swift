@@ -5,8 +5,19 @@ public class PBXGroup: PBXFileElement {
 
     // MARK: - Attributes
 
-    /// Element children.
+    /// Grou children references.
+    @available(*, deprecated, message: "Use children instead")
     public var childrenReferences: [PBXObjectReference]
+
+    /// Group children.
+    public var children: [PBXFileElement] {
+        set {
+            childrenReferences = children.map({ $0.reference })
+        }
+        get {
+            return childrenReferences.flatMap({ try! $0.object() })
+        }
+    }
 
     // MARK: - Init
 
@@ -22,6 +33,7 @@ public class PBXGroup: PBXFileElement {
     ///   - usesTabs: group uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
+    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
     public init(childrenReferences: [PBXObjectReference] = [],
                 sourceTree: PBXSourceTree? = nil,
                 name: String? = nil,
@@ -40,6 +52,38 @@ public class PBXGroup: PBXFileElement {
                    indentWidth: indentWidth,
                    tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
+    }
+
+    /// Initializes the group with its attributes.
+    ///
+    /// - Parameters:
+    ///   - children: group children.
+    ///   - sourceTree: group source tree.
+    ///   - name: group name.
+    ///   - path: group relative path from `sourceTree`, if different than `name`.
+    ///   - includeInIndex: should the IDE index the files in the group?
+    ///   - wrapsLines: should the IDE wrap lines for files in the group?
+    ///   - usesTabs: group uses tabs.
+    ///   - indentWidth: the number of positions to indent blocks of code
+    ///   - tabWidth: the visual width of tab characters
+    public convenience init(children: [PBXFileElement] = [],
+                            sourceTree: PBXSourceTree? = nil,
+                            name: String? = nil,
+                            path: String? = nil,
+                            includeInIndex: Bool? = nil,
+                            wrapsLines: Bool? = nil,
+                            usesTabs: Bool? = nil,
+                            indentWidth: UInt? = nil,
+                            tabWidth: UInt? = nil) {
+        self.init(childrenReferences: children.map({ $0.reference }),
+                  sourceTree: sourceTree,
+                  name: name,
+                  path: path,
+                  includeInIndex: includeInIndex,
+                  wrapsLines: wrapsLines,
+                  usesTabs: usesTabs,
+                  indentWidth: indentWidth,
+                  tabWidth: tabWidth)
     }
 
     // MARK: - Decodable

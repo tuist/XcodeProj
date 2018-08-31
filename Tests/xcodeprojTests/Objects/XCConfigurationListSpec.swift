@@ -9,7 +9,7 @@ final class XCConfigurationListSpec: XCTestCase {
 
     func test_add_configuration() throws {
         let objects = PBXObjects()
-        let configurationList = XCConfigurationList()
+        let configurationList = XCConfigurationList(buildConfigurations: [])
         objects.addObject(configurationList)
         let configuration = try configurationList.add(configuration: "Debug")
 
@@ -19,7 +19,7 @@ final class XCConfigurationListSpec: XCTestCase {
 
     func test_addDefaultConfigurations() throws {
         let objects = PBXObjects()
-        let configurationList = XCConfigurationList()
+        let configurationList = XCConfigurationList(buildConfigurations: [])
         objects.addObject(configurationList)
         let configurations = try configurationList.addDefaultConfigurations()
         let names = configurations.map({ $0.name })
@@ -31,7 +31,7 @@ final class XCConfigurationListSpec: XCTestCase {
 
     func test_configuration_with_name() throws {
         let objects = PBXObjects()
-        let configurationList = XCConfigurationList()
+        let configurationList = XCConfigurationList(buildConfigurations: [])
         objects.addObject(configurationList)
         let configuration = try configurationList.add(configuration: "Debug")
 

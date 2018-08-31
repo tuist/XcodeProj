@@ -47,7 +47,8 @@ final class PBXNativeTargetSpec: XCTestCase {
     func test_addDependency() throws {
         let objects = PBXObjects(objects: [])
         let configurationList = objects.addObject(XCConfigurationList(buildConfigurationReferences: []))
-        let mainGroup = objects.addObject(PBXGroup())
+        let mainGroup = objects.addObject(PBXGroup(children: []))
+
         let project = PBXProject(name: "Project",
                                  buildConfigurationListReference: configurationList,
                                  compatibilityVersion: "0",

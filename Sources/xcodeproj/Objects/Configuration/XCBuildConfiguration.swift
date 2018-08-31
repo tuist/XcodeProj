@@ -12,10 +12,7 @@ public final class XCBuildConfiguration: PBXObject {
     /// Base configuration
     public var baseConfiguration: XCBuildConfiguration? {
         get {
-            if let baseConfigurationReference = baseConfigurationReference {
-                return try? baseConfigurationReference.object() as XCBuildConfiguration
-            }
-            return nil
+            return baseConfigurationReference.flatMap({ try! $0.object() })
         }
         set {
             if let newValue = newValue {

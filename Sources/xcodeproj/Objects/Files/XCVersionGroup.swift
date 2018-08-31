@@ -8,7 +8,17 @@ public final class XCVersionGroup: PBXGroup {
     // MARK: - Attributes
 
     /// Current version.
-    public var currentVersion: PBXObjectReference?
+    private var currentVersionReference: PBXObjectReference?
+
+    /// Returns the current version file reference.
+    public var currentVersion: PBXFileReference? {
+        get {
+            return currentVersionReference.flatMap({ try! $0.object() })
+        }
+        set {
+            currentVersionReference = newValue?.reference
+        }
+    }
 
     /// Version group type.
     public var versionGroupType: String?
@@ -18,7 +28,7 @@ public final class XCVersionGroup: PBXGroup {
     /// Initializes the group with its attributes.
     ///
     /// - Parameters:
-    ///   - currentVersion: active version of the data model.
+    ///   - currentVersionReference: reference to the current version.
     ///   - name: group name.
     ///   - path: group relative path from `sourceTree`, if different than `name`.
     ///   - sourceTree: group source tree.
@@ -29,7 +39,8 @@ public final class XCVersionGroup: PBXGroup {
     ///   - usesTabs: group uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
-    public init(currentVersion: PBXObjectReference? = nil,
+    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
+    public init(currentVersionReference: PBXObjectReference? = nil,
                 path: String? = nil,
                 name: String? = nil,
                 sourceTree: PBXSourceTree? = nil,
@@ -40,7 +51,7 @@ public final class XCVersionGroup: PBXGroup {
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil) {
-        self.currentVersion = currentVersion
+        self.currentVersionReference = currentVersionReference
         self.versionGroupType = versionGroupType
         super.init(childrenReferences: childrenReferences,
                    sourceTree: sourceTree,
@@ -51,6 +62,44 @@ public final class XCVersionGroup: PBXGroup {
                    usesTabs: usesTabs,
                    indentWidth: indentWidth,
                    tabWidth: tabWidth)
+    }
+
+    /// Initializes the group with its attributes.
+    ///
+    /// - Parameters:
+    ///   - currentVersion: current version file reference.
+    ///   - name: group name.
+    ///   - path: group relative path from `sourceTree`, if different than `name`.
+    ///   - sourceTree: group source tree.
+    ///   - versionGroupType: identifier of the group type.
+    ///   - children: group children.
+    ///   - includeInIndex: should the IDE index the files in the group?
+    ///   - wrapsLines: should the IDE wrap lines for files in the group?
+    ///   - usesTabs: group uses tabs.
+    ///   - indentWidth: the number of positions to indent blocks of code
+    ///   - tabWidth: the visual width of tab characters
+    public convenience init(currentVersion: PBXFileReference? = nil,
+                            path: String? = nil,
+                            name: String? = nil,
+                            sourceTree: PBXSourceTree? = nil,
+                            versionGroupType: String? = nil,
+                            children: [PBXFileElement] = [],
+                            includeInIndex: Bool? = nil,
+                            wrapsLines: Bool? = nil,
+                            usesTabs: Bool? = nil,
+                            indentWidth: UInt? = nil,
+                            tabWidth: UInt? = nil) {
+        self.init(currentVersionReference: currentVersion?.reference,
+                  path: path,
+                  name: name,
+                  sourceTree: sourceTree,
+                  versionGroupType: versionGroupType,
+                  childrenReferences: children.map({ $0.reference }),
+                  includeInIndex: includeInIndex,
+                  wrapsLines: wrapsLines,
+                  usesTabs: usesTabs,
+                  indentWidth: indentWidth,
+                  tabWidth: tabWidth)
     }
 
     // MARK: - Decodable
@@ -65,9 +114,9 @@ public final class XCVersionGroup: PBXGroup {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let currentVersionReference = try container.decodeIfPresent(String.self, forKey: .currentVersion) {
-            currentVersion = objectReferenceRepository.getOrCreate(reference: currentVersionReference, objects: objects)
+            self.currentVersionReference = objectReferenceRepository.getOrCreate(reference: currentVersionReference, objects: objects)
         } else {
-            currentVersion = nil
+            currentVersionReference = nil
         }
         versionGroupType = try container.decodeIfPresent(String.self, forKey: .versionGroupType)
         try super.init(from: decoder)
@@ -81,9 +130,9 @@ public final class XCVersionGroup: PBXGroup {
         if let versionGroupType = versionGroupType {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))
         }
-        if let currentVersion = currentVersion {
-            let fileElement: PBXFileElement? = try? currentVersion.object()
-            dictionary["currentVersion"] = .string(CommentedString(currentVersion.value, comment: fileElement?.fileName()))
+        if let currentVersionReference = currentVersionReference {
+            let fileElement: PBXFileElement? = try? currentVersionReference.object()
+            dictionary["currentVersion"] = .string(CommentedString(currentVersionReference.value, comment: fileElement?.fileName()))
         }
         return (key: CommentedString(reference, comment: path?.split(separator: "/").last.map(String.init)),
                 value: .dictionary(dictionary))

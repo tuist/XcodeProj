@@ -3,25 +3,35 @@ import Foundation
 import XCTest
 
 extension XCVersionGroup {
-    static func testData(currentVersion: PBXObjectReference = PBXObjectReference("currentVersion"),
+    static func testData(objects: PBXObjects,
+                         currentVersion: PBXFileReference? = PBXFileReference(name: "currentVersion"),
                          path: String = "path",
                          name: String? = "name",
                          sourceTree: PBXSourceTree = .group,
                          versionGroupType: String = "versionGroupType",
-                         children: [PBXObjectReference] = [PBXObjectReference("child")]) -> XCVersionGroup {
-        return XCVersionGroup(currentVersion: currentVersion,
-                              path: path,
-                              name: name,
-                              sourceTree: sourceTree,
-                              versionGroupType: versionGroupType,
-                              childrenReferences: children)
+                         children: [PBXFileReference] = [PBXFileReference(name: "currentVersion")]) -> XCVersionGroup {
+        let group = XCVersionGroup(currentVersion: currentVersion,
+                                   path: path,
+                                   name: name,
+                                   sourceTree: sourceTree,
+                                   versionGroupType: versionGroupType,
+                                   children: children)
+        if let currentVersion = currentVersion {
+            objects.addObject(currentVersion)
+        }
+        children.forEach({ objects.addObject($0) })
+        objects.addObject(group)
+        return group
     }
 }
 
 final class XCVersionGroupSpec: XCTestCase {
     func test_equals_returnTheCorrectValue_whenElementsAreTheSame() {
-        let a = XCVersionGroup.testData()
-        let b = XCVersionGroup.testData()
+        let objects = PBXObjects()
+        let currentVersion = PBXFileReference(name: "currentVersion")
+        let children = [PBXFileReference(name: "currentVersion")]
+        let a = XCVersionGroup.testData(objects: objects, currentVersion: currentVersion, children: children)
+        let b = XCVersionGroup.testData(objects: objects, currentVersion: currentVersion, children: children)
         XCTAssertEqual(a, b)
     }
 
