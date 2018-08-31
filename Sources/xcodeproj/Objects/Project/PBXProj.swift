@@ -69,9 +69,20 @@ public final class PBXProj: Decodable {
     }
 }
 
-// MARK: - PBXProj Extension (Utils)
+// MARK: - Helpers
 
-extension PBXProj {
+public extension PBXProj {
+    /// Returns root project.
+    public func rootProject() throws -> PBXProject? {
+        return try rootObjectReference?.object()
+    }
+
+    /// Returns root project's root group.
+    public func rootGroup() throws -> PBXGroup? {
+        let project = try rootProject()
+        return try project?.mainGroupReference.object()
+    }
+
     /// Infers project name from Path and sets it as project name
     ///
     /// Project name is needed for certain comments when serialising PBXProj
@@ -87,22 +98,7 @@ extension PBXProj {
     }
 }
 
-// MARK: - Build
-
-public extension PBXProj {
-    /// Returns root project.
-    public func rootProject() throws -> PBXProject? {
-        return try rootObjectReference?.object()
-    }
-
-    /// Returns root project's root group.
-    public func rootGroup() throws -> PBXGroup? {
-        let project = try rootProject()
-        return try project?.mainGroupReference.object()
-    }
-}
-
-// MARK: - PBXProj Extension (Equatable)
+// MARK: - Equatable
 
 extension PBXProj: Equatable {
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
@@ -114,7 +110,7 @@ extension PBXProj: Equatable {
     }
 }
 
-// MARK: - PBXProj extension (Writable)
+// MARK: - Writable
 
 extension PBXProj: Writable {
     public func write(path: AbsolutePath, override: Bool) throws {

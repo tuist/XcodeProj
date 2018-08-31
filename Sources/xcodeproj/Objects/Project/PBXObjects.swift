@@ -36,55 +36,6 @@ public class PBXObjects: Equatable {
     public var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
     public var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
 
-    /// Runs the given closure for each of the objects that are part of the project.
-    ///
-    /// - Parameter closure: closure to be run.
-    public func forEach(_ closure: (PBXObject) -> Void) {
-        buildFiles.values.forEach(closure)
-        legacyTargets.values.forEach(closure)
-        aggregateTargets.values.forEach(closure)
-        containerItemProxies.values.forEach(closure)
-        groups.values.forEach(closure)
-        configurationLists.values.forEach(closure)
-        versionGroups.values.forEach(closure)
-        buildConfigurations.values.forEach(closure)
-        variantGroups.values.forEach(closure)
-        targetDependencies.values.forEach(closure)
-        nativeTargets.values.forEach(closure)
-        fileReferences.values.forEach(closure)
-        projects.values.forEach(closure)
-        referenceProxies.values.forEach(closure)
-        buildRules.values.forEach(closure)
-        copyFilesBuildPhases.values.forEach(closure)
-        shellScriptBuildPhases.values.forEach(closure)
-        resourcesBuildPhases.values.forEach(closure)
-        frameworksBuildPhases.values.forEach(closure)
-        headersBuildPhases.values.forEach(closure)
-        sourcesBuildPhases.values.forEach(closure)
-        carbonResourcesBuildPhases.values.forEach(closure)
-    }
-
-    /// Invalidates all the objects references.
-    public func invalidateReferences() {
-        forEach {
-            $0.reference.invalidate()
-        }
-    }
-
-    // MARK: - Computed Properties
-
-    public var buildPhases: [PBXObjectReference: PBXBuildPhase] {
-        var phases: [PBXObjectReference: PBXBuildPhase] = [:]
-        phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(shellScriptBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(resourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(headersBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(carbonResourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        return phases
-    }
-
     /// Initializes the project objects container
     ///
     /// - Parameters:
@@ -277,7 +228,7 @@ public class PBXObjects: Equatable {
     }
 }
 
-// MARK: - Public
+// MARK: - Helpers
 
 public extension PBXObjects {
     /// Returns all the targets with the given name.
@@ -291,5 +242,54 @@ public extension PBXObjects {
         targets.append(contentsOf: legacyTargets.values.map({ $0 as PBXTarget }))
         targets.append(contentsOf: aggregateTargets.values.map({ $0 as PBXTarget }))
         return targets.filter { $0.name == name }
+    }
+
+    /// Invalidates all the objects references.
+    public func invalidateReferences() {
+        forEach {
+            $0.reference.invalidate()
+        }
+    }
+
+    // MARK: - Computed Properties
+
+    public var buildPhases: [PBXObjectReference: PBXBuildPhase] {
+        var phases: [PBXObjectReference: PBXBuildPhase] = [:]
+        phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(shellScriptBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(resourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(headersBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(carbonResourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        return phases
+    }
+
+    /// Runs the given closure for each of the objects that are part of the project.
+    ///
+    /// - Parameter closure: closure to be run.
+    public func forEach(_ closure: (PBXObject) -> Void) {
+        buildFiles.values.forEach(closure)
+        legacyTargets.values.forEach(closure)
+        aggregateTargets.values.forEach(closure)
+        containerItemProxies.values.forEach(closure)
+        groups.values.forEach(closure)
+        configurationLists.values.forEach(closure)
+        versionGroups.values.forEach(closure)
+        buildConfigurations.values.forEach(closure)
+        variantGroups.values.forEach(closure)
+        targetDependencies.values.forEach(closure)
+        nativeTargets.values.forEach(closure)
+        fileReferences.values.forEach(closure)
+        projects.values.forEach(closure)
+        referenceProxies.values.forEach(closure)
+        buildRules.values.forEach(closure)
+        copyFilesBuildPhases.values.forEach(closure)
+        shellScriptBuildPhases.values.forEach(closure)
+        resourcesBuildPhases.values.forEach(closure)
+        frameworksBuildPhases.values.forEach(closure)
+        headersBuildPhases.values.forEach(closure)
+        sourcesBuildPhases.values.forEach(closure)
+        carbonResourcesBuildPhases.values.forEach(closure)
     }
 }

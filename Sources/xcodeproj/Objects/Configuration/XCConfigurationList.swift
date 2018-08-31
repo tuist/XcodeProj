@@ -78,7 +78,7 @@ public final class XCConfigurationList: PBXObject {
     }
 }
 
-// MARK: - XCConfigurationList Utils
+// MARK: - Helpers
 
 extension XCConfigurationList {
     /// Returns the build configuration with the given name (if it exists)
@@ -140,7 +140,7 @@ extension XCConfigurationList {
     }
 }
 
-// MARK: - XCConfigurationList Extension (PlistSerializable)
+// MARK: - PlistSerializable
 
 extension XCConfigurationList: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {

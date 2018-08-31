@@ -82,7 +82,7 @@ public final class XCBuildConfiguration: PBXObject {
     }
 }
 
-// MARK: - XCBuildConfiguration Extension (PlistSerializable)
+// MARK: - PlistSerializable
 
 extension XCBuildConfiguration: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
