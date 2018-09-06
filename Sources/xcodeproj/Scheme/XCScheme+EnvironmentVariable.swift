@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public struct EnvironmentVariable: Equatable {
-
         // MARK: - Attributes
 
         public let variable: String

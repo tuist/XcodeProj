@@ -3,7 +3,6 @@ import Foundation
 
 /// Represents a .pbxproj file
 public final class PBXProj: Decodable {
-
     // MARK: - Properties
 
     public let objects: PBXObjects

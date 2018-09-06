@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class CommandLineArguments: Equatable {
-
         // MARK: - Attributes
 
         public let arguments: [CommandLineArgument]
@@ -47,7 +46,6 @@ extension XCScheme {
 
 extension XCScheme.CommandLineArguments {
     public struct CommandLineArgument: Equatable {
-
         // MARK: - Attributes
 
         public let name: String

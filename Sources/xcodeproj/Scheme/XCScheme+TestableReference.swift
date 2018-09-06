@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class TestableReference: Equatable {
-
         // MARK: - Attributes
 
         public var skipped: Bool

@@ -2,7 +2,6 @@ import Foundation
 
 // swiftlint:disable type_body_length
 public class PBXObjects: Equatable {
-
     // MARK: - Properties
 
     public var projects: [PBXObjectReference: PBXProject] = [:]

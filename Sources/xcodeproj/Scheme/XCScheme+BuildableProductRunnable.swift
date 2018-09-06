@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class BuildableProductRunnable: Equatable {
-
         // MARK: - Attributes
 
         public var runnableDebuggingMode: String

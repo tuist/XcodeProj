@@ -2,7 +2,6 @@ import Foundation
 
 /// This is the element for listing build configurations.
 public final class XCConfigurationList: PBXObject {
-
     // MARK: - Attributes
 
     /// Element build configurations.

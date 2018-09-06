@@ -1,7 +1,6 @@
 import Foundation
 
 public final class PBXProject: PBXObject {
-
     // MARK: - Attributes
 
     /// Project name

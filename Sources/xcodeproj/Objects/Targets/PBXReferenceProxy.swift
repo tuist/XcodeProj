@@ -4,7 +4,6 @@ import Foundation
 /// contained in the same workspace of the document.
 /// This class is referenced by PBXTargetDependency.
 public final class PBXReferenceProxy: PBXObject {
-
     // MARK: - Attributes
 
     /// Element file type

@@ -47,8 +47,7 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
                 $0.children.append(
                     .group(.init(location: .self("shakira"),
                                  name: "shakira",
-                                 children: [])
-                    )
+                                 children: []))
                 )
                 return $0
             },
@@ -63,7 +62,8 @@ final class XCWorkspaceDataIntegrationSpec: XCTestCase {
                 default:
                     XCTAssertTrue(false, "Expected group")
                 }
-        })
+            }
+        )
     }
 
     func test_init_returnsAllChildren() throws {

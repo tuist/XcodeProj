@@ -4,24 +4,19 @@ import Foundation
 
 // swiftlint:disable:next type_body_length
 public final class XCBreakpointList: Equatable, Writable {
-
     // MARK: - Breakpoint Proxy
 
     // swiftlint:disable type_body_length
     public final class BreakpointProxy: Equatable {
-
         // MARK: - Breakpoint Content
 
         public final class BreakpointContent: Equatable {
-
             // MARK: - Breakpoint Action Proxy
 
             public final class BreakpointActionProxy: Equatable {
-
                 // MARK: - Breakpoint Action Content
 
                 public final class ActionContent: Equatable {
-
                     // MARK: - Attributes
 
                     public var consoleCommand: String?

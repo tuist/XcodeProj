@@ -2,7 +2,6 @@ import Foundation
 
 /// This is the element for listing build configurations.
 public final class XCBuildConfiguration: PBXObject {
-
     // MARK: - Attributes
 
     /// The path to a xcconfig file

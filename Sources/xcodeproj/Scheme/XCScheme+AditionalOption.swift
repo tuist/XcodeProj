@@ -4,7 +4,6 @@ import Foundation
 
 extension XCScheme {
     public final class AdditionalOption: Equatable {
-
         // MARK: - Attributes
 
         public var key: String

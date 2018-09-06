@@ -4,7 +4,6 @@ import Foundation
 
 extension XCScheme {
     public final class ProfileAction: SerialAction {
-
         // MARK: - Static
 
         private static let defaultBuildConfiguration = "Release"

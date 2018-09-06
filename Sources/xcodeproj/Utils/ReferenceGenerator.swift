@@ -167,7 +167,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         identifiers.append(target.name)
 
         // Configuration list
-        if let configurationList = try target.buildConfigurationList() {
+        if let configurationList = target.buildConfigurationList {
             try generateConfigurationListReferences(configurationList,
                                                     identifiers: identifiers)
         }
@@ -199,7 +199,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
-            let targetProxy = try targetDependency.targetProxy(),
+            let targetProxy = try targetDependency.targetProxy,
             let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
             identifiers.append(String(describing: targetProxy))

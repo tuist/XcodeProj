@@ -3,7 +3,6 @@ import Foundation
 
 /// Model that represents a .xcodeproj project.
 public final class XcodeProj: Equatable {
-
     // MARK: - Properties
 
     /// Project workspace

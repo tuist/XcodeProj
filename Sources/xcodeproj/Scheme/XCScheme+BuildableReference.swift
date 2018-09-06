@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class BuildableReference: Equatable {
-
         // MARK: - Attributes
 
         public var referencedContainer: String

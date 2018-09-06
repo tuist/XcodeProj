@@ -2,7 +2,6 @@ import Basic
 import Foundation
 
 public class PBXGroup: PBXFileElement {
-
     // MARK: - Attributes
 
     /// Grou children references.
@@ -117,7 +116,7 @@ public class PBXGroup: PBXFileElement {
     }
 }
 
-// MARK: - Public
+// MARK: - Helpers
 
 /// Options passed when adding new groups.
 public struct GroupAddingOptions: OptionSet {
@@ -185,7 +184,8 @@ public extension PBXGroup {
     public func addFile(
         at filePath: AbsolutePath,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: AbsolutePath) throws -> PBXFileReference {
+        sourceRoot: AbsolutePath
+    ) throws -> PBXFileReference {
         let projectObjects = try objects()
         guard filePath.exists else {
             throw XcodeprojEditingError.unexistingFile(filePath)

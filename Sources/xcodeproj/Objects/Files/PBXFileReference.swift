@@ -4,7 +4,6 @@ import Foundation
 ///  A PBXFileReference is used to track every external file referenced by
 ///  the project: source files, resource files, libraries, generated application files, and so on.
 public final class PBXFileReference: PBXFileElement {
-
     // MARK: - Attributes
 
     /// Element file encoding.

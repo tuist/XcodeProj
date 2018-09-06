@@ -2,17 +2,28 @@ import Foundation
 
 /// This is the element for referencing other targets through content proxies.
 public final class PBXTargetDependency: PBXObject {
-
     // MARK: - Attributes
 
     /// Target name.
     public var name: String?
 
     /// Target reference.
+    @available(*, deprecated, message: "Use target instead")
     public var targetReference: PBXObjectReference?
 
-    /// Target proxy
+    /// Target.
+    public var target: PBXTarget? {
+        return try! targetReference?.object()
+    }
+
+    /// Target proxy reference.
+    @available(*, deprecated, message: "Use targetProxy instead")
     public var targetProxyReference: PBXObjectReference?
+
+    /// Target proxy.
+    public var targetProxy: PBXContainerItemProxy? {
+        return try! targetProxyReference?.object()
+    }
 
     // MARK: - Init
 
@@ -22,6 +33,7 @@ public final class PBXTargetDependency: PBXObject {
     ///   - name: element name.
     ///   - target: element target.
     ///   - targetProxy: element target proxy.
+    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
     public init(name: String? = nil,
                 targetReference: PBXObjectReference? = nil,
                 targetProxyReference: PBXObjectReference? = nil) {
@@ -29,6 +41,20 @@ public final class PBXTargetDependency: PBXObject {
         self.targetReference = targetReference
         self.targetProxyReference = targetProxyReference
         super.init()
+    }
+
+    /// Initializes the target dependency with dependencies as objects.
+    ///
+    /// - Parameters:
+    ///   - name: Dependency name.
+    ///   - target: Target.
+    ///   - targetProxy: Target proxy.
+    public convenience init(name: String? = nil,
+                            target: PBXTarget? = nil,
+                            targetProxy: PBXContainerItemProxy? = nil) {
+        self.init(name: name,
+                  targetReference: target?.reference,
+                  targetProxyReference: targetProxy?.reference)
     }
 
     // MARK: - Decodable
@@ -51,26 +77,6 @@ public final class PBXTargetDependency: PBXObject {
             self.targetProxyReference = referenceRepository.getOrCreate(reference: targetProxyReference, objects: objects)
         }
         try super.init(from: decoder)
-    }
-}
-
-// MARK: - Public
-
-public extension PBXTargetDependency {
-    /// Materializes the target reference returning the target the object reference refers to.
-    ///
-    /// - Returns: target dependency target.
-    /// - Throws: an error if the object doesn't exist in the project.
-    public func target() throws -> PBXTarget? {
-        return try targetReference?.object()
-    }
-
-    /// Materializes the target proxy reference returning the target the object reference refers to.
-    ///
-    /// - Returns: target dependency proxy target.
-    /// - Throws: an error if the object doesn't exist in the project.
-    public func targetProxy() throws -> PBXContainerItemProxy? {
-        return try targetProxyReference?.object()
     }
 }
 
