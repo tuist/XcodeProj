@@ -8,7 +8,12 @@ public class PBXTarget: PBXContainerItem {
 
     /// Build configuration list.
     public var buildConfigurationList: XCConfigurationList? {
-        return try! buildConfigurationListReference?.object()
+        get {
+            return try! buildConfigurationListReference?.object()
+        }
+        set {
+            buildConfigurationListReference = newValue?.reference
+        }
     }
 
     /// Target build phase references.
@@ -17,7 +22,12 @@ public class PBXTarget: PBXContainerItem {
 
     /// Target build phases.
     public var buildPhases: [PBXBuildPhase] {
-        return buildPhaseReferences.map({ try! $0.object() })
+        get {
+            return buildPhaseReferences.map({ try! $0.object() })
+        }
+        set {
+            buildPhaseReferences = newValue.map({ $0.reference })
+        }
     }
 
     /// Target build rule references.
@@ -26,7 +36,12 @@ public class PBXTarget: PBXContainerItem {
 
     /// Target build rules.
     public var buildRules: [PBXBuildRule] {
-        return buildRuleReferences.map({ try! $0.object() })
+        get {
+            return buildRuleReferences.map({ try! $0.object() })
+        }
+        set {
+            buildRuleReferences = buildRules.map({ $0.reference })
+        }
     }
 
     /// Target dependency references.
@@ -35,7 +50,12 @@ public class PBXTarget: PBXContainerItem {
 
     /// Target dependencies.
     public var dependencies: [PBXTargetDependency] {
-        return dependencyReferences.map({ try! $0.object() })
+        get {
+            return dependencyReferences.map({ try! $0.object() })
+        }
+        set {
+            dependencyReferences = newValue.map({ $0.reference })
+        }
     }
 
     /// Target name.
@@ -50,7 +70,12 @@ public class PBXTarget: PBXContainerItem {
 
     /// Target product.
     public var product: PBXFileReference? {
-        return try! productReference?.object()
+        get {
+            return try! productReference?.object()
+        }
+        set {
+            productReference = product?.reference
+        }
     }
 
     /// Target product type.

@@ -18,7 +18,12 @@ public final class PBXReferenceProxy: PBXObject {
 
     /// Element remote.
     public var remote: PBXContainerItemProxy? {
-        return try! remoteReference?.object()
+        get {
+            return try! remoteReference?.object()
+        }
+        set {
+            remoteReference = remote?.reference
+        }
     }
 
     /// Element source tree.
