@@ -13,13 +13,20 @@ public final class PBXReferenceProxy: PBXObject {
     public var path: String?
 
     /// Element remote reference.
+    @available(*, deprecated, message: "Use remote instead")
     public var remoteReference: PBXObjectReference?
+
+    /// Element remote.
+    public var remote: PBXContainerItemProxy? {
+        return try! remoteReference?.object()
+    }
 
     /// Element source tree.
     public var sourceTree: PBXSourceTree?
 
     // MARK: - Init
 
+    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
     public init(fileType: String? = nil,
                 path: String? = nil,
                 remoteReference: PBXObjectReference? = nil,
@@ -29,6 +36,16 @@ public final class PBXReferenceProxy: PBXObject {
         self.remoteReference = remoteReference
         self.sourceTree = sourceTree
         super.init()
+    }
+
+    public convenience init(fileType: String? = nil,
+                            path: String? = nil,
+                            remote: PBXContainerItemProxy? = nil,
+                            sourceTree: PBXSourceTree? = nil) {
+        self.init(fileType: fileType,
+                  path: path,
+                  remoteReference: remote?.reference,
+                  sourceTree: sourceTree)
     }
 
     // MARK: - Decodable

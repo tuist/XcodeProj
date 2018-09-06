@@ -54,8 +54,8 @@ final class PBXNativeTargetTests: XCTestCase {
                                  compatibilityVersion: "0",
                                  mainGroupReference: mainGroup)
         objects.addObject(project)
-        let target = PBXNativeTarget(name: "Target")
-        let dependency = PBXNativeTarget(name: "Dependency")
+        let target = PBXNativeTarget(name: "Target", buildConfigurationList: nil)
+        let dependency = PBXNativeTarget(name: "Dependency", buildConfigurationList: nil)
         objects.addObject(target)
         objects.addObject(dependency)
         _ = try target.addDependency(target: dependency)

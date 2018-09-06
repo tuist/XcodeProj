@@ -11,8 +11,8 @@ final class PBXProjObjectsHelpersTests: XCTestCase {
     }
 
     func test_targetsNamed_returnsTheCorrectValue() {
-        let nativeTarget = PBXNativeTarget(name: "test")
-        let legacyTarget = PBXLegacyTarget(name: "test")
+        let nativeTarget = PBXNativeTarget(name: "test", buildConfigurationList: nil)
+        let legacyTarget = PBXLegacyTarget(name: "test", buildConfigurationList: nil)
         let aggregateTarget = PBXAggregateTarget(name: "test", buildConfigurationList: nil)
         subject.addObject(nativeTarget)
         subject.addObject(legacyTarget)

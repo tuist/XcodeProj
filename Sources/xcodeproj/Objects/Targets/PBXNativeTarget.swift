@@ -5,6 +5,7 @@ public final class PBXNativeTarget: PBXTarget {
     // Target product install path.
     public var productInstallPath: String?
 
+    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference? = nil,
                 buildPhaseReferences: [PBXObjectReference] = [],
@@ -23,6 +24,38 @@ public final class PBXNativeTarget: PBXTarget {
                    productName: productName,
                    productReference: productReference,
                    productType: productType)
+    }
+
+    /// Initializes the native target with its attributes.
+    ///
+    /// - Parameters:
+    ///   - name: target name.
+    ///   - buildConfigurationList: build configuratino list.
+    ///   - buildPhases: build phases.
+    ///   - buildRules: build rules.
+    ///   - dependencies: dependencies.
+    ///   - productInstallPath: product install path.
+    ///   - productName: product name.
+    ///   - product: product file reference.
+    ///   - productType: product type.
+    public convenience init(name: String,
+                            buildConfigurationList: XCConfigurationList? = nil,
+                            buildPhases: [PBXBuildPhase] = [],
+                            buildRules: [PBXBuildRule] = [],
+                            dependencies: [PBXTargetDependency] = [],
+                            productInstallPath: String? = nil,
+                            productName: String? = nil,
+                            product: PBXFileReference? = nil,
+                            productType: PBXProductType? = nil) {
+        self.init(name: name,
+                  buildConfigurationListReference: buildConfigurationList?.reference,
+                  buildPhaseReferences: buildPhases.map({ $0.reference }),
+                  buildRuleReferences: buildRules.map({ $0.reference }),
+                  dependencyReferences: dependencies.map({ $0.reference }),
+                  productInstallPath: productInstallPath,
+                  productName: productName,
+                  productReference: product?.reference,
+                  productType: productType)
     }
 
     // MARK: - Decodable
