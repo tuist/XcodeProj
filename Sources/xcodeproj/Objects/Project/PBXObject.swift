@@ -4,6 +4,7 @@ import Foundation
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
     /// The object reference in the project that contains it.
+    @available(*, deprecated, message: "This attribute will be deprecated. Use objects instead.")
     public let reference: PBXObjectReference
 
     // MARK: - Init

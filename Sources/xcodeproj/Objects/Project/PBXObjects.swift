@@ -2,8 +2,9 @@ import Foundation
 
 // swiftlint:disable type_body_length
 public class PBXObjects: Equatable {
+    // TODO: Change the objects to not expose object references.
+    
     // MARK: - Properties
-
     public var projects: [PBXObjectReference: PBXProject] = [:]
     public var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
 
