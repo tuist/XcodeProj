@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXTargetDependencySpec: XCTestCase {
+final class PBXTargetDependencyTests: XCTestCase {
     var subject: PBXTargetDependency!
 
     override func setUp() {

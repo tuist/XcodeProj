@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXLegacyTargetSpec: XCTestCase {
+final class PBXLegacyTargetTests: XCTestCase {
     var subject: PBXLegacyTarget!
 
     override func setUp() {

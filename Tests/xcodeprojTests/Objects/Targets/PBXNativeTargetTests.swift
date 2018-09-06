@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXNativeTargetSpec: XCTestCase {
+final class PBXNativeTargetTests: XCTestCase {
     var subject: PBXNativeTarget!
 
     override func setUp() {

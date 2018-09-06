@@ -2,7 +2,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class PBXGroupSpec: XCTestCase {
+final class PBXGroupTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXGroup.isa, "PBXGroup")
     }

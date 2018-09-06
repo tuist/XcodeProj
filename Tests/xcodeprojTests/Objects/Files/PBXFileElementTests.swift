@@ -3,7 +3,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXFileElementSpec: XCTestCase {
+final class PBXFileElementTests: XCTestCase {
     var subject: PBXFileElement!
 
     override func setUp() {

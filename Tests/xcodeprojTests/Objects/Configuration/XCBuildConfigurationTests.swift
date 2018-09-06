@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class XCBuildConfigurationSpec: XCTestCase {
+final class XCBuildConfigurationTests: XCTestCase {
     var subject: XCBuildConfiguration!
 
     override func setUp() {

@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class XCConfigurationListSpec: XCTestCase {
+final class XCConfigurationListTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(XCConfigurationList.isa, "XCConfigurationList")
     }

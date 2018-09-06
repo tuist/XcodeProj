@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXReferenceProxySpec: XCTestCase {
+final class PBXReferenceProxyTests: XCTestCase {
     var subject: PBXReferenceProxy!
 
     override func setUp() {

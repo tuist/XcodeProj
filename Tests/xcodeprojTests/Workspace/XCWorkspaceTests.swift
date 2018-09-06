@@ -3,7 +3,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class XCWorkspaceIntegrationSpec: XCTestCase {
+final class XCWorkspaceIntegrationTests: XCTestCase {
     func test_initTheWorkspaceWithTheRightPropeties() {
         let path = fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/project.xcworkspace"))
         let got = try? XCWorkspace(path: path)

@@ -3,7 +3,7 @@ import XCTest
 
 @testable import xcodeproj
 
-final class PBXTargetSpec: XCTestCase {
+final class PBXTargetTests: XCTestCase {
     var subject: PBXTarget!
 
     override func setUp() {

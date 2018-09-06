@@ -3,7 +3,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-class PBXProjEncoderSpec: XCTestCase {
+class PBXProjEncoderTests: XCTestCase {
     func test_dictionaryPlistValue_returnsTheCorrectValue() {
         let dictionary: [String: Any] = [
             "a": "b",

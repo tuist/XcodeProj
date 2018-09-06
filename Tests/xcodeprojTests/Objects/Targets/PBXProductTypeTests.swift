@@ -2,7 +2,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class PBXProductTypeSpec: XCTestCase {
+final class PBXProductTypeTests: XCTestCase {
     func test_none_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.none.rawValue, "")
     }

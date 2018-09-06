@@ -3,7 +3,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-class DictionaryExtrasSpec: XCTestCase {
+class DictionaryExtrasTests: XCTestCase {
     var fixtures: AbsolutePath!
 
     override func setUp() {

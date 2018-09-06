@@ -2,7 +2,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class PBXFileReferenceSpec: XCTestCase {
+final class PBXFileReferenceTests: XCTestCase {
     var subject: PBXFileReference!
 
     override func setUp() {

@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXSourceTreeSpec: XCTestCase {
+final class PBXSourceTreeTests: XCTestCase {
     func test_none_hasTheCorrectValue() {
         XCTAssertEqual(String(describing: PBXSourceTree.none), "")
     }

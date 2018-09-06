@@ -17,7 +17,7 @@ extension PBXProj {
     }
 }
 
-final class PBXProjSpec: XCTestCase {
+final class PBXProjTests: XCTestCase {
     var subject: PBXProj!
     var object: PBXObject!
 
@@ -44,7 +44,7 @@ final class PBXProjSpec: XCTestCase {
     }
 }
 
-final class PBXProjIntegrationSpec: XCTestCase {
+final class PBXProjIntegrationTests: XCTestCase {
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
         let decoder = XcodeprojPropertyListDecoder()

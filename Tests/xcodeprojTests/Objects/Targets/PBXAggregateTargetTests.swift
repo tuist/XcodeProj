@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXAggregateTargetSpec: XCTestCase {
+final class PBXAggregateTargetTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXAggregateTarget.isa, "PBXAggregateTarget")
     }

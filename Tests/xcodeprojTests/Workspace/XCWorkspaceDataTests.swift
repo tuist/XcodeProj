@@ -3,7 +3,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class XCWorkspaceDataSpec: XCTestCase {
+final class XCWorkspaceDataTests: XCTestCase {
     var subject: XCWorkspaceData!
     var fileRef: XCWorkspaceDataFileRef!
 
@@ -21,7 +21,7 @@ final class XCWorkspaceDataSpec: XCTestCase {
     }
 }
 
-final class XCWorkspaceDataIntegrationSpec: XCTestCase {
+final class XCWorkspaceDataIntegrationTests: XCTestCase {
     func test_init_returnsTheModelWithTheRightProperties() throws {
         let path = fixturePath()
         let got = try XCWorkspaceData(path: path)

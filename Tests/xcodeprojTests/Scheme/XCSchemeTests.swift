@@ -3,7 +3,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class XCSchemeIntegrationSpec: XCTestCase {
+final class XCSchemeIntegrationTests: XCTestCase {
     func test_read_iosScheme() {
         let subject = try? XCScheme(path: iosSchemePath)
 

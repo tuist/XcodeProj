@@ -3,7 +3,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class XCConfigSpec: XCTestCase {
+final class XCConfigTests: XCTestCase {
     var subject: XCConfig?
 
     func test_init_initializesTheConfigWithTheRightAttributes() {
@@ -77,7 +77,7 @@ final class XCConfigSpec: XCTestCase {
     }
 }
 
-final class XCConfigIntegrationSpec: XCTestCase {
+final class XCConfigIntegrationTests: XCTestCase {
     func test_init_initializesXCConfigWithTheRightProperties() {
         let subject = try? XCConfig(path: childrenPath())
         XCTAssertNotNil(subject)

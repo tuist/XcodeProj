@@ -25,7 +25,7 @@ extension XCVersionGroup {
     }
 }
 
-final class XCVersionGroupSpec: XCTestCase {
+final class XCVersionGroupTests: XCTestCase {
     func test_equals_returnTheCorrectValue_whenElementsAreTheSame() {
         let objects = PBXObjects()
         let currentVersion = PBXFileReference(name: "currentVersion")

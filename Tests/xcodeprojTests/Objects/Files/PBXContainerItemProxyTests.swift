@@ -2,7 +2,7 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-final class PBXContainerItemProxySpec: XCTestCase {
+final class PBXContainerItemProxyTests: XCTestCase {
     var subject: PBXContainerItemProxy!
 
     override func setUp() {

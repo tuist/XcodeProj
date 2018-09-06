@@ -3,7 +3,7 @@ import Foundation
 import xcodeproj
 import XCTest
 
-final class XCBreakpointListIntegrationSpec: XCTestCase {
+final class XCBreakpointListIntegrationTests: XCTestCase {
     var subject: XCBreakpointList?
 
     override func setUp() {
