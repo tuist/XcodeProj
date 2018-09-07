@@ -126,6 +126,14 @@ public final class PBXProject: PBXObject {
         attributeReferences.removeValue(forKey: target.reference)
     }
 
+    /// Returns the attributes of a given target.
+    ///
+    /// - Parameter target: target whose attributes will be returned.
+    /// - Returns: target attributes.
+    public func attributes(target: PBXTarget) -> [String: Any]? {
+        return attributeReferences[target.reference]
+    }
+
     // MARK: - Init
 
     /// Initializes the project with its attributes
