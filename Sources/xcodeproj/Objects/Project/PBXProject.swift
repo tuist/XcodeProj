@@ -108,7 +108,23 @@ public final class PBXProject: PBXObject {
     }
 
     /// Project attributes.
-    public var attributes: [String: Any]
+    var attributeReferences: [PBXObjectReference: [String: Any]]
+
+    /// Sets the attributes for the given target.
+    ///
+    /// - Parameters:
+    ///   - attributes: attributes that will be set.
+    ///   - target: target.
+    public func setAttributes(_ attributes: [String: Any], target: PBXTarget) {
+        attributeReferences[target.reference] = attributes
+    }
+
+    /// Removes the attributes for the given target.
+    ///
+    /// - Parameter target: target whose attributes will be removed.
+    public func removeAttributes(target: PBXTarget) {
+        attributeReferences.removeValue(forKey: target.reference)
+    }
 
     // MARK: - Init
 
@@ -127,7 +143,7 @@ public final class PBXProject: PBXObject {
     ///   - projectReferences: project references.
     ///   - projectRoots: project roots.
     ///   - targetReferences: project targets.
-    ///   - attributes: project attributes.
+    ///   - attributeReferences: targets attributes.
     @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
     public init(name: String,
                 buildConfigurationListReference: PBXObjectReference,
@@ -141,7 +157,7 @@ public final class PBXProject: PBXObject {
                 projectReferences: [[String: PBXObjectReference]] = [],
                 projectRoots: [String] = [],
                 targetReferences: [PBXObjectReference] = [],
-                attributes: [String: Any] = [:]) {
+                attributeReferences: [PBXObjectReference: [String: Any]] = [:]) {
         self.name = name
         self.buildConfigurationListReference = buildConfigurationListReference
         self.compatibilityVersion = compatibilityVersion
@@ -154,7 +170,7 @@ public final class PBXProject: PBXObject {
         self.projectReferences = projectReferences
         self.projectRoots = projectRoots
         self.targetReferences = targetReferences
-        self.attributes = attributes
+        self.attributeReferences = attributeReferences
         super.init()
     }
 
@@ -173,7 +189,6 @@ public final class PBXProject: PBXObject {
     ///   - projects: projects.
     ///   - projectRoots: project roots.
     ///   - targets: project targets.
-    ///   - attributes: project attributes.
     public convenience init(name: String,
                             buildConfigurationList: XCConfigurationList,
                             compatibilityVersion: String,
@@ -185,8 +200,7 @@ public final class PBXProject: PBXObject {
                             projectDirPath: String = "",
                             projects: [[String: PBXFileElement]] = [],
                             projectRoots: [String] = [],
-                            targets: [PBXTarget] = [],
-                            attributes: [String: Any] = [:]) {
+                            targets: [PBXTarget] = []) {
         self.init(name: name,
                   buildConfigurationListReference: buildConfigurationList.reference,
                   compatibilityVersion: compatibilityVersion,
@@ -199,7 +213,7 @@ public final class PBXProject: PBXObject {
                   projectReferences: projects.map({ project in project.mapValues({ $0.reference }) }),
                   projectRoots: projectRoots,
                   targetReferences: targets.map({ $0.reference }),
-                  attributes: attributes)
+                  attributeReferences: [:])
     }
 
     // MARK: - Decodable
@@ -254,7 +268,12 @@ public final class PBXProject: PBXObject {
         }
         let targetReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
         self.targetReferences = targetReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
-        attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
+
+        let dictionaryAttributes = (try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]) as? [String: [String: Any]]
+        var attributeReferences: [PBXObjectReference: [String: Any]] = [:]
+        dictionaryAttributes?.forEach { attributeReferences[referenceRepository.getOrCreate(reference: $0.key, objects: objects)] = $0.value }
+        self.attributeReferences = attributeReferences
+
         try super.init(from: decoder)
     }
 }
@@ -300,7 +319,11 @@ extension PBXProject: PlistSerializable {
                 let target: PBXTarget? = try? targetReference.object()
                 return .string(CommentedString(targetReference.value, comment: target?.name))
         })
-        dictionary["attributes"] = attributes.plist()
+
+        var plistAttributes: [String: [String: Any]] = [:]
+        attributeReferences.forEach({ plistAttributes[$0.key.value] = $0.value })
+
+        dictionary["attributes"] = plistAttributes.plist()
         return (key: CommentedString(reference,
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
