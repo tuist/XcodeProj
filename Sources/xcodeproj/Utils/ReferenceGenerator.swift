@@ -36,12 +36,13 @@ final class ReferenceGenerator: ReferenceGenerating {
         ///      the file it refers to.
         let identifiers = [String(describing: project), project.name]
         generateProjectAndTargets(project: project, identifiers: identifiers)
-        if let mainGroup: PBXGroup = try? project.mainGroupReference.object() {
-            try generateGroupReferences(mainGroup, identifiers: identifiers)
+        try generateGroupReferences(project.mainGroup, identifiers: identifiers)
+        if let productsGroup: PBXGroup = project.productsGroup {
+            try generateGroupReferences(productsGroup, identifiers: identifiers)
         }
 
         // Targets
-        let targets: [PBXTarget] = project.targetReferences.compactMap({ try? $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targets
         try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
 
         // Project references
