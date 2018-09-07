@@ -6,7 +6,9 @@
 - **Breaking** Change `blueprintIdentifier` type to `PBXObjectReference` https://github.com/tuist/xcodeproj/pull/289 by @pepibumur
 
 ### Fixed
-- https://github.com/tuist/xcodeproj/pull/290 https://github.com/tuist/xcodeproj/pull/290 by @pepibumur
+- Fix grammatical issues and add some convenient getters https://github.com/tuist/xcodeproj/pull/291 by @pepibumur
+- Fix targets not getting the reference generated https://github.com/tuist/xcodeproj/pull/290 by @pepibumur
+- Product references not being generated https://github.com/tuist/xcodeproj/pull/294 by @pepibumur
 
 ## 5.0.0
 
@@ -21,7 +23,7 @@ Nothing new since the release rc2.
 - Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 - Split up `XCScheme` models and make them conform the `Equatable` protocol https://github.com/tuist/xcodeproj/pull/273 by @pepibumur
 - Convenient methods to add and fetch build configurations https://github.com/tuist/xcodeproj/pull/283 by @pepibumur
-- `.inc` extension to the header file extensions by @pepibumur.
+- `.inc` extension to the header file extensions by @pepibumur
 
 ## 5.0.0-rc1
 
