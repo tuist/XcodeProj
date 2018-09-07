@@ -7,7 +7,7 @@ public final class XCVersionGroup: PBXGroup {
     // MARK: - Attributes
 
     /// Current version.
-    private var currentVersionReference: PBXObjectReference?
+    public var currentVersionReference: PBXObjectReference?
 
     /// Returns the current version file reference.
     public var currentVersion: PBXFileReference? {
