@@ -41,7 +41,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Targets
-        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targetReferences.compactMap({ try? $0.object() as PBXTarget })
         try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
 
         // Project references
@@ -69,7 +69,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Targets
-        let targets: [PBXTarget] = project.targetsReferences.compactMap({ try? $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targetReferences.compactMap({ try? $0.object() as PBXTarget })
         targets.forEach { target in
 
             var identifiers = identifiers
@@ -142,7 +142,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             configurationList.reference.fix(generate(identifiers: identifiers))
         }
 
-        let buildConfigurations: [XCBuildConfiguration] = try configurationList.buildConfigurations()
+        let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
 
         buildConfigurations.forEach { configuration in
             if !configuration.reference.temporary { return }
@@ -167,22 +167,22 @@ final class ReferenceGenerator: ReferenceGenerating {
         identifiers.append(target.name)
 
         // Configuration list
-        if let configurationList = try target.buildConfigurationList() {
+        if let configurationList = target.buildConfigurationList {
             try generateConfigurationListReferences(configurationList,
                                                     identifiers: identifiers)
         }
 
         // Build phases
-        let buildPhases = target.buildPhasesReferences.compactMap({ try? $0.object() as PBXBuildPhase })
+        let buildPhases = target.buildPhaseReferences.compactMap({ try? $0.object() as PBXBuildPhase })
         try buildPhases.forEach({ try generateBuildPhaseReferences($0,
                                                                    identifiers: identifiers) })
 
         // Build rules
-        let buildRules = target.buildRulesReferences.compactMap({ try? $0.object() as PBXBuildRule })
+        let buildRules = target.buildRuleReferences.compactMap({ try? $0.object() as PBXBuildRule })
         try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
 
         // Dependencies
-        let dependencies = target.dependenciesReferences.compactMap({ try? $0.object() as PBXTargetDependency })
+        let dependencies = target.dependencyReferences.compactMap({ try? $0.object() as PBXTargetDependency })
         try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
     }
 
@@ -199,7 +199,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
-            let targetProxy = try targetDependency.targetProxy(),
+            let targetProxy = try targetDependency.targetProxy,
             let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
             identifiers.append(String(describing: targetProxy))

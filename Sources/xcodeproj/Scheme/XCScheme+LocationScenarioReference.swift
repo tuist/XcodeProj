@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class LocationScenarioReference: Equatable {
-
         // MARK: - Attributes
 
         public var identifier: String

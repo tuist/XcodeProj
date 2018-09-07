@@ -5,7 +5,6 @@ public typealias XCConfigInclude = (include: RelativePath, config: XCConfig)
 
 /// .xcconfig configuration file.
 public final class XCConfig {
-
     // MARK: - Attributes
 
     /// Configuration file includes.

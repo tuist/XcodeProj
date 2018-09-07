@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public class SerialAction: Equatable {
-
         // MARK: - Attributes
 
         public var preActions: [ExecutionAction]

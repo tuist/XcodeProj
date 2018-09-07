@@ -98,7 +98,7 @@ extension XCScheme {
             try super.init(element: element)
         }
 
-        // MARK: - Public
+        // MARK: - Helpers
 
         public func add(buildActionEntry: Entry) -> BuildAction {
             var buildActionEntries = self.buildActionEntries

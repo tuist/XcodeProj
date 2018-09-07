@@ -3,4 +3,4 @@ sources:
 templates:
   - templates
 output:
-  Sources/xcodeproj/Sourcery
+  Sources/xcodeproj/Objects/Sourcery

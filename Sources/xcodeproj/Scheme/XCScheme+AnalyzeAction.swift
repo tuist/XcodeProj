@@ -4,7 +4,6 @@ import Foundation
 
 extension XCScheme {
     public final class AnalyzeAction: Equatable {
-
         // MARK: - Static
 
         // Xcode disables PreActions and PostActions for Analyze actions, so this Action

@@ -3,7 +3,6 @@ import Foundation
 
 extension XCScheme {
     public final class SkippedTest: Equatable {
-
         // MARK: - Attributes
 
         public var identifier: String

@@ -227,7 +227,7 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/PBXLegacyTarget.swift",
       "line": 17,
-      "symbol": "PBXLegacyTarget.init(name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productName:productReference:productType:)",
+      "symbol": "PBXLegacyTarget.init(name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationListReference:buildPhaseReferences:buildRuleReferences:dependencyReferences:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -241,7 +241,7 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/PBXNativeTarget.swift",
       "line": 8,
-      "symbol": "PBXNativeTarget.init(name:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productInstallPath:productName:productReference:productType:)",
+      "symbol": "PBXNativeTarget.init(name:buildConfigurationListReference:buildPhaseReferences:buildRuleReferences:dependencyReferences:productInstallPath:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -360,7 +360,7 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/PBXTarget.swift",
       "line": 29,
-      "symbol": "PBXTarget.init(name:buildConfigurationListReference:buildPhasesReferences:buildRulesReferences:dependenciesReferences:productName:productReference:productType:)",
+      "symbol": "PBXTarget.init(name:buildConfigurationListReference:buildPhaseReferences:buildRuleReferences:dependencyReferences:productName:productReference:productType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

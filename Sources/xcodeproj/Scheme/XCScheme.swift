@@ -17,7 +17,6 @@ public enum XCSchemeError: Error, CustomStringConvertible {
 }
 
 public final class XCScheme: Writable, Equatable {
-
     // MARK: - Static
 
     public static let defaultDebugger = "Xcode.DebuggerFoundation.Debugger.LLDB"

@@ -2,7 +2,6 @@ import Basic
 import Foundation
 
 public final class XCSharedData: Equatable {
-
     // MARK: - Attributes
 
     /// Shared data schemes.
