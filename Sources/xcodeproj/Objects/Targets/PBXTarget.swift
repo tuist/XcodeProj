@@ -9,6 +9,7 @@ public class PBXTarget: PBXContainerItem {
     /// Build configuration list.
     public var buildConfigurationList: XCConfigurationList? {
         get {
+            // swiftlint:disable:next force_try
             return try! buildConfigurationListReference?.object()
         }
         set {
@@ -23,6 +24,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target build phases.
     public var buildPhases: [PBXBuildPhase] {
         get {
+            // swiftlint:disable:next force_try
             return buildPhaseReferences.map({ try! $0.object() })
         }
         set {
@@ -37,6 +39,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target build rules.
     public var buildRules: [PBXBuildRule] {
         get {
+            // swiftlint:disable:next force_try
             return buildRuleReferences.map({ try! $0.object() })
         }
         set {
@@ -51,6 +54,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target dependencies.
     public var dependencies: [PBXTargetDependency] {
         get {
+            // swiftlint:disable:next force_try
             return dependencyReferences.map({ try! $0.object() })
         }
         set {
@@ -71,6 +75,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target product.
     public var product: PBXFileReference? {
         get {
+            // swiftlint:disable:next force_try
             return try! productReference?.object()
         }
         set {

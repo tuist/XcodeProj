@@ -11,6 +11,7 @@ public final class XCBuildConfiguration: PBXObject {
     /// Base configuration
     public var baseConfiguration: XCBuildConfiguration? {
         get {
+            // swiftlint:disable:next force_try
             return baseConfigurationReference.flatMap({ try! $0.object() })
         }
         set {

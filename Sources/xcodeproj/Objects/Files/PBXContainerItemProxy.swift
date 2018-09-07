@@ -15,6 +15,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Returns the project that contains the remote object.
     public var containerPortal: PBXProject {
         get {
+            // swiftlint:disable:next force_try
             return try! containerPortalReference.object()
         }
         set {
@@ -32,6 +33,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Remote global object
     public var remoteGlobalID: PBXObject? {
         get {
+            // swiftlint:disable:next force_try
             return remoteGlobalIDReference.flatMap({ try! $0.object() as PBXObject })
         }
         set {

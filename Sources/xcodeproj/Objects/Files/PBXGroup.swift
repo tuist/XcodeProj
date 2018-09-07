@@ -14,6 +14,7 @@ public class PBXGroup: PBXFileElement {
             childrenReferences = children.map({ $0.reference })
         }
         get {
+            // swiftlint:disable:next force_try
             return childrenReferences.flatMap({ try! $0.object() })
         }
     }

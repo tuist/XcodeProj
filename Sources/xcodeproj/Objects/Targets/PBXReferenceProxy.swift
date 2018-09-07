@@ -19,6 +19,7 @@ public final class PBXReferenceProxy: PBXObject {
     /// Element remote.
     public var remote: PBXContainerItemProxy? {
         get {
+            // swiftlint:disable:next force_try
             return try! remoteReference?.object()
         }
         set {

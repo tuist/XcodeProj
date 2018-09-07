@@ -13,7 +13,13 @@ public final class PBXTargetDependency: PBXObject {
 
     /// Target.
     public var target: PBXTarget? {
-        return try! targetReference?.object()
+        get {
+            // swiftlint:disable:next force_try
+            return try! targetReference?.object()
+        }
+        set {
+            targetReference = target?.reference
+        }
     }
 
     /// Target proxy reference.
@@ -22,7 +28,13 @@ public final class PBXTargetDependency: PBXObject {
 
     /// Target proxy.
     public var targetProxy: PBXContainerItemProxy? {
-        return try! targetProxyReference?.object()
+        get {
+            // swiftlint:disable:next force_try
+            return try! targetProxyReference?.object()
+        }
+        set {
+            targetProxyReference = targetProxy?.reference
+        }
     }
 
     // MARK: - Init

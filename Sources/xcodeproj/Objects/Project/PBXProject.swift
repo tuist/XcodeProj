@@ -16,6 +16,7 @@ public final class PBXProject: PBXObject {
             buildConfigurationListReference = newValue.reference
         }
         get {
+            // swiftlint:disable:next force_try
             return try! buildConfigurationListReference.object()
         }
     }
@@ -42,6 +43,7 @@ public final class PBXProject: PBXObject {
             mainGroupReference = mainGroup.reference
         }
         get {
+            // swiftlint:disable:next force_try
             return try! mainGroupReference.object()
         }
     }
@@ -56,6 +58,7 @@ public final class PBXProject: PBXObject {
             productsGroupReference = productsGroup?.reference
         }
         get {
+            // swiftlint:disable:next force_try
             return try! productsGroupReference?.object()
         }
     }
@@ -80,6 +83,7 @@ public final class PBXProject: PBXObject {
         }
         get {
             return projectReferences.map { project in
+                // swiftlint:disable:next force_try
                 project.mapValues({ try! $0.object() })
             }
         }
@@ -98,6 +102,7 @@ public final class PBXProject: PBXObject {
             targetReferences = newValue.map({ $0.reference })
         }
         get {
+            // swiftlint:disable:next force_try
             return targetReferences.map({ try! $0.object() })
         }
     }
