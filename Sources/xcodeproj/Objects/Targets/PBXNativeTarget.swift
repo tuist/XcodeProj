@@ -90,7 +90,7 @@ extension PBXNativeTarget: PlistSerializable {
     }
 }
 
-// MARK: - Public
+// MARK: - Helpers
 
 public extension PBXNativeTarget {
     /// Adds a dependency to the target.

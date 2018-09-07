@@ -72,7 +72,7 @@ public class PBXObjects: Equatable {
             lhs.buildRules == rhs.buildRules
     }
 
-    // MARK: - Public Methods
+    // MARK: - Helpers
 
     /// Add a new object.
     ///
@@ -80,6 +80,7 @@ public class PBXObjects: Equatable {
     ///   - object: object.
     ///   - reference: object reference.
     @discardableResult
+    @available(*, deprecated, renamed: "add(object:)")
     public func addObject(_ object: PBXObject) -> PBXObjectReference {
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
@@ -114,12 +115,20 @@ public class PBXObjects: Equatable {
         }
         return objectReference
     }
+    
+    /// Adds a new object to the project.
+    ///
+    /// - Parameter object: object to be added.
+    public func add(object: PBXObject) {
+        self.addObject(object)
+    }
 
     /// Deletes the object with the given reference.
     ///
     /// - Parameter reference: referenc of the object to be deleted.
     /// - Returns: the deleted object.
     // swiftlint:disable:next function_body_length
+    @available(*, deprecated, renamed: "delete(object:)")
     public func delete(_ reference: PBXObjectReference) -> PBXObject? {
         if let index = buildFiles.index(forKey: reference) {
             return buildFiles.remove(at: index).value
@@ -168,12 +177,20 @@ public class PBXObjects: Equatable {
         }
         return nil
     }
+    
+    /// Deletes an object from the project.
+    ///
+    /// - Parameter object: object to be deleted.
+    public func delete(object: PBXObject) {
+        self.delete(object.reference)
+    }
 
     /// It returns the object with the given reference.
     ///
     /// - Parameter reference: Xcode reference.
     /// - Returns: object.
     // swiftlint:disable function_body_length
+    @available(*, deprecated, message: "Looking up objects by reference will be deprecated")
     public func get(_ reference: PBXObjectReference) -> PBXObject? {
         // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
         // with Swift 4, this compiler error:

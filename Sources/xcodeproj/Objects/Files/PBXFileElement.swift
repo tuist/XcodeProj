@@ -132,7 +132,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     }
 }
 
-// MARK: - Public
+// MARK: - Helpers
 
 public extension PBXFileElement {
     /// Returns a file absolute path.

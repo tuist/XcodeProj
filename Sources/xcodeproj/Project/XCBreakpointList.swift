@@ -391,7 +391,7 @@ public final class XCBreakpointList: Equatable, Writable {
         self.breakpoints = breakpoints
     }
 
-    // MARK: - Public
+    // MARK: - Helpers
 
     public func add(breakpointProxy: BreakpointProxy) -> XCBreakpointList {
         var breakpoints = self.breakpoints
