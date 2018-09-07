@@ -2,13 +2,20 @@
 
 ## next version
 
+### Added
+- `setAttributes`, `removeAttributes` and `attributes` to `PBXProject` https://github.com/tuist/xcodeproj/pull/295 by @pepibumur
+
 ### Changed
 - **Breaking** Change `blueprintIdentifier` type to `PBXObjectReference` https://github.com/tuist/xcodeproj/pull/289 by @pepibumur
+
 
 ### Fixed
 - Fix grammatical issues and add some convenient getters https://github.com/tuist/xcodeproj/pull/291 by @pepibumur
 - Fix targets not getting the reference generated https://github.com/tuist/xcodeproj/pull/290 by @pepibumur
 - Product references not being generated https://github.com/tuist/xcodeproj/pull/294 by @pepibumur
+
+### Removed
+- **Breaking** Make `PBXProject.attributes` internal https://github.com/tuist/xcodeproj/pull/295 by @pepibumur
 
 ## 5.0.0
 
