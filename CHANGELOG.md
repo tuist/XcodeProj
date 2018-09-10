@@ -2,6 +2,8 @@
 
 ## next version
 
+## 5.1.0
+
 ### Added
 - `setAttributes`, `removeAttributes` and `attributes` to `PBXProject` https://github.com/tuist/xcodeproj/pull/295 by @pepibumur
 
