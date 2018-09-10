@@ -115,12 +115,12 @@ public class PBXObjects: Equatable {
         }
         return objectReference
     }
-    
+
     /// Adds a new object to the project.
     ///
     /// - Parameter object: object to be added.
     public func add(object: PBXObject) {
-        self.addObject(object)
+        addObject(object)
     }
 
     /// Deletes the object with the given reference.
@@ -177,12 +177,12 @@ public class PBXObjects: Equatable {
         }
         return nil
     }
-    
+
     /// Deletes an object from the project.
     ///
     /// - Parameter object: object to be deleted.
     public func delete(object: PBXObject) {
-        self.delete(object.reference)
+        delete(object.reference)
     }
 
     /// It returns the object with the given reference.
