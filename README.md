@@ -27,6 +27,17 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 2. Generate xcodeproj with  `swift package generate-xcodeproj`.
 3. Open `xcodeproj.xcodeproj`.
 
+## Projects using xcodeproj
+
+| Project | Repository             |
+|---------|------------------------|
+| Tuist   | [github.com/tuist/tuist](https://github.com/tuist/tuist) |
+| Sourcery | [github.com/krzysztofzablocki/Sourcery](https://github.com/krzysztofzablocki/Sourcery) |
+| ProjLint | [github.com/JamitLabs/ProjLint](https://github.com/JamitLabs/ProjLint) |
+| XcodeGen | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen) |
+
+If you are also leveraging xcodeproj in your project, feel free to open a PR to include it in the list above.
+
 ## Setup
 
 #### Using Swift Package Manager
