@@ -17,7 +17,19 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
+    @available(*, deprecated, message: "Use rootObject instead")
     public var rootObjectReference: PBXObjectReference?
+
+    /// Project root object.
+    public var rootObject: PBXProject? {
+        set {
+            rootObjectReference = rootObject?.reference
+        }
+        get {
+            // swiftlint:disable:next force_try
+            return try! rootObjectReference?.object()
+        }
+    }
 
     /// Initializes the project with its attributes.
     ///
@@ -37,6 +49,26 @@ public final class PBXProj: Decodable {
         self.classes = classes
         self.rootObjectReference = rootObjectReference
         self.objects = PBXObjects(objects: objects)
+    }
+
+    /// Initializes the project with its attributes.
+    ///
+    /// - Parameters:
+    ///   - rootObject: project root object.
+    ///   - objectVersion: project object version.
+    ///   - archiveVersion: project archive version.
+    ///   - classes: project classes.
+    ///   - objects: project objects
+    public convenience init(rootObject: PBXProject? = nil,
+                            objectVersion: UInt = 0,
+                            archiveVersion: UInt = 1,
+                            classes: [String: Any] = [:],
+                            objects: [PBXObject] = []) {
+        self.init(rootObjectReference: rootObject?.reference,
+                  objectVersion: objectVersion,
+                  archiveVersion: archiveVersion,
+                  classes: classes,
+                  objects: objects)
     }
 
     // MARK: - Decodable

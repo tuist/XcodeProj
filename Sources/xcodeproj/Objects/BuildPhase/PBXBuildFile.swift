@@ -9,7 +9,7 @@ public final class PBXBuildFile: PBXObject {
     public var fileReference: PBXObjectReference?
 
     /// Returns the file the build file refers to.
-    public var file: PBXFileReference? {
+    public var file: PBXFileElement? {
         get {
             // swiftlint:disable:next force_try
             return try! fileReference?.object()
@@ -42,7 +42,7 @@ public final class PBXBuildFile: PBXObject {
     /// - Parameters:
     ///   - file: file the build file refers to.
     ///   - settings: build file settings.
-    public convenience init(file: PBXFileReference,
+    public convenience init(file: PBXFileElement,
                             settings: [String: Any]? = nil) {
         self.init(fileReference: file.reference,
                   settings: settings)

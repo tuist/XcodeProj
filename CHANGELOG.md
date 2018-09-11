@@ -2,6 +2,16 @@
 
 ## next version
 
+### Changed
+- **Breaking** Change `PBXBuildFile.file` attribute to be of type `PBXFileElement` https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
+
+### Added
+- Add `PBXBuildPhase.add(file:)` method that takes a file element and returns a build file https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
+- Add `PBXProj.rootObject` attribute https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
+
+### Fixed
+- `XCBuildConfiguration.baseConfiguration` type https://github.com/tuist/xcodeproj/pull/297 @pepibumur.
+
 ## 5.1.0
 
 ### Added
