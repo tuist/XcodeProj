@@ -2,6 +2,8 @@
 
 ## next version
 
+## 5.1.1
+
 ### Changed
 - **Breaking** Change `PBXBuildFile.file` attribute to be of type `PBXFileElement` https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
 
