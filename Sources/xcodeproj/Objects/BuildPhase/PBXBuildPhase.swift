@@ -107,6 +107,7 @@ public extension PBXBuildPhase {
     /// - Parameter reference: reference to the file element.
     /// - Returns: reference to the build file added to the build phase.
     /// - Throws: an error if the reference cannot be added
+    @available(*, deprecated, renamed: "add(file:)")
     public func addFile(_ reference: PBXObjectReference) throws -> PBXObjectReference {
         if let existing = try fileReferences.compactMap({ try $0.object() as PBXBuildFile }).first(where: { $0.fileReference == reference }) {
             return existing.reference
@@ -116,6 +117,22 @@ public extension PBXBuildPhase {
         let buildFileReference = projectObjects.addObject(buildFile)
         fileReferences.append(buildFileReference)
         return buildFileReference
+    }
+
+    /// Adds a file to a build phase, creating a proxy build file that points to the given file element.
+    ///
+    /// - Parameter file: file element to be added to the build phase.
+    /// - Returns: proxy build file.
+    /// - Throws: an error if the file cannot be added.
+    public func add(file: PBXFileElement) throws -> PBXBuildFile {
+        if let existing = try files.first(where: { $0.fileReference == reference }) {
+            return existing
+        }
+        let projectObjects = try objects()
+        let buildFile = PBXBuildFile(file: file)
+        projectObjects.add(object: buildFile)
+        files.append(buildFile)
+        return buildFile
     }
 }
 
