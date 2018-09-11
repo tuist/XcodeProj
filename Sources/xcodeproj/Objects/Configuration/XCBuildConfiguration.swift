@@ -4,12 +4,12 @@ import Foundation
 public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
-    /// The path to a xcconfig file
+    /// Base xcconfig file reference.
     @available(*, deprecated, message: "Use baseConfiguration instead")
     public var baseConfigurationReference: PBXObjectReference?
 
-    /// Base configuration
-    public var baseConfiguration: XCBuildConfiguration? {
+    /// Base xcconfig file reference.
+    public var baseConfiguration: PBXFileReference? {
         get {
             // swiftlint:disable:next force_try
             return baseConfigurationReference.flatMap({ try! $0.object() })
