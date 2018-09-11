@@ -23,10 +23,10 @@ public final class PBXProj: Decodable {
     /// Project root object.
     public var rootObject: PBXProject? {
         set {
-            // swiftlint:disable:next force_try
             rootObjectReference = rootObject?.reference
         }
         get {
+            // swiftlint:disable:next force_try
             return try! rootObjectReference?.object()
         }
     }
