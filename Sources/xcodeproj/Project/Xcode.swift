@@ -7,41 +7,41 @@ public struct Xcode {
         /// Last known SDKs.
         public struct SDK {
             /// Last known SDK for iOS.
-            public static let ios: String = "11.3"
+            public static let ios: String = "12.0"
 
             /// Last known SDK for macOS.
-            public static let macos: String = "10.13"
+            public static let macos: String = "10.14"
 
             /// Last known SDK for tvOS.
-            public static let tvos: String = "10.2"
+            public static let tvos: String = "12.0"
 
             /// Last known SDK for watchos.
-            public static let watchos: String = "3.2"
+            public static let watchos: String = "5.0"
         }
 
         /// Last known archive version for Xcodeproj.
         public static let archiveVersion: UInt = 1
 
         /// Last known Swift version (stable).
-        public static let swiftVersion = "4.1"
+        public static let swiftVersion = "4.2"
 
         /// Last known object version for Xcodeproj.
         public static let objectVersion: UInt = 51
 
         /// Last known upgrade check.
-        public static let upgradeCheck = "0930"
+        public static let upgradeCheck = "1000"
 
         /// Last known Swift upgrade check.
-        public static let swiftUpgradeCheck = "0930"
+        public static let swiftUpgradeCheck = "1000"
     }
 
     /// Default values.
     public struct Default {
         /// The default object version for Xcodeproj.
-        public static let objectVersion: UInt = 48
+        public static let objectVersion: UInt = 50
 
         /// Default compatibility version.
-        public static let compatibilityVersion: String = "Xcode 3.2"
+        public static let compatibilityVersion: String = "Xcode 9.3"
 
         /// Default development region.
         public static let developmentRegion: String = "en"
