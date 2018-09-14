@@ -5,27 +5,6 @@ public final class PBXNativeTarget: PBXTarget {
     // Target product install path.
     public var productInstallPath: String?
 
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(name: String,
-                buildConfigurationListReference: PBXObjectReference? = nil,
-                buildPhaseReferences: [PBXObjectReference] = [],
-                buildRuleReferences: [PBXObjectReference] = [],
-                dependencyReferences: [PBXObjectReference] = [],
-                productInstallPath: String? = nil,
-                productName: String? = nil,
-                productReference: PBXObjectReference? = nil,
-                productType: PBXProductType? = nil) {
-        self.productInstallPath = productInstallPath
-        super.init(name: name,
-                   buildConfigurationListReference: buildConfigurationListReference,
-                   buildPhaseReferences: buildPhaseReferences,
-                   buildRuleReferences: buildRuleReferences,
-                   dependencyReferences: dependencyReferences,
-                   productName: productName,
-                   productReference: productReference,
-                   productType: productType)
-    }
-
     /// Initializes the native target with its attributes.
     ///
     /// - Parameters:
@@ -38,24 +17,24 @@ public final class PBXNativeTarget: PBXTarget {
     ///   - productName: product name.
     ///   - product: product file reference.
     ///   - productType: product type.
-    public convenience init(name: String,
-                            buildConfigurationList: XCConfigurationList? = nil,
-                            buildPhases: [PBXBuildPhase] = [],
-                            buildRules: [PBXBuildRule] = [],
-                            dependencies: [PBXTargetDependency] = [],
-                            productInstallPath: String? = nil,
-                            productName: String? = nil,
-                            product: PBXFileReference? = nil,
-                            productType: PBXProductType? = nil) {
-        self.init(name: name,
-                  buildConfigurationListReference: buildConfigurationList?.reference,
-                  buildPhaseReferences: buildPhases.map({ $0.reference }),
-                  buildRuleReferences: buildRules.map({ $0.reference }),
-                  dependencyReferences: dependencies.map({ $0.reference }),
-                  productInstallPath: productInstallPath,
-                  productName: productName,
-                  productReference: product?.reference,
-                  productType: productType)
+    public init(name: String,
+                buildConfigurationList: XCConfigurationList? = nil,
+                buildPhases: [PBXBuildPhase] = [],
+                buildRules: [PBXBuildRule] = [],
+                dependencies: [PBXTargetDependency] = [],
+                productInstallPath: String? = nil,
+                productName: String? = nil,
+                product: PBXFileReference? = nil,
+                productType: PBXProductType? = nil) {
+        self.productInstallPath = productInstallPath
+        super.init(name: name,
+                   buildConfigurationList: buildConfigurationList,
+                   buildPhases: buildPhases,
+                   buildRules: buildRules,
+                   dependencies: dependencies,
+                   productName: productName,
+                   product: product,
+                   productType: productType)
     }
 
     // MARK: - Decodable
@@ -98,21 +77,21 @@ public extension PBXNativeTarget {
     /// - Parameter target: dependency target.
     /// - Returns: target dependency reference.
     /// - Throws: an error if the dependency cannot be created.
-    public func addDependency(target: PBXNativeTarget) throws -> PBXObjectReference? {
+    public func addDependency(target: PBXNativeTarget) throws -> PBXTargetDependency? {
         let objects = try target.objects()
         guard let project = objects.projects.first?.value else {
             return nil
         }
-        let proxy = PBXContainerItemProxy(containerPortalReference: project.reference,
-                                          remoteGlobalIDReference: target.reference,
+        let proxy = PBXContainerItemProxy(containerPortal: project,
+                                          remogeGlobalID: target,
                                           proxyType: .nativeTarget,
                                           remoteInfo: target.name)
-        let proxyReference = objects.addObject(proxy)
+        objects.add(object: proxy)
         let targetDependency = PBXTargetDependency(name: target.name,
-                                                   targetReference: target.reference,
-                                                   targetProxyReference: proxyReference)
-        let targetDependencyReference = objects.addObject(targetDependency)
-        dependencyReferences.append(targetDependencyReference)
-        return targetDependencyReference
+                                                   target: target,
+                                                   targetProxy: proxy)
+        objects.add(object: targetDependency)
+        dependencies.append(targetDependency)
+        return targetDependency
     }
 }

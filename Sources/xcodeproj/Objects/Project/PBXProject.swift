@@ -7,8 +7,7 @@ public final class PBXProject: PBXObject {
     public var name: String
 
     /// Build configuration list reference.
-    @available(*, deprecated, message: "Use buildConfigurationList instead")
-    public var buildConfigurationListReference: PBXObjectReference
+    var buildConfigurationListReference: PBXObjectReference
 
     /// Build configuration list.
     public var buildConfigurationList: XCConfigurationList {
@@ -34,8 +33,7 @@ public final class PBXProject: PBXObject {
     public var knownRegions: [String]
 
     /// The object is a reference to a PBXGroup element.
-    @available(*, deprecated, message: "Use mainGroup instead")
-    public var mainGroupReference: PBXObjectReference
+    var mainGroupReference: PBXObjectReference
 
     /// Project main group.
     public var mainGroup: PBXGroup {
@@ -49,8 +47,7 @@ public final class PBXProject: PBXObject {
     }
 
     /// The object is a reference to a PBXGroup element.
-    @available(*, deprecated, message: "Use productsGroup instead")
-    public var productsGroupReference: PBXObjectReference?
+    var productsGroupReference: PBXObjectReference?
 
     /// Products group.
     public var productsGroup: PBXGroup? {
@@ -67,8 +64,7 @@ public final class PBXProject: PBXObject {
     public var projectDirPath: String
 
     /// Project references.
-    @available(*, deprecated, message: "Use projects instead")
-    public var projectReferences: [[String: PBXObjectReference]]
+    var projectReferences: [[String: PBXObjectReference]]
 
     /// Project projects.
     //    {
@@ -93,8 +89,7 @@ public final class PBXProject: PBXObject {
     public var projectRoots: [String]
 
     /// The objects are a reference to a PBXTarget element.
-    @available(*, deprecated, message: "Use targets instead")
-    public var targetReferences: [PBXObjectReference]
+    var targetReferences: [PBXObjectReference]
 
     /// Project targets.
     public var targets: [PBXTarget] {
@@ -140,52 +135,6 @@ public final class PBXProject: PBXObject {
     ///
     /// - Parameters:
     ///   - name: xcodeproj's name.
-    ///   - buildConfigurationListReference: project build configuration list.
-    ///   - compatibilityVersion: project compatibility version.
-    ///   - mainGroupReference: project main group.
-    ///   - developmentRegion: project has development region.
-    ///   - hasScannedForEncodings: project has scanned for encodings.
-    ///   - knownRegions: project known regions.
-    ///   - productsGroupReference: product reference group.
-    ///   - projectDirPath: project dir path.
-    ///   - projectReferences: project references.
-    ///   - projectRoots: project roots.
-    ///   - targetReferences: project targets.
-    ///   - attributeReferences: targets attributes.
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(name: String,
-                buildConfigurationListReference: PBXObjectReference,
-                compatibilityVersion: String,
-                mainGroupReference: PBXObjectReference,
-                developmentRegion: String? = nil,
-                hasScannedForEncodings: Int = 0,
-                knownRegions: [String] = [],
-                productsGroupReference: PBXObjectReference? = nil,
-                projectDirPath: String = "",
-                projectReferences: [[String: PBXObjectReference]] = [],
-                projectRoots: [String] = [],
-                targetReferences: [PBXObjectReference] = [],
-                attributeReferences: [PBXObjectReference: [String: Any]] = [:]) {
-        self.name = name
-        self.buildConfigurationListReference = buildConfigurationListReference
-        self.compatibilityVersion = compatibilityVersion
-        self.mainGroupReference = mainGroupReference
-        self.developmentRegion = developmentRegion
-        self.hasScannedForEncodings = hasScannedForEncodings
-        self.knownRegions = knownRegions
-        self.productsGroupReference = productsGroupReference
-        self.projectDirPath = projectDirPath
-        self.projectReferences = projectReferences
-        self.projectRoots = projectRoots
-        self.targetReferences = targetReferences
-        self.attributeReferences = attributeReferences
-        super.init()
-    }
-
-    /// Initializes the project with its attributes
-    ///
-    /// - Parameters:
-    ///   - name: xcodeproj's name.
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
     ///   - mainGroup: project main group.
@@ -197,31 +146,32 @@ public final class PBXProject: PBXObject {
     ///   - projects: projects.
     ///   - projectRoots: project roots.
     ///   - targets: project targets.
-    public convenience init(name: String,
-                            buildConfigurationList: XCConfigurationList,
-                            compatibilityVersion: String,
-                            mainGroup: PBXGroup,
-                            developmentRegion: String? = nil,
-                            hasScannedForEncodings: Int = 0,
-                            knownRegions: [String] = [],
-                            productsGroup: PBXGroup? = nil,
-                            projectDirPath: String = "",
-                            projects: [[String: PBXFileElement]] = [],
-                            projectRoots: [String] = [],
-                            targets: [PBXTarget] = []) {
-        self.init(name: name,
-                  buildConfigurationListReference: buildConfigurationList.reference,
-                  compatibilityVersion: compatibilityVersion,
-                  mainGroupReference: mainGroup.reference,
-                  developmentRegion: developmentRegion,
-                  hasScannedForEncodings: hasScannedForEncodings,
-                  knownRegions: knownRegions,
-                  productsGroupReference: productsGroup?.reference,
-                  projectDirPath: projectDirPath,
-                  projectReferences: projects.map({ project in project.mapValues({ $0.reference }) }),
-                  projectRoots: projectRoots,
-                  targetReferences: targets.map({ $0.reference }),
-                  attributeReferences: [:])
+    public init(name: String,
+                buildConfigurationList: XCConfigurationList,
+                compatibilityVersion: String,
+                mainGroup: PBXGroup,
+                developmentRegion: String? = nil,
+                hasScannedForEncodings: Int = 0,
+                knownRegions: [String] = [],
+                productsGroup: PBXGroup? = nil,
+                projectDirPath: String = "",
+                projects: [[String: PBXFileElement]] = [],
+                projectRoots: [String] = [],
+                targets: [PBXTarget] = []) {
+        self.name = name
+        buildConfigurationListReference = buildConfigurationList.reference
+        self.compatibilityVersion = compatibilityVersion
+        mainGroupReference = mainGroup.reference
+        self.developmentRegion = developmentRegion
+        self.hasScannedForEncodings = hasScannedForEncodings
+        self.knownRegions = knownRegions
+        productsGroupReference = productsGroup?.reference
+        self.projectDirPath = projectDirPath
+        projectReferences = projects.map({ project in project.mapValues({ $0.reference }) })
+        self.projectRoots = projectRoots
+        targetReferences = targets.map({ $0.reference })
+        attributeReferences = [:]
+        super.init()
     }
 
     // MARK: - Decodable

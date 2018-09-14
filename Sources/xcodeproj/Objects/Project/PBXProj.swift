@@ -5,7 +5,7 @@ import Foundation
 public final class PBXProj: Decodable {
     // MARK: - Properties
 
-    public let objects: PBXObjects
+    let objects: PBXObjects
 
     /// Project archive version.
     public var archiveVersion: UInt
@@ -17,8 +17,7 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
-    @available(*, deprecated, message: "Use rootObject instead")
-    public var rootObjectReference: PBXObjectReference?
+    var rootObjectReference: PBXObjectReference?
 
     /// Project root object.
     public var rootObject: PBXProject? {
@@ -34,12 +33,12 @@ public final class PBXProj: Decodable {
     /// Initializes the project with its attributes.
     ///
     /// - Parameters:
-    ///   - rootObjectReference: project root object.
+    ///   - rootObject: project root object.
     ///   - objectVersion: project object version.
     ///   - archiveVersion: project archive version.
     ///   - classes: project classes.
     ///   - objects: project objects
-    public init(rootObjectReference: PBXObjectReference? = nil,
+    public init(rootObject: PBXProject? = nil,
                 objectVersion: UInt = 0,
                 archiveVersion: UInt = 1,
                 classes: [String: Any] = [:],
@@ -47,28 +46,8 @@ public final class PBXProj: Decodable {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
         self.classes = classes
-        self.rootObjectReference = rootObjectReference
+        rootObjectReference = rootObject?.reference
         self.objects = PBXObjects(objects: objects)
-    }
-
-    /// Initializes the project with its attributes.
-    ///
-    /// - Parameters:
-    ///   - rootObject: project root object.
-    ///   - objectVersion: project object version.
-    ///   - archiveVersion: project archive version.
-    ///   - classes: project classes.
-    ///   - objects: project objects
-    public convenience init(rootObject: PBXProject? = nil,
-                            objectVersion: UInt = 0,
-                            archiveVersion: UInt = 1,
-                            classes: [String: Any] = [:],
-                            objects: [PBXObject] = []) {
-        self.init(rootObjectReference: rootObject?.reference,
-                  objectVersion: objectVersion,
-                  archiveVersion: archiveVersion,
-                  classes: classes,
-                  objects: objects)
     }
 
     // MARK: - Decodable
@@ -94,15 +73,49 @@ public final class PBXProj: Decodable {
         let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
         try objectsDictionaries.forEach { reference, dictionary in
             let object = try PBXObject.parse(reference: reference, dictionary: dictionary, userInfo: decoder.userInfo)
-            objects.addObject(object)
+            objects.add(object: object)
         }
         self.objects = objects
     }
 }
 
-// MARK: - Helpers
+// MARK: - Public helpers
 
 public extension PBXProj {
+    // MARK: - Properties
+
+    public var projects: [PBXProject] { return Array(objects.projects.values) }
+    public var referenceProxies: [PBXReferenceProxy] { return Array(objects.referenceProxies.values) }
+
+    // File elements
+    public var fileReferences: [PBXFileReference] { return Array(objects.fileReferences.values) }
+    public var versionGroups: [XCVersionGroup] { return Array(objects.versionGroups.values) }
+    public var variantGroups: [PBXVariantGroup] { return Array(objects.variantGroups.values) }
+    public var groups: [PBXGroup] { return Array(objects.groups.values) }
+
+    // Configuration
+    public var buildConfigurations: [XCBuildConfiguration] { return Array(objects.buildConfigurations.values) }
+    public var configurationLists: [XCConfigurationList] { return Array(objects.configurationLists.values) }
+
+    // Targets
+    public var legacyTargets: [PBXLegacyTarget] { return Array(objects.legacyTargets.values) }
+    public var aggregateTargets: [PBXAggregateTarget] { return Array(objects.aggregateTargets.values) }
+    public var nativeTargets: [PBXNativeTarget] { return Array(objects.nativeTargets.values) }
+    public var targetDependencies: [PBXTargetDependency] { return Array(objects.targetDependencies.values) }
+    public var containerItemProxies: [PBXContainerItemProxy] { return Array(objects.containerItemProxies.values) }
+    public var buildRules: [PBXBuildRule] { return Array(objects.buildRules.values) }
+
+    // Build
+    public var buildFiles: [PBXBuildFile] { return Array(objects.buildFiles.values) }
+    public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] { return Array(objects.copyFilesBuildPhases.values) }
+    public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] { return Array(objects.shellScriptBuildPhases.values) }
+    public var resourcesBuildPhases: [PBXResourcesBuildPhase] { return Array(objects.resourcesBuildPhases.values) }
+    public var frameworksBuildPhases: [PBXFrameworksBuildPhase] { return Array(objects.frameworksBuildPhases.values) }
+    public var headersBuildPhases: [PBXHeadersBuildPhase] { return Array(objects.headersBuildPhases.values) }
+    public var sourcesBuildPhases: [PBXSourcesBuildPhase] { return Array(objects.sourcesBuildPhases.values) }
+    public var carbonResourcesBuildPhases: [PBXRezBuildPhase] { return Array(objects.carbonResourcesBuildPhases.values) }
+    public var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
+
     /// Returns root project.
     public func rootProject() throws -> PBXProject? {
         return try rootObjectReference?.object()
@@ -114,6 +127,46 @@ public extension PBXProj {
         return try project?.mainGroupReference.object()
     }
 
+    /// Adds a new object to the project.
+    ///
+    /// - Parameter object: object to be added.
+    public func add(object: PBXObject) {
+        objects.add(object: object)
+    }
+
+    /// Deletes an object from the project.
+    ///
+    /// - Parameter object: object to be deleted.
+    public func delete(object: PBXObject) {
+        objects.delete(reference: object.reference)
+    }
+
+    /// Returns all the targets with the given name.
+    ///
+    /// - Parameters:
+    ///   - name: target name.
+    /// - Returns: targets with the given name.
+    public func targets(named name: String) -> [PBXTarget] {
+        return objects.targets(named: name)
+    }
+
+    /// Invalidates all the objects UUIDs.
+    /// Those UUIDs will be generated deterministically when the project is saved.
+    public func invalidateUUIDs() {
+        objects.invalidateReferences()
+    }
+
+    /// Runs the given closure passing each of the objects that are part of the project.
+    ///
+    /// - Parameter closure: closure to be run.
+    public func forEach(_ closure: (PBXObject) -> Void) {
+        objects.forEach(closure)
+    }
+}
+
+// MARK: - Internal helpers
+
+extension PBXProj {
     /// Infers project name from Path and sets it as project name
     ///
     /// Project name is needed for certain comments when serialising PBXProj

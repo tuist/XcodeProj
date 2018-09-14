@@ -3,9 +3,15 @@ import Foundation
 
 /// Class that represents a project element.
 public class PBXObject: Decodable, Equatable, AutoEquatable {
+    /// Returns the unique identifier.
+    /// Note: The unique identifier of an object might change when the project gets written.
+    /// If you use this identifier from a scheme, make sure the project is written before the project is.
+    public var uuid: String {
+        return reference.value
+    }
+
     /// The object reference in the project that contains it.
-    @available(*, deprecated, message: "This attribute will be deprecated. Use objects instead.")
-    public let reference: PBXObjectReference
+    let reference: PBXObjectReference
 
     // MARK: - Init
 

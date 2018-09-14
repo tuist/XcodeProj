@@ -9,8 +9,7 @@ public class PBXBuildPhase: PBXContainerItem {
     public var buildActionMask: UInt
 
     /// References to build files.
-    @available(*, deprecated, message: "Use files instead")
-    public var fileReferences: [PBXObjectReference]
+    var fileReferences: [PBXObjectReference]
 
     /// Build files.
     public var files: [PBXBuildFile] {
@@ -39,12 +38,20 @@ public class PBXBuildPhase: PBXContainerItem {
         fatalError("This property must be overriden")
     }
 
-    public init(fileReferences: [PBXObjectReference] = [],
+    /// Initializes the build phase.
+    ///
+    /// - Parameters:
+    ///   - files: Build files.
+    ///   - inputFileListPaths: Input file lists paths.
+    ///   - outputFileListPaths: Input file list paths.
+    ///   - buildActionMask: Build action mask.
+    ///   - runOnlyForDeploymentPostprocessing: When true, it runs the build phase only for deployment post processing.
+    public init(files: [PBXBuildFile] = [],
                 inputFileListPaths: [String]? = nil,
                 outputFileListPaths: [String]? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
-        self.fileReferences = fileReferences
+        fileReferences = files.map({ $0.reference })
         self.inputFileListPaths = inputFileListPaths
         self.outputFileListPaths = outputFileListPaths
         self.buildActionMask = buildActionMask
@@ -102,23 +109,6 @@ public class PBXBuildPhase: PBXContainerItem {
 // MARK: - Helpers
 
 public extension PBXBuildPhase {
-    /// Adds a file to a build phase, creating a proxy build file that points to the given file reference.
-    ///
-    /// - Parameter reference: reference to the file element.
-    /// - Returns: reference to the build file added to the build phase.
-    /// - Throws: an error if the reference cannot be added
-    @available(*, deprecated, renamed: "add(file:)")
-    public func addFile(_ reference: PBXObjectReference) throws -> PBXObjectReference {
-        if let existing = try fileReferences.compactMap({ try $0.object() as PBXBuildFile }).first(where: { $0.fileReference == reference }) {
-            return existing.reference
-        }
-        let projectObjects = try objects()
-        let buildFile = PBXBuildFile(fileReference: reference)
-        let buildFileReference = projectObjects.addObject(buildFile)
-        fileReferences.append(buildFileReference)
-        return buildFileReference
-    }
-
     /// Adds a file to a build phase, creating a proxy build file that points to the given file element.
     ///
     /// - Parameter file: file element to be added to the build phase.

@@ -5,8 +5,7 @@ public final class PBXBuildFile: PBXObject {
     // MARK: - Attributes
 
     /// Element file reference.
-    @available(*, deprecated, message: "Use file instead")
-    public var fileReference: PBXObjectReference?
+    var fileReference: PBXObjectReference?
 
     /// Returns the file the build file refers to.
     public var file: PBXFileElement? {
@@ -24,28 +23,16 @@ public final class PBXBuildFile: PBXObject {
 
     // MARK: - Init
 
-    /// Initiazlies the build file with its attributes.
-    ///
-    /// - Parameters:
-    ///   - fileReference: build file reference.
-    ///   - settings: build file settings.
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(fileReference: PBXObjectReference,
-                settings: [String: Any]? = nil) {
-        self.fileReference = fileReference
-        self.settings = settings
-        super.init()
-    }
-
     /// Initializes the build file with its attributes.
     ///
     /// - Parameters:
     ///   - file: file the build file refers to.
     ///   - settings: build file settings.
-    public convenience init(file: PBXFileElement,
-                            settings: [String: Any]? = nil) {
-        self.init(fileReference: file.reference,
-                  settings: settings)
+    public init(file: PBXFileElement,
+                settings: [String: Any]? = nil) {
+        fileReference = file.reference
+        self.settings = settings
+        super.init()
     }
 
     // MARK: - Decodable

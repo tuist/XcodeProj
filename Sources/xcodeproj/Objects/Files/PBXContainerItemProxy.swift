@@ -9,8 +9,7 @@ public final class PBXContainerItemProxy: PBXObject {
     }
 
     /// The object is a reference to a PBXProject element.
-    @available(*, deprecated, message: "Use containerPortal instead")
-    public var containerPortalReference: PBXObjectReference
+    var containerPortalReference: PBXObjectReference
 
     /// Returns the project that contains the remote object.
     public var containerPortal: PBXProject {
@@ -27,8 +26,7 @@ public final class PBXContainerItemProxy: PBXObject {
     public var proxyType: ProxyType?
 
     /// Element remote global ID reference.
-    @available(*, deprecated, message: "Use remoteGlobalID instead")
-    public var remoteGlobalIDReference: PBXObjectReference?
+    var remoteGlobalIDReference: PBXObjectReference?
 
     /// Remote global object
     public var remoteGlobalID: PBXObject? {
@@ -47,37 +45,19 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Initializes the container item proxy with its attributes.
     ///
     /// - Parameters:
-    ///   - containerPortalReference: reference to the container portal.
-    ///   - remoteGlobalIDReference: reference to the remote global ID.
-    ///   - proxyType: proxy type.
-    ///   - remoteInfo: remote info.
-    @available(*, deprecated, message: "Use constructor that takes objects instead of references")
-    public init(containerPortalReference: PBXObjectReference,
-                remoteGlobalIDReference: PBXObjectReference? = nil,
-                proxyType: ProxyType? = nil,
-                remoteInfo: String? = nil) {
-        self.containerPortalReference = containerPortalReference
-        self.remoteGlobalIDReference = remoteGlobalIDReference
-        self.remoteInfo = remoteInfo
-        self.proxyType = proxyType
-        super.init()
-    }
-
-    /// Initializes the container item proxy with its attributes.
-    ///
-    /// - Parameters:
     ///   - containerPortal: container portal.
     ///   - remogeGlobalID: remote global ID.
     ///   - proxyType: proxy type.
     ///   - remoteInfo: remote info.
-    public convenience init(containerPortal: PBXProject,
-                            remogeGlobalID: PBXObject? = nil,
-                            proxyType: ProxyType? = nil,
-                            remoteInfo: String? = nil) {
-        self.init(containerPortalReference: containerPortal.reference,
-                  remoteGlobalIDReference: remogeGlobalID?.reference,
-                  proxyType: proxyType,
-                  remoteInfo: remoteInfo)
+    public init(containerPortal: PBXProject,
+                remogeGlobalID: PBXObject? = nil,
+                proxyType: ProxyType? = nil,
+                remoteInfo: String? = nil) {
+        containerPortalReference = containerPortal.reference
+        remoteGlobalIDReference = remogeGlobalID?.reference
+        self.remoteInfo = remoteInfo
+        self.proxyType = proxyType
+        super.init()
     }
 
     // MARK: - Decodable

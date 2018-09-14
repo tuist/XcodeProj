@@ -1,7 +1,7 @@
 import Foundation
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-public class PBXObjectReference: Hashable, Comparable, Equatable {
+class PBXObjectReference: Hashable, Comparable, Equatable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
@@ -43,11 +43,11 @@ public class PBXObjectReference: Hashable, Comparable, Equatable {
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
-        let object = objects?.delete(self)
+        let object = objects?.delete(reference: self)
         self.value = value
         temporary = false
         if let object = object {
-            objects?.addObject(object)
+            objects?.add(object: object)
         }
     }
 
@@ -57,7 +57,7 @@ public class PBXObjectReference: Hashable, Comparable, Equatable {
     }
 
     /// Hash value.
-    public var hashValue: Int {
+    var hashValue: Int {
         return value.hashValue
     }
 
@@ -67,7 +67,7 @@ public class PBXObjectReference: Hashable, Comparable, Equatable {
     ///   - lhs: first instance to be compared.
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are equal.
-    public static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
+    static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
         return lhs.value == rhs.value
     }
 
@@ -77,7 +77,7 @@ public class PBXObjectReference: Hashable, Comparable, Equatable {
     ///   - lhs: first instance to be compared.
     ///   - rhs: second instance to be compared.
     /// - Returns: comparison result.
-    public static func < (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
+    static func < (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
         return lhs.value < rhs.value
     }
 
@@ -89,7 +89,7 @@ public class PBXObjectReference: Hashable, Comparable, Equatable {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
-        guard let object = objects.get(self) as? T else {
+        guard let object = objects.get(reference: self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
         return object

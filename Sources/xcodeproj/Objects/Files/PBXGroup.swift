@@ -5,8 +5,7 @@ public class PBXGroup: PBXFileElement {
     // MARK: - Attributes
 
     /// Grou children references.
-    @available(*, deprecated, message: "Use children instead")
-    public var childrenReferences: [PBXObjectReference]
+    var childrenReferences: [PBXObjectReference]
 
     /// Group children.
     public var children: [PBXFileElement] {
@@ -15,44 +14,11 @@ public class PBXGroup: PBXFileElement {
         }
         get {
             // swiftlint:disable:next force_try
-            return childrenReferences.flatMap({ try! $0.object() })
+            return childrenReferences.map({ try! $0.object() })
         }
     }
 
     // MARK: - Init
-
-    /// Initializes the group with its attributes.
-    ///
-    /// - Parameters:
-    ///   - childrenReferences: group children.
-    ///   - sourceTree: group source tree.
-    ///   - name: group name.
-    ///   - path: group relative path from `sourceTree`, if different than `name`.
-    ///   - includeInIndex: should the IDE index the files in the group?
-    ///   - wrapsLines: should the IDE wrap lines for files in the group?
-    ///   - usesTabs: group uses tabs.
-    ///   - indentWidth: the number of positions to indent blocks of code
-    ///   - tabWidth: the visual width of tab characters
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(childrenReferences: [PBXObjectReference] = [],
-                sourceTree: PBXSourceTree? = nil,
-                name: String? = nil,
-                path: String? = nil,
-                includeInIndex: Bool? = nil,
-                wrapsLines: Bool? = nil,
-                usesTabs: Bool? = nil,
-                indentWidth: UInt? = nil,
-                tabWidth: UInt? = nil) {
-        self.childrenReferences = childrenReferences
-        super.init(sourceTree: sourceTree,
-                   path: path,
-                   name: name,
-                   includeInIndex: includeInIndex,
-                   usesTabs: usesTabs,
-                   indentWidth: indentWidth,
-                   tabWidth: tabWidth,
-                   wrapsLines: wrapsLines)
-    }
 
     /// Initializes the group with its attributes.
     ///
@@ -66,24 +32,24 @@ public class PBXGroup: PBXFileElement {
     ///   - usesTabs: group uses tabs.
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
-    public convenience init(children: [PBXFileElement] = [],
-                            sourceTree: PBXSourceTree? = nil,
-                            name: String? = nil,
-                            path: String? = nil,
-                            includeInIndex: Bool? = nil,
-                            wrapsLines: Bool? = nil,
-                            usesTabs: Bool? = nil,
-                            indentWidth: UInt? = nil,
-                            tabWidth: UInt? = nil) {
-        self.init(childrenReferences: children.map({ $0.reference }),
-                  sourceTree: sourceTree,
-                  name: name,
-                  path: path,
-                  includeInIndex: includeInIndex,
-                  wrapsLines: wrapsLines,
-                  usesTabs: usesTabs,
-                  indentWidth: indentWidth,
-                  tabWidth: tabWidth)
+    public init(children: [PBXFileElement] = [],
+                sourceTree: PBXSourceTree? = nil,
+                name: String? = nil,
+                path: String? = nil,
+                includeInIndex: Bool? = nil,
+                wrapsLines: Bool? = nil,
+                usesTabs: Bool? = nil,
+                indentWidth: UInt? = nil,
+                tabWidth: UInt? = nil) {
+        childrenReferences = children.map({ $0.reference })
+        super.init(sourceTree: sourceTree,
+                   path: path,
+                   name: name,
+                   includeInIndex: includeInIndex,
+                   usesTabs: usesTabs,
+                   indentWidth: indentWidth,
+                   tabWidth: tabWidth,
+                   wrapsLines: wrapsLines)
     }
 
     // MARK: - Decodable
@@ -167,9 +133,9 @@ public extension PBXGroup {
         let objects = try self.objects()
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
             let group = groups.last ?? self
-            let newGroup = PBXGroup(childrenReferences: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
+            let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
             group.childrenReferences.append(newGroup.reference)
-            objects.addObject(newGroup)
+            objects.add(object: newGroup)
             groups.append(newGroup)
         })
     }
@@ -220,9 +186,9 @@ public extension PBXGroup {
             lastKnownFileType: filePath.extension.flatMap(Xcode.filetype),
             path: path
         )
-        let reference = projectObjects.addObject(fileReference)
-        if !childrenReferences.contains(reference) {
-            childrenReferences.append(reference)
+        projectObjects.add(object: fileReference)
+        if !childrenReferences.contains(fileReference.reference) {
+            childrenReferences.append(fileReference.reference)
         }
         return fileReference
     }

@@ -8,8 +8,7 @@ public final class PBXTargetDependency: PBXObject {
     public var name: String?
 
     /// Target reference.
-    @available(*, deprecated, message: "Use target instead")
-    public var targetReference: PBXObjectReference?
+    var targetReference: PBXObjectReference?
 
     /// Target.
     public var target: PBXTarget? {
@@ -23,8 +22,7 @@ public final class PBXTargetDependency: PBXObject {
     }
 
     /// Target proxy reference.
-    @available(*, deprecated, message: "Use targetProxy instead")
-    public var targetProxyReference: PBXObjectReference?
+    var targetProxyReference: PBXObjectReference?
 
     /// Target proxy.
     public var targetProxy: PBXContainerItemProxy? {
@@ -39,34 +37,19 @@ public final class PBXTargetDependency: PBXObject {
 
     // MARK: - Init
 
-    /// Initializes the target dependency.
-    ///
-    /// - Parameters:
-    ///   - name: element name.
-    ///   - target: element target.
-    ///   - targetProxy: element target proxy.
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(name: String? = nil,
-                targetReference: PBXObjectReference? = nil,
-                targetProxyReference: PBXObjectReference? = nil) {
-        self.name = name
-        self.targetReference = targetReference
-        self.targetProxyReference = targetProxyReference
-        super.init()
-    }
-
     /// Initializes the target dependency with dependencies as objects.
     ///
     /// - Parameters:
     ///   - name: Dependency name.
     ///   - target: Target.
     ///   - targetProxy: Target proxy.
-    public convenience init(name: String? = nil,
-                            target: PBXTarget? = nil,
-                            targetProxy: PBXContainerItemProxy? = nil) {
-        self.init(name: name,
-                  targetReference: target?.reference,
-                  targetProxyReference: targetProxy?.reference)
+    public init(name: String? = nil,
+                target: PBXTarget? = nil,
+                targetProxy: PBXContainerItemProxy? = nil) {
+        self.name = name
+        targetReference = target?.reference
+        targetProxyReference = targetProxy?.reference
+        super.init()
     }
 
     // MARK: - Decodable
