@@ -2,6 +2,8 @@
 
 ## next version
 
+## 5.2.0
+
 ### Changed
 - Some tweaks to support Xcode 10 https://github.com/tuist/xcodeproj/pull/298 by @pepibumur.
 

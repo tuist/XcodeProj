@@ -3,56 +3,56 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 12,
-      "symbol": "XCodeProjError.notFound",
+      "symbol": "XCodeProjError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 13,
-      "symbol": "XCodeProjError.pbxprojNotFound",
+      "symbol": "XCodeProjError.pbxprojNotFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 14,
-      "symbol": "XCodeProjError.xcworkspaceNotFound",
+      "symbol": "XCodeProjError.xcworkspaceNotFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 34,
-      "symbol": "XCSharedDataError.notFound",
+      "symbol": "XCSharedDataError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 50,
-      "symbol": "XCWorkspaceError.notFound",
+      "symbol": "XCWorkspaceError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 66,
-      "symbol": "XCWorkspaceDataError.notFound",
+      "symbol": "XCWorkspaceDataError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 82,
-      "symbol": "XcodeprojEditingError.unexistingFile",
+      "symbol": "XcodeprojEditingError.unexistingFile(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 98,
-      "symbol": "XcodeprojWritingError.invalidType",
+      "symbol": "XcodeprojWritingError.invalidType(class:expected:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -66,7 +66,7 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 119,
-      "symbol": "PBXObjectError.unknownElement",
+      "symbol": "PBXObjectError.unknownElement(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -80,35 +80,35 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 121,
-      "symbol": "PBXObjectError.objectNotFound",
+      "symbol": "PBXObjectError.objectNotFound(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 122,
-      "symbol": "PBXObjectError.orphaned",
+      "symbol": "PBXObjectError.orphaned(type:reference:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 178,
-      "symbol": "XCBreakpointListError.notFound",
+      "symbol": "XCBreakpointListError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 179,
-      "symbol": "XCBreakpointListError.missing",
+      "symbol": "XCBreakpointListError.missing(property:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Errors/Errors.swift",
       "line": 197,
-      "symbol": "XCConfigError.notFound",
+      "symbol": "XCConfigError.notFound(path:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
@@ -276,7 +276,7 @@
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Files/PBXSourceTree.swift",
       "line": 13,
-      "symbol": "PBXSourceTree.custom",
+      "symbol": "PBXSourceTree.custom(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
