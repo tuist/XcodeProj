@@ -3,15 +3,6 @@ import Foundation
 import XCTest
 
 final class PBXContainerItemProxyTests: XCTestCase {
-    var subject: PBXContainerItemProxy!
-
-    override func setUp() {
-        super.setUp()
-        subject = PBXContainerItemProxy(containerPortalReference: PBXObjectReference("container"),
-                                        remoteGlobalIDReference: PBXObjectReference("remote"),
-                                        remoteInfo: "remote_info")
-    }
-
     func test_itHasTheCorrectIsa() {
         XCTAssertEqual(PBXContainerItemProxy.isa, "PBXContainerItemProxy")
     }

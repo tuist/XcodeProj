@@ -10,7 +10,7 @@ public class PBXGroup: PBXFileElement {
     /// Group children.
     public var children: [PBXFileElement] {
         set {
-            childrenReferences = children.map({ $0.reference })
+            childrenReferences = newValue.map({ $0.reference })
         }
         get {
             // swiftlint:disable:next force_try

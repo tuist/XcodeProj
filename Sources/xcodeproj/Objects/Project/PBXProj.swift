@@ -22,7 +22,7 @@ public final class PBXProj: Decodable {
     /// Project root object.
     public var rootObject: PBXProject? {
         set {
-            rootObjectReference = rootObject?.reference
+            rootObjectReference = newValue?.reference
         }
         get {
             // swiftlint:disable:next force_try
@@ -39,8 +39,8 @@ public final class PBXProj: Decodable {
     ///   - classes: project classes.
     ///   - objects: project objects
     public init(rootObject: PBXProject? = nil,
-                objectVersion: UInt = 0,
-                archiveVersion: UInt = 1,
+                objectVersion: UInt = Xcode.LastKnown.objectVersion,
+                archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
                 classes: [String: Any] = [:],
                 objects: [PBXObject] = []) {
         self.archiveVersion = archiveVersion

@@ -22,7 +22,7 @@ public final class PBXReferenceProxy: PBXObject {
             return try! remoteReference?.object()
         }
         set {
-            remoteReference = remote?.reference
+            remoteReference = newValue?.reference
         }
     }
 

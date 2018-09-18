@@ -17,7 +17,7 @@ public final class PBXTargetDependency: PBXObject {
             return try! targetReference?.object()
         }
         set {
-            targetReference = target?.reference
+            targetReference = newValue?.reference
         }
     }
 
@@ -31,7 +31,7 @@ public final class PBXTargetDependency: PBXObject {
             return try! targetProxyReference?.object()
         }
         set {
-            targetProxyReference = targetProxy?.reference
+            targetProxyReference = newValue?.reference
         }
     }
 

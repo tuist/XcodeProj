@@ -10,7 +10,7 @@ public final class XCConfigurationList: PBXObject {
     /// Build configurations
     public var buildConfigurations: [XCBuildConfiguration] {
         set {
-            buildConfigurationReferences = buildConfigurations.map({ $0.reference })
+            buildConfigurationReferences = newValue.map({ $0.reference })
         }
         get {
             // swiftlint:disable:next force_try
@@ -87,7 +87,8 @@ extension XCConfigurationList {
         reference.objects?.add(object: release)
         configurations.append(release)
 
-        return [debug, release]
+        buildConfigurations.append(contentsOf: configurations)
+        return configurations
     }
 
     /// Returns the object with the given configuration list (project or target)

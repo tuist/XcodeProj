@@ -40,7 +40,7 @@ public class PBXTarget: PBXContainerItem {
             return buildRuleReferences.map({ try! $0.object() })
         }
         set {
-            buildRuleReferences = buildRules.map({ $0.reference })
+            buildRuleReferences = newValue.map({ $0.reference })
         }
     }
 
@@ -74,7 +74,7 @@ public class PBXTarget: PBXContainerItem {
             return try! productReference?.object()
         }
         set {
-            productReference = product?.reference
+            productReference = newValue?.reference
         }
     }
 

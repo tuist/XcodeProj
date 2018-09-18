@@ -3,47 +3,6 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-extension PBXProj {
-    static func testData(archiveVersion: UInt = 0,
-                         objectVersion: UInt = 1,
-                         rootObject: PBXObjectReference = PBXObjectReference("rootObject"),
-                         classes: [String: Any] = [:],
-                         objects: [PBXObject] = []) -> PBXProj {
-        return PBXProj(rootObjectReference: rootObject,
-                       objectVersion: objectVersion,
-                       archiveVersion: archiveVersion,
-                       classes: classes,
-                       objects: objects)
-    }
-}
-
-final class PBXProjTests: XCTestCase {
-    var subject: PBXProj!
-    var object: PBXObject!
-
-    override func setUp() {
-        super.setUp()
-        object = PBXBuildFile(fileReference: PBXObjectReference("333"))
-        subject = PBXProj(rootObjectReference: PBXObjectReference("root"),
-                          objectVersion: 46,
-                          archiveVersion: 1,
-                          classes: [:],
-                          objects: [object])
-    }
-
-    func test_initWithDictionary_hasTheCorrectArchiveVersion() {
-        XCTAssertEqual(subject.archiveVersion, 1)
-    }
-
-    func test_initWithDictionary_hasTheCorrectObjectVersion() {
-        XCTAssertEqual(subject.objectVersion, 46)
-    }
-
-    func test_initWithDictionary_hasTheCorrectClasses() throws {
-        XCTAssertTrue(subject.classes.isEmpty)
-    }
-}
-
 final class PBXProjIntegrationTests: XCTestCase {
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)

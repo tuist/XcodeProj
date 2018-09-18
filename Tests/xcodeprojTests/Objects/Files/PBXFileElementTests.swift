@@ -43,7 +43,7 @@ final class PBXFileElementTests: XCTestCase {
                                        explicitFileType: "sourcecode.swift",
                                        lastKnownFileType: nil,
                                        path: "/a/path")
-        let group = PBXGroup(childrenReferences: [fileref.reference],
+        let group = PBXGroup(children: [fileref],
                              sourceTree: .group,
                              name: "/to/be/ignored")
 

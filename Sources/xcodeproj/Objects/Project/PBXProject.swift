@@ -38,7 +38,7 @@ public final class PBXProject: PBXObject {
     /// Project main group.
     public var mainGroup: PBXGroup {
         set {
-            mainGroupReference = mainGroup.reference
+            mainGroupReference = newValue.reference
         }
         get {
             // swiftlint:disable:next force_try
@@ -52,7 +52,7 @@ public final class PBXProject: PBXObject {
     /// Products group.
     public var productsGroup: PBXGroup? {
         set {
-            productsGroupReference = productsGroup?.reference
+            productsGroupReference = newValue?.reference
         }
         get {
             // swiftlint:disable:next force_try
