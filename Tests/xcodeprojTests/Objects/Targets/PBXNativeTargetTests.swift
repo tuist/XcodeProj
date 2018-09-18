@@ -3,21 +3,6 @@ import Foundation
 import XCTest
 
 final class PBXNativeTargetTests: XCTestCase {
-    var subject: PBXNativeTarget!
-
-    override func setUp() {
-        super.setUp()
-        subject = PBXNativeTarget(name: "name",
-                                  buildConfigurationListReference: PBXObjectReference("list"),
-                                  buildPhaseReferences: [PBXObjectReference("phase")],
-                                  buildRuleReferences: [PBXObjectReference("rule")],
-                                  dependencyReferences: [PBXObjectReference("dependency")],
-                                  productInstallPath: "/usr/local/bin",
-                                  productName: "productname",
-                                  productReference: PBXObjectReference("productreference"),
-                                  productType: .application)
-    }
-
     func test_isa_returnsTheCorrectValue() {
         XCTAssertEqual(PBXNativeTarget.isa, "PBXNativeTarget")
     }
@@ -46,20 +31,25 @@ final class PBXNativeTargetTests: XCTestCase {
 
     func test_addDependency() throws {
         let objects = PBXObjects(objects: [])
-        let configurationList = objects.addObject(XCConfigurationList(buildConfigurationReferences: []))
-        let mainGroup = objects.addObject(PBXGroup(children: []))
+
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
 
         let project = PBXProject(name: "Project",
-                                 buildConfigurationListReference: configurationList,
+                                 buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
-                                 mainGroupReference: mainGroup)
-        objects.addObject(project)
+                                 mainGroup: mainGroup)
+
+        objects.add(object: project)
         let target = PBXNativeTarget(name: "Target", buildConfigurationList: nil)
         let dependency = PBXNativeTarget(name: "Dependency", buildConfigurationList: nil)
-        objects.addObject(target)
-        objects.addObject(dependency)
+        objects.add(object: target)
+        objects.add(object: dependency)
         _ = try target.addDependency(target: dependency)
         let targetDependency: PBXTargetDependency? = try target.dependencyReferences.first?.object()
+
         XCTAssertEqual(targetDependency?.name, "Dependency")
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
         let containerItemProxy: PBXContainerItemProxy? = try targetDependency?.targetProxyReference?.object()

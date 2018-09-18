@@ -5,14 +5,14 @@ public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
     /// Base xcconfig file reference.
-    @available(*, deprecated, message: "Use baseConfiguration instead")
-    public var baseConfigurationReference: PBXObjectReference?
+    var baseConfigurationReference: PBXObjectReference!
 
     /// Base xcconfig file reference.
-    public var baseConfiguration: PBXFileReference? {
+    public var baseConfiguration: PBXFileReference! {
         get {
-            // swiftlint:disable:next force_try
-            return baseConfigurationReference.flatMap({ try! $0.object() })
+            return baseConfigurationReference.flatMap { (reference) -> PBXFileReference? in
+                try? reference.object()
+            }
         }
         set {
             if let newValue = newValue {
@@ -33,30 +33,15 @@ public final class XCBuildConfiguration: PBXObject {
     ///
     /// - Parameters:
     ///   - name: build configuration name.
-    ///   - baseConfigurationReference: reference to the base configuration.
+    ///   - baseConfiguration: base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    @available(*, deprecated, message: "Use the the other available constructor")
     public init(name: String,
-                baseConfigurationReference: PBXObjectReference? = nil,
+                baseConfiguration: XCBuildConfiguration? = nil,
                 buildSettings: BuildSettings = [:]) {
-        self.baseConfigurationReference = baseConfigurationReference
+        baseConfigurationReference = baseConfiguration?.reference
         self.buildSettings = buildSettings
         self.name = name
         super.init()
-    }
-
-    /// Initializes a build configuration.
-    ///
-    /// - Parameters:
-    ///   - name: build configuration name.
-    ///   - baseConfiguration: base configuration.
-    ///   - buildSettings: dictionary that contains the build settings for this configuration.
-    public convenience init(name: String,
-                            baseConfiguration: XCBuildConfiguration? = nil,
-                            buildSettings: BuildSettings = [:]) {
-        self.init(name: name,
-                  baseConfigurationReference: baseConfiguration?.reference,
-                  buildSettings: buildSettings)
     }
 
     // MARK: - Decodable

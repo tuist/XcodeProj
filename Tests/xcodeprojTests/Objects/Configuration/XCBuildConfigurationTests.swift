@@ -3,15 +3,6 @@ import Foundation
 import XCTest
 
 final class XCBuildConfigurationTests: XCTestCase {
-    var subject: XCBuildConfiguration!
-
-    override func setUp() {
-        super.setUp()
-        subject = XCBuildConfiguration(name: "Debug",
-                                       baseConfigurationReference: PBXObjectReference("base"),
-                                       buildSettings: ["name": "value"])
-    }
-
     func test_initFails_ifNameIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "name")

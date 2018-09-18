@@ -3,14 +3,14 @@ import Foundation
 /// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXContainerItem {
     /// Target build configuration list.
-    @available(*, deprecated, message: "Use buildConfigurationList instead")
-    public var buildConfigurationListReference: PBXObjectReference?
+    var buildConfigurationListReference: PBXObjectReference!
 
     /// Build configuration list.
-    public var buildConfigurationList: XCConfigurationList? {
+    public var buildConfigurationList: XCConfigurationList! {
         get {
-            // swiftlint:disable:next force_try
-            return try! buildConfigurationListReference?.object()
+            return buildConfigurationListReference.flatMap { (reference) -> XCConfigurationList? in
+                try? reference.object()
+            }
         }
         set {
             buildConfigurationListReference = newValue?.reference
@@ -18,14 +18,12 @@ public class PBXTarget: PBXContainerItem {
     }
 
     /// Target build phase references.
-    @available(*, deprecated, message: "Use buildPhases instead")
-    public var buildPhaseReferences: [PBXObjectReference]
+    var buildPhaseReferences: [PBXObjectReference]
 
     /// Target build phases.
     public var buildPhases: [PBXBuildPhase] {
         get {
-            // swiftlint:disable:next force_try
-            return buildPhaseReferences.map({ try! $0.object() })
+            return buildPhaseReferences.compactMap({ try? $0.object() })
         }
         set {
             buildPhaseReferences = newValue.map({ $0.reference })
@@ -33,29 +31,25 @@ public class PBXTarget: PBXContainerItem {
     }
 
     /// Target build rule references.
-    @available(*, deprecated, message: "Use buildRules instead")
-    public var buildRuleReferences: [PBXObjectReference]
+    var buildRuleReferences: [PBXObjectReference]
 
     /// Target build rules.
     public var buildRules: [PBXBuildRule] {
         get {
-            // swiftlint:disable:next force_try
-            return buildRuleReferences.map({ try! $0.object() })
+            return buildRuleReferences.compactMap({ try? $0.object() })
         }
         set {
-            buildRuleReferences = buildRules.map({ $0.reference })
+            buildRuleReferences = newValue.map({ $0.reference })
         }
     }
 
     /// Target dependency references.
-    @available(*, deprecated, message: "Use dependencies instead")
-    public var dependencyReferences: [PBXObjectReference]
+    var dependencyReferences: [PBXObjectReference]
 
     /// Target dependencies.
     public var dependencies: [PBXTargetDependency] {
         get {
-            // swiftlint:disable:next force_try
-            return dependencyReferences.map({ try! $0.object() })
+            return dependencyReferences.compactMap({ try? $0.object() })
         }
         set {
             dependencyReferences = newValue.map({ $0.reference })
@@ -69,53 +63,22 @@ public class PBXTarget: PBXContainerItem {
     public var productName: String?
 
     /// Target product reference.
-    @available(*, deprecated, message: "Use product instead")
-    public var productReference: PBXObjectReference?
+    var productReference: PBXObjectReference!
 
     /// Target product.
-    public var product: PBXFileReference? {
+    public var product: PBXFileReference! {
         get {
-            // swiftlint:disable:next force_try
-            return try! productReference?.object()
+            return productReference.flatMap { (reference) -> PBXFileReference? in
+                try? reference.object()
+            }
         }
         set {
-            productReference = product?.reference
+            productReference = newValue?.reference
         }
     }
 
     /// Target product type.
     public var productType: PBXProductType?
-
-    /// Initializes the target with dependencies as references.
-    ///
-    /// - Parameters:
-    ///   - name: Target name.
-    ///   - buildConfigurationListReference: Target configuration list reference.
-    ///   - buildPhaseReferences: Target build phase references.
-    ///   - buildRuleReferences: Target build rule references.
-    ///   - dependencyReferences: Target dependency references.
-    ///   - productName: Target product name.
-    ///   - productReference: Target product file reference.
-    ///   - productType: Target product type.
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(name: String,
-                buildConfigurationListReference: PBXObjectReference? = nil,
-                buildPhaseReferences: [PBXObjectReference] = [],
-                buildRuleReferences: [PBXObjectReference] = [],
-                dependencyReferences: [PBXObjectReference] = [],
-                productName: String? = nil,
-                productReference: PBXObjectReference? = nil,
-                productType: PBXProductType? = nil) {
-        self.buildConfigurationListReference = buildConfigurationListReference
-        self.buildPhaseReferences = buildPhaseReferences
-        self.buildRuleReferences = buildRuleReferences
-        self.dependencyReferences = dependencyReferences
-        self.name = name
-        self.productName = productName
-        self.productReference = productReference
-        self.productType = productType
-        super.init()
-    }
 
     /// Initializes the target with dependencies as objects.
     ///
@@ -128,22 +91,23 @@ public class PBXTarget: PBXContainerItem {
     ///   - productName: Target product name.
     ///   - product: Target product.
     ///   - productType: Target product type.
-    public convenience init(name: String,
-                            buildConfigurationList: XCConfigurationList? = nil,
-                            buildPhases: [PBXBuildPhase] = [],
-                            buildRules: [PBXBuildRule] = [],
-                            dependencies: [PBXTargetDependency] = [],
-                            productName: String? = nil,
-                            product: PBXFileReference? = nil,
-                            productType: PBXProductType? = nil) {
-        self.init(name: name,
-                  buildConfigurationListReference: buildConfigurationList?.reference,
-                  buildPhaseReferences: buildPhases.map({ $0.reference }),
-                  buildRuleReferences: buildRules.map({ $0.reference }),
-                  dependencyReferences: dependencies.map({ $0.reference }),
-                  productName: productName,
-                  productReference: product?.reference,
-                  productType: productType)
+    public init(name: String,
+                buildConfigurationList: XCConfigurationList? = nil,
+                buildPhases: [PBXBuildPhase] = [],
+                buildRules: [PBXBuildRule] = [],
+                dependencies: [PBXTargetDependency] = [],
+                productName: String? = nil,
+                product: PBXFileReference? = nil,
+                productType: PBXProductType? = nil) {
+        buildConfigurationListReference = buildConfigurationList?.reference
+        buildPhaseReferences = buildPhases.map({ $0.reference })
+        buildRuleReferences = buildRules.map({ $0.reference })
+        dependencyReferences = dependencies.map({ $0.reference })
+        self.name = name
+        self.productName = productName
+        productReference = product?.reference
+        self.productType = productType
+        super.init()
     }
 
     // MARK: - Decodable

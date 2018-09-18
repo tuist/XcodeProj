@@ -1,48 +1,46 @@
 import Foundation
 
 // swiftlint:disable type_body_length
-public class PBXObjects: Equatable {
-    // TODO: Change the objects to not expose object references.
-
+class PBXObjects: Equatable {
     // MARK: - Properties
 
-    public var projects: [PBXObjectReference: PBXProject] = [:]
-    public var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+    var projects: [PBXObjectReference: PBXProject] = [:]
+    var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
 
     // File elements
-    public var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
-    public var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
-    public var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
-    public var groups: [PBXObjectReference: PBXGroup] = [:]
+    var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
+    var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
+    var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
+    var groups: [PBXObjectReference: PBXGroup] = [:]
 
     // Configuration
-    public var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
-    public var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+    var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
+    var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
 
     // Targets
-    public var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
-    public var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
-    public var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
-    public var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
-    public var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
-    public var buildRules: [PBXObjectReference: PBXBuildRule] = [:]
+    var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
+    var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
+    var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
+    var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
+    var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
+    var buildRules: [PBXObjectReference: PBXBuildRule] = [:]
 
     // Build Phases
-    public var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
-    public var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
-    public var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
-    public var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
-    public var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
-    public var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
-    public var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
-    public var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
+    var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
+    var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
+    var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
+    var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
+    var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
+    var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
+    var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
+    var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
 
     /// Initializes the project objects container
     ///
     /// - Parameters:
     ///   - objects: project objects
-    public init(objects: [PBXObject] = []) {
-        objects.forEach { _ = self.addObject($0) }
+    init(objects: [PBXObject] = []) {
+        objects.forEach { _ = self.add(object: $0) }
     }
 
     // MARK: - Equatable
@@ -78,10 +76,7 @@ public class PBXObjects: Equatable {
     ///
     /// - Parameters:
     ///   - object: object.
-    ///   - reference: object reference.
-    @discardableResult
-    @available(*, deprecated, renamed: "add(object:)")
-    public func addObject(_ object: PBXObject) -> PBXObjectReference {
+    func add(object: PBXObject) {
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
 
@@ -113,14 +108,6 @@ public class PBXObjects: Equatable {
         case let object as PBXBuildRule: buildRules[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
-        return objectReference
-    }
-
-    /// Adds a new object to the project.
-    ///
-    /// - Parameter object: object to be added.
-    public func add(object: PBXObject) {
-        addObject(object)
     }
 
     /// Deletes the object with the given reference.
@@ -128,8 +115,8 @@ public class PBXObjects: Equatable {
     /// - Parameter reference: referenc of the object to be deleted.
     /// - Returns: the deleted object.
     // swiftlint:disable:next function_body_length
-    @available(*, deprecated, renamed: "delete(object:)")
-    public func delete(_ reference: PBXObjectReference) -> PBXObject? {
+    @discardableResult
+    func delete(reference: PBXObjectReference) -> PBXObject? {
         if let index = buildFiles.index(forKey: reference) {
             return buildFiles.remove(at: index).value
         } else if let index = aggregateTargets.index(forKey: reference) {
@@ -178,20 +165,12 @@ public class PBXObjects: Equatable {
         return nil
     }
 
-    /// Deletes an object from the project.
-    ///
-    /// - Parameter object: object to be deleted.
-    public func delete(object: PBXObject) {
-        delete(object.reference)
-    }
-
     /// It returns the object with the given reference.
     ///
     /// - Parameter reference: Xcode reference.
     /// - Returns: object.
     // swiftlint:disable function_body_length
-    @available(*, deprecated, message: "Looking up objects by reference will be deprecated")
-    public func get(_ reference: PBXObjectReference) -> PBXObject? {
+    func get(reference: PBXObjectReference) -> PBXObject? {
         // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
         // with Swift 4, this compiler error:
         //     Expression was too complex to be solved in reasonable time;
@@ -246,15 +225,15 @@ public class PBXObjects: Equatable {
     }
 }
 
-// MARK: - Helpers
+// MARK: - Public
 
-public extension PBXObjects {
+extension PBXObjects {
     /// Returns all the targets with the given name.
     ///
     /// - Parameters:
     ///   - name: target name.
     /// - Returns: targets with the given name.
-    public func targets(named name: String) -> [PBXTarget] {
+    func targets(named name: String) -> [PBXTarget] {
         var targets: [PBXTarget] = []
         targets.append(contentsOf: nativeTargets.values.map({ $0 as PBXTarget }))
         targets.append(contentsOf: legacyTargets.values.map({ $0 as PBXTarget }))
@@ -263,7 +242,7 @@ public extension PBXObjects {
     }
 
     /// Invalidates all the objects references.
-    public func invalidateReferences() {
+    func invalidateReferences() {
         forEach {
             $0.reference.invalidate()
         }
@@ -271,7 +250,7 @@ public extension PBXObjects {
 
     // MARK: - Computed Properties
 
-    public var buildPhases: [PBXObjectReference: PBXBuildPhase] {
+    var buildPhases: [PBXObjectReference: PBXBuildPhase] {
         var phases: [PBXObjectReference: PBXBuildPhase] = [:]
         phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
         phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
@@ -286,7 +265,7 @@ public extension PBXObjects {
     /// Runs the given closure for each of the objects that are part of the project.
     ///
     /// - Parameter closure: closure to be run.
-    public func forEach(_ closure: (PBXObject) -> Void) {
+    func forEach(_ closure: (PBXObject) -> Void) {
         buildFiles.values.forEach(closure)
         legacyTargets.values.forEach(closure)
         aggregateTargets.values.forEach(closure)

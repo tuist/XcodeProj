@@ -36,21 +36,21 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     /// Initializes the copy files build phase with its attributes.
     ///
     /// - Parameters:
-    ///   - dstPath: destination path.
-    ///   - dstSubfolderSpec: destination subfolder spec.
-    ///   - buildActionMask: build action mask.
-    ///   - fileReferences: files to copy.
-    ///   - runOnlyForDeploymentPostprocessing: run only for deployment post processing.
+    ///   - dstPath: Destination path.
+    ///   - dstSubfolderSpec: Destination subfolder spec.
+    ///   - buildActionMask: Build action mask.
+    ///   - files: Build files to copy.
+    ///   - runOnlyForDeploymentPostprocessing: Run only for deployment post processing.
     public init(dstPath: String? = nil,
                 dstSubfolderSpec: SubFolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
-                fileReferences: [PBXObjectReference] = [],
+                files: [PBXBuildFile] = [],
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
         self.name = name
-        super.init(fileReferences: fileReferences,
+        super.init(files: files,
                    buildActionMask: buildActionMask,
                    runOnlyForDeploymentPostprocessing:
                    runOnlyForDeploymentPostprocessing)

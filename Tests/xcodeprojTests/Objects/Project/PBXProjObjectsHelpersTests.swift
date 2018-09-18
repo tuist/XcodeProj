@@ -14,9 +14,9 @@ final class PBXProjObjectsHelpersTests: XCTestCase {
         let nativeTarget = PBXNativeTarget(name: "test", buildConfigurationList: nil)
         let legacyTarget = PBXLegacyTarget(name: "test", buildConfigurationList: nil)
         let aggregateTarget = PBXAggregateTarget(name: "test", buildConfigurationList: nil)
-        subject.addObject(nativeTarget)
-        subject.addObject(legacyTarget)
-        subject.addObject(aggregateTarget)
+        subject.add(object: nativeTarget)
+        subject.add(object: legacyTarget)
+        subject.add(object: aggregateTarget)
         let got = subject.targets(named: "test").map { $0 }
         XCTAssertTrue(got.contains(nativeTarget))
         XCTAssertTrue(got.contains(legacyTarget))

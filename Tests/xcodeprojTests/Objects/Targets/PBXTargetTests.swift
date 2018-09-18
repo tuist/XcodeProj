@@ -8,14 +8,7 @@ final class PBXTargetTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        subject = PBXTarget(name: "Test",
-                            buildConfigurationListReference: nil,
-                            buildPhaseReferences: [],
-                            buildRuleReferences: [],
-                            dependencyReferences: [],
-                            productName: "Test",
-                            productReference: nil,
-                            productType: .application)
+        subject = PBXTarget.fixture()
     }
 
     func test_productNameWithExtension() {

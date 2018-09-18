@@ -14,33 +14,6 @@ public final class PBXLegacyTarget: PBXTarget {
     /// The directory where the build tool will be invoked during a build
     public var buildWorkingDirectory: String?
 
-    @available(*, deprecated, message: "Use the constructor that takes objects instead of references")
-    public init(name: String,
-                buildToolPath: String? = nil,
-                buildArgumentsString: String? = nil,
-                passBuildSettingsInEnvironment: Bool = false,
-                buildWorkingDirectory: String? = nil,
-                buildConfigurationListReference: PBXObjectReference? = nil,
-                buildPhaseReferences: [PBXObjectReference] = [],
-                buildRuleReferences: [PBXObjectReference] = [],
-                dependencyReferences: [PBXObjectReference] = [],
-                productName: String? = nil,
-                productReference: PBXObjectReference? = nil,
-                productType: PBXProductType? = nil) {
-        self.buildToolPath = buildToolPath
-        self.buildArgumentsString = buildArgumentsString
-        self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironment
-        self.buildWorkingDirectory = buildWorkingDirectory
-        super.init(name: name,
-                   buildConfigurationListReference: buildConfigurationListReference,
-                   buildPhaseReferences: buildPhaseReferences,
-                   buildRuleReferences: buildRuleReferences,
-                   dependencyReferences: dependencyReferences,
-                   productName: productName,
-                   productReference: productReference,
-                   productType: productType)
-    }
-
     /// Initializes the legacy target with its attributes.
     ///
     /// - Parameters:
@@ -56,30 +29,30 @@ public final class PBXLegacyTarget: PBXTarget {
     ///   - productName: product name.
     ///   - product: product file reference.
     ///   - productType: product type.
-    public convenience init(name: String,
-                            buildToolPath: String? = nil,
-                            buildArgumentsString: String? = nil,
-                            passBuildSettingsInEnvironment: Bool = false,
-                            buildWorkingDirectory: String? = nil,
-                            buildConfigurationList: XCConfigurationList? = nil,
-                            buildPhases: [PBXBuildPhase] = [],
-                            buildRules: [PBXBuildRule] = [],
-                            dependencies: [PBXTargetDependency] = [],
-                            productName: String? = nil,
-                            product: PBXFileReference? = nil,
-                            productType: PBXProductType? = nil) {
-        self.init(name: name,
-                  buildToolPath: buildToolPath,
-                  buildArgumentsString: buildArgumentsString,
-                  passBuildSettingsInEnvironment: passBuildSettingsInEnvironment,
-                  buildWorkingDirectory: buildWorkingDirectory,
-                  buildConfigurationListReference: buildConfigurationList?.reference,
-                  buildPhaseReferences: buildPhases.map({ $0.reference }),
-                  buildRuleReferences: buildRules.map({ $0.reference }),
-                  dependencyReferences: dependencies.map({ $0.reference }),
-                  productName: productName,
-                  productReference: product?.reference,
-                  productType: productType)
+    public init(name: String,
+                buildToolPath: String? = nil,
+                buildArgumentsString: String? = nil,
+                passBuildSettingsInEnvironment: Bool = false,
+                buildWorkingDirectory: String? = nil,
+                buildConfigurationList: XCConfigurationList? = nil,
+                buildPhases: [PBXBuildPhase] = [],
+                buildRules: [PBXBuildRule] = [],
+                dependencies: [PBXTargetDependency] = [],
+                productName: String? = nil,
+                product: PBXFileReference? = nil,
+                productType: PBXProductType? = nil) {
+        self.buildToolPath = buildToolPath
+        self.buildArgumentsString = buildArgumentsString
+        self.passBuildSettingsInEnvironment = passBuildSettingsInEnvironment
+        self.buildWorkingDirectory = buildWorkingDirectory
+        super.init(name: name,
+                   buildConfigurationList: buildConfigurationList,
+                   buildPhases: buildPhases,
+                   buildRules: buildRules,
+                   dependencies: dependencies,
+                   productName: productName,
+                   product: product,
+                   productType: productType)
     }
 
     // MARK: - Decodable
