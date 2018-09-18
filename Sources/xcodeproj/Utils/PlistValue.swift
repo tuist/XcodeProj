@@ -5,7 +5,7 @@ import Foundation
 /// - string: commented string.
 /// - array: array of plist values.
 /// - dictionary: dictionary where the keys are a commented strings and the values are a plist values.
-enum PlistValue {
+indirect enum PlistValue {
     case string(CommentedString)
     case array([PlistValue])
     case dictionary([CommentedString: PlistValue])

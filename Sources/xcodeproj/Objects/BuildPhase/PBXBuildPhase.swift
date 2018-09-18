@@ -88,9 +88,7 @@ public class PBXBuildPhase: PBXContainerItem {
             let buildFile: PBXBuildFile? = try? fileReference.object()
             let name = buildFile.flatMap { try? $0.fileName() } ?? nil
             let fileName: String = name ?? "(null)"
-
             let type = self.name()
-
             let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
             return .string(CommentedString(fileReference.value, comment: comment))
         })
