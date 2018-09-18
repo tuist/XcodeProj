@@ -5,13 +5,14 @@ public final class PBXBuildFile: PBXObject {
     // MARK: - Attributes
 
     /// Element file reference.
-    var fileReference: PBXObjectReference?
+    var fileReference: PBXObjectReference!
 
     /// Returns the file the build file refers to.
-    public var file: PBXFileElement? {
+    public var file: PBXFileElement! {
         get {
-            // swiftlint:disable:next force_try
-            return try! fileReference?.object()
+            return fileReference.flatMap { (reference) -> PBXFileElement? in
+                try? reference.object()
+            }
         }
         set {
             fileReference = newValue?.reference

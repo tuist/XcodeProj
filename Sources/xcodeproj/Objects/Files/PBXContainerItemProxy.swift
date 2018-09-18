@@ -12,10 +12,9 @@ public final class PBXContainerItemProxy: PBXObject {
     var containerPortalReference: PBXObjectReference
 
     /// Returns the project that contains the remote object.
-    public var containerPortal: PBXProject {
+    public var containerPortal: PBXProject! {
         get {
-            // swiftlint:disable:next force_try
-            return try! containerPortalReference.object()
+            return try? containerPortalReference.object()
         }
         set {
             containerPortalReference = newValue.reference
@@ -26,13 +25,14 @@ public final class PBXContainerItemProxy: PBXObject {
     public var proxyType: ProxyType?
 
     /// Element remote global ID reference.
-    var remoteGlobalIDReference: PBXObjectReference?
+    var remoteGlobalIDReference: PBXObjectReference!
 
     /// Remote global object
-    public var remoteGlobalID: PBXObject? {
+    public var remoteGlobalID: PBXObject! {
         get {
-            // swiftlint:disable:next force_try
-            return remoteGlobalIDReference.flatMap({ try! $0.object() as PBXObject })
+            return remoteGlobalIDReference.flatMap { (reference) -> PBXObject? in
+                try? reference.object()
+            }
         }
         set {
             remoteGlobalIDReference = newValue?.reference

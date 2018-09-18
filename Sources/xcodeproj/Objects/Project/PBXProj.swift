@@ -17,16 +17,17 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
-    var rootObjectReference: PBXObjectReference?
+    var rootObjectReference: PBXObjectReference!
 
     /// Project root object.
-    public var rootObject: PBXProject? {
+    public var rootObject: PBXProject! {
         set {
             rootObjectReference = newValue?.reference
         }
         get {
-            // swiftlint:disable:next force_try
-            return try! rootObjectReference?.object()
+            return rootObjectReference.flatMap { (reference) -> PBXProject? in
+                try? reference.object()
+            }
         }
     }
 

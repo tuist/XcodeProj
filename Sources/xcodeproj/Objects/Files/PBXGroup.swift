@@ -13,8 +13,7 @@ public class PBXGroup: PBXFileElement {
             childrenReferences = newValue.map({ $0.reference })
         }
         get {
-            // swiftlint:disable:next force_try
-            return childrenReferences.map({ try! $0.object() })
+            return childrenReferences.compactMap({ try? $0.object() })
         }
     }
 

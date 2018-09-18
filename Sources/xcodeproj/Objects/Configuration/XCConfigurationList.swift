@@ -13,8 +13,7 @@ public final class XCConfigurationList: PBXObject {
             buildConfigurationReferences = newValue.map({ $0.reference })
         }
         get {
-            // swiftlint:disable:next force_try
-            return buildConfigurationReferences.compactMap({ try! $0.object() })
+            return buildConfigurationReferences.compactMap({ try? $0.object() })
         }
     }
 

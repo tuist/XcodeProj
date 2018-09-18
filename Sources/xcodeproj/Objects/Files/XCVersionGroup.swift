@@ -7,13 +7,14 @@ public final class XCVersionGroup: PBXGroup {
     // MARK: - Attributes
 
     /// Current version.
-    var currentVersionReference: PBXObjectReference?
+    var currentVersionReference: PBXObjectReference!
 
     /// Returns the current version file reference.
-    public var currentVersion: PBXFileReference? {
+    public var currentVersion: PBXFileReference! {
         get {
-            // swiftlint:disable:next force_try
-            return currentVersionReference.flatMap({ try! $0.object() })
+            return currentVersionReference.flatMap { (reference) -> PBXFileReference? in
+                try? reference.object()
+            }
         }
         set {
             currentVersionReference = newValue?.reference

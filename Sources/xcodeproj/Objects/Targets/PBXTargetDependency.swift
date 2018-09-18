@@ -8,13 +8,14 @@ public final class PBXTargetDependency: PBXObject {
     public var name: String?
 
     /// Target reference.
-    var targetReference: PBXObjectReference?
+    var targetReference: PBXObjectReference!
 
     /// Target.
-    public var target: PBXTarget? {
+    public var target: PBXTarget! {
         get {
-            // swiftlint:disable:next force_try
-            return try! targetReference?.object()
+            return targetReference.flatMap { (reference) -> PBXTarget? in
+                try? reference.object()
+            }
         }
         set {
             targetReference = newValue?.reference
@@ -22,13 +23,14 @@ public final class PBXTargetDependency: PBXObject {
     }
 
     /// Target proxy reference.
-    var targetProxyReference: PBXObjectReference?
+    var targetProxyReference: PBXObjectReference!
 
     /// Target proxy.
-    public var targetProxy: PBXContainerItemProxy? {
+    public var targetProxy: PBXContainerItemProxy! {
         get {
-            // swiftlint:disable:next force_try
-            return try! targetProxyReference?.object()
+            return targetProxyReference.flatMap { (reference) -> PBXContainerItemProxy? in
+                try? reference.object()
+            }
         }
         set {
             targetProxyReference = newValue?.reference

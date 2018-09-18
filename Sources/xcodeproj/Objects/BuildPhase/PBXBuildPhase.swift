@@ -14,8 +14,7 @@ public class PBXBuildPhase: PBXContainerItem {
     /// Build files.
     public var files: [PBXBuildFile] {
         get {
-            // swiftlint:disable:next force_try
-            return fileReferences.map({ try! $0.object() })
+            return fileReferences.compactMap({ try? $0.object() })
         }
         set {
             fileReferences = newValue.map({ $0.reference })

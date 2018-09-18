@@ -10,13 +10,12 @@ public final class PBXProject: PBXObject {
     var buildConfigurationListReference: PBXObjectReference
 
     /// Build configuration list.
-    public var buildConfigurationList: XCConfigurationList {
+    public var buildConfigurationList: XCConfigurationList! {
         set {
             buildConfigurationListReference = newValue.reference
         }
         get {
-            // swiftlint:disable:next force_try
-            return try! buildConfigurationListReference.object()
+            return try? buildConfigurationListReference.object()
         }
     }
 
@@ -36,27 +35,27 @@ public final class PBXProject: PBXObject {
     var mainGroupReference: PBXObjectReference
 
     /// Project main group.
-    public var mainGroup: PBXGroup {
+    public var mainGroup: PBXGroup! {
         set {
             mainGroupReference = newValue.reference
         }
         get {
-            // swiftlint:disable:next force_try
-            return try! mainGroupReference.object()
+            return try? mainGroupReference.object()
         }
     }
 
     /// The object is a reference to a PBXGroup element.
-    var productsGroupReference: PBXObjectReference?
+    var productsGroupReference: PBXObjectReference!
 
     /// Products group.
-    public var productsGroup: PBXGroup? {
+    public var productsGroup: PBXGroup! {
         set {
             productsGroupReference = newValue?.reference
         }
         get {
-            // swiftlint:disable:next force_try
-            return try! productsGroupReference?.object()
+            return productsGroupReference.flatMap { (reference) -> PBXGroup? in
+                try? reference.object()
+            }
         }
     }
 
@@ -79,8 +78,7 @@ public final class PBXProject: PBXObject {
         }
         get {
             return projectReferences.map { project in
-                // swiftlint:disable:next force_try
-                project.mapValues({ try! $0.object() })
+                project.flatMapValues({ try? $0.object() })
             }
         }
     }
@@ -97,8 +95,7 @@ public final class PBXProject: PBXObject {
             targetReferences = newValue.map({ $0.reference })
         }
         get {
-            // swiftlint:disable:next force_try
-            return targetReferences.map({ try! $0.object() })
+            return targetReferences.compactMap({ try? $0.object() })
         }
     }
 

@@ -5,13 +5,14 @@ public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
     /// Base xcconfig file reference.
-    var baseConfigurationReference: PBXObjectReference?
+    var baseConfigurationReference: PBXObjectReference!
 
     /// Base xcconfig file reference.
-    public var baseConfiguration: PBXFileReference? {
+    public var baseConfiguration: PBXFileReference! {
         get {
-            // swiftlint:disable:next force_try
-            return baseConfigurationReference.flatMap({ try! $0.object() })
+            return baseConfigurationReference.flatMap { (reference) -> PBXFileReference? in
+                try? reference.object()
+            }
         }
         set {
             if let newValue = newValue {

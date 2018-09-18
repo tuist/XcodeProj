@@ -3,13 +3,14 @@ import Foundation
 /// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXContainerItem {
     /// Target build configuration list.
-    var buildConfigurationListReference: PBXObjectReference?
+    var buildConfigurationListReference: PBXObjectReference!
 
     /// Build configuration list.
-    public var buildConfigurationList: XCConfigurationList? {
+    public var buildConfigurationList: XCConfigurationList! {
         get {
-            // swiftlint:disable:next force_try
-            return try! buildConfigurationListReference?.object()
+            return buildConfigurationListReference.flatMap { (reference) -> XCConfigurationList? in
+                try? reference.object()
+            }
         }
         set {
             buildConfigurationListReference = newValue?.reference
@@ -22,8 +23,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target build phases.
     public var buildPhases: [PBXBuildPhase] {
         get {
-            // swiftlint:disable:next force_try
-            return buildPhaseReferences.map({ try! $0.object() })
+            return buildPhaseReferences.compactMap({ try? $0.object() })
         }
         set {
             buildPhaseReferences = newValue.map({ $0.reference })
@@ -36,8 +36,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target build rules.
     public var buildRules: [PBXBuildRule] {
         get {
-            // swiftlint:disable:next force_try
-            return buildRuleReferences.map({ try! $0.object() })
+            return buildRuleReferences.compactMap({ try? $0.object() })
         }
         set {
             buildRuleReferences = newValue.map({ $0.reference })
@@ -50,8 +49,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target dependencies.
     public var dependencies: [PBXTargetDependency] {
         get {
-            // swiftlint:disable:next force_try
-            return dependencyReferences.map({ try! $0.object() })
+            return dependencyReferences.compactMap({ try? $0.object() })
         }
         set {
             dependencyReferences = newValue.map({ $0.reference })
@@ -65,13 +63,14 @@ public class PBXTarget: PBXContainerItem {
     public var productName: String?
 
     /// Target product reference.
-    var productReference: PBXObjectReference?
+    var productReference: PBXObjectReference!
 
     /// Target product.
-    public var product: PBXFileReference? {
+    public var product: PBXFileReference! {
         get {
-            // swiftlint:disable:next force_try
-            return try! productReference?.object()
+            return productReference.flatMap { (reference) -> PBXFileReference? in
+                try? reference.object()
+            }
         }
         set {
             productReference = newValue?.reference
