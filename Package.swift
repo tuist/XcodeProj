@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/tadija/AEXML.git", .exact("4.3.0")),
-        .package(url: "https://github.com/apple/swift-package-manager", .revision("ddfe6e23f3eaf3f79e003d872b6072a2686b4c88")),
+        .package(url: "https://github.com/apple/swift-package-manager", .revision("swift-DEVELOPMENT-SNAPSHOT-2018-09-14-a")),
     ],
     targets: [
         .target(name: "xcodeproj",
