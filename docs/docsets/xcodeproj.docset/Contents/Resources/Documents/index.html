@@ -13,7 +13,7 @@
     <a title="xcodeproj  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">xcodeproj Docs</a> (75% documented)</p>
+        <p><a href="index.html">xcodeproj Docs</a> (71% documented)</p>
         <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -147,9 +147,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -305,7 +302,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/tuist/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"5.1.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/tuist/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"6.0.0"</span><span class="p">)),</span>
         <span class="p">],</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
         <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
@@ -314,6 +311,23 @@
         <span class="p">]</span>
 <span class="p">)</span>
 </code></pre>
+<h2 id='migrate-to-xcodeproj-6' class='heading'>Migrate to xcodeproj 6</h2>
+
+<p>xcodeproj 6 is the final step towards hiding the Xcode project implementation details. One of those details was the object unique identifiers, which you used to manage yourself with previous versions. Now, xcodeproj does it for you, so you don&rsquo;t have to pass them around to set dependencies between objects.</p>
+
+<p>This improvement makes the API easier, safer and more convenient, but at the cost of introducing some breaking changes in the library. If want to migrate your project to use xcodeproj 6, these are the things that you should look at:</p>
+<li><code>PBXObjectReference</code> is an internal class now. Objects references to other objects are attributes with the type of the object that is being referred. For example, an <code><a href="Classes/XCConfigurationList.html">XCConfigurationList</a></code> object, has an attribute <code>buildConfigurations</code> of type <code><a href="Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></code>. Adding a new configuration is as easy as calling <code>list.buildConfigurations.append(config)</code>.</li>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Note that object references have different types of optionals based on the type of attribute:
+
+<ul>
+<li><strong>Implicitly unwrapped optional:</strong> When the attribute is required by Xcode. <a href="https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProject.swift#L38">Example</a></li>
+<li><strong>Explicitly unwrapped optional:</strong> When the attribute is optional by Xcode. <a href="https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Targets/PBXTargetDependency.swift#L11">Example</a></li>
+</ul>
+
+</div>
+<li><code>PBXObjects</code> has also been made internal. It was exposed through the attribute <code>objects</code> on the <code><a href="Classes/PBXProj.html">PBXProj</a></code> class. If you used to use this class for adding, removing, or getting objects, those methods have been moved to the <code><a href="Classes/PBXProj.html">PBXProj</a></code> class - <a href="https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProj.swift#L85">Public helpers</a></li>
 <h2 id='migrate-to-xcodeproj-5' class='heading'>Migrate to xcodeproj 5</h2>
 
 <p><code>xcodeproj</code> 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn&rsquo;t been officially released yet but you can already start updating your project for the new version. These are the changes you&rsquo;d need to make in your projects:</p>

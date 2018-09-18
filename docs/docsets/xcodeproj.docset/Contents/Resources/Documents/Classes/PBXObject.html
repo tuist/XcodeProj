@@ -14,7 +14,7 @@
     <a title="PBXObject Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (75% documented)</p>
+        <p><a href="../index.html">xcodeproj Docs</a> (71% documented)</p>
         <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -150,9 +150,6 @@
                 <a href="../Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/PBXObjectReference.html">PBXObjectReference</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
               </li>
               <li class="nav-group-task">
@@ -257,9 +254,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj9PBXObjectC9referenceAA0B9ReferenceCvp"></a>
-                    <a name="//apple_ref/swift/Property/reference" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj9PBXObjectC9referenceAA0B9ReferenceCvp">reference</a>
+                    <a name="/s:9xcodeproj9PBXObjectC4uuidSSvp"></a>
+                    <a name="//apple_ref/swift/Property/uuid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj9PBXObjectC4uuidSSvp">uuid</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -267,15 +264,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The object reference in the project that contains it.</p>
+                        <p>Returns the unique identifier.
+Note: The unique identifier of an object might change when the project gets written.
+If you use this identifier from a scheme, make sure the project is written before the project is.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "This attribute will be deprecated. Use objects instead.")</span>
-<span class="kd">public</span> <span class="k">let</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">uuid</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

@@ -14,7 +14,7 @@
     <a title="PBXReferenceProxy Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">xcodeproj Docs</a> (75% documented)</p>
+        <p><a href="../index.html">xcodeproj Docs</a> (71% documented)</p>
         <p class="header-right"><a href="https://github.com/tuist/xcodeproj"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -148,9 +148,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXLegacyTarget.html">PBXLegacyTarget</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/PBXObjectReference.html">PBXObjectReference</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PBXReferenceProxy.html">PBXReferenceProxy</a>
@@ -320,34 +317,6 @@ This class is referenced by PBXTargetDependency.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9xcodeproj17PBXReferenceProxyC15remoteReferenceAA09PBXObjectE0CSgvp"></a>
-                    <a name="//apple_ref/swift/Property/remoteReference" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj17PBXReferenceProxyC15remoteReferenceAA09PBXObjectE0CSgvp">remoteReference</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Element remote reference.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "Use remote instead")</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">remoteReference</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXObjectReference.html">PBXObjectReference</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:9xcodeproj17PBXReferenceProxyC6remoteAA016PBXContainerItemC0CSgvp"></a>
                     <a name="//apple_ref/swift/Property/remote" class="dashAnchor"></a>
                     <a class="token" href="#/s:9xcodeproj17PBXReferenceProxyC6remoteAA016PBXContainerItemC0CSgvp">remote</a>
@@ -395,6 +364,102 @@ This class is referenced by PBXTargetDependency.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sourceTree</span><span class="p">:</span> <span class="kt"><a href="../Enums/PBXSourceTree.html">PBXSourceTree</a></span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Init"></a>
+                <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                <a href="#/Init">
+                  <h3 class="section-name">Init</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9xcodeproj17PBXReferenceProxyC8fileType4path6remote10sourceTreeACSSSg_AhA016PBXContainerItemC0CSgAA09PBXSourceI0OSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(fileType:path:remote:sourceTree:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17PBXReferenceProxyC8fileType4path6remote10sourceTreeACSSSg_AhA016PBXContainerItemC0CSgAA09PBXSourceI0OSgtcfc">init(fileType:path:remote:sourceTree:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the reference proxy.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">fileType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">remote</span><span class="p">:</span> <span class="kt"><a href="../Classes/PBXContainerItemProxy.html">PBXContainerItemProxy</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">sourceTree</span><span class="p">:</span> <span class="kt"><a href="../Enums/PBXSourceTree.html">PBXSourceTree</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>File type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>remote</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Remote.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceTree</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Source tree.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

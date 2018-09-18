@@ -183,13 +183,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/BuildPhase/PBXBuildPhase.swift",
-      "line": 42,
-      "symbol": "PBXBuildPhase.init(fileReferences:inputFileListPaths:outputFileListPaths:buildActionMask:runOnlyForDeploymentPostprocessing:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/BuildPhase/PBXBuildRule.swift",
       "line": 33,
       "symbol": "PBXBuildRule.init(compilerSpec:fileType:isEditable:filePatterns:name:outputFiles:outputFilesCompilerFlags:script:)",
@@ -296,7 +289,7 @@
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXObject.swift",
-      "line": 49,
+      "line": 55,
       "symbol": "PBXObject.parse(reference:dictionary:userInfo:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -309,16 +302,163 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXObjects.swift",
-      "line": 4,
-      "symbol": "PBXObjects",
-      "symbol_kind": "source.lang.swift.decl.class",
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 88,
+      "symbol": "PBXProj.projects",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
-      "line": 8,
-      "symbol": "PBXProj.objects",
+      "line": 89,
+      "symbol": "PBXProj.referenceProxies",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 92,
+      "symbol": "PBXProj.fileReferences",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 93,
+      "symbol": "PBXProj.versionGroups",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 94,
+      "symbol": "PBXProj.variantGroups",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 95,
+      "symbol": "PBXProj.groups",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 98,
+      "symbol": "PBXProj.buildConfigurations",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 99,
+      "symbol": "PBXProj.configurationLists",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 102,
+      "symbol": "PBXProj.legacyTargets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 103,
+      "symbol": "PBXProj.aggregateTargets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 104,
+      "symbol": "PBXProj.nativeTargets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 105,
+      "symbol": "PBXProj.targetDependencies",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 106,
+      "symbol": "PBXProj.containerItemProxies",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 107,
+      "symbol": "PBXProj.buildRules",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 110,
+      "symbol": "PBXProj.buildFiles",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 111,
+      "symbol": "PBXProj.copyFilesBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 112,
+      "symbol": "PBXProj.shellScriptBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 113,
+      "symbol": "PBXProj.resourcesBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 114,
+      "symbol": "PBXProj.frameworksBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 115,
+      "symbol": "PBXProj.headersBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 116,
+      "symbol": "PBXProj.sourcesBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 117,
+      "symbol": "PBXProj.carbonResourcesBuildPhases",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 118,
+      "symbol": "PBXProj.buildPhases",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -330,13 +470,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXLegacyTarget.swift",
-      "line": 18,
-      "symbol": "PBXLegacyTarget.init(name:buildToolPath:buildArgumentsString:passBuildSettingsInEnvironment:buildWorkingDirectory:buildConfigurationListReference:buildPhaseReferences:buildRuleReferences:dependencyReferences:productName:productReference:productType:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXNativeTarget.swift",
       "line": 6,
       "symbol": "PBXNativeTarget.productInstallPath",
@@ -344,31 +477,10 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXNativeTarget.swift",
-      "line": 9,
-      "symbol": "PBXNativeTarget.init(name:buildConfigurationListReference:buildPhaseReferences:buildRuleReferences:dependencyReferences:productInstallPath:productName:productReference:productType:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXProductType.swift",
       "line": 3,
       "symbol": "PBXProductType",
       "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXReferenceProxy.swift",
-      "line": 36,
-      "symbol": "PBXReferenceProxy.init(fileType:path:remoteReference:sourceTree:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Targets/PBXReferenceProxy.swift",
-      "line": 47,
-      "symbol": "PBXReferenceProxy.init(fileType:path:remote:sourceTree:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
