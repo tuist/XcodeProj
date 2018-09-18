@@ -22,6 +22,10 @@ jobs:
           command: |
             swiftlint
       - run:
+          name: Release build
+          command: |
+            swift build -c release
+      - run:
           name: Run tests
           command: |
             swift package generate-xcodeproj
