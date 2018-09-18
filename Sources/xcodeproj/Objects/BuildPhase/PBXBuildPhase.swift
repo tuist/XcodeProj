@@ -113,7 +113,7 @@ public extension PBXBuildPhase {
     /// - Returns: proxy build file.
     /// - Throws: an error if the file cannot be added.
     public func add(file: PBXFileElement) throws -> PBXBuildFile {
-        if let existing = try files.first(where: { $0.fileReference == reference }) {
+        if let existing = files.first(where: { $0.fileReference == reference }) {
             return existing
         }
         let projectObjects = try objects()

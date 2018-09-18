@@ -200,7 +200,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
-            let targetProxy = try targetDependency.targetProxy,
+            let targetProxy = targetDependency.targetProxy,
             let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
             identifiers.append(String(describing: targetProxy))
