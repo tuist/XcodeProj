@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/apple/swift-package-manager",
         "state": {
           "branch": null,
-          "revision": "63a01220e93271dc3bf204b9e13dd1aeb2beefee",
-          "version": "0.2.0"
+          "revision": "ddfe6e23f3eaf3f79e003d872b6072a2686b4c88",
+          "version": null
         }
       }
     ]
