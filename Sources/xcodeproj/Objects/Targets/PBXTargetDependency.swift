@@ -8,10 +8,10 @@ public final class PBXTargetDependency: PBXObject {
     public var name: String?
 
     /// Target reference.
-    var targetReference: PBXObjectReference!
+    var targetReference: PBXObjectReference?
 
     /// Target.
-    public var target: PBXTarget! {
+    public var target: PBXTarget? {
         get {
             return targetReference.flatMap { (reference) -> PBXTarget? in
                 try? reference.object()
@@ -23,10 +23,10 @@ public final class PBXTargetDependency: PBXObject {
     }
 
     /// Target proxy reference.
-    var targetProxyReference: PBXObjectReference!
+    var targetProxyReference: PBXObjectReference?
 
     /// Target proxy.
-    public var targetProxy: PBXContainerItemProxy! {
+    public var targetProxy: PBXContainerItemProxy? {
         get {
             return targetProxyReference.flatMap { (reference) -> PBXContainerItemProxy? in
                 try? reference.object()

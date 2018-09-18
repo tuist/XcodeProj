@@ -2,6 +2,15 @@
 
 ## next version
 
+## 6.0.0
+
+Note: Migration guidelines are included in the project README.
+
+### Changed
+- **Breaking** Make `PBXObjectReference` internal https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
+- **Breaking** Make `PBXObjects` internal https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
+- **Breaking** Move `PBXObjects` helpers to `PBXProj` https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
+
 ## 5.2.0
 
 ### Changed

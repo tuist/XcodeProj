@@ -5,10 +5,10 @@ public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
     /// Base xcconfig file reference.
-    var baseConfigurationReference: PBXObjectReference!
+    var baseConfigurationReference: PBXObjectReference?
 
     /// Base xcconfig file reference.
-    public var baseConfiguration: PBXFileReference! {
+    public var baseConfiguration: PBXFileReference? {
         get {
             return baseConfigurationReference.flatMap { (reference) -> PBXFileReference? in
                 try? reference.object()

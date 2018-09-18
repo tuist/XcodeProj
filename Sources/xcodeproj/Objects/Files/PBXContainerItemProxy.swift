@@ -25,10 +25,10 @@ public final class PBXContainerItemProxy: PBXObject {
     public var proxyType: ProxyType?
 
     /// Element remote global ID reference.
-    var remoteGlobalIDReference: PBXObjectReference!
+    var remoteGlobalIDReference: PBXObjectReference?
 
     /// Remote global object
-    public var remoteGlobalID: PBXObject! {
+    public var remoteGlobalID: PBXObject? {
         get {
             return remoteGlobalIDReference.flatMap { (reference) -> PBXObject? in
                 try? reference.object()

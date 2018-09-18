@@ -3,10 +3,10 @@ import Foundation
 /// This element is an abstract parent for specialized targets.
 public class PBXTarget: PBXContainerItem {
     /// Target build configuration list.
-    var buildConfigurationListReference: PBXObjectReference!
+    var buildConfigurationListReference: PBXObjectReference?
 
     /// Build configuration list.
-    public var buildConfigurationList: XCConfigurationList! {
+    public var buildConfigurationList: XCConfigurationList? {
         get {
             return buildConfigurationListReference.flatMap { (reference) -> XCConfigurationList? in
                 try? reference.object()
@@ -63,10 +63,10 @@ public class PBXTarget: PBXContainerItem {
     public var productName: String?
 
     /// Target product reference.
-    var productReference: PBXObjectReference!
+    var productReference: PBXObjectReference?
 
     /// Target product.
-    public var product: PBXFileReference! {
+    public var product: PBXFileReference? {
         get {
             return productReference.flatMap { (reference) -> PBXFileReference? in
                 try? reference.object()

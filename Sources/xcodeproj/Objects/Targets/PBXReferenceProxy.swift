@@ -13,10 +13,10 @@ public final class PBXReferenceProxy: PBXObject {
     public var path: String?
 
     /// Element remote reference.
-    var remoteReference: PBXObjectReference!
+    var remoteReference: PBXObjectReference?
 
     /// Element remote.
-    public var remote: PBXContainerItemProxy! {
+    public var remote: PBXContainerItemProxy? {
         get {
             return remoteReference.flatMap { (reference) -> PBXContainerItemProxy? in
                 try? reference.object()

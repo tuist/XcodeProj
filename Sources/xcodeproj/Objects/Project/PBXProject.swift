@@ -45,10 +45,10 @@ public final class PBXProject: PBXObject {
     }
 
     /// The object is a reference to a PBXGroup element.
-    var productsGroupReference: PBXObjectReference!
+    var productsGroupReference: PBXObjectReference?
 
     /// Products group.
-    public var productsGroup: PBXGroup! {
+    public var productsGroup: PBXGroup? {
         set {
             productsGroupReference = newValue?.reference
         }

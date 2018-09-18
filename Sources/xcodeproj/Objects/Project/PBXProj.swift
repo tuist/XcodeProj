@@ -17,10 +17,10 @@ public final class PBXProj: Decodable {
     public var classes: [String: Any]
 
     /// Project root object.
-    var rootObjectReference: PBXObjectReference!
+    var rootObjectReference: PBXObjectReference?
 
     /// Project root object.
-    public var rootObject: PBXProject! {
+    public var rootObject: PBXProject? {
         set {
             rootObjectReference = newValue?.reference
         }
