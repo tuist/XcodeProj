@@ -70,6 +70,8 @@ This improvement makes the API easier, safer and more convenient, but at the cos
   - **Explicitly unwrapped optional:** When the attribute is optional by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Targets/PBXTargetDependency.swift#L11)
 - `PBXObjects` has also been made internal. It was exposed through the attribute `objects` on the `PBXProj` class. If you used to use this class for adding, removing, or getting objects, those methods have been moved to the `PBXProj` class - [Public helpers](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProj.swift#L85) 
 
+**And yes, in case you are wondering, it fully supports Xcode 10 :tada: **
+
 ## Migrate to xcodeproj 5
 `xcodeproj` 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn't been officially released yet but you can already start updating your project for the new version. These are the changes you'd need to make in your projects:
 
