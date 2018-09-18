@@ -64,7 +64,7 @@ xcodeproj 6 is the final step towards hiding the Xcode project implementation de
 
 This improvement makes the API easier, safer and more convenient, but at the cost of introducing some breaking changes in the library. If want to migrate your project to use xcodeproj 6, these are the things that you should look at:
 
-- `PBXObjectReference` is an internal class now. Object references to other objects are attributes with the type of the object that is being referred. For example, a `XCConfigurationList` object, has an attribute `buildConfigurations` of type `XCBuildConfiguration`. Adding a new configuration is as easy as calling `list.buildConfigurations.append(config)`.
+- `PBXObjectReference` is an internal class now. Object references to other objects are attributes with the type of the object that is being referred. For example, a `XCConfigurationList` object has an attribute `buildConfigurations` of type `XCBuildConfiguration`. Adding a new configuration is as easy as calling `list.buildConfigurations.append(config)`.
 - Note that object references have different types of optionals based on the type of attribute:
   - **Implicitly unwrapped optional:** When the attribute is required by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProject.swift#L38)
   - **Explicitly unwrapped optional:** When the attribute is optional by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Targets/PBXTargetDependency.swift#L11)
