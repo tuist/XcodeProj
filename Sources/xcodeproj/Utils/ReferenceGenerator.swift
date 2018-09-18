@@ -70,7 +70,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Targets
-        let targets: [PBXTarget] = project.targetReferences.compactMap({ try? $0.object() as PBXTarget })
+        let targets: [PBXTarget] = project.targetReferences.objects()
         targets.forEach { target in
 
             var identifiers = identifiers
@@ -174,16 +174,16 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Build phases
-        let buildPhases = target.buildPhaseReferences.compactMap({ try? $0.object() as PBXBuildPhase })
+        let buildPhases: [PBXBuildPhase] = target.buildPhaseReferences.objects()
         try buildPhases.forEach({ try generateBuildPhaseReferences($0,
                                                                    identifiers: identifiers) })
 
         // Build rules
-        let buildRules = target.buildRuleReferences.compactMap({ try? $0.object() as PBXBuildRule })
+        let buildRules: [PBXBuildRule] = target.buildRuleReferences.objects()
         try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
 
         // Dependencies
-        let dependencies = target.dependencyReferences.compactMap({ try? $0.object() as PBXTargetDependency })
+        let dependencies: [PBXTargetDependency] = target.dependencyReferences.objects()
         try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
     }
 

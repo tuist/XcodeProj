@@ -10,10 +10,10 @@ public class PBXGroup: PBXFileElement {
     /// Group children.
     public var children: [PBXFileElement] {
         set {
-            childrenReferences = newValue.map({ $0.reference })
+            childrenReferences = newValue.references()
         }
         get {
-            return childrenReferences.compactMap({ try? $0.object() })
+            return childrenReferences.objects()
         }
     }
 
@@ -40,7 +40,7 @@ public class PBXGroup: PBXFileElement {
                 usesTabs: Bool? = nil,
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil) {
-        childrenReferences = children.map({ $0.reference })
+        childrenReferences = children.references()
         super.init(sourceTree: sourceTree,
                    path: path,
                    name: name,
@@ -107,7 +107,7 @@ public extension PBXGroup {
     /// - Returns: group with the given name contained in the given parent group.
     public func group(named name: String) -> PBXGroup? {
         return childrenReferences
-            .compactMap({ try? $0.object() as PBXGroup })
+            .objects()
             .first(where: { $0.name == name })
     }
 
@@ -117,7 +117,7 @@ public extension PBXGroup {
     /// - Returns: file with the given name contained in the given parent group.
     public func file(named name: String) -> PBXFileReference? {
         return childrenReferences
-            .compactMap({ try? $0.object() as PBXFileReference })
+            .objects()
             .first(where: { $0.name == name })
     }
 

@@ -23,10 +23,10 @@ public class PBXTarget: PBXContainerItem {
     /// Target build phases.
     public var buildPhases: [PBXBuildPhase] {
         get {
-            return buildPhaseReferences.compactMap({ try? $0.object() })
+            return buildPhaseReferences.objects()
         }
         set {
-            buildPhaseReferences = newValue.map({ $0.reference })
+            buildPhaseReferences = newValue.references()
         }
     }
 
@@ -36,10 +36,10 @@ public class PBXTarget: PBXContainerItem {
     /// Target build rules.
     public var buildRules: [PBXBuildRule] {
         get {
-            return buildRuleReferences.compactMap({ try? $0.object() })
+            return buildRuleReferences.objects()
         }
         set {
-            buildRuleReferences = newValue.map({ $0.reference })
+            buildRuleReferences = newValue.references()
         }
     }
 
@@ -49,10 +49,10 @@ public class PBXTarget: PBXContainerItem {
     /// Target dependencies.
     public var dependencies: [PBXTargetDependency] {
         get {
-            return dependencyReferences.compactMap({ try? $0.object() })
+            return dependencyReferences.objects()
         }
         set {
-            dependencyReferences = newValue.map({ $0.reference })
+            dependencyReferences = newValue.references()
         }
     }
 
@@ -100,9 +100,9 @@ public class PBXTarget: PBXContainerItem {
                 product: PBXFileReference? = nil,
                 productType: PBXProductType? = nil) {
         buildConfigurationListReference = buildConfigurationList?.reference
-        buildPhaseReferences = buildPhases.map({ $0.reference })
-        buildRuleReferences = buildRules.map({ $0.reference })
-        dependencyReferences = dependencies.map({ $0.reference })
+        buildPhaseReferences = buildPhases.references()
+        buildRuleReferences = buildRules.references()
+        dependencyReferences = dependencies.references()
         self.name = name
         self.productName = productName
         productReference = product?.reference

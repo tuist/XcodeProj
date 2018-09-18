@@ -95,3 +95,17 @@ class PBXObjectReference: Hashable, Comparable, Equatable {
         return object
     }
 }
+
+extension Array where Element: PBXObject {
+
+    func references() -> [PBXObjectReference] {
+        return map { $0.reference }
+    }
+}
+
+extension Array where Element: PBXObjectReference {
+
+    func objects<T: PBXObject>() -> [T] {
+        return compactMap { try? $0.object() }
+    }
+}

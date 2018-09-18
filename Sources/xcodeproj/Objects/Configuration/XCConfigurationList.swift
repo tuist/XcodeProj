@@ -10,10 +10,10 @@ public final class XCConfigurationList: PBXObject {
     /// Build configurations
     public var buildConfigurations: [XCBuildConfiguration] {
         set {
-            buildConfigurationReferences = newValue.map({ $0.reference })
+            buildConfigurationReferences = newValue.references()
         }
         get {
-            return buildConfigurationReferences.compactMap({ try? $0.object() })
+            return buildConfigurationReferences.objects()
         }
     }
 
@@ -34,7 +34,7 @@ public final class XCConfigurationList: PBXObject {
     public init(buildConfigurations: [XCBuildConfiguration] = [],
                 defaultConfigurationName: String? = nil,
                 defaultConfigurationIsVisible: Bool = false) {
-        buildConfigurationReferences = buildConfigurations.map({ $0.reference })
+        buildConfigurationReferences = buildConfigurations.references()
         self.defaultConfigurationName = defaultConfigurationName
         self.defaultConfigurationIsVisible = defaultConfigurationIsVisible
         super.init()
