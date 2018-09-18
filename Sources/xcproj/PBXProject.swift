@@ -187,7 +187,8 @@ extension PBXProject: PlistSerializable {
         }
         
         let mainGroupObject = proj.objects.groups[mainGroup]
-        dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
+        let mainGroupPlistValue: PlistValue = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
+        dictionary["mainGroup"] = mainGroupPlistValue
         if let productRefGroup = productRefGroup {
             let productRefGroupObject = proj.objects.groups[productRefGroup]
             let productRefGroupComment = productRefGroupObject?.name ?? productRefGroupObject?.path
