@@ -1,50 +1,50 @@
 import Foundation
 
 final public class PBXProject: PBXObject {
-    
+
     // MARK: - Attributes
-    
+
     /// xcodeproj's name
     public var name: String
-    
+
     /// The object is a reference to a XCConfigurationList element.
     public var buildConfigurationList: String
-    
+
     /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String
-    
+
     /// The region of development.
     public var developmentRegion: String?
-    
+
     /// Whether file encodings have been scanned.
     public var hasScannedForEncodings: Int
-    
+
     /// The known regions for localized files.
     public var knownRegions: [String]
-    
+
     /// The object is a reference to a PBXGroup element.
     public var mainGroup: String
-    
+
     /// The object is a reference to a PBXGroup element.
     public var productRefGroup: String?
-    
+
     /// The relative path of the project.
     public var projectDirPath: String
-    
+
     /// Project references.
     public var projectReferences: [[String: String]]
-    
+
     /// The relative root paths of the project.
     public var projectRoots: [String]
-    
+
     /// The objects are a reference to a PBXTarget element.
     public var targets: [String]
-    
+
     /// Project attributes.
     public var attributes: [String: Any]
-    
+
     // MARK: - Init
-    
+
     /// Initializes the project with its attributes
     ///
     /// - Parameters:
@@ -89,9 +89,9 @@ final public class PBXProject: PBXObject {
         self.attributes = attributes
         super.init()
     }
-    
+
     // MARK: - Decodable
-    
+
     fileprivate enum CodingKeys: String, CodingKey {
         case name
         case buildConfigurationList
@@ -108,7 +108,7 @@ final public class PBXProject: PBXObject {
         case targets
         case attributes
     }
-    
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = (try container.decodeIfPresent(.name)) ?? ""
@@ -133,9 +133,9 @@ final public class PBXProject: PBXObject {
         self.attributes = try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]
         try super.init(from: decoder)
     }
-    
+
     // MARK: - Hashable
-    
+
     public override func isEqual(to object: PBXObject) -> Bool {
         guard let rhs = object as? PBXProject,
             super.isEqual(to: rhs) else {
@@ -149,7 +149,7 @@ final public class PBXProject: PBXObject {
         let equalProjectRoots = lhs.projectRoots == rhs.projectRoots
         let equalProjectReferences = NSArray(array: lhs.projectReferences).isEqual(to: rhs.projectReferences)
         let equalAttributes = NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes)
-        
+
         return lhs.buildConfigurationList == rhs.buildConfigurationList &&
             lhs.compatibilityVersion == rhs.compatibilityVersion &&
             equalRegion &&
@@ -167,7 +167,7 @@ final public class PBXProject: PBXObject {
 
 // MARK: - PlistSerializable
 extension PBXProject: PlistSerializable {
-    
+
     func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
@@ -180,14 +180,15 @@ extension PBXProject: PlistSerializable {
             dictionary["developmentRegion"] = .string(CommentedString(developmentRegion))
         }
         dictionary["hasScannedForEncodings"] = .string(CommentedString("\(hasScannedForEncodings)"))
-        
+
         if !knownRegions.isEmpty {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map {.string(CommentedString("\($0)")) })
         }
-        
+
         let mainGroupObject = proj.objects.groups[mainGroup]
-        dictionary["mainGroup"] = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
+        let mainGroupPlistValue: PlistValue = .string(CommentedString(mainGroup, comment: mainGroupObject?.name ?? mainGroupObject?.path))
+         dictionary["mainGroup"] = mainGroupPlistValue
         if let productRefGroup = productRefGroup {
             let productRefGroupObject = proj.objects.groups[productRefGroup]
             let productRefGroupComment = productRefGroupObject?.name ?? productRefGroupObject?.path
@@ -213,7 +214,7 @@ extension PBXProject: PlistSerializable {
                                      comment: "Project object"),
                 value: .dictionary(dictionary))
     }
-    
+
     private func projectReferencesPlistValue(proj: PBXProj) -> PlistValue? {
         guard projectReferences.count > 0 else {
             return nil
@@ -222,16 +223,16 @@ extension PBXProject: PlistSerializable {
             guard let productGroup = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-            
+
             let groupName = proj.objects.groups.getReference(productGroup)?.name
             let fileRef = proj.objects.fileReferences.getReference(projectRef)
             let fileRefName = fileRef?.name ?? fileRef?.path
-            
+
             return [
                 CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroup, comment: groupName)),
                 CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef, comment: fileRefName))
             ]
         })
     }
-    
+
 }
