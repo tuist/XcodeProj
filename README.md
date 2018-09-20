@@ -13,6 +13,10 @@
   <img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" />
 </a>
 
+<a href="http://slack.tuist.io">
+  <img src="http://slack.tuist.io/badge.svg" />
+</a>
+
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 **This project is a fork and evolution from [xcproj](https://github.com/xcodeswift/xcproj)**
