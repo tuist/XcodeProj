@@ -18,7 +18,12 @@ public final class PBXProj: Decodable {
 
     /// Project root object.
     var rootObjectReference: PBXObjectReference?
-
+    
+    /// Project sorting
+    public var fileListSortOrder: FileListSortOrder = .byUUID
+    public var navigatorGroupSortOrder: ProjectNavigatorSortOrder = .unsorted
+    public var buildPhaseFileSortOrder: BuildPhaseFileSortOrder = .unsorted
+    
     /// Project root object.
     public var rootObject: PBXProject? {
         set {
@@ -116,7 +121,7 @@ public extension PBXProj {
     public var sourcesBuildPhases: [PBXSourcesBuildPhase] { return Array(objects.sourcesBuildPhases.values) }
     public var carbonResourcesBuildPhases: [PBXRezBuildPhase] { return Array(objects.carbonResourcesBuildPhases.values) }
     public var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
-
+    
     /// Returns root project.
     public func rootProject() throws -> PBXProject? {
         return try rootObjectReference?.object()
@@ -200,6 +205,9 @@ extension PBXProj: Equatable {
 extension PBXProj: Writable {
     public func write(path: AbsolutePath, override: Bool) throws {
         let encoder = PBXProjEncoder()
+        encoder.fileListSortOrder = fileListSortOrder
+        encoder.buildPhaseFileSortOrder = buildPhaseFileSortOrder
+        encoder.navigatorGroupSortOrder = navigatorGroupSortOrder
         let output = try encoder.encode(proj: self)
         if override && path.exists {
             try path.delete()
