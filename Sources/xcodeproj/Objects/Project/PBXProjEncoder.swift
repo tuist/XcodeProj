@@ -1,45 +1,5 @@
 import Foundation
 
-// Defines the sorting applied to files within the file lists. Defaults to by UUID.
-public enum FileListSortOrder {
-    case byUUID
-    case byFilename
-    
-    func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool where Object: PlistSerializable & Equatable {
-        return lhs.0 < rhs.0
-    }
-    
-    func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
-        switch self {
-        case .byFilename:
-            return lhs.1.file?.path ?? lhs.1.uuid < rhs.1.file?.path ?? rhs.1.uuid
-        default:
-            return lhs.0 < rhs.0
-        }
-    }
-    
-    func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
-        switch self {
-        case .byFilename:
-            return lhs.1.path ?? lhs.1.uuid < rhs.1.path ?? rhs.1.uuid
-        default:
-            return lhs.0 < rhs.0
-        }
-    }
-}
-
-// Defines the sorting applied to groups with the project navigator and various build phases.
-public enum ProjectNavigatorSortOrder {
-    case unsorted
-    case byFilename
-    case byFilenameGroupsFirst
-}
-
-public enum BuildPhaseFileSortOrder {
-    case unsorted
-    case byFilename
-}
-
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue)
@@ -57,19 +17,19 @@ final class PBXProjEncoder {
     var output: String = ""
     var multiline: Bool = true
     
-    public var fileListSortOrder: FileListSortOrder = .byUUID
-    public var navigatorGroupSortOrder: ProjectNavigatorSortOrder = .unsorted
-    public var buildPhaseFileSortOrder: BuildPhaseFileSortOrder = .unsorted
-    
     // swiftlint:disable function_body_length
-    func encode(proj: PBXProj) throws -> String {
+    func encode(proj: PBXProj, outputSettings: PBXOutputSettings) throws -> String {
         
         try referenceGenerator.generateReferences(proj: proj)
         guard let rootObject = proj.rootObjectReference else { throw PBXProjEncoderError.emptyProjectReference }
-        
-        // Sort sub objects in advance.
-        proj.forEach(self.sortFiles)
-        
+
+        sort(buildPhases: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings)
+        sort(buildPhases: proj.objects.frameworksBuildPhases, outputSettings: outputSettings)
+        sort(buildPhases: proj.objects.headersBuildPhases, outputSettings: outputSettings)
+        sort(buildPhases: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
+        sort(buildPhases: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
+        sort(navigatorGroups: proj.objects.groups, outputSettings: outputSettings)
+
         writeUtf8()
         writeNewLine()
         writeDictionaryStart()
@@ -80,28 +40,28 @@ final class PBXProjEncoder {
         write(string: "objects = {")
         increaseIndent()
         writeNewLine()
-        try write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets)
-        try write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles)
-        try write(section: "PBXBuildRule", proj: proj, object: proj.objects.buildRules)
-        try write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies)
-        try write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases)
-        try write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences)
-        try write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases)
-        try write(section: "PBXGroup", proj: proj, object: proj.objects.groups)
-        try write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases)
-        try write(section: "PBXLegacyTarget", proj: proj, object: proj.objects.legacyTargets)
-        try write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets)
-        try write(section: "PBXProject", proj: proj, object: proj.objects.projects)
-        try write(section: "PBXReferenceProxy", proj: proj, object: proj.objects.referenceProxies)
-        try write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases)
-        try write(section: "PBXRezBuildPhase", proj: proj, object: proj.objects.carbonResourcesBuildPhases)
-        try write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases)
-        try write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases)
-        try write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies)
-        try write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups)
-        try write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations)
-        try write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists)
-        try write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups)
+        try write(section: "PBXAggregateTarget", proj: proj, object: proj.objects.aggregateTargets, outputSettings: outputSettings)
+        try write(section: "PBXBuildFile", proj: proj, object: proj.objects.buildFiles, outputSettings: outputSettings)
+        try write(section: "PBXBuildRule", proj: proj, object: proj.objects.buildRules, outputSettings: outputSettings)
+        try write(section: "PBXContainerItemProxy", proj: proj, object: proj.objects.containerItemProxies, outputSettings: outputSettings)
+        try write(section: "PBXCopyFilesBuildPhase", proj: proj, object: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXFileReference", proj: proj, object: proj.objects.fileReferences, outputSettings: outputSettings)
+        try write(section: "PBXFrameworksBuildPhase", proj: proj, object: proj.objects.frameworksBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXGroup", proj: proj, object: proj.objects.groups, outputSettings: outputSettings)
+        try write(section: "PBXHeadersBuildPhase", proj: proj, object: proj.objects.headersBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXLegacyTarget", proj: proj, object: proj.objects.legacyTargets, outputSettings: outputSettings)
+        try write(section: "PBXNativeTarget", proj: proj, object: proj.objects.nativeTargets, outputSettings: outputSettings)
+        try write(section: "PBXProject", proj: proj, object: proj.objects.projects, outputSettings: outputSettings)
+        try write(section: "PBXReferenceProxy", proj: proj, object: proj.objects.referenceProxies, outputSettings: outputSettings)
+        try write(section: "PBXResourcesBuildPhase", proj: proj, object: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXRezBuildPhase", proj: proj, object: proj.objects.carbonResourcesBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXShellScriptBuildPhase", proj: proj, object: proj.objects.shellScriptBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXSourcesBuildPhase", proj: proj, object: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
+        try write(section: "PBXTargetDependency", proj: proj, object: proj.objects.targetDependencies, outputSettings: outputSettings)
+        try write(section: "PBXVariantGroup", proj: proj, object: proj.objects.variantGroups, outputSettings: outputSettings)
+        try write(section: "XCBuildConfiguration", proj: proj, object: proj.objects.buildConfigurations, outputSettings: outputSettings)
+        try write(section: "XCConfigurationList", proj: proj, object: proj.objects.configurationLists, outputSettings: outputSettings)
+        try write(section: "XCVersionGroup", proj: proj, object: proj.objects.versionGroups, outputSettings: outputSettings)
         decreaseIndent()
         writeIndent()
         write(string: "};")
@@ -157,16 +117,16 @@ final class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
     
-    private func write<T>(section: String, proj: PBXProj, object: [PBXObjectReference: T]) throws where T: PlistSerializable & Equatable {
-        try write(section: section, proj: proj, object: object, sort: fileListSortOrder.sort)
+    private func write<T>(section: String, proj: PBXProj, object: [PBXObjectReference: T], outputSettings: PBXOutputSettings) throws where T: PlistSerializable & Equatable {
+        try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
     
-    private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXBuildFile]) throws {
-        try write(section: section, proj: proj, object: object, sort: fileListSortOrder.sort)
+    private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXBuildFile], outputSettings: PBXOutputSettings) throws {
+        try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
     
-    private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXFileReference]) throws {
-        try write(section: section, proj: proj, object: object, sort: fileListSortOrder.sort)
+    private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXFileReference], outputSettings: PBXOutputSettings) throws {
+        try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
     
     private func write<T>(section: String,
@@ -264,44 +224,15 @@ final class PBXProjEncoder {
         indent -= 1
     }
     
-    private func sortFiles<T>(_ obj: T) where T: PBXObject {
-        
-        switch obj {
-            
-        case let buildPhase as PBXBuildPhase:
-            if buildPhaseFileSortOrder == .byFilename {
-                buildPhase.files = buildPhase.files.sorted { lhs, rhs in
-                    lhs.file?.path ?? lhs.uuid < rhs.file?.path ?? rhs.uuid
-                }
-            }
-            
-        case let fileGroup as PBXGroup:
-            
-            if navigatorGroupSortOrder == .byFilename {
-                fileGroup.children = fileGroup.children.sorted { lhs, rhs in
-                    lhs.path ?? lhs.uuid < rhs.path ?? rhs.uuid
-                }
-            }
-            
-            if navigatorGroupSortOrder == .byFilenameGroupsFirst {
-                fileGroup.children = fileGroup.children.sorted { lhs, rhs in
-                    switch (lhs, rhs) {
-                        
-                    case (is PBXFileReference, is PBXGroup):
-                        return false
-                        
-                    case (is PBXGroup, is PBXFileReference):
-                        return true
+    private func sort(buildPhases: [PBXObjectReference: PBXBuildPhase], outputSettings: PBXOutputSettings) {
+        if let sort = outputSettings.projBuildPhaseFileOrder.sort {
+            buildPhases.values.forEach { $0.files = $0.files.sorted(by: sort) }
+        }
+    }
 
-                    default: // Where the types are the same or other types exist.
-                        return lhs.path ?? lhs.uuid < rhs.path ?? rhs.uuid
-                    }
-                }
-            }
-            
-        default:
-            // Do nothing
-            break
+    private func sort(navigatorGroups: [PBXObjectReference: PBXGroup], outputSettings: PBXOutputSettings) {
+        if let sort = outputSettings.projNavigatorFileOrder.sort {
+            navigatorGroups.values.forEach { $0.children = $0.children.sorted(by: sort) }
         }
     }
 }

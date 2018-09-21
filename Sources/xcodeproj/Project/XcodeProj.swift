@@ -63,15 +63,26 @@ public final class XcodeProj: Equatable {
 // MARK: - <Writable>
 
 extension XcodeProj: Writable {
+
     /// Writes project to the given path.
     ///
     /// - Parameter path: path to `.xcodeproj` file.
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If false will throw error if project already exists at the given path.
     public func write(path: AbsolutePath, override: Bool = true) throws {
+        try write(path: path, override: override, outputSettings: PBXOutputSettings())
+    }
+
+    /// Writes project to the given path.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls the writing of various files.
+    ///   If false will throw error if project already exists at the given path.
+    public func write(path: AbsolutePath, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
         try writeWorkspace(path: path, override: override)
-        try writePBXProj(path: path, override: override)
+        try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         try writeSchemes(path: path, override: override)
         try writeBreakPoints(path: path, override: override)
     }
@@ -105,9 +116,10 @@ extension XcodeProj: Writable {
     ///
     /// - Parameter path: path to `.xcodeproj` file.
     /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if project already exists at the given path.
-    public func writePBXProj(path: AbsolutePath, override: Bool = true) throws {
-        try pbxproj.write(path: XcodeProj.pbxprojPath(path), override: override)
+    public func writePBXProj(path: AbsolutePath, override: Bool = true, outputSettings: PBXOutputSettings) throws {
+        try pbxproj.write(path: XcodeProj.pbxprojPath(path), override: override, outputSettings: outputSettings)
     }
 
     /// Returns shared data path relative to the given path.
