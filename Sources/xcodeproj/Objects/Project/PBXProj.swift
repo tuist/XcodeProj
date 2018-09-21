@@ -18,7 +18,7 @@ public final class PBXProj: Decodable {
 
     /// Project root object.
     var rootObjectReference: PBXObjectReference?
-    
+
     /// Project root object.
     public var rootObject: PBXProject? {
         set {
@@ -116,7 +116,7 @@ public extension PBXProj {
     public var sourcesBuildPhases: [PBXSourcesBuildPhase] { return Array(objects.sourcesBuildPhases.values) }
     public var carbonResourcesBuildPhases: [PBXRezBuildPhase] { return Array(objects.carbonResourcesBuildPhases.values) }
     public var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
-    
+
     /// Returns root project.
     public func rootProject() throws -> PBXProject? {
         return try rootObjectReference?.object()
@@ -198,7 +198,6 @@ extension PBXProj: Equatable {
 // MARK: - Writable
 
 extension PBXProj: Writable {
-
     public func write(path: AbsolutePath, override: Bool) throws {
         try write(path: path, override: override, outputSettings: PBXOutputSettings())
     }

@@ -28,9 +28,7 @@ public enum PBXFileOrder {
     }
 
     func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
-
         switch self {
-
         case .byFilename:
             return lhs.1.path ?? lhs.1.uuid < rhs.1.path ?? rhs.1.uuid
 
@@ -47,9 +45,7 @@ public enum PBXNavigatorFileOrder {
     case byFilenameGroupsFirst
 
     var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
-
         switch self {
-
         case .byFilename:
             return { lhs, rhs in
                 lhs.path ?? lhs.uuid < rhs.path ?? rhs.uuid
@@ -58,7 +54,6 @@ public enum PBXNavigatorFileOrder {
         case .byFilenameGroupsFirst:
             return { lhs, rhs in
                 switch (lhs, rhs) {
-
                 case (is PBXFileReference, is PBXGroup):
                     return false
 
@@ -82,9 +77,7 @@ public enum PBXBuildPhaseFileOrder {
     case byFilename
 
     var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
-
         switch self {
-
         case .byFilename:
             return { lhs, rhs in
                 lhs.file?.path ?? lhs.uuid < rhs.file?.path ?? rhs.uuid
@@ -98,7 +91,6 @@ public enum PBXBuildPhaseFileOrder {
 
 /// Struct of output settings passed to various methods.
 public struct PBXOutputSettings {
-
     let projFileListOrder: PBXFileOrder
     let projNavigatorFileOrder: PBXNavigatorFileOrder
     let projBuildPhaseFileOrder: PBXBuildPhaseFileOrder
@@ -117,6 +109,4 @@ public struct PBXOutputSettings {
         self.projNavigatorFileOrder = projNavigatorFileOrder
         self.projBuildPhaseFileOrder = projBuildPhaseFileOrder
     }
-
-
 }

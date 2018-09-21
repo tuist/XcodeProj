@@ -16,10 +16,9 @@ final class PBXProjEncoder {
     var indent: UInt = 0
     var output: String = ""
     var multiline: Bool = true
-    
+
     // swiftlint:disable function_body_length
     func encode(proj: PBXProj, outputSettings: PBXOutputSettings) throws -> String {
-        
         try referenceGenerator.generateReferences(proj: proj)
         guard let rootObject = proj.rootObjectReference else { throw PBXProjEncoderError.emptyProjectReference }
 
@@ -71,17 +70,17 @@ final class PBXProjEncoder {
                                                        comment: "Project object")))
         writeDictionaryEnd()
         writeNewLine()
-        
+
         // clear reference cache
         return output
     }
-    
+
     // MARK: - Private
-    
+
     private func writeUtf8() {
         output.append("// !$*UTF8*$!")
     }
-    
+
     private func writeNewLine() {
         if multiline {
             output.append("\n")
@@ -89,7 +88,7 @@ final class PBXProjEncoder {
             output.append(" ")
         }
     }
-    
+
     private func write(value: PlistValue) {
         switch value {
         case let .array(array):
@@ -100,7 +99,7 @@ final class PBXProjEncoder {
             write(commentedString: commentedString)
         }
     }
-    
+
     private func write(commentedString: CommentedString) {
         write(string: commentedString.validString)
         if let comment = commentedString.comment {
@@ -108,27 +107,27 @@ final class PBXProjEncoder {
             write(comment: comment)
         }
     }
-    
+
     private func write(string: String) {
         output.append(string)
     }
-    
+
     private func write(comment: String) {
         output.append("/* \(comment) */")
     }
-    
+
     private func write<T>(section: String, proj: PBXProj, object: [PBXObjectReference: T], outputSettings: PBXOutputSettings) throws where T: PlistSerializable & Equatable {
         try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
-    
+
     private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXBuildFile], outputSettings: PBXOutputSettings) throws {
         try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
-    
+
     private func write(section: String, proj: PBXProj, object: [PBXObjectReference: PBXFileReference], outputSettings: PBXOutputSettings) throws {
         try write(section: section, proj: proj, object: object, sort: outputSettings.projFileListOrder.sort)
     }
-    
+
     private func write<T>(section: String,
                           proj: PBXProj,
                           object: [PBXObjectReference: T],
@@ -141,11 +140,11 @@ final class PBXProjEncoder {
             .forEach { key, value in
                 let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
                 write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: value.multiline)
-        }
+            }
         write(string: "/* End \(section) section */")
         writeNewLine()
     }
-    
+
     private func write(dictionary: [CommentedString: PlistValue], newLines _: Bool = true) {
         writeDictionaryStart()
         dictionary.sorted(by: { (left, right) -> Bool in
@@ -160,7 +159,7 @@ final class PBXProjEncoder {
             .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
         writeDictionaryEnd()
     }
-    
+
     private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true) {
         writeIndent()
         let beforeMultiline = self.multiline
@@ -172,58 +171,58 @@ final class PBXProjEncoder {
         self.multiline = beforeMultiline
         writeNewLine()
     }
-    
+
     private func writeDictionaryStart() {
         output.append("{")
         if multiline { writeNewLine() }
         increaseIndent()
     }
-    
+
     private func writeDictionaryEnd() {
         decreaseIndent()
         writeIndent()
         output.append("}")
     }
-    
+
     private func write(array: [PlistValue]) {
         writeArrayStart()
         array.forEach { write(arrayValue: $0) }
         writeArrayEnd()
     }
-    
+
     private func write(arrayValue: PlistValue) {
         writeIndent()
         write(value: arrayValue)
         output.append(",")
         writeNewLine()
     }
-    
+
     private func writeArrayStart() {
         output.append("(")
         if multiline { writeNewLine() }
         increaseIndent()
     }
-    
+
     private func writeArrayEnd() {
         decreaseIndent()
         writeIndent()
         output.append(")")
     }
-    
+
     private func writeIndent() {
         if multiline {
             output.append(String(repeating: "\t", count: Int(indent)))
         }
     }
-    
+
     private func increaseIndent() {
         indent += 1
     }
-    
+
     private func decreaseIndent() {
         indent -= 1
     }
-    
+
     private func sort(buildPhases: [PBXObjectReference: PBXBuildPhase], outputSettings: PBXOutputSettings) {
         if let sort = outputSettings.projBuildPhaseFileOrder.sort {
             buildPhases.values.forEach { $0.files = $0.files.sorted(by: sort) }

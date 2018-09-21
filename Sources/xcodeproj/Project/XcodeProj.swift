@@ -63,7 +63,6 @@ public final class XcodeProj: Equatable {
 // MARK: - <Writable>
 
 extension XcodeProj: Writable {
-
     /// Writes project to the given path.
     ///
     /// - Parameter path: path to `.xcodeproj` file.
