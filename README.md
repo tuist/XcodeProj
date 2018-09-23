@@ -13,7 +13,7 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ---
 
-- [Projects Using xcoderproj](#projects-using-xcodeproj)
+- [Projects Using xcodeproj](#projects-using-xcodeproj)
 - [Migration Guides](#migration-guides)
 - [Installation](#installation)
 - [Usage](#usage)
