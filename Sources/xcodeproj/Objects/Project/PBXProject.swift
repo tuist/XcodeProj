@@ -83,6 +83,8 @@ public final class PBXProject: PBXObject {
         }
     }
 
+    private static let targetAttributesKey = "TargetAttributes"
+
     /// The relative root paths of the project.
     public var projectRoots: [String]
 
@@ -100,30 +102,57 @@ public final class PBXProject: PBXObject {
     }
 
     /// Project attributes.
-    var attributeReferences: [PBXObjectReference: [String: Any]]
+    /// Target attributes will be merged into this
+    public var attributes: [String: Any]
+
+    /// Target attribute references.
+    var targetAttributeReferences: [PBXObjectReference: [String: Any]]
+
+    /// Target attributes.
+    public var targetAttributes: [PBXTarget: [String: Any]] {
+        set {
+            targetAttributeReferences = [:]
+            newValue.forEach {
+                targetAttributeReferences[$0.key.reference] = $0.value
+            }
+        } get {
+            var attributes: [PBXTarget: [String: Any]] = [:]
+            targetAttributeReferences.forEach {
+                if let object: PBXTarget = try? $0.key.object() {
+                    attributes[object] = $0.value
+                }
+            }
+            return attributes
+        }
+    }
 
     /// Sets the attributes for the given target.
     ///
     /// - Parameters:
     ///   - attributes: attributes that will be set.
     ///   - target: target.
-    public func setAttributes(_ attributes: [String: Any], target: PBXTarget) {
-        attributeReferences[target.reference] = attributes
+    public func setTargetAttributes(_ attributes: [String: Any], target: PBXTarget) {
+        targetAttributeReferences[target.reference] = attributes
     }
 
     /// Removes the attributes for the given target.
     ///
     /// - Parameter target: target whose attributes will be removed.
-    public func removeAttributes(target: PBXTarget) {
-        attributeReferences.removeValue(forKey: target.reference)
+    public func removeTargetAttributes(target: PBXTarget) {
+        targetAttributeReferences.removeValue(forKey: target.reference)
+    }
+
+    /// Removes the all the target attributes
+    public func clearAllTargetAttributes() {
+        targetAttributeReferences.removeAll()
     }
 
     /// Returns the attributes of a given target.
     ///
-    /// - Parameter target: target whose attributes will be returned.
+    /// - Parameter for: target whose attributes will be returned.
     /// - Returns: target attributes.
-    public func attributes(target: PBXTarget) -> [String: Any]? {
-        return attributeReferences[target.reference]
+    public func attributes(for target: PBXTarget) -> [String: Any]? {
+        return targetAttributeReferences[target.reference]
     }
 
     // MARK: - Init
@@ -154,7 +183,9 @@ public final class PBXProject: PBXObject {
                 projectDirPath: String = "",
                 projects: [[String: PBXFileElement]] = [],
                 projectRoots: [String] = [],
-                targets: [PBXTarget] = []) {
+                targets: [PBXTarget] = [],
+                attributes: [String: Any] = [:],
+                targetAttributes: [PBXTarget: [String: Any]] = [:]) {
         self.name = name
         buildConfigurationListReference = buildConfigurationList.reference
         self.compatibilityVersion = compatibilityVersion
@@ -167,8 +198,10 @@ public final class PBXProject: PBXObject {
         projectReferences = projects.map({ project in project.mapValues({ $0.reference }) })
         self.projectRoots = projectRoots
         targetReferences = targets.map({ $0.reference })
-        attributeReferences = [:]
+        self.attributes = attributes
+        self.targetAttributeReferences = [:]
         super.init()
+        self.targetAttributes = targetAttributes
     }
 
     // MARK: - Decodable
@@ -224,10 +257,14 @@ public final class PBXProject: PBXObject {
         let targetReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
         self.targetReferences = targetReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
 
-        let dictionaryAttributes = (try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:]) as? [String: [String: Any]]
-        var attributeReferences: [PBXObjectReference: [String: Any]] = [:]
-        dictionaryAttributes?.forEach { attributeReferences[referenceRepository.getOrCreate(reference: $0.key, objects: objects)] = $0.value }
-        self.attributeReferences = attributeReferences
+        var attributes = (try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:])
+        var targetAttributeReferences: [PBXObjectReference: [String: Any]] = [:]
+        if let targetAttributes = attributes[PBXProject.targetAttributesKey] as? [String: [String: Any]] {
+            targetAttributes.forEach { targetAttributeReferences[referenceRepository.getOrCreate(reference: $0.key, objects: objects)] = $0.value }
+            attributes[PBXProject.targetAttributesKey] = nil
+        }
+        self.attributes = attributes
+        self.targetAttributeReferences = targetAttributeReferences
 
         try super.init(from: decoder)
     }
@@ -275,10 +312,15 @@ extension PBXProject: PlistSerializable {
                 return .string(CommentedString(targetReference.value, comment: target?.name))
         })
 
-        var plistAttributes: [String: [String: Any]] = [:]
-        attributeReferences.forEach({ plistAttributes[$0.key.value] = $0.value })
-
+        var plistAttributes: [String: Any] = attributes
+        if !targetAttributeReferences.isEmpty {
+            // merge target attributes
+            var plistTargetAttributes: [String: Any] = [:]
+            targetAttributeReferences.forEach({ plistTargetAttributes[$0.key.value] = $0.value })
+            plistAttributes[PBXProject.targetAttributesKey] = plistTargetAttributes
+        }
         dictionary["attributes"] = plistAttributes.plist()
+
         return (key: CommentedString(reference,
                                      comment: "Project object"),
                 value: .dictionary(dictionary))

@@ -2,7 +2,7 @@
 import Foundation
 
 /// Class that represents a project element.
-public class PBXObject: Decodable, Equatable, AutoEquatable {
+public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
     /// Returns the unique identifier.
     /// Note: The unique identifier of an object might change when the project gets written.
     /// If you use this identifier from a scheme, make sure the project is written before the project is.
@@ -49,6 +49,10 @@ public class PBXObject: Decodable, Equatable, AutoEquatable {
 
     @objc dynamic func isEqual(to _: Any?) -> Bool {
         return true
+    }
+
+    public var hashValue: Int {
+        return reference.hashValue
     }
 
     // swiftlint:disable function_body_length
