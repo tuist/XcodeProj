@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Fixes `PBXProject` attributes not being set properly https://github.com/tuist/xcodeproj/pull/318 by @pepyonaskolbibumur.
+
 ## 6.0.0
 
 Note: Migration guidelines are included in the project README.
