@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Fixed remoteGlobalID typo https://github.com/tuist/xcodeproj/pull/315 by @yonaskolb.
+
 ## 6.0.0
 
 Note: Migration guidelines are included in the project README.
