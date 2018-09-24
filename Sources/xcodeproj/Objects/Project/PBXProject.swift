@@ -199,7 +199,7 @@ public final class PBXProject: PBXObject {
         self.projectRoots = projectRoots
         targetReferences = targets.map({ $0.reference })
         self.attributes = attributes
-        self.targetAttributeReferences = [:]
+        targetAttributeReferences = [:]
         super.init()
         self.targetAttributes = targetAttributes
     }

@@ -2,9 +2,7 @@
 import XCTest
 
 final class PBXProjectTests: XCTestCase {
-
     func test_attributes() throws {
-
         let target = PBXTarget(name: "")
         target.reference.fix("test")
 
@@ -23,10 +21,9 @@ final class PBXProjectTests: XCTestCase {
         let expectedAttributes: [CommentedString: PlistValue] = [
             "LastUpgradeCheck": "0940",
             "TargetAttributes": ["test": [
-                "custom": "abc"
-                ]]
+                "custom": "abc",
+            ]],
         ]
         XCTAssertEqual(attributes, expectedAttributes)
     }
-
 }
