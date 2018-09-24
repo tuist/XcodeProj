@@ -240,35 +240,28 @@
             
             <h1 id='xcodeproj' class='heading'>xcodeproj</h1>
 
-<p><a href="https://swift.org/package-manager">
-<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
-</a>
-<a href="https://github.com/tuist/xcodeproj/releases">
-  <img src="https://img.shields.io/github/release/tuist/xcodeproj.svg"/>
-</a>
-<a href="https://opensource.org/licenses/MIT">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
-</a>
-<a href="https://codecov.io/gh/xcodeswift/xcproj">
-  <img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" />
-</a></p>
+<p><img src="https://img.shields.io/circleci/project/github/tuist/xcodeproj/master.svg" alt="CircleCI branch">
+<img src="https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg" alt="Swift Package Manager">
+<img src="https://img.shields.io/github/release/tuist/xcodeproj.svg" alt="Release">
+<img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" alt="Code Coverage">
+<img src="http://slack.tuist.io/badge.svg" alt="Slack">
+<img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></p>
 
 <p>xcodeproj is a library written in Swift for parsing and working with Xcode projects. It&rsquo;s heavily inspired in <a href="https://github.com/CocoaPods/Xcodeproj">CocoaPods XcodeProj</a> and <a href="https://www.npmjs.com/package/xcode">xcode</a>.</p>
 
 <p><strong>This project is a fork and evolution from <a href="https://github.com/xcodeswift/xcproj">xcproj</a></strong></p>
-<h2 id='continuous-integration' class='heading'>Continuous Integration</h2>
+
+<hr>
 
 <ul>
-<li><strong>Master:</strong> <a href="https://circleci.com/gh/tuist/xcodeproj"><img src="https://circleci.com/gh/tuist/xcodeproj.svg?style=svg" alt="CircleCI"></a></li>
+<li><a href="#projects-using-xcodeproj">Projects Using xcodeproj</a></li>
+<li><a href="#migration-guides">Migration Guides</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
 </ul>
-<h2 id='contribute' class='heading'>Contribute</h2>
-
-<ol>
-<li>Git clone the repository <code>git@github.com:tuist/xcodeproj.git</code>.</li>
-<li>Generate xcodeproj with  <code>swift package generate-xcodeproj</code>.</li>
-<li>Open <code>xcodeproj.xcodeproj</code>.</li>
-</ol>
-<h2 id='projects-using-xcodeproj' class='heading'>Projects using xcodeproj</h2>
+<h2 id='projects-using-xcodeproj' class='heading'>Projects Using xcodeproj</h2>
 
 <table><thead>
 <tr>
@@ -295,8 +288,8 @@
 </tbody></table>
 
 <p>If you are also leveraging xcodeproj in your project, feel free to open a PR to include it in the list above.</p>
-<h2 id='setup' class='heading'>Setup</h2>
-<h4 id='using-swift-package-manager' class='heading'>Using Swift Package Manager</h4>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
 
 <p>Add the dependency in your <code>Package.swift</code> file:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
@@ -311,12 +304,13 @@
         <span class="p">]</span>
 <span class="p">)</span>
 </code></pre>
-<h2 id='migrate-to-xcodeproj-6' class='heading'>Migrate to xcodeproj 6</h2>
+<h2 id='migration-guides' class='heading'>Migration Guides</h2>
+<h3 id='xcodeproj-6' class='heading'>xcodeproj 6</h3>
 
 <p>xcodeproj 6 is the final step towards hiding the Xcode project implementation details. One of those details was the object unique identifiers, which you used to manage yourself with previous versions. Now, xcodeproj does it for you, so you don&rsquo;t have to pass them around to set dependencies between objects.</p>
 
 <p>This improvement makes the API easier, safer and more convenient, but at the cost of introducing some breaking changes in the library. If want to migrate your project to use xcodeproj 6, these are the things that you should look at:</p>
-<li><code>PBXObjectReference</code> is an internal class now. Objects references to other objects are attributes with the type of the object that is being referred. For example, an <code><a href="Classes/XCConfigurationList.html">XCConfigurationList</a></code> object, has an attribute <code>buildConfigurations</code> of type <code><a href="Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></code>. Adding a new configuration is as easy as calling <code>list.buildConfigurations.append(config)</code>.</li>
+<li><code>PBXObjectReference</code> is an internal class now. Object references to other objects are attributes with the type of the object that is being referred. For example, a <code><a href="Classes/XCConfigurationList.html">XCConfigurationList</a></code> object has an attribute <code>buildConfigurations</code> of type <code><a href="Classes/XCBuildConfiguration.html">XCBuildConfiguration</a></code>. Adding a new configuration is as easy as calling <code>list.buildConfigurations.append(config)</code>.</li>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     Note that object references have different types of optionals based on the type of attribute:
@@ -328,7 +322,9 @@
 
 </div>
 <li><code>PBXObjects</code> has also been made internal. It was exposed through the attribute <code>objects</code> on the <code><a href="Classes/PBXProj.html">PBXProj</a></code> class. If you used to use this class for adding, removing, or getting objects, those methods have been moved to the <code><a href="Classes/PBXProj.html">PBXProj</a></code> class - <a href="https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProj.swift#L85">Public helpers</a></li>
-<h2 id='migrate-to-xcodeproj-5' class='heading'>Migrate to xcodeproj 5</h2>
+
+<p><strong>And yes, in case you are wondering, it fully supports Xcode 10 🎉</strong></p>
+<h3 id='xcodeproj-5' class='heading'>xcodeproj 5</h3>
 
 <p><code>xcodeproj</code> 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn&rsquo;t been officially released yet but you can already start updating your project for the new version. These are the changes you&rsquo;d need to make in your projects:</p>
 
@@ -343,10 +339,10 @@
 
 <p>One of those additions is an improvement on how references are managed.
  When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. <strong>The value of that reference is an implementation detail that has been abstracted away from you.</strong></p>
-<h2 id='documentation' class='heading'>Documentation 📄</h2>
+<h2 id='usage' class='heading'>Usage</h2>
 
 <p>You can check out the documentation on the following <a href="https://tuist.github.io/xcodeproj/index.html">link</a>. The documentation is automatically generated in every release by using <a href="https://github.com/realm/jazzy">Jazzy</a> from <a href="https://realm.io">Realm</a>.</p>
-<h2 id='references' class='heading'>References 📚</h2>
+<h3 id='references' class='heading'>References 📚</h3>
 
 <ul>
 <li><a href="http://www.monobjc.net/xcode-project-file-format.html">Xcode Project File Format</a></li>
@@ -359,6 +355,16 @@
 <li><a href="https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html">Facebook Buck</a></li>
 <li><a href="https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj">Swift Package Manager - Xcodeproj</a></li>
 </ul>
+<h2 id='contributing' class='heading'>Contributing</h2>
+
+<ol>
+<li>Git clone the repository <code>git@github.com:tuist/xcodeproj.git</code>.</li>
+<li>Generate xcodeproj with  <code>swift package generate-xcodeproj</code>.</li>
+<li>Open <code>xcodeproj.xcodeproj</code>.</li>
+</ol>
+<h2 id='license' class='heading'>License</h2>
+
+<p>xcodeproj is released under the MIT license. <a href="https://github.com/tuist/xcodeproj/blob/master/LICENSE.md">See LICENSE</a> for details.</p>
 
           </section>
         </section>
