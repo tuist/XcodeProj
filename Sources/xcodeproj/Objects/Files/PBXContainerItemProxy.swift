@@ -46,15 +46,15 @@ public final class PBXContainerItemProxy: PBXObject {
     ///
     /// - Parameters:
     ///   - containerPortal: container portal.
-    ///   - remogeGlobalID: remote global ID.
+    ///   - remoteGlobalID: remote global ID.
     ///   - proxyType: proxy type.
     ///   - remoteInfo: remote info.
     public init(containerPortal: PBXProject,
-                remogeGlobalID: PBXObject? = nil,
+                remoteGlobalID: PBXObject? = nil,
                 proxyType: ProxyType? = nil,
                 remoteInfo: String? = nil) {
         containerPortalReference = containerPortal.reference
-        remoteGlobalIDReference = remogeGlobalID?.reference
+        remoteGlobalIDReference = remoteGlobalID?.reference
         self.remoteInfo = remoteInfo
         self.proxyType = proxyType
         super.init()
