@@ -36,7 +36,7 @@ public final class XCBuildConfiguration: PBXObject {
     ///   - baseConfiguration: base configuration.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
     public init(name: String,
-                baseConfiguration: XCBuildConfiguration? = nil,
+                baseConfiguration: PBXFileReference? = nil,
                 buildSettings: BuildSettings = [:]) {
         baseConfigurationReference = baseConfiguration?.reference
         self.buildSettings = buildSettings

@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Fixed `XCBuildConfiguration.buildConfiguration` type https://github.com/tuist/xcodeproj/pull/316 by @yonaskolb.
+
 ## 6.0.0
 
 Note: Migration guidelines are included in the project README.
