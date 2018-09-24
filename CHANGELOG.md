@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fixed remoteGlobalID typo https://github.com/tuist/xcodeproj/pull/315 by @yonaskolb.
+- Fixed `XCBuildConfiguration.buildConfiguration` type https://github.com/tuist/xcodeproj/pull/316 by @yonaskolb.
 
 ## 6.0.0
 
