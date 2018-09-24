@@ -3,6 +3,7 @@
 ## next version
 
 ### Fixed
+- Fixes `PBXProject` attributes not being set properly https://github.com/tuist/xcodeproj/pull/318 by @yonaskolb.
 - Fixed remoteGlobalID typo https://github.com/tuist/xcodeproj/pull/315 by @yonaskolb.
 - Fixed `XCBuildConfiguration.buildConfiguration` type https://github.com/tuist/xcodeproj/pull/316 by @yonaskolb.
 

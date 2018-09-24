@@ -175,7 +175,8 @@ extension PBXProject {
         if projectReferences != rhs.projectReferences { return false }
         if projectRoots != rhs.projectRoots { return false }
         if targetReferences != rhs.targetReferences { return false }
-        if !NSDictionary(dictionary: attributeReferences).isEqual(to: rhs.attributeReferences) { return false }
+        if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
+        if !NSDictionary(dictionary: targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
         return super.isEqual(to: rhs)
     }
 }
