@@ -6,7 +6,17 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var referencedContainer: String
-        public var blueprintIdentifier: String
+
+        public var blueprint: PBXObject {
+            get {
+                return try! blueprintIdentifier.object()
+            }
+            set {
+                blueprintIdentifier = newValue.reference
+            }
+        }
+
+        var blueprintIdentifier: PBXObjectReference
         public var buildableName: String
         public var buildableIdentifier: String
         public var blueprintName: String
@@ -14,12 +24,12 @@ extension XCScheme {
         // MARK: - Init
 
         public init(referencedContainer: String,
-                    blueprintIdentifier: String,
+                    blueprint: PBXObject,
                     buildableName: String,
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprintIdentifier = blueprintIdentifier
+            self.blueprintIdentifier = blueprint.reference
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
@@ -44,7 +54,8 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            self.blueprintIdentifier = blueprintIdentifier
+            let context = ProjectDecodingContext.shared
+            self.blueprintIdentifier = context.objectReferenceRepository.getOrCreate(reference: blueprintIdentifier, objects: context.objects)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
@@ -55,7 +66,7 @@ extension XCScheme {
                                 value: nil,
                                 attributes: [
                                     "BuildableIdentifier": buildableIdentifier,
-                                    "BlueprintIdentifier": blueprintIdentifier,
+                                    "BlueprintIdentifier": blueprintIdentifier.value,
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
                                     "ReferencedContainer": referencedContainer,
