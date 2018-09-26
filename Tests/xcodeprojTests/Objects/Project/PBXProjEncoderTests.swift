@@ -28,7 +28,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     func test_writeHeaders() throws {
         let lines = self.lines(fromFile: encodeProject())
-        XCTAssertEqual(516, lines.count)
+        XCTAssertEqual(530, lines.count)
         XCTAssertEqual("// !$*UTF8*$!", lines[0])
     }
 

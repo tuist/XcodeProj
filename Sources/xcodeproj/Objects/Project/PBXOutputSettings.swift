@@ -39,7 +39,8 @@ public enum PBXFileOrder {
     /// Sort files by their file name. This is a case sensistive sort with lower case names coming after uppercase names.
     case byFilename
 
-    internal func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool where Object: PlistSerializable & Equatable {
+    internal func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool
+        where Object: PlistSerializable & Equatable {
         return lhs.0 < rhs.0
     }
 
