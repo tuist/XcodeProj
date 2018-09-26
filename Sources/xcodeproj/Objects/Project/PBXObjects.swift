@@ -1,6 +1,5 @@
 import Foundation
 
-// swiftlint:disable type_body_length
 class PBXObjects: Equatable {
     // MARK: - Properties
 
@@ -114,9 +113,8 @@ class PBXObjects: Equatable {
     ///
     /// - Parameter reference: referenc of the object to be deleted.
     /// - Returns: the deleted object.
-    // swiftlint:disable:next function_body_length
-    @discardableResult
-    func delete(reference: PBXObjectReference) -> PBXObject? {
+    // swiftlint:disable:next function_body_length Note: SwiftLint doesn't disable if @discardable and the function are on different lines.
+    @discardableResult func delete(reference: PBXObjectReference) -> PBXObject? {
         if let index = buildFiles.index(forKey: reference) {
             return buildFiles.remove(at: index).value
         } else if let index = aggregateTargets.index(forKey: reference) {
@@ -169,7 +167,7 @@ class PBXObjects: Equatable {
     ///
     /// - Parameter reference: Xcode reference.
     /// - Returns: object.
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     func get(reference: PBXObjectReference) -> PBXObject? {
         // This if-let expression is used because the equivalent chain of `??` separated lookups causes,
         // with Swift 4, this compiler error:

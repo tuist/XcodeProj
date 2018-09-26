@@ -1,5 +1,5 @@
 //
-//  FileSorting.swift
+//  PBXOutputSettings.swift
 //  xcodeproj
 //
 //  Created by Derek Clarkson on 21/9/18.
@@ -9,28 +9,54 @@ import Foundation
 
 /// Code for controlling sorting of files in an pbxproj file.
 
-// Defines the sorting applied to files within the file lists. Defaults to by UUID.
+// MARK: - Core sort functions
+
+// Because of the number of optional data items in PBXBuildFiles, we've externalised the core code in these two functions.
+// Note, PBXBuildFile's contains PBXFileElements so this first function is an optional handling wrapper driving the second.
+// Also note that we use the .fileName() function to retrieve the name as both .path and .name properties can be nil.
+
+private func sortUsingNames(_ lhs: PBXBuildFile, _ rhs: PBXBuildFile) -> Bool {
+    if let lhsFile = lhs.file, let rhsFile = rhs.file {
+        return sortUsingNames(lhsFile, rhsFile)
+    }
+    return lhs.uuid < rhs.uuid
+}
+
+private func sortUsingNames(_ lhs: PBXFileElement, _ rhs: PBXFileElement) -> Bool {
+    if let lhsFilename = lhs.fileName(), let rhsFilename = rhs.fileName() {
+        return lhsFilename == rhsFilename ? lhs.uuid < rhs.uuid : lhsFilename < rhsFilename
+    }
+    return lhs.uuid < rhs.uuid
+}
+
+// MARK: - Sorting enums
+
+/// Defines the sorting applied to files within the file lists. Defaults to by UUID.
 public enum PBXFileOrder {
+
+    /// Sort files by Xcode's UUID
     case byUUID
+
+    /// Sort files by their file name. This is a case sensistive sort with lower case names coming after uppercase names.
     case byFilename
 
-    func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool where Object: PlistSerializable & Equatable {
+    internal func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool where Object: PlistSerializable & Equatable {
         return lhs.0 < rhs.0
     }
 
-    func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
+    internal func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
         switch self {
         case .byFilename:
-            return lhs.1.file?.path ?? lhs.1.uuid < rhs.1.file?.path ?? rhs.1.uuid
+            return sortUsingNames(lhs.1, rhs.1)
         default:
             return lhs.0 < rhs.0
         }
     }
 
-    func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
+    internal func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
         switch self {
         case .byFilename:
-            return lhs.1.path ?? lhs.1.uuid < rhs.1.path ?? rhs.1.uuid
+            return sortUsingNames(lhs.1, rhs.1)
 
         default:
             return lhs.0 < rhs.0
@@ -38,31 +64,40 @@ public enum PBXFileOrder {
     }
 }
 
+private extension PBXFileElement {
+    var isGroup: Bool {
+        switch self {
+        case is PBXVariantGroup, is XCVersionGroup: return false
+        case is PBXGroup: return true
+        default: return false
+        }
+    }
+}
+
 /// Defines the sorting applied to groups with the project navigator and various build phases.
 public enum PBXNavigatorFileOrder {
+
+    /// Leave the files unsorted.
     case unsorted
+
+    /// Sort the file by their file name. This is a case sensitive sort with uppercase name preceeding lowercase names.
     case byFilename
+
+    /// Sorts the files by their file names with all groups appear at the top of the list.
     case byFilenameGroupsFirst
 
-    var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
+    internal var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
         switch self {
         case .byFilename:
-            return { lhs, rhs in
-                lhs.path ?? lhs.uuid < rhs.path ?? rhs.uuid
-            }
+            return { sortUsingNames($0, $1) }
 
         case .byFilenameGroupsFirst:
             return { lhs, rhs in
-                switch (lhs, rhs) {
-                case (is PBXFileReference, is PBXGroup):
-                    return false
-
-                case (is PBXGroup, is PBXFileReference):
-                    return true
-
-                default: // Where the types are the same or other types exist.
-                    return lhs.path ?? lhs.uuid < rhs.path ?? rhs.uuid
+                let lhsIsGroup = lhs.isGroup
+                if lhsIsGroup != rhs.isGroup {
+                    return lhsIsGroup
                 }
+                return sortUsingNames(lhs, rhs)
             }
 
         default:
@@ -73,14 +108,18 @@ public enum PBXNavigatorFileOrder {
 
 /// Defines the sorting of file within a build phase.
 public enum PBXBuildPhaseFileOrder {
+
+    /// Leave the files unsorted.
     case unsorted
+
+    /// Sort the files by their file name. This is a case sensitive sort with uppercase names appearing before lowercase names.
     case byFilename
 
-    var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
+    internal var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
         switch self {
         case .byFilename:
             return { lhs, rhs in
-                lhs.file?.path ?? lhs.uuid < rhs.file?.path ?? rhs.uuid
+                sortUsingNames(lhs, rhs)
             }
 
         default:
@@ -91,8 +130,14 @@ public enum PBXBuildPhaseFileOrder {
 
 /// Struct of output settings passed to various methods.
 public struct PBXOutputSettings {
+
+    /// The sorting order for the list of files in Xcode's project file.
     let projFileListOrder: PBXFileOrder
+
+    /// The sort order for files and groups that appear in the Xcode Project Navigator.
     let projNavigatorFileOrder: PBXNavigatorFileOrder
+
+    /// The sort order for lists of files in build phases.
     let projBuildPhaseFileOrder: PBXBuildPhaseFileOrder
 
     /**
