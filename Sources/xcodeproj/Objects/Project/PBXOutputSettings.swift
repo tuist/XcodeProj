@@ -33,7 +33,6 @@ private func sortUsingNames(_ lhs: PBXFileElement, _ rhs: PBXFileElement) -> Boo
 
 /// Defines the sorting applied to files within the file lists. Defaults to by UUID.
 public enum PBXFileOrder {
-
     /// Sort files by Xcode's UUID
     case byUUID
 
@@ -76,7 +75,6 @@ private extension PBXFileElement {
 
 /// Defines the sorting applied to groups with the project navigator and various build phases.
 public enum PBXNavigatorFileOrder {
-
     /// Leave the files unsorted.
     case unsorted
 
@@ -108,7 +106,6 @@ public enum PBXNavigatorFileOrder {
 
 /// Defines the sorting of file within a build phase.
 public enum PBXBuildPhaseFileOrder {
-
     /// Leave the files unsorted.
     case unsorted
 
@@ -130,7 +127,6 @@ public enum PBXBuildPhaseFileOrder {
 
 /// Struct of output settings passed to various methods.
 public struct PBXOutputSettings {
-
     /// The sorting order for the list of files in Xcode's project file.
     let projFileListOrder: PBXFileOrder
 

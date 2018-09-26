@@ -6,11 +6,10 @@
 //
 
 import Foundation
-import XCTest
 @testable import xcodeproj
+import XCTest
 
 class PBXProjEncoderTests: XCTestCase {
-
     var encoder: PBXProjEncoder!
     var proj: PBXProj!
 
@@ -116,7 +115,6 @@ class PBXProjEncoderTests: XCTestCase {
     // MARK: - Navigator
 
     func test_navigator_groups_in_default_order() {
-
         let lines = self.lines(fromFile: encodeProject())
 
         let beginGroup = lines.findLine("/* Begin PBXGroup section */")
@@ -158,7 +156,6 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     func test_navigator_groups_in_filename_order() {
-
         let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
 
@@ -198,7 +195,6 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     func test_navigator_groups_in_filename_groups_first_order() {
-
         let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
 
@@ -307,8 +303,7 @@ class PBXProjEncoderTests: XCTestCase {
     private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
         do {
             return try encoder.encode(proj: proj, outputSettings: settings)
-        }
-        catch let error {
+        } catch let error {
             XCTFail("Unexpected error encoding project: \(error)", line: line)
             return ""
         }
@@ -318,8 +313,7 @@ class PBXProjEncoderTests: XCTestCase {
         do {
             _ = try encoder.encode(proj: proj, outputSettings: PBXOutputSettings())
             XCTFail("Expected '\(expectedError)' to be thrown", line: line)
-        }
-        catch let error {
+        } catch let error {
             if type(of: expectedError) != type(of: error) {
                 XCTFail("Expected '\(expectedError)' to be thrown, but got \(error)", line: line)
             }
@@ -334,7 +328,6 @@ class PBXProjEncoderTests: XCTestCase {
 // MARK: - Line validations
 
 private extension Array where Element == String {
-
     @discardableResult func validate(line string: String, betweenLine lineAbove: Int, andLine lineBelow: Int, line: UInt = #line) -> Int {
         return validate(string, using: { $0 == $1 }, betweenLine: lineAbove, andLine: lineBelow, line: line)
     }
@@ -345,7 +338,7 @@ private extension Array where Element == String {
 
     func validate(_ string: String, using: (String, String) -> Bool, betweenLine lineAbove: Int, andLine lineBelow: Int, line: UInt) -> Int {
         let lineNumber = validate(string, using: using, after: lineAbove, line: line)
-        if lineNumber >= lineBelow  {
+        if lineNumber >= lineBelow {
             XCTFail("Expected to find line between lines \(lineAbove) and \(lineBelow), but was found after \(lineBelow).", line: line)
         }
         return lineNumber
@@ -359,7 +352,7 @@ private extension Array where Element == String {
         return validate(string, using: { $0.contains($1) }, onLineAfter: onLineAfter, line: line)
     }
 
-   func validate(_ string: String, using: (String, String) -> Bool, onLineAfter: Int, line: UInt) -> Int {
+    func validate(_ string: String, using: (String, String) -> Bool, onLineAfter: Int, line: UInt) -> Int {
         let lineNumber = validate(string, using: using, after: onLineAfter, line: line)
         if lineNumber != onLineAfter + 1 {
             XCTFail("Expected to find at line \(onLineAfter + 1), but was found on line \(lineNumber).", line: line)
@@ -377,7 +370,7 @@ private extension Array where Element == String {
 
     func validate(_ string: String, using: (String, String) -> Bool, after: Int, line: UInt) -> Int {
         let lineNumber = findLine(string, matcher: using, after: after)
-        if lineNumber == self.endIndex {
+        if lineNumber == endIndex {
             XCTFail("Line not found after line \(after)", line: line)
         }
         return lineNumber
@@ -392,7 +385,7 @@ private extension Array where Element == String {
     }
 
     func findLine(_ string: String, matcher: (String, String) -> Bool, after: Int) -> Int {
-        for i in after ..< self.endIndex {
+        for i in after ..< endIndex {
             if matcher(self[i], string) {
                 return i
             }
@@ -402,7 +395,7 @@ private extension Array where Element == String {
 
     func log() {
         var line: Int = 0
-        self.forEach {
+        forEach {
             let lineStr = "\(line)"
             let lineNo = lineStr + String(repeating: " ", count: 5 - lineStr.count)
             print(lineNo, "|", $0)

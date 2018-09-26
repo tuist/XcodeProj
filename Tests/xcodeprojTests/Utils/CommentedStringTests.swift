@@ -4,7 +4,6 @@ import Foundation
 import XCTest
 
 class CommentedStringTests: XCTestCase {
-    
     func test_commentedStringEscaping() {
         let quote = "\""
         let escapedNewline = "\\n"

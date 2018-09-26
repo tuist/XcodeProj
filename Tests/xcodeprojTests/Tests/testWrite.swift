@@ -3,8 +3,8 @@ import Foundation
 @testable import xcodeproj
 import XCTest
 
-func testWrite<T: Writable & Equatable>(file: StaticString = #file,
-                                        line: UInt = #line,
+func testWrite<T: Writable & Equatable>(file _: StaticString = #file,
+                                        line _: UInt = #line,
                                         from path: AbsolutePath,
                                         initModel: (AbsolutePath) -> T?,
                                         modify: (T) -> T) {
