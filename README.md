@@ -1,37 +1,26 @@
 # xcodeproj
 
-<a href="https://swift.org/package-manager">
-<img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager"/>
-</a>
-<a href="https://github.com/tuist/xcodeproj/releases">
-  <img src="https://img.shields.io/github/release/tuist/xcodeproj.svg"/>
-</a>
-<a href="https://opensource.org/licenses/MIT">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License" />
-</a>
-<a href="https://codecov.io/gh/xcodeswift/xcproj">
-  <img src="https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg" />
-</a>
-
-<a href="http://slack.tuist.io">
-  <img src="http://slack.tuist.io/badge.svg" />
-</a>
+![CircleCI branch](https://img.shields.io/circleci/project/github/tuist/xcodeproj/master.svg)
+![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)
+![Release](https://img.shields.io/github/release/tuist/xcodeproj.svg)
+![Code Coverage](https://codecov.io/gh/xcodeswift/xcproj/branch/master/graph/badge.svg)
+![Slack](http://slack.tuist.io/badge.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 **This project is a fork and evolution from [xcproj](https://github.com/xcodeswift/xcproj)**
 
-## Continuous Integration
+---
 
-- **Master:** [![CircleCI](https://circleci.com/gh/tuist/xcodeproj.svg?style=svg)](https://circleci.com/gh/tuist/xcodeproj)
+- [Projects Using xcodeproj](#projects-using-xcodeproj)
+- [Migration Guides](#migration-guides)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Contribute
-
-1. Git clone the repository `git@github.com:tuist/xcodeproj.git`.
-2. Generate xcodeproj with  `swift package generate-xcodeproj`.
-3. Open `xcodeproj.xcodeproj`.
-
-## Projects using xcodeproj
+## Projects Using xcodeproj
 
 | Project | Repository             |
 |---------|------------------------|
@@ -42,9 +31,9 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 If you are also leveraging xcodeproj in your project, feel free to open a PR to include it in the list above.
 
-## Setup
+## Installation
 
-#### Using Swift Package Manager
+### Swift Package Manager
 
 Add the dependency in your `Package.swift` file:
 
@@ -62,7 +51,9 @@ let package = Package(
 )
 ```
 
-## Migrate to xcodeproj 6
+## Migration Guides
+
+### xcodeproj 6
 
 xcodeproj 6 is the final step towards hiding the Xcode project implementation details. One of those details was the object unique identifiers, which you used to manage yourself with previous versions. Now, xcodeproj does it for you, so you don't have to pass them around to set dependencies between objects.
 
@@ -76,7 +67,7 @@ This improvement makes the API easier, safer and more convenient, but at the cos
 
 **And yes, in case you are wondering, it fully supports Xcode 10 🎉**
 
-## Migrate to xcodeproj 5
+### xcodeproj 5
 `xcodeproj` 5 is a major release with important changes in the API focused on making it more convenient, and simplify the references handling. This version hasn't been officially released yet but you can already start updating your project for the new version. These are the changes you'd need to make in your projects:
 
 - `xcproj` has been renamed to `xcodeproj` so you need to update all your import statements to use the new name.
@@ -89,10 +80,11 @@ There are some useful additions to the API that you can check out on the [CHANGE
 One of those additions is an improvement on how references are managed.
  When new objects are added to the project, you get the object reference. The reference is an instance that should be used to refer that object from any other. **The value of that reference is an implementation detail that has been abstracted away from you.**
 
-## Documentation 📄
+## Usage 
+
 You can check out the documentation on the following [link](https://tuist.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
-## References 📚
+### References 📚
 
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
 - [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
@@ -103,3 +95,13 @@ You can check out the documentation on the following [link](https://tuist.github
 - [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
 - [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
+
+## Contributing
+
+1. Git clone the repository `git@github.com:tuist/xcodeproj.git`.
+2. Generate xcodeproj with  `swift package generate-xcodeproj`.
+3. Open `xcodeproj.xcodeproj`.
+
+## License
+
+xcodeproj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
