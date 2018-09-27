@@ -1,9 +1,3 @@
-//
-//  PBXEncoderTests.swift
-//  xcodeprojTests
-//
-//  Created by Derek Clarkson on 25/9/18.
-//
 
 import Foundation
 @testable import xcodeproj

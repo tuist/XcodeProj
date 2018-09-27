@@ -1,9 +1,3 @@
-//
-//  PBXOutputSettings.swift
-//  xcodeproj
-//
-//  Created by Derek Clarkson on 21/9/18.
-//
 
 import Foundation
 
