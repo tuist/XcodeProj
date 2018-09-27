@@ -4,6 +4,7 @@ import Foundation
 extension PBXProj {
     func encode() throws -> String {
         let encoder = PBXProjEncoder()
-        return try encoder.encode(proj: self)
+        let outputSettings = PBXOutputSettings()
+        return try encoder.encode(proj: self, outputSettings: outputSettings)
     }
 }

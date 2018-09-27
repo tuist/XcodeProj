@@ -10,7 +10,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     private(set) var value: String
 
     /// Weak reference to the objects instance that contains the project objects.
-    internal(set) weak var objects: PBXObjects?
+    weak var objects: PBXObjects?
 
     /// Initializes a non-temporary reference.
     ///
