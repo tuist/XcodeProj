@@ -29,8 +29,6 @@ class ProjectDecodingContext {
     /// Objects.
     let objects: PBXObjects
 
-    static var shared = ProjectDecodingContext()
-
     init() {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])

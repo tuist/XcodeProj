@@ -7,16 +7,27 @@ extension XCScheme {
 
         public var referencedContainer: String
 
-        public var blueprint: PBXObject {
-            get {
-                return try! blueprintIdentifier.object()
-            }
-            set {
-                blueprintIdentifier = newValue.reference
+        private enum Blueprint: Equatable {
+            case reference(PBXObjectReference)
+            case string(String)
+
+            var string: String {
+                switch self {
+                case .reference(let object): return object.value
+                case .string(let string): return string
+                }
             }
         }
 
-        var blueprintIdentifier: PBXObjectReference
+        public func setBlueprint(_ object: PBXObject) {
+            blueprint = .reference(object.reference)
+        }
+
+        private var blueprint: Blueprint
+        public var blueprintIdentifier: String {
+            return blueprint.string
+        }
+
         public var buildableName: String
         public var buildableIdentifier: String
         public var blueprintName: String
@@ -29,7 +40,7 @@ extension XCScheme {
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprintIdentifier = blueprint.reference
+            self.blueprint = .reference(blueprint.reference)
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
@@ -54,8 +65,7 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            let context = ProjectDecodingContext.shared
-            self.blueprintIdentifier = context.objectReferenceRepository.getOrCreate(reference: blueprintIdentifier, objects: context.objects)
+            self.blueprint = .string(blueprintIdentifier)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
@@ -66,7 +76,7 @@ extension XCScheme {
                                 value: nil,
                                 attributes: [
                                     "BuildableIdentifier": buildableIdentifier,
-                                    "BlueprintIdentifier": blueprintIdentifier.value,
+                                    "BlueprintIdentifier": blueprint.string,
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
                                     "ReferencedContainer": referencedContainer,
@@ -79,7 +89,7 @@ extension XCScheme {
             return lhs.referencedContainer == rhs.referencedContainer &&
                 lhs.blueprintIdentifier == rhs.blueprintIdentifier &&
                 lhs.buildableName == rhs.buildableName &&
-                lhs.buildableIdentifier == rhs.buildableIdentifier &&
+                lhs.blueprint == rhs.blueprint &&
                 lhs.blueprintName == rhs.blueprintName
         }
     }

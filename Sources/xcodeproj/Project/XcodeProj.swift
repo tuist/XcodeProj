@@ -24,7 +24,6 @@ public final class XcodeProj: Equatable {
         }
         let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
         let context = ProjectDecodingContext()
-        ProjectDecodingContext.shared = context
         let plistDecoder = XcodeprojPropertyListDecoder(context: context)
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         try pbxproj.updateProjectName(path: pbxprojPaths.first!)
