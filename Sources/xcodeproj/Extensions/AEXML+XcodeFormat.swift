@@ -85,7 +85,7 @@ extension AEXMLElement {
                 }
             }
 
-            for (key, value) in attributes {
+            for (key, value) in attributes.sorted(by: { $0.key < $1.key }) /* Sorted to avoid uncessary file changes. */ {
                 xml += "\n"
                 xml += indent(withDepth: parentsCount)
                 xml += "\(key) = \"\(value.xmlEscaped)\""
