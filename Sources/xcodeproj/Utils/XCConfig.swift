@@ -142,14 +142,11 @@ extension XCConfig {
 // MARK: - XCConfig Extension (Writable)
 
 extension XCConfig: Writable {
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: AbsolutePath) throws {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        if override && path.exists {
-            try path.delete()
-        }
         try path.write(content)
     }
 

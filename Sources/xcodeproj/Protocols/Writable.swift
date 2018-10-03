@@ -8,19 +8,19 @@ public protocol Writable {
     /// - Parameter path: The path to write to
     /// - Parameter override: True if the content should be overriden if it already exists.
     /// - Throws: writing error if something goes wrong.
-    func write(path: AbsolutePath, override: Bool) throws
+    func write(path: AbsolutePath) throws
 
     /// Writes the object that conforms the protocol.
     ///
     /// - Parameter pathString: The path string to write to
     /// - Parameter override: True if the content should be overriden if it already exists.
     /// - Throws: writing error if something goes wrong.
-    func write(pathString: String, override: Bool) throws
+    func write(pathString: String) throws
 }
 
 extension Writable {
-    public func write(pathString: String, override: Bool) throws {
+    public func write(pathString: String) throws {
         let path = AbsolutePath(pathString)
-        try write(path: path, override: override)
+        try write(path: path)
     }
 }
