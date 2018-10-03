@@ -198,16 +198,13 @@ extension PBXProj: Equatable {
 // MARK: - Writable
 
 extension PBXProj: Writable {
-    public func write(path: AbsolutePath, override: Bool) throws {
-        try write(path: path, override: override, outputSettings: PBXOutputSettings())
+    public func write(path: AbsolutePath) throws {
+        try write(path: path, outputSettings: PBXOutputSettings())
     }
 
-    public func write(path: AbsolutePath, override: Bool, outputSettings: PBXOutputSettings) throws {
+    public func write(path: AbsolutePath, outputSettings: PBXOutputSettings) throws {
         let encoder = PBXProjEncoder()
         let output = try encoder.encode(proj: self, outputSettings: outputSettings)
-        if override && path.exists {
-            try path.delete()
-        }
         try path.write(output)
     }
 }

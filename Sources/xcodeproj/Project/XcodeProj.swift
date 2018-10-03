@@ -68,8 +68,8 @@ extension XcodeProj: Writable {
     /// - Parameter path: path to `.xcodeproj` file.
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If false will throw error if project already exists at the given path.
-    public func write(path: AbsolutePath, override: Bool = true) throws {
-        try write(path: path, override: override, outputSettings: PBXOutputSettings())
+    public func write(path: AbsolutePath) throws {
+        try write(path: path, outputSettings: PBXOutputSettings())
     }
 
     /// Writes project to the given path.
@@ -78,12 +78,12 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if project already exists at the given path.
-    public func write(path: AbsolutePath, override: Bool = true, outputSettings: PBXOutputSettings) throws {
+    public func write(path: AbsolutePath, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
-        try writeWorkspace(path: path, override: override)
-        try writePBXProj(path: path, override: override, outputSettings: outputSettings)
-        try writeSchemes(path: path, override: override)
-        try writeBreakPoints(path: path, override: override)
+        try writeWorkspace(path: path)
+        try writePBXProj(path: path, outputSettings: outputSettings)
+        try writeSchemes(path: path)
+        try writeBreakPoints(path: path)
     }
 
     /// Returns workspace file path relative to the given path.
@@ -99,8 +99,8 @@ extension XcodeProj: Writable {
     /// - Parameter path: path to `.xcodeproj` file.
     /// - Parameter override: if workspace should be overridden. Default is true.
     ///   If false will throw error if workspace already exists at the given path.
-    public func writeWorkspace(path: AbsolutePath, override: Bool = true) throws {
-        try workspace.write(path: XcodeProj.workspacePath(path), override: override)
+    public func writeWorkspace(path: AbsolutePath) throws {
+        try workspace.write(path: XcodeProj.workspacePath(path))
     }
 
     /// Returns project file path relative to the given path.
@@ -117,8 +117,8 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if project already exists at the given path.
-    public func writePBXProj(path: AbsolutePath, override: Bool = true, outputSettings: PBXOutputSettings) throws {
-        try pbxproj.write(path: XcodeProj.pbxprojPath(path), override: override, outputSettings: outputSettings)
+    public func writePBXProj(path: AbsolutePath, outputSettings: PBXOutputSettings) throws {
+        try pbxproj.write(path: XcodeProj.pbxprojPath(path), outputSettings: outputSettings)
     }
 
     /// Returns shared data path relative to the given path.
@@ -152,16 +152,13 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If true will remove all existing schemes before writing.
     ///   If false will throw error if scheme already exists at the given path.
-    public func writeSchemes(path: AbsolutePath, override: Bool = true) throws {
+    public func writeSchemes(path: AbsolutePath) throws {
         guard let sharedData = sharedData else { return }
 
         let schemesPath = XcodeProj.schemesPath(path)
-        if override && schemesPath.exists {
-            try schemesPath.delete()
-        }
         try schemesPath.mkpath()
         for scheme in sharedData.schemes {
-            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name))
         }
     }
 
@@ -189,14 +186,11 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
-    public func writeBreakPoints(path: AbsolutePath, override: Bool = true) throws {
+    public func writeBreakPoints(path: AbsolutePath) throws {
         guard let sharedData = sharedData else { return }
 
         let debuggerPath = XcodeProj.debuggerPath(path)
-        if override && debuggerPath.exists {
-            try debuggerPath.delete()
-        }
         try debuggerPath.mkpath()
-        try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
+        try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path))
     }
 }

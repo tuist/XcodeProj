@@ -39,7 +39,19 @@ extension AbsolutePath {
     /// - Parameter content: content to be written.
     /// - Throws: an error if the writing fails.
     func write(_ content: String) throws {
-        try content.write(toFile: asString, atomically: true, encoding: .utf8)
+
+        // Check the current file
+        if exists {
+            // If the new content is the same as the old then don't overwrite.
+            if let oldContents = try? read(), oldContents == content {
+                return
+            }
+
+            // Different so delete the old file.
+            try delete()
+        }
+
+        try content.write(to: url, atomically: true, encoding: .utf8)
     }
 
     /// Reads the content (string) at the given path.
@@ -54,6 +66,9 @@ extension AbsolutePath {
     ///
     /// - Throws: an errof if the directory cannot be created.
     func mkpath(withIntermediateDirectories: Bool = true) throws {
+        if self.exists {
+            return // No need to try and create whats already there.
+        }
         try FileManager.default.createDirectory(atPath: asString, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
     }
 
