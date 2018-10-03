@@ -82,7 +82,7 @@ public final class XCScheme: Writable, Equatable {
 
     // MARK: - Writable
 
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: AbsolutePath) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
@@ -108,9 +108,6 @@ public final class XCScheme: Writable, Equatable {
         }
         if let wasCreatedForAppExtension = wasCreatedForAppExtension {
             scheme.attributes["wasCreatedForAppExtension"] = wasCreatedForAppExtension.xmlString
-        }
-        if override && path.exists {
-            try path.delete()
         }
         try path.write(document.xmlXcodeFormat)
     }

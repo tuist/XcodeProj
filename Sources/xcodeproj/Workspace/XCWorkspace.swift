@@ -50,11 +50,8 @@ public final class XCWorkspace: Writable, Equatable {
 
     // MARK: - Writable
 
-    public func write(path: AbsolutePath, override: Bool = true) throws {
+    public func write(path: AbsolutePath) throws {
         let dataPath = path.appending(component: "contents.xcworkspacedata")
-        if override && dataPath.exists {
-            try dataPath.delete()
-        }
         try dataPath.mkpath()
         try data.write(path: dataPath)
     }

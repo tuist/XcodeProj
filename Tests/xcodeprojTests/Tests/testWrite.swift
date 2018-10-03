@@ -25,7 +25,7 @@ func testWrite<T: Writable>(file: StaticString = #file,
     if let got = got {
         let modified = modify(got)
         do {
-            try modified.write(path: copyPath, override: true)
+            try modified.write(path: copyPath)
             let gotAfterWriting = initModel(copyPath)
             XCTAssertNotNil(gotAfterWriting, file: file, line: line)
             if let gotAfterWriting = gotAfterWriting {

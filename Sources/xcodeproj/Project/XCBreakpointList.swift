@@ -401,7 +401,7 @@ public final class XCBreakpointList: Equatable, Writable {
 
     // MARK: - Writable
 
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: AbsolutePath) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["type"] = type
@@ -412,9 +412,6 @@ public final class XCBreakpointList: Equatable, Writable {
         self.breakpoints.map({ $0.xmlElement() }).forEach({ breakpoints.addChild($0) })
         bucket.addChild(breakpoints)
 
-        if override && path.exists {
-            try path.delete()
-        }
         try path.write(document.xmlXcodeFormat)
     }
 
