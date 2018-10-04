@@ -23,7 +23,8 @@ public final class XcodeProj: Equatable {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
         let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
-        let plistDecoder = XcodeprojPropertyListDecoder()
+        let context = ProjectDecodingContext()
+        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         try pbxproj.updateProjectName(path: pbxprojPaths.first!)
         let xcworkspacePaths = path.glob("*.xcworkspace")

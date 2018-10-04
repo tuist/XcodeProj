@@ -45,18 +45,18 @@ extension CodingUserInfoKey {
 /// Xcodeproj JSON decoder.
 class XcodeprojJSONDecoder: JSONDecoder {
     /// Default init.
-    override init() {
+    init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()
-        userInfo = [.context: ProjectDecodingContext()]
+        userInfo = [.context: context]
     }
 }
 
 /// Xcodeproj property list decoder.
 class XcodeprojPropertyListDecoder: PropertyListDecoder {
     /// Default init.
-    override init() {
+    init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()
-        userInfo = [.context: ProjectDecodingContext()]
+        userInfo = [.context: context]
     }
 }
 
