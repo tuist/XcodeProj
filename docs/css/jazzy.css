@@ -245,7 +245,8 @@ pre code {
   .item .token {
     padding-left: 3px;
     margin-left: 0px;
-    font-size: 1.1rem; }
+    font-size: 1.1rem;
+    word-wrap: break-word; }
   .item .declaration-note {
     font-size: 0.85em;
     color: #808080;
