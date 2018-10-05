@@ -6,7 +6,28 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var referencedContainer: String
-        public var blueprintIdentifier: String
+
+        private enum Blueprint: Equatable {
+            case reference(PBXObjectReference)
+            case string(String)
+
+            var string: String {
+                switch self {
+                case .reference(let object): return object.value
+                case .string(let string): return string
+                }
+            }
+        }
+
+        public func setBlueprint(_ object: PBXObject) {
+            blueprint = .reference(object.reference)
+        }
+
+        private var blueprint: Blueprint
+        public var blueprintIdentifier: String {
+            return blueprint.string
+        }
+
         public var buildableName: String
         public var buildableIdentifier: String
         public var blueprintName: String
@@ -14,12 +35,12 @@ extension XCScheme {
         // MARK: - Init
 
         public init(referencedContainer: String,
-                    blueprintIdentifier: String,
+                    blueprint: PBXObject,
                     buildableName: String,
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprintIdentifier = blueprintIdentifier
+            self.blueprint = .reference(blueprint.reference)
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
@@ -44,7 +65,7 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            self.blueprintIdentifier = blueprintIdentifier
+            self.blueprint = .string(blueprintIdentifier)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
@@ -55,7 +76,7 @@ extension XCScheme {
                                 value: nil,
                                 attributes: [
                                     "BuildableIdentifier": buildableIdentifier,
-                                    "BlueprintIdentifier": blueprintIdentifier,
+                                    "BlueprintIdentifier": blueprint.string,
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
                                     "ReferencedContainer": referencedContainer,
@@ -68,7 +89,7 @@ extension XCScheme {
             return lhs.referencedContainer == rhs.referencedContainer &&
                 lhs.blueprintIdentifier == rhs.blueprintIdentifier &&
                 lhs.buildableName == rhs.buildableName &&
-                lhs.buildableIdentifier == rhs.buildableIdentifier &&
+                lhs.blueprint == rhs.blueprint &&
                 lhs.blueprintName == rhs.blueprintName
         }
     }
