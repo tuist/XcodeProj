@@ -12,12 +12,6 @@ def git
   Git.open(".")
 end
 
-def generate_docs
-  print "Generating docs"
-  sh "swift package generate-xcodeproj"
-  sh "jazzy --clean --sdk macosx --xcodebuild-arguments -project,xcodeproj.xcodeproj,-scheme,xcodeproj-Package --skip-undocumented"
-end
-
 def any_git_changes?
   !git.status.changed.empty?
 end
@@ -95,26 +89,9 @@ task :deploy_to_integration do
    end
 end
 
-desc "Bumps the version of xcodeproj. It creates a new tagged commit and archives the binary to be published with the release"
-task :release do
-  abort "You should specify the type (e.g. RELEASE_TYPE=minor rake task release)" unless ENV["RELEASE_TYPE"]
-  # abort 'Commit all your changes before starting the release' unless !any_git_changes?
-  print("Building xcodeproj")
-  build
-  print "Generating docs"
-  generate_docs
-  version = next_version(ENV["RELEASE_TYPE"].to_sym)
-  print "Commiting and pushing changes to GitHub"
-  commit_changes_and_push(version)
-end
-
 desc "Runs sourcery"
 task :sourcery do
   sh "sourcery --config sourcery.yml"
-end
-
-task :docs do
-  generate_docs
 end
 
 task :format do

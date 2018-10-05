@@ -463,6 +463,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProj.swift",
+      "line": 205,
+      "symbol": "PBXProj.write(path:override:outputSettings:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXProject.swift",
       "line": 3,
       "symbol": "PBXProject",
@@ -506,7 +513,7 @@
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Project/XcodeProj.swift",
-      "line": 39,
+      "line": 40,
       "symbol": "XcodeProj.init(pathString:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
