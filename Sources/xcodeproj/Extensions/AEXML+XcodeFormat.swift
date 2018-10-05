@@ -10,6 +10,10 @@ extension AEXMLDocument {
 }
 
 let attributesOrder: [String: [String]] = [
+    "BuildAction": [
+        "parallelizeBuildables",
+        "buildImplicitDependencies",
+    ],
     "BuildActionEntry": [
         "buildForTesting",
         "buildForRunning",
@@ -74,21 +78,24 @@ extension AEXMLElement {
         xml += indent(withDepth: parentsCount - 1)
         xml += "<\(name)"
 
+        func print(key: String, value: String) {
+            xml += "\n"
+            xml += indent(withDepth: parentsCount)
+            xml += "\(key) = \"\(value.xmlEscaped)\""
+        }
+
         if attributes.count > 0 {
-            // insert attributes
+            // insert known attributes in the specified order.
             var attributes = self.attributes
             for key in attributesOrder[self.name] ?? [] {
                 if let value = attributes.removeValue(forKey: key) {
-                    xml += "\n"
-                    xml += indent(withDepth: parentsCount)
-                    xml += "\(key) = \"\(value.xmlEscaped)\""
+                    print(key: key, value: value)
                 }
             }
 
-            for (key, value) in attributes.sorted(by: { $0.key < $1.key }) /* Sorted to avoid uncessary file changes. */ {
-                xml += "\n"
-                xml += indent(withDepth: parentsCount)
-                xml += "\(key) = \"\(value.xmlEscaped)\""
+            // Print any remaining attributes.
+            for (key, value) in attributes {
+                print(key: key, value: value)
             }
         }
 

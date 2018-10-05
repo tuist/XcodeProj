@@ -5,9 +5,7 @@ import AEXML
 
 extension String {
     var cleaned: String {
-        return self
-            .replacingOccurrences(of: "\n", with: "")
-            .replacingOccurrences(of: "   ", with: "")
+        return self.replacingOccurrences(of: "   ", with: "").components(separatedBy: "\n").filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
 
@@ -16,29 +14,29 @@ class AEXML_XcodeFormatTests: XCTestCase {
     private let expectedXml =
     """
     <?xml version="1.0" encoding="UTF-8"?>
-    <child
-       abc = "123"
-       def = "456">
-    </child>
+    <BuildAction
+       parallelizeBuildables = "YES"
+       buildImplicitDependencies = "NO">
+    </BuildAction>
     """
 
-    func test_elements_are_sorted_when_original_sorted() {
+    func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(attributes: [
-            "abc": "123",
-            "def": "456",
+            "parallelizeBuildables": "YES",
+            "buildImplicitDependencies": "NO",
             ])
     }
 
-    func test_elements_are_sorted_when_original_unsorted() {
+    func test_BuildAction_attributes_sorted_when_original_unsorted() {
         validateAttributes(attributes: [
-            "def": "456",
-            "abc": "123",
+            "buildImplicitDependencies": "NO",
+            "parallelizeBuildables": "YES",
         ])
     }
 
-    func validateAttributes(attributes: [String:String], line: UInt = #line) {
+    func validateAttributes(attributes: [String: String], line: UInt = #line) {
         let document = AEXMLDocument()
-        let child = document.addChild(name: "child")
+        let child = document.addChild(name: "BuildAction")
         child.attributes = attributes
         let result = document.xmlXcodeFormat
         XCTAssertEqual(expectedXml.cleaned, result.cleaned, line: line)
