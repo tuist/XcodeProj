@@ -94,7 +94,7 @@ extension AEXMLElement {
             }
 
             // Print any remaining attributes.
-            for (key, value) in attributes {
+            for (key, value) in attributes.sorted(by: { $0.key < $1.key }) {
                 print(key: key, value: value)
             }
         }
