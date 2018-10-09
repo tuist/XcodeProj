@@ -26,7 +26,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
-        value = String.random()
+        value = "TEMP_\(String.random())"
         temporary = true
         self.objects = objects
     }
