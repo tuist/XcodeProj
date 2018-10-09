@@ -12,6 +12,9 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// Weak reference to the objects instance that contains the project objects.
     weak var objects: PBXObjects?
 
+    /// A weak reference to the object
+    weak var objectRef: PBXObject?
+
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
@@ -103,10 +106,17 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         return lhs.value < rhs.value
     }
 
+    /// Sets the object so it can be retrieved quickly again later
+    ///
+    /// - Parameter object: The object
+    func setObject(_ object: PBXObject) {
+        objectRef = object
+    }
+
     /// Returns the object the reference is referfing to.
     ///
     /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
-    func object<T>() -> T? {
+    func object<T: PBXObject>() -> T? {
         return try? objectOrThrow()
     }
 
@@ -114,13 +124,17 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func objectOrThrow<T>() throws -> T {
+    func objectOrThrow<T: PBXObject>() throws -> T {
+        if let object = objectRef as? T {
+            return object
+        }
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
         guard let object = objects.get(reference: self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
+        self.objectRef = object
         return object
     }
 }
