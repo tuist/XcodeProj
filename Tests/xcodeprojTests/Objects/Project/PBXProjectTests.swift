@@ -2,7 +2,6 @@
 import XCTest
 
 final class PBXProjectTests: XCTestCase {
-
     func test_attributes() throws {
         let target = PBXTarget(name: "")
         target.reference.fix("test")

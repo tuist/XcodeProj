@@ -13,8 +13,8 @@ extension XCScheme {
 
             var string: String {
                 switch self {
-                case .reference(let object): return object.value
-                case .string(let string): return string
+                case let .reference(object): return object.value
+                case let .string(string): return string
                 }
             }
         }
@@ -65,7 +65,7 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            self.blueprint = .string(blueprintIdentifier)
+            blueprint = .string(blueprintIdentifier)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer

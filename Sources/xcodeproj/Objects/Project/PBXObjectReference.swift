@@ -1,4 +1,5 @@
 import Foundation
+import os.signpost
 
 /// Object used as a reference to PBXObjects from PBXObjects.
 class PBXObjectReference: NSObject, Comparable, NSCopying {
@@ -127,17 +128,19 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
     func getThrowingObject<T: PBXObject>() throws -> T {
-        if let object = object as? T {
-            return object
+        return try OSLogger.instance.log(category: String(describing: self), name: "Materialize Object") {
+          if let object = object as? T {
+              return object
+          }
+          guard let objects = objects else {
+              throw PBXObjectError.objectsReleased
+          }
+          guard let object = objects.get(reference: self) as? T else {
+              throw PBXObjectError.objectNotFound(value)
+          }
+          self.object = object
+          return object
         }
-        guard let objects = objects else {
-            throw PBXObjectError.objectsReleased
-        }
-        guard let object = objects.get(reference: self) as? T else {
-            throw PBXObjectError.objectNotFound(value)
-        }
-        self.object = object
-        return object
     }
 }
 
