@@ -14,10 +14,10 @@ public class PBXBuildPhase: PBXContainerItem {
     /// Build files.
     public var files: [PBXBuildFile] {
         get {
-            return fileReferences.compactMap({ try? $0.object() })
+            return fileReferences.objects()
         }
         set {
-            fileReferences = newValue.map({ $0.reference })
+            fileReferences = newValue.references()
         }
     }
 
@@ -50,7 +50,7 @@ public class PBXBuildPhase: PBXContainerItem {
                 outputFileListPaths: [String]? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
-        fileReferences = files.map({ $0.reference })
+        fileReferences = files.references()
         self.inputFileListPaths = inputFileListPaths
         self.outputFileListPaths = outputFileListPaths
         self.buildActionMask = buildActionMask

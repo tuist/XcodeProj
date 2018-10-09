@@ -94,10 +94,10 @@ public final class PBXProject: PBXObject {
     /// Project targets.
     public var targets: [PBXTarget] {
         set {
-            targetReferences = newValue.map({ $0.reference })
+            targetReferences = newValue.references()
         }
         get {
-            return targetReferences.compactMap({ try? $0.object() })
+            return targetReferences.objects()
         }
     }
 
@@ -197,7 +197,7 @@ public final class PBXProject: PBXObject {
         self.projectDirPath = projectDirPath
         projectReferences = projects.map({ project in project.mapValues({ $0.reference }) })
         self.projectRoots = projectRoots
-        targetReferences = targets.map({ $0.reference })
+        targetReferences = targets.references()
         self.attributes = attributes
         targetAttributeReferences = [:]
         super.init()
