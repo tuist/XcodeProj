@@ -48,18 +48,11 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     }
 
     /// Fixes its value making it permanent.
-    /// Since this object is used as a key in to refer objects from the PBXObjects instance, we need to delete
-    /// the object and add it again to index the new reference. Otherwise we cannot access the element using
-    /// the reference with the updated value.
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
-        let object = objects?.delete(reference: self)
         self.value = value
         temporary = false
-        if let object = object {
-            objects?.add(object: object)
-        }
     }
 
     /// Invalidates the reference making it temporary.
