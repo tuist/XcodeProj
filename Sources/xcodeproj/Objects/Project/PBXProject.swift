@@ -15,7 +15,7 @@ public final class PBXProject: PBXObject {
             buildConfigurationListReference = newValue.reference
         }
         get {
-            return try? buildConfigurationListReference.object()
+            return buildConfigurationListReference.object()
         }
     }
 
@@ -40,7 +40,7 @@ public final class PBXProject: PBXObject {
             mainGroupReference = newValue.reference
         }
         get {
-            return try? mainGroupReference.object()
+            return mainGroupReference.object()
         }
     }
 
@@ -53,9 +53,7 @@ public final class PBXProject: PBXObject {
             productsGroupReference = newValue?.reference
         }
         get {
-            return productsGroupReference.flatMap { (reference) -> PBXGroup? in
-                try? reference.object()
-            }
+            return productsGroupReference?.object()
         }
     }
 
@@ -78,7 +76,7 @@ public final class PBXProject: PBXObject {
         }
         get {
             return projectReferences.map { project in
-                project.flatMapValues({ try? $0.object() })
+                project.flatMapValues({ $0.object() })
             }
         }
     }
@@ -118,7 +116,7 @@ public final class PBXProject: PBXObject {
         } get {
             var attributes: [PBXTarget: [String: Any]] = [:]
             targetAttributeReferences.forEach {
-                if let object: PBXTarget = try? $0.key.object() {
+                if let object: PBXTarget = $0.key.object() {
                     attributes[object] = $0.value
                 }
             }
@@ -290,10 +288,10 @@ extension PBXProject: PlistSerializable {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map { .string(CommentedString("\($0)")) })
         }
-        let mainGroupObject: PBXGroup? = try? mainGroupReference.object()
+        let mainGroupObject: PBXGroup? = mainGroupReference.object()
         dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject?.fileName()))
         if let productsGroupReference = productsGroupReference {
-            let productRefGroupObject: PBXGroup? = try? productsGroupReference.object()
+            let productRefGroupObject: PBXGroup? = productsGroupReference.object()
             dictionary["productRefGroup"] = .string(CommentedString(productsGroupReference.value,
                                                                     comment: productRefGroupObject?.fileName()))
         }
@@ -308,7 +306,7 @@ extension PBXProject: PlistSerializable {
         }
         dictionary["targets"] = PlistValue.array(targetReferences
             .map { targetReference in
-                let target: PBXTarget? = try? targetReference.object()
+                let target: PBXTarget? = targetReference.object()
                 return .string(CommentedString(targetReference.value, comment: target?.name))
         })
 
@@ -334,9 +332,9 @@ extension PBXProject: PlistSerializable {
             guard let productGroupReference = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
                 return nil
             }
-            let producGroup: PBXGroup? = try? productGroupReference.object()
+            let producGroup: PBXGroup? = productGroupReference.object()
             let groupName = producGroup?.fileName()
-            let project: PBXFileElement? = try? projectRef.object()
+            let project: PBXFileElement? = projectRef.object()
             let fileRefName = project?.fileName()
 
             return [

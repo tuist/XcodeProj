@@ -18,9 +18,7 @@ public final class PBXReferenceProxy: PBXObject {
     /// Element remote.
     public var remote: PBXContainerItemProxy? {
         get {
-            return remoteReference.flatMap { (reference) -> PBXContainerItemProxy? in
-                try? reference.object()
-            }
+            return remoteReference?.object()
         }
         set {
             remoteReference = newValue?.reference

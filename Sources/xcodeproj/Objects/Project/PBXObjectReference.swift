@@ -105,9 +105,16 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Returns the object the reference is referfing to.
     ///
+    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
+    func object<T>() -> T? {
+        return try? objectOrThrow()
+    }
+
+    /// Returns the object the reference is referfing to.
+    ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func object<T>() throws -> T {
+    func objectOrThrow<T>() throws -> T {
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
@@ -128,6 +135,6 @@ extension Array where Element: PBXObject {
 extension Array where Element: PBXObjectReference {
 
     func objects<T: PBXObject>() -> [T] {
-        return compactMap { try? $0.object() }
+        return compactMap { $0.object() }
     }
 }

@@ -48,11 +48,11 @@ final class PBXNativeTargetTests: XCTestCase {
         objects.add(object: target)
         objects.add(object: dependency)
         _ = try target.addDependency(target: dependency)
-        let targetDependency: PBXTargetDependency? = try target.dependencyReferences.first?.object()
+        let targetDependency: PBXTargetDependency? = target.dependencyReferences.first?.object()
 
         XCTAssertEqual(targetDependency?.name, "Dependency")
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
-        let containerItemProxy: PBXContainerItemProxy? = try targetDependency?.targetProxyReference?.object()
+        let containerItemProxy: PBXContainerItemProxy? = targetDependency?.targetProxyReference?.object()
         XCTAssertEqual(containerItemProxy?.containerPortalReference, project.reference)
         XCTAssertEqual(containerItemProxy?.remoteGlobalIDReference, dependency.reference)
         XCTAssertEqual(containerItemProxy?.proxyType, .nativeTarget)
