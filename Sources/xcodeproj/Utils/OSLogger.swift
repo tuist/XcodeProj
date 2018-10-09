@@ -16,7 +16,7 @@ class OSLogger {
     ///   - arguments: Arguments to be passed to the function.
     ///   - closure: Piece of code that will be logged.
     /// - Throws: An error if the given closure throws.
-    func log(category: String, name: StaticString, _ arguments: CVarArg..., closure: () throws -> Void) throws {
+    func log(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () throws -> Void) throws {
         if !shouldLog {
             try closure()
             return
@@ -56,7 +56,7 @@ class OSLogger {
     ///   - closure: Piece of code that will be logged.
     /// - Returns: The value returned by the closure.
     /// - Throws: An error if the given closure throws.
-    func log<T>(category: String, name: StaticString, _ arguments: CVarArg..., closure: () throws -> T) throws -> T {
+    func log<T>(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () throws -> T) throws -> T {
         if !shouldLog {
             return try closure()
         }
