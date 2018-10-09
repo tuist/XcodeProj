@@ -258,9 +258,14 @@ extension PBXObject {
     /// - Returns: object reference.
     func fixReference(identifiers: [String]) {
         if reference.temporary {
-            let identifiers = [String(describing: type(of: self))] + identifiers
-            let value = identifiers.joined(separator: "-").md5.uppercased()
-            reference.fix(value)
+            let typeName = String(describing: type(of: self))
+            let acronym = typeName
+                .replacingOccurrences(of: "PBX", with: "")
+                .replacingOccurrences(of: "XC", with: "")
+                .filter { String($0).lowercased() != String($0) }
+
+            let id = ([typeName] + identifiers).joined(separator: "-").md5.uppercased()
+            reference.fix("\(acronym)_\(id)")
         }
     }
 }
