@@ -34,7 +34,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         ///      We use them to generate the references of the objects that depend on them.
         ///      For instance, the reference of a build file, is generated from the reference of
         ///      the file it refers to.
-        let identifiers = [String(describing: project), project.name]
+        let identifiers = [project.name]
         generateProjectAndTargets(project: project, identifiers: identifiers)
         try generateGroupReferences(project.mainGroup, identifiers: identifiers)
         if let productsGroup: PBXGroup = project.productsGroup {
@@ -65,21 +65,16 @@ final class ReferenceGenerator: ReferenceGenerating {
     func generateProjectAndTargets(project: PBXProject,
                                    identifiers: [String]) {
         // Project
-        if project.reference.temporary {
-            project.reference.fix(generate(identifiers: identifiers))
-        }
+        project.fixReference(identifiers: identifiers)
 
         // Targets
         let targets: [PBXTarget] = project.targetReferences.objects()
         targets.forEach { target in
 
             var identifiers = identifiers
-            identifiers.append(String(describing: target))
             identifiers.append(target.name)
 
-            if target.reference.temporary {
-                target.reference.fix(generate(identifiers: identifiers))
-            }
+            target.fixReference(identifiers: identifiers)
         }
     }
 
@@ -91,15 +86,12 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateGroupReferences(_ group: PBXGroup,
                                              identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: group))
         if let groupName = group.fileName() {
             identifiers.append(groupName)
         }
 
         // Group
-        if group.reference.temporary {
-            group.reference.fix(generate(identifiers: identifiers))
-        }
+        group.fixReference(identifiers: identifiers)
 
         // Children
         try group.childrenReferences.forEach { child in
@@ -119,14 +111,11 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - identifiers: list of identifiers.
     fileprivate func generateFileReference(_ fileReference: PBXFileReference, identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: fileReference))
         if let groupName = fileReference.fileName() {
             identifiers.append(groupName)
         }
 
-        if fileReference.reference.temporary {
-            fileReference.reference.fix(generate(identifiers: identifiers))
-        }
+        fileReference.fixReference(identifiers: identifiers)
     }
 
     /// Generates the reference for a configuration list object.
@@ -136,12 +125,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - identifiers: list of identifiers.
     fileprivate func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
                                                          identifiers: [String]) throws {
-        var identifiers = identifiers
-        identifiers.append(String(describing: configurationList))
 
-        if configurationList.reference.temporary {
-            configurationList.reference.fix(generate(identifiers: identifiers))
-        }
+        configurationList.fixReference(identifiers: identifiers)
 
         let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
 
@@ -149,10 +134,9 @@ final class ReferenceGenerator: ReferenceGenerating {
             if !configuration.reference.temporary { return }
 
             var identifiers = identifiers
-            identifiers.append(String(describing: configuration))
             identifiers.append(configuration.name)
 
-            configuration.reference.fix(generate(identifiers: identifiers))
+            configuration.fixReference(identifiers: identifiers)
         }
     }
 
@@ -164,7 +148,6 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateTargetReferences(_ target: PBXTarget,
                                               identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: target))
         identifiers.append(target.name)
 
         // Configuration list
@@ -195,7 +178,6 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateTargetDependencyReferences(_ targetDependency: PBXTargetDependency,
                                                         identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: targetDependency))
 
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
@@ -203,9 +185,8 @@ final class ReferenceGenerator: ReferenceGenerating {
             let targetProxy = targetDependency.targetProxy,
             let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
-            identifiers.append(String(describing: targetProxy))
             identifiers.append(remoteGlobalIDReference.value)
-            targetProxyReference.fix(generate(identifiers: identifiers))
+            targetProxy.fixReference(identifiers: identifiers)
         }
 
         // Target dependency
@@ -216,7 +197,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             if let targetProxyReference = targetDependency.targetProxyReference?.value {
                 identifiers.append(targetProxyReference)
             }
-            targetDependency.reference.fix(generate(identifiers: identifiers))
+            targetDependency.fixReference(identifiers: identifiers)
         }
     }
 
@@ -228,15 +209,12 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateBuildPhaseReferences(_ buildPhase: PBXBuildPhase,
                                                   identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: buildPhase))
         if let name = buildPhase.name() {
             identifiers.append(name)
         }
 
         // Build phase
-        if buildPhase.reference.temporary {
-            buildPhase.reference.fix(generate(identifiers: identifiers))
-        }
+        buildPhase.fixReference(identifiers: identifiers)
 
         // Build files
         buildPhase.fileReferences.forEach { buildFileReference in
@@ -245,14 +223,13 @@ final class ReferenceGenerator: ReferenceGenerating {
             guard let buildFile: PBXBuildFile = buildFileReference.object() else { return }
 
             var identifiers = identifiers
-            identifiers.append(String(describing: buildFile))
 
             if let fileReference = buildFile.fileReference,
                 let fileReferenceObject: PBXObject = fileReference.object() {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 
-            buildFileReference.fix(generate(identifiers: identifiers))
+            buildFile.fixReference(identifiers: identifiers)
         }
     }
 
@@ -264,24 +241,26 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateBuildRules(_ buildRule: PBXBuildRule,
                                         identifiers: [String]) throws {
         var identifiers = identifiers
-        identifiers.append(String(describing: buildRule))
         if let name = buildRule.name {
             identifiers.append(name)
         }
 
         // Build rule
-        if buildRule.reference.temporary {
-            buildRule.reference.fix(generate(identifiers: identifiers))
-        }
+        buildRule.fixReference(identifiers: identifiers)
     }
+}
 
-    /// Given a list of identifiers, it returns a deterministic reference.
-    /// If the reference already exists in the project (very unlikely), it'll
-    /// make sure the generated reference doesn't collide with the existing one.
+extension PBXObject {
+
+    /// Given a list of identifiers, it generates a deterministic reference.
     ///
     /// - Parameter identifiers: list of identifiers used to generate the reference of the object.
     /// - Returns: object reference.
-    fileprivate func generate(identifiers: [String]) -> String {
-        return identifiers.joined(separator: "-").md5.uppercased()
+    func fixReference(identifiers: [String]) {
+        if reference.temporary {
+            let identifiers = [String(describing: type(of: self))] + identifiers
+            let value = identifiers.joined(separator: "-").md5.uppercased()
+            reference.fix(value)
+        }
     }
 }
