@@ -5,6 +5,7 @@
 ### Changed
 - Changed `XCScheme.BuildableReference` init to make `blueprint` a `PBXObject` and added a `setBlueprint(:)` function https://github.com/tuist/xcodeproj/pull/320 by @yonaskolb.
 - Bump AEXML version to 4.3.3 https://github.com/tuist/xcodeproj/pull/310 by @pepibumur.
+- Improves performance of object references https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb/
 
 ## 6.0.1
 
