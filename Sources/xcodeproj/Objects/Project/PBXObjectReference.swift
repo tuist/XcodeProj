@@ -51,14 +51,22 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
+        let object = objects?.delete(reference: self)
         self.value = value
         temporary = false
+        if let object = object {
+            objects?.add(object: object)
+        }
     }
 
     /// Invalidates the reference making it temporary.
     func invalidate() {
+        let object = objects?.delete(reference: self)
         value = "TEMP_\(String.random())"
         temporary = true
+        if let object = object {
+            objects?.add(object: object)
+        }
     }
 
     /// Hash value.
