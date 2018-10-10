@@ -2,6 +2,7 @@ import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
+import SwiftShell
 
 final class OSSProjectsTests: XCTestCase {
     var tempDirectory = Path.temporary
@@ -40,7 +41,7 @@ final class OSSProjectsTests: XCTestCase {
                                      line _: UInt = #line) throws {
         let project = try XcodeProj(path: projectPath)
         try project.write(path: projectPath)
-        let diff = try Process.popen(args: "cd", clonePath.string, "&&", "git", "diff").utf8Output()
+        let diff = SwiftShell.run("cd", clonePath.string, "&&", "git", "diff").stdout
         XCTAssertTrue(diff == "", "Writing project without changes should not result in changes")
     }
 
@@ -66,8 +67,8 @@ final class OSSProjectsTests: XCTestCase {
         let name = gitURL.lastPathComponent
         let clonePath = tempDirectory + name
         print("> Cloning \(gitURL) to run the integration test")
-        _ = try Process.checkNonZeroExit(args: "git", "clone", "--depth=1", gitURL.absoluteString, clonePath.string)
-        _ = try Process.popen(args: "cd", clonePath.string, "&&", "git", "rev-parse", "HEAD").utf8Output()
+        try runAndPrint("git", "clone", "--depth=1", gitURL.absoluteString, clonePath.string)
+        try runAndPrint("cd", clonePath.string, "&&", "git", "rev-parse", "HEAD")
         return clonePath
     }
 }
