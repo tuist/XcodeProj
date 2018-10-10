@@ -57,6 +57,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Invalidates the reference making it temporary.
     func invalidate() {
+        value = "TEMP_\(String.random())"
         temporary = true
     }
 
