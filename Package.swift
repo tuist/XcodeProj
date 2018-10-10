@@ -9,11 +9,16 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/tadija/AEXML", from: "4.3.3"),
-        .package(url: "https://github.com/apple/swift-package-manager", from: "0.3.0"),
+        .package(url: "https://github.com/kylef/PathKit", from: "0.9.0"),
+        .package(url: "https://github.com/kareman/SwiftShell", from: "4.1.2"),
     ],
     targets: [
         .target(name: "xcodeproj",
-                dependencies: ["Utility", "AEXML"]),
+                dependencies: [
+                    "PathKit",
+                    "AEXML",
+                    "SwiftShell"
+                ]),
         .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj"]),
         .testTarget(name: "xcodeprojIntegrationTests", dependencies: ["xcodeproj"]),
     ]
