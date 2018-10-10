@@ -12,6 +12,9 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// Weak reference to the objects instance that contains the project objects.
     weak var objects: PBXObjects?
 
+    /// A weak reference to the object
+    private weak var object: PBXObject?
+
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
@@ -23,7 +26,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
-        value = String.random()
+        value = "TEMP_\(String.random())"
         temporary = true
         self.objects = objects
     }
@@ -45,9 +48,6 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     }
 
     /// Fixes its value making it permanent.
-    /// Since this object is used as a key in to refer objects from the PBXObjects instance, we need to delete
-    /// the object and add it again to index the new reference. Otherwise we cannot access the element using
-    /// the reference with the updated value.
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
@@ -61,7 +61,12 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Invalidates the reference making it temporary.
     func invalidate() {
+        let object = objects?.delete(reference: self)
+        value = "TEMP_\(String.random())"
         temporary = true
+        if let object = object {
+            objects?.add(object: object)
+        }
     }
 
     /// Hash value.
@@ -103,17 +108,49 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         return lhs.value < rhs.value
     }
 
+    /// Sets the object so it can be retrieved quickly again later
+    ///
+    /// - Parameter object: The object
+    func setObject(_ object: PBXObject) {
+        self.object = object
+    }
+
+    /// Returns the object the reference is referfing to.
+    ///
+    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
+    func getObject<T: PBXObject>() -> T? {
+        return try? getThrowingObject()
+    }
+
     /// Returns the object the reference is referfing to.
     ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func object<T>() throws -> T {
+    func getThrowingObject<T: PBXObject>() throws -> T {
+        if let object = object as? T {
+            return object
+        }
         guard let objects = objects else {
             throw PBXObjectError.objectsReleased
         }
         guard let object = objects.get(reference: self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
+        self.object = object
         return object
+    }
+}
+
+extension Array where Element: PBXObject {
+
+    func references() -> [PBXObjectReference] {
+        return map { $0.reference }
+    }
+}
+
+extension Array where Element: PBXObjectReference {
+
+    func objects<T: PBXObject>() -> [T] {
+        return compactMap { $0.getObject() }
     }
 }

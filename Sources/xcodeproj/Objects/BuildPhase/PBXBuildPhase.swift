@@ -14,10 +14,10 @@ public class PBXBuildPhase: PBXContainerItem {
     /// Build files.
     public var files: [PBXBuildFile] {
         get {
-            return fileReferences.compactMap({ try? $0.object() })
+            return fileReferences.objects()
         }
         set {
-            fileReferences = newValue.map({ $0.reference })
+            fileReferences = newValue.references()
         }
     }
 
@@ -50,7 +50,7 @@ public class PBXBuildPhase: PBXContainerItem {
                 outputFileListPaths: [String]? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false) {
-        fileReferences = files.map({ $0.reference })
+        fileReferences = files.references()
         self.inputFileListPaths = inputFileListPaths
         self.outputFileListPaths = outputFileListPaths
         self.buildActionMask = buildActionMask
@@ -85,7 +85,7 @@ public class PBXBuildPhase: PBXContainerItem {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         let files: PlistValue = .array(fileReferences.map { fileReference in
-            let buildFile: PBXBuildFile? = try? fileReference.object()
+            let buildFile: PBXBuildFile? = fileReference.getObject()
             let name = buildFile.flatMap { try? $0.fileName() } ?? nil
             let fileName: String = name ?? "(null)"
             let type = self.name()
