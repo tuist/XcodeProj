@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Added ability to pass in a `PBXObject` into the `PBXProject.targetAttributes` dictionary, which will be encoded into its UUID. Can be used for `TestTargetID` https://github.com/tuist/xcodeproj/pull/333 by @yonaskolb.
+
 ### Changed
 - Changed `XCScheme.BuildableReference` init to make `blueprint` a `PBXObject` and added a `setBlueprint(:)` function https://github.com/tuist/xcodeproj/pull/320 by @yonaskolb.
 - Bump AEXML version to 4.3.3 https://github.com/tuist/xcodeproj/pull/310 by @pepibumur.

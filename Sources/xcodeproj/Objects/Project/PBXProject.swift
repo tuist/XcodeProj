@@ -314,7 +314,11 @@ extension PBXProject: PlistSerializable {
         if !targetAttributeReferences.isEmpty {
             // merge target attributes
             var plistTargetAttributes: [String: Any] = [:]
-            targetAttributeReferences.forEach({ plistTargetAttributes[$0.key.value] = $0.value })
+            for (reference, value) in targetAttributeReferences {
+                plistTargetAttributes[reference.value] = value.mapValues { value in
+                    (value as? PBXObject)?.reference.value ?? value
+                }
+            }
             plistAttributes[PBXProject.targetAttributesKey] = plistTargetAttributes
         }
         dictionary["attributes"] = plistAttributes.plist()
