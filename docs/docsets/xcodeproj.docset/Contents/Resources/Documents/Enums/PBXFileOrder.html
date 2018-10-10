@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>Bool Extension Reference</title>
+    <title>PBXFileOrder Enumeration Reference</title>
     <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
     <meta charset='utf-8'>
@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <a name='//apple_ref/swift/Extension/Bool' class='dashAnchor'></a>
+    <a name='//apple_ref/swift/Enum/PBXFileOrder' class='dashAnchor'></a>
 
-    <a title='Bool Extension Reference'></a>
+    <a title='PBXFileOrder Enumeration Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -34,7 +34,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='../index.html'>xcodeproj Reference</a>
       <img class='carat' src='' />
-      Bool Extension Reference
+      PBXFileOrder Enumeration Reference
     </p>
 
     <div class='content-wrapper'>
@@ -263,14 +263,15 @@
 
         <section class='section'>
           <div class='section-content'>
-            <h1>Bool</h1>
+            <h1>PBXFileOrder</h1>
               <div class='declaration'>
                 <div class='language'>
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PBXFileOrder</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Defines the sorting applied to files within the file lists. Defaults to by UUID.</p>
+
           </div>
         </section>
 
@@ -281,9 +282,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:Sb9xcodeprojE9xmlStringSSvp"></a>
-                    <a name="//apple_ref/swift/Property/xmlString" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb9xcodeprojE9xmlStringSSvp">xmlString</a>
+                    <a name="/s:9xcodeproj12PBXFileOrderO6byUUIDyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/byUUID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj12PBXFileOrderO6byUUIDyA2CmF">byUUID</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -291,14 +292,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a XML string value that represents the boolean.</p>
+                        <p>Sort files by Xcode&rsquo;s UUID</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">xmlString</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">byUUID</span></code></pre>
 
                         </div>
                       </div>
@@ -311,9 +312,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:Sb9xcodeprojE3intSuvp"></a>
-                    <a name="//apple_ref/swift/Property/int" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb9xcodeprojE3intSuvp">int</a>
+                    <a name="/s:9xcodeproj12PBXFileOrderO10byFilenameyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/byFilename" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj12PBXFileOrderO10byFilenameyA2CmF">byFilename</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,14 +322,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a 1 for true and 0 for false</p>
+                        <p>Sort files by their file name. This is a case sensistive sort with lower case names coming after uppercase names.</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">int</span><span class="p">:</span> <span class="kt">UInt</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">byFilename</span></code></pre>
 
                         </div>
                       </div>

@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.1.0
+
 ### Added
 - Added ability to pass in a `PBXObject` into the `PBXProject.targetAttributes` dictionary, which will be encoded into its UUID. Can be used for `TestTargetID` https://github.com/tuist/xcodeproj/pull/333 by @yonaskolb.
 
