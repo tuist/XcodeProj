@@ -1,30 +1,29 @@
 
-import XCTest
-@testable import xcodeproj
 import AEXML
+@testable import xcodeproj
+import XCTest
 
 extension String {
     var cleaned: String {
-        return self.replacingOccurrences(of: "   ", with: "").components(separatedBy: "\n").filter { !$0.isEmpty }.joined(separator: " ")
+        return replacingOccurrences(of: "   ", with: "").components(separatedBy: "\n").filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
 
 class AEXML_XcodeFormatTests: XCTestCase {
-
     private let expectedXml =
-    """
-    <?xml version="1.0" encoding="UTF-8"?>
-    <BuildAction
-       parallelizeBuildables = "YES"
-       buildImplicitDependencies = "NO">
-    </BuildAction>
-    """
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <BuildAction
+           parallelizeBuildables = "YES"
+           buildImplicitDependencies = "NO">
+        </BuildAction>
+        """
 
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(attributes: [
             "parallelizeBuildables": "YES",
             "buildImplicitDependencies": "NO",
-            ])
+        ])
     }
 
     func test_BuildAction_attributes_sorted_when_original_unsorted() {

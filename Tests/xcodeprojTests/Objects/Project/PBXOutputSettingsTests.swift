@@ -1,9 +1,8 @@
 
-import XCTest
 @testable import xcodeproj
+import XCTest
 
 class PBXOutputSettingsTsts: XCTestCase {
-
     var proj: PBXProj!
     var buildFileAssets: PBXBuildFile!
     var buildFileMain: PBXBuildFile!
@@ -53,7 +52,6 @@ class PBXOutputSettingsTsts: XCTestCase {
         objectGroupProducts = (groupProducts.reference, groupProducts)
 
         navigatorFileGroup = proj.groups.first { $0.fileName() == "iOS" }!
-
     }
 
     // MARK: - PBXFileOrder - PBXBuldFile
@@ -140,7 +138,7 @@ class PBXOutputSettingsTsts: XCTestCase {
             "Protected.h",
             "Public.h",
             "ViewController.swift",
-            ], sorted)
+        ], sorted)
     }
 
     func test_PBXNavigatorFileOrder_by_filename_groups_first() {
@@ -158,7 +156,7 @@ class PBXOutputSettingsTsts: XCTestCase {
             "Protected.h",
             "Public.h",
             "ViewController.swift",
-            ], sorted)
+        ], sorted)
     }
 
     // MARK: - PBXBuildPhaseFileOrder
@@ -171,5 +169,4 @@ class PBXOutputSettingsTsts: XCTestCase {
         XCTAssertTrue(PBXBuildPhaseFileOrder.byFilename.sort!(buildFileAssets, buildFileMain))
         XCTAssertFalse(PBXBuildPhaseFileOrder.byFilename.sort!(buildFileMain, buildFileAssets))
     }
-
 }
