@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
@@ -10,8 +10,8 @@ final class XCConfigTests: XCTestCase {
         let configA = XCConfig(includes: [])
         let configB = XCConfig(includes: [])
         let config = XCConfig(includes: [
-            (RelativePath("testA"), configA),
-            (RelativePath("testB"), configB),
+            (Path("testA"), configA),
+            (Path("testB"), configB),
         ],
                               buildSettings: ["a": "b"])
         XCTAssertEqual(config.buildSettings as! [String: String], ["a": "b"])
@@ -23,8 +23,8 @@ final class XCConfigTests: XCTestCase {
         let configA = XCConfig(includes: [], buildSettings: ["a": "1"])
         let configB = XCConfig(includes: [], buildSettings: ["a": "2"])
         let config = XCConfig(includes: [
-            (RelativePath("testA"), configA),
-            (RelativePath("testB"), configB),
+            (Path("testA"), configA),
+            (Path("testB"), configB),
         ],
                               buildSettings: ["b": "3"])
         let buildSettings = config.flattenedBuildSettings()
@@ -72,7 +72,7 @@ final class XCConfigTests: XCTestCase {
     }
 
     func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {
-        let error = XCConfigError.notFound(path: AbsolutePath("/test"))
+        let error = XCConfigError.notFound(path: Path("/test"))
         XCTAssertEqual(error.description, ".xcconfig file not found at /test")
     }
 }
@@ -92,12 +92,12 @@ final class XCConfigIntegrationTests: XCTestCase {
                   modify: { $0 })
     }
 
-    private func childrenPath() -> AbsolutePath {
-        return fixturesPath().appending(RelativePath("XCConfigs/Children.xcconfig"))
+    private func childrenPath() -> Path {
+        return fixturesPath() + "XCConfigs/Children.xcconfig"
     }
 
-    private func parentPath() -> AbsolutePath {
-        return fixturesPath().appending(RelativePath("XCConfigs/Parent.xcconfig"))
+    private func parentPath() -> Path {
+        return fixturesPath() + "XCConfigs/Parent.xcconfig"
     }
 
     private func assert(config: XCConfig) {

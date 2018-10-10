@@ -1,5 +1,5 @@
 import AEXML
-import Basic
+import PathKit
 import Foundation
 
 public final class XCWorkspaceData {
@@ -23,7 +23,7 @@ extension XCWorkspaceData: Writable {
     ///
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
-    public convenience init(path: AbsolutePath) throws {
+    public convenience init(path: Path) throws {
         if !path.exists {
             throw XCWorkspaceDataError.notFound(path: path)
         }
@@ -39,7 +39,7 @@ extension XCWorkspaceData: Writable {
 
     // MARK: - <Writable>
 
-    public func write(path: AbsolutePath, override: Bool = true) throws {
+    public func write(path: Path, override: Bool = true) throws {
         let document = AEXMLDocument()
         let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
         _ = children

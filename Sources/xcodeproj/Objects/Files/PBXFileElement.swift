@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 /// This element is an abstract parent for file and group elements.
@@ -140,18 +140,18 @@ public extension PBXFileElement {
     /// - Parameter sourceRoot: project source root.
     /// - Returns: file element absolute path.
     /// - Throws: an error if the absolute path cannot be obtained.
-    public func fullPath(sourceRoot: AbsolutePath) throws -> AbsolutePath? {
+    public func fullPath(sourceRoot: Path) throws -> Path? {
         let projectObjects = try objects()
         switch sourceTree {
         case .absolute?:
-            return path.flatMap({ AbsolutePath($0) })
+            return path.flatMap { Path($0) }
         case .sourceRoot?:
-            return path.flatMap({ sourceRoot.appending(RelativePath($0)) })
+            return path.flatMap { sourceRoot + $0 }
         case .group?:
             guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
             guard let groupPath = try group.value.fullPath(sourceRoot: sourceRoot) else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return groupPath }
-            return AbsolutePath(filePath, relativeTo: groupPath)
+            return Path(filePath).relative(to: groupPath)
         default:
             return nil
         }

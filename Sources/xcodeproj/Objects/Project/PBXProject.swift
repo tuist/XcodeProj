@@ -76,7 +76,7 @@ public final class PBXProject: PBXObject {
         }
         get {
             return projectReferences.map { project in
-                project.flatMapValues({ $0.getObject() })
+                project.mapValues({ $0.getObject()! })
             }
         }
     }

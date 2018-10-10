@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 import xcodeproj
 import XCTest
@@ -34,7 +34,7 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
 
     func test_init_throwsIfThePathIsWrong() {
         do {
-            _ = try XCWorkspace(path: AbsolutePath("/test"))
+            _ = try XCWorkspace(path: Path("/test"))
             XCTAssertTrue(false, "Expected to throw an error but it didn't")
         } catch {}
     }
@@ -111,12 +111,12 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
 
     // MARK: - Private
 
-    private func fixturePath() -> AbsolutePath {
-        return fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata"))
+    private func fixturePath() -> Path {
+        return fixturesPath() + "iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
     }
 
     private func fixtureWorkspace() throws -> XCWorkspace {
-        let path = fixturesPath().appending(RelativePath("Workspace.xcworkspace"))
+        let path = fixturesPath() + "Workspace.xcworkspace"
         return try XCWorkspace(path: path)
     }
 }

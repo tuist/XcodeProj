@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
@@ -37,7 +37,7 @@ final class PBXFileElementTests: XCTestCase {
     }
 
     func test_fullPath() throws {
-        let sourceRoot = AbsolutePath("/")
+        let sourceRoot = Path("/")
         let fileref = PBXFileReference(sourceTree: .group,
                                        fileEncoding: 1,
                                        explicitFileType: "sourcecode.swift",
@@ -52,7 +52,7 @@ final class PBXFileElementTests: XCTestCase {
         group.reference.objects = objects
 
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
-        XCTAssertEqual(fullPath?.asString, "/a/path")
+        XCTAssertEqual(fullPath?.string, "/a/path")
     }
 
     private func testDictionary() -> [String: Any] {

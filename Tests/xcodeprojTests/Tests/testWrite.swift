@@ -1,23 +1,23 @@
-import Basic
+import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
 
 func testWrite<T: Writable & Equatable>(file _: StaticString = #file,
                                         line _: UInt = #line,
-                                        from path: AbsolutePath,
-                                        initModel: (AbsolutePath) -> T?,
+                                        from path: Path,
+                                        initModel: (Path) -> T?,
                                         modify: (T) -> T) {
     testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
 }
 
 func testWrite<T: Writable>(file: StaticString = #file,
                             line: UInt = #line,
-                            from path: AbsolutePath,
-                            initModel: (AbsolutePath) -> T?,
+                            from path: Path,
+                            initModel: (Path) -> T?,
                             modify: (T) -> T,
                             assertion: (_ before: T, _ after: T) -> Void) {
-    let copyPath = path.parentDirectory.appending(component: "copy.\(path.extension!)")
+    let copyPath = path.parent() + "copy.\(path.extension!)"
     try? copyPath.delete()
     try? path.copy(copyPath)
     let got = initModel(copyPath)

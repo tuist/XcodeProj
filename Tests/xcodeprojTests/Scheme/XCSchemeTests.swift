@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
@@ -275,13 +275,13 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNil(scheme.archiveAction?.customArchiveName)
     }
 
-    private var iosSchemePath: AbsolutePath {
-        return fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme"))
+    private var iosSchemePath: Path {
+        return fixturesPath() + "iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme"
     }
 
-    private var minimalSchemePath: AbsolutePath {
+    private var minimalSchemePath: Path {
         // Not strictly minimal in the sense that it specifies the least amount of information to be valid,
         // but minimal in the sense it doesn't have most of the standard elements and attributes.
-        return fixturesPath().appending(RelativePath("Schemes/MinimalInformation.xcscheme"))
+        return fixturesPath() + "Schemes/MinimalInformation.xcscheme"
     }
 }

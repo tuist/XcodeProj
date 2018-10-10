@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 ///  A PBXFileReference is used to track every external file referenced by

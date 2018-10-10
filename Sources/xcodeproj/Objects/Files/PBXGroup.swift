@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 public class PBXGroup: PBXFileElement {
@@ -148,9 +148,9 @@ public extension PBXGroup {
     /// - Returns: new or existing file and its reference.
     @discardableResult
     public func addFile(
-        at filePath: AbsolutePath,
+        at filePath: Path,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: AbsolutePath
+        sourceRoot: Path
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
         guard filePath.exists else {
@@ -162,7 +162,7 @@ public extension PBXGroup {
             try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
         }) {
             if !childrenReferences.contains(existingFileReference.key) {
-                existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.asString
+                existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
                 childrenReferences.append(existingFileReference.key)
             }
         }
@@ -170,11 +170,11 @@ public extension PBXGroup {
         let path: String?
         switch sourceTree {
         case .group:
-            path = groupPath.map({ filePath.relative(to: $0) })?.asString
+            path = groupPath.map({ filePath.relative(to: $0) })?.string
         case .sourceRoot:
-            path = filePath.relative(to: sourceRoot).asString
+            path = filePath.relative(to: sourceRoot).string
         case .absolute:
-            path = filePath.asString
+            path = filePath.string
         default:
             path = nil
         }

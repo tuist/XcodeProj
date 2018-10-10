@@ -1,12 +1,12 @@
-import Basic
+import PathKit
 import Foundation
 import xcodeproj
 
-func fixturesPath() -> AbsolutePath {
-    return AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
+func fixturesPath() -> Path {
+    return Path(#file).parent().parent().parent().parent() + "Fixtures"
 }
 
-func iosProjectDictionary() -> (AbsolutePath, Dictionary<String, Any>) {
-    let iosProject = fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/project.pbxproj"))
-    return (iosProject, loadPlist(path: iosProject.asString)!)
+func iosProjectDictionary() -> (Path, Dictionary<String, Any>) {
+    let iosProject = fixturesPath() + "iOS/Project.xcodeproj/project.pbxproj"
+    return (iosProject, loadPlist(path: iosProject.string)!)
 }

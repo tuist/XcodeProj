@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 public final class XCSharedData: Equatable {
@@ -25,13 +25,13 @@ public final class XCSharedData: Equatable {
     /// Initializes the XCSharedData reading the content from the disk.
     ///
     /// - Parameter path: path where the .xcshareddata is.
-    public init(path: AbsolutePath) throws {
+    public init(path: Path) throws {
         if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: path.appending(RelativePath("xcdebugger/Breakpoints_v2.xcbkptlist")))
+        breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
     }
 
     // MARK: - Equatable

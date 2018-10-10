@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 /// Group that contains multiple files references to the different versions of a resource.

@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 @testable import xcodeproj
 import XCTest
@@ -24,8 +24,8 @@ final class PBXProjIntegrationTests: XCTestCase {
                   modify: { $0 })
     }
 
-    private func fixturePath() -> AbsolutePath {
-        let path = fixturesPath().appending(RelativePath("iOS/Project.xcodeproj/project.pbxproj"))
+    private func fixturePath() -> Path {
+        let path = fixturesPath() + "iOS/Project.xcodeproj/project.pbxproj"
         return path
     }
 
