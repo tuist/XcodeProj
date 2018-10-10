@@ -259,6 +259,9 @@ extension PBXObject {
     func fixReference(identifiers: [String]) {
         if reference.temporary {
             let typeName = String(describing: type(of: self))
+
+            // Get acronym to be used as prefix for the reference.
+            // PBXFileReference is turned to FR.
             let acronym = typeName
                 .replacingOccurrences(of: "PBX", with: "")
                 .replacingOccurrences(of: "XC", with: "")
