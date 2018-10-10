@@ -13,7 +13,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     weak var objects: PBXObjects?
 
     /// A weak reference to the object
-    weak var objectRef: PBXObject?
+    private weak var object: PBXObject?
 
     /// Initializes a non-temporary reference.
     ///
@@ -103,22 +103,22 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Parameter object: The object
     func setObject(_ object: PBXObject) {
-        objectRef = object
+        self.object = object
     }
 
     /// Returns the object the reference is referfing to.
     ///
     /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
-    func object<T: PBXObject>() -> T? {
-        return try? objectOrThrow()
+    func getObject<T: PBXObject>() -> T? {
+        return try? getThrowingObject()
     }
 
     /// Returns the object the reference is referfing to.
     ///
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func objectOrThrow<T: PBXObject>() throws -> T {
-        if let object = objectRef as? T {
+    func getThrowingObject<T: PBXObject>() throws -> T {
+        if let object = object as? T {
             return object
         }
         guard let objects = objects else {
@@ -127,7 +127,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         guard let object = objects.get(reference: self) as? T else {
             throw PBXObjectError.objectNotFound(value)
         }
-        self.objectRef = object
+        self.object = object
         return object
     }
 }
@@ -142,6 +142,6 @@ extension Array where Element: PBXObject {
 extension Array where Element: PBXObjectReference {
 
     func objects<T: PBXObject>() -> [T] {
-        return compactMap { $0.object() }
+        return compactMap { $0.getObject() }
     }
 }

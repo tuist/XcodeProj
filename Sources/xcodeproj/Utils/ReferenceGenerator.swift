@@ -20,7 +20,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///
     /// - Parameter proj: project whose objects references will be generated.
     func generateReferences(proj: PBXProj) throws {
-        guard let project: PBXProject = try proj.rootObjectReference?.objectOrThrow() else {
+        guard let project: PBXProject = try proj.rootObjectReference?.getThrowingObject() else {
             return
         }
 
@@ -47,12 +47,12 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Project references
         try project.projectReferences.flatMap({ $0.values }).forEach { objectReference in
-            guard let fileReference: PBXFileReference = objectReference.object() else { return }
+            guard let fileReference: PBXFileReference = objectReference.getObject() else { return }
             try generateFileReference(fileReference, identifiers: identifiers)
         }
 
         /// Configuration list
-        if let configurationList: XCConfigurationList = project.buildConfigurationListReference.object() {
+        if let configurationList: XCConfigurationList = project.buildConfigurationListReference.getObject() {
             try generateConfigurationListReferences(configurationList, identifiers: identifiers)
         }
     }
@@ -95,7 +95,7 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Children
         try group.childrenReferences.forEach { child in
-            guard let childFileElement: PBXFileElement = child.object() else { return }
+            guard let childFileElement: PBXFileElement = child.getObject() else { return }
             if let childGroup = childFileElement as? PBXGroup {
                 try generateGroupReferences(childGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
@@ -220,12 +220,12 @@ final class ReferenceGenerator: ReferenceGenerating {
         buildPhase.fileReferences.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
-            guard let buildFile: PBXBuildFile = buildFileReference.object() else { return }
+            guard let buildFile: PBXBuildFile = buildFileReference.getObject() else { return }
 
             var identifiers = identifiers
 
             if let fileReference = buildFile.fileReference,
-                let fileReferenceObject: PBXObject = fileReference.object() {
+                let fileReferenceObject: PBXObject = fileReference.getObject() {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 

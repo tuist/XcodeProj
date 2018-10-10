@@ -10,7 +10,7 @@ public final class PBXBuildFile: PBXObject {
     /// Returns the file the build file refers to.
     public var file: PBXFileElement? {
         get {
-            return fileReference?.object()
+            return fileReference?.getObject()
         }
         set {
             fileReference = newValue?.reference
@@ -61,7 +61,7 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        guard let fileElement: PBXFileElement = fileReference?.object() else { return nil }
+        guard let fileElement: PBXFileElement = fileReference?.getObject() else { return nil }
         return fileElement.fileName()
     }
 
@@ -116,7 +116,7 @@ extension PBXBuildFile: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = fileReference {
-            let fileElement: PBXFileElement? = fileReference.object()
+            let fileElement: PBXFileElement? = fileReference.getObject()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
         if let settings = settings {

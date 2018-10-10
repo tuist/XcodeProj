@@ -14,7 +14,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Returns the project that contains the remote object.
     public var containerPortal: PBXProject! {
         get {
-            return containerPortalReference.object()
+            return containerPortalReference.getObject()
         }
         set {
             containerPortalReference = newValue.reference
@@ -30,7 +30,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Remote global object
     public var remoteGlobalID: PBXObject? {
         get {
-            return remoteGlobalIDReference?.object()
+            return remoteGlobalIDReference?.getObject()
         }
         set {
             remoteGlobalIDReference = newValue?.reference
