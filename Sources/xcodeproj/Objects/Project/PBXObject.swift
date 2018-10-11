@@ -36,6 +36,7 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let reference: String = try container.decode(.reference)
         self.reference = referenceRepository.getOrCreate(reference: reference, objects: objects)
+        self.reference.setObject(self)
     }
 
     /// Object isa (type id)
