@@ -9,13 +9,12 @@ final class OSSProjectsTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        try! tempDirectory.delete()
-        try! tempDirectory.mkpath()
+        try? tempDirectory.delete()
     }
 
     override func tearDown() {
         super.tearDown()
-        try! tempDirectory.delete()
+        try? tempDirectory.delete()
     }
 
     func test_projects() throws {
@@ -65,6 +64,7 @@ final class OSSProjectsTests: XCTestCase {
                            file _: String = #file,
                            line _: UInt = #line) throws -> Path {
         let name = gitURL.lastPathComponent
+        try tempDirectory.mkpath()
         let clonePath = tempDirectory + name
         print("> Cloning \(gitURL) to run the integration test")
         try runAndPrint("git", "clone", "--depth=1", gitURL.absoluteString, clonePath.string)
