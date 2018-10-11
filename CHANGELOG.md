@@ -2,8 +2,20 @@
 
 ## next version
 
+## 6.1.0
+
+### Added
+- Added ability to pass in a `PBXObject` into the `PBXProject.targetAttributes` dictionary, which will be encoded into its UUID. Can be used for `TestTargetID` https://github.com/tuist/xcodeproj/pull/333 by @yonaskolb.
+
 ### Changed
 - Changed `XCScheme.BuildableReference` init to make `blueprint` a `PBXObject` and added a `setBlueprint(:)` function https://github.com/tuist/xcodeproj/pull/320 by @yonaskolb.
+- Bump AEXML version to 4.3.3 https://github.com/tuist/xcodeproj/pull/310 by @pepibumur.
+- Improves performance of object references https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
+- Prefix reference with object type acronym. eg. `PBXFileReference` becomes `FR_XXXXXXXXXXXXXXXXX` https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
+- Add `TEMP` prefix to temporary unfixed reference values https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
+
+### Fixed
+- Fixed written order of scheme attributes in Swift 4.2 https://github.com/tuist/xcodeproj/pull/325 and https://github.com/tuist/xcodeproj/pull/331 by @yonaskolb and @drekka 
 
 ## 6.0.1
 
