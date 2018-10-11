@@ -201,7 +201,7 @@ public extension PBXTarget {
     public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
         return try buildPhaseReferences
             .compactMap({ try $0.getThrowingObject() as PBXBuildPhase })
-            .filter({ $0.type() == .sources })
+            .filter({ $0.buildPhase == .sources })
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
     }
@@ -213,7 +213,7 @@ public extension PBXTarget {
     public func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
         return try buildPhaseReferences
             .compactMap({ try $0.getThrowingObject() as PBXResourcesBuildPhase })
-            .filter({ $0.type() == .sources })
+            .filter({ $0.buildPhase == .sources })
             .first
     }
 
