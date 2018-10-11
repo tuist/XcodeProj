@@ -2,6 +2,9 @@
 
 ## next version
 
+### Changed
+- Improved writing performance https://github.com/tuist/xcodeproj/pull/336 https://github.com/tuist/xcodeproj/pull/337 https://github.com/tuist/xcodeproj/pull/338 by @yonaskolb.
+
 ## 6.1.0
 
 ### Added
