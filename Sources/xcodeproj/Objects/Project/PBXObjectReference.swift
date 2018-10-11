@@ -27,7 +27,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
-        value = "TEMP_\(String.random())"
+        value = "TEMP_\(UUID().uuidString)"
         temporary = true
         self.objects = objects
     }
@@ -63,7 +63,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// Invalidates the reference making it temporary.
     func invalidate() {
         let object = objects?.delete(reference: self)
-        value = "TEMP_\(String.random())"
+        value = "TEMP_\(UUID().uuidString)"
         temporary = true
         if let object = object {
             objects?.add(object: object)
