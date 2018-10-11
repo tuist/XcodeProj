@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 /// Represents a .pbxproj file
@@ -172,11 +172,11 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
-    func updateProjectName(path: AbsolutePath) throws {
-        guard path.parentDirectory.extension == "xcodeproj" else {
+    func updateProjectName(path: Path) throws {
+        guard path.parent().extension == "xcodeproj" else {
             return
         }
-        let projectName = path.parentDirectory.components.last?.split(separator: ".").first
+        let projectName = path.parent().lastComponent.split(separator: ".").first
         try rootProject()?.name = projectName.map(String.init) ?? ""
     }
 }
@@ -196,11 +196,11 @@ extension PBXProj: Equatable {
 // MARK: - Writable
 
 extension PBXProj: Writable {
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         try write(path: path, override: override, outputSettings: PBXOutputSettings())
     }
 
-    public func write(path: AbsolutePath, override: Bool, outputSettings: PBXOutputSettings) throws {
+    public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) throws {
         let encoder = PBXProjEncoder()
         let output = try encoder.encode(proj: self, outputSettings: outputSettings)
         if override && path.exists {

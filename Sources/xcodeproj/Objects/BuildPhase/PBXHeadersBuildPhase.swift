@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 /// This is the element for the framework headers build phase.

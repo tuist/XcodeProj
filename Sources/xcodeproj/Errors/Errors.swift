@@ -1,4 +1,4 @@
-import Basic
+import PathKit
 import Foundation
 
 // MARK: - Xcodeproj
@@ -9,18 +9,18 @@ import Foundation
 /// - pbxProjNotFound: the .pbxproj file couldn't be found inside the project folder.
 /// - xcworkspaceNotFound: the workspace cannot be found at the given path.
 public enum XCodeProjError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
-    case pbxprojNotFound(path: AbsolutePath)
-    case xcworkspaceNotFound(path: AbsolutePath)
+    case notFound(path: Path)
+    case pbxprojNotFound(path: Path)
+    case xcworkspaceNotFound(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "The project cannot be found at \(path.asString)"
+            return "The project cannot be found at \(path.string)"
         case let .pbxprojNotFound(path):
-            return "The project doesn't contain a .pbxproj file at path: \(path.asString)"
+            return "The project doesn't contain a .pbxproj file at path: \(path.string)"
         case let .xcworkspaceNotFound(path):
-            return "The project doesn't contain a .xcworkspace at path: \(path.asString)"
+            return "The project doesn't contain a .xcworkspace at path: \(path.string)"
         }
     }
 }
@@ -31,12 +31,12 @@ public enum XCodeProjError: Error, CustomStringConvertible {
 ///
 /// - notFound: the share data hasn't been found.
 public enum XCSharedDataError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "xcshareddata not found at path \(path.asString)"
+            return "xcshareddata not found at path \(path.string)"
         }
     }
 }
@@ -47,12 +47,12 @@ public enum XCSharedDataError: Error, CustomStringConvertible {
 ///
 /// - notFound: the project cannot be found.
 public enum XCWorkspaceError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "The project cannot be found at \(path.asString)"
+            return "The project cannot be found at \(path.string)"
         }
     }
 }
@@ -63,12 +63,12 @@ public enum XCWorkspaceError: Error, CustomStringConvertible {
 ///
 /// - notFound: returned when the .xcworkspacedata cannot be found.
 public enum XCWorkspaceDataError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "Workspace not found at \(path.asString)"
+            return "Workspace not found at \(path.string)"
         }
     }
 }
@@ -79,12 +79,12 @@ public enum XCWorkspaceDataError: Error, CustomStringConvertible {
 ///
 /// - unexistingFile: the file doesn't exist.
 public enum XcodeprojEditingError: Error, CustomStringConvertible {
-    case unexistingFile(AbsolutePath)
+    case unexistingFile(Path)
 
     public var description: String {
         switch self {
         case let .unexistingFile(path):
-            return "The file at path \(path.asString) doesn't exist"
+            return "The file at path \(path.string) doesn't exist"
         }
     }
 }
@@ -159,11 +159,11 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
 ///
 /// - notFound: the .pbxproj cannot be found at the given path.
 enum PBXProjError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
     var description: String {
         switch self {
         case let .notFound(path):
-            return ".pbxproj not found at path \(path.asString)"
+            return ".pbxproj not found at path \(path.string)"
         }
     }
 }
@@ -175,13 +175,13 @@ enum PBXProjError: Error, CustomStringConvertible {
 /// - notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.
 /// - missing: returned when there's a property missing in the Breakpoints_v2.xcbkptlist.
 public enum XCBreakpointListError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
     case missing(property: String)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.asString)"
+            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.string)"
         case let .missing(property):
             return "Property \(property) missing"
         }
@@ -194,11 +194,11 @@ public enum XCBreakpointListError: Error, CustomStringConvertible {
 ///
 /// - notFound: returned when the configuration file couldn't be found.
 public enum XCConfigError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
     public var description: String {
         switch self {
         case let .notFound(path):
-            return ".xcconfig file not found at \(path.asString)"
+            return ".xcconfig file not found at \(path.string)"
         }
     }
 }

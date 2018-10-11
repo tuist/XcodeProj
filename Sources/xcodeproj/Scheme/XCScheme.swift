@@ -1,15 +1,15 @@
 import AEXML
-import Basic
+import PathKit
 import Foundation
 
 public enum XCSchemeError: Error, CustomStringConvertible {
-    case notFound(path: AbsolutePath)
+    case notFound(path: Path)
     case missing(property: String)
 
     public var description: String {
         switch self {
         case let .notFound(path):
-            return ".xcscheme couldn't be found at path \(path.asString)"
+            return ".xcscheme couldn't be found at path \(path.string)"
         case let .missing(property):
             return "Property \(property) missing"
         }
@@ -37,7 +37,7 @@ public final class XCScheme: Writable, Equatable {
 
     // MARK: - Init
 
-    public init(path: AbsolutePath) throws {
+    public init(path: Path) throws {
         if !path.exists {
             throw XCSchemeError.notFound(path: path)
         }
@@ -82,7 +82,7 @@ public final class XCScheme: Writable, Equatable {
 
     // MARK: - Writable
 
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion

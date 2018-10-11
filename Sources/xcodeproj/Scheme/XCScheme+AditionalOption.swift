@@ -1,5 +1,5 @@
 import AEXML
-import Basic
+import PathKit
 import Foundation
 
 extension XCScheme {

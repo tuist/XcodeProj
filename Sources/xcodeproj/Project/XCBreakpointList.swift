@@ -1,5 +1,5 @@
 import AEXML
-import Basic
+import PathKit
 import Foundation
 
 // swiftlint:disable:next type_body_length
@@ -370,7 +370,7 @@ public final class XCBreakpointList: Equatable, Writable {
     ///
     /// - Parameters:
     ///   - path: breakpoints path.
-    public init(path: AbsolutePath) throws {
+    public init(path: Path) throws {
         if !path.exists {
             throw XCBreakpointListError.notFound(path: path)
         }
@@ -401,7 +401,7 @@ public final class XCBreakpointList: Equatable, Writable {
 
     // MARK: - Writable
 
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["type"] = type

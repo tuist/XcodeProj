@@ -1,14 +1,14 @@
-import Basic
+import PathKit
 import Foundation
 import xcodeproj
 import XCTest
 
 class DictionaryExtrasTests: XCTestCase {
-    var fixtures: AbsolutePath!
+    var fixtures: Path!
 
     override func setUp() {
         super.setUp()
-        fixtures = AbsolutePath(#file).parentDirectory.parentDirectory.parentDirectory.parentDirectory.appending(component: "Fixtures")
+        fixtures = Path(#file).parent().parent().parent().parent() + "Fixtures"
     }
 
     func test_loadPlist_returnsANilValue_whenTheFileDoesntExist() {
@@ -16,7 +16,7 @@ class DictionaryExtrasTests: XCTestCase {
     }
 
     func test_loadPlist_returnsTheDictionary_whenTheFileDoesExist() {
-        let iosProject = fixtures.appending(RelativePath("iOS/Project.xcodeproj/project.pbxproj"))
-        XCTAssertNotNil(loadPlist(path: iosProject.asString))
+        let iosProject = fixtures + "iOS/Project.xcodeproj/project.pbxproj"
+        XCTAssertNotNil(loadPlist(path: iosProject.string))
     }
 }

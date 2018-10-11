@@ -1,7 +1,7 @@
-import Basic
+import PathKit
 import Foundation
 
-public typealias XCConfigInclude = (include: RelativePath, config: XCConfig)
+public typealias XCConfigInclude = (include: Path, config: XCConfig)
 
 /// .xcconfig configuration file.
 public final class XCConfig {
@@ -30,7 +30,7 @@ public final class XCConfig {
     /// - Parameter path: path where the .xcconfig file is.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     /// - Throws: an error if the config file cannot be found or it has an invalid format.
-    public init(path: AbsolutePath, projectPath: AbsolutePath? = nil) throws {
+    public init(path: Path, projectPath: Path? = nil) throws {
         if !path.exists { throw XCConfigError.notFound(path: path) }
         let fileLines = try path.read().components(separatedBy: "\n")
         includes = fileLines
@@ -50,7 +50,7 @@ final class XCConfigParser {
     /// - Parameter path: path of the config file that the line belongs to.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     /// - Returns: function that parses the line.
-    static func configFrom(path: AbsolutePath, projectPath: AbsolutePath?) -> (String) -> (include: RelativePath, config: XCConfig)? {
+    static func configFrom(path: Path, projectPath: Path?) -> (String) -> (include: Path, config: XCConfig)? {
         return { line in
             includeRegex.matches(in: line,
                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
@@ -63,14 +63,14 @@ final class XCConfigParser {
                     return nil
                 }
                 .compactMap { pathString in
-                    let includePath: RelativePath = RelativePath(pathString)
+                    let includePath: Path = Path(pathString)
                     var config: XCConfig?
                     do {
                         // first try to load the included xcconfig relative to the current xcconfig
-                        config = try XCConfig(path: path.parentDirectory.appending(includePath), projectPath: projectPath)
+                        config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
                     } catch (XCConfigError.notFound(_)) where projectPath != nil {
                         // if that fails, try to load the included xcconfig relative to the project
-                        config = try? XCConfig(path: projectPath!.parentDirectory.appending(includePath), projectPath: projectPath)
+                        config = try? XCConfig(path: projectPath!.parent() + includePath, projectPath: projectPath)
                     } catch {
                         config = nil
                     }
@@ -142,7 +142,7 @@ extension XCConfig {
 // MARK: - XCConfig Extension (Writable)
 
 extension XCConfig: Writable {
-    public func write(path: AbsolutePath, override: Bool) throws {
+    public func write(path: Path, override: Bool) throws {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
@@ -156,7 +156,7 @@ extension XCConfig: Writable {
     private func writeIncludes() -> String {
         var content = ""
         includes.forEach { include in
-            content.append("#include \"\(include.0.asString)\"\n")
+            content.append("#include \"\(include.0.string)\"\n")
         }
         content.append("\n")
         return content

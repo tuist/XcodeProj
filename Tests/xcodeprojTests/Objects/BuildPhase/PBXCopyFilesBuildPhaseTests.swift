@@ -3,7 +3,7 @@ import Foundation
 import XCTest
 
 final class PBXCopyFilesBuildPhaseTests: XCTestCase {
-    func test_subFolder_absolutePath_hasTheCorrectValue() {
+    func test_subFolder_Path_hasTheCorrectValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.absolutePath.rawValue, 0)
     }
 
