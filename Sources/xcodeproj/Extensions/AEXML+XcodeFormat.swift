@@ -68,6 +68,11 @@ let attributesOrder: [String: [String]] = [
         "value",
         "isEnabled",
     ],
+    "TestableReference": [
+        "skipped",
+        "parallelizable",
+        "testExecutionOrdering"
+    ],
 ]
 
 extension AEXMLElement {

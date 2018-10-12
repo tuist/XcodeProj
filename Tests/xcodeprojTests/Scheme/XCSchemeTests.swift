@@ -36,6 +36,43 @@ final class XCSchemeIntegrationTests: XCTestCase {
                   assertion: { assert(minimalScheme: $1) })
     }
 
+    func test_write_testableReferenceDefaultAttributesValuesAreOmitted() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: false,
+            randomExecutionOrdering: false,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: []
+        )
+        let subject = reference.xmlElement()
+        XCTAssertNil(subject.attributes["parallelizable"])
+        XCTAssertNil(subject.attributes["testExecutionOrdering"])
+    }
+
+    func test_write_testableReferenceAttributesValues() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: true,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: []
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
@@ -65,6 +102,8 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.shouldUseLaunchSchemeArgsEnv, true)
         XCTAssertEqual(scheme.testAction?.codeCoverageEnabled, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
+        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, false)
+        XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableName, "iOSTests.xctest")
