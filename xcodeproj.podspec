@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
 
   s.dependency "PathKit", "~> 0.9.2"
   s.dependency "AEXML", "~> 4.3.3"
-  s.dependency "SwiftShell", "~> 4.1.2"
+  s.dependency "SwiftShell", ">= 4.0.0"
 end
