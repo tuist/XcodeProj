@@ -8,9 +8,9 @@ let package = Package(
         .library(name: "xcodeproj", targets: ["xcodeproj"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tadija/AEXML", from: "4.3.3"),
-        .package(url: "https://github.com/kylef/PathKit", from: "0.9.0"),
-        .package(url: "https://github.com/kareman/SwiftShell", from: "4.1.2"),
+        .package(url: "https://github.com/tadija/AEXML", .upToNextMinor(from: "4.3.3")),
+        .package(url: "https://github.com/kylef/PathKit", .upToNextMinor(from: "0.9.2")),
+        .package(url: "https://github.com/kareman/SwiftShell", .upToNextMinor(from: "4.1.2")),
     ],
     targets: [
         .target(name: "xcodeproj",
