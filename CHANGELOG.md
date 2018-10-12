@@ -9,6 +9,7 @@
 
 ### Changed
 - Improved writing performance https://github.com/tuist/xcodeproj/pull/336 https://github.com/tuist/xcodeproj/pull/337 https://github.com/tuist/xcodeproj/pull/338 by @yonaskolb.
+- Replaced Swift Package Manager dependency with PathKit https://github.com/tuist/xcodeproj/pull/334 by @yonaskolb.
 
 ## 6.1.0
 
