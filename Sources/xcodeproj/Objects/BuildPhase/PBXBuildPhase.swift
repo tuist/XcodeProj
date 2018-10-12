@@ -17,6 +17,7 @@ public class PBXBuildPhase: PBXContainerItem {
             return fileReferences.objects()
         }
         set {
+            newValue.forEach { $0.buildPhase = self }
             fileReferences = newValue.references()
         }
     }
@@ -56,6 +57,7 @@ public class PBXBuildPhase: PBXContainerItem {
         self.buildActionMask = buildActionMask
         self.runOnlyForDeploymentPostprocessing = runOnlyForDeploymentPostprocessing
         super.init()
+        files.forEach { $0.buildPhase = self }
     }
 
     // MARK: - Decodable
@@ -131,23 +133,7 @@ extension PBXBuildPhase {
     ///
     /// - Returns: build phase type.
     public func type() -> BuildPhase? {
-        if self is PBXSourcesBuildPhase {
-            return .sources
-        } else if self is PBXFrameworksBuildPhase {
-            return .frameworks
-        } else if self is PBXResourcesBuildPhase {
-            return .resources
-        } else if self is PBXCopyFilesBuildPhase {
-            return .copyFiles
-        } else if self is PBXShellScriptBuildPhase {
-            return .runScript
-        } else if self is PBXHeadersBuildPhase {
-            return .headers
-        } else if self is PBXRezBuildPhase {
-            return .carbonResources
-        } else {
-            return nil
-        }
+        return buildPhase
     }
 
     /// Build phase name.

@@ -20,6 +20,9 @@ public final class PBXBuildFile: PBXObject {
     /// Element settings
     public var settings: [String: Any]?
 
+    /// The cached build phase this build file belongs to
+    weak var buildPhase: PBXBuildPhase?
+
     // MARK: - Init
 
     /// Initializes the build file with its attributes.
@@ -69,22 +72,25 @@ extension PBXBuildFile {
     ///
     /// - Returns: build phase type.
     /// - Throws: an error if this method is called before the build file is added to any project.
-    func buildPhaseType() throws -> BuildPhase? {
+    func getBuildPhase() throws -> PBXBuildPhase? {
+        if let buildPhase = buildPhase {
+            return buildPhase
+        }
         let projectObjects = try objects()
-        if projectObjects.sourcesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .sources
-        } else if projectObjects.frameworksBuildPhases
-            .contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .frameworks
-        } else if projectObjects.resourcesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .resources
-        } else if projectObjects.copyFilesBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .copyFiles
-        } else if projectObjects.headersBuildPhases.contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .headers
-        } else if projectObjects.carbonResourcesBuildPhases
-            .contains(where: { _, val in val.fileReferences.map({ $0.value }).contains(reference.value) }) {
-            return .carbonResources
+        if let buildPhase = projectObjects.sourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
+        } else if let buildPhase = projectObjects.frameworksBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
+        } else if let buildPhase = projectObjects.resourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
+        } else if let buildPhase = projectObjects.copyFilesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
+        } else if let buildPhase = projectObjects.headersBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
+        } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            return buildPhase
         }
         return nil
     }
@@ -94,16 +100,10 @@ extension PBXBuildFile {
     /// - Returns: build phase name.
     /// - Throws: an error if the name cannot be obtained.
     func buildPhaseName() throws -> String? {
-        let type = try buildPhaseType()
-        let projectObjects = try objects()
-        switch type {
-        case .copyFiles?:
-            return projectObjects.copyFilesBuildPhases
-                .first(where: { _, val in val.fileReferences.contains(self.reference) })?
-                .value.name ?? type?.rawValue
-        default:
-            return type?.rawValue
+        guard let buildPhase = try getBuildPhase() else {
+            return nil
         }
+        return buildPhase.name()
     }
 }
 
