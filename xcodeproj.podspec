@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.source           = { :git => "https://github.com/tuist/xcodeproj.git", :tag => s.version.to_s }
   s.requires_arc = true
+  s.authors = "Tuist"
 
   s.osx.deployment_target = '10.10'
   s.ios.deployment_target = '8.0'
