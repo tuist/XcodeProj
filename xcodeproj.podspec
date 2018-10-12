@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.authors = "Tuist"
 
   s.osx.deployment_target = '10.10'
-  s.ios.deployment_target = '8.0'
 
   s.source_files = "Sources/**/*.{swift}"
 
