@@ -320,7 +320,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">package</span> <span class="o">=</span> <span class="kt">Package</span><span class="p">(</span>
     <span class="nv">name</span><span class="p">:</span> <span class="s">"myproject"</span><span class="p">,</span>
     <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/tuist/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"6.0.0"</span><span class="p">)),</span>
+        <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/tuist/xcodeproj.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"6.2.0"</span><span class="p">)),</span>
         <span class="p">],</span>
     <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span>
         <span class="o">.</span><span class="nf">target</span><span class="p">(</span>
@@ -328,6 +328,15 @@
             <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"xcodeproj"</span><span class="p">]),</span>
         <span class="p">]</span>
 <span class="p">)</span>
+</code></pre>
+<h3 id='carthage' class='heading'>Carthage</h3>
+
+<p><strong>Only macOS</strong></p>
+<pre class="highlight shell"><code><span class="c"># Cartfile</span>
+github <span class="s2">"tuist/xcodeproj"</span> ~&gt; 6.2.0
+</code></pre>
+<h3 id='cocoapods' class='heading'>CocoaPods</h3>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'xcodeproj'</span><span class="p">,</span> <span class="s1">'~&gt; 6.2.0'</span>
 </code></pre>
 <h2 id='migration-guides' class='heading'>Migration Guides</h2>
 <h3 id='xcodeproj-6' class='heading'>xcodeproj 6</h3>

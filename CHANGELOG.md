@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.2.0
+
 ### Added
 - Carthage and CocoaPods support https://github.com/tuist/xcodeproj/pull/339 by @pepibumur.
 

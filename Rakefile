@@ -14,7 +14,7 @@ task :release_check do
   system("swift build -c release") || abort
 
   puts "Compiling Carthage project".colorize(:cyan)
-  system("xcodeproj -project xcodeproj-Carthage.xcodeproj -scheme xcodeproj") || abort
+  system("xcodebuild -project xcodeproj-Carthage.xcodeproj -scheme xcodeproj") || abort
 end
 
 task :carthage_update_dependencies do
