@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Carthage and CocoaPods support https://github.com/tuist/xcodeproj/pull/339 by @pepibumur.
+
 ### Changed
 - Improved writing performance https://github.com/tuist/xcodeproj/pull/336 https://github.com/tuist/xcodeproj/pull/337 https://github.com/tuist/xcodeproj/pull/338 by @yonaskolb.
 
