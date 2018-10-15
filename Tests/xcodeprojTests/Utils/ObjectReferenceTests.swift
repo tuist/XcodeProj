@@ -4,6 +4,8 @@ import XCTest
 
 class ObjectReferenceTests: XCTestCase {
 
+    let referenceGenerator = ReferenceGenerator()
+
     func test_reference_cachesObject() {
         let reference = PBXObjectReference()
         let object = PBXFileReference()
@@ -34,8 +36,8 @@ class ObjectReferenceTests: XCTestCase {
     func test_reference_generation_includesAcronym() {
         let file = PBXFileReference()
         let config = XCBuildConfiguration(name: "g")
-        file.fixReference(identifiers: ["a"])
-        config.fixReference(identifiers: ["a"])
+        referenceGenerator.fixReference(for: file, identifiers: ["a"])
+        referenceGenerator.fixReference(for: config, identifiers: ["a"])
         XCTAssertTrue(file.reference.value.hasPrefix("FR_"))
         XCTAssertTrue(config.reference.value.hasPrefix("BC_"))
     }
@@ -69,24 +71,34 @@ class ObjectReferenceTests: XCTestCase {
     func test_reference_generation_changesPerObject() {
         let file = PBXFileReference()
         let buildFile = PBXBuildFile(file: file)
-        file.fixReference(identifiers: ["a"])
-        buildFile.fixReference(identifiers: ["a"])
+        referenceGenerator.fixReference(for: file, identifiers: ["a"])
+        referenceGenerator.fixReference(for: buildFile, identifiers: ["a"])
         XCTAssertNotEqual(file.reference.value, buildFile.reference.value)
     }
 
     func test_reference_generation_isDeterministic() {
         let object = PBXFileReference()
         let object2 = PBXFileReference()
-        object.fixReference(identifiers: ["a"])
-        object2.fixReference(identifiers: ["a"])
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        referenceGenerator.references.removeAll()
+        referenceGenerator.fixReference(for: object2, identifiers: ["a"])
         XCTAssertEqual(object.reference.value, object2.reference.value)
     }
 
     func test_reference_generation_doesntChangeFixed() {
         let object = PBXFileReference()
-        object.fixReference(identifiers: ["a"])
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
         let value = object.reference.value
-        object.fixReference(identifiers: ["b"])
+        referenceGenerator.fixReference(for: object, identifiers: ["b"])
         XCTAssertEqual(value, object.reference.value)
+    }
+
+    func test_reference_generation_handleDuplicates() {
+        let object = PBXFileReference()
+        let object2 = PBXFileReference()
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        referenceGenerator.fixReference(for: object2, identifiers: ["a"])
+        XCTAssertNotEqual(object.reference.value, object2.reference.value)
+        XCTAssertTrue(object2.reference.value.hasSuffix("_2"))
     }
 }

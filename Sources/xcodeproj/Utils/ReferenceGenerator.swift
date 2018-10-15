@@ -16,6 +16,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// Project pbxproj instance.
     var proj: PBXProj?
 
+    var references: Set<String> = []
+
     /// Generates the references of the objects of the given project.
     ///
     /// - Parameter proj: project whose objects references will be generated.
@@ -25,6 +27,16 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         self.proj = proj
+
+        // cache current reference values
+        var references: Set<String> = []
+        proj.objects.forEach { object in
+            if !object.reference.temporary {
+                references.insert(object.reference.value)
+            }
+        }
+        self.references = references
+
         defer {
             self.proj = nil
         }
@@ -65,7 +77,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     func generateProjectAndTargets(project: PBXProject,
                                    identifiers: [String]) {
         // Project
-        project.fixReference(identifiers: identifiers)
+        fixReference(for: project, identifiers: identifiers)
 
         // Targets
         let targets: [PBXTarget] = project.targetReferences.objects()
@@ -74,7 +86,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             var identifiers = identifiers
             identifiers.append(target.name)
 
-            target.fixReference(identifiers: identifiers)
+            fixReference(for: target, identifiers: identifiers)
         }
     }
 
@@ -91,7 +103,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Group
-        group.fixReference(identifiers: identifiers)
+        fixReference(for: group, identifiers: identifiers)
 
         // Children
         try group.childrenReferences.forEach { child in
@@ -115,7 +127,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             identifiers.append(groupName)
         }
 
-        fileReference.fixReference(identifiers: identifiers)
+        fixReference(for: fileReference, identifiers: identifiers)
     }
 
     /// Generates the reference for a configuration list object.
@@ -126,7 +138,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     fileprivate func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
                                                          identifiers: [String]) throws {
 
-        configurationList.fixReference(identifiers: identifiers)
+        fixReference(for: configurationList, identifiers: identifiers)
 
         let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
 
@@ -136,7 +148,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             var identifiers = identifiers
             identifiers.append(configuration.name)
 
-            configuration.fixReference(identifiers: identifiers)
+            fixReference(for: configuration, identifiers: identifiers)
         }
     }
 
@@ -186,7 +198,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
             var identifiers = identifiers
             identifiers.append(remoteGlobalIDReference.value)
-            targetProxy.fixReference(identifiers: identifiers)
+            fixReference(for: targetProxy, identifiers: identifiers)
         }
 
         // Target dependency
@@ -197,7 +209,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             if let targetProxyReference = targetDependency.targetProxyReference?.value {
                 identifiers.append(targetProxyReference)
             }
-            targetDependency.fixReference(identifiers: identifiers)
+            fixReference(for: targetDependency, identifiers: identifiers)
         }
     }
 
@@ -214,7 +226,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Build phase
-        buildPhase.fixReference(identifiers: identifiers)
+        fixReference(for: buildPhase, identifiers: identifiers)
 
         // Build files
         buildPhase.fileReferences.forEach { buildFileReference in
@@ -229,7 +241,7 @@ final class ReferenceGenerator: ReferenceGenerating {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 
-            buildFile.fixReference(identifiers: identifiers)
+            fixReference(for: buildFile, identifiers: identifiers)
         }
     }
 
@@ -246,19 +258,20 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Build rule
-        buildRule.fixReference(identifiers: identifiers)
+        fixReference(for: buildRule, identifiers: identifiers)
     }
 }
 
-extension PBXObject {
+extension ReferenceGenerator {
 
-    /// Given a list of identifiers, it generates a deterministic reference.
+    /// Given a list of identifiers, it generates a deterministic reference for a PBXObject.
     ///
-    /// - Parameter identifiers: list of identifiers used to generate the reference of the object.
-    /// - Returns: object reference.
-    func fixReference(identifiers: [String]) {
-        if reference.temporary {
-            let typeName = String(describing: type(of: self))
+    /// - Parameters:
+    ///   - object: The object to generate a reference for
+    ///   - identifiers: list of identifiers used to generate the reference of the object.
+    func fixReference<T: PBXObject>(for object: T, identifiers: [String]) {
+        if object.reference.temporary {
+            let typeName = String(describing: type(of: object))
 
             // Get acronym to be used as prefix for the reference.
             // PBXFileReference is turned to FR.
@@ -267,8 +280,19 @@ extension PBXObject {
                 .replacingOccurrences(of: "XC", with: "")
                 .filter { String($0).lowercased() != String($0) }
 
-            let id = ([typeName] + identifiers).joined(separator: "-").md5.uppercased()
-            reference.fix("\(acronym)_\(id)")
+            let id = "\(acronym)_\(([typeName] + identifiers).joined(separator: "-").md5.uppercased())"
+            var reference = ""
+            var counter = 0
+            // get the first reference that doesn't already exist
+            repeat {
+                counter += 1
+                reference = id
+                if counter > 1 {
+                    reference += "_\(counter)"
+                }
+            } while (references.contains(reference))
+            references.insert(reference)
+            object.reference.fix(reference)
         }
     }
 }
