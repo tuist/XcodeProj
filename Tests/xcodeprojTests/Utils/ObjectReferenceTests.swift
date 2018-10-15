@@ -85,6 +85,16 @@ class ObjectReferenceTests: XCTestCase {
         XCTAssertEqual(object.reference.value, object2.reference.value)
     }
 
+    func test_reference_generation_usesIdentifier() {
+        let object = PBXFileReference()
+        object.identifier = "1"
+        let object2 = PBXFileReference()
+        object2.identifier = "2"
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        referenceGenerator.fixReference(for: object2, identifiers: ["a"])
+        XCTAssertNotEqual(object.reference.value, object2.reference.value)
+    }
+
     func test_reference_generation_doesntChangeFixed() {
         let object = PBXFileReference()
         referenceGenerator.fixReference(for: object, identifiers: ["a"])

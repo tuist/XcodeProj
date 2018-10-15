@@ -271,6 +271,10 @@ extension ReferenceGenerator {
     ///   - identifiers: list of identifiers used to generate the reference of the object.
     func fixReference<T: PBXObject>(for object: T, identifiers: [String]) {
         if object.reference.temporary {
+            var identifiers = identifiers
+            if let identitifier = object.identifier {
+                identifiers.append(identitifier)
+            }
             let typeName = String(describing: type(of: object))
 
             // Get acronym to be used as prefix for the reference.
