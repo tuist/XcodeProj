@@ -13,8 +13,16 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
     /// The object reference in the project that contains it.
     let reference: PBXObjectReference
 
-    /// Used to differentiate this object from other equatable ones for the purpose of reference generation
-    public var identifier: String?
+    /**
+     Used to differentiate this object from other equatable ones for the purposes of uuid generation.
+
+     This shouldn't be required to be set in normal circumstances.
+     In some rare cases xcodeproj doesn't have enough context about otherwise equatable objects,
+     so it has to resolve automatic uuid conflicts by appending numbers.
+     This property can be used to provide more context to disambiguate these objects,
+     which will result in more deterministic uuids.
+    */
+    public var context: String?
 
     // MARK: - Init
 
