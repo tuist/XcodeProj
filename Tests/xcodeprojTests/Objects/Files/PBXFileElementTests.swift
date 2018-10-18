@@ -54,6 +54,28 @@ final class PBXFileElementTests: XCTestCase {
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/a/path")
     }
+    
+    func test_fullPath_with_nested_groups() throws {
+        let sourceRoot = Path("/")
+        let fileref = PBXFileReference(sourceTree: .group,
+                                       fileEncoding: 1,
+                                       explicitFileType: "sourcecode.swift",
+                                       lastKnownFileType: nil,
+                                       path: "file/path")
+        let nestedGroup = PBXGroup(children: [fileref],
+                             sourceTree: .group,
+                             path: "group/path")
+        let rootGroup = PBXGroup(children: [nestedGroup],
+                                 sourceTree: .group)
+
+        let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup])
+        fileref.reference.objects = objects
+        nestedGroup.reference.objects = objects
+
+        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
+        XCTAssertEqual(fullPath?.string, "/group/path/file/path")
+    }
+    
 
     private func testDictionary() -> [String: Any] {
         return [
