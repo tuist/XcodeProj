@@ -289,7 +289,7 @@
     },
     {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/Project/PBXObject.swift",
-      "line": 61,
+      "line": 72,
       "symbol": "PBXObject.parse(reference:dictionary:userInfo:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

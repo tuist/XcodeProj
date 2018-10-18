@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.3.0
+
 ### Added
 - Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/342 by @yonaskolb.
 

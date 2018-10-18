@@ -311,6 +311,42 @@ If you use this identifier from a scheme, make sure the project is written befor
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj9PBXObjectC7contextSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/context" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj9PBXObjectC7contextSSSgvp">context</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Used to differentiate this object from other equatable ones for the purposes of uuid generation.</p>
+
+<p>This shouldn&rsquo;t be required to be set in normal circumstances.
+In some rare cases xcodeproj doesn&rsquo;t have enough context about otherwise equatable objects,
+so it has to resolve automatic uuid conflicts by appending numbers.
+This property can be used to provide more context to disambiguate these objects,
+which will result in more deterministic uuids.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
