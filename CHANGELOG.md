@@ -7,6 +7,7 @@
 
 ### Fixed
 - Fixed possible generated UUID conflicts https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
+- Fixed not working PBXFileElement.fullPath(sourceRoot:) method https://github.com/tuist/xcodeproj/pull/343/files by @Vyeczorny.
 
 ## 6.2.0
 
