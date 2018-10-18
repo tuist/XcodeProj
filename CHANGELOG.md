@@ -5,11 +5,11 @@
 ## 6.3.0
 
 ### Added
-- Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/342 by @yonaskolb.
+- Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
 
 ### Fixed
-- Fixed possible generated UUID conflicts https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
-- Fixed not working PBXFileElement.fullPath(sourceRoot:) method https://github.com/tuist/xcodeproj/pull/343/files by @Vyeczorny.
+- Fixed possible generated UUID conflicts https://github.com/tuist/xcodeproj/pull/342 by @yonaskolb.
+- Fixed not working PBXFileElement.fullPath(sourceRoot:) method https://github.com/tuist/xcodeproj/pull/343 by @Vyeczorny.
 
 ## 6.2.0
 
