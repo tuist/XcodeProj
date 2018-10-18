@@ -3,7 +3,10 @@
 ## next version
 
 ### Added
-- Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
+- Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/342 by @yonaskolb.
+
+### Fixed
+- Fixed possible generated UUID conflicts https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
 
 ## 6.2.0
 
