@@ -33,30 +33,12 @@ class ObjectReferenceTests: XCTestCase {
         XCTAssertTrue(object === objects.get(reference: object.reference))
     }
 
-    func test_reference_generation_includesAcronym() {
-        let file = PBXFileReference()
-        let config = XCBuildConfiguration(name: "g")
-        referenceGenerator.fixReference(for: file, identifiers: ["a"])
-        referenceGenerator.fixReference(for: config, identifiers: ["a"])
-        XCTAssertTrue(file.reference.value.hasPrefix("FR_"))
-        XCTAssertTrue(config.reference.value.hasPrefix("BC_"))
-    }
-
     func test_reference_fixesValue() {
         let reference = PBXObjectReference()
         XCTAssertTrue(reference.temporary)
         reference.fix("a")
         XCTAssertEqual(reference.value, "a")
         XCTAssertFalse(reference.temporary)
-    }
-
-    func test_reference_tempHasPrefix() {
-        let reference = PBXObjectReference()
-        XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
-        reference.fix("a")
-        XCTAssertFalse(reference.value.hasPrefix("TEMP_"))
-        reference.invalidate()
-        XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
     }
 
     func test_reference_changesTemporary() {
@@ -109,6 +91,43 @@ class ObjectReferenceTests: XCTestCase {
         referenceGenerator.fixReference(for: object, identifiers: ["a"])
         referenceGenerator.fixReference(for: object2, identifiers: ["a"])
         XCTAssertNotEqual(object.reference.value, object2.reference.value)
-        XCTAssertTrue(object2.reference.value.hasSuffix("_2"))
     }
+
+    func test_reference_generation_handleMultipleDuplicates() {
+        let object = PBXFileReference()
+        let object2 = PBXFileReference()
+        let object3 = PBXFileReference()
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        referenceGenerator.fixReference(for: object2, identifiers: ["a"])
+        referenceGenerator.fixReference(for: object3, identifiers: ["a"])
+        XCTAssertNotEqual(object.reference.value, object2.reference.value)
+        XCTAssertNotEqual(object2.reference.value, object3.reference.value)
+        XCTAssertNotEqual(object3.reference.value, object.reference.value)
+    }
+
+    func test_reference_nonTempHasOnlyAlphaNumerics() {
+        let reference = PBXObjectReference()
+        XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
+        reference.fix("a")
+        XCTAssertTrue(reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
+        reference.invalidate()
+        XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
+    }
+
+    func test_reference_generation_nonTempHas32Characters() {
+        let object = PBXFileReference()
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        XCTAssertTrue(object.reference.value.count == 32)
+    }
+
+
+    func test_reference_generation_duplicatesHasOnlyAlphaNumerics() {
+        let object = PBXFileReference()
+        let object2 = PBXFileReference()
+        referenceGenerator.fixReference(for: object, identifiers: ["a"])
+        referenceGenerator.fixReference(for: object2, identifiers: ["a"])
+        XCTAssertTrue(object.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
+        XCTAssertTrue(object2.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
+    }
+
 }

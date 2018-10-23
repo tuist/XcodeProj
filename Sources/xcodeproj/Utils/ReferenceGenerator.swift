@@ -276,15 +276,8 @@ extension ReferenceGenerator {
                 identifiers.append(context)
             }
             let typeName = String(describing: type(of: object))
-
-            // Get acronym to be used as prefix for the reference.
-            // PBXFileReference is turned to FR.
-            let acronym = typeName
-                .replacingOccurrences(of: "PBX", with: "")
-                .replacingOccurrences(of: "XC", with: "")
-                .filter { String($0).lowercased() != String($0) }
-
-            let id = "\(acronym)_\(([typeName] + identifiers).joined(separator: "-").md5.uppercased())"
+            let id = ([typeName] + identifiers).joined(separator: "-").md5.uppercased()
+            
             var reference = ""
             var counter = 0
             // get the first reference that doesn't already exist
@@ -293,6 +286,7 @@ extension ReferenceGenerator {
                 reference = id
                 if counter > 1 {
                     reference += "_\(counter)"
+                    reference = reference.md5.uppercased()
                 }
             } while (references.contains(reference))
             references.insert(reference)
