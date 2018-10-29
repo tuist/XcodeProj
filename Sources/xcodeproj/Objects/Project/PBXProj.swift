@@ -201,8 +201,8 @@ extension PBXProj: Writable {
     }
 
     public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) throws {
-        let encoder = PBXProjEncoder()
-        let output = try encoder.encode(proj: self, outputSettings: outputSettings)
+        let encoder = PBXProjEncoder(outputSettings: outputSettings)
+        let output = try encoder.encode(proj: self)
         if override && path.exists {
             try path.delete()
         }

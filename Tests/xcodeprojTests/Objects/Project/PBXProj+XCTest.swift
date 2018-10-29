@@ -3,8 +3,8 @@ import Foundation
 
 extension PBXProj {
     func encode() throws -> String {
-        let encoder = PBXProjEncoder()
         let outputSettings = PBXOutputSettings()
-        return try encoder.encode(proj: self, outputSettings: outputSettings)
+        let encoder = PBXProjEncoder(outputSettings: outputSettings)
+        return try encoder.encode(proj: self)
     }
 }

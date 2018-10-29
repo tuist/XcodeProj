@@ -120,6 +120,17 @@ public enum PBXBuildPhaseFileOrder {
     }
 }
 
+/// Defines the format of project file references
+public enum PBXReferenceFormat {
+    /// Adds prefix and suffix characters to the references.
+    /// The prefix characters identify the type of reference generated (e.g. BP for Build Phase).
+    /// The suffix number is only added for uniqueness if clashes occur.
+    case withPrefixAndSuffix
+    /// Standard 32 char format that XCode generates.
+    /// Note: Not guaranteed to be the same as XCode generates - only the format is the same.
+    case xcode
+}
+
 /// Struct of output settings passed to various methods.
 public struct PBXOutputSettings {
     /// The sorting order for the list of files in Xcode's project file.
@@ -131,6 +142,9 @@ public struct PBXOutputSettings {
     /// The sort order for lists of files in build phases.
     let projBuildPhaseFileOrder: PBXBuildPhaseFileOrder
 
+    /// The format of project file references
+    let projReferenceFormat: PBXReferenceFormat
+
     /**
      Default initializer
 
@@ -140,9 +154,11 @@ public struct PBXOutputSettings {
      */
     public init(projFileListOrder: PBXFileOrder = .byUUID,
                 projNavigatorFileOrder: PBXNavigatorFileOrder = .unsorted,
-                projBuildPhaseFileOrder: PBXBuildPhaseFileOrder = .unsorted) {
+                projBuildPhaseFileOrder: PBXBuildPhaseFileOrder = .unsorted,
+                projReferenceFormat: PBXReferenceFormat = .xcode) {
         self.projFileListOrder = projFileListOrder
         self.projNavigatorFileOrder = projNavigatorFileOrder
         self.projBuildPhaseFileOrder = projBuildPhaseFileOrder
+        self.projReferenceFormat = projReferenceFormat
     }
 }
