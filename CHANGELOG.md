@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Added `projReferenceFormat` to `PBXOutputSettings` to allow changing the output format of generated references. `withPrefixAndSuffix` will give the legacy behaviour `xcode` will generate 32 character references as XCode does. https://github.com/tuist/xcodeproj/pull/345 by @samskiter.
+
 ## 6.3.0
 
 ### Added
@@ -33,7 +36,7 @@
 - Add `TEMP` prefix to temporary unfixed reference values https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
 
 ### Fixed
-- Fixed written order of scheme attributes in Swift 4.2 https://github.com/tuist/xcodeproj/pull/325 and https://github.com/tuist/xcodeproj/pull/331 by @yonaskolb and @drekka 
+- Fixed written order of scheme attributes in Swift 4.2 https://github.com/tuist/xcodeproj/pull/325 and https://github.com/tuist/xcodeproj/pull/331 by @yonaskolb and @drekka
 
 ## 6.0.1
 

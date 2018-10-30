@@ -8,15 +8,20 @@ protocol ReferenceGenerating: AnyObject {
     /// Generates the references of the objects of the given project.
     ///
     /// - Parameter proj: project whose objects references will be generated.
+    /// - Parameter settings: settings to control the output references
     func generateReferences(proj: PBXProj) throws
 }
 
 /// Reference generator.
 final class ReferenceGenerator: ReferenceGenerating {
-    /// Project pbxproj instance.
-    var proj: PBXProj?
 
+    let outputSettings: PBXOutputSettings
     var references: Set<String> = []
+
+    init(outputSettings: PBXOutputSettings) {
+
+        self.outputSettings = outputSettings
+    }
 
     /// Generates the references of the objects of the given project.
     ///
@@ -26,8 +31,6 @@ final class ReferenceGenerator: ReferenceGenerating {
             return
         }
 
-        self.proj = proj
-
         // cache current reference values
         var references: Set<String> = []
         proj.objects.forEach { object in
@@ -36,10 +39,6 @@ final class ReferenceGenerator: ReferenceGenerating {
             }
         }
         self.references = references
-
-        defer {
-            self.proj = nil
-        }
 
         // Projects, targets, groups and file references.
         // Note: The references of those type of objects should be generated first.
@@ -74,8 +73,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - project: project whose reference will be generated.
     ///   - identifiers: list of identifiers.
-    func generateProjectAndTargets(project: PBXProject,
-                                   identifiers: [String]) {
+    private func generateProjectAndTargets(project: PBXProject,
+                                           identifiers: [String]) {
         // Project
         fixReference(for: project, identifiers: identifiers)
 
@@ -95,8 +94,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - group: group instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateGroupReferences(_ group: PBXGroup,
-                                             identifiers: [String]) throws {
+    private func generateGroupReferences(_ group: PBXGroup,
+                                         identifiers: [String]) throws {
         var identifiers = identifiers
         if let groupName = group.fileName() {
             identifiers.append(groupName)
@@ -121,7 +120,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - fileReference: file reference instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateFileReference(_ fileReference: PBXFileReference, identifiers: [String]) throws {
+    private func generateFileReference(_ fileReference: PBXFileReference, identifiers: [String]) throws {
         var identifiers = identifiers
         if let groupName = fileReference.fileName() {
             identifiers.append(groupName)
@@ -135,8 +134,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - configurationList: configuration list instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
-                                                         identifiers: [String]) throws {
+    private func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
+                                                     identifiers: [String]) throws {
 
         fixReference(for: configurationList, identifiers: identifiers)
 
@@ -157,8 +156,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - target: target instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateTargetReferences(_ target: PBXTarget,
-                                              identifiers: [String]) throws {
+    private func generateTargetReferences(_ target: PBXTarget,
+                                          identifiers: [String]) throws {
         var identifiers = identifiers
         identifiers.append(target.name)
 
@@ -187,8 +186,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - targetDependency: target dependency instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateTargetDependencyReferences(_ targetDependency: PBXTargetDependency,
-                                                        identifiers: [String]) throws {
+    private func generateTargetDependencyReferences(_ targetDependency: PBXTargetDependency,
+                                                    identifiers: [String]) throws {
         var identifiers = identifiers
 
         // Target proxy
@@ -218,8 +217,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - buildPhase: build phase instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateBuildPhaseReferences(_ buildPhase: PBXBuildPhase,
-                                                  identifiers: [String]) throws {
+    private func generateBuildPhaseReferences(_ buildPhase: PBXBuildPhase,
+                                              identifiers: [String]) throws {
         var identifiers = identifiers
         if let name = buildPhase.name() {
             identifiers.append(name)
@@ -250,8 +249,8 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - buildRule: build phase instance.
     ///   - identifiers: list of identifiers.
-    fileprivate func generateBuildRules(_ buildRule: PBXBuildRule,
-                                        identifiers: [String]) throws {
+    private func generateBuildRules(_ buildRule: PBXBuildRule,
+                                    identifiers: [String]) throws {
         var identifiers = identifiers
         if let name = buildRule.name {
             identifiers.append(name)
@@ -269,7 +268,8 @@ extension ReferenceGenerator {
     /// - Parameters:
     ///   - object: The object to generate a reference for
     ///   - identifiers: list of identifiers used to generate the reference of the object.
-    func fixReference<T: PBXObject>(for object: T, identifiers: [String]) {
+    func fixReference<T: PBXObject>(for object: T,
+                                    identifiers: [String]) {
         if object.reference.temporary {
             var identifiers = identifiers
             if let context = object.context {
@@ -284,19 +284,38 @@ extension ReferenceGenerator {
                 .replacingOccurrences(of: "XC", with: "")
                 .filter { String($0).lowercased() != String($0) }
 
-            let id = "\(acronym)_\(([typeName] + identifiers).joined(separator: "-").md5.uppercased())"
             var reference = ""
             var counter = 0
-            // get the first reference that doesn't already exist
+            // Get the first reference that doesn't already exist
             repeat {
                 counter += 1
-                reference = id
-                if counter > 1 {
-                    reference += "_\(counter)"
-                }
+                reference = self.generateReferenceFrom(acronym: acronym,
+                                                       typeName: typeName,
+                                                       identifiers: identifiers,
+                                                       counter: counter)
             } while (references.contains(reference))
             references.insert(reference)
             object.reference.fix(reference)
+        }
+    }
+
+    private func generateReferenceFrom(acronym: String,
+                                       typeName: String,
+                                       identifiers: [String],
+                                       counter: Int) -> String {
+
+        let typeNameAndIdentifiers = ([typeName] + identifiers).joined(separator: "-")
+        switch self.outputSettings.projReferenceFormat {
+
+        case .withPrefixAndSuffix:
+            let base = "\(acronym)_\(typeNameAndIdentifiers.md5.uppercased())"
+            if counter > 1 {
+                return "\(base)_\(counter)"
+            } else {
+                return base
+            }
+        case .xcode:
+            return "\(acronym)_\(typeNameAndIdentifiers)_\(counter)".md5.uppercased()
         }
     }
 }

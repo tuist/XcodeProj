@@ -4,12 +4,10 @@ import Foundation
 import XCTest
 
 class PBXProjEncoderTests: XCTestCase {
-    var encoder: PBXProjEncoder!
     var proj: PBXProj!
 
     override func setUp() {
         super.setUp()
-        encoder = PBXProjEncoder()
         let dic = iosProjectDictionary()
         do {
             proj = try PBXProj(jsonDictionary: dic.1)
@@ -296,7 +294,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
         do {
-            return try encoder.encode(proj: proj, outputSettings: settings)
+            return try PBXProjEncoder(outputSettings: settings).encode(proj: proj)
         } catch let error {
             XCTFail("Unexpected error encoding project: \(error)", line: line)
             return ""
@@ -305,7 +303,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     private func encodeProjectThrows<E>(error expectedError: E, line: UInt = #line) where E: Error {
         do {
-            _ = try encoder.encode(proj: proj, outputSettings: PBXOutputSettings())
+            _ = try PBXProjEncoder(outputSettings: PBXOutputSettings()).encode(proj: proj)
             XCTFail("Expected '\(expectedError)' to be thrown", line: line)
         } catch let error {
             if type(of: expectedError) != type(of: error) {
