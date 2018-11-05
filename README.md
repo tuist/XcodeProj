@@ -120,14 +120,6 @@ You can check out the documentation on the following [link](https://tuist.github
 
 xcodeproj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
 
-## Donations
-
-Tuist is a non-profit project run entirely by unpaid volunteers. We need your funds to pay for software, hardware and hosting around continuous integration and future improvements to the project. Every donation will be spent on making Tuist better for our users.
-
-Please consider a regular donation through Patreon:
-
-[![Donate with Patreon](https://img.shields.io/badge/patreon-donate-green.svg)](https://www.patreon.com/tuist)
-
 ## Open source
 
 Tuist is a proud supporter of the [Software Freedom Conservacy](https://sfconservancy.org/)
