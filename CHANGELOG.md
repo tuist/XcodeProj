@@ -4,6 +4,7 @@
 
 ### Added
 - Added `projReferenceFormat` to `PBXOutputSettings` to allow changing the output format of generated references. `withPrefixAndSuffix` will give the legacy behaviour `xcode` will generate 32 character references as XCode does. https://github.com/tuist/xcodeproj/pull/345 by @samskiter.
+- Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
 
 ## 6.3.0
 
