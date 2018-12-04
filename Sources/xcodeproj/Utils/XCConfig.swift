@@ -53,7 +53,7 @@ final class XCConfigParser {
     static func configFrom(path: Path, projectPath: Path?) -> (String) -> (include: Path, config: XCConfig)? {
         return { line in
             includeRegex.matches(in: line,
-                                 options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                 options: [],
                                  range: NSRange(location: 0,
                                                 length: line.count))
                 .compactMap { (match) -> String? in
@@ -82,7 +82,7 @@ final class XCConfigParser {
 
     static func settingFrom(line: String) -> (key: String, value: String)? {
         return settingRegex.matches(in: line,
-                                    options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                    options: [],
                                     range: NSRange(location: 0,
                                                    length: line.count))
             .compactMap { (match) -> (key: String, value: String)? in
