@@ -22,6 +22,7 @@ public enum PBXProductType: String, Decodable {
     case xpcService = "com.apple.product-type.xpc-service"
     case ocUnitTestBundle = "com.apple.product-type.bundle.ocunit-test"
     case xcodeExtension = "com.apple.product-type.xcode-extension"
+    case instrumentsPackage = "com.apple.product-type.instruments-package"
 
     /// Returns the file extension for the given product type.
     public var fileExtension: String? {
@@ -46,6 +47,8 @@ public enum PBXProductType: String, Decodable {
             return "xpc"
         case .ocUnitTestBundle:
             return "octest"
+        case .instrumentsPackage:
+            return "instrpkg"
         case .none:
             return nil
         }
