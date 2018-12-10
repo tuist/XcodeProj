@@ -7,6 +7,7 @@
 ![Slack](http://slack.tuist.io/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/pepibumur)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj?ref=badge_shield)
 <img src="https://opencollective.com/tuistapp/tiers/backer/badge.svg?label=backer&color=brightgreen" />
 <img src="https://opencollective.com/tuistapp/tiers/sponsor/badge.svg?label=sponsor&color=brightgreen" />
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/tuist)
@@ -123,6 +124,9 @@ You can check out the documentation on the following [link](https://tuist.github
 ## License
 
 xcodeproj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj?ref=badge_large)
 
 ## Backers
 
