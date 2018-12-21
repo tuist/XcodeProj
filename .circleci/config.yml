@@ -1,4 +1,9 @@
 version: 2
+workflows:
+  build:
+    jobs:
+      - build:
+          context: tuist
 jobs:
   build:
     macos:
@@ -18,9 +23,8 @@ jobs:
           command: |
             bundle check || bundle install --path vendor/bundle
       - run:
-          name: Linting
-          command: |
-            swiftlint
+          name: Run Danger
+          command: bundle exec danger
       - run:
           name: Release build
           command: |
