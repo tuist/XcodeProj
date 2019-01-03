@@ -68,7 +68,7 @@ extension XCConfigurationList {
     ///
     /// - Parameter name: configuration name.
     /// - Returns: build configuration if it exists.
-    public func configuration(name: String) throws -> XCBuildConfiguration? {
+    public func configuration(name: String) -> XCBuildConfiguration? {
         return buildConfigurations.first(where: { $0.name == name })
     }
 
