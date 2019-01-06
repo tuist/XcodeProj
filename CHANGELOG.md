@@ -5,6 +5,7 @@
 ### Added
 - Added `projReferenceFormat` to `PBXOutputSettings` to allow changing the output format of generated references. `withPrefixAndSuffix` will give the legacy behaviour `xcode` will generate 32 character references as XCode does. https://github.com/tuist/xcodeproj/pull/345 by @samskiter.
 - Danger https://github.com/tuist/xcodeproj/pull/357 by @pepibumur.
+- Support for WorkspaceSettings https://github.com/tuist/xcodeproj/pull/359 by @pepibumur.
 
 ## 6.3.0
 
