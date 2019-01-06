@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>Xcode Structure Reference</title>
+    <title>PBXReferenceFormat Enumeration Reference</title>
     <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
     <meta charset='utf-8'>
@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <a name='//apple_ref/swift/Struct/Xcode' class='dashAnchor'></a>
+    <a name='//apple_ref/swift/Enum/PBXReferenceFormat' class='dashAnchor'></a>
 
-    <a title='Xcode Structure Reference'></a>
+    <a title='PBXReferenceFormat Enumeration Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -34,7 +34,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='../index.html'>xcodeproj Reference</a>
       <img class='carat' src='' />
-      Xcode Structure Reference
+      PBXReferenceFormat Enumeration Reference
     </p>
 
     <div class='content-wrapper'>
@@ -269,14 +269,14 @@
 
         <section class='section'>
           <div class='section-content'>
-            <h1>Xcode</h1>
+            <h1>PBXReferenceFormat</h1>
               <div class='declaration'>
                 <div class='language'>
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xcode</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PBXReferenceFormat</span></code></pre>
 
                 </div>
               </div>
-            <p>Class that contains Xcode constants.</p>
+            <p>Defines the format of project file references</p>
 
           </div>
         </section>
@@ -288,9 +288,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:9xcodeproj5XcodeV9LastKnownV"></a>
-                    <a name="//apple_ref/swift/Struct/LastKnown" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV9LastKnownV">LastKnown</a>
+                    <a name="/s:9xcodeproj18PBXReferenceFormatO19withPrefixAndSuffixyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/withPrefixAndSuffix" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj18PBXReferenceFormatO19withPrefixAndSuffixyA2CmF">withPrefixAndSuffix</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -298,78 +298,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Last known constants.</p>
+                        <p>Adds prefix and suffix characters to the references.
+The prefix characters identify the type of reference generated (e.g. BP for Build Phase).
+The suffix number is only added for uniqueness if clashes occur.</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LastKnown</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                          <a href="../Structs/Xcode/LastKnown.html" class="button">See more</a>
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV7DefaultV"></a>
-                    <a name="//apple_ref/swift/Struct/Default" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV7DefaultV">Default</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Default values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Default</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                          <a href="../Structs/Xcode/Default.html" class="button">See more</a>
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV17inheritedKeywordsSaySSGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/inheritedKeywords" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV17inheritedKeywordsSaySSGvpZ">inheritedKeywords</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Inherited keywords used in build settings.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">inheritedKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">withPrefixAndSuffix</span></code></pre>
 
                         </div>
                       </div>
@@ -382,9 +320,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:9xcodeproj5XcodeV17headersExtensionsSaySSGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/headersExtensions" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV17headersExtensionsSaySSGvpZ">headersExtensions</a>
+                    <a name="/s:9xcodeproj18PBXReferenceFormatO5xcodeyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/xcode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj18PBXReferenceFormatO5xcodeyA2CmF">xcode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -392,99 +330,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Header files extensions.</p>
+                        <p>Standard 32 char format that XCode generates.
+Note: Not guaranteed to be the same as XCode generates - only the format is the same.</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">headersExtensions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">xcode</span></code></pre>
 
                         </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV9SupportedV"></a>
-                    <a name="//apple_ref/swift/Struct/Supported" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV9SupportedV">Supported</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Supported values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Supported</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV8filetype9extensionSSSgSS_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/filetype(extension:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV8filetype9extensionSSSgSS_tFZ">filetype(extension:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the Xcode file type for any given extension.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">filetype</span><span class="p">(</span><span class="nv">extension</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h5>Parameters</h5>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>extension</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>file extension.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h5>Return Value</h5>
-                        <p>Xcode file type.</p>
                       </div>
                       <div class="slightly-smaller">
                         

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>Xcode Structure Reference</title>
+    <title>WorkspaceSettings Class Reference</title>
     <link rel='stylesheet' type='text/css' href='../css/jazzy.css' />
     <link rel='stylesheet' type='text/css' href='../css/highlight.css' />
     <meta charset='utf-8'>
@@ -10,9 +10,9 @@
   </head>
   <body>
 
-    <a name='//apple_ref/swift/Struct/Xcode' class='dashAnchor'></a>
+    <a name='//apple_ref/swift/Class/WorkspaceSettings' class='dashAnchor'></a>
 
-    <a title='Xcode Structure Reference'></a>
+    <a title='WorkspaceSettings Class Reference'></a>
 
     <header class='header'>
       <p class='header-col header-col--primary'>
@@ -34,7 +34,7 @@
     <p class='breadcrumbs'>
       <a class='breadcrumb' href='../index.html'>xcodeproj Reference</a>
       <img class='carat' src='' />
-      Xcode Structure Reference
+      WorkspaceSettings Class Reference
     </p>
 
     <div class='content-wrapper'>
@@ -269,14 +269,14 @@
 
         <section class='section'>
           <div class='section-content'>
-            <h1>Xcode</h1>
+            <h1>WorkspaceSettings</h1>
               <div class='declaration'>
                 <div class='language'>
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Xcode</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">WorkspaceSettings</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt"><a href="../Protocols/Writable.html">Writable</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Class that contains Xcode constants.</p>
+            <p>It represents the WorkspaceSettings.xcsettings file under a workspace data directory.</p>
 
           </div>
         </section>
@@ -288,9 +288,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:9xcodeproj5XcodeV9LastKnownV"></a>
-                    <a name="//apple_ref/swift/Struct/LastKnown" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV9LastKnownV">LastKnown</a>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC11buildSystemAC05BuildE0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/buildSystem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC11buildSystemAC05BuildE0Ovp">buildSystem</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -298,78 +298,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Last known constants.</p>
+                        <p>Workspace build system.</p>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LastKnown</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                          <a href="../Structs/Xcode/LastKnown.html" class="button">See more</a>
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV7DefaultV"></a>
-                    <a name="//apple_ref/swift/Struct/Default" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV7DefaultV">Default</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Default values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Default</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                          <a href="../Structs/Xcode/Default.html" class="button">See more</a>
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV17inheritedKeywordsSaySSGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/inheritedKeywords" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV17inheritedKeywordsSaySSGvpZ">inheritedKeywords</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Inherited keywords used in build settings.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">inheritedKeywords</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">buildSystem</span><span class="p">:</span> <span class="kt">BuildSystem</span></code></pre>
 
                         </div>
                       </div>
@@ -382,9 +318,9 @@
                 <li class="item">
                   <div class="item-heading">
                     <code>
-                    <a name="/s:9xcodeproj5XcodeV17headersExtensionsSaySSGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/headersExtensions" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV17headersExtensionsSaySSGvpZ">headersExtensions</a>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC4fromACs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC4fromACs7Decoder_p_tKcfc">init(from:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -392,74 +328,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Header files extensions.</p>
+                        <p>Initializes the settings decoding the values from the plist representation.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An error if required attributes are missing or have a wrong type.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h5>Declaration</h5>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">headersExtensions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV9SupportedV"></a>
-                    <a name="//apple_ref/swift/Struct/Supported" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV9SupportedV">Supported</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Supported values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Supported</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div class="item-heading">
-                    <code>
-                    <a name="/s:9xcodeproj5XcodeV8filetype9extensionSSSgSS_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/filetype(extension:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9xcodeproj5XcodeV8filetype9extensionSSSgSS_tFZ">filetype(extension:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the Xcode file type for any given extension.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h5>Declaration</h5>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">filetype</span><span class="p">(</span><span class="nv">extension</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -470,12 +351,120 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>extension</em>
+                                <em>decoder</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>file extension.</p>
+                                  <p>Propertly list decoder.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC6encode2toys7Encoder_p_tKF">encode(to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encodes the settings into the given encoder.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An error if the settings can&rsquo;t be encoded.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Encoder where the settings will be encoded into.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC2at4pathAC7PathKit0F0V_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/at(path:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC2at4pathAC7PathKit0F0V_tKFZ">at(path:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the settings reading the values from the WorkspaceSettings.xcsettings file.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An error if the file doesn&rsquo;t exist or has an invalid format.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">at</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">WorkspaceSettings</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to the WorkspaceSettings.xcsettings</p>
                                 </div>
                               </td>
                             </tr>
@@ -484,7 +473,138 @@
                       </div>
                       <div>
                         <h5>Return Value</h5>
-                        <p>Xcode file type.</p>
+                        <p>The initialized workspace settings.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC2eeoiySbAC_ACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC2eeoiySbAC_ACtFZ">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compares two instances of WorkspaceSettings and retrus true if the two instances are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">WorkspaceSettings</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">WorkspaceSettings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>First instance to be compared.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Second instance to be compared.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h5>Return Value</h5>
+                        <p>True if the two instances are the same.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj17WorkspaceSettingsC5write4path8overridey7PathKit0G0V_SbtKF"></a>
+                    <a name="//apple_ref/swift/Method/write(path:override:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17WorkspaceSettingsC5write4path8overridey7PathKit0G0V_SbtKF">write(path:override:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Writes the workspace settings.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    writing error if something goes wrong.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">Path</span><span class="p">,</span> <span class="nv">override</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h5>Parameters</h5>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The path to write to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>override</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>True if the content should be overriden if it already exists.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                       <div class="slightly-smaller">
                         
