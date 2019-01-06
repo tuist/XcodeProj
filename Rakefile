@@ -17,6 +17,11 @@ task :release_check do
   system("xcodebuild -project xcodeproj-Carthage.xcodeproj -scheme xcodeproj") || abort
 end
 
+task :arhive_carthage do
+  system("carthage build --no-skip-current --platform macOS") || abort
+  system("carthage archive") || abort
+end
+
 task :carthage_update_dependencies do
   system("carthage update --platform macOS") || abort
 end
