@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// This is the element for the framework headers build phase.
 public final class PBXHeadersBuildPhase: PBXBuildPhase {

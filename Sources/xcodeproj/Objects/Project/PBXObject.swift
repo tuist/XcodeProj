@@ -21,7 +21,7 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
      so it has to resolve automatic uuid conflicts by appending numbers.
      This property can be used to provide more context to disambiguate these objects,
      which will result in more deterministic uuids.
-    */
+     */
     public var context: String?
 
     // MARK: - Init

@@ -3,7 +3,6 @@ import Foundation
 import XCTest
 
 class ObjectReferenceTests: XCTestCase {
-
     let xcodeReferenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings(projReferenceFormat: .xcode))
     let prefixedReferenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings(projReferenceFormat: .withPrefixAndSuffix))
 
@@ -107,7 +106,6 @@ class ObjectReferenceTests: XCTestCase {
         XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
     }
 
-
     /// MARK: - XCode style generation
 
     func test_reference_generation_xcode_isDeterministic() {
@@ -142,7 +140,6 @@ class ObjectReferenceTests: XCTestCase {
         XCTAssertTrue(object.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
         XCTAssertTrue(object2.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
     }
-
 
     // MARK: - Prefix format generation
 

@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 extension XCScheme {
     // swiftlint:disable:next type_body_length

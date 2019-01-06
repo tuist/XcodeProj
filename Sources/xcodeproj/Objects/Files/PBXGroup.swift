@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 public class PBXGroup: PBXFileElement {
     // MARK: - Attributes

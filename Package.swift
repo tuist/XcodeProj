@@ -17,7 +17,7 @@ let package = Package(
                 dependencies: [
                     "PathKit",
                     "AEXML",
-                ]),
+        ]),
         .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj"]),
         .testTarget(name: "xcodeprojIntegrationTests", dependencies: ["xcodeproj", "SwiftShell"]),
     ]

@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// This element is an abstract parent for file and group elements.
 public class PBXFileElement: PBXContainerItem, PlistSerializable {

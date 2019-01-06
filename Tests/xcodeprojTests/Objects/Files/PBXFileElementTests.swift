@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 @testable import xcodeproj
 import XCTest
 
@@ -54,7 +54,7 @@ final class PBXFileElementTests: XCTestCase {
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/a/path")
     }
-    
+
     func test_fullPath_with_nested_groups() throws {
         let sourceRoot = Path("/")
         let fileref = PBXFileReference(sourceTree: .group,
@@ -63,8 +63,8 @@ final class PBXFileElementTests: XCTestCase {
                                        lastKnownFileType: nil,
                                        path: "file/path")
         let nestedGroup = PBXGroup(children: [fileref],
-                             sourceTree: .group,
-                             path: "group/path")
+                                   sourceTree: .group,
+                                   path: "group/path")
         let rootGroup = PBXGroup(children: [nestedGroup],
                                  sourceTree: .group)
 
@@ -75,7 +75,6 @@ final class PBXFileElementTests: XCTestCase {
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/group/path/file/path")
     }
-    
 
     private func testDictionary() -> [String: Any] {
         return [

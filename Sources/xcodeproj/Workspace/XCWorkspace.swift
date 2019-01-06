@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// Model that represents a Xcode workspace.
 public final class XCWorkspace: Writable, Equatable {

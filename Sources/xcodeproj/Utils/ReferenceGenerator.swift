@@ -14,12 +14,10 @@ protocol ReferenceGenerating: AnyObject {
 
 /// Reference generator.
 final class ReferenceGenerator: ReferenceGenerating {
-
     let outputSettings: PBXOutputSettings
     var references: Set<String> = []
 
     init(outputSettings: PBXOutputSettings) {
-
         self.outputSettings = outputSettings
     }
 
@@ -136,7 +134,6 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - identifiers: list of identifiers.
     private func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
                                                      identifiers: [String]) throws {
-
         fixReference(for: configurationList, identifiers: identifiers)
 
         let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
@@ -262,7 +259,6 @@ final class ReferenceGenerator: ReferenceGenerating {
 }
 
 extension ReferenceGenerator {
-
     /// Given a list of identifiers, it generates a deterministic reference for a PBXObject.
     ///
     /// - Parameters:
@@ -289,10 +285,10 @@ extension ReferenceGenerator {
             // Get the first reference that doesn't already exist
             repeat {
                 counter += 1
-                reference = self.generateReferenceFrom(acronym: acronym,
-                                                       typeName: typeName,
-                                                       identifiers: identifiers,
-                                                       counter: counter)
+                reference = generateReferenceFrom(acronym: acronym,
+                                                  typeName: typeName,
+                                                  identifiers: identifiers,
+                                                  counter: counter)
             } while (references.contains(reference))
             references.insert(reference)
             object.reference.fix(reference)
@@ -303,10 +299,8 @@ extension ReferenceGenerator {
                                        typeName: String,
                                        identifiers: [String],
                                        counter: Int) -> String {
-
         let typeNameAndIdentifiers = ([typeName] + identifiers).joined(separator: "-")
-        switch self.outputSettings.projReferenceFormat {
-
+        switch outputSettings.projReferenceFormat {
         case .withPrefixAndSuffix:
             let base = "\(acronym)_\(typeNameAndIdentifiers.md5.uppercased())"
             if counter > 1 {

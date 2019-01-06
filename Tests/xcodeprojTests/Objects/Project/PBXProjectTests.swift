@@ -25,7 +25,7 @@ final class PBXProjectTests: XCTestCase {
             "LastUpgradeCheck": "0940",
             "TargetAttributes": ["app": [
                 "custom": "abc",
-                "TestTargetID": "test"
+                "TestTargetID": "test",
             ]],
         ]
         XCTAssertEqual(attributes, expectedAttributes)

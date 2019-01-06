@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 public final class XCWorkspaceData {
     public var children: [XCWorkspaceDataElement]

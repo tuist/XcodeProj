@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 extension XCScheme {
     public final class ProfileAction: SerialAction {

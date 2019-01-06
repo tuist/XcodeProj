@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// Represents a .pbxproj file
 public final class PBXProj: Decodable {

@@ -1,13 +1,12 @@
+import Foundation
 // swiftlint:disable all
 import PathKit
-import Foundation
 
 // MARK: - Path extras.
 
 let systemGlob = Darwin.glob
 
 extension Path {
-
     /// Creates a directory
     ///
     /// - Throws: an errof if the directory cannot be created.

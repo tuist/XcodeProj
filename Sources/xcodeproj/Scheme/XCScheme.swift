@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 public enum XCSchemeError: Error, CustomStringConvertible {
     case notFound(path: Path)

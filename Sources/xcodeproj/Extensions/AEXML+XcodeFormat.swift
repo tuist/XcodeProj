@@ -71,7 +71,7 @@ let attributesOrder: [String: [String]] = [
     "TestableReference": [
         "skipped",
         "parallelizable",
-        "testExecutionOrdering"
+        "testExecutionOrdering",
     ],
 ]
 

@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 // swiftlint:disable:next type_body_length
 public final class XCBreakpointList: Equatable, Writable {
