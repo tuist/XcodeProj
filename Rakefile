@@ -19,7 +19,7 @@ end
 
 task :arhive_carthage do
   system("carthage build --no-skip-current --platform macOS") || abort
-  system("carthage archive") || abort
+  system("carthage archive xcodeproj") || abort
 end
 
 task :carthage_update_dependencies do

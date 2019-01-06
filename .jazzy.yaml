@@ -3,6 +3,7 @@ module: xcodeproj
 github_url: https://github.com/tuist/xcodeproj
 copyright: 'Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.'
 readme: ABOUT.md
+min_acl: public
 documentation: guides/*.md
 sdk: macosx
 xcodebuild_arguments:
@@ -12,39 +13,70 @@ xcodebuild_arguments:
   - xcodeproj-Package
 skip_undocumented: true
 custom_categories:
-  - name: Models
+  - name: Projects and workspaces
     children:
-      - BuildSettings
-      - XCConfig
-      - XCWorkspace
       - XcodeProj
-      - XCBuildConfiguration
-      - XCConfigurationList
-      - XCScheme
-      - XCSharedData
-      - PBXProductType
-      - PBXNativeTarget
       - PBXProj
       - PBXObject
-      - PBXSourceTree
-      - PBXAggregateTarget
-      - PBXBuildFile
-      - PBXContainerItemProxy
-      - PBXFileElement
-      - PBXFileReference
-      - PBXGroup
       - PBXProject
+      - XCWorkspace
+      - WorkspaceSettings
+  - name: Targets
+    children:
+      - PBXTarget
+      - PBXNativeTarget
+      - PBXProductType
+      - PBXLegacyTarget
+      - PBXTargetDependency
+      - PBXAggregateTarget
+      - PBXBuildRule
+      - PBXContainerItemProxy
+      - PBXContainerItem
+      - PBXReferenceProxy
+  - name: Build phases
+    children:
+      - BuildPhase
+      - PBXBuildPhase
+      - PBXRezBuildPhase
       - PBXFrameworksBuildPhase
       - PBXHeadersBuildPhase
       - PBXResourcesBuildPhase
       - PBXCopyFilesBuildPhase
       - PBXShellScriptBuildPhase
       - PBXSourcesBuildPhase
-      - PBXTargetDependency
+      - PBXBuildPhaseFileOrder
+  - name: Configurations
+    children:
+      - XCConfig
+      - XCBuildConfiguration
+      - XCConfigurationList
+      - BuildSettings
+  - name: Schemes
+    children:
+      - XCScheme
+      - XCSharedData
+  - name: Files and groups
+    children:
+      - PBXFileElement
+      - XCVersionGroup
+      - PBXFileReference
+      - PBXGroup
+      - PBXSourceTree
       - PBXVariantGroup
+      - PBXBuildFile
+      - PBXFileOrder
+      - PBXNavigatorFileOrder
   - name: Protocols
     children:
       - ProjectElement
+      - Writable
+  - name: Utils
+    children:
+      - BuildSettingsProvider
+      - PBXOutputSettings
+      - PBXReferenceFormat
+      - GroupAddingOptions
+      - Xcode
   - name: Errors
     children:
       - XCConfigError
@@ -54,3 +86,11 @@ custom_categories:
       - XCWorkspaceError
       - XCodeProjError
       - PBXObjectError
+      - XCBreakpointListError
+      - XcodeprojEditingError
+      - XcodeprojWritingError
+  - name: Extensions
+    children:
+      - Bool
+      - CommentedString
+      - PlistValue

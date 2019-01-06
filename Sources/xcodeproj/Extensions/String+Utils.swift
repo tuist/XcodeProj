@@ -3,21 +3,21 @@ import Foundation
 #if os(Linux)
     import SwiftGlibc
 
-    public func arc4random_uniform(_ max: UInt32) -> Int32 {
+    func arc4random_uniform(_ max: UInt32) -> Int32 {
         return (SwiftGlibc.rand() % Int32(max - 1))
     }
 #endif
 
 extension String {
-    public var quoted: String {
+    var quoted: String {
         return "\"\(self)\""
     }
 
-    public var isQuoted: Bool {
+    var isQuoted: Bool {
         return hasPrefix("\"") && hasSuffix("\"")
     }
 
-    public static func random(length: Int = 20) -> String {
+    static func random(length: Int = 20) -> String {
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString: String = ""
 

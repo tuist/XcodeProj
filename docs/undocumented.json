@@ -113,27 +113,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Extensions/String+Utils.swift",
-      "line": 12,
-      "symbol": "String.quoted",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Extensions/String+Utils.swift",
-      "line": 16,
-      "symbol": "String.isQuoted",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Extensions/String+Utils.swift",
-      "line": 20,
-      "symbol": "String.random(length:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Objects/BuildPhase/BuildPhase.swift",
       "line": 13,
       "symbol": "BuildPhase.sources",

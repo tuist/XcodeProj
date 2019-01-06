@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Targets  Reference</title>
+    <link rel='stylesheet' type='text/css' href='css/jazzy.css' />
+    <link rel='stylesheet' type='text/css' href='css/highlight.css' />
+    <meta charset='utf-8'>
+    <script src='js/jquery.min.js' defer></script>
+    <script src='js/jazzy.js' defer></script>
+  </head>
+  <body>
+
+    <a name='//apple_ref/swift/Section/Targets' class='dashAnchor'></a>
+
+    <a title='Targets  Reference'></a>
+
+    <header class='header'>
+      <p class='header-col header-col--primary'>
+        <a class='header-link' href='index.html'>
+          xcodeproj Docs
+        </a>
+         (72% documented)
+      </p>
+    
+        <p class='header-col header-col--secondary'>
+          <a class='header-link' href='https://github.com/tuist/xcodeproj'>
+            <img class='header-icon' src='img/gh.png'/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class='breadcrumbs'>
+      <a class='breadcrumb' href='index.html'>xcodeproj Reference</a>
+      <img class='carat' src='' />
+      Targets  Reference
+    </p>
+
+    <div class='content-wrapper'>
+      <nav class='navigation'>
+        <ul class='nav-groups'>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Projects and workspaces.html'>Projects and workspaces</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XcodeProj.html'>XcodeProj</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXProj.html'>PBXProj</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXObject.html'>PBXObject</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XCWorkspace.html'>XCWorkspace</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/WorkspaceSettings.html'>WorkspaceSettings</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Targets.html'>Targets</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXTarget.html'>PBXTarget</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXNativeTarget.html'>PBXNativeTarget</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXLegacyTarget.html'>PBXLegacyTarget</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXTargetDependency.html'>PBXTargetDependency</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Targets.html#/s:9xcodeproj18PBXAggregateTargetC'>PBXAggregateTarget</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXBuildRule.html'>PBXBuildRule</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXContainerItemProxy.html'>PBXContainerItemProxy</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXContainerItem.html'>PBXContainerItem</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXReferenceProxy.html'>PBXReferenceProxy</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Build phases.html'>Build phases</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Build phases.html#/s:9xcodeproj10BuildPhaseO'>BuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXBuildPhase.html'>PBXBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXRezBuildPhase.html'>PBXRezBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXFrameworksBuildPhase.html'>PBXFrameworksBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXHeadersBuildPhase.html'>PBXHeadersBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXResourcesBuildPhase.html'>PBXResourcesBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXCopyFilesBuildPhase.html'>PBXCopyFilesBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXShellScriptBuildPhase.html'>PBXShellScriptBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXSourcesBuildPhase.html'>PBXSourcesBuildPhase</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXBuildPhaseFileOrder.html'>PBXBuildPhaseFileOrder</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Configurations.html'>Configurations</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XCConfig.html'>XCConfig</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XCBuildConfiguration.html'>XCBuildConfiguration</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XCConfigurationList.html'>XCConfigurationList</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Configurations.html#/s:9xcodeproj13BuildSettingsa'>BuildSettings</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Files and groups.html'>Files and groups</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXFileElement.html'>PBXFileElement</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/XCVersionGroup.html'>XCVersionGroup</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXFileReference.html'>PBXFileReference</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXSourceTree.html'>PBXSourceTree</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/PBXBuildFile.html'>PBXBuildFile</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXFileOrder.html'>PBXFileOrder</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXNavigatorFileOrder.html'>PBXNavigatorFileOrder</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Protocols.html'>Protocols</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Protocols/Writable.html'>Writable</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Utils.html'>Utils</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/BuildSettingsProvider.html'>BuildSettingsProvider</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7VariantO'>– Variant</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC8PlatformO'>– Platform</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Classes/BuildSettingsProvider.html#/s:9xcodeproj21BuildSettingsProviderC7ProductO'>– Product</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/PBXOutputSettings.html'>PBXOutputSettings</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXReferenceFormat.html'>PBXReferenceFormat</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/GroupAddingOptions.html'>GroupAddingOptions</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/Xcode.html'>Xcode</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/Xcode/LastKnown.html'>– LastKnown</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/Xcode/Default.html'>– Default</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Structs/Xcode.html#/s:9xcodeproj5XcodeV9SupportedV'>– Supported</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Errors.html'>Errors</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCConfigError.html'>XCConfigError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCSharedDataError.html'>XCSharedDataError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCWorkspaceDataError.html'>XCWorkspaceDataError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCWorkspaceError.html'>XCWorkspaceError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCodeProjError.html'>XCodeProjError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/PBXObjectError.html'>PBXObjectError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XCBreakpointListError.html'>XCBreakpointListError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XcodeprojEditingError.html'>XcodeprojEditingError</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Enums/XcodeprojWritingError.html'>XcodeprojWritingError</a>
+              </li>
+            </ul>
+          </li>
+          <li class='nav-group-name'>
+            <a class='nav-group-name-link' href='Extensions.html'>Extensions</a>
+            <ul class='nav-group-tasks'>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Extensions/Bool.html'>Bool</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Extensions/CommentedString.html'>CommentedString</a>
+              </li>
+              <li class='nav-group-task'>
+                <a class='nav-group-task-link' href='Extensions/PlistValue.html'>PlistValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class='main-content'>
+
+        <section class='section'>
+          <div class='section-content'>
+            <h1>Targets</h1>
+            
+          </div>
+        </section>
+
+        <section class='section'>
+          <div class='section-content'>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj9PBXTargetC"></a>
+                    <a name="//apple_ref/swift/Class/PBXTarget" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj9PBXTargetC">PBXTarget</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This element is an abstract parent for specialized targets.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXContainerItem.html">PBXContainerItem</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXTarget.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj15PBXNativeTargetC"></a>
+                    <a name="//apple_ref/swift/Class/PBXNativeTarget" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj15PBXNativeTargetC">PBXNativeTarget</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the element for a build target that produces a binary content (application or library).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXNativeTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXNativeTarget.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj15PBXLegacyTargetC"></a>
+                    <a name="//apple_ref/swift/Class/PBXLegacyTarget" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj15PBXLegacyTargetC">PBXLegacyTarget</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the element for a build target that according to Xcode is an <q>External Build System</q>. You can use this target to run a script.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXLegacyTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXLegacyTarget.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj19PBXTargetDependencyC"></a>
+                    <a name="//apple_ref/swift/Class/PBXTargetDependency" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj19PBXTargetDependencyC">PBXTargetDependency</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the element for referencing other targets through content proxies.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXTargetDependency</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXTargetDependency.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj18PBXAggregateTargetC"></a>
+                    <a name="//apple_ref/swift/Class/PBXAggregateTarget" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj18PBXAggregateTargetC">PBXAggregateTarget</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the element for a build target that aggregates several others.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXAggregateTarget</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXTarget.html">PBXTarget</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj12PBXBuildRuleC"></a>
+                    <a name="//apple_ref/swift/Class/PBXBuildRule" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj12PBXBuildRuleC">PBXBuildRule</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A PBXBuildRule is used to specify a method for transforming an input file in to an output file(s).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXBuildRule</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXBuildRule.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj21PBXContainerItemProxyC"></a>
+                    <a name="//apple_ref/swift/Class/PBXContainerItemProxy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj21PBXContainerItemProxyC">PBXContainerItemProxy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the element to decorate a target item.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXContainerItemProxy</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXContainerItemProxy.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj16PBXContainerItemC"></a>
+                    <a name="//apple_ref/swift/Class/PBXContainerItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj16PBXContainerItemC">PBXContainerItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Class representing an element that may contain other elements.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PBXContainerItem</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXContainerItem.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class='item-container'>
+                <li class="item">
+                  <div class="item-heading">
+                    <code>
+                    <a name="/s:9xcodeproj17PBXReferenceProxyC"></a>
+                    <a name="//apple_ref/swift/Class/PBXReferenceProxy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9xcodeproj17PBXReferenceProxyC">PBXReferenceProxy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A proxy for another object which might belong to another project
+contained in the same workspace of the document.
+This class is referenced by PBXTargetDependency.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h5>Declaration</h5>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">PBXReferenceProxy</span> <span class="p">:</span> <span class="kt"><a href="Classes/PBXObject.html">PBXObject</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        
+                          <a href="Classes/PBXReferenceProxy.html" class="button">See more</a>
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class='footer'>
+      <p>© 2018 <a class="link" href="https://github.com/tuist" target="_blank" rel="external">Tuist</a>. All rights reserved.</p>
+      <p>Generated by <a class='link' href='https://github.com/realm/jazzy' target='_blank' rel='external'>jazzy ♪♫ v0.9.3</a>, a <a class='link' href='http://realm.io' target='_blank' rel='external'>Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
