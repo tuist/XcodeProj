@@ -56,7 +56,7 @@ public struct Xcode {
     /// Supported values.
     public struct Supported {
         /// The version of `.xcscheme` files supported by Xcodeproj
-        static let xcschemeFormatVersion = "1.3"
+        public static let xcschemeFormatVersion = "1.3"
     }
 
     /// Returns the Xcode file type for any given extension.
