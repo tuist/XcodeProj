@@ -183,4 +183,4 @@ build/
 xcodeproj.xcodeproj
 .idea/
 tmp/
-WithoutWorkspace.framework.zip
+xcodeproj.framework.zip
