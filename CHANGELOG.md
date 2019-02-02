@@ -2,6 +2,12 @@
 
 ## next version
 
+### Changed
+- Make Xcode.Supported.xcschemeFormatVersion public https://github.com/tuist/xcodeproj/pull/361 by @yonaskolb.
+
+### Added
+- Fix remote target dependency https://github.com/tuist/xcodeproj/pull/362 by @mxcl.
+
 ## 6.4.0
 
 ### Added
