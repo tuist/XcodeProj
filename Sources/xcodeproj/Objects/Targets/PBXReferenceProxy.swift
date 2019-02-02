@@ -3,14 +3,11 @@ import Foundation
 /// A proxy for another object which might belong to another project
 /// contained in the same workspace of the document.
 /// This class is referenced by PBXTargetDependency.
-public final class PBXReferenceProxy: PBXObject {
+public final class PBXReferenceProxy: PBXFileElement {
     // MARK: - Attributes
 
     /// Element file type
     public var fileType: String?
-
-    /// Element path.
-    public var path: String?
 
     /// Element remote reference.
     var remoteReference: PBXObjectReference?
@@ -25,9 +22,6 @@ public final class PBXReferenceProxy: PBXObject {
         }
     }
 
-    /// Element source tree.
-    public var sourceTree: PBXSourceTree?
-
     // MARK: - Init
 
     /// Initializes the reference proxy.
@@ -39,22 +33,19 @@ public final class PBXReferenceProxy: PBXObject {
     ///   - sourceTree: Source tree.
     public init(fileType: String? = nil,
                 path: String? = nil,
+                name: String? = nil,
                 remote: PBXContainerItemProxy? = nil,
                 sourceTree: PBXSourceTree? = nil) {
         self.fileType = fileType
-        self.path = path
         remoteReference = remote?.reference
-        self.sourceTree = sourceTree
-        super.init()
+        super.init(sourceTree: sourceTree, path: path, name: name)
     }
 
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {
         case fileType
-        case path
         case remoteRef
-        case sourceTree
     }
 
     public required init(from decoder: Decoder) throws {
@@ -65,29 +56,19 @@ public final class PBXReferenceProxy: PBXObject {
             remoteReference = objectReferenceRepository.getOrCreate(reference: remoteRefString, objects: objects)
         }
         fileType = try container.decodeIfPresent(.fileType)
-        path = try container.decodeIfPresent(.path)
-        sourceTree = try container.decodeIfPresent(.sourceTree)
         try super.init(from: decoder)
     }
-}
 
-// MARK: - PBXReferenceProxy
-
-extension PBXReferenceProxy: PlistSerializable {
-    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+        guard case .dictionary(var dictionary) = try super.plistKeyAndValue(proj: proj, reference: reference).value else {
+            fatalError("super implementation changed and we didn’t realise!")
+        }
         dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))
         if let fileType = fileType {
             dictionary["fileType"] = .string(CommentedString(fileType))
         }
-        if let path = path {
-            dictionary["path"] = .string(CommentedString(path))
-        }
         if let remoteReference = remoteReference {
             dictionary["remoteRef"] = .string(CommentedString(remoteReference.value, comment: "PBXContainerItemProxy"))
-        }
-        if let sourceTree = sourceTree {
-            dictionary["sourceTree"] = sourceTree.plist()
         }
         return (key: CommentedString(reference, comment: path),
                 value: .dictionary(dictionary))
