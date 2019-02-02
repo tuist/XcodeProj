@@ -45,7 +45,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.4.0")),
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.5.0")),
         ],
     targets: [
         .target(
@@ -60,13 +60,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 6.4.0
+github "tuist/xcodeproj" ~> 6.5.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 6.4.0'
+pod 'xcodeproj', '~> 6.5.0'
 ```
 
 ## Migration Guides

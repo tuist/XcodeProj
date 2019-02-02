@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.5.0
+
 ### Changed
 - Make Xcode.Supported.xcschemeFormatVersion public https://github.com/tuist/xcodeproj/pull/361 by @yonaskolb.
 

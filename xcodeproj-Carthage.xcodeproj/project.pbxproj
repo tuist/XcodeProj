@@ -485,10 +485,10 @@
 				FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */,
 				FR_94F0F8038C977732229D7179BE902BB1 /* PBXFrameworksBuildPhase.swift */,
 				FR_5C7969F032D9379BD6D259240A1E4DED /* PBXHeadersBuildPhase.swift */,
-				FR_1A4F7F19AB5F23193F26C5B53F3ECBAB /* PBXResourcesBuildPhase.swift */,
 				FR_9C11681035E0D66499C8072D77B3A116 /* PBXRezBuildPhase.swift */,
-				FR_080CD730A4B117628B6D361E95498AA5 /* PBXShellScriptBuildPhase.swift */,
 				FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */,
+				FR_080CD730A4B117628B6D361E95498AA5 /* PBXShellScriptBuildPhase.swift */,
+				FR_1A4F7F19AB5F23193F26C5B53F3ECBAB /* PBXResourcesBuildPhase.swift */,
 			);
 			path = BuildPhase;
 			sourceTree = "<group>";

@@ -491,6 +491,20 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Project/WorkspaceSettings.swift",
+      "line": 4,
+      "symbol": "WorkspaceSettingsError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Project/WorkspaceSettings.swift",
+      "line": 11,
+      "symbol": "WorkspaceSettings.BuildSystem",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/pedropinera/src/github.com/tuist/xcodeproj/Sources/xcodeproj/Project/XCBreakpointList.swift",
       "line": 6,
       "symbol": "XCBreakpointList",
