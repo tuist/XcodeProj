@@ -69,6 +69,52 @@ github "tuist/xcodeproj" ~> 6.5.0
 pod 'xcodeproj', '~> 6.5.0'
 ```
 
+## Scripting
+
+Using [`swift-sh`] you can automate project-tasks using scripts, for example we
+can make a script that keeps a project’s version key in sync with the current
+git tag that represents the project’s version:
+
+```swift
+#!/usr/bin/swift sh
+import Foundation
+import xcodeproj  // @tuist ~> 6.5
+import PathKit
+
+guard CommandLine.arguments.count == 3 else {
+    let arg0 = Path(CommandLine.arguments[0]).lastComponent
+    fputs("usage: \(arg0) <project> <new-version>\n", stderr)
+    exit(1)
+}
+
+let projectPath = Path(CommandLine.arguments[1])
+let newVersion = CommandLine.arguments[2]
+let xcodeproj = try XcodeProj(path: projectPath)
+let key = "CURRENT_PROJECT_VERSION"
+
+for conf in xcodeproj.pbxproj.buildConfigurations where conf.buildSettings[key] != nil {
+    conf.buildSettings[key] = newVersion
+}
+
+try xcodeproj.write(path: projectPath)
+```
+
+You could then store this in your repository, for example at
+`scripts/set-project-version` and then run it:
+
+```bash
+$ scripts/set-project-version ./App.xcodeproj 1.2.3
+$ git add App.xcodeproj
+$ git commit -m "Bump version"
+$ git tag 1.2.3
+```
+
+Future adaption could easily include determining the version and bumping it
+automatically. If so, we recommend using a library that provides a `Version`
+object.
+
+[`swift-sh`]: https://github.com/mxcl/swift-sh
+
 ## Migration Guides
 
 ### xcodeproj 6
