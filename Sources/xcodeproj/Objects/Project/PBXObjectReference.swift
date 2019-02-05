@@ -127,7 +127,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Returns: object the reference is referring to.
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
     func getThrowingObject<T: PBXObject>() throws -> T {
-        return try OSLogger.instance.log(name: "Materialize Object") {
+        let block: () throws -> T = {
             if let object = self.object as? T {
                 return object
             }
@@ -140,6 +140,13 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
             self.object = object
             return object
         }
+        #if os(macOS)
+        return try OSLogger.instance.log(name: "Materialize Object") {
+            try block()
+        }
+        #else
+        try block()
+        #endif
     }
 }
 

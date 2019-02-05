@@ -21,7 +21,7 @@ public final class XcodeProj: Equatable {
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
 
-        try OSLogger.instance.log(name: "Write workspace", path.string as! CVarArg) {
+        let block: () throws -> () = {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
             if pbxprojPaths.isEmpty {
@@ -41,6 +41,14 @@ public final class XcodeProj: Equatable {
             let sharedDataPath = path + "xcshareddata"
             sharedData = try? XCSharedData(path: sharedDataPath)
         }
+        
+        #if os(macOS)
+        try OSLogger.instance.log(name: "Write workspace", path.string) {
+            try block()
+        }
+        #else
+        try block()
+        #endif
 
         self.pbxproj = pbxproj
         self.workspace = workspace
@@ -92,18 +100,25 @@ extension XcodeProj: Writable {
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
 
-        try OSLogger.instance.log(name: "Write workspace", path.string as! CVarArg) {
+        #if os(macOS)
+        try OSLogger.instance.log(name: "Write workspace", path.string) {
             try writeWorkspace(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write pbxproj", path.string as! CVarArg) {
+        try OSLogger.instance.log(name: "Write pbxproj", path.string) {
             try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         }
-        try OSLogger.instance.log(name: "Write schemes", path.string as! CVarArg) {
+        try OSLogger.instance.log(name: "Write schemes", path.string) {
             try writeSchemes(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write breakpoints", path.string as! CVarArg) {
+        try OSLogger.instance.log(name: "Write breakpoints", path.string) {
             try writeBreakPoints(path: path, override: override)
         }
+        #else
+        try writeWorkspace(path: path, override: override)
+        try writePBXProj(path: path, override: override, outputSettings: outputSettings)
+        try writeSchemes(path: path, override: override)
+        try writeBreakPoints(path: path, override: override)
+        #endif
     }
 
     /// Returns workspace file path relative to the given path.
