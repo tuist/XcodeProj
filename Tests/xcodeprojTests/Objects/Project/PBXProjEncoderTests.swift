@@ -11,7 +11,7 @@ class PBXProjEncoderTests: XCTestCase {
         let dic = iosProjectDictionary()
         do {
             proj = try PBXProj(jsonDictionary: dic.1)
-        } catch let error {
+        } catch {
             XCTFail("Failed to load project from file \(error)")
         }
     }
@@ -295,7 +295,7 @@ class PBXProjEncoderTests: XCTestCase {
     private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
         do {
             return try PBXProjEncoder(outputSettings: settings).encode(proj: proj)
-        } catch let error {
+        } catch {
             XCTFail("Unexpected error encoding project: \(error)", line: line)
             return ""
         }
@@ -305,7 +305,7 @@ class PBXProjEncoderTests: XCTestCase {
         do {
             _ = try PBXProjEncoder(outputSettings: PBXOutputSettings()).encode(proj: proj)
             XCTFail("Expected '\(expectedError)' to be thrown", line: line)
-        } catch let error {
+        } catch {
             if type(of: expectedError) != type(of: error) {
                 XCTFail("Expected '\(expectedError)' to be thrown, but got \(error)", line: line)
             }

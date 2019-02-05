@@ -28,7 +28,7 @@ class PBXOutputSettingsTsts: XCTestCase {
         let dic = iosProjectDictionary()
         do {
             proj = try PBXProj(jsonDictionary: dic.1)
-        } catch let error {
+        } catch {
             XCTFail("Failed to load project from file \(error)")
         }
 

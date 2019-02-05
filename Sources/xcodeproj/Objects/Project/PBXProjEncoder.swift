@@ -147,7 +147,7 @@ final class PBXProjEncoder {
                           proj: PBXProj,
                           objects: [PBXObjectReference: T],
                           sort: ((PBXObjectReference, T), (PBXObjectReference, T)) -> Bool) throws where T: PlistSerializable & Equatable {
-        if objects.count == 0 { return }
+        if objects.isEmpty { return }
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()

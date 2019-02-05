@@ -109,7 +109,7 @@ public final class XCScheme: Writable, Equatable {
         if let wasCreatedForAppExtension = wasCreatedForAppExtension {
             scheme.attributes["wasCreatedForAppExtension"] = wasCreatedForAppExtension.xmlString
         }
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)

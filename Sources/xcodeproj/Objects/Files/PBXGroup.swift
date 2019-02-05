@@ -105,7 +105,7 @@ public extension PBXGroup {
     ///
     /// - Parameter groupName: group name.
     /// - Returns: group with the given name contained in the given parent group.
-    public func group(named name: String) -> PBXGroup? {
+    func group(named name: String) -> PBXGroup? {
         return childrenReferences
             .objects()
             .first(where: { $0.name == name })
@@ -115,7 +115,7 @@ public extension PBXGroup {
     ///
     /// - Parameter name: file name.
     /// - Returns: file with the given name contained in the given parent group.
-    public func file(named name: String) -> PBXFileReference? {
+    func file(named name: String) -> PBXFileReference? {
         return childrenReferences
             .objects()
             .first(where: { $0.name == name })
@@ -128,7 +128,7 @@ public extension PBXGroup {
     ///   - options: creation options.
     /// - Returns: created groups.
     @discardableResult
-    public func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
+    func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
         let objects = try self.objects()
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
             let group = groups.last ?? self
@@ -147,7 +147,7 @@ public extension PBXGroup {
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
     @discardableResult
-    public func addFile(
+    func addFile(
         at filePath: Path,
         sourceTree: PBXSourceTree = .group,
         sourceRoot: Path

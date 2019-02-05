@@ -19,7 +19,7 @@ public final class XCWorkspace: Writable, Equatable {
             throw XCWorkspaceError.notFound(path: path)
         }
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
-        if xcworkspaceDataPaths.count == 0 {
+        if xcworkspaceDataPaths.isEmpty {
             self.init()
         } else {
             try self.init(data: XCWorkspaceData(path: xcworkspaceDataPaths.first!))
@@ -52,7 +52,7 @@ public final class XCWorkspace: Writable, Equatable {
 
     public func write(path: Path, override: Bool = true) throws {
         let dataPath = path + "contents.xcworkspacedata"
-        if override && dataPath.exists {
+        if override, dataPath.exists {
             try dataPath.delete()
         }
         try dataPath.mkpath()

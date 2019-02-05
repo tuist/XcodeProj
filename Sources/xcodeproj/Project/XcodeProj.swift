@@ -24,7 +24,7 @@ public final class XcodeProj: Equatable {
         try OSLogger.instance.log(name: "Write workspace", path.string) {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
-            if pbxprojPaths.count == 0 {
+            if pbxprojPaths.isEmpty {
                 throw XCodeProjError.pbxprojNotFound(path: path)
             }
             let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
@@ -33,7 +33,7 @@ public final class XcodeProj: Equatable {
             pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
             try pbxproj.updateProjectName(path: pbxprojPaths.first!)
             let xcworkspacePaths = path.glob("*.xcworkspace")
-            if xcworkspacePaths.count == 0 {
+            if xcworkspacePaths.isEmpty {
                 workspace = XCWorkspace()
             } else {
                 workspace = try XCWorkspace(path: xcworkspacePaths.first!)
@@ -91,6 +91,7 @@ extension XcodeProj: Writable {
     ///   If false will throw error if project already exists at the given path.
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
+
         try OSLogger.instance.log(name: "Write workspace", path.string) {
             try writeWorkspace(path: path, override: override)
         }
@@ -175,7 +176,7 @@ extension XcodeProj: Writable {
         guard let sharedData = sharedData else { return }
 
         let schemesPath = XcodeProj.schemesPath(path)
-        if override && schemesPath.exists {
+        if override, schemesPath.exists {
             try schemesPath.delete()
         }
         try schemesPath.mkpath()
@@ -212,7 +213,7 @@ extension XcodeProj: Writable {
         guard let sharedData = sharedData else { return }
 
         let debuggerPath = XcodeProj.debuggerPath(path)
-        if override && debuggerPath.exists {
+        if override, debuggerPath.exists {
             try debuggerPath.delete()
         }
         try debuggerPath.mkpath()

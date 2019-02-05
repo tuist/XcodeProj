@@ -329,7 +329,7 @@ extension PBXProject: PlistSerializable {
     }
 
     private func projectReferencesPlistValue(proj _: PBXProj) throws -> PlistValue? {
-        guard projectReferences.count > 0 else {
+        guard !projectReferences.isEmpty else {
             return nil
         }
         return .array(projectReferences.compactMap { reference in

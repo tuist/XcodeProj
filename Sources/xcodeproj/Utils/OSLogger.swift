@@ -1,5 +1,7 @@
 import Foundation
-import os.signpost
+#if os(macOS)
+    import os.signpost
+#endif
 
 /// OSLog wrapper that runs logging functions if logging is enabled through
 /// environment variables and the feature is available in the system where
@@ -17,34 +19,38 @@ class OSLogger {
     ///   - closure: Piece of code that will be logged.
     /// - Throws: An error if the given closure throws.
     func log(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () throws -> Void) throws {
-        if !shouldLog {
+        #if os(macOS)
+            if !shouldLog {
+                try closure()
+                return
+            }
+
+            if #available(OSX 10.14, *) {
+                let log: OSLog = OSLog.xcodeproj(category: category)
+                let signpostID = OSSignpostID(log: log)
+                os_signpost(.begin,
+                            log: log,
+                            name: name,
+                            signpostID: signpostID,
+                            "%{public}s",
+                            arguments)
+            }
+
             try closure()
-            return
-        }
 
-        if #available(OSX 10.14, *) {
-            let log: OSLog = OSLog.xcodeproj(category: category)
-            let signpostID = OSSignpostID(log: log)
-            os_signpost(.begin,
-                        log: log,
-                        name: name,
-                        signpostID: signpostID,
-                        "%{public}s",
-                        arguments)
-        }
-
-        try closure()
-
-        if #available(OSX 10.14, *) {
-            let log: OSLog = OSLog.xcodeproj(category: category)
-            let signpostID = OSSignpostID(log: log)
-            os_signpost(.end,
-                        log: log,
-                        name: name,
-                        signpostID: signpostID,
-                        "%{public}s",
-                        arguments)
-        }
+            if #available(OSX 10.14, *) {
+                let log: OSLog = OSLog.xcodeproj(category: category)
+                let signpostID = OSSignpostID(log: log)
+                os_signpost(.end,
+                            log: log,
+                            name: name,
+                            signpostID: signpostID,
+                            "%{public}s",
+                            arguments)
+            }
+        #else
+            try closure()
+        #endif
     }
 
     /// Logs when the given closure starts and ends.
@@ -57,35 +63,39 @@ class OSLogger {
     /// - Returns: The value returned by the closure.
     /// - Throws: An error if the given closure throws.
     func log<T>(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () throws -> T) throws -> T {
-        if !shouldLog {
+        #if os(macOS)
+            if !shouldLog {
+                return try closure()
+            }
+
+            if #available(OSX 10.14, *) {
+                let log: OSLog = OSLog.xcodeproj(category: category)
+                let signpostID = OSSignpostID(log: log)
+                os_signpost(.begin,
+                            log: log,
+                            name: name,
+                            signpostID: signpostID,
+                            "%{public}s",
+                            arguments)
+            }
+
+            let result = try closure()
+
+            if #available(OSX 10.14, *) {
+                let log: OSLog = OSLog.xcodeproj(category: category)
+                let signpostID = OSSignpostID(log: log)
+                os_signpost(.end,
+                            log: log,
+                            name: name,
+                            signpostID: signpostID,
+                            "%{public}s",
+                            arguments)
+            }
+
+            return result
+        #else
             return try closure()
-        }
-
-        if #available(OSX 10.14, *) {
-            let log: OSLog = OSLog.xcodeproj(category: category)
-            let signpostID = OSSignpostID(log: log)
-            os_signpost(.begin,
-                        log: log,
-                        name: name,
-                        signpostID: signpostID,
-                        "%{public}s",
-                        arguments)
-        }
-
-        let result = try closure()
-
-        if #available(OSX 10.14, *) {
-            let log: OSLog = OSLog.xcodeproj(category: category)
-            let signpostID = OSSignpostID(log: log)
-            os_signpost(.end,
-                        log: log,
-                        name: name,
-                        signpostID: signpostID,
-                        "%{public}s",
-                        arguments)
-        }
-
-        return result
+        #endif
     }
 
     /// Returns true if the XCODEPROJ_OSLOG environment variable is defined in the environment.
