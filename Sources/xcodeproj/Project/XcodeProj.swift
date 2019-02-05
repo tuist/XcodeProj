@@ -21,7 +21,7 @@ public final class XcodeProj: Equatable {
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
 
-        try OSLogger.instance.log(name: "Write workspace", path.string as CVarArg) {
+        try OSLogger.instance.log(name: "Write workspace", path.string as! CVarArg) {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
             if pbxprojPaths.isEmpty {
@@ -92,16 +92,16 @@ extension XcodeProj: Writable {
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
 
-        try OSLogger.instance.log(name: "Write workspace", path.string as CVarArg) {
+        try OSLogger.instance.log(name: "Write workspace", path.string as! CVarArg) {
             try writeWorkspace(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write pbxproj", path.string as CVarArg) {
+        try OSLogger.instance.log(name: "Write pbxproj", path.string as! CVarArg) {
             try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         }
-        try OSLogger.instance.log(name: "Write schemes", path.string as CVarArg) {
+        try OSLogger.instance.log(name: "Write schemes", path.string as! CVarArg) {
             try writeSchemes(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write breakpoints", path.string as CVarArg) {
+        try OSLogger.instance.log(name: "Write breakpoints", path.string as! CVarArg) {
             try writeBreakPoints(path: path, override: override)
         }
     }
