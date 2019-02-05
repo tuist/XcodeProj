@@ -142,10 +142,10 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         }
         #if os(macOS)
         return try OSLogger.instance.log(name: "Materialize Object") {
-            try block()
+            return try block()
         }
         #else
-        try block()
+        return try block()
         #endif
     }
 }
