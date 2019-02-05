@@ -3,10 +3,25 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
+      - macos:
+          context: tuist
+      - linux:
           context: tuist
 jobs:
-  build:
+  linux:
+    docker:
+      - image: swift:4.2.1
+    steps:
+      - checkout
+      - run:
+          name: Release build
+          command: |
+            swift build -c release
+      - run:
+          name: Run tests
+          command: |
+            swift test
+  macos:
     macos:
       xcode: "10.0.0"
     steps:
@@ -23,6 +38,10 @@ jobs:
           name: Install dependencies
           command: |
             bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: Run Danger
           command: bundle exec danger
@@ -39,7 +58,4 @@ jobs:
           name: Send test coverage report
           command: |
             bash <(curl -s https://codecov.io/bash)
-      - save_cache:
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+
