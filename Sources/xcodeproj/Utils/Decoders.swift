@@ -4,6 +4,7 @@ import Foundation
 class PBXObjectReferenceRepository {
     /// References.
     var references: [String: PBXObjectReference] = [:]
+    let lock = NSRecursiveLock()
 
     /// Returns and creates if it doesn't exist an object reference.
     ///
@@ -12,6 +13,10 @@ class PBXObjectReferenceRepository {
     ///   - objects: objects.
     /// - Returns: object reference.
     func getOrCreate(reference: String, objects: PBXObjects) -> PBXObjectReference {
+        defer {
+            lock.unlock()
+        }
+        lock.lock()
         if let objectReference = references[reference] {
             return objectReference
         }
