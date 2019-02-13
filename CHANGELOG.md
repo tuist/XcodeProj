@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
+
 ## 6.5.0
 
 ### Changed
