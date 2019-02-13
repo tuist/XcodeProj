@@ -13,10 +13,10 @@ class PBXObjectReferenceRepository {
     ///   - objects: objects.
     /// - Returns: object reference.
     func getOrCreate(reference: String, objects: PBXObjects) -> PBXObjectReference {
+        lock.lock()
         defer {
             lock.unlock()
         }
-        lock.lock()
         if let objectReference = references[reference] {
             return objectReference
         }

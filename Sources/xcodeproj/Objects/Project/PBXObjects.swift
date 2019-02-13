@@ -148,6 +148,9 @@ class PBXObjects: Equatable {
     ///   - object: object.
     func add(object: PBXObject) {
         lock.lock()
+        defer {
+            lock.unlock()
+        }
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
 
@@ -179,7 +182,6 @@ class PBXObjects: Equatable {
         case let object as PBXBuildRule: unsyncBuildRules[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
-        lock.unlock()
     }
 
     /// Deletes the object with the given reference.
