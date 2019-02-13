@@ -19,6 +19,7 @@ struct JSONCodingKeys: CodingKey {
 
 extension KeyedDecodingContainer {
     func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> [String: Any] {
+        // Optimization for root dictionary decoding
         if let jsonDictionary = try? superDecoder().context.jsonDictionary,
             let result = jsonDictionary[key.stringValue] as? [String: Any] {
             return result
