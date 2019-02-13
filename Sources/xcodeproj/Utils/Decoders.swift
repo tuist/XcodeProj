@@ -33,10 +33,12 @@ class ProjectDecodingContext {
 
     /// Objects.
     let objects: PBXObjects
+    let jsonDictionary: [String: Any]
 
-    init() {
+    init(jsonDictionary: [String: Any] = [:]) {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])
+        self.jsonDictionary = jsonDictionary
     }
 }
 

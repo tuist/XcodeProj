@@ -1,14 +1,5 @@
 import Foundation
 
-extension NSRecursiveLock {
-    func sync<T>(closure: () -> (T)) -> T {
-        lock()
-        let value = closure()
-        unlock()
-        return value
-    }
-}
-
 class PBXObjects: Equatable {
     // MARK: - Properties
     
@@ -317,10 +308,13 @@ extension PBXObjects {
     /// - Returns: targets with the given name.
     func targets(named name: String) -> [PBXTarget] {
         var targets: [PBXTarget] = []
-        targets.append(contentsOf: nativeTargets.values.map({ $0 as PBXTarget }))
-        targets.append(contentsOf: legacyTargets.values.map({ $0 as PBXTarget }))
-        targets.append(contentsOf: aggregateTargets.values.map({ $0 as PBXTarget }))
-        return targets.filter { $0.name == name }
+        let filter = { (targets: [PBXObjectReference: PBXTarget]) -> [PBXTarget] in
+            targets.values.filter({ $0.name == name })
+        }
+        targets.append(contentsOf: filter(nativeTargets))
+        targets.append(contentsOf: filter(legacyTargets))
+        targets.append(contentsOf: filter(aggregateTargets))
+        return targets
     }
 
     /// Invalidates all the objects references.

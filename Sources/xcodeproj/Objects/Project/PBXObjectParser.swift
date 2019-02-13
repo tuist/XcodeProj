@@ -18,21 +18,22 @@ final class PBXObjectParser {
         mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])
         guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
+        // Order is important for performance
         switch isa {
+        case PBXFileElement.isa:
+            return try decoder.decode(PBXFileElement.self, from: data)
+        case PBXBuildFile.isa:
+            return try decoder.decode(PBXBuildFile.self, from: data)
+        case PBXFileReference.isa:
+            return try decoder.decode(PBXFileReference.self, from: data)
         case PBXLegacyTarget.isa:
             return try decoder.decode(PBXLegacyTarget.self, from: data)
         case PBXNativeTarget.isa:
             return try decoder.decode(PBXNativeTarget.self, from: data)
         case PBXAggregateTarget.isa:
             return try decoder.decode(PBXAggregateTarget.self, from: data)
-        case PBXBuildFile.isa:
-            return try decoder.decode(PBXBuildFile.self, from: data)
-        case PBXFileReference.isa:
-            return try decoder.decode(PBXFileReference.self, from: data)
         case PBXProject.isa:
             return try decoder.decode(PBXProject.self, from: data)
-        case PBXFileElement.isa:
-            return try decoder.decode(PBXFileElement.self, from: data)
         case PBXGroup.isa:
             return try decoder.decode(PBXGroup.self, from: data)
         case PBXHeadersBuildPhase.isa:
