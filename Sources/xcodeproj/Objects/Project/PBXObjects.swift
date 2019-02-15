@@ -7,100 +7,100 @@ class PBXObjects: Equatable {
 
     private var unsyncProjects: [PBXObjectReference: PBXProject] = [:]
     var projects: [PBXObjectReference: PBXProject] {
-        return lock.sync { unsyncProjects }
+        return lock.whileLocked { unsyncProjects }
     }
     
     private var unsyncReferenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
     var referenceProxies: [PBXObjectReference: PBXReferenceProxy] {
-        return lock.sync { unsyncReferenceProxies }
+        return lock.whileLocked { unsyncReferenceProxies }
     }
 
     // File elements
     private var unsyncFileReferences: [PBXObjectReference: PBXFileReference] = [:]
     var fileReferences: [PBXObjectReference: PBXFileReference] {
-        return lock.sync { unsyncFileReferences }
+        return lock.whileLocked { unsyncFileReferences }
     }
     private var unsyncVersionGroups: [PBXObjectReference: XCVersionGroup] = [:]
     var versionGroups: [PBXObjectReference: XCVersionGroup] {
-        return lock.sync { unsyncVersionGroups }
+        return lock.whileLocked { unsyncVersionGroups }
     }
     private var unsyncVariantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
     var variantGroups: [PBXObjectReference: PBXVariantGroup] {
-        return lock.sync { unsyncVariantGroups }
+        return lock.whileLocked { unsyncVariantGroups }
     }
     private var unsyncGroups: [PBXObjectReference: PBXGroup] = [:]
     var groups: [PBXObjectReference: PBXGroup] {
-        return lock.sync { unsyncGroups }
+        return lock.whileLocked { unsyncGroups }
     }
 
     // Configuration
     private var unsyncBuildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
     var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] {
-        return lock.sync { unsyncBuildConfigurations }
+        return lock.whileLocked { unsyncBuildConfigurations }
     }
     private var unsyncConfigurationLists: [PBXObjectReference: XCConfigurationList] = [:]
     var configurationLists: [PBXObjectReference: XCConfigurationList] {
-        return lock.sync { unsyncConfigurationLists }
+        return lock.whileLocked { unsyncConfigurationLists }
     }
 
     // Targets
     private var unsyncLegacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
     var legacyTargets: [PBXObjectReference: PBXLegacyTarget] {
-        return lock.sync { unsyncLegacyTargets }
+        return lock.whileLocked { unsyncLegacyTargets }
     }
     private var unsyncAggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
     var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] {
-        return lock.sync { unsyncAggregateTargets }
+        return lock.whileLocked { unsyncAggregateTargets }
     }
     private var unsyncNativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
     var nativeTargets: [PBXObjectReference: PBXNativeTarget] {
-        return lock.sync { unsyncNativeTargets }
+        return lock.whileLocked { unsyncNativeTargets }
     }
     private var unsyncTargetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
     var targetDependencies: [PBXObjectReference: PBXTargetDependency] {
-        return lock.sync { unsyncTargetDependencies }
+        return lock.whileLocked { unsyncTargetDependencies }
     }
     private var unsyncContainerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
     var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] {
-        return lock.sync { unsyncContainerItemProxies }
+        return lock.whileLocked { unsyncContainerItemProxies }
     }
     private var unsyncBuildRules: [PBXObjectReference: PBXBuildRule] = [:]
     var buildRules: [PBXObjectReference: PBXBuildRule] {
-        return lock.sync { unsyncBuildRules }
+        return lock.whileLocked { unsyncBuildRules }
     }
 
     // Build Phases
     private var unsyncBuildFiles: [PBXObjectReference: PBXBuildFile] = [:]
     var buildFiles: [PBXObjectReference: PBXBuildFile] {
-        return lock.sync { unsyncBuildFiles }
+        return lock.whileLocked { unsyncBuildFiles }
     }
     private var unsyncCopyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
     var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] {
-        return lock.sync { unsyncCopyFilesBuildPhases }
+        return lock.whileLocked { unsyncCopyFilesBuildPhases }
     }
     private var unsyncShellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
     var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] {
-        return lock.sync { unsyncShellScriptBuildPhases }
+        return lock.whileLocked { unsyncShellScriptBuildPhases }
     }
     private var unsyncResourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
     var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] {
-        return lock.sync { unsyncResourcesBuildPhases }
+        return lock.whileLocked { unsyncResourcesBuildPhases }
     }
     private var unsyncFrameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
     var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] {
-        return lock.sync { unsyncFrameworksBuildPhases }
+        return lock.whileLocked { unsyncFrameworksBuildPhases }
     }
     private var unsyncHeadersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
     var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] {
-        return lock.sync { unsyncHeadersBuildPhases }
+        return lock.whileLocked { unsyncHeadersBuildPhases }
     }
     private var unsyncSourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
     var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] {
-        return lock.sync { unsyncSourcesBuildPhases }
+        return lock.whileLocked { unsyncSourcesBuildPhases }
     }
     private var unsyncCarbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
     var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
-        return lock.sync { unsyncCarbonResourcesBuildPhases }
+        return lock.whileLocked { unsyncCarbonResourcesBuildPhases }
     }
 
     /// Initializes the project objects container

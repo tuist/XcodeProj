@@ -25,6 +25,9 @@ final class XCConfigurationListTests: XCTestCase {
         objects.add(object: configurationList)
         let configurations = try configurationList.addDefaultConfigurations()
 
-        XCTAssertEqual(try configurationList.configuration(name: "Debug"), configurations.first(where: { $0.name == "Debug" }))
+        XCTAssertEqual(
+            configurationList.configuration(name: "Debug"),
+            configurations.first(where: { $0.name == "Debug" })
+        )
     }
 }

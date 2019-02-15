@@ -1,6 +1,5 @@
 import Foundation
-
-// MARK: - Decodable Extension
+@testable import xcodeproj
 
 extension Decodable {
     /// Initialies the Decodable object with a JSON dictionary.
@@ -10,7 +9,9 @@ extension Decodable {
     init(jsonDictionary: [String: Any]) throws {
         let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: [])
         let decoder = XcodeprojJSONDecoder(
-            context: ProjectDecodingContext(jsonDictionary: jsonDictionary)
+            context: ProjectDecodingContext(pbxProjValueReader: { key in
+                return jsonDictionary[keyPath: key]
+            })
         )
         self = try decoder.decode(Self.self, from: data)
     }
