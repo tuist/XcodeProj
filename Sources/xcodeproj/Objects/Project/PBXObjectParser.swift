@@ -5,7 +5,7 @@ final class PBXObjectParser {
     private let userInfo: [CodingUserInfoKey: Any]
     private let decoder = XcodeprojJSONDecoder()
     
-    init(userInfo: [CodingUserInfoKey: Any], decoder: XcodeprojJSONDecoder) {
+    init(userInfo: [CodingUserInfoKey: Any]) {
         self.userInfo = userInfo
     }
     

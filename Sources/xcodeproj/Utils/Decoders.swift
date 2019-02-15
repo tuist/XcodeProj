@@ -31,9 +31,9 @@ class ProjectDecodingContext {
 
     /// Objects.
     let objects: PBXObjects
-    let pbxProjValueReader: ((KeyPath) -> Any?)?
+    let pbxProjValueReader: ((String) -> Any?)?
 
-    init(pbxProjValueReader: ((KeyPath) -> Any?)? = nil) {
+    init(pbxProjValueReader: ((String) -> Any?)? = nil) {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])
         self.pbxProjValueReader = pbxProjValueReader

@@ -10,7 +10,7 @@ extension Decodable {
         let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: [])
         let decoder = XcodeprojJSONDecoder(
             context: ProjectDecodingContext(pbxProjValueReader: { key in
-                return jsonDictionary[keyPath: key]
+                return jsonDictionary[key]
             })
         )
         self = try decoder.decode(Self.self, from: data)

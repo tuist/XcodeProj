@@ -30,8 +30,8 @@ public final class XcodeProj: Equatable {
             let pbxprojPath = pbxprojPaths.first!
             let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
             let context = ProjectDecodingContext(
-                pbxProjValueReader: { keyPath in
-                    pbxProjDictionary[keyPath: keyPath]
+                pbxProjValueReader: { key in
+                    pbxProjDictionary[key]
                 }
             )
             
