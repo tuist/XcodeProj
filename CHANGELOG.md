@@ -8,6 +8,9 @@
 
 - Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin
 
+### Added
+- Added `GPUFrameCaptureMode` and `GPUValidationMode` options to `LaunchAction` https://github.com/tuist/xcodeproj/pull/368 by @schiewe.
+
 ## 6.5.0
 
 ### Changed
