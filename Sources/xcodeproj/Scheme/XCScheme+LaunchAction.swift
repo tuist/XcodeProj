@@ -9,12 +9,25 @@ extension XCScheme {
             case auto = "0"
             case wait = "1"
         }
+        public enum GPUFrameCaptureMode: String {
+            case autoEnabled = "0"
+            case Metal = "1"
+            case OpenGL = "2"
+            case disabled = "3"
+        }
+        public enum GPUValidationMode: String {
+            case enabled = "0"
+            case disabled = "1"
+            case extended = "2"
+        }
 
         // MARK: - Static
 
         private static let defaultBuildConfiguration = "Debug"
         public static let defaultDebugServiceExtension = "internal"
         private static let defaultLaunchStyle = Style.auto
+        public static let defaultGPUFrameCaptureMode = GPUFrameCaptureMode.autoEnabled
+        public static let defaultGPUValidationMode = GPUValidationMode.enabled
 
         // MARK: - Attributes
 
@@ -30,6 +43,8 @@ extension XCScheme {
         public var debugServiceExtension: String
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
+        public var enableGPUFrameCaptureMode: GPUFrameCaptureMode
+        public var enableGPUValidationMode: GPUValidationMode
         public var enableAddressSanitizer: Bool
         public var enableASanStackUseAfterReturn: Bool
         public var enableThreadSanitizer: Bool
@@ -61,6 +76,8 @@ extension XCScheme {
                     debugServiceExtension: String = LaunchAction.defaultDebugServiceExtension,
                     allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil,
+                    enableGPUFrameCaptureMode: GPUFrameCaptureMode = LaunchAction.defaultGPUFrameCaptureMode,
+                    enableGPUValidationMode: GPUValidationMode = LaunchAction.defaultGPUValidationMode,
                     enableAddressSanitizer: Bool = false,
                     enableASanStackUseAfterReturn: Bool = false,
                     enableThreadSanitizer: Bool = false,
@@ -87,6 +104,8 @@ extension XCScheme {
             self.debugServiceExtension = debugServiceExtension
             self.allowLocationSimulation = allowLocationSimulation
             self.locationScenarioReference = locationScenarioReference
+            self.enableGPUFrameCaptureMode = enableGPUFrameCaptureMode
+            self.enableGPUValidationMode = enableGPUValidationMode
             self.enableAddressSanitizer = enableAddressSanitizer
             self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
             self.enableThreadSanitizer = enableThreadSanitizer
@@ -130,6 +149,8 @@ extension XCScheme {
                 locationScenarioReference = nil
             }
 
+            enableGPUFrameCaptureMode = element.attributes["enableGPUFrameCaptureMode"].flatMap { GPUFrameCaptureMode(rawValue: $0) } ?? LaunchAction.defaultGPUFrameCaptureMode
+            enableGPUValidationMode = element.attributes["enableGPUValidationMode"].flatMap { GPUValidationMode(rawValue: $0) } ?? LaunchAction.defaultGPUValidationMode
             enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
             enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
             enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"
@@ -174,6 +195,12 @@ extension XCScheme {
                 "allowLocationSimulation": allowLocationSimulation.xmlString,
             ]
 
+            if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {
+                attributes["enableGPUFrameCaptureMode"] = enableGPUFrameCaptureMode.rawValue
+            }
+            if enableGPUValidationMode != LaunchAction.defaultGPUValidationMode {
+                attributes["enableGPUValidationMode"] = enableGPUValidationMode.rawValue
+            }
             if enableAddressSanitizer {
                 attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
             }
@@ -263,6 +290,8 @@ extension XCScheme {
                 debugServiceExtension == rhs.debugServiceExtension &&
                 allowLocationSimulation == rhs.allowLocationSimulation &&
                 locationScenarioReference == rhs.locationScenarioReference &&
+                enableGPUFrameCaptureMode == rhs.enableGPUFrameCaptureMode &&
+                enableGPUValidationMode == rhs.enableGPUValidationMode &&
                 enableAddressSanitizer == rhs.enableAddressSanitizer &&
                 enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
                 enableThreadSanitizer == rhs.enableThreadSanitizer &&
