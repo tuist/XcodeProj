@@ -3,7 +3,10 @@
 ## next version
 
 ### Fixed
+
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
+
+- Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin
 
 ## 6.5.0
 
