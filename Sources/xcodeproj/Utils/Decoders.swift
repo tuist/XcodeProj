@@ -13,16 +13,14 @@ class PBXObjectReferenceRepository {
     ///   - objects: objects.
     /// - Returns: object reference.
     func getOrCreate(reference: String, objects: PBXObjects) -> PBXObjectReference {
-        lock.lock()
-        defer {
-            lock.unlock()
-        }
-        if let objectReference = references[reference] {
+        return lock.whileLocked {
+            if let objectReference = references[reference] {
+                return objectReference
+            }
+            let objectReference = PBXObjectReference(reference, objects: objects)
+            references[reference] = objectReference
             return objectReference
         }
-        let objectReference = PBXObjectReference(reference, objects: objects)
-        references[reference] = objectReference
-        return objectReference
     }
 }
 
@@ -33,12 +31,12 @@ class ProjectDecodingContext {
 
     /// Objects.
     let objects: PBXObjects
-    let jsonDictionary: [String: Any]
+    let pbxProjValueReader: ((KeyPath) -> Any?)?
 
-    init(jsonDictionary: [String: Any] = [:]) {
+    init(pbxProjValueReader: ((KeyPath) -> Any?)? = nil) {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])
-        self.jsonDictionary = jsonDictionary
+        self.pbxProjValueReader = pbxProjValueReader
     }
 }
 

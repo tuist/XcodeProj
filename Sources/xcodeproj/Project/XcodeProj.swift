@@ -27,8 +27,14 @@ public final class XcodeProj: Equatable {
             if pbxprojPaths.count == 0 {
                 throw XCodeProjError.pbxprojNotFound(path: path)
             }
-            let (pbxProjData, jsonDictionary) = try XcodeProj.readPBXProj(url: pbxprojPaths.first!.url)
-            let context = ProjectDecodingContext(jsonDictionary: jsonDictionary)
+            let pbxprojPath = pbxprojPaths.first!
+            let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
+            let context = ProjectDecodingContext(
+                pbxProjValueReader: { keyPath in
+                    pbxProjDictionary[keyPath: keyPath]
+                }
+            )
+            
             let plistDecoder = XcodeprojPropertyListDecoder(context: context)
             pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
             try pbxproj.updateProjectName(path: pbxprojPaths.first!)
@@ -72,16 +78,20 @@ public final class XcodeProj: Equatable {
     
     // MARK: - Private
     
-    private static func readPBXProj(url: URL) throws -> (Data, [String: Any]) {
-        let plistXML = try Data(contentsOf: url)
-        var propertyListForamt =  PropertyListSerialization.PropertyListFormat.xml
+    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
+        let plistXML = try Data(contentsOf: path.url)
+        var propertyListFormat =  PropertyListSerialization.PropertyListFormat.xml
         let serialized = try PropertyListSerialization.propertyList(
             from: plistXML,
             options: .mutableContainersAndLeaves,
-            format: &propertyListForamt
+            format: &propertyListFormat
         )
         guard let dictionary = serialized as? [String: Any] else {
-            return (plistXML, [:])
+            throw XCodeProjError.pbxprojIncorrectSerializationType(
+                path: path,
+                expectedType: [String: Any].self,
+                serialized: serialized
+            )
         }
         return (plistXML, dictionary)
     }

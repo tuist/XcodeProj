@@ -2,18 +2,15 @@ import Foundation
 
 final class PBXObjectParser {
     
-    let reference: String
-    let userInfo: [CodingUserInfoKey: Any]
+    private let userInfo: [CodingUserInfoKey: Any]
+    private let decoder = XcodeprojJSONDecoder()
     
-    init(reference: String, userInfo: [CodingUserInfoKey: Any]) {
-        self.reference = reference
+    init(userInfo: [CodingUserInfoKey: Any], decoder: XcodeprojJSONDecoder) {
         self.userInfo = userInfo
     }
     
     // swiftlint:disable function_body_length
-    public func parse(dictionary: [String: Any]) throws -> PBXObject {
-        let decoder = XcodeprojJSONDecoder()
-        decoder.userInfo = userInfo
+    public func parse(reference: String, dictionary: [String: Any]) throws -> PBXObject {
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])

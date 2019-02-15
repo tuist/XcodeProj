@@ -1,10 +1,12 @@
 import Foundation
 
 extension NSRecursiveLock {
-    func sync<T>(closure: () -> (T)) -> T {
+    func whileLocked<T>(closure: () -> (T)) -> T {
         lock()
+        defer {
+            unlock()
+        }
         let value = closure()
-        unlock()
         return value
     }
 }
