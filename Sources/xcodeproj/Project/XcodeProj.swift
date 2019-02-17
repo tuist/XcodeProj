@@ -86,14 +86,8 @@ public final class XcodeProj: Equatable {
             options: .mutableContainersAndLeaves,
             format: &propertyListFormat
         )
-        guard let dictionary = serialized as? [String: Any] else {
-            throw XCodeProjError.pbxprojIncorrectSerializationType(
-                path: path,
-                expectedType: [String: Any].self,
-                serialized: serialized
-            )
-        }
-        return (plistXML, dictionary)
+        let pbxProjDictionary = serialized as! [String: Any]
+        return (plistXML, pbxProjDictionary)
     }
 }
 
