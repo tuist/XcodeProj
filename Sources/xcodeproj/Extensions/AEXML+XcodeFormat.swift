@@ -48,6 +48,8 @@ let attributesOrder: [String: [String]] = [
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
         "debugServiceExtension",
+        "enableGPUFrameCaptureMode",
+        "enableGPUValidationMode",
         "allowLocationSimulation",
     ],
     "ProfileAction": [
