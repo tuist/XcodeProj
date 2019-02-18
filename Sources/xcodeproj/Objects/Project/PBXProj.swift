@@ -70,8 +70,17 @@ public final class PBXProj: Decodable {
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        try objectsDictionaries.forEach { reference, dictionary in
-            let object = try PBXObject.parse(reference: reference, dictionary: dictionary, userInfo: decoder.userInfo)
+        
+        let parser = PBXObjectParser(
+            userInfo: decoder.userInfo
+        )
+        try objectsDictionaries.enumerateKeysAndObjects(options: .concurrent) { (key, obj, stops) in
+            let reference = key as! String
+            let dictionary = obj as! Dictionary<String, Any>
+            let object = try parser.parse(
+                reference: reference,
+                dictionary: dictionary
+            )
             objects.add(object: object)
         }
         self.objects = objects

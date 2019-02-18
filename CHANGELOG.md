@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
+
 ### Added
 - Added `GPUFrameCaptureMode` and `GPUValidationMode` options to `LaunchAction` https://github.com/tuist/xcodeproj/pull/368 by @schiewe.
 

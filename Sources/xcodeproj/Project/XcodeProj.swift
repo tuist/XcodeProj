@@ -27,8 +27,14 @@ public final class XcodeProj: Equatable {
             if pbxprojPaths.count == 0 {
                 throw XCodeProjError.pbxprojNotFound(path: path)
             }
-            let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
-            let context = ProjectDecodingContext()
+            let pbxprojPath = pbxprojPaths.first!
+            let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
+            let context = ProjectDecodingContext(
+                pbxProjValueReader: { key in
+                    pbxProjDictionary[key]
+                }
+            )
+            
             let plistDecoder = XcodeprojPropertyListDecoder(context: context)
             pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
             try pbxproj.updateProjectName(path: pbxprojPaths.first!)
@@ -68,6 +74,20 @@ public final class XcodeProj: Equatable {
         return lhs.workspace == rhs.workspace &&
             lhs.pbxproj == rhs.pbxproj &&
             lhs.sharedData == rhs.sharedData
+    }
+    
+    // MARK: - Private
+    
+    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
+        let plistXML = try Data(contentsOf: path.url)
+        var propertyListFormat =  PropertyListSerialization.PropertyListFormat.xml
+        let serialized = try PropertyListSerialization.propertyList(
+            from: plistXML,
+            options: .mutableContainersAndLeaves,
+            format: &propertyListFormat
+        )
+        let pbxProjDictionary = serialized as! [String: Any]
+        return (plistXML, pbxProjDictionary)
     }
 }
 

@@ -19,6 +19,13 @@ struct JSONCodingKeys: CodingKey {
 
 extension KeyedDecodingContainer {
     func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> [String: Any] {
+        // Optimization for root dictionary decoding
+        if let decoder = try? superDecoder().context,
+            let pbxProjValueReader = decoder.pbxProjValueReader,
+            let result = pbxProjValueReader(key.stringValue) as? [String: Any]
+        {
+            return result
+        }
         let container = try nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         return try container.decode(type)
     }
@@ -46,7 +53,10 @@ extension KeyedDecodingContainer {
         var dictionary = [String: Any]()
 
         for key in allKeys {
-            if let intValue = try? decode(Int.self, forKey: key) {
+            // Order is important for performance
+            if let nestedDictionary = try? decode(Dictionary<String, Any>.self, forKey: key) {
+                dictionary[key.stringValue] = nestedDictionary
+            } else if let intValue = try? decode(Int.self, forKey: key) {
                 dictionary[key.stringValue] = intValue
             } else if let unsignedIntValue = try? decode(UInt.self, forKey: key) {
                 dictionary[key.stringValue] = unsignedIntValue
@@ -56,8 +66,6 @@ extension KeyedDecodingContainer {
                 dictionary[key.stringValue] = boolValue
             } else if let doubleValue = try? decode(Double.self, forKey: key) {
                 dictionary[key.stringValue] = doubleValue
-            } else if let nestedDictionary = try? decode(Dictionary<String, Any>.self, forKey: key) {
-                dictionary[key.stringValue] = nestedDictionary
             } else if let nestedArray = try? decode(Array<Any>.self, forKey: key) {
                 dictionary[key.stringValue] = nestedArray
             } else if try decodeNil(forKey: key) {
