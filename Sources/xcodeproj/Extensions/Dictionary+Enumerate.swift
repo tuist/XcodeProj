@@ -15,6 +15,7 @@ extension Dictionary {
                 try block(key, obj, stops)
             } catch {
                 blockError = error
+                stops.pointee = true
             }
         }
         if let error = blockError {
