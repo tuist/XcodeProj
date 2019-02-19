@@ -46,6 +46,15 @@ public enum PBXFileOrder {
             return lhs.0 < rhs.0
         }
     }
+    
+    internal func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
+        switch self {
+        case .byFilename:
+            return sortUsingNames(lhs.1.buildFile, rhs.1.buildFile)
+        default:
+            return lhs.0 < rhs.0
+        }
+    }
 
     internal func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
         switch self {
