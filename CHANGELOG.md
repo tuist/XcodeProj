@@ -3,6 +3,9 @@
 ## next version
 
 ### Fixed
+- Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson
+
+### Fixed
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
 
 ### Added
