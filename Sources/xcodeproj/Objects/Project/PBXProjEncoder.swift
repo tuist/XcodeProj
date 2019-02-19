@@ -15,7 +15,7 @@ final class PBXProjEncoder {
     let outputSettings: PBXOutputSettings
     let referenceGenerator: ReferenceGenerating
     var indent: UInt = 0
-    var output: String = ""
+    var output = [String]()
     var multiline: Bool = true
 
     init(outputSettings: PBXOutputSettings) {
@@ -46,7 +46,7 @@ final class PBXProjEncoder {
         increaseIndent()
         writeNewLine()
         try write(section: "PBXAggregateTarget", proj: proj, objects: proj.objects.aggregateTargets, outputSettings: outputSettings)
-        try write(section: "PBXBuildFile", proj: proj, objects: proj.objects.buildFiles, outputSettings: outputSettings)
+        try write(section: "PBXBuildFile", proj: proj, objects: proj.objects.buildPhaseFile, outputSettings: outputSettings)
         try write(section: "PBXBuildRule", proj: proj, objects: proj.objects.buildRules, outputSettings: outputSettings)
         try write(section: "PBXContainerItemProxy", proj: proj, objects: proj.objects.containerItemProxies, outputSettings: outputSettings)
         try write(section: "PBXCopyFilesBuildPhase", proj: proj, objects: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings)
@@ -78,7 +78,7 @@ final class PBXProjEncoder {
         writeNewLine()
 
         // clear reference cache
-        return output
+        return output.joined()
     }
 
     // MARK: - Private
@@ -131,7 +131,7 @@ final class PBXProjEncoder {
 
     private func write(section: String,
                        proj: PBXProj,
-                       objects: [PBXObjectReference: PBXBuildFile],
+                       objects: [PBXObjectReference: PBXBuildPhaseFile],
                        outputSettings: PBXOutputSettings) throws {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort)
     }
@@ -151,11 +151,15 @@ final class PBXProjEncoder {
         writeNewLine()
         write(string: "/* Begin \(section) section */")
         writeNewLine()
-        try objects.sorted(by: sort)
-            .forEach { key, value in
+        let sorted = objects.sorted(by: sort)
+        let elements: [((key: CommentedString, value: PlistValue), Bool)] = try sorted.map { (arg) in
+                let (key, value) = arg
                 let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
-                write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: value.multiline)
+                return (element, value.multiline)
             }
+        elements.forEach { (element, multiline) in
+            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: multiline)
+        }
         write(string: "/* End \(section) section */")
         writeNewLine()
     }

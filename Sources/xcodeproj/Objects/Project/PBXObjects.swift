@@ -339,6 +339,20 @@ extension PBXObjects {
         phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
         return phases
     }
+    
+    var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
+        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map ({ buildPhase in
+            let files = buildPhase.files
+            let buildPhaseFile: [PBXBuildPhaseFile] = files.compactMap({ (file: PBXBuildFile) -> (PBXBuildPhaseFile) in
+                return PBXBuildPhaseFile(
+                    buildFile: file,
+                    buildPhase: buildPhase
+                )
+            })
+            return buildPhaseFile
+        })
+        return Dictionary(uniqueKeysWithValues: values.flatMap({$0}).map({ ($0.buildFile.reference, $0) }))
+    }
 
     /// Runs the given closure for each of the objects that are part of the project.
     ///
