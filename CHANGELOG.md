@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson
+
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
 
 - Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin
