@@ -1,5 +1,7 @@
 import Foundation
+#if os(macOS)
 import os.signpost
+#endif
 
 /// OSLog wrapper that runs logging functions if logging is enabled through
 /// environment variables and the feature is available in the system where
@@ -22,6 +24,7 @@ class OSLogger {
             return
         }
 
+        #if os(macOS)
         if #available(OSX 10.14, *) {
             let log: OSLog = OSLog.xcodeproj(category: category)
             let signpostID = OSSignpostID(log: log)
@@ -32,9 +35,11 @@ class OSLogger {
                         "%{public}s",
                         arguments)
         }
+        #endif
 
         try closure()
 
+        #if os(macOS)
         if #available(OSX 10.14, *) {
             let log: OSLog = OSLog.xcodeproj(category: category)
             let signpostID = OSSignpostID(log: log)
@@ -45,6 +50,7 @@ class OSLogger {
                         "%{public}s",
                         arguments)
         }
+        #endif
     }
 
     /// Logs when the given closure starts and ends.
@@ -61,6 +67,7 @@ class OSLogger {
             return try closure()
         }
 
+        #if os(macOS)
         if #available(OSX 10.14, *) {
             let log: OSLog = OSLog.xcodeproj(category: category)
             let signpostID = OSSignpostID(log: log)
@@ -71,9 +78,11 @@ class OSLogger {
                         "%{public}s",
                         arguments)
         }
+        #endif
 
         let result = try closure()
 
+        #if os(macOS)
         if #available(OSX 10.14, *) {
             let log: OSLog = OSLog.xcodeproj(category: category)
             let signpostID = OSSignpostID(log: log)
@@ -84,6 +93,7 @@ class OSLogger {
                         "%{public}s",
                         arguments)
         }
+        #endif
 
         return result
     }

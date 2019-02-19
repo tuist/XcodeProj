@@ -67,7 +67,7 @@ fileprivate extension XCWorkspaceDataElement {
         }
     }
 
-    fileprivate func xmlElement() -> AEXMLElement {
+    func xmlElement() -> AEXMLElement {
         switch self {
         case let .file(fileRef):
             return fileRef.xmlElement()

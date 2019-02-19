@@ -126,12 +126,13 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
-            guard let rhs = to as? BuildAction else { return false }
-            return super.isEqual(to: to) &&
-                buildActionEntries == rhs.buildActionEntries &&
-                parallelizeBuild == rhs.parallelizeBuild &&
-                buildImplicitDependencies == rhs.buildImplicitDependencies
+        static func == (lhs: BuildAction, rhs: BuildAction) -> Bool {
+            return
+                lhs.preActions == rhs.preActions &&
+                rhs.postActions == rhs.postActions &&
+                lhs.buildActionEntries == rhs.buildActionEntries &&
+                lhs.parallelizeBuild == rhs.parallelizeBuild &&
+                lhs.buildImplicitDependencies == rhs.buildImplicitDependencies
         }
     }
 }

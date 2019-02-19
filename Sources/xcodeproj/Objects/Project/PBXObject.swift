@@ -55,12 +55,9 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
         return String(describing: self)
     }
 
+    // FIXME: Why does this always return true?
     public static func == (lhs: PBXObject,
                            rhs: PBXObject) -> Bool {
-        return lhs.isEqual(to: rhs)
-    }
-
-    @objc dynamic func isEqual(to _: Any?) -> Bool {
         return true
     }
 

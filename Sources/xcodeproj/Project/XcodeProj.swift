@@ -21,7 +21,7 @@ public final class XcodeProj: Equatable {
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
 
-        try OSLogger.instance.log(name: "Write workspace", path.string) {
+        try OSLogger.instance.log(name: "Write workspace") {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
             if pbxprojPaths.count == 0 {
@@ -81,9 +81,17 @@ public final class XcodeProj: Equatable {
     private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
         let plistXML = try Data(contentsOf: path.url)
         var propertyListFormat =  PropertyListSerialization.PropertyListFormat.xml
+        
+        // This is a bug in swift-corelibs-foundation
+        #if os(Linux)
+        let options = PropertyListSerialization.MutabilityOptions(rawValue: 2)
+        #else
+        let options = PropertyListSerialization.MutabilityOptions.mutableContainersAndLeaves
+        #endif
+        
         let serialized = try PropertyListSerialization.propertyList(
             from: plistXML,
-            options: .mutableContainersAndLeaves,
+            options: options,
             format: &propertyListFormat
         )
         let pbxProjDictionary = serialized as! [String: Any]
@@ -111,16 +119,16 @@ extension XcodeProj: Writable {
     ///   If false will throw error if project already exists at the given path.
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try path.mkpath()
-        try OSLogger.instance.log(name: "Write workspace", path.string) {
+        try OSLogger.instance.log(name: "Write workspace") {
             try writeWorkspace(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write pbxproj", path.string) {
+        try OSLogger.instance.log(name: "Write pbxproj") {
             try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         }
-        try OSLogger.instance.log(name: "Write schemes", path.string) {
+        try OSLogger.instance.log(name: "Write schemes") {
             try writeSchemes(path: path, override: override)
         }
-        try OSLogger.instance.log(name: "Write breakpoints", path.string) {
+        try OSLogger.instance.log(name: "Write breakpoints") {
             try writeBreakPoints(path: path, override: override)
         }
     }

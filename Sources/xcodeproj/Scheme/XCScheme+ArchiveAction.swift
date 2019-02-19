@@ -48,12 +48,14 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
-            guard let rhs = to as? ArchiveAction else { return false }
-            return super.isEqual(to: to) &&
-                buildConfiguration == rhs.buildConfiguration &&
-                revealArchiveInOrganizer == rhs.revealArchiveInOrganizer &&
-                customArchiveName == rhs.customArchiveName
+
+        static func == (lhs: ArchiveAction, rhs: ArchiveAction) -> Bool {
+            return
+                lhs.preActions == rhs.preActions &&
+                rhs.postActions == rhs.postActions &&
+                lhs.buildConfiguration == rhs.buildConfiguration &&
+                lhs.revealArchiveInOrganizer == rhs.revealArchiveInOrganizer &&
+                lhs.customArchiveName == rhs.customArchiveName
         }
     }
 }

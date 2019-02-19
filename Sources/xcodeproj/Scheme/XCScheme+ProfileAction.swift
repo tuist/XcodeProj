@@ -115,23 +115,5 @@ extension XCScheme {
 
             return element
         }
-
-        // MARK: - Equatable
-
-        override func isEqual(to: Any?) -> Bool {
-            guard let rhs = to as? ProfileAction else { return false }
-            return super.isEqual(to: to) &&
-                buildableProductRunnable == rhs.buildableProductRunnable &&
-                buildConfiguration == rhs.buildConfiguration &&
-                shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
-                savedToolIdentifier == rhs.savedToolIdentifier &&
-                ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
-                useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
-                debugDocumentVersioning == rhs.debugDocumentVersioning &&
-                commandlineArguments == rhs.commandlineArguments &&
-                environmentVariables == rhs.environmentVariables &&
-                macroExpansion == rhs.macroExpansion &&
-                enableTestabilityWhenProfilingTests == rhs.enableTestabilityWhenProfilingTests
-        }
     }
 }

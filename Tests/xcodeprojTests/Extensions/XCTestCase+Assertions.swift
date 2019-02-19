@@ -11,16 +11,4 @@ extension XCTestCase {
         }
         return unwrappedObj
     }
-
-    func XCTAssertThrowsSpecificError<T, E: EquatableError>(_ expression: @autoclosure () throws -> T, _ error: E, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertThrowsError(expression, message, file: file, line: line) { actualError in
-            let message = "Expected \(error) got \(actualError)"
-
-            guard let actualCastedError = actualError as? E else {
-                XCTFail(message, file: file, line: line)
-                return
-            }
-            XCTAssertEqual(actualCastedError, error, message, file: file, line: line)
-        }
-    }
 }

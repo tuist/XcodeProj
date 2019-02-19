@@ -186,27 +186,29 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
-            guard let rhs = to as? TestAction else { return false }
-            return testables == rhs.testables &&
-                buildConfiguration == rhs.buildConfiguration &&
-                selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
-                selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
-                shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
-                codeCoverageEnabled == rhs.codeCoverageEnabled &&
-                enableAddressSanitizer == rhs.enableAddressSanitizer &&
-                enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
-                enableThreadSanitizer == rhs.enableThreadSanitizer &&
-                enableUBSanitizer == rhs.enableUBSanitizer &&
-                disableMainThreadChecker == rhs.disableMainThreadChecker &&
-                macroExpansion == rhs.macroExpansion &&
-                additionalOptions == rhs.additionalOptions &&
-                commandlineArguments == rhs.commandlineArguments &&
-                environmentVariables == rhs.environmentVariables &&
-                language == rhs.language &&
-                region == rhs.region &&
-                systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
-                userAttachmentLifetime == rhs.userAttachmentLifetime
+        static func == (lhs: TestAction, rhs: TestAction) -> Bool {
+            return
+                lhs.preActions == rhs.preActions &&
+                    rhs.postActions == rhs.postActions &&
+                lhs.testables == rhs.testables &&
+                lhs.buildConfiguration == rhs.buildConfiguration &&
+                lhs.selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
+                lhs.selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
+                lhs.shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
+                lhs.codeCoverageEnabled == rhs.codeCoverageEnabled &&
+                lhs.enableAddressSanitizer == rhs.enableAddressSanitizer &&
+                lhs.enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
+                lhs.enableThreadSanitizer == rhs.enableThreadSanitizer &&
+                lhs.enableUBSanitizer == rhs.enableUBSanitizer &&
+                lhs.disableMainThreadChecker == rhs.disableMainThreadChecker &&
+                lhs.macroExpansion == rhs.macroExpansion &&
+                lhs.additionalOptions == rhs.additionalOptions &&
+                lhs.commandlineArguments == rhs.commandlineArguments &&
+                lhs.environmentVariables == rhs.environmentVariables &&
+                lhs.language == rhs.language &&
+                lhs.region == rhs.region &&
+                lhs.systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
+                lhs.userAttachmentLifetime == rhs.userAttachmentLifetime
         }
     }
 }

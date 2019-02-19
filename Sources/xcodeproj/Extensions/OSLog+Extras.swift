@@ -1,3 +1,4 @@
+#if os(macOS)
 import Foundation
 import os.signpost
 
@@ -11,3 +12,4 @@ extension OSLog {
         return OSLog(subsystem: "io.tuist.xcodeproj", category: category)
     }
 }
+#endif

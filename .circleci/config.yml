@@ -3,10 +3,11 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
+      - build_mac:
           context: tuist
+      - build_linux
 jobs:
-  build:
+  build_mac:
     macos:
       xcode: "10.0.0"
     steps:
@@ -43,3 +44,12 @@ jobs:
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  build_linux:
+    docker:
+      - image: swift:4.2.2
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: |
+            swift test

@@ -188,7 +188,7 @@ public extension PBXTarget {
     /// Returns the product name with the extension joined with a period.
     ///
     /// - Returns: product name with extension.
-    public func productNameWithExtension() -> String? {
+    func productNameWithExtension() -> String? {
         guard let productName = self.productName else { return nil }
         guard let fileExtension = self.productType?.fileExtension else { return nil }
         return "\(productName).\(fileExtension)"
@@ -198,7 +198,7 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
+    func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
         return try buildPhaseReferences
             .compactMap({ try $0.getThrowingObject() as? PBXBuildPhase })
             .filter({ $0.buildPhase == .sources })
@@ -210,7 +210,7 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    public func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
+    func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
         return try buildPhaseReferences
             .compactMap({ try $0.getThrowingObject() as? PBXResourcesBuildPhase })
             .filter({ $0.buildPhase == .resources })
@@ -221,7 +221,7 @@ public extension PBXTarget {
     ///
     /// - Returns: source files.
     /// - Throws: an error if something goes wrong.
-    public func sourceFiles() throws -> [PBXFileElement] {
+    func sourceFiles() throws -> [PBXFileElement] {
         return try sourcesBuildPhase()?.fileReferences
             .compactMap { try $0.getThrowingObject() as? PBXBuildFile }
             .filter { $0.fileReference != nil }

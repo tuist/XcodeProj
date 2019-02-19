@@ -1,8 +1,10 @@
 import Foundation
+#if os(macOS)
 import os.signpost
+#endif
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-class PBXObjectReference: NSObject, Comparable, NSCopying {
+class PBXObjectReference: Comparable, Hashable, Equatable {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
@@ -70,9 +72,8 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         }
     }
 
-    /// Hash value.
-    override var hash: Int {
-        return value.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
     }
 
     func copy(with _: NSZone? = nil) -> Any {
@@ -86,17 +87,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are equal.
     static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.isEqual(rhs)
-    }
-
-    /// Compares with another instance of PBXObjectReference.
-    ///
-    /// - Parameters:
-    ///   - object: instance to be compared with.
-    /// - Returns: true if the two instances are equal.
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? PBXObjectReference else { return false }
-        return value == object.value
+        return lhs.value == rhs.value
     }
 
     /// Compares two instances.
