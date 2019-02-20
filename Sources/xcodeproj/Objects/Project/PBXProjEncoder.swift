@@ -10,13 +10,25 @@ extension PlistSerializable {
     var multiline: Bool { return true }
 }
 
+final class StateHolder {
+    
+    var indent: UInt = 0
+    var multiline: Bool = true
+    
+    func increaseIndent() {
+        indent += 1
+    }
+    
+    func decreaseIndent() {
+        indent -= 1
+    }
+}
+
 /// Encodes your PBXProj files to String
 final class PBXProjEncoder {
+    
     let outputSettings: PBXOutputSettings
     let referenceGenerator: ReferenceGenerating
-    var indent: UInt = 0
-    var output = [String]()
-    var multiline: Bool = true
 
     init(outputSettings: PBXOutputSettings) {
         self.outputSettings = outputSettings
@@ -34,48 +46,56 @@ final class PBXProjEncoder {
         sort(buildPhases: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
         sort(buildPhases: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
         sort(navigatorGroups: proj.objects.groups, outputSettings: outputSettings)
+        
+        var output = [String]()
+        var stateHolder = StateHolder()
 
-        writeUtf8()
-        writeNewLine()
-        writeDictionaryStart()
-        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")))
-        write(dictionaryKey: "classes", dictionaryValue: .dictionary([:]))
-        write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")))
-        writeIndent()
-        write(string: "objects = {")
-        increaseIndent()
-        writeNewLine()
-        try write(section: "PBXAggregateTarget", proj: proj, objects: proj.objects.aggregateTargets, outputSettings: outputSettings)
-        try write(section: "PBXBuildFile", proj: proj, objects: proj.objects.buildPhaseFile, outputSettings: outputSettings)
-        try write(section: "PBXBuildRule", proj: proj, objects: proj.objects.buildRules, outputSettings: outputSettings)
-        try write(section: "PBXContainerItemProxy", proj: proj, objects: proj.objects.containerItemProxies, outputSettings: outputSettings)
-        try write(section: "PBXCopyFilesBuildPhase", proj: proj, objects: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXFileReference", proj: proj, objects: proj.objects.fileReferences, outputSettings: outputSettings)
-        try write(section: "PBXFrameworksBuildPhase", proj: proj, objects: proj.objects.frameworksBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXGroup", proj: proj, objects: proj.objects.groups, outputSettings: outputSettings)
-        try write(section: "PBXHeadersBuildPhase", proj: proj, objects: proj.objects.headersBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXLegacyTarget", proj: proj, objects: proj.objects.legacyTargets, outputSettings: outputSettings)
-        try write(section: "PBXNativeTarget", proj: proj, objects: proj.objects.nativeTargets, outputSettings: outputSettings)
-        try write(section: "PBXProject", proj: proj, objects: proj.objects.projects, outputSettings: outputSettings)
-        try write(section: "PBXReferenceProxy", proj: proj, objects: proj.objects.referenceProxies, outputSettings: outputSettings)
-        try write(section: "PBXResourcesBuildPhase", proj: proj, objects: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXRezBuildPhase", proj: proj, objects: proj.objects.carbonResourcesBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXShellScriptBuildPhase", proj: proj, objects: proj.objects.shellScriptBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXSourcesBuildPhase", proj: proj, objects: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
-        try write(section: "PBXTargetDependency", proj: proj, objects: proj.objects.targetDependencies, outputSettings: outputSettings)
-        try write(section: "PBXVariantGroup", proj: proj, objects: proj.objects.variantGroups, outputSettings: outputSettings)
-        try write(section: "XCBuildConfiguration", proj: proj, objects: proj.objects.buildConfigurations, outputSettings: outputSettings)
-        try write(section: "XCConfigurationList", proj: proj, objects: proj.objects.configurationLists, outputSettings: outputSettings)
-        try write(section: "XCVersionGroup", proj: proj, objects: proj.objects.versionGroups, outputSettings: outputSettings)
-        decreaseIndent()
-        writeIndent()
-        write(string: "};")
-        writeNewLine()
+        writeUtf8(to: &output)
+        writeNewLine(stateHolder: &stateHolder, to: &output)
+        writeDictionaryStart(stateHolder: &stateHolder, to: &output)
+        write(dictionaryKey: "archiveVersion", dictionaryValue: .string(CommentedString("\(proj.archiveVersion)")), stateHolder: &stateHolder, to: &output)
+        write(dictionaryKey: "classes", dictionaryValue: .dictionary([:]), stateHolder: &stateHolder, to: &output)
+        write(dictionaryKey: "objectVersion", dictionaryValue: .string(CommentedString("\(proj.objectVersion)")), stateHolder: &stateHolder, to: &output)
+        writeIndent(stateHolder: &stateHolder, to: &output)
+        write(string: "objects = {", to: &output)
+        stateHolder.increaseIndent()
+        writeNewLine(stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXAggregateTarget", proj: proj, objects: proj.objects.aggregateTargets, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXBuildFile", proj: proj, objects: proj.objects.buildPhaseFile, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXBuildRule", proj: proj, objects: proj.objects.buildRules, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXContainerItemProxy", proj: proj, objects: proj.objects.containerItemProxies, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXCopyFilesBuildPhase", proj: proj, objects: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXFileReference", proj: proj, objects: proj.objects.fileReferences, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXFrameworksBuildPhase", proj: proj, objects: proj.objects.frameworksBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXGroup", proj: proj, objects: proj.objects.groups, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXHeadersBuildPhase", proj: proj, objects: proj.objects.headersBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXLegacyTarget", proj: proj, objects: proj.objects.legacyTargets, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXNativeTarget", proj: proj, objects: proj.objects.nativeTargets, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXProject", proj: proj, objects: proj.objects.projects, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXReferenceProxy", proj: proj, objects: proj.objects.referenceProxies, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXResourcesBuildPhase", proj: proj, objects: proj.objects.resourcesBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXRezBuildPhase", proj: proj, objects: proj.objects.carbonResourcesBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXShellScriptBuildPhase", proj: proj, objects: proj.objects.shellScriptBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXSourcesBuildPhase", proj: proj, objects: proj.objects.sourcesBuildPhases, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXTargetDependency", proj: proj, objects: proj.objects.targetDependencies, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "PBXVariantGroup", proj: proj, objects: proj.objects.variantGroups, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "XCBuildConfiguration", proj: proj, objects: proj.objects.buildConfigurations, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "XCConfigurationList", proj: proj, objects: proj.objects.configurationLists, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        try write(section: "XCVersionGroup", proj: proj, objects: proj.objects.versionGroups, outputSettings: outputSettings, stateHolder: &stateHolder, to: &output)
+        stateHolder.decreaseIndent()
+        writeIndent(stateHolder: &stateHolder, to: &output)
+        write(string: "};", to: &output)
+        writeNewLine(stateHolder: &stateHolder, to: &output)
         write(dictionaryKey: "rootObject",
-              dictionaryValue: .string(CommentedString(rootObject.value,
-                                                       comment: "Project object")))
-        writeDictionaryEnd()
-        writeNewLine()
+              dictionaryValue: .string(
+                CommentedString(
+                    rootObject.value,
+                    comment: "Project object"
+                )
+            ), stateHolder: &stateHolder, to: &output
+        )
+        writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
+        writeNewLine(stateHolder: &stateHolder, to: &output)
 
         // clear reference cache
         return output.joined()
@@ -83,89 +103,122 @@ final class PBXProjEncoder {
 
     // MARK: - Private
 
-    private func writeUtf8() {
+    private func writeUtf8(to output: inout Array<String>) {
         output.append("// !$*UTF8*$!")
     }
 
-    private func writeNewLine() {
-        if multiline {
+    private func writeNewLine(stateHolder: inout StateHolder, to output: inout Array<String>) {
+        if stateHolder.multiline {
             output.append("\n")
         } else {
             output.append(" ")
         }
     }
 
-    private func write(value: PlistValue) {
+    private func write(value: PlistValue, stateHolder: inout StateHolder, to output: inout Array<String>) {
         switch value {
         case let .array(array):
-            write(array: array)
+            write(array: array, stateHolder: &stateHolder, to: &output)
         case let .dictionary(dictionary):
-            write(dictionary: dictionary)
+            write(dictionary: dictionary, stateHolder: &stateHolder, to: &output)
         case let .string(commentedString):
-            write(commentedString: commentedString)
+            write(commentedString: commentedString, to: &output)
         }
     }
 
-    private func write(commentedString: CommentedString) {
-        write(string: commentedString.validString)
+    private func write(commentedString: CommentedString, to output: inout Array<String>) {
+        write(string: commentedString.validString, to: &output)
         if let comment = commentedString.comment {
-            write(string: " ")
-            write(comment: comment)
+            write(string: " ", to: &output)
+            write(comment: comment, to: &output)
         }
     }
 
-    private func write(string: String) {
+    private func write(string: String, to output: inout Array<String>) {
         output.append(string)
     }
 
-    private func write(comment: String) {
+    private func write(comment: String, to output: inout Array<String>) {
         output.append("/* \(comment) */")
     }
 
     private func write<T>(section: String,
                           proj: PBXProj,
                           objects: [PBXObjectReference: T],
-                          outputSettings: PBXOutputSettings) throws where T: PlistSerializable & Equatable {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort)
+                          outputSettings: PBXOutputSettings,
+                          stateHolder: inout StateHolder,
+                          to output: inout Array<String>) throws where T: PlistSerializable & Equatable {
+        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
     private func write(section: String,
                        proj: PBXProj,
                        objects: [PBXObjectReference: PBXBuildPhaseFile],
-                       outputSettings: PBXOutputSettings) throws {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort)
+                       outputSettings: PBXOutputSettings,
+                       stateHolder: inout StateHolder,
+                       to output: inout Array<String>) throws {
+        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
     private func write(section: String,
                        proj: PBXProj,
                        objects: [PBXObjectReference: PBXFileReference],
-                       outputSettings: PBXOutputSettings) throws {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort)
+                       outputSettings: PBXOutputSettings,
+                       stateHolder: inout StateHolder,
+                       to output: inout Array<String>) throws {
+        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
+    }
+    
+    final class PBXProjElement {
+        let key: CommentedString
+        let value: PlistValue
+        let multiline: Bool
+        
+        init(key: CommentedString, value: PlistValue, multiline: Bool) {
+            self.key = key
+            self.value = value
+            self.multiline = multiline
+        }
     }
 
     private func write<T>(section: String,
                           proj: PBXProj,
                           objects: [PBXObjectReference: T],
-                          sort: ((PBXObjectReference, T), (PBXObjectReference, T)) -> Bool) throws where T: PlistSerializable & Equatable {
+                          sort: ((PBXObjectReference, T), (PBXObjectReference, T)) -> Bool,
+                          stateHolder: inout StateHolder,
+                          to output: inout Array<String>) throws where T: PlistSerializable & Equatable
+    {
         if objects.count == 0 { return }
-        writeNewLine()
-        write(string: "/* Begin \(section) section */")
-        writeNewLine()
+        writeNewLine(stateHolder: &stateHolder, to: &output)
+        write(string: "/* Begin \(section) section */", to: &output)
+        writeNewLine(stateHolder: &stateHolder, to: &output)
         let sorted = objects.sorted(by: sort)
-        let elements: [((key: CommentedString, value: PlistValue), Bool)] = try sorted.map { (arg) in
-                let (key, value) = arg
-                let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
-                return (element, value.multiline)
-            }
-        elements.forEach { (element, multiline) in
-            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: multiline)
+        let elements: [PBXProjElement] = try sorted.map { key, value in
+            let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
+            return PBXProjElement(key: element.key, value: element.value, multiline: value.multiline)
         }
-        write(string: "/* End \(section) section */")
-        writeNewLine()
+        let elementsArray = NSArray(array: elements)
+        let lock = NSRecursiveLock()
+        var resultArray = [Array<String>](repeating: [], count: elementsArray.count)
+        elementsArray.enumerateObjects(options: .concurrent) { (arg, index, stop) in
+            let element = arg as! PBXProjElement
+            var array = [String]()
+            var tmpStateHolder = StateHolder()
+            write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: element.multiline, stateHolder: &tmpStateHolder, to: &array)
+            lock.whileLocked {
+                resultArray[index] = array
+            }
+        }
+        
+        let joinedArray: [String] = resultArray.flatMap({ $0 })
+        // should check multiline
+        output.append(contentsOf: joinedArray)
+        write(string: "/* End \(section) section */", to: &output)
+        writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(dictionary: [CommentedString: PlistValue], newLines _: Bool = true) {
-        writeDictionaryStart()
+    private func write(dictionary: [CommentedString: PlistValue], newLines _: Bool = true, stateHolder: inout StateHolder, to output: inout Array<String>) {
+        writeDictionaryStart(stateHolder: &stateHolder, to: &output)
         dictionary.sorted(by: { (left, right) -> Bool in
             if left.key == "isa" {
                 return true
@@ -175,71 +228,63 @@ final class PBXProjEncoder {
                 return left.key.string < right.key.string
             }
         })
-            .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: self.multiline) })
-        writeDictionaryEnd()
+            .forEach({ write(dictionaryKey: $0.key, dictionaryValue: $0.value, multiline: stateHolder.multiline, stateHolder: &stateHolder, to: &output) })
+        writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true) {
-        writeIndent()
-        let beforeMultiline = self.multiline
-        self.multiline = multiline
-        write(commentedString: dictionaryKey)
+    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true, stateHolder: inout StateHolder, to output: inout Array<String>) {
+        writeIndent(stateHolder: &stateHolder, to: &output)
+        let beforeMultiline = stateHolder.multiline
+        stateHolder.multiline = multiline
+        write(commentedString: dictionaryKey, to: &output)
         output.append(" = ")
-        write(value: dictionaryValue)
+        write(value: dictionaryValue, stateHolder: &stateHolder, to: &output)
         output.append(";")
-        self.multiline = beforeMultiline
-        writeNewLine()
+        stateHolder.multiline = beforeMultiline
+        writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func writeDictionaryStart() {
+    private func writeDictionaryStart(stateHolder: inout StateHolder, to output: inout Array<String>) {
         output.append("{")
-        if multiline { writeNewLine() }
-        increaseIndent()
+        if stateHolder.multiline { writeNewLine(stateHolder: &stateHolder, to: &output) }
+        stateHolder.increaseIndent()
     }
 
-    private func writeDictionaryEnd() {
-        decreaseIndent()
-        writeIndent()
+    private func writeDictionaryEnd(stateHolder: inout StateHolder, to output: inout Array<String>) {
+        stateHolder.decreaseIndent()
+        writeIndent(stateHolder: &stateHolder, to: &output)
         output.append("}")
     }
 
-    private func write(array: [PlistValue]) {
-        writeArrayStart()
-        array.forEach { write(arrayValue: $0) }
-        writeArrayEnd()
+    private func write(array: [PlistValue], stateHolder: inout StateHolder, to output: inout Array<String>) {
+        writeArrayStart(stateHolder: &stateHolder, to: &output)
+        array.forEach { write(arrayValue: $0, stateHolder: &stateHolder, to: &output) }
+        writeArrayEnd(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(arrayValue: PlistValue) {
-        writeIndent()
-        write(value: arrayValue)
+    private func write(arrayValue: PlistValue, stateHolder: inout StateHolder, to output: inout Array<String>) {
+        writeIndent(stateHolder: &stateHolder, to: &output)
+        write(value: arrayValue, stateHolder: &stateHolder, to: &output)
         output.append(",")
-        writeNewLine()
+        writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func writeArrayStart() {
+    private func writeArrayStart(stateHolder: inout StateHolder, to output: inout Array<String>) {
         output.append("(")
-        if multiline { writeNewLine() }
-        increaseIndent()
+        if stateHolder.multiline { writeNewLine(stateHolder: &stateHolder, to: &output) }
+        stateHolder.increaseIndent()
     }
 
-    private func writeArrayEnd() {
-        decreaseIndent()
-        writeIndent()
+    private func writeArrayEnd(stateHolder: inout StateHolder, to output: inout Array<String>) {
+        stateHolder.decreaseIndent()
+        writeIndent(stateHolder: &stateHolder, to: &output)
         output.append(")")
     }
 
-    private func writeIndent() {
-        if multiline {
-            output.append(String(repeating: "\t", count: Int(indent)))
+    private func writeIndent(stateHolder: inout StateHolder, to output: inout Array<String>) {
+        if stateHolder.multiline {
+            output.append(String(repeating: "\t", count: Int(stateHolder.indent)))
         }
-    }
-
-    private func increaseIndent() {
-        indent += 1
-    }
-
-    private func decreaseIndent() {
-        indent -= 1
     }
 
     private func sort(buildPhases: [PBXObjectReference: PBXBuildPhase], outputSettings: PBXOutputSettings) {
