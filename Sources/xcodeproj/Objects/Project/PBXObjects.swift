@@ -340,6 +340,9 @@ extension PBXObjects {
         return phases
     }
     
+    // This dictionary is used to quickly get a connection between the build phase and the build files of this phase.
+    // This is used to decode build files. (we need the name of the build phase)
+    // Otherwise, we would have to go through all the build phases for each file.
     var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
         let values: [[PBXBuildPhaseFile]] = buildPhases.values.map ({ buildPhase in
             let files = buildPhase.files
