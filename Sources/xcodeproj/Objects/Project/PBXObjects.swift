@@ -339,6 +339,23 @@ extension PBXObjects {
         phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
         return phases
     }
+    
+    // This dictionary is used to quickly get a connection between the build phase and the build files of this phase.
+    // This is used to decode build files. (we need the name of the build phase)
+    // Otherwise, we would have to go through all the build phases for each file.
+    var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
+        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map ({ buildPhase in
+            let files = buildPhase.files
+            let buildPhaseFile: [PBXBuildPhaseFile] = files.compactMap({ (file: PBXBuildFile) -> (PBXBuildPhaseFile) in
+                return PBXBuildPhaseFile(
+                    buildFile: file,
+                    buildPhase: buildPhase
+                )
+            })
+            return buildPhaseFile
+        })
+        return Dictionary(uniqueKeysWithValues: values.flatMap({$0}).map({ ($0.buildFile.reference, $0) }))
+    }
 
     /// Runs the given closure for each of the objects that are part of the project.
     ///
