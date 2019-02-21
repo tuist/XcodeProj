@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- Fixed file full path performance issue https://github.com/tuist/xcodeproj/pull/372 by @CognitiveDisson.
+
 - Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson
 
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
