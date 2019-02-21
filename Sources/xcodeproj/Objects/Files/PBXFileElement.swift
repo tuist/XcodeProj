@@ -28,6 +28,9 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
 
     /// Element wraps lines.
     public var wrapsLines: Bool?
+    
+    /// Element parent.
+    public weak var parent: PBXFileElement?
 
     // MARK: - Init
 
@@ -59,6 +62,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         self.tabWidth = tabWidth
         self.wrapsLines = wrapsLines
         super.init()
+        assignParentForChildren()
     }
 
     // MARK: - Decodable
@@ -141,15 +145,14 @@ public extension PBXFileElement {
     /// - Returns: file element absolute path.
     /// - Throws: an error if the absolute path cannot be obtained.
     public func fullPath(sourceRoot: Path) throws -> Path? {
-        let projectObjects = try objects()
         switch sourceTree {
         case .absolute?:
             return path.flatMap { Path($0) }
         case .sourceRoot?:
             return path.flatMap { sourceRoot + $0 }
         case .group?:
-            guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
-            guard let groupPath = try group.value.fullPath(sourceRoot: sourceRoot) else { return nil }
+            guard let group = parent else { return sourceRoot }
+            guard let groupPath = try group.fullPath(sourceRoot: sourceRoot) else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return groupPath }
             return groupPath + filePath
         default:
@@ -168,5 +171,14 @@ public extension PBXFileElement {
             .compactMap({ try $0.getThrowingObject() as PBXFileElement })
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
+    }
+    
+    func assignParentForChildren() {
+        if let group = self as? PBXGroup {
+            for child in group.children {
+                child.parent = self
+                child.assignParentForChildren()
+            }
+        }
     }
 }
