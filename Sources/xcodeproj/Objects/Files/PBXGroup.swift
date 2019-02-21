@@ -133,6 +133,7 @@ public extension PBXGroup {
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
             let group = groups.last ?? self
             let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
+            newGroup.parent = self
             group.childrenReferences.append(newGroup.reference)
             objects.add(object: newGroup)
             groups.append(newGroup)
@@ -186,6 +187,7 @@ public extension PBXGroup {
             path: path
         )
         projectObjects.add(object: fileReference)
+        fileReference.parent = self
         if !childrenReferences.contains(fileReference.reference) {
             childrenReferences.append(fileReference.reference)
         }
