@@ -48,7 +48,7 @@ public final class PBXProj: Decodable {
         rootObjectReference = rootObject?.reference
         self.objects = PBXObjects(objects: objects)
         if let group = try? rootGroup(), let rootGroup = group {
-            rootGroup.assignParentForChildren()
+            rootGroup.assignParentToChildren()
         }
     }
 
@@ -88,7 +88,7 @@ public final class PBXProj: Decodable {
         }
         self.objects = objects
         
-        try rootGroup()?.assignParentForChildren()
+        try rootGroup()?.assignParentToChildren()
     }
 }
 

@@ -62,7 +62,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         self.tabWidth = tabWidth
         self.wrapsLines = wrapsLines
         super.init()
-        assignParentForChildren()
+        assignParentToChildren()
     }
 
     // MARK: - Decodable
@@ -180,12 +180,13 @@ public extension PBXFileElement {
         return baseReference.path
     }
     
-    func assignParentForChildren() {
-        if let group = self as? PBXGroup {
-            for child in group.children {
-                child.parent = self
-                child.assignParentForChildren()
-            }
+    // This method is needed to recursively set the parent to all elements.
+    // This allows us to more quickly find the full path to the elements.
+    func assignParentToChildren() {
+        guard let group = self as? PBXGroup else { return }
+        for child in group.children {
+            child.parent = self
+            child.assignParentToChildren()
         }
     }
 }
