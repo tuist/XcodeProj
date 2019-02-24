@@ -20,12 +20,18 @@ final class OSSProjectsTests: XCTestCase {
     func test_projects() throws {
         let gitURL = URL(string: "https://github.com/insidegui/WWDC")!
         let projectPath = "WWDC.xcodeproj"
-        let clonePath = try clone(gitURL: gitURL, projectPath: projectPath)
-        let projectFullPath = clonePath + projectPath
-
-        assertOpens(projectPath: projectFullPath)
-        try assertEmptyDiff(projectPath: projectFullPath, clonePath: clonePath)
-        try assertGeneratesAllReferences(projectPath: projectFullPath)
+        do {
+            let clonePath = try clone(gitURL: gitURL, projectPath: projectPath)
+            let projectFullPath = clonePath + projectPath
+            
+            assertOpens(projectPath: projectFullPath)
+            try assertEmptyDiff(projectPath: projectFullPath, clonePath: clonePath)
+            try assertGeneratesAllReferences(projectPath: projectFullPath)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+        
     }
 
     fileprivate func assertOpens(projectPath: Path,
