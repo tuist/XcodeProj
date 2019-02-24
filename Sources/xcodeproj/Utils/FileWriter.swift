@@ -12,7 +12,8 @@ protocol FileWriting {
     ///   - data: Data to be writen.
     ///   - to: Path where the data will be written to.
     /// - Throws: An errof if the write fails
-    func write(data: Data, to: Path) throws
+    /// - Returns: True if the file was writen.
+    func write(data: Data, to: Path) throws -> Bool
 }
 
 class FileWriter: FileWriting {
@@ -24,17 +25,19 @@ class FileWriter: FileWriting {
     ///   - data: Data to be writen.
     ///   - to: Path where the data will be written to.
     /// - Throws: An errof if the write fails
-    func write(data: Data, to: Path) throws {
+    /// - Returns: True if the file was writen.
+    func write(data: Data, to: Path) throws -> Bool {
         var existingData: Data?
         if to.exists {
             existingData = try to.read()
         }
         if existingData == data {
-            return
+            return false
         }
         let temporaryPath = try Path.uniqueTemporary() + to.lastComponent
         try temporaryPath.write(data)
         _ = try FileManager.default.replaceItemAt(to.url, withItemAt: temporaryPath.url)
+        return true
     }
     
 }
