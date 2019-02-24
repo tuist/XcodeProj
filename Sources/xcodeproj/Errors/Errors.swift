@@ -8,10 +8,12 @@ import PathKit
 /// - notFound: the project cannot be found.
 /// - pbxProjNotFound: the .pbxproj file couldn't be found inside the project folder.
 /// - xcworkspaceNotFound: the workspace cannot be found at the given path.
-public enum XCodeProjError: Error, CustomStringConvertible {
+/// - cantOverrideExisting: the project can't be written because there's another directory.
+public enum XCodeProjError: Error, CustomStringConvertible, Equatable {
     case notFound(path: Path)
     case pbxprojNotFound(path: Path)
     case xcworkspaceNotFound(path: Path)
+    case cantOverrideExisting(path: Path)
 
     public var description: String {
         switch self {
@@ -21,6 +23,8 @@ public enum XCodeProjError: Error, CustomStringConvertible {
             return "The project doesn't contain a .pbxproj file at path: \(path.string)"
         case let .xcworkspaceNotFound(path):
             return "The project doesn't contain a .xcworkspace at path: \(path.string)"
+        case let .cantOverrideExisting(path):
+            return "The project can't be written at path \(path.string) where there's another project"
         }
     }
 }
@@ -61,14 +65,18 @@ public enum XCWorkspaceError: Error, CustomStringConvertible {
 
 /// XCWorkspaceData Errors.
 ///
-/// - notFound: returned when the .xcworkspacedata cannot be found.
+/// - notFound: thrown when the .xcworkspacedata cannot be found.
+/// - cantOverrideExisting: thrown when the workspace data can't be written because there's a file at the given path.
 public enum XCWorkspaceDataError: Error, CustomStringConvertible {
     case notFound(path: Path)
+    case cantOverrideExisting(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
             return "Workspace not found at \(path.string)"
+        case let .cantOverrideExisting(path):
+            return "The workspace data can't be written at path \(path.string) where there's another file"
         }
     }
 }
@@ -158,12 +166,17 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
 /// PBXProj error.
 ///
 /// - notFound: the .pbxproj cannot be found at the given path.
-enum PBXProjError: Error, CustomStringConvertible {
+/// - cantOverrideExisting: the .pbxproj can't be written because there's another .pbxproj at the given path.
+enum PBXProjError: Error, CustomStringConvertible, Equatable {
     case notFound(path: Path)
+    case cantOverrideExisting(path: Path)
+
     var description: String {
         switch self {
         case let .notFound(path):
             return ".pbxproj not found at path \(path.string)"
+        case let .cantOverrideExisting(path):
+            return "The .pbxproj can't be written at path \(path.string) where there's another file"
         }
     }
 }
@@ -172,11 +185,13 @@ enum PBXProjError: Error, CustomStringConvertible {
 
 /// XCBreakpointList error.
 ///
-/// - notFound: returned when the Breakpoints_v2.xcbkptlist cannot be found.
-/// - missing: returned when there's a property missing in the Breakpoints_v2.xcbkptlist.
+/// - notFound: thrown when the Breakpoints_v2.xcbkptlist cannot be found.
+/// - missing: thrown when there's a property missing in the Breakpoints_v2.xcbkptlist.
+/// - cantOverrideExisting: thrown when the breapoint list can't be written because there's another list at the given path.
 public enum XCBreakpointListError: Error, CustomStringConvertible {
     case notFound(path: Path)
     case missing(property: String)
+    case cantOverrideExisting(path: Path)
 
     public var description: String {
         switch self {
@@ -184,6 +199,8 @@ public enum XCBreakpointListError: Error, CustomStringConvertible {
             return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.string)"
         case let .missing(property):
             return "Property \(property) missing"
+        case let .cantOverrideExisting(path):
+            return "The breakpoint list can't be written at path \(path.string) where there's another list"
         }
     }
 }
@@ -192,13 +209,42 @@ public enum XCBreakpointListError: Error, CustomStringConvertible {
 
 /// XCConfig errors.
 ///
-/// - notFound: returned when the configuration file couldn't be found.
+/// - notFound: thrown when the configuration file couldn't be found.
+/// - cantOverrideExisting: thrown when the xcconfig can't be written because there'a another file at the given path.
 public enum XCConfigError: Error, CustomStringConvertible {
     case notFound(path: Path)
+    case cantOverrideExisting(path: Path)
+
     public var description: String {
         switch self {
         case let .notFound(path):
             return ".xcconfig file not found at \(path.string)"
+        case let .cantOverrideExisting(path):
+            return "The xcconfig file can't be written at path \(path.string) where there's another file"
+        }
+    }
+}
+
+// MARK: - XCScheme
+
+/// XCScheme errors
+///
+/// - notFound: thrown when the scheme doesn't exist at the given path.
+/// - missing: thrown when a property is missing while parsing the scheme.
+/// - cantOverrideExisting: thrown when the scheme can't be written because there's another scheme at the given path.
+public enum XCSchemeError: Error, CustomStringConvertible {
+    case notFound(path: Path)
+    case missing(property: String)
+    case cantOverrideExisting(path: Path)
+
+    public var description: String {
+        switch self {
+        case let .notFound(path):
+            return ".xcscheme couldn't be found at path \(path.string)"
+        case let .missing(property):
+            return "Property \(property) missing"
+        case let .cantOverrideExisting(path):
+            return "The scheme can't be written at path \(path.string) where there's another scheme"
         }
     }
 }

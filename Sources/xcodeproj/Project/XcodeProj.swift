@@ -21,7 +21,7 @@ public final class XcodeProj: Equatable {
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
 
-        try OSLogger.instance.log(name: "Write workspace", path.string) {
+        try OSLogger.instance.log(name: "Read project", path.string) {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
             if pbxprojPaths.isEmpty {
@@ -233,10 +233,9 @@ extension XcodeProj: Writable {
         guard let sharedData = sharedData else { return }
 
         let debuggerPath = XcodeProj.debuggerPath(path)
-        if override, debuggerPath.exists {
-            try debuggerPath.delete()
+        if !debuggerPath.exists {
+            try debuggerPath.mkpath()
         }
-        try debuggerPath.mkpath()
         try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
     }
 }

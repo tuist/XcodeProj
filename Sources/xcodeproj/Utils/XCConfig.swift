@@ -143,14 +143,16 @@ extension XCConfig {
 
 extension XCConfig: Writable {
     public func write(path: Path, override: Bool) throws {
+        let writer = FileWriter()
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        if override, path.exists {
-            try path.delete()
+        if override || !path.exists {
+            try writer.write(string: content, to: path)
+        } else {
+            throw XCConfigError.cantOverrideExisting(path: path)
         }
-        try path.write(content)
     }
 
     private func writeIncludes() -> String {

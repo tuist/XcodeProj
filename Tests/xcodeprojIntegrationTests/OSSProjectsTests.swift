@@ -39,7 +39,7 @@ final class OSSProjectsTests: XCTestCase {
                                      file _: String = #file,
                                      line _: UInt = #line) throws {
         let project = try XcodeProj(path: projectPath)
-        try project.write(path: projectPath)
+        try project.write(path: projectPath, override: true)
         let diff = SwiftShell.run("cd", clonePath.string, "&&", "git", "diff").stdout
         XCTAssertTrue(diff == "", "Writing project without changes should not result in changes")
     }
@@ -49,7 +49,7 @@ final class OSSProjectsTests: XCTestCase {
                                       line _: UInt = #line) throws {
         let project = try XcodeProj(path: projectPath)
         project.pbxproj.objects.invalidateReferences()
-        try project.write(path: projectPath)
+        try project.write(path: projectPath, override: true)
         var temporaryFiles: [PBXObject] = []
         project.pbxproj.objects.forEach { object in
             if object.reference.temporary {

@@ -52,11 +52,12 @@ public final class XCWorkspace: Writable, Equatable {
 
     public func write(path: Path, override: Bool = true) throws {
         let dataPath = path + "contents.xcworkspacedata"
-        if override, dataPath.exists {
-            try dataPath.delete()
+
+        if !path.exists {
+            try path.mkpath()
         }
-        try dataPath.mkpath()
-        try data.write(path: dataPath)
+
+        try data.write(path: dataPath, override: override)
     }
 
     // MARK: - Equatable

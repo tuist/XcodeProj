@@ -11,6 +11,9 @@ extension Path {
     ///
     /// - Throws: an errof if the directory cannot be created.
     func mkpath(withIntermediateDirectories: Bool) throws {
+        if exists {
+            return
+        }
         try FileManager.default.createDirectory(atPath: string, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
     }
 

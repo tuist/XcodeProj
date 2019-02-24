@@ -2,20 +2,6 @@ import AEXML
 import Foundation
 import PathKit
 
-public enum XCSchemeError: Error, CustomStringConvertible {
-    case notFound(path: Path)
-    case missing(property: String)
-
-    public var description: String {
-        switch self {
-        case let .notFound(path):
-            return ".xcscheme couldn't be found at path \(path.string)"
-        case let .missing(property):
-            return "Property \(property) missing"
-        }
-    }
-}
-
 public final class XCScheme: Writable, Equatable {
     // MARK: - Static
 
@@ -84,6 +70,7 @@ public final class XCScheme: Writable, Equatable {
 
     public func write(path: Path, override: Bool) throws {
         let document = AEXMLDocument()
+        let writer = FileWriter()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
         schemeAttributes["version"] = version
@@ -109,10 +96,11 @@ public final class XCScheme: Writable, Equatable {
         if let wasCreatedForAppExtension = wasCreatedForAppExtension {
             scheme.attributes["wasCreatedForAppExtension"] = wasCreatedForAppExtension.xmlString
         }
-        if override, path.exists {
-            try path.delete()
+        if override || path.exists {
+            try writer.write(string: document.xmlXcodeFormat, to: path)
+        } else {
+            throw XCSchemeError.cantOverrideExisting(path: path)
         }
-        try path.write(document.xmlXcodeFormat)
     }
 
     // MARK: - Equatable

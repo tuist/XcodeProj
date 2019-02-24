@@ -41,15 +41,18 @@ extension XCWorkspaceData: Writable {
 
     public func write(path: Path, override: Bool = true) throws {
         let document = AEXMLDocument()
+        let writer = FileWriter()
+
         let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
         _ = children
             .map({ $0.xmlElement() })
             .map(workspace.addChild)
 
-        if override, path.exists {
-            try path.delete()
+        if override || !path.exists {
+            try writer.write(string: document.xmlXcodeFormat, to: path)
+        } else {
+            throw XCWorkspaceDataError.cantOverrideExisting(path: path)
         }
-        try path.write(document.xmlXcodeFormat)
     }
 }
 
