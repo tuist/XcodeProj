@@ -1,301 +1,267 @@
-// FIXME: Remove?
-//
-// // Generated using Sourcery 0.13.1 — https://github.com/krzysztofzablocki/Sourcery
-// // DO NOT EDIT
-//
-// import Foundation
-//
-// extension PBXAggregateTarget {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXAggregateTarget else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXBuildFile {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXBuildFile else { return false }
-//         if fileReference != rhs.fileReference { return false }
-//         if !NSDictionary(dictionary: settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXBuildPhase else { return false }
-//         if buildActionMask != rhs.buildActionMask { return false }
-//         if fileReferences != rhs.fileReferences { return false }
-//         if inputFileListPaths != rhs.inputFileListPaths { return false }
-//         if outputFileListPaths != rhs.outputFileListPaths { return false }
-//         if runOnlyForDeploymentPostprocessing != rhs.runOnlyForDeploymentPostprocessing { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXBuildRule {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXBuildRule else { return false }
-//         if compilerSpec != rhs.compilerSpec { return false }
-//         if filePatterns != rhs.filePatterns { return false }
-//         if fileType != rhs.fileType { return false }
-//         if isEditable != rhs.isEditable { return false }
-//         if name != rhs.name { return false }
-//         if outputFiles != rhs.outputFiles { return false }
-//         if outputFilesCompilerFlags != rhs.outputFilesCompilerFlags { return false }
-//         if script != rhs.script { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXContainerItem {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXContainerItem else { return false }
-//         if comments != rhs.comments { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXContainerItemProxy {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXContainerItemProxy else { return false }
-//         if containerPortalReference != rhs.containerPortalReference { return false }
-//         if proxyType != rhs.proxyType { return false }
-//         if remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
-//         if remoteInfo != rhs.remoteInfo { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXCopyFilesBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXCopyFilesBuildPhase else { return false }
-//         if dstPath != rhs.dstPath { return false }
-//         if dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
-//         if name != rhs.name { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXFileElement {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXFileElement else { return false }
-//         if sourceTree != rhs.sourceTree { return false }
-//         if path != rhs.path { return false }
-//         if name != rhs.name { return false }
-//         if includeInIndex != rhs.includeInIndex { return false }
-//         if usesTabs != rhs.usesTabs { return false }
-//         if indentWidth != rhs.indentWidth { return false }
-//         if tabWidth != rhs.tabWidth { return false }
-//         if wrapsLines != rhs.wrapsLines { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXFileReference {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXFileReference else { return false }
-//         if fileEncoding != rhs.fileEncoding { return false }
-//         if explicitFileType != rhs.explicitFileType { return false }
-//         if lastKnownFileType != rhs.lastKnownFileType { return false }
-//         if lineEnding != rhs.lineEnding { return false }
-//         if languageSpecificationIdentifier != rhs.languageSpecificationIdentifier { return false }
-//         if xcLanguageSpecificationIdentifier != rhs.xcLanguageSpecificationIdentifier { return false }
-//         if plistStructureDefinitionIdentifier != rhs.plistStructureDefinitionIdentifier { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXFrameworksBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXFrameworksBuildPhase else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXGroup {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXGroup else { return false }
-//         if childrenReferences != rhs.childrenReferences { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXHeadersBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXHeadersBuildPhase else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXLegacyTarget {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXLegacyTarget else { return false }
-//         if buildToolPath != rhs.buildToolPath { return false }
-//         if buildArgumentsString != rhs.buildArgumentsString { return false }
-//         if passBuildSettingsInEnvironment != rhs.passBuildSettingsInEnvironment { return false }
-//         if buildWorkingDirectory != rhs.buildWorkingDirectory { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXNativeTarget {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXNativeTarget else { return false }
-//         if productInstallPath != rhs.productInstallPath { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXProject {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXProject else { return false }
-//         if name != rhs.name { return false }
-//         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
-//         if compatibilityVersion != rhs.compatibilityVersion { return false }
-//         if developmentRegion != rhs.developmentRegion { return false }
-//         if hasScannedForEncodings != rhs.hasScannedForEncodings { return false }
-//         if knownRegions != rhs.knownRegions { return false }
-//         if mainGroupReference != rhs.mainGroupReference { return false }
-//         if productsGroupReference != rhs.productsGroupReference { return false }
-//         if projectDirPath != rhs.projectDirPath { return false }
-//         if projectReferences != rhs.projectReferences { return false }
-//         if projectRoots != rhs.projectRoots { return false }
-//         if targetReferences != rhs.targetReferences { return false }
-//         if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
-//         if !NSDictionary(dictionary: targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXReferenceProxy {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXReferenceProxy else { return false }
-//         if fileType != rhs.fileType { return false }
-//         if path != rhs.path { return false }
-//         if remoteReference != rhs.remoteReference { return false }
-//         if sourceTree != rhs.sourceTree { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXResourcesBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXResourcesBuildPhase else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXRezBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXRezBuildPhase else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXShellScriptBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXShellScriptBuildPhase else { return false }
-//         if name != rhs.name { return false }
-//         if inputPaths != rhs.inputPaths { return false }
-//         if outputPaths != rhs.outputPaths { return false }
-//         if shellPath != rhs.shellPath { return false }
-//         if shellScript != rhs.shellScript { return false }
-//         if showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXSourcesBuildPhase {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXSourcesBuildPhase else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXTarget {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXTarget else { return false }
-//         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
-//         if buildPhaseReferences != rhs.buildPhaseReferences { return false }
-//         if buildRuleReferences != rhs.buildRuleReferences { return false }
-//         if dependencyReferences != rhs.dependencyReferences { return false }
-//         if name != rhs.name { return false }
-//         if productName != rhs.productName { return false }
-//         if productReference != rhs.productReference { return false }
-//         if productType != rhs.productType { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXTargetDependency {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXTargetDependency else { return false }
-//         if name != rhs.name { return false }
-//         if targetReference != rhs.targetReference { return false }
-//         if targetProxyReference != rhs.targetProxyReference { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension PBXVariantGroup {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? PBXVariantGroup else { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension XCBuildConfiguration {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? XCBuildConfiguration else { return false }
-//         if baseConfigurationReference != rhs.baseConfigurationReference { return false }
-//         if !NSDictionary(dictionary: buildSettings).isEqual(to: rhs.buildSettings) { return false }
-//         if name != rhs.name { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension XCConfigurationList {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? XCConfigurationList else { return false }
-//         if buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
-//         if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
-//         if defaultConfigurationName != rhs.defaultConfigurationName { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
-//
-// extension XCVersionGroup {
-//     /// :nodoc:
-//     @objc public override func isEqual(to object: Any?) -> Bool {
-//         guard let rhs = object as? XCVersionGroup else { return false }
-//         if currentVersionReference != rhs.currentVersionReference { return false }
-//         if versionGroupType != rhs.versionGroupType { return false }
-//         return super.isEqual(to: rhs)
-//     }
-// }
+ // Generated using Sourcery 0.13.1 — https://github.com/krzysztofzablocki/Sourcery
+
+
+ // FIXME: EDITING THIS JUST TO SHOW THE DIFF
+
+ import Foundation
+
+ extension PBXBuildFile {
+
+    public static func == (lhs: PBXBuildFile, rhs: PBXBuildFile) -> Bool {
+        if lhs.fileReference != rhs.fileReference { return false }
+        if !NSDictionary(dictionary: lhs.settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
+        return (lhs as PBXObject) == (rhs as PBXObject)
+    }
+ }
+
+ extension PBXBuildPhase {
+
+    public static func == (lhs: PBXBuildPhase, rhs: PBXBuildPhase) -> Bool {
+        if lhs.buildActionMask != rhs.buildActionMask { return false }
+        if lhs.fileReferences != rhs.fileReferences { return false }
+        if lhs.inputFileListPaths != rhs.inputFileListPaths { return false }
+        if lhs.outputFileListPaths != rhs.outputFileListPaths { return false }
+        if lhs.runOnlyForDeploymentPostprocessing != rhs.runOnlyForDeploymentPostprocessing { return false }
+        return (lhs as PBXContainerItem) == (rhs as PBXContainerItem)
+    }
+ }
+
+ extension PBXBuildRule {
+
+    public static func == (lhs: PBXBuildRule, rhs: PBXBuildRule) -> Bool {
+        if lhs.compilerSpec != rhs.compilerSpec { return false }
+        if lhs.filePatterns != rhs.filePatterns { return false }
+        if lhs.fileType != rhs.fileType { return false }
+        if lhs.isEditable != rhs.isEditable { return false }
+        if lhs.name != rhs.name { return false }
+        if lhs.outputFiles != rhs.outputFiles { return false }
+        if lhs.outputFilesCompilerFlags != rhs.outputFilesCompilerFlags { return false }
+        if lhs.script != rhs.script { return false }
+        return (lhs as PBXObject) == (rhs as PBXObject)
+    }
+
+ }
+
+ extension PBXContainerItem {
+
+    public static func == (lhs: PBXContainerItem, rhs: PBXContainerItem) -> Bool {
+        if lhs.comments != rhs.comments { return false }
+        return (lhs as PBXObject) == (rhs as PBXObject)
+    }
+
+ }
+
+ extension PBXContainerItemProxy {
+
+     public static func == (lhs: PBXContainerItemProxy, rhs: PBXContainerItemProxy) -> Bool {
+         if lhs.containerPortalReference != rhs.containerPortalReference { return false }
+         if lhs.proxyType != rhs.proxyType { return false }
+         if lhs.remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
+         if lhs.remoteInfo != rhs.remoteInfo { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
+
+ extension PBXCopyFilesBuildPhase {
+     public static func == (lhs: PBXCopyFilesBuildPhase, rhs: PBXCopyFilesBuildPhase) -> Bool {
+         if lhs.dstPath != rhs.dstPath { return false }
+         if lhs.dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
+         if lhs.name != rhs.name { return false }
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXFileElement {
+
+     public static func == (lhs: PBXFileElement, rhs: PBXFileElement) -> Bool {
+         if lhs.sourceTree != rhs.sourceTree { return false }
+         if lhs.path != rhs.path { return false }
+         if lhs.name != rhs.name { return false }
+         if lhs.includeInIndex != rhs.includeInIndex { return false }
+         if lhs.usesTabs != rhs.usesTabs { return false }
+         if lhs.indentWidth != rhs.indentWidth { return false }
+         if lhs.tabWidth != rhs.tabWidth { return false }
+         if lhs.wrapsLines != rhs.wrapsLines { return false }
+         return (lhs as PBXContainerItem) == (rhs as PBXContainerItem)
+     }
+ }
+
+ extension PBXFileReference {
+     public static func == (lhs: PBXFileReference, rhs: PBXFileReference) -> Bool {
+         if lhs.fileEncoding != rhs.fileEncoding { return false }
+         if lhs.explicitFileType != rhs.explicitFileType { return false }
+         if lhs.lastKnownFileType != rhs.lastKnownFileType { return false }
+         if lhs.lineEnding != rhs.lineEnding { return false }
+         if lhs.languageSpecificationIdentifier != rhs.languageSpecificationIdentifier { return false }
+         if lhs.xcLanguageSpecificationIdentifier != rhs.xcLanguageSpecificationIdentifier { return false }
+         if lhs.plistStructureDefinitionIdentifier != rhs.plistStructureDefinitionIdentifier { return false }
+         return (lhs as PBXFileElement) == (rhs as PBXFileElement)
+     }
+ }
+
+ extension PBXFrameworksBuildPhase {
+     public static func == (lhs: PBXFrameworksBuildPhase, rhs: PBXFrameworksBuildPhase) -> Bool {
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXGroup {
+
+     public static func == (lhs: PBXGroup, rhs: PBXGroup) -> Bool {
+         if lhs.childrenReferences != rhs.childrenReferences { return false }
+         return (lhs as PBXFileElement) == (rhs as PBXFileElement)
+     }
+ }
+
+ extension PBXHeadersBuildPhase {
+    
+     public static func == (lhs: PBXHeadersBuildPhase, rhs: PBXHeadersBuildPhase) -> Bool {
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXLegacyTarget {
+
+     public static func == (lhs: PBXLegacyTarget, rhs: PBXLegacyTarget) -> Bool {
+         if lhs.buildToolPath != rhs.buildToolPath { return false }
+         if lhs.buildArgumentsString != rhs.buildArgumentsString { return false }
+         if lhs.passBuildSettingsInEnvironment != rhs.passBuildSettingsInEnvironment { return false }
+         if lhs.buildWorkingDirectory != rhs.buildWorkingDirectory { return false }
+         return (lhs as PBXTarget) == (rhs as PBXTarget)
+     }
+ }
+
+ extension PBXNativeTarget {
+    
+     public static func == (lhs: PBXNativeTarget, rhs: PBXNativeTarget) -> Bool {
+         if lhs.productInstallPath != rhs.productInstallPath { return false }
+         return (lhs as PBXTarget) == (rhs as PBXTarget)
+     }
+ }
+
+ extension PBXProject {
+    
+     public static func == (lhs: PBXProject, rhs: PBXProject) -> Bool {
+         if lhs.name != rhs.name { return false }
+         if lhs.buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
+         if lhs.compatibilityVersion != rhs.compatibilityVersion { return false }
+         if lhs.developmentRegion != rhs.developmentRegion { return false }
+         if lhs.hasScannedForEncodings != rhs.hasScannedForEncodings { return false }
+         if lhs.knownRegions != rhs.knownRegions { return false }
+         if lhs.mainGroupReference != rhs.mainGroupReference { return false }
+         if lhs.productsGroupReference != rhs.productsGroupReference { return false }
+         if lhs.projectDirPath != rhs.projectDirPath { return false }
+         if lhs.projectReferences != rhs.projectReferences { return false }
+         if lhs.projectRoots != rhs.projectRoots { return false }
+         if lhs.targetReferences != rhs.targetReferences { return false }
+         if !NSDictionary(dictionary: lhs.attributes).isEqual(to: rhs.attributes) { return false }
+         if !NSDictionary(dictionary: lhs.targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
+
+ extension PBXReferenceProxy {
+    
+     public static func == (lhs: PBXReferenceProxy, rhs: PBXReferenceProxy) -> Bool {
+         if lhs.fileType != rhs.fileType { return false }
+         if lhs.path != rhs.path { return false }
+         if lhs.remoteReference != rhs.remoteReference { return false }
+         if lhs.sourceTree != rhs.sourceTree { return false }
+         return (lhs as PBXFileElement) == (rhs as PBXFileElement)
+     }
+ }
+
+ extension PBXResourcesBuildPhase {
+    
+     public static func == (lhs: PBXResourcesBuildPhase, rhs: PBXResourcesBuildPhase) -> Bool {
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXRezBuildPhase {
+    
+     public static func == (lhs: PBXRezBuildPhase, rhs: PBXRezBuildPhase) -> Bool {
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXShellScriptBuildPhase {
+    
+     public static func == (lhs: PBXShellScriptBuildPhase, rhs: PBXShellScriptBuildPhase) -> Bool {
+         if lhs.name != rhs.name { return false }
+         if lhs.inputPaths != rhs.inputPaths { return false }
+         if lhs.outputPaths != rhs.outputPaths { return false }
+         if lhs.shellPath != rhs.shellPath { return false }
+         if lhs.shellScript != rhs.shellScript { return false }
+         if lhs.showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXSourcesBuildPhase {
+    
+     public static func == (lhs: PBXSourcesBuildPhase, rhs: PBXSourcesBuildPhase) -> Bool {
+         return (lhs as PBXBuildPhase) == (rhs as PBXBuildPhase)
+     }
+ }
+
+ extension PBXTarget {
+    
+     public static func == (lhs: PBXTarget, rhs: PBXTarget) -> Bool {
+         if lhs.buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
+         if lhs.buildPhaseReferences != rhs.buildPhaseReferences { return false }
+         if lhs.buildRuleReferences != rhs.buildRuleReferences { return false }
+         if lhs.dependencyReferences != rhs.dependencyReferences { return false }
+         if lhs.name != rhs.name { return false }
+         if lhs.productName != rhs.productName { return false }
+         if lhs.productReference != rhs.productReference { return false }
+         if lhs.productType != rhs.productType { return false }
+         return (lhs as PBXContainerItem) == (rhs as PBXContainerItem)
+     }
+ }
+
+ extension PBXTargetDependency {
+    
+     public static func == (lhs: PBXTargetDependency, rhs: PBXTargetDependency) -> Bool {
+         if lhs.name != rhs.name { return false }
+         if lhs.targetReference != rhs.targetReference { return false }
+         if lhs.targetProxyReference != rhs.targetProxyReference { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
+
+ extension PBXVariantGroup {
+    
+     public static func == (lhs: PBXVariantGroup, rhs: PBXVariantGroup) -> Bool {
+         return (lhs as PBXGroup) == (rhs as PBXGroup)
+     }
+ }
+
+ extension XCBuildConfiguration {
+    
+     public static func == (lhs: XCBuildConfiguration, rhs: XCBuildConfiguration) -> Bool {
+         if lhs.baseConfigurationReference != rhs.baseConfigurationReference { return false }
+         if !NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings) { return false }
+         if lhs.name != rhs.name { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
+
+ extension XCConfigurationList {
+    
+     public static func == (lhs: XCConfigurationList, rhs: XCConfigurationList) -> Bool {
+         if lhs.buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
+         if lhs.defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
+         if lhs.defaultConfigurationName != rhs.defaultConfigurationName { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
+
+ extension XCVersionGroup {
+    
+     public static func == (lhs: XCVersionGroup, rhs: XCVersionGroup) -> Bool {
+         if lhs.currentVersionReference != rhs.currentVersionReference { return false }
+         if lhs.versionGroupType != rhs.versionGroupType { return false }
+         return (lhs as PBXObject) == (rhs as PBXObject)
+     }
+ }
