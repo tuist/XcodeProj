@@ -51,8 +51,7 @@ extension XCScheme {
 
         static func == (lhs: ArchiveAction, rhs: ArchiveAction) -> Bool {
             return
-                lhs.preActions == rhs.preActions &&
-                rhs.postActions == rhs.postActions &&
+                (lhs as SerialAction) == (rhs as SerialAction) &&
                 lhs.buildConfiguration == rhs.buildConfiguration &&
                 lhs.revealArchiveInOrganizer == rhs.revealArchiveInOrganizer &&
                 lhs.customArchiveName == rhs.customArchiveName

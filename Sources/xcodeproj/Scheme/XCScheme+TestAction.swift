@@ -188,6 +188,7 @@ extension XCScheme {
 
         static func == (lhs: TestAction, rhs: TestAction) -> Bool {
             return
+                (lhs as SerialAction) == (rhs as SerialAction) &&
                 lhs.preActions == rhs.preActions &&
                     rhs.postActions == rhs.postActions &&
                 lhs.testables == rhs.testables &&

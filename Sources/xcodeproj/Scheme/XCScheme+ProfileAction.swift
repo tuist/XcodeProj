@@ -115,5 +115,23 @@ extension XCScheme {
 
             return element
         }
+        
+        // MARK: - Equatable
+        
+        static func == (lhs: ProfileAction, rhs: ProfileAction) -> Bool {
+            return
+                (lhs as SerialAction) == (rhs as SerialAction) &&
+                lhs.buildableProductRunnable == rhs.buildableProductRunnable &&
+                lhs.buildConfiguration == rhs.buildConfiguration &&
+                lhs.shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
+                lhs.savedToolIdentifier == rhs.savedToolIdentifier &&
+                lhs.ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
+                lhs.useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
+                lhs.debugDocumentVersioning == rhs.debugDocumentVersioning &&
+                lhs.commandlineArguments == rhs.commandlineArguments &&
+                lhs.environmentVariables == rhs.environmentVariables &&
+                lhs.macroExpansion == rhs.macroExpansion &&
+                lhs.enableTestabilityWhenProfilingTests == rhs.enableTestabilityWhenProfilingTests
+        }
     }
 }

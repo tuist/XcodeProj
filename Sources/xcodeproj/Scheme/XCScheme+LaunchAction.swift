@@ -272,5 +272,40 @@ extension XCScheme {
             }
             return element
         }
+        
+        // MARK: - Equatable
+        
+        static func == (lhs: LaunchAction, rhs: LaunchAction) -> Bool {
+            return
+                (lhs as SerialAction) == (rhs as SerialAction) &&
+                    lhs.buildableProductRunnable == rhs.buildableProductRunnable &&
+                    lhs.macroExpansion == rhs.macroExpansion &&
+                    lhs.selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
+                    lhs.selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
+                    lhs.buildConfiguration == rhs.buildConfiguration &&
+                    lhs.launchStyle == rhs.launchStyle &&
+                    lhs.useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
+                    lhs.ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
+                    lhs.debugDocumentVersioning == rhs.debugDocumentVersioning &&
+                    lhs.debugServiceExtension == rhs.debugServiceExtension &&
+                    lhs.allowLocationSimulation == rhs.allowLocationSimulation &&
+                    lhs.locationScenarioReference == rhs.locationScenarioReference &&
+                    lhs.enableGPUFrameCaptureMode == rhs.enableGPUFrameCaptureMode &&
+                    lhs.enableGPUValidationMode == rhs.enableGPUValidationMode &&
+                    lhs.enableAddressSanitizer == rhs.enableAddressSanitizer &&
+                    lhs.enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
+                    lhs.enableThreadSanitizer == rhs.enableThreadSanitizer &&
+                    lhs.stopOnEveryThreadSanitizerIssue == rhs.stopOnEveryThreadSanitizerIssue &&
+                    lhs.enableUBSanitizer == rhs.enableUBSanitizer &&
+                    lhs.stopOnEveryUBSanitizerIssue == rhs.stopOnEveryUBSanitizerIssue &&
+                    lhs.disableMainThreadChecker == rhs.disableMainThreadChecker &&
+                    lhs.stopOnEveryMainThreadCheckerIssue == rhs.stopOnEveryMainThreadCheckerIssue &&
+                    lhs.additionalOptions == rhs.additionalOptions &&
+                    lhs.commandlineArguments == rhs.commandlineArguments &&
+                    lhs.environmentVariables == rhs.environmentVariables &&
+                    lhs.language == rhs.language &&
+                    lhs.region == rhs.region &&
+                    lhs.launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle
+        }
     }
 }

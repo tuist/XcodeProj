@@ -128,8 +128,7 @@ extension XCScheme {
 
         static func == (lhs: BuildAction, rhs: BuildAction) -> Bool {
             return
-                lhs.preActions == rhs.preActions &&
-                rhs.postActions == rhs.postActions &&
+                (lhs as SerialAction) == (rhs as SerialAction) &&
                 lhs.buildActionEntries == rhs.buildActionEntries &&
                 lhs.parallelizeBuild == rhs.parallelizeBuild &&
                 lhs.buildImplicitDependencies == rhs.buildImplicitDependencies

@@ -4,7 +4,7 @@ import os.signpost
 #endif
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-class PBXObjectReference: Comparable, Hashable, Equatable {
+class PBXObjectReference: Comparable, Hashable, Equatable, NSCopying {
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
     private(set) var temporary: Bool
