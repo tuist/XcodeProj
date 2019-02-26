@@ -152,13 +152,23 @@ public extension PBXFileElement {
             return path.flatMap { sourceRoot + $0 }
         case .group?:
             let groupPath: Path?
+            
             if let group = parent {
-                groupPath = try group.fullPath(sourceRoot: sourceRoot)
+                groupPath = try group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
             } else {
                 let projectObjects = try objects()
+                let isThisElementRoot = projectObjects.projects.values.first(where: { $0.mainGroup == self }) != nil
+                if isThisElementRoot {
+                    if let path = path {
+                        return sourceRoot + Path(path)
+                    }
+                    return sourceRoot
+                }
+                // Fallback if parent is nil and it's not root element
                 guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
                 groupPath = try group.value.fullPath(sourceRoot: sourceRoot)
             }
+            
             guard let fullGroupPath: Path = groupPath else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return fullGroupPath }
             return fullGroupPath + filePath
