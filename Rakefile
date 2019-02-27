@@ -4,9 +4,6 @@ require 'fileutils'
 require 'colorize'
 
 task :release_check do
-  puts "Linting code".colorize(:cyan)
-  system("swiftlint") || abort
-
   puts "Running tests".colorize(:cyan)
   system("swift test") || abort
 
