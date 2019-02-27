@@ -75,8 +75,10 @@ public final class PBXProj: Decodable {
             userInfo: decoder.userInfo
         )
         try objectsDictionaries.enumerateKeysAndObjects(options: .concurrent) { key, obj, _ in
+            // swiftlint:disable force_cast
             let reference = key as! String
             let dictionary = obj as! [String: Any]
+            // swiftlint:enable force_cast
             let object = try parser.parse(
                 reference: reference,
                 dictionary: dictionary

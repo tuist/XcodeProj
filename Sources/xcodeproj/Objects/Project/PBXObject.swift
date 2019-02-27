@@ -64,8 +64,8 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
         return true
     }
 
-    public var hashValue: Int {
-        return reference.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(reference)
     }
 
     /// Returns the objects the object belong to.

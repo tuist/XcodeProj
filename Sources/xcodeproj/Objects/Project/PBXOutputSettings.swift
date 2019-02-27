@@ -1,4 +1,3 @@
-
 import Foundation
 
 /// Code for controlling sorting of files in an pbxproj file.

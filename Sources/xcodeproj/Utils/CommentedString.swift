@@ -74,7 +74,10 @@ struct CommentedString {
 // MARK: - Hashable
 
 extension CommentedString: Hashable {
-    var hashValue: Int { return string.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(string)
+    }
+
     static func == (lhs: CommentedString, rhs: CommentedString) -> Bool {
         return lhs.string == rhs.string && lhs.comment == rhs.comment
     }

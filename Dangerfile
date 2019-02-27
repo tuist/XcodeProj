@@ -7,6 +7,7 @@ if !git.modified_files.include?("CHANGELOG.md")
   fail(message, sticky: false)
 end
 
-# Swiftformat
+# Linting
 swiftformat.additional_args = "--config .swiftformat"
 swiftformat.check_format(fail_on_error: true)
+swiftlint.lint_files(fail_on_error: true)

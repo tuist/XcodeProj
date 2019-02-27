@@ -3,15 +3,17 @@
 ## next version
 
 ### Fixed
-- Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson
+- Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson.
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
-- Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin
+- Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin.
 
 ### Added
 - Added `GPUFrameCaptureMode` and `GPUValidationMode` options to `LaunchAction` https://github.com/tuist/xcodeproj/pull/368 by @schiewe.
+- Add Swiftformat https://github.com/tuist/xcodeproj/pull/375 by @pepibumur.
 
 ### Changed
-- Replace Swiftlint with Swiftformat https://github.com/tuist/xcodeproj/pull/375 by @pepibumur
+- **Breaking** Rename GPUFrameCaptureMode cases to start with a lowercase letter https://github.com/tuist/xcodeproj/pull/375 by @pepibumur.
+- Fix linting issues https://github.com/tuist/xcodeproj/pull/375 by @pepibumur. 
 
 ## 6.5.0
 

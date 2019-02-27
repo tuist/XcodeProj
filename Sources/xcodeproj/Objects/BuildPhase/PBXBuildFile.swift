@@ -82,11 +82,15 @@ extension PBXBuildFile {
         } else if let buildPhase = projectObjects.frameworksBuildPhases
             .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.resourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects
+            .resourcesBuildPhases.values
+            .first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.copyFilesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.copyFilesBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.headersBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.headersBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
         } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
             .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {

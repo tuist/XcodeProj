@@ -86,6 +86,7 @@ public final class XcodeProj: Equatable {
             options: .mutableContainersAndLeaves,
             format: &propertyListFormat
         )
+        // swiftlint:disable:next force_cast
         let pbxProjDictionary = serialized as! [String: Any]
         return (plistXML, pbxProjDictionary)
     }

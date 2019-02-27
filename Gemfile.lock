@@ -69,6 +69,10 @@ GEM
       danger (> 2.0)
     danger-swiftformat (0.4.0)
       danger-plugin-api (~> 1.0)
+    danger-swiftlint (0.19.0)
+      danger
+      rake (> 10)
+      thor (~> 0.19)
     escape (0.0.4)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
@@ -122,6 +126,7 @@ GEM
     sqlite3 (1.4.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    thor (0.20.3)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -143,6 +148,7 @@ DEPENDENCIES
   colorize (~> 0.8.1)
   danger (~> 5.10)
   danger-swiftformat (~> 0.4.0)
+  danger-swiftlint (~> 0.19.0)
   jazzy
   rake
 

@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint:disable type_body_length
 class PBXObjects: Equatable {
     // MARK: - Properties
 

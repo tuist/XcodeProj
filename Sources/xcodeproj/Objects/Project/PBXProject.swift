@@ -271,6 +271,7 @@ public final class PBXProject: PBXObject {
 // MARK: - PlistSerializable
 
 extension PBXProject: PlistSerializable {
+    // swiftlint:disable:next function_body_length
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
