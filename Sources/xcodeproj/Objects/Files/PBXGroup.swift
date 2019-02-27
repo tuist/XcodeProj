@@ -160,7 +160,15 @@ public extension PBXGroup {
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
         if let existingFileReference = try projectObjects.fileReferences.first(where: {
-            try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            // Optimization: compare lastComponent before fullPath compare
+            guard let fileRefPath = $0.value.path else {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            let fileRefLPC = (fileRefPath as NSString).lastPathComponent
+            if filePath.lastComponent == fileRefLPC {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            return false
         }) {
             if !childrenReferences.contains(existingFileReference.key) {
                 existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
