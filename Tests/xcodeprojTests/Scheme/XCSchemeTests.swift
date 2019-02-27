@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 final class XCSchemeIntegrationTests: XCTestCase {
     func test_read_iosScheme() {
@@ -137,7 +137,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertFalse(testEnvironmentVariables[0].enabled)
 
         let testCLIArgs = XCTAssertNotNilAndUnwrap(scheme.testAction?.commandlineArguments)
-        XCTAssertTrue(testCLIArgs.arguments.count > 0)
+        XCTAssertTrue(!testCLIArgs.arguments.isEmpty)
         XCTAssertEqual(testCLIArgs.arguments[0].name, "MyTestArgument")
         XCTAssertTrue(testCLIArgs.arguments[0].enabled)
 
@@ -174,7 +174,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertTrue(profileEnvironmentVariables[0].enabled)
 
         let profileCLIArgs = XCTAssertNotNilAndUnwrap(scheme.profileAction?.commandlineArguments)
-        XCTAssertTrue(profileCLIArgs.arguments.count > 0)
+        XCTAssertTrue(!profileCLIArgs.arguments.isEmpty)
         XCTAssertEqual(profileCLIArgs.arguments[0].name, "MyProfileArgument")
         XCTAssertFalse(profileCLIArgs.arguments[0].enabled)
 
@@ -227,7 +227,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertTrue(launchEnvironmentVariables[0].enabled)
 
         let launchCLIArgs = XCTAssertNotNilAndUnwrap(scheme.launchAction?.commandlineArguments)
-        XCTAssertTrue(launchCLIArgs.arguments.count > 0)
+        XCTAssertTrue(!launchCLIArgs.arguments.isEmpty)
         XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
         XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
     }

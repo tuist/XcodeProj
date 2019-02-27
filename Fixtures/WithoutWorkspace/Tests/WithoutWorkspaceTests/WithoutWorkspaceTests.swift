@@ -1,5 +1,5 @@
-@testable import WithoutWorkspace
 import XCTest
+@testable import WithoutWorkspace
 
 class WithoutWorkspaceTests: XCTestCase {
     func testExample() {

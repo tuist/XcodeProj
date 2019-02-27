@@ -11,14 +11,13 @@ extension PlistSerializable {
 }
 
 final class StateHolder {
-    
     var indent: UInt = 0
     var multiline: Bool = true
-    
+
     func increaseIndent() {
         indent += 1
     }
-    
+
     func decreaseIndent() {
         indent -= 1
     }
@@ -26,7 +25,6 @@ final class StateHolder {
 
 /// Encodes your PBXProj files to String
 final class PBXProjEncoder {
-    
     let outputSettings: PBXOutputSettings
     let referenceGenerator: ReferenceGenerating
 
@@ -46,7 +44,7 @@ final class PBXProjEncoder {
         sort(buildPhases: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
         sort(buildPhases: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
         sort(navigatorGroups: proj.objects.groups, outputSettings: outputSettings)
-        
+
         var output = [String]()
         var stateHolder = StateHolder()
 
@@ -88,12 +86,11 @@ final class PBXProjEncoder {
         writeNewLine(stateHolder: &stateHolder, to: &output)
         write(dictionaryKey: "rootObject",
               dictionaryValue: .string(
-                CommentedString(
-                    rootObject.value,
-                    comment: "Project object"
-                )
-            ), stateHolder: &stateHolder, to: &output
-        )
+                  CommentedString(
+                      rootObject.value,
+                      comment: "Project object"
+                  )
+        ), stateHolder: &stateHolder, to: &output)
         writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
         writeNewLine(stateHolder: &stateHolder, to: &output)
 
@@ -103,11 +100,11 @@ final class PBXProjEncoder {
 
     // MARK: - Private
 
-    private func writeUtf8(to output: inout Array<String>) {
+    private func writeUtf8(to output: inout [String]) {
         output.append("// !$*UTF8*$!")
     }
 
-    private func writeNewLine(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeNewLine(stateHolder: inout StateHolder, to output: inout [String]) {
         if stateHolder.multiline {
             output.append("\n")
         } else {
@@ -115,7 +112,7 @@ final class PBXProjEncoder {
         }
     }
 
-    private func write(value: PlistValue, stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func write(value: PlistValue, stateHolder: inout StateHolder, to output: inout [String]) {
         switch value {
         case let .array(array):
             write(array: array, stateHolder: &stateHolder, to: &output)
@@ -126,7 +123,7 @@ final class PBXProjEncoder {
         }
     }
 
-    private func write(commentedString: CommentedString, to output: inout Array<String>) {
+    private func write(commentedString: CommentedString, to output: inout [String]) {
         write(string: commentedString.validString, to: &output)
         if let comment = commentedString.comment {
             write(string: " ", to: &output)
@@ -134,11 +131,11 @@ final class PBXProjEncoder {
         }
     }
 
-    private func write(string: String, to output: inout Array<String>) {
+    private func write(string: String, to output: inout [String]) {
         output.append(string)
     }
 
-    private func write(comment: String, to output: inout Array<String>) {
+    private func write(comment: String, to output: inout [String]) {
         output.append("/* \(comment) */")
     }
 
@@ -147,7 +144,7 @@ final class PBXProjEncoder {
                           objects: [PBXObjectReference: T],
                           outputSettings: PBXOutputSettings,
                           stateHolder: inout StateHolder,
-                          to output: inout Array<String>) throws where T: PlistSerializable & Equatable {
+                          to output: inout [String]) throws where T: PlistSerializable & Equatable {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
@@ -156,7 +153,7 @@ final class PBXProjEncoder {
                        objects: [PBXObjectReference: PBXBuildPhaseFile],
                        outputSettings: PBXOutputSettings,
                        stateHolder: inout StateHolder,
-                       to output: inout Array<String>) throws {
+                       to output: inout [String]) throws {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
@@ -165,15 +162,15 @@ final class PBXProjEncoder {
                        objects: [PBXObjectReference: PBXFileReference],
                        outputSettings: PBXOutputSettings,
                        stateHolder: inout StateHolder,
-                       to output: inout Array<String>) throws {
+                       to output: inout [String]) throws {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
-    
+
     final class PBXProjElement {
         let key: CommentedString
         let value: PlistValue
         let multiline: Bool
-        
+
         init(key: CommentedString, value: PlistValue, multiline: Bool) {
             self.key = key
             self.value = value
@@ -186,9 +183,8 @@ final class PBXProjEncoder {
                           objects: [PBXObjectReference: T],
                           sort: ((PBXObjectReference, T), (PBXObjectReference, T)) -> Bool,
                           stateHolder: inout StateHolder,
-                          to output: inout Array<String>) throws where T: PlistSerializable & Equatable
-    {
-        if objects.count == 0 { return }
+                          to output: inout [String]) throws where T: PlistSerializable & Equatable {
+        if objects.isEmpty { return }
         writeNewLine(stateHolder: &stateHolder, to: &output)
         write(string: "/* Begin \(section) section */", to: &output)
         writeNewLine(stateHolder: &stateHolder, to: &output)
@@ -199,8 +195,8 @@ final class PBXProjEncoder {
         }
         let elementsArray = NSArray(array: elements)
         let lock = NSRecursiveLock()
-        var resultArray = [Array<String>](repeating: [], count: elementsArray.count)
-        elementsArray.enumerateObjects(options: .concurrent) { (arg, index, stop) in
+        var resultArray = [[String]](repeating: [], count: elementsArray.count)
+        elementsArray.enumerateObjects(options: .concurrent) { arg, index, _ in
             let element = arg as! PBXProjElement
             var array = [String]()
             var tmpStateHolder = StateHolder()
@@ -209,7 +205,7 @@ final class PBXProjEncoder {
                 resultArray[index] = array
             }
         }
-        
+
         let joinedArray: [String] = resultArray.flatMap({ $0 })
         // should check multiline
         output.append(contentsOf: joinedArray)
@@ -217,7 +213,7 @@ final class PBXProjEncoder {
         writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(dictionary: [CommentedString: PlistValue], newLines _: Bool = true, stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func write(dictionary: [CommentedString: PlistValue], newLines _: Bool = true, stateHolder: inout StateHolder, to output: inout [String]) {
         writeDictionaryStart(stateHolder: &stateHolder, to: &output)
         dictionary.sorted(by: { (left, right) -> Bool in
             if left.key == "isa" {
@@ -232,7 +228,7 @@ final class PBXProjEncoder {
         writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true, stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func write(dictionaryKey: CommentedString, dictionaryValue: PlistValue, multiline: Bool = true, stateHolder: inout StateHolder, to output: inout [String]) {
         writeIndent(stateHolder: &stateHolder, to: &output)
         let beforeMultiline = stateHolder.multiline
         stateHolder.multiline = multiline
@@ -244,44 +240,44 @@ final class PBXProjEncoder {
         writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func writeDictionaryStart(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeDictionaryStart(stateHolder: inout StateHolder, to output: inout [String]) {
         output.append("{")
         if stateHolder.multiline { writeNewLine(stateHolder: &stateHolder, to: &output) }
         stateHolder.increaseIndent()
     }
 
-    private func writeDictionaryEnd(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeDictionaryEnd(stateHolder: inout StateHolder, to output: inout [String]) {
         stateHolder.decreaseIndent()
         writeIndent(stateHolder: &stateHolder, to: &output)
         output.append("}")
     }
 
-    private func write(array: [PlistValue], stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func write(array: [PlistValue], stateHolder: inout StateHolder, to output: inout [String]) {
         writeArrayStart(stateHolder: &stateHolder, to: &output)
         array.forEach { write(arrayValue: $0, stateHolder: &stateHolder, to: &output) }
         writeArrayEnd(stateHolder: &stateHolder, to: &output)
     }
 
-    private func write(arrayValue: PlistValue, stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func write(arrayValue: PlistValue, stateHolder: inout StateHolder, to output: inout [String]) {
         writeIndent(stateHolder: &stateHolder, to: &output)
         write(value: arrayValue, stateHolder: &stateHolder, to: &output)
         output.append(",")
         writeNewLine(stateHolder: &stateHolder, to: &output)
     }
 
-    private func writeArrayStart(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeArrayStart(stateHolder: inout StateHolder, to output: inout [String]) {
         output.append("(")
         if stateHolder.multiline { writeNewLine(stateHolder: &stateHolder, to: &output) }
         stateHolder.increaseIndent()
     }
 
-    private func writeArrayEnd(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeArrayEnd(stateHolder: inout StateHolder, to output: inout [String]) {
         stateHolder.decreaseIndent()
         writeIndent(stateHolder: &stateHolder, to: &output)
         output.append(")")
     }
 
-    private func writeIndent(stateHolder: inout StateHolder, to output: inout Array<String>) {
+    private func writeIndent(stateHolder: inout StateHolder, to output: inout [String]) {
         if stateHolder.multiline {
             output.append(String(repeating: "\t", count: Int(stateHolder.indent)))
         }

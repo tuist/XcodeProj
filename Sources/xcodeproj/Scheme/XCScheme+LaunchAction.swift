@@ -9,12 +9,14 @@ extension XCScheme {
             case auto = "0"
             case wait = "1"
         }
+
         public enum GPUFrameCaptureMode: String {
             case autoEnabled = "0"
             case Metal = "1"
             case OpenGL = "2"
             case disabled = "3"
         }
+
         public enum GPUValidationMode: String {
             case enabled = "0"
             case disabled = "1"

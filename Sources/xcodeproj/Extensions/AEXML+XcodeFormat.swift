@@ -91,7 +91,7 @@ extension AEXMLElement {
             xml += "\(key) = \"\(value.xmlEscaped)\""
         }
 
-        if attributes.count > 0 {
+        if !attributes.isEmpty {
             // insert known attributes in the specified order.
             var attributes = self.attributes
             for key in attributesOrder[self.name] ?? [] {
@@ -106,11 +106,11 @@ extension AEXMLElement {
             }
         }
 
-        if value == nil && children.count == 0 {
+        if value == nil, children.isEmpty {
             // close element
             xml += ">\n"
         } else {
-            if children.count > 0 {
+            if !children.isEmpty {
                 // add children
                 xml += ">\n"
                 for child in children {

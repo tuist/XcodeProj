@@ -289,7 +289,7 @@ extension ReferenceGenerator {
                                                   typeName: typeName,
                                                   identifiers: identifiers,
                                                   counter: counter)
-            } while (references.contains(reference))
+            } while references.contains(reference)
             references.insert(reference)
             object.reference.fix(reference)
         }

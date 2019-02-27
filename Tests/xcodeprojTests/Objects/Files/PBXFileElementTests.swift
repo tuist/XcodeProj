@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 final class PBXFileElementTests: XCTestCase {
     var subject: PBXFileElement!
@@ -85,19 +85,19 @@ final class PBXFileElementTests: XCTestCase {
             "wrapsLines": "1",
         ]
     }
-    
+
     func test_plistKeyAndValue_returns_dictionary_value() throws {
         let foo = PBXFileElement()
         let proj = PBXProj()
         let reference = ""
         if case .dictionary = try foo.plistKeyAndValue(proj: proj, reference: reference).value {
-            //noop we’re good!
+            // noop we’re good!
         } else {
             XCTFail("""
-                The implementation of PBXFileElement.plistKeyAndValue has changed,
-                which will break PBXReferenceProxy’s overriden implementation.
-                This must be fixed!
-                """)
+            The implementation of PBXFileElement.plistKeyAndValue has changed,
+            which will break PBXReferenceProxy’s overriden implementation.
+            This must be fixed!
+            """)
         }
     }
 }

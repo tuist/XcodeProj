@@ -60,7 +60,7 @@ public final class PBXReferenceProxy: PBXFileElement {
     }
 
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        guard case .dictionary(var dictionary) = try super.plistKeyAndValue(proj: proj, reference: reference).value else {
+        guard case var .dictionary(dictionary) = try super.plistKeyAndValue(proj: proj, reference: reference).value else {
             fatalError("super implementation changed and we didn’t realise!")
         }
         dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))

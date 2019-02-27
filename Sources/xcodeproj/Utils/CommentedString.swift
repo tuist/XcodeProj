@@ -61,9 +61,9 @@ struct CommentedString {
             escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
         }
 
-        if !escaped.isQuoted &&
-            (escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil ||
-                invalidStrings.contains(where: { escaped.range(of: $0) != nil })) {
+        if !escaped.isQuoted,
+            escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil ||
+            invalidStrings.contains(where: { escaped.range(of: $0) != nil }) {
             escaped = escaped.quoted
         }
 

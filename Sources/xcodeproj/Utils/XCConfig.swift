@@ -147,7 +147,7 @@ extension XCConfig: Writable {
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(content)

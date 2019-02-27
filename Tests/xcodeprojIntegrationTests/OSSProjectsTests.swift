@@ -1,8 +1,8 @@
 import Foundation
 import PathKit
 import SwiftShell
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 final class OSSProjectsTests: XCTestCase {
     var tempDirectory = Path.temporary

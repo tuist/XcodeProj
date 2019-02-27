@@ -1,6 +1,6 @@
 import Foundation
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 final class PBXLegacyTargetTests: XCTestCase {
     var subject: PBXLegacyTarget!
