@@ -82,11 +82,15 @@ extension PBXBuildFile {
         } else if let buildPhase = projectObjects.frameworksBuildPhases
             .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.resourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects
+            .resourcesBuildPhases.values
+            .first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.copyFilesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.copyFilesBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.headersBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.headersBuildPhases
+            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
             return buildPhase
         } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
             .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
@@ -108,19 +112,19 @@ extension PBXBuildFile {
 }
 
 // MARK: - PlistSerializable
+
 // Helper for serialize the BuildFile with associated BuildPhase
 final class PBXBuildPhaseFile: PlistSerializable, Equatable {
-
     var multiline: Bool { return false }
-    
+
     let buildFile: PBXBuildFile
     let buildPhase: PBXBuildPhase
-    
+
     init(buildFile: PBXBuildFile, buildPhase: PBXBuildPhase) {
         self.buildFile = buildFile
         self.buildPhase = buildPhase
     }
-    
+
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
@@ -139,5 +143,4 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
     static func == (lhs: PBXBuildPhaseFile, rhs: PBXBuildPhaseFile) -> Bool {
         return lhs.buildFile == rhs.buildFile && lhs.buildPhase == rhs.buildPhase
     }
-
 }

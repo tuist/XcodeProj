@@ -1,6 +1,6 @@
 import Foundation
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 final class PBXProjObjectsHelpersTests: XCTestCase {
     var subject: PBXObjects!

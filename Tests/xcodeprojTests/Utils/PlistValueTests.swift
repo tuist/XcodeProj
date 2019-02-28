@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 class Dictionary_PlistValueTests: XCTestCase {
     func test_dictionaryPlistValue_returnsTheCorrectValue() {

@@ -412,7 +412,7 @@ public final class XCBreakpointList: Equatable, Writable {
         self.breakpoints.map({ $0.xmlElement() }).forEach({ breakpoints.addChild($0) })
         bucket.addChild(breakpoints)
 
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)

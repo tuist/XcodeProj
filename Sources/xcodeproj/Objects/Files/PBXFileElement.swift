@@ -140,7 +140,7 @@ public extension PBXFileElement {
     /// - Parameter sourceRoot: project source root.
     /// - Returns: file element absolute path.
     /// - Throws: an error if the absolute path cannot be obtained.
-    public func fullPath(sourceRoot: Path) throws -> Path? {
+    func fullPath(sourceRoot: Path) throws -> Path? {
         let projectObjects = try objects()
         switch sourceTree {
         case .absolute?:

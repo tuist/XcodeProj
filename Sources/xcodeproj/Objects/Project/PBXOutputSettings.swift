@@ -1,4 +1,3 @@
-
 import Foundation
 
 /// Code for controlling sorting of files in an pbxproj file.
@@ -46,7 +45,7 @@ public enum PBXFileOrder {
             return lhs.0 < rhs.0
         }
     }
-    
+
     internal func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
         switch self {
         case .byFilename:

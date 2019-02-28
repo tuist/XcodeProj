@@ -90,7 +90,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public func write(path: Path, override: Bool) throws {
         let encoder = PropertyListEncoder()
         let data = try encoder.encode(self)
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(data)

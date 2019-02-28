@@ -1,14 +1,13 @@
 import Foundation
 
 final class PBXObjectParser {
-    
     private let userInfo: [CodingUserInfoKey: Any]
     private let decoder = XcodeprojJSONDecoder()
-    
+
     init(userInfo: [CodingUserInfoKey: Any]) {
         self.userInfo = userInfo
     }
-    
+
     // swiftlint:disable function_body_length
     public func parse(reference: String, dictionary: [String: Any]) throws -> PBXObject {
         var mutableDictionary = dictionary
@@ -67,6 +66,6 @@ final class PBXObjectParser {
             throw PBXObjectError.unknownElement(isa)
         }
     }
-    
+
     // swiftlint:enable function_body_length
 }

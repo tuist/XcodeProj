@@ -9,12 +9,14 @@ extension XCScheme {
             case auto = "0"
             case wait = "1"
         }
+
         public enum GPUFrameCaptureMode: String {
             case autoEnabled = "0"
-            case Metal = "1"
-            case OpenGL = "2"
+            case metal = "1"
+            case openGL = "2"
             case disabled = "3"
         }
+
         public enum GPUValidationMode: String {
             case enabled = "0"
             case disabled = "1"
@@ -123,6 +125,7 @@ extension XCScheme {
             super.init(preActions, postActions)
         }
 
+        // swiftlint:disable:next function_body_length
         override init(element: AEXMLElement) throws {
             buildConfiguration = element.attributes["buildConfiguration"] ?? LaunchAction.defaultBuildConfiguration
             selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
@@ -149,8 +152,10 @@ extension XCScheme {
                 locationScenarioReference = nil
             }
 
-            enableGPUFrameCaptureMode = element.attributes["enableGPUFrameCaptureMode"].flatMap { GPUFrameCaptureMode(rawValue: $0) } ?? LaunchAction.defaultGPUFrameCaptureMode
-            enableGPUValidationMode = element.attributes["enableGPUValidationMode"].flatMap { GPUValidationMode(rawValue: $0) } ?? LaunchAction.defaultGPUValidationMode
+            enableGPUFrameCaptureMode = element.attributes["enableGPUFrameCaptureMode"]
+                .flatMap { GPUFrameCaptureMode(rawValue: $0) } ?? LaunchAction.defaultGPUFrameCaptureMode
+            enableGPUValidationMode = element.attributes["enableGPUValidationMode"]
+                .flatMap { GPUValidationMode(rawValue: $0) } ?? LaunchAction.defaultGPUValidationMode
             enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
             enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
             enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"

@@ -1,6 +1,6 @@
 
-@testable import xcodeproj
 import XCTest
+@testable import xcodeproj
 
 class PBXOutputSettingsTsts: XCTestCase {
     var proj: PBXProj!
@@ -9,7 +9,7 @@ class PBXOutputSettingsTsts: XCTestCase {
 
     var objectBuildFileAssets: (PBXObjectReference, PBXBuildFile)!
     var objectBuildFileMain: (PBXObjectReference, PBXBuildFile)!
-    
+
     var objectBuildPhaseFileAssets: (PBXObjectReference, PBXBuildPhaseFile)!
     var objectBuildPhaseFileMain: (PBXObjectReference, PBXBuildPhaseFile)!
 
@@ -31,7 +31,7 @@ class PBXOutputSettingsTsts: XCTestCase {
         let dic = iosProjectDictionary()
         do {
             proj = try PBXProj(jsonDictionary: dic.1)
-        } catch let error {
+        } catch {
             XCTFail("Failed to load project from file \(error)")
         }
 
@@ -41,7 +41,7 @@ class PBXOutputSettingsTsts: XCTestCase {
 
         objectBuildFileAssets = (buildFileAssets.reference, buildFileAssets)
         objectBuildFileMain = (buildFileMain.reference, buildFileMain)
-        
+
         objectBuildPhaseFileAssets = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Assets.xcassets" }!
         objectBuildPhaseFileMain = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Main.storyboard" }!
 
@@ -89,14 +89,14 @@ class PBXOutputSettingsTsts: XCTestCase {
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: (ref1, buildFileAssets), rhs: (ref2, buildFileMain)))
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: (ref2, buildFileMain), rhs: (ref1, buildFileAssets)))
     }
-    
+
     // MARK: - PBXFileOrder - PBXBuildPhaseFile
-    
+
     func test_PBXFileOrder_PBXBuildPhaseFile_by_uuid() {
         XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: objectBuildPhaseFileAssets, rhs: objectBuildPhaseFileMain))
         XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: objectBuildPhaseFileMain, rhs: objectBuildPhaseFileAssets))
     }
-    
+
     func test_PBXFileOrder_PBXBuildPhaseFile_by_filename() {
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectBuildPhaseFileAssets, rhs: objectBuildPhaseFileMain))
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectBuildPhaseFileMain, rhs: objectBuildPhaseFileAssets))
