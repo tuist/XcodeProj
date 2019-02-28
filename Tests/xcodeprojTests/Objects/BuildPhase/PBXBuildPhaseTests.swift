@@ -3,7 +3,6 @@ import XCTest
 @testable import xcodeproj
 
 final class PBXBuildPhaseTests: XCTestCase {
-
     var subject: PBXBuildPhase!
     var proj: PBXProj!
 
@@ -38,6 +37,5 @@ final class PBXBuildPhaseTests: XCTestCase {
 
         let fileOccurrencesCount = subject.files.filter { $0 == buildFile }.count
         XCTAssertTrue(fileOccurrencesCount == 1, "Expected adding a file only once but it didn't")
-
     }
 }
