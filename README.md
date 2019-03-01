@@ -14,9 +14,7 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 ---
 
 - [Projects Using xcodeproj](#projects-using-xcodeproj)
-- [Migration Guides](#migration-guides)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -41,7 +39,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.5.0")),
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.6.0")),
         ],
     targets: [
         .target(
@@ -56,13 +54,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 6.5.0
+github "tuist/xcodeproj" ~> 6.6.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 6.5.0'
+pod 'xcodeproj', '~> 6.6.0'
 ```
 
 ## Scripting
@@ -110,10 +108,6 @@ automatically. If so, we recommend using a library that provides a `Version`
 object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
-
-## Usage 
-
-You can check out the documentation on the following [link](https://tuist.github.io/xcodeproj/index.html). The documentation is automatically generated in every release by using [Jazzy](https://github.com/realm/jazzy) from [Realm](https://realm.io).
 
 ### References 📚
 

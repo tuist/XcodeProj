@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.6.0
+
 ### Fixed
 - Fix adding files to `PBXBuildPhase` https://github.com/tuist/xcodeproj/pull/380 @danilsmakotin.
 - Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson.
