@@ -18,18 +18,6 @@ final class FileWriterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_write_string_when_fileHasntChanged() throws {
-        // Given
-        let data = "test".data(using: .utf8)!
-        try path.write(data)
-
-        // When
-        let written = try subject.write(string: "test", to: path)
-
-        // Then
-        XCTAssertFalse(written)
-    }
-
     func test_write_string_when_fileDoesntExist() throws {
         // Given
         XCTAssertFalse(path.exists)
@@ -54,18 +42,6 @@ final class FileWriterTests: XCTestCase {
         XCTAssertTrue(written)
         XCTAssertTrue(path.exists)
         XCTAssertEqual(content, "changed")
-    }
-
-    func test_write_data_when_fileHasntChanged() throws {
-        // Given
-        let data = "test".data(using: .utf8)!
-        try path.write(data)
-
-        // When
-        let written = try subject.write(data: data, to: path)
-
-        // Then
-        XCTAssertFalse(written)
     }
 
     func test_write_data_when_fileDoesntExist() throws {
