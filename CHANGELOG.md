@@ -2,6 +2,9 @@
 
 ## next version
 
+### Fixed
+- Fixed file full path performance issue https://github.com/tuist/xcodeproj/pull/372 by @CognitiveDisson.
+
 ## 6.6.0
 
 ### Fixed

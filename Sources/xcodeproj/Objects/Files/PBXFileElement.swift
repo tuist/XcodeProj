@@ -29,6 +29,9 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     /// Element wraps lines.
     public var wrapsLines: Bool?
 
+    /// Element parent.
+    public weak var parent: PBXFileElement?
+
     // MARK: - Init
 
     /// Initializes the file element with its properties.
@@ -59,6 +62,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         self.tabWidth = tabWidth
         self.wrapsLines = wrapsLines
         super.init()
+        assignParentToChildren()
     }
 
     // MARK: - Decodable
@@ -141,17 +145,33 @@ public extension PBXFileElement {
     /// - Returns: file element absolute path.
     /// - Throws: an error if the absolute path cannot be obtained.
     func fullPath(sourceRoot: Path) throws -> Path? {
-        let projectObjects = try objects()
         switch sourceTree {
         case .absolute?:
             return path.flatMap { Path($0) }
         case .sourceRoot?:
             return path.flatMap { sourceRoot + $0 }
         case .group?:
-            guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
-            guard let groupPath = try group.value.fullPath(sourceRoot: sourceRoot) else { return nil }
-            guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return groupPath }
-            return groupPath + filePath
+            let groupPath: Path?
+
+            if let group = parent {
+                groupPath = try group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
+            } else {
+                let projectObjects = try objects()
+                let isThisElementRoot = projectObjects.projects.values.first(where: { $0.mainGroup == self }) != nil
+                if isThisElementRoot {
+                    if let path = path {
+                        return sourceRoot + Path(path)
+                    }
+                    return sourceRoot
+                }
+                // Fallback if parent is nil and it's not root element
+                guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
+                groupPath = try group.value.fullPath(sourceRoot: sourceRoot)
+            }
+
+            guard let fullGroupPath: Path = groupPath else { return nil }
+            guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return fullGroupPath }
+            return fullGroupPath + filePath
         default:
             return nil
         }
@@ -168,5 +188,15 @@ public extension PBXFileElement {
             .compactMap({ try $0.getThrowingObject() as PBXFileElement })
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
+    }
+
+    // This method is needed to recursively set the parent to all elements.
+    // This allows us to more quickly find the full path to the elements.
+    func assignParentToChildren() {
+        guard let group = self as? PBXGroup else { return }
+        for child in group.children {
+            child.parent = self
+            child.assignParentToChildren()
+        }
     }
 }
