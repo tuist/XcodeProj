@@ -28,7 +28,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
 
     /// Element wraps lines.
     public var wrapsLines: Bool?
-    
+
     /// Element parent.
     public weak var parent: PBXFileElement?
 
@@ -152,7 +152,7 @@ public extension PBXFileElement {
             return path.flatMap { sourceRoot + $0 }
         case .group?:
             let groupPath: Path?
-            
+
             if let group = parent {
                 groupPath = try group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
             } else {
@@ -168,7 +168,7 @@ public extension PBXFileElement {
                 guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
                 groupPath = try group.value.fullPath(sourceRoot: sourceRoot)
             }
-            
+
             guard let fullGroupPath: Path = groupPath else { return nil }
             guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return fullGroupPath }
             return fullGroupPath + filePath
@@ -189,7 +189,7 @@ public extension PBXFileElement {
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
     }
-    
+
     // This method is needed to recursively set the parent to all elements.
     // This allows us to more quickly find the full path to the elements.
     func assignParentToChildren() {

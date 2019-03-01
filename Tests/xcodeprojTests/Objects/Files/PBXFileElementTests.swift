@@ -55,7 +55,7 @@ final class PBXFileElementTests: XCTestCase {
         XCTAssertEqual(fullPath?.string, "/a/path")
         XCTAssertNotNil(group.children.first?.parent)
     }
-    
+
     func test_fullPath_without_parent() throws {
         let sourceRoot = Path("/")
         let fileref = PBXFileReference(sourceTree: .group,
@@ -66,13 +66,13 @@ final class PBXFileElementTests: XCTestCase {
         let group = PBXGroup(children: [fileref],
                              sourceTree: .group,
                              name: "/to/be/ignored")
-        
+
         let objects = PBXObjects(objects: [fileref, group])
         fileref.reference.objects = objects
         group.reference.objects = objects
         // Remove parent for fallback test
         fileref.parent = nil
-        
+
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/a/path")
     }

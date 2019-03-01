@@ -89,7 +89,7 @@ public final class PBXProj: Decodable {
             objects.add(object: object)
         }
         self.objects = objects
-        
+
         try rootGroup()?.assignParentToChildren()
     }
 }
