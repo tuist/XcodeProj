@@ -63,7 +63,7 @@ github "tuist/xcodeproj" ~> 6.6.0
 pod 'xcodeproj', '~> 6.6.0'
 ```
 
-## Scripting
+### Scripting
 
 Using [`swift-sh`] you can automate project-tasks using scripts, for example we
 can make a script that keeps a project’s version key in sync with the current
@@ -109,7 +109,11 @@ object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
 
-### References 📚
+## Documentation 📝
+
+Want to start using xcodeproj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.
+
+## References 📚
 
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
 - [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
