@@ -111,20 +111,19 @@ extension XcodeProj: Writable {
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if project already exists at the given path.
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
-        let temporaryPath = try Path.uniqueTemporary()
+        try path.mkpath()
         try OSLogger.instance.log(name: "Write workspace", path.string) {
-            try writeWorkspace(path: temporaryPath, override: override)
+            try writeWorkspace(path: path, override: override)
         }
         try OSLogger.instance.log(name: "Write pbxproj", path.string) {
-            try writePBXProj(path: temporaryPath, override: override, outputSettings: outputSettings)
+            try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         }
         try OSLogger.instance.log(name: "Write schemes", path.string) {
-            try writeSchemes(path: temporaryPath, override: override)
+            try writeSchemes(path: path, override: override)
         }
         try OSLogger.instance.log(name: "Write breakpoints", path.string) {
-            try writeBreakPoints(path: temporaryPath, override: override)
+            try writeBreakPoints(path: path, override: override)
         }
-        _ = try FileManager.default.replaceItemAt(path.url, withItemAt: temporaryPath.url)
     }
 
     /// Returns workspace file path relative to the given path.

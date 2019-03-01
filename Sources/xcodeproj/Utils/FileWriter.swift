@@ -37,9 +37,10 @@ class FileWriter: FileWriting {
     /// - Returns: True if the file was writen.
     @discardableResult
     func write(data: Data, to: Path) throws -> Bool {
-        let temporaryPath = try Path.uniqueTemporary() + to.lastComponent
-        try temporaryPath.write(data)
-        _ = try FileManager.default.replaceItemAt(to.url, withItemAt: temporaryPath.url)
+        if to.exists, try Data(contentsOf: to.url) == data {
+            return false
+        }
+        try to.write(data)
         return true
     }
 
@@ -53,9 +54,10 @@ class FileWriter: FileWriting {
     /// - Returns: True if the file was writen.
     @discardableResult
     func write(string: String, to: Path) throws -> Bool {
-        let temporaryPath = try Path.uniqueTemporary() + to.lastComponent
-        try temporaryPath.write(string)
-        _ = try FileManager.default.replaceItemAt(to.url, withItemAt: temporaryPath.url)
+        if to.exists, try String(contentsOf: to.url) == string {
+            return false
+        }
+        try to.write(string)
         return true
     }
 }
