@@ -321,6 +321,7 @@ final class PBXProjEncoder {
             let element = arg as! PBXProjElement
             var array = [String]()
             var tmpStateHolder = StateHolder()
+            tmpStateHolder.indent = 2
             write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: element.multiline, stateHolder: &tmpStateHolder, to: &array)
             lock.whileLocked {
                 resultArray[index] = array
