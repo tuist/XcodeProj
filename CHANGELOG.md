@@ -2,6 +2,9 @@
 
 ## next version
 
+### Added
+- Add location variable to XCWorkspaceDataElement https://github.com/tuist/xcodeproj/pull/387 by @pepibumur.
+
 ### Fixed
 - Fixed file full path performance issue https://github.com/tuist/xcodeproj/pull/372 by @CognitiveDisson.
 
