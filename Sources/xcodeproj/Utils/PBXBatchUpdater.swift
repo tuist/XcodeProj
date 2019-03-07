@@ -17,21 +17,23 @@ public final class PBXBatchUpdater {
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
-    ///   - filePath: path to the file.
+    ///   - fileName: file name.
     ///   - sourceTree: file sourceTree, default is `.group`
     ///   - sourceRoot: path to project's source root.
     /// - Returns: new or existing file and its reference.
     @discardableResult
     public func addFile(
         to group: PBXGroup,
-        at filePath: Path,
+        fileName: String,
         sourceTree: PBXSourceTree = .group
         ) throws -> PBXFileReference {
+        
+        let groupPath = try group.fullPath(sourceRoot: sourceRoot)
+        let filePath = (groupPath ?? sourceRoot) + Path(fileName)
         
         guard filePath.exists else {
             throw XcodeprojEditingError.unexistingFile(filePath)
         }
-        let groupPath = try group.fullPath(sourceRoot: sourceRoot)
         
         // Lazy initialization
         let objectReferences: [Path: PBXObjectReference]

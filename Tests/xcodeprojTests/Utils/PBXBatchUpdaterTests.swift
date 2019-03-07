@@ -7,7 +7,7 @@ import XCTest
 class PBXBatchUpdaterTests: XCTestCase {
 
     func test_addFile_addAllFiles() {
-        let sourceRoot = Path("/")
+        let sourceRoot = Path.temporary
         let proj = PBXProj.fixture()
         let fileref = PBXFileReference(sourceTree: .group,
                                        fileEncoding: 1,
@@ -21,9 +21,10 @@ class PBXBatchUpdaterTests: XCTestCase {
         proj.add(object: group)
         
         try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
-            let filePath = "\(Path.temporary.string)/file"
+            let fileName = "file.swift"
+            let filePath = "\(sourceRoot.string)/\(fileName)"
             Files.createFile(atPath: filePath, contents: nil, attributes: nil)
-            try updater.addFile(to: group, at: Path(filePath))
+            try updater.addFile(to: group, fileName: fileName)
         }
         
         XCTAssertEqual(proj.fileReferences.count, 2)
