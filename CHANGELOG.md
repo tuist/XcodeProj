@@ -3,6 +3,7 @@
 ## next version
 
 ### Added
+- Add BatchUpdater to quickly add files to the group https://github.com/tuist/xcodeproj/pull/388 by @CognitiveDisson.
 - Add location variable to XCWorkspaceDataElement https://github.com/tuist/xcodeproj/pull/387 by @pepibumur.
 
 ### Fixed
