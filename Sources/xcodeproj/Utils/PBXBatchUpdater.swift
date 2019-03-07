@@ -4,16 +4,15 @@ import PathKit
 // This is a helper class for quickly adding a large number of files.
 // It is forbidden to add a file to a group one by one using the PBXGroup method addFile(...) while you are working with this class.
 public final class PBXBatchUpdater {
-    
     private let projectObjects: PBXObjects
     private let sourceRoot: Path
-    private var references: [Path: PBXObjectReference]? = nil
-    
+    private var references: [Path: PBXObjectReference]?
+
     init(projectObjects: PBXObjects, sourceRoot: Path) {
         self.projectObjects = projectObjects
         self.sourceRoot = sourceRoot
     }
-    
+
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
@@ -26,15 +25,14 @@ public final class PBXBatchUpdater {
         to group: PBXGroup,
         fileName: String,
         sourceTree: PBXSourceTree = .group
-        ) throws -> PBXFileReference {
-        
+    ) throws -> PBXFileReference {
         let groupPath = try group.fullPath(sourceRoot: sourceRoot)
         let filePath = (groupPath ?? sourceRoot) + Path(fileName)
-        
+
         guard filePath.exists else {
             throw XcodeprojEditingError.unexistingFile(filePath)
         }
-        
+
         // Lazy initialization
         let objectReferences: [Path: PBXObjectReference]
         if let references = self.references {
@@ -44,11 +42,10 @@ public final class PBXBatchUpdater {
                 try projectObjects.fileReferences.compactMap({
                     guard let fullPath = try $0.value.fullPath(sourceRoot: sourceRoot) else { return nil }
                     return (fullPath, $0.key)
-                })
-            )
+            }))
             references = objectReferences
         }
-        
+
         if let existingObjectReference = objectReferences[filePath],
             let existingFileReference = projectObjects.fileReferences[existingObjectReference] {
             if !group.childrenReferences.contains(existingObjectReference) {
@@ -56,7 +53,7 @@ public final class PBXBatchUpdater {
                 group.childrenReferences.append(existingObjectReference)
             }
         }
-        
+
         let path: String?
         switch sourceTree {
         case .group:
