@@ -11,8 +11,13 @@ extension PlistSerializable {
 }
 
 final class StateHolder {
-    var indent: UInt = 0
-    var multiline: Bool = true
+    var indent: UInt
+    var multiline: Bool
+
+    init(indent: UInt = 0, multiline: Bool = true) {
+        self.indent = indent
+        self.multiline = multiline
+    }
 
     func increaseIndent() {
         indent += 1
@@ -20,6 +25,10 @@ final class StateHolder {
 
     func decreaseIndent() {
         indent -= 1
+    }
+
+    func copy() -> StateHolder {
+        return StateHolder(indent: indent, multiline: multiline)
     }
 }
 
@@ -320,7 +329,7 @@ final class PBXProjEncoder {
             // swiftlint:disable:next force_cast
             let element = arg as! PBXProjElement
             var array = [String]()
-            var tmpStateHolder = StateHolder()
+            var tmpStateHolder = stateHolder.copy()
             write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: element.multiline, stateHolder: &tmpStateHolder, to: &array)
             lock.whileLocked {
                 resultArray[index] = array

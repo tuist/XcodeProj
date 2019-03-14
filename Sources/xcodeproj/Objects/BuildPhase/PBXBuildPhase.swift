@@ -94,7 +94,9 @@ public class PBXBuildPhase: PBXContainerItem {
             let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
             return .string(CommentedString(fileReference.value, comment: comment))
         })
-        dictionary["files"] = files
+        if !fileReferences.isEmpty {
+            dictionary["files"] = files
+        }
         if let inputFileListPaths = inputFileListPaths {
             dictionary["inputFileListPaths"] = .array(inputFileListPaths.map({ .string(CommentedString($0)) }))
         }

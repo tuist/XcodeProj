@@ -363,7 +363,7 @@ extension PBXObjects {
     var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
         let values: [[PBXBuildPhaseFile]] = buildPhases.values.map({ buildPhase in
             let files = buildPhase.files
-            let buildPhaseFile: [PBXBuildPhaseFile] = files.compactMap({ (file: PBXBuildFile) -> (PBXBuildPhaseFile) in
+            let buildPhaseFile: [PBXBuildPhaseFile] = files.compactMap({ (file: PBXBuildFile) -> PBXBuildPhaseFile in
                 PBXBuildPhaseFile(
                     buildFile: file,
                     buildPhase: buildPhase
