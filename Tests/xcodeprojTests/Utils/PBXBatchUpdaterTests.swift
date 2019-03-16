@@ -55,7 +55,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, expectedGroupCount)
     }
-    
+
     func test_addFile_byFileName() {
         let sourceRoot = Path.temporary
         let mainGroupPath = UUID().uuidString
@@ -76,11 +76,11 @@ class PBXBatchUpdaterTests: XCTestCase {
                 Path(filePath)
             )
         }
-        
+
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, 1)
     }
-    
+
     func test_addFile_alreadyExisted() {
         let sourceRoot = Path.temporary
         let mainGroupPath = UUID().uuidString
@@ -111,11 +111,11 @@ class PBXBatchUpdaterTests: XCTestCase {
                 secondFile
             )
         }
-        
+
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, 1)
     }
-    
+
     func test_addFile_alreadyExistedWithSubgroups() {
         let sourceRoot = Path.temporary
         let mainGroupPath = UUID().uuidString
@@ -149,7 +149,7 @@ class PBXBatchUpdaterTests: XCTestCase {
                 secondFile
             )
         }
-        
+
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, expectedGroupCount)
     }
