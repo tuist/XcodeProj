@@ -4,12 +4,12 @@ import PathKit
 // This is a helper class for quickly adding a large number of files.
 // It is forbidden to add a file to a group one by one using the PBXGroup method addFile(...) while you are working with this class.
 public final class PBXBatchUpdater {
-    private let projectObjects: PBXObjects
+    private let objects: PBXObjects
     private let sourceRoot: Path
     private var references: [Path: PBXObjectReference]?
 
-    init(projectObjects: PBXObjects, sourceRoot: Path) {
-        self.projectObjects = projectObjects
+    init(objects: PBXObjects, sourceRoot: Path) {
+        self.objects = objects
         self.sourceRoot = sourceRoot
     }
 
@@ -29,28 +29,13 @@ public final class PBXBatchUpdater {
         let groupPath = try group.fullPath(sourceRoot: sourceRoot)
         let filePath = (groupPath ?? sourceRoot) + Path(fileName)
 
-        guard filePath.exists else {
-            throw XcodeprojEditingError.unexistingFile(filePath)
-        }
-
-        // Lazy initialization
-        let objectReferences: [Path: PBXObjectReference]
-        if let references = self.references {
-            objectReferences = references
-        } else {
-            objectReferences = Dictionary(uniqueKeysWithValues:
-                try projectObjects.fileReferences.compactMap({
-                    guard let fullPath = try $0.value.fullPath(sourceRoot: sourceRoot) else { return nil }
-                    return (fullPath, $0.key)
-            }))
-            references = objectReferences
-        }
-
+        let objectReferences = try lazilyInstantiateObjectReferences()
         if let existingObjectReference = objectReferences[filePath],
-            let existingFileReference = projectObjects.fileReferences[existingObjectReference] {
+            let existingFileReference = objects.fileReferences[existingObjectReference] {
             if !group.childrenReferences.contains(existingObjectReference) {
                 existingFileReference.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
                 group.childrenReferences.append(existingObjectReference)
+                return existingFileReference
             }
         }
 
@@ -72,12 +57,28 @@ public final class PBXBatchUpdater {
             lastKnownFileType: filePath.extension.flatMap(Xcode.filetype),
             path: path
         )
-        projectObjects.add(object: fileReference)
+        objects.add(object: fileReference)
         fileReference.parent = group
         references?[filePath] = fileReference.reference
         if !group.childrenReferences.contains(fileReference.reference) {
             group.childrenReferences.append(fileReference.reference)
         }
         return fileReference
+    }
+
+    private func lazilyInstantiateObjectReferences()
+        throws -> [Path: PBXObjectReference] {
+        let objectReferences: [Path: PBXObjectReference]
+        if let references = self.references {
+            objectReferences = references
+        } else {
+            objectReferences = Dictionary(uniqueKeysWithValues:
+                try objects.fileReferences.compactMap({
+                    let fullPath = try $0.value.fullPath(sourceRoot: sourceRoot)!
+                    return (fullPath, $0.key)
+            }))
+            references = objectReferences
+        }
+        return objectReferences
     }
 }

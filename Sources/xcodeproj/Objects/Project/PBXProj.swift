@@ -186,7 +186,7 @@ public extension PBXProj {
     ///     - closure: closure in which you get the updater and can call the add method on it.
     func batchUpdate(sourceRoot: Path, closure: (PBXBatchUpdater) throws -> Void) throws {
         let fileBatchUpdater = PBXBatchUpdater(
-            projectObjects: objects,
+            objects: objects,
             sourceRoot: sourceRoot
         )
         try closure(fileBatchUpdater)

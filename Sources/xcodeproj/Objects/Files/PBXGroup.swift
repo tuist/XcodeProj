@@ -154,9 +154,6 @@ public extension PBXGroup {
         sourceRoot: Path
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
-        guard filePath.exists else {
-            throw XcodeprojEditingError.unexistingFile(filePath)
-        }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
         if let existingFileReference = try projectObjects.fileReferences.first(where: {
@@ -164,8 +161,8 @@ public extension PBXGroup {
             guard let fileRefPath = $0.value.path else {
                 return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
             }
-            let fileRefLPC = (fileRefPath as NSString).lastPathComponent
-            if filePath.lastComponent == fileRefLPC {
+            let fileRefLastPathComponent = fileRefPath.split(separator: "/").last!
+            if filePath.lastComponent == fileRefLastPathComponent {
                 return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
             }
             return false
@@ -173,6 +170,7 @@ public extension PBXGroup {
             if !childrenReferences.contains(existingFileReference.key) {
                 existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
                 childrenReferences.append(existingFileReference.key)
+                return existingFileReference.value
             }
         }
 
