@@ -5,11 +5,12 @@ import XCTest
 @testable import xcodeproj
 
 final class OSSProjectsTests: XCTestCase {
-    var tempDirectory = Path.temporary
+    var tempDirectory = Path.temporary + Path(UUID().uuidString)
 
     override func setUp() {
         super.setUp()
         try? tempDirectory.delete()
+        try? tempDirectory.mkdir()
     }
 
     override func tearDown() {

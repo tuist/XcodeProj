@@ -168,10 +168,9 @@ public extension PBXGroup {
             return false
         }) {
             if !childrenReferences.contains(existingFileReference.key) {
-                existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
                 childrenReferences.append(existingFileReference.key)
-                return existingFileReference.value
             }
+            return existingFileReference.value
         }
 
         let path: String?
