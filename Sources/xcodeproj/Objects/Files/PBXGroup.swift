@@ -62,7 +62,7 @@ public class PBXGroup: PBXFileElement {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let childrenReferences: [String] = (try container.decodeIfPresent(.children)) ?? []
-        self.childrenReferences = childrenReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.childrenReferences = childrenReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         try super.init(from: decoder)
     }
 
@@ -71,10 +71,10 @@ public class PBXGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["children"] = .array(childrenReferences.map({ (fileReference) -> PlistValue in
+        dictionary["children"] = .array(childrenReferences.map { (fileReference) -> PlistValue in
             let fileElement: PBXFileElement? = fileReference.getObject()
             return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
-        }))
+        })
 
         return (key: CommentedString(reference,
                                      comment: name ?? path),
@@ -130,14 +130,14 @@ public extension PBXGroup {
     @discardableResult
     func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
         let objects = try self.objects()
-        return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
+        return groupName.components(separatedBy: "/").reduce(into: [PBXGroup]()) { groups, name in
             let group = groups.last ?? self
             let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
             newGroup.parent = self
             group.childrenReferences.append(newGroup.reference)
             objects.add(object: newGroup)
             groups.append(newGroup)
-        })
+        }
     }
 
     /// Adds file at the give path to the project or returns existing file and its reference.
@@ -176,7 +176,7 @@ public extension PBXGroup {
         let path: String?
         switch sourceTree {
         case .group:
-            path = groupPath.map({ filePath.relative(to: $0) })?.string
+            path = groupPath.map { filePath.relative(to: $0) }?.string
         case .sourceRoot:
             path = filePath.relative(to: sourceRoot).string
         case .absolute:
