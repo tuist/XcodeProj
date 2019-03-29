@@ -76,7 +76,7 @@ public class PBXBuildPhase: PBXContainerItem {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
         let fileReferences: [String] = try container.decodeIfPresent(.files) ?? []
-        self.fileReferences = fileReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.fileReferences = fileReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         inputFileListPaths = try container.decodeIfPresent(.inputFileListPaths)
         outputFileListPaths = try container.decodeIfPresent(.outputFileListPaths)
         runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
@@ -96,10 +96,10 @@ public class PBXBuildPhase: PBXContainerItem {
         })
         dictionary["files"] = files
         if let inputFileListPaths = inputFileListPaths {
-            dictionary["inputFileListPaths"] = .array(inputFileListPaths.map({ .string(CommentedString($0)) }))
+            dictionary["inputFileListPaths"] = .array(inputFileListPaths.map { .string(CommentedString($0)) })
         }
         if let outputFileListPaths = outputFileListPaths {
-            dictionary["outputFileListPaths"] = .array(outputFileListPaths.map({ .string(CommentedString($0)) }))
+            dictionary["outputFileListPaths"] = .array(outputFileListPaths.map { .string(CommentedString($0)) })
         }
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary

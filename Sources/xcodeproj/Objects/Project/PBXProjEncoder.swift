@@ -336,7 +336,7 @@ final class PBXProjEncoder {
             }
         }
 
-        let joinedArray: [String] = resultArray.flatMap({ $0 })
+        let joinedArray: [String] = resultArray.flatMap { $0 }
         // should check multiline
         output.append(contentsOf: joinedArray)
         write(string: "/* End \(section) section */", to: &output)
@@ -357,13 +357,13 @@ final class PBXProjEncoder {
                 return left.key.string < right.key.string
             }
         })
-        sorted.forEach({
+        sorted.forEach {
             write(dictionaryKey: $0.key,
                   dictionaryValue: $0.value,
                   multiline: stateHolder.multiline,
                   stateHolder: &stateHolder,
                   to: &output)
-        })
+        }
         writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
     }
 

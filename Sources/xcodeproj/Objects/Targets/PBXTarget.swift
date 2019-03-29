@@ -131,11 +131,11 @@ public class PBXTarget: PBXContainerItem {
             buildConfigurationListReference = nil
         }
         let buildPhaseReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
-        self.buildPhaseReferences = buildPhaseReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.buildPhaseReferences = buildPhaseReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         let buildRuleReferences: [String] = try container.decodeIfPresent(.buildRules) ?? []
-        self.buildRuleReferences = buildRuleReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.buildRuleReferences = buildRuleReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         let dependencyReferences: [String] = try container.decodeIfPresent(.dependencies) ?? []
-        self.dependencyReferences = dependencyReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.dependencyReferences = dependencyReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         productName = try container.decodeIfPresent(.productName)
         if let productReferenceString: String = try container.decodeIfPresent(.productReference) {
             productReference = objectReferenceRepository.getOrCreate(reference: productReferenceString, objects: objects)
@@ -200,8 +200,8 @@ public extension PBXTarget {
     /// - Throws: an error if the build phase cannot be obtained.
     func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
         return try buildPhaseReferences
-            .compactMap({ try $0.getThrowingObject() as? PBXBuildPhase })
-            .filter({ $0.buildPhase == .sources })
+            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+            .filter { $0.buildPhase == .sources }
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
     }
@@ -212,8 +212,8 @@ public extension PBXTarget {
     /// - Throws: an error if the build phase cannot be obtained.
     func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
         return try buildPhaseReferences
-            .compactMap({ try $0.getThrowingObject() as? PBXResourcesBuildPhase })
-            .filter({ $0.buildPhase == .resources })
+            .compactMap { try $0.getThrowingObject() as? PBXResourcesBuildPhase }
+            .filter { $0.buildPhase == .resources }
             .first
     }
 

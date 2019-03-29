@@ -33,7 +33,7 @@ extension XCScheme {
                                     "key": key,
                                     "value": value,
                                     "isEnabled": isEnabled.xmlString,
-            ])
+                                ])
         }
 
         // MARK: - Equatable

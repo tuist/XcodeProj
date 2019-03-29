@@ -135,7 +135,7 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         if let settings = buildFile.settings {
             dictionary["settings"] = settings.plist()
         }
-        let comment = try buildPhase.name().flatMap({ "\(try buildFile.fileName() ?? "(null)") in \($0)" })
+        let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
     }

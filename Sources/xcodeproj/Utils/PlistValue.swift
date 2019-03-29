@@ -105,7 +105,7 @@ extension Dictionary where Key == String {
 
 extension Array {
     func plist() -> PlistValue {
-        return .array(compactMap({ (element) -> PlistValue? in
+        return .array(compactMap { (element) -> PlistValue? in
             if let array = element as? [Any] {
                 return array.plist()
             } else if let dictionary = element as? [String: Any] {
@@ -114,6 +114,6 @@ extension Array {
                 return PlistValue.string(CommentedString(string.description))
             }
             return nil
-        }))
+        })
     }
 }

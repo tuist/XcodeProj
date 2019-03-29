@@ -52,10 +52,10 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Targets
         let targets: [PBXTarget] = project.targets
-        try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
+        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         // Project references
-        try project.projectReferences.flatMap({ $0.values }).forEach { objectReference in
+        try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             guard let fileReference: PBXFileReference = objectReference.getObject() else { return }
             try generateFileReference(fileReference, identifiers: identifiers)
         }
@@ -166,16 +166,16 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Build phases
         let buildPhases: [PBXBuildPhase] = target.buildPhaseReferences.objects()
-        try buildPhases.forEach({ try generateBuildPhaseReferences($0,
-                                                                   identifiers: identifiers) })
+        try buildPhases.forEach { try generateBuildPhaseReferences($0,
+                                                                   identifiers: identifiers) }
 
         // Build rules
         let buildRules: [PBXBuildRule] = target.buildRuleReferences.objects()
-        try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
+        try buildRules.forEach { try generateBuildRules($0, identifiers: identifiers) }
 
         // Dependencies
         let dependencies: [PBXTargetDependency] = target.dependencyReferences.objects()
-        try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
+        try dependencies.forEach { try generateTargetDependencyReferences($0, identifiers: identifiers) }
     }
 
     /// Generates the reference for a target dependency object.
