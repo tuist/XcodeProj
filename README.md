@@ -20,12 +20,12 @@ xcodeproj is a library written in Swift for parsing and working with Xcode proje
 
 ## Projects Using xcodeproj
 
-| Project | Repository             |
-|---------|------------------------|
-| Tuist   | [github.com/tuist/tuist](https://github.com/tuist/tuist) |
+| Project  | Repository                                                                             |
+| -------- | -------------------------------------------------------------------------------------- |
+| Tuist    | [github.com/tuist/tuist](https://github.com/tuist/tuist)                               |
 | Sourcery | [github.com/krzysztofzablocki/Sourcery](https://github.com/krzysztofzablocki/Sourcery) |
-| ProjLint | [github.com/JamitLabs/ProjLint](https://github.com/JamitLabs/ProjLint) |
-| XcodeGen | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen) |
+| ProjLint | [github.com/JamitLabs/ProjLint](https://github.com/JamitLabs/ProjLint)                 |
+| XcodeGen | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)                 |
 
 If you are also leveraging xcodeproj in your project, feel free to open a PR to include it in the list above.
 
@@ -39,7 +39,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.6.0")),
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.7.0")),
         ],
     targets: [
         .target(
@@ -50,17 +50,18 @@ let package = Package(
 ```
 
 ### Carthage
+
 **Only macOS**
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 6.6.0
+github "tuist/xcodeproj" ~> 6.7.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 6.6.0'
+pod 'xcodeproj', '~> 6.7.0'
 ```
 
 ### Scripting
@@ -72,7 +73,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import xcodeproj  // @tuist ~> 6.5
+import xcodeproj  // @tuist ~> 6.7.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {
@@ -128,7 +129,7 @@ Want to start using xcodeproj? Start by digging into our [documentation](/Docume
 ## Contributing
 
 1. Git clone the repository `git@github.com:tuist/xcodeproj.git`.
-2. Generate xcodeproj with  `swift package generate-xcodeproj`.
+2. Generate xcodeproj with `swift package generate-xcodeproj`.
 3. Open `xcodeproj.xcodeproj`.
 
 ## License

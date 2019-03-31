@@ -2,6 +2,8 @@
 
 ## next version
 
+## 6.7.0
+
 ### Changed
 
 - **Breaking** Make `PBXBuildPhase.files` optional to match Xcode's behavior https://github.com/tuist/xcodeproj/pull/391 by @pepibumur.
