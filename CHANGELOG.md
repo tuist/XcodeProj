@@ -2,6 +2,10 @@
 
 ## next version
 
+### Changed
+
+- **Breaking** Make `PBXBuildPhase.files` optional to match Xcode's behavior https://github.com/tuist/xcodeproj/pull/391 by @pepibumur.
+
 ### Added
 
 - Add location variable to XCWorkspaceDataElement https://github.com/tuist/xcodeproj/pull/387 by @pepibumur.
