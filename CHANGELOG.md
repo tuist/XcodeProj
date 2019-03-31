@@ -2,39 +2,52 @@
 
 ## next version
 
+### Changed
+
+- **Breaking** Make `PBXBuildPhase.files` optional to match Xcode's behavior https://github.com/tuist/xcodeproj/pull/391 by @pepibumur.
+
 ### Added
+
 - Add location variable to XCWorkspaceDataElement https://github.com/tuist/xcodeproj/pull/387 by @pepibumur.
 
 ### Fixed
+
 - Fixed file full path performance issue https://github.com/tuist/xcodeproj/pull/372 by @CognitiveDisson.
+- Diffing issues when writing the project https://github.com/tuist/xcodeproj/pull/391 by @pepibumur.
 
 ## 6.6.0
 
 ### Fixed
+
 - Fix adding files to `PBXBuildPhase` https://github.com/tuist/xcodeproj/pull/380 @danilsmakotin.
 - Improve project encoding performance https://github.com/tuist/xcodeproj/pull/371 by @CognitiveDisson.
 - Project decoding performance issue https://github.com/tuist/xcodeproj/pull/365 by @CognitiveDisson.
 - Fix PBXTarget extension methods https://github.com/tuist/xcodeproj/pull/367 by @danilsmakotin.
 
 ### Added
+
 - Added `GPUFrameCaptureMode` and `GPUValidationMode` options to `LaunchAction` https://github.com/tuist/xcodeproj/pull/368 by @schiewe.
 - Add Swiftformat https://github.com/tuist/xcodeproj/pull/375 by @pepibumur.
 
 ### Changed
+
 - **Breaking** Rename GPUFrameCaptureMode cases to start with a lowercase letter https://github.com/tuist/xcodeproj/pull/375 by @pepibumur.
-- Fix linting issues https://github.com/tuist/xcodeproj/pull/375 by @pepibumur. 
+- Fix linting issues https://github.com/tuist/xcodeproj/pull/375 by @pepibumur.
 
 ## 6.5.0
 
 ### Changed
+
 - Make Xcode.Supported.xcschemeFormatVersion public https://github.com/tuist/xcodeproj/pull/361 by @yonaskolb.
 
 ### Added
+
 - Fix remote target dependency https://github.com/tuist/xcodeproj/pull/362 by @mxcl.
 
 ## 6.4.0
 
 ### Added
+
 - Added `projReferenceFormat` to `PBXOutputSettings` to allow changing the output format of generated references. `withPrefixAndSuffix` will give the legacy behaviour `xcode` will generate 32 character references as XCode does. https://github.com/tuist/xcodeproj/pull/345 by @samskiter.
 - Danger https://github.com/tuist/xcodeproj/pull/357 by @pepibumur.
 - Support for WorkspaceSettings https://github.com/tuist/xcodeproj/pull/359 by @pepibumur.
@@ -42,27 +55,33 @@
 ## 6.3.0
 
 ### Added
+
 - Added `parallelizable` and `randomExecutionOrdering` attributes to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/340 by @alvarhansen.
 
 ### Fixed
+
 - Fixed possible generated UUID conflicts https://github.com/tuist/xcodeproj/pull/342 by @yonaskolb.
 - Fixed not working PBXFileElement.fullPath(sourceRoot:) method https://github.com/tuist/xcodeproj/pull/343 by @Vyeczorny.
 
 ## 6.2.0
 
 ### Added
+
 - Carthage and CocoaPods support https://github.com/tuist/xcodeproj/pull/339 by @pepibumur.
 
 ### Changed
+
 - Improved writing performance https://github.com/tuist/xcodeproj/pull/336 https://github.com/tuist/xcodeproj/pull/337 https://github.com/tuist/xcodeproj/pull/338 by @yonaskolb.
 - Replaced Swift Package Manager dependency with PathKit https://github.com/tuist/xcodeproj/pull/334 by @yonaskolb.
 
 ## 6.1.0
 
 ### Added
+
 - Added ability to pass in a `PBXObject` into the `PBXProject.targetAttributes` dictionary, which will be encoded into its UUID. Can be used for `TestTargetID` https://github.com/tuist/xcodeproj/pull/333 by @yonaskolb.
 
 ### Changed
+
 - Changed `XCScheme.BuildableReference` init to make `blueprint` a `PBXObject` and added a `setBlueprint(:)` function https://github.com/tuist/xcodeproj/pull/320 by @yonaskolb.
 - Bump AEXML version to 4.3.3 https://github.com/tuist/xcodeproj/pull/310 by @pepibumur.
 - Improves performance of object references https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
@@ -70,11 +89,13 @@
 - Add `TEMP` prefix to temporary unfixed reference values https://github.com/tuist/xcodeproj/pull/332 by @yonaskolb.
 
 ### Fixed
+
 - Fixed written order of scheme attributes in Swift 4.2 https://github.com/tuist/xcodeproj/pull/325 and https://github.com/tuist/xcodeproj/pull/331 by @yonaskolb and @drekka
 
 ## 6.0.1
 
 ### Fixed
+
 - Fixes `PBXProject` attributes not being set properly https://github.com/tuist/xcodeproj/pull/318 by @yonaskolb.
 - Fixed remoteGlobalID typo https://github.com/tuist/xcodeproj/pull/315 by @yonaskolb.
 - Fixed `XCBuildConfiguration.buildConfiguration` type https://github.com/tuist/xcodeproj/pull/316 by @yonaskolb.
@@ -84,6 +105,7 @@
 Note: Migration guidelines are included in the project README.
 
 ### Changed
+
 - **Breaking** Make `PBXObjectReference` internal https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
 - **Breaking** Make `PBXObjects` internal https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
 - **Breaking** Move `PBXObjects` helpers to `PBXProj` https://github.com/tuist/xcodeproj/pull/300 by @pepibumur.
@@ -91,35 +113,42 @@ Note: Migration guidelines are included in the project README.
 ## 5.2.0
 
 ### Changed
+
 - Some tweaks to support Xcode 10 https://github.com/tuist/xcodeproj/pull/298 by @pepibumur.
 
 ## 5.1.1
 
 ### Changed
+
 - **Breaking** Change `PBXBuildFile.file` attribute to be of type `PBXFileElement` https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
 
 ### Added
+
 - Add `PBXBuildPhase.add(file:)` method that takes a file element and returns a build file https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
 - Add `PBXProj.rootObject` attribute https://github.com/tuist/xcodeproj/pull/297 by @pepibumur.
 
 ### Fixed
+
 - `XCBuildConfiguration.baseConfiguration` type https://github.com/tuist/xcodeproj/pull/297 @pepibumur.
 
 ## 5.1.0
 
 ### Added
+
 - `setAttributes`, `removeAttributes` and `attributes` to `PBXProject` https://github.com/tuist/xcodeproj/pull/295 by @pepibumur
 
 ### Changed
+
 - **Breaking** Change `blueprintIdentifier` type to `PBXObjectReference` https://github.com/tuist/xcodeproj/pull/289 by @pepibumur
 
-
 ### Fixed
+
 - Fix grammatical issues and add some convenient getters https://github.com/tuist/xcodeproj/pull/291 by @pepibumur
 - Fix targets not getting the reference generated https://github.com/tuist/xcodeproj/pull/290 by @pepibumur
 - Product references not being generated https://github.com/tuist/xcodeproj/pull/294 by @pepibumur
 
 ### Removed
+
 - **Breaking** Make `PBXProject.attributes` internal https://github.com/tuist/xcodeproj/pull/295 by @pepibumur
 
 ## 5.0.0
@@ -129,9 +158,11 @@ Nothing new since the release rc2.
 ## 5.0.0-rc2
 
 ### Changed
+
 - **Breaking** Rename `filesReferences` to `fileReferences` https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 
 ### Added
+
 - Xcode 10 inputFileListPaths and outputFileListPaths attributes https://github.com/tuist/xcodeproj/pull/271 by @pepibumur
 - Split up `XCScheme` models and make them conform the `Equatable` protocol https://github.com/tuist/xcodeproj/pull/273 by @pepibumur
 - Convenient methods to add and fetch build configurations https://github.com/tuist/xcodeproj/pull/283 by @pepibumur
@@ -140,6 +171,7 @@ Nothing new since the release rc2.
 ## 5.0.0-rc1
 
 ### Breaking
+
 - Rename project to xcodeproj by @pepibumur.
 - Drop Carthage and CocoaPods support by @pepibumur.
 - Use Basic AbsolutePath, RelativePath and Process extensions by @pepibumur.
@@ -150,6 +182,7 @@ Nothing new since the release rc2.
 - Rename some PBXProject attributes for consistency https://github.com/tuist/xcodeproj/pull/268 by @pepibumur.
 
 ### Added
+
 - Add `addDependency` method to `PBXNativeTarget` by @pepibumur.
 - Danger check that reports Swiftlint results https://github.com/xcodeswift/xcproj/pull/257 by @pepibumur.
 - Xcode constants by @pepibumur.
@@ -161,35 +194,42 @@ Nothing new since the release rc2.
 - Migration guidelines https://github.com/tuist/xcodeproj/pull/264 by @pepibumur.
 
 ### Removed
+
 - Deprecated elements by @pepibumur.
 - Tests that test the conformance of `Equatable` by @pepibumur.
 
 ### Fixed
+
 - XCConfig parser strips the trailing semicolon from a configuration value https://github.com/xcodeswift/xcproj/pull/250 by @briantkelley
 - `fullPath(fileElement:reference:sourceRoot:)` now returns the correct path for files that exist within a variant group https://github.com/xcodeswift/xcproj/pull/255 by @ileitch
 
 ### Added
+
 - Update Danger to warn if the PR title contains WIP https://github.com/xcodeswift/xcproj/pull/259 by @pepibumur.
 - Test coverage reports https://github.com/xcodeswift/xcproj/pull/258 by @pepibumur
 
 ## 4.3.0
 
 ### Added
+
 - CI pipeline runs also on a Linux environment https://github.com/xcodeswift/xcproj/pull/249 by @pepibumur.
 - Auto-generation of Equatable conformances using Sourcery https://github.com/xcodeswift/xcproj/pull/189 @by pepibumur.
 
 ### Fixed
+
 - Some updates to match the Xcode 9.3 project format https://github.com/xcodeswift/xcproj/pull/247 by @LinusU
 
 ## 4.2.0
 
 ### Added
+
 - `PBXNativeTarget.productInstallPath`, `PBXTargetDependency.name` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
 - `PBXContainerItem` super class of `PBXBuildPhase` and `PBXTarget` https://github.com/xcodeswift/xcproj/pull/243 by @briantkelley
 - `PBXFileElement.wrapsLines`property https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 - `PBXFileReference` `languageSpecificationIdentifier` and `plistStructureDefinitionIdentifier` properties https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Changed
+
 - Support for `XCConfig` project-relative includes https://github.com/xcodeswift/xcproj/pull/238 by @briantkelley
 - Migrated `PBXProject.projectRoot` to `PBXProject.projectRoots` https://github.com/xcodeswift/xcproj/pull/242 by @briantkelley
 - Moved `PBXFileElement.includeInIndex` and `PBXGroup`'s `usesTabs`, `indentWidth`, and `tabWidth` properties to `PBXFileElement` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
@@ -197,6 +237,7 @@ Nothing new since the release rc2.
 - `PBXVariantGroup` and `XCVersionGroup` now inherit from `PBXGroup` https://github.com/xcodeswift/xcproj/pull/244 by @briantkelley
 
 ### Fixed
+
 - `PBXObject.isEqual(to:)` overrides correctly call super https://github.com/xcodeswift/xcproj/pull/239 by @briantkelley
 - `PBXAggregateTarget` does not write `buildRules` https://github.com/xcodeswift/xcproj/pull/241 by @briantkelley
 - Writes showEnvVarsInLog only when false https://github.com/xcodeswift/xcproj/pull/240 by @briantkelley
@@ -208,10 +249,12 @@ Nothing new since the release rc2.
 ## 4.1.0
 
 ### Added
+
 - Added `tvOS` and `watchOS` Carthage support https://github.com/xcodeswift/xcproj/pull/232 by @yonaskolb
 - Added support for scheme environment variables https://github.com/xcodeswift/xcproj/pull/227 by @turekj
 
 ### Fixed
+
 - Fixed PBXObject sublasses from checking Equatable properly https://github.com/xcodeswift/xcproj/pull/224 by @yonaskolb
 - Fix Carthage support https://github.com/xcodeswift/xcproj/pull/226 by @ileitch
 - Fix adding file reference to bundle and package files https://github.com/xcodeswift/xcproj/pull/234 by @fuzza
@@ -219,14 +262,17 @@ Nothing new since the release rc2.
 - Fixed some more diffs from Xcode https://github.com/xcodeswift/xcproj/pull/233 by @yonaskolb
 
 ### Changed
+
 - Carthage minimum Deployment Target https://github.com/xcodeswift/xcproj/pull/229 by @olbrichj
 
 ### 4.0.0
 
 ### Added
+
 - Added support for scheme pre-actions and post-actions https://github.com/xcodeswift/xcproj/pull/217 by @kastiglione
 
 ### Changed
+
 - **Breaking:** Changed the return type of some helper functions that create or fetch PBXObjects to be `ObjectReference`, which includes the reference as well as the object https://github.com/xcodeswift/xcproj/pull/218 by @yonaskolb
 - **Breaking:** Changed some `Int` properties into `Bool` or `UInt` https://github.com/xcodeswift/xcproj/pull/221 by @yonaskolb
 - Changed the writing of some properties to minimise diffs when opening projects in Xcode https://github.com/xcodeswift/xcproj/pull/220 by @yonaskolb
@@ -234,12 +280,14 @@ Nothing new since the release rc2.
 ## 3.0.0
 
 ### Fixed
+
 - Fix Xcode 9.2 warning https://github.com/xcodeswift/xcproj/pull/209 by @keith
 - macOS CLI targets now have a nil extension, instead of an empty string https://github.com/xcodeswift/xcproj/pull/208 by @keith
 - Fix unnecessary quotations in CommentedString https://github.com/xcodeswift/xcproj/pull/211 by @allu22
 - Fixed xml files format not matching Xcode format, added some missing actions attributes. https://github.com/xcodeswift/xcproj/pull/216 by @ilyapuchka
 
 ### Changed
+
 - **Breaking:** `XCWorkspace.Data` renamed to `XCWorkspaceData` and removed `references`.
 - Improved README examples. https://github.com/xcodeswift/xcproj/pull/212 by @ilyapuchka
 - Added methods to get paths to workspace, project and breakpoints and shemes files, added public methods to write them separatery. https://github.com/xcodeswift/xcproj/pull/215 by @ilyapuchka
@@ -248,20 +296,25 @@ Nothing new since the release rc2.
 ## 2.0.0
 
 ### Added
+
 - Deterministic reference generation https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur
 
 ### Removed
+
 - **Breaking Change** `Referenceable` protocol https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
 - **Breaking Change** Deprecated methods to access objects from the `PBXProj`. Developers should use the `PBXProj.objects` property instead. https://github.com/xcodeswift/xcproj/pull/185 by @pepibumur.
 
 ### Fixed
+
 - **Breaking:** `PBXSourceTree` no longer has raw values and gained an associated value case to support custom locations https://github.com/xcodeswift/xcproj/pull/198 by @briantkelley
 
 ### Changed
+
 - **Breaking:** The `buildableProductRunnable` property on`XCScheme.LaunchAction` and `XCScheme.ProfileAction` is now optional. Similarly, `macroExpansion` on `XCScheme.TestAction` is also optional. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
 - The `XCScheme` initialization from an XML file has been relaxed, better matching Xcode's behavior. Default values will be used if the XML file is missing the relevant element or attribute. https://github.com/xcodeswift/xcproj/pull/194 by @briantkelley
 
 ### Migrate from 1.x.x to 2.x.x
+
 - If you were using objects getters in `PBXProj` you should use the getters in `PBXProj.objects` instead.
 - Objects don't include a `reference` property anymore. Objects associated references are the keys in the dictionary that contains them.
 - When objects are added to the `PBXProj.objects` collection a reference needs to be passed. The reference can be calculated using the function `PBXProj.objects.generateReference` that generates a unique and deterministic reference based on the given object and identifier.
@@ -270,15 +323,18 @@ Nothing new since the release rc2.
 ## 1.8.0
 
 ### Fixed
+
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 
 ### Added
+
 - Add breakpoint `condition` parameter by [@alexruperez](https://github.com/alexruperez).
 - Support Xcode Extension product type https://github.com/xcodeswift/xcproj/pull/190 by @briantkelley
 - Support for the legacy Build Carbon Resources build phase https://github.com/xcodeswift/xcproj/pull/196 by @briantkelley
 - Support for custom build rules by https://github.com/xcodeswift/xcproj/pull/197 @briantkelley
 
 ### Fixed
+
 - Optimised escaping of CommentedString https://github.com/xcodeswift/xcproj/pull/195 by @kastiglione
 - Optimised performance of object lookups https://github.com/xcodeswift/xcproj/pull/191 by @kastiglione
 - fixed PBXLegacyTarget write order https://github.com/xcodeswift/xcproj/pull/199 by @kastiglione
@@ -288,6 +344,7 @@ Nothing new since the release rc2.
 ## 1.7.0
 
 ### Added
+
 - Support more indentation options on PBXGroups https://github.com/xcodeswift/xcproj/pull/168 by @bkase.
 - Support `PBXLegacyTarget` https://github.com/xcodeswift/xcproj/pull/171 by @bkase.
 - Breakpoint support through `XCBreakpointList`. https://github.com/xcodeswift/xcproj/pull/172 by [@alexruperez](https://github.com/alexruperez)
@@ -297,11 +354,13 @@ Nothing new since the release rc2.
 ## 1.6.1
 
 ### Fixed
+
 - Fix encoded line breaks in PBXFileReference https://github.com/xcodeswift/xcproj/pull/177 by @yonaskolb
 
 ## 1.6.0
 
 ### Added
+
 - PBXLegacyTarget support https://github.com/xcodeswift/xcproj/pull/171 by @bkase
 - Integration tests https://github.com/xcodeswift/xcproj/pull/168 by @pepibumur
 - More examples to the README https://github.com/xcodeswift/xcproj/pull/116 by @pepibumur.
@@ -309,8 +368,8 @@ Nothing new since the release rc2.
 - Test the contract with XcodeGen https://github.com/xcodeswift/xcproj/pull/170 by @pepibumur
 - Add `PBXProj.Objects.getFileElement` https://github.com/xcodeswift/xcproj/pull/175 by @yonaskolb
 
-
 ### Fixed
+
 - `PBXGroup` not generating the comment properly for its children https://github.com/xcodeswift/xcproj/pull/169 by @pepibumur.
 - Make `PBXFileElement` a superclass for `PBXFileReference`, `PBXGroup`, and `PBXVariantGroup` https://github.com/xcodeswift/xcproj/pull/173 by @gubikmic
 - Added `path` to `PBXVariantGroup` init https://github.com/xcodeswift/xcproj/pull/174 by @yonaskolb
@@ -318,25 +377,31 @@ Nothing new since the release rc2.
 ## 1.5.0
 
 ### Added
+
 - Add `codeCoverageEnabled` parameter to `TestAction` https://github.com/xcodeswift/xcproj/pull/166 by @kastiglione
 - Make `final` classes that are not extendible https://github.com/xcodeswift/xcproj/pull/164 by @pepibumur.
 
 ### Fixed
+
 - Fix `PBXProject` `productRefGroup` comment https://github.com/xcodeswift/xcproj/pull/161 by @allu22
 - Fix deprecation warnings for `PBXProj` objects usage https://github.com/xcodeswift/xcproj/pull/162 by @rahul-malik
 
 ## 1.4.0 - Take me out
 
 ### Added
+
 - Danger integration https://github.com/xcodeswift/xcproj/pull/158 by @pepibumur
 
 ### Changed
+
 - Improve efficiency of looking up `PBXObject`'s from `PBXProj` https://github.com/xcodeswift/xcproj/pull/136 by @rahul-malik
 
 ### Deprecated
+
 - `PBXObject` objects accessors https://github.com/xcodeswift/xcproj/pull/136/files#diff-f4369d9af58a6914f0e5cdf81ed18530R6 by @rahul-malik.
 
 ### Fixed
+
 - Fix `PBXBuildFile` wrongly defaulting the settings attribute when it was nil https://github.com/xcodeswift/xcproj/pull/149 by @allu22
 - Fix `PBXTarget` generating the wrong comment for the `productReference` property https://github.com/xcodeswift/xcproj/pull/151 by @allu22.
 - Add missing `usesTabs` property to `PBXGroup` https://github.com/xcodeswift/xcproj/pull/147 by @allu22.
@@ -345,46 +410,55 @@ Nothing new since the release rc2.
 - Fix `projectReferences` type https://github.com/xcodeswift/xcproj/pull/135 by @solgar.
 
 ### Added
+
 - Danger checks https://github.com/xcodeswift/xcproj/pull/160 by @pepibumur
 - New product type `ocUnitTestBundle` https://github.com/xcodeswift/xcproj/pull/134 by @solgar.
 
 ## 1.3.0 - Esbarzers
 
 ### Added
+
 - Add `PBXSourceTree.developerDir` type https://github.com/xcodeswift/xcproj/commit/5504fcde00bc56cf6c240ecd7cc36c05296861f8 by @pepibumur.
 
 ### Fixed
+
 - Fix `PBXShellScriptBuildPhase` bug decoding `showEnvVarsInLog` https://github.com/xcodeswift/xcproj/commit/521b4e62b70f5fc43a06d00c43916d4899138553 by @pepibumur.
 - Fix `PBXFileReference` bug decoding `useTabs` https://github.com/xcodeswift/xcproj/commit/c533987496959a3e32c0ddfe45a0f2db8d5daae0 by @pepibumur.
 - Fix `PBXFileReference` bug decoding `lineEnding` https://github.com/xcodeswift/xcproj/commit/8a2c94effbe94859a68d58e0c49d66156ba1eaea by @pepibumur.
 
-
 ## 1.2.0 - Two shoes
 
 ### Added
+
 - Carthage support https://github.com/xcodeswift/xcproj/pull/125 by @pepibumur.
 - `buildPhases` property to `PBXProj` https://github.com/xcodeswift/xcproj/pull/132 by @pepibumur.
 
 ### Fixed
+
 - Build phase `buildActionMask` wrong default value https://github.com/xcodeswift/xcproj/pull/131 by @pepibumur.
 
 ## 1.1.0 - Muerdo
 
 ### Added
+
 - It supports now SPM-generated projects https://github.com/xcodeswift/xcproj/pull/124 by @pepibumur. Thanks @josefdolezal for the report.
 - Project and workspace initializer that takes the path as a string https://github.com/xcodeswift/xcproj/pull/123 by @pepibumur.
 
 ### Fixed
+
 - Fix the decoding of the `PBXFileReference.fileEncoding` property https://github.com/xcodeswift/xcproj/pull/127 by @gubikmic.
 - Fix some wrong comments and typos https://github.com/xcodeswift/xcproj/pull/126 by @gubikmic
 
 ## 1.0.0 - Acho
 
 ### Changed
+
 - **Breaking:** Review optionality of attributes to align it with Xcode one https://github.com/xcodeswift/xcproj/pull/107 by @pepibumur.
 - Contributing, and code of conduct point to the organization ones by @pepibumur.
 - New changelog format introduced by @pepibumur.
+
 ### Fixed
+
 - Use the super init to decode reference in some objects https://github.com/xcodeswift/xcproj/pull/110 by @yonaskolb
 - Schemes being shared with an extension https://github.com/xcodeswift/xcproj/pull/113 by @esttorhe.
 - Contributors link in the README.md https://github.com/xcodeswift/xcproj/pull/117 by @tapanprakasht.
@@ -392,10 +466,12 @@ Nothing new since the release rc2.
 ### Security
 
 ## 0.4.1
+
 - Add back the `BuildSettings` typelias removed by mistake https://github.com/xcodeswift/xcproj/pull/109 by @pepibumur.
 - Fix a bug decoding the `PBXProject.projectRoot` property that should be decoded as an optional https://github.com/xcodeswift/xcproj/issues/108 by @pepibumur.
 
 ## 0.4.0
+
 - Remove dependency with Unbox and use the language coding/decoding features https://github.com/xcodeswift/xcproj/pull/99 by @pepibumur and @artemnovichkov.
 - Enable xcproj in [Open Collective](https://opencollective.com/xcproj) by @pepibumur.
 - Support parsing XCVersionGroup objects https://github.com/xcodeswift/xcproj/pull/96 by @pepibumur.
@@ -405,16 +481,19 @@ Nothing new since the release rc2.
 - Fix comment in the `BuildPhase` object https://github.com/xcodeswift/xcproj/pull/95 by @toshi0383.
 
 ## 0.3.0
+
 - Turn `PBXVariantGroup` children property into an array https://github.com/xcodeswift/xcproj/pull/88 by @pepibumur
 - Add `PBXReferenceProxy` object https://github.com/xcodeswift/xcproj/pull/85 by @pepibumur
 - Migrate project to Swift 4 https://github.com/xcodeswift/xcproj/pull/84 by @artemnovichkov
 - Fix build phase script error undoer Xcode 9 https://github.com/xcodeswift/xcproj/pull/81 by @kixswift
 
 ## 0.2.0
+
 - Add how to use section https://github.com/xcodeswift/xcproj/pull/77 by @pepibumur
 - Add contributing guidelines https://github.com/xcodeswift/xcproj/pull/76 by @pepibumur
 
 ## 0.1.2
+
 - Update shell build script phase input and output files to be array instead of set https://github.com/xcodeswift/xcproj/issues/65 by @pepibumur
 - Fix wrong comment in the shell script build phase https://github.com/xcodeswift/xcproj/issues/67 by @ppeibumur
 - Fix wron gcomment in `PBXSourcesBuildPhase` files property https://github.com/xcodeswift/xcproj/issues/68 by @pepibumur
@@ -422,20 +501,24 @@ Nothing new since the release rc2.
 - Update `XCConcigurationList` build configurations to be an array https://github.com/xcodeswift/xcproj/issues/70 by @pepibumur
 
 ## 0.1.1
+
 - Change `BuildSettings` to `[String: Any]` https://github.com/xcodeswift/xcproj/pull/52 by @yonaskolb
 - Plist fixes https://github.com/xcodeswift/xcproj/pull/54 by @yonaskolb
 
 ## 0.1.0
+
 - Update struct to classes and clean up API https://github.com/xcodeswift/xcproj/pull/51 by @yonaskolb
 - Fix and cleanup strings escaping https://github.com/xcodeswift/xcproj/pull/48 by @yonaskolb
 - Add `runOnlyForDeploymentPostprocessing` to `PBXShellScriptBuildPhase` by @yonaskolb
 - Remove force unwrap for `XCScheme` https://github.com/xcodeswift/xcproj/pull/39 by @Shakarang
 
 ## 0.0.9
+
 - CocoaPods support https://github.com/xcodeswift/xcproj/pull/35 by @pepibumur
 - Make project models mutable https://github.com/xcodeswift/xcproj/pull/33 by @yonaskolb
 
 ## 0.0.7
+
 - Downgrade Swift Tools versions to 4.0 https://github.com/xcodeswift/xcproj/pull/27 by @yonaskolb
 - Make Scheme intializers public https://github.com/xcodeswift/xcproj/pull/28 by @yonaskolb
 - Change PBXGroup.children to be an array https://github.com/xcodeswift/xcproj/pull/26 by @yonaskolb
@@ -444,25 +527,25 @@ Nothing new since the release rc2.
 - Convert booleans to YES or NO https://github.com/xcodeswift/xcproj/pull/23 by @yonaskolb
 - Make more properties public https://github.com/xcodeswift/xcproj/pull/19 by @yonaskolb
 
-
 ## 0.0.6
+
 - Fix an issue with unescaped strings by @yonaskolb https://github.com/xcodeswift/xcproj/issues/16
 - Update Swift Tools Version to 4.0 https://github.com/xcodeswift/xcproj/commit/f0f5ffe58ce0d29bb986189abf6391c6552fd347
 - Remove CryptoSwift dependency https://github.com/xcodeswift/xcproj/commit/f0f5ffe58ce0d29bb986189abf6391c6552fd347
 
 ## 0.0.5
+
 - Remove `UUID` typealias https://github.com/xcodeswift/xcproj/pull/15
 - Add `UUID` identifier generation from `PBXProj` https://github.com/xcodeswift/xcproj/pull/14
 
 ## 0.0.4
+
 - Writing support for `PBXProj` - https://github.com/xcodeswift/xcproj/pull/8
 - Document RELEASE process https://github.com/xcodeswift/xcproj/pull/7.
 - Add documentation https://github.com/xcodeswift/xcproj/pull/6
 
 ## 0.0.1
+
 - First version of the Swift library.
-- It supports **reading** and parsing the following models:
-    - xcodeproj.
-    - xcworkspace.
-    - pbxproj.
-> This version doesn't support writing yet
+- It supports **reading** and parsing the following models: - xcodeproj. - xcworkspace. - pbxproj.
+  > This version doesn't support writing yet

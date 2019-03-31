@@ -71,12 +71,12 @@ public final class PBXProject: PBXObject {
     public var projects: [[String: PBXFileElement]] {
         set {
             projectReferences = newValue.map { project in
-                project.mapValues({ $0.reference })
+                project.mapValues { $0.reference }
             }
         }
         get {
             return projectReferences.map { project in
-                project.mapValues({ $0.getObject()! })
+                project.mapValues { $0.getObject()! }
             }
         }
     }
@@ -193,7 +193,7 @@ public final class PBXProject: PBXObject {
         self.knownRegions = knownRegions
         productsGroupReference = productsGroup?.reference
         self.projectDirPath = projectDirPath
-        projectReferences = projects.map({ project in project.mapValues({ $0.reference }) })
+        projectReferences = projects.map { project in project.mapValues { $0.reference } }
         self.projectRoots = projectRoots
         targetReferences = targets.references()
         self.attributes = attributes
@@ -231,7 +231,7 @@ public final class PBXProject: PBXObject {
         compatibilityVersion = try container.decode(.compatibilityVersion)
         developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
-        hasScannedForEncodings = hasScannedForEncodingsString.flatMap({ Int($0) }) ?? 0
+        hasScannedForEncodings = hasScannedForEncodingsString.flatMap { Int($0) } ?? 0
         knownRegions = (try container.decodeIfPresent(.knownRegions)) ?? []
         let mainGroupReference: String = try container.decode(.mainGroup)
         self.mainGroupReference = referenceRepository.getOrCreate(reference: mainGroupReference, objects: objects)
@@ -242,9 +242,9 @@ public final class PBXProject: PBXObject {
         }
         projectDirPath = try container.decodeIfPresent(.projectDirPath) ?? ""
         let projectReferences: [[String: String]] = (try container.decodeIfPresent(.projectReferences)) ?? []
-        self.projectReferences = projectReferences.map({ references in
-            references.mapValues({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
-        })
+        self.projectReferences = projectReferences.map { references in
+            references.mapValues { referenceRepository.getOrCreate(reference: $0, objects: objects) }
+        }
         if let projectRoots: [String] = try container.decodeIfPresent(.projectRoots) {
             self.projectRoots = projectRoots
         } else if let projectRoot: String = try container.decodeIfPresent(.projectRoot) {
@@ -253,7 +253,7 @@ public final class PBXProject: PBXObject {
             projectRoots = []
         }
         let targetReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
-        self.targetReferences = targetReferences.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.targetReferences = targetReferences.map { referenceRepository.getOrCreate(reference: $0, objects: objects) }
 
         var attributes = (try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:])
         var targetAttributeReferences: [PBXObjectReference: [String: Any]] = [:]

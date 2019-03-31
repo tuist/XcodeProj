@@ -1,5 +1,6 @@
 import Foundation
 import PathKit
+import SwiftShell
 import XCTest
 @testable import xcodeproj
 
@@ -22,6 +23,30 @@ final class PBXProjIntegrationTests: XCTestCase {
                       return try? decoder.decode(PBXProj.self, from: data)
                   },
                   modify: { $0 })
+    }
+
+    func test_write_produces_no_diff() throws {
+        let tmpDir = try Path.uniqueTemporary()
+        defer {
+            try? tmpDir.delete()
+        }
+
+        let fixturePath = self.fixturePath().parent()
+        let xcodeprojPath = tmpDir + "Project.xcodeproj"
+        try fixturePath.copy(xcodeprojPath)
+
+        try tmpDir.chdir {
+            // Create a commit
+            SwiftShell.run(bash: "git init")
+            SwiftShell.run(bash: "git add .")
+            SwiftShell.run(bash: "git commit -m 'test'")
+
+            // Read/write the project
+            let project = try XcodeProj(path: xcodeprojPath)
+            try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
+
+            XCTAssertTrue(SwiftShell.run(bash: "git status").stdout.contains("nothing to commit"))
+        }
     }
 
     private func fixturePath() -> Path {

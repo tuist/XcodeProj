@@ -11,8 +11,13 @@ extension PlistSerializable {
 }
 
 final class StateHolder {
-    var indent: UInt = 0
-    var multiline: Bool = true
+    var indent: UInt
+    var multiline: Bool
+
+    init(indent: UInt = 0, multiline: Bool = true) {
+        self.indent = indent
+        self.multiline = multiline
+    }
 
     func increaseIndent() {
         indent += 1
@@ -20,6 +25,10 @@ final class StateHolder {
 
     func decreaseIndent() {
         indent -= 1
+    }
+
+    func copy() -> StateHolder {
+        return StateHolder(indent: indent, multiline: multiline)
     }
 }
 
@@ -320,14 +329,14 @@ final class PBXProjEncoder {
             // swiftlint:disable:next force_cast
             let element = arg as! PBXProjElement
             var array = [String]()
-            var tmpStateHolder = StateHolder()
+            var tmpStateHolder = stateHolder.copy()
             write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: element.multiline, stateHolder: &tmpStateHolder, to: &array)
             lock.whileLocked {
                 resultArray[index] = array
             }
         }
 
-        let joinedArray: [String] = resultArray.flatMap({ $0 })
+        let joinedArray: [String] = resultArray.flatMap { $0 }
         // should check multiline
         output.append(contentsOf: joinedArray)
         write(string: "/* End \(section) section */", to: &output)
@@ -348,13 +357,13 @@ final class PBXProjEncoder {
                 return left.key.string < right.key.string
             }
         })
-        sorted.forEach({
+        sorted.forEach {
             write(dictionaryKey: $0.key,
                   dictionaryValue: $0.value,
                   multiline: stateHolder.multiline,
                   stateHolder: &stateHolder,
                   to: &output)
-        })
+        }
         writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
     }
 
@@ -419,7 +428,7 @@ final class PBXProjEncoder {
 
     private func sort(buildPhases: [PBXObjectReference: PBXBuildPhase], outputSettings: PBXOutputSettings) {
         if let sort = outputSettings.projBuildPhaseFileOrder.sort {
-            buildPhases.values.forEach { $0.files = $0.files.sorted(by: sort) }
+            buildPhases.values.forEach { $0.files = $0.files?.sorted(by: sort) }
         }
     }
 

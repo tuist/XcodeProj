@@ -328,7 +328,7 @@ extension PBXObjects {
     func targets(named name: String) -> [PBXTarget] {
         var targets: [PBXTarget] = []
         let filter = { (targets: [PBXObjectReference: PBXTarget]) -> [PBXTarget] in
-            targets.values.filter({ $0.name == name })
+            targets.values.filter { $0.name == name }
         }
         targets.append(contentsOf: filter(nativeTargets))
         targets.append(contentsOf: filter(legacyTargets))
@@ -361,17 +361,17 @@ extension PBXObjects {
     // This is used to decode build files. (we need the name of the build phase)
     // Otherwise, we would have to go through all the build phases for each file.
     var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
-        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map({ buildPhase in
+        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map { buildPhase in
             let files = buildPhase.files
-            let buildPhaseFile: [PBXBuildPhaseFile] = files.compactMap({ (file: PBXBuildFile) -> (PBXBuildPhaseFile) in
+            let buildPhaseFile: [PBXBuildPhaseFile] = files?.compactMap { (file: PBXBuildFile) -> PBXBuildPhaseFile in
                 PBXBuildPhaseFile(
                     buildFile: file,
                     buildPhase: buildPhase
                 )
-            })
+            } ?? []
             return buildPhaseFile
-        })
-        return Dictionary(uniqueKeysWithValues: values.flatMap({ $0 }).map({ ($0.buildFile.reference, $0) }))
+        }
+        return Dictionary(uniqueKeysWithValues: values.flatMap { $0 }.map { ($0.buildFile.reference, $0) })
     }
 
     /// Runs the given closure for each of the objects that are part of the project.

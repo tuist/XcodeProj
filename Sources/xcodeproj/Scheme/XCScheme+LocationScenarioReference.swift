@@ -28,7 +28,7 @@ extension XCScheme {
                                 attributes: [
                                     "identifier": identifier,
                                     "referenceType": referenceType,
-            ])
+                                ])
         }
 
         // MARK: - Equatable

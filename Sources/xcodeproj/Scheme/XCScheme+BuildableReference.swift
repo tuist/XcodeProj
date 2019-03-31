@@ -80,7 +80,7 @@ extension XCScheme {
                                     "BuildableName": buildableName,
                                     "BlueprintName": blueprintName,
                                     "ReferencedContainer": referencedContainer,
-            ])
+                                ])
         }
 
         // MARK: - Equatable

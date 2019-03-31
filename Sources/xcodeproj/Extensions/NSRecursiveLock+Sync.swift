@@ -1,7 +1,7 @@
 import Foundation
 
 extension NSRecursiveLock {
-    func whileLocked<T>(closure: () -> (T)) -> T {
+    func whileLocked<T>(closure: () -> T) -> T {
         lock()
         defer {
             unlock()
