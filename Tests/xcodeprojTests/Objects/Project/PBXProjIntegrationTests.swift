@@ -42,7 +42,8 @@ final class PBXProjIntegrationTests: XCTestCase {
             SwiftShell.run(bash: "git commit -m 'test'")
 
             // Read/write the project
-            try XcodeProj(path: xcodeprojPath).write(path: xcodeprojPath)
+            let project = try XcodeProj(path: xcodeprojPath)
+            try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
 
             XCTAssertTrue(SwiftShell.run(bash: "git status").stdout.contains("nothing to commit"))
         }

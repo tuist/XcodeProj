@@ -77,23 +77,24 @@ extension PBXBuildFile {
             return buildPhase
         }
         let projectObjects = try objects()
-        if let buildPhase = projectObjects.sourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        if let buildPhase = projectObjects.sourcesBuildPhases.values
+            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.frameworksBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects
             .resourcesBuildPhases.values
-            .first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.copyFilesBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.headersBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         }
         return nil

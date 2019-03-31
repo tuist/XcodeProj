@@ -21,7 +21,7 @@ final class PBXBuildPhaseTests: XCTestCase {
                                   wrapsLines: true)
 
         let buildFile = try subject.add(file: file)
-        XCTAssertTrue(subject.files.contains(buildFile), "Expected adding a file but it didn't")
+        XCTAssertEqual(subject.files?.contains(buildFile), true)
     }
 
     func test_add_files_only_once() throws {
@@ -35,7 +35,7 @@ final class PBXBuildPhaseTests: XCTestCase {
         let sameBuildFile = try subject.add(file: file)
         XCTAssertEqual(buildFile, sameBuildFile, "Expected adding a file only once but it didn't")
 
-        let fileOccurrencesCount = subject.files.filter { $0 == buildFile }.count
+        let fileOccurrencesCount = subject.files?.filter { $0 == buildFile }.count
         XCTAssertTrue(fileOccurrencesCount == 1, "Expected adding a file only once but it didn't")
     }
 }

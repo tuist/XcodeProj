@@ -428,7 +428,7 @@ final class PBXProjEncoder {
 
     private func sort(buildPhases: [PBXObjectReference: PBXBuildPhase], outputSettings: PBXOutputSettings) {
         if let sort = outputSettings.projBuildPhaseFileOrder.sort {
-            buildPhases.values.forEach { $0.files = $0.files.sorted(by: sort) }
+            buildPhases.values.forEach { $0.files = $0.files?.sorted(by: sort) }
         }
     }
 

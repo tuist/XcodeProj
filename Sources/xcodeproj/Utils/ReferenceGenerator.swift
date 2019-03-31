@@ -225,7 +225,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: buildPhase, identifiers: identifiers)
 
         // Build files
-        buildPhase.fileReferences.forEach { buildFileReference in
+        buildPhase.fileReferences?.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
             guard let buildFile: PBXBuildFile = buildFileReference.getObject() else { return }

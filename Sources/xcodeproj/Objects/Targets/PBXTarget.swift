@@ -222,7 +222,7 @@ public extension PBXTarget {
     /// - Returns: source files.
     /// - Throws: an error if something goes wrong.
     func sourceFiles() throws -> [PBXFileElement] {
-        return try sourcesBuildPhase()?.fileReferences
+        return try sourcesBuildPhase()?.fileReferences?
             .compactMap { try $0.getThrowingObject() as? PBXBuildFile }
             .filter { $0.fileReference != nil }
             .compactMap { try $0.fileReference!.getThrowingObject() as? PBXFileElement }
