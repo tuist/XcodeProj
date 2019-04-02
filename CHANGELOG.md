@@ -2,6 +2,10 @@
 
 ## next version
 
+### Added
+
+- **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
+
 ## 6.7.0
 
 ### Changed
