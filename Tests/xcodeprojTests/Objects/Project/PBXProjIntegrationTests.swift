@@ -1,10 +1,17 @@
 import Foundation
 import PathKit
-import SwiftShell
+import Shell
 import XCTest
 @testable import xcodeproj
 
 final class PBXProjIntegrationTests: XCTestCase {
+    var shell: Shell!
+
+    override func setUp() {
+        super.setUp()
+        shell = Shell()
+    }
+
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
         let decoder = XcodeprojPropertyListDecoder()
@@ -37,15 +44,16 @@ final class PBXProjIntegrationTests: XCTestCase {
 
         try tmpDir.chdir {
             // Create a commit
-            SwiftShell.run(bash: "git init")
-            SwiftShell.run(bash: "git add .")
-            SwiftShell.run(bash: "git commit -m 'test'")
+            _ = try shell.capture(["git", "init"]).get()
+            _ = try shell.capture(["git", "add", "."]).get()
+            _ = try shell.capture(["git", "commit", "-m", "'test'"]).get()
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
             try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
 
-            XCTAssertTrue(SwiftShell.run(bash: "git status").stdout.contains("nothing to commit"))
+            let got = try shell.capture(["git", "status"]).get()
+            XCTAssertTrue(got.contains("nothing to commit"))
         }
     }
 

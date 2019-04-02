@@ -7,97 +7,97 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF_0412F5FF5D76F2ADF9398D1FCFB69379 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_CFF0376F08880A068500FAD9A56D05F6 /* JSONDecoding.swift */; settings = {}; };
-		BF_05433594C1C621601C73B009078D2DE7 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_61B45F9648951C53524A59BD197757DD /* XCScheme.swift */; settings = {}; };
-		BF_073121B0E33AFBA7F856A173C788E070 /* XCScheme+ExecutionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_269157079FBC6F9C7C2D97CB021C51E7 /* XCScheme+ExecutionAction.swift */; settings = {}; };
-		BF_074A893A69F361C5704CFCF1DFEF9C89 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2F5540AB9EF9856CDC4C59CE42997A1D /* Writable.swift */; settings = {}; };
-		BF_09F55915D31654CAC5E884691BC1C25B /* XCScheme+BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D199F4D5B4F49546BEC987E6D852CC31 /* XCScheme+BuildAction.swift */; settings = {}; };
-		BF_0A3D785D9E028BEAF6AB6307C7BD7F51 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_75BC0911DAE0FA282A41DCE5EE1A3C4D /* PBXLegacyTarget.swift */; settings = {}; };
-		BF_0A86B3FAF01DEE4B7AA3F6E79EBB9966 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_12F158B07CDF10BEA2294978D3C2EFC3 /* PBXContainerItem.swift */; settings = {}; };
-		BF_0DBA56BA1F7BE9F9B9D27333BA16F43D /* XCScheme+AditionalOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_601AB02CCDA21C24274FB61FDB8F3CC2 /* XCScheme+AditionalOption.swift */; settings = {}; };
-		BF_0F2ABAA75D0E61D5B47D74994A466F67 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_04173BBFE02A5F2A31A9A9668BA0583B /* PBXSourceTree.swift */; settings = {}; };
-		BF_11998B8F6A1254184D69D150A641CB54 /* PBXObjectParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4EA515D4175B2EF261EE6CA9111B963E /* PBXObjectParser.swift */; settings = {}; };
-		BF_13C115CFC9FF763E80B8568495FB9747 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5C7969F032D9379BD6D259240A1E4DED /* PBXHeadersBuildPhase.swift */; settings = {}; };
-		BF_15B9C30FF51414FCA3F2499B2684E26E /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D33D58516A50A2314380E6FE31F49CE3 /* PBXProj.swift */; settings = {}; };
-		BF_1A74165FBE5F33E4E26D693697AB4913 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5F694668636B07CD454EFA3E4C621C85 /* XCConfig.swift */; settings = {}; };
+		BF_0412F5FF5D76F2ADF9398D1FCFB69379 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_CFF0376F08880A068500FAD9A56D05F6 /* JSONDecoding.swift */; };
+		BF_05433594C1C621601C73B009078D2DE7 /* XCScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_61B45F9648951C53524A59BD197757DD /* XCScheme.swift */; };
+		BF_073121B0E33AFBA7F856A173C788E070 /* XCScheme+ExecutionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_269157079FBC6F9C7C2D97CB021C51E7 /* XCScheme+ExecutionAction.swift */; };
+		BF_074A893A69F361C5704CFCF1DFEF9C89 /* Writable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2F5540AB9EF9856CDC4C59CE42997A1D /* Writable.swift */; };
+		BF_09F55915D31654CAC5E884691BC1C25B /* XCScheme+BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D199F4D5B4F49546BEC987E6D852CC31 /* XCScheme+BuildAction.swift */; };
+		BF_0A3D785D9E028BEAF6AB6307C7BD7F51 /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_75BC0911DAE0FA282A41DCE5EE1A3C4D /* PBXLegacyTarget.swift */; };
+		BF_0A86B3FAF01DEE4B7AA3F6E79EBB9966 /* PBXContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_12F158B07CDF10BEA2294978D3C2EFC3 /* PBXContainerItem.swift */; };
+		BF_0DBA56BA1F7BE9F9B9D27333BA16F43D /* XCScheme+AditionalOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_601AB02CCDA21C24274FB61FDB8F3CC2 /* XCScheme+AditionalOption.swift */; };
+		BF_0F2ABAA75D0E61D5B47D74994A466F67 /* PBXSourceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_04173BBFE02A5F2A31A9A9668BA0583B /* PBXSourceTree.swift */; };
+		BF_11998B8F6A1254184D69D150A641CB54 /* PBXObjectParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4EA515D4175B2EF261EE6CA9111B963E /* PBXObjectParser.swift */; };
+		BF_13C115CFC9FF763E80B8568495FB9747 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5C7969F032D9379BD6D259240A1E4DED /* PBXHeadersBuildPhase.swift */; };
+		BF_15B9C30FF51414FCA3F2499B2684E26E /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D33D58516A50A2314380E6FE31F49CE3 /* PBXProj.swift */; };
+		BF_1A74165FBE5F33E4E26D693697AB4913 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5F694668636B07CD454EFA3E4C621C85 /* XCConfig.swift */; };
 		BF_1B2B54DE52518A3BEECFFC0E20362E5D /* SwiftShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_5656AA9F53F6DE92D90072FDC227BAEC /* SwiftShell.framework */; };
-		BF_1D9DCD319672BB4CE71DE7BED7A44758 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_94F0F8038C977732229D7179BE902BB1 /* PBXFrameworksBuildPhase.swift */; settings = {}; };
-		BF_1E3917F81F740441BB46391D2D8AD32F /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */; settings = {}; };
-		BF_20AC9E7313419052B45B3D52358D0EDD /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6703A7DC94DD08EF6E678DD952BBE906 /* PBXVariantGroup.swift */; settings = {}; };
+		BF_1D9DCD319672BB4CE71DE7BED7A44758 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_94F0F8038C977732229D7179BE902BB1 /* PBXFrameworksBuildPhase.swift */; };
+		BF_1E3917F81F740441BB46391D2D8AD32F /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */; };
+		BF_20AC9E7313419052B45B3D52358D0EDD /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6703A7DC94DD08EF6E678DD952BBE906 /* PBXVariantGroup.swift */; };
 		BF_214BDC9DB7C52592B597506D7F0AD98F /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_8E82C7D76A8AA35BDE153362F4524B65 /* PathKit.framework */; };
-		BF_21EB80A79BA1819CC42BE9E21A883868 /* XCScheme+LocationScenarioReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3EA8633DC53138C3A9FA61CE5AE2674E /* XCScheme+LocationScenarioReference.swift */; settings = {}; };
-		BF_26F35AD4C82006845CAAF48E25F9826A /* XCScheme+ProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_22B995C8E0F62900CAC7E80B3F5256AF /* XCScheme+ProfileAction.swift */; settings = {}; };
-		BF_2B94D7D1C0CD62F037CFAEE965224CA9 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576E881DDECA1982DD170D60BF04BB23 /* XcodeProj.swift */; settings = {}; };
-		BF_2C2206DE43BE83FBD81F352888EB9CA2 /* Dictionary+Enumerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7ADDF7FDB95F83B61C73BA76DD4A1309 /* Dictionary+Enumerate.swift */; settings = {}; };
-		BF_2E31DEEFEDFA5B4ADA24A746C41B84C1 /* PBXObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_20B241CA11AFA6BFA8A93F2513243EAE /* PBXObjects.swift */; settings = {}; };
-		BF_39985E04483EF21A04F9772D9085C374 /* XCScheme+TestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_AB7B0CE167E4BD1F0092984497663A5B /* XCScheme+TestAction.swift */; settings = {}; };
-		BF_3A81A9D9DFA1F554563B8FBDB96550F4 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C47AFD6F369F9225D8258E2B73BA7F30 /* PBXContainerItemProxy.swift */; settings = {}; };
-		BF_3B0722E116B1FCA34956CC5A5D88C60E /* XCScheme+BuildableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8B570393529819F320620DD6DD6FD37A /* XCScheme+BuildableReference.swift */; settings = {}; };
+		BF_21EB80A79BA1819CC42BE9E21A883868 /* XCScheme+LocationScenarioReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3EA8633DC53138C3A9FA61CE5AE2674E /* XCScheme+LocationScenarioReference.swift */; };
+		BF_26F35AD4C82006845CAAF48E25F9826A /* XCScheme+ProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_22B995C8E0F62900CAC7E80B3F5256AF /* XCScheme+ProfileAction.swift */; };
+		BF_2B94D7D1C0CD62F037CFAEE965224CA9 /* XcodeProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_576E881DDECA1982DD170D60BF04BB23 /* XcodeProj.swift */; };
+		BF_2C2206DE43BE83FBD81F352888EB9CA2 /* Dictionary+Enumerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7ADDF7FDB95F83B61C73BA76DD4A1309 /* Dictionary+Enumerate.swift */; };
+		BF_2E31DEEFEDFA5B4ADA24A746C41B84C1 /* PBXObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_20B241CA11AFA6BFA8A93F2513243EAE /* PBXObjects.swift */; };
+		BF_39985E04483EF21A04F9772D9085C374 /* XCScheme+TestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_AB7B0CE167E4BD1F0092984497663A5B /* XCScheme+TestAction.swift */; };
+		BF_3A81A9D9DFA1F554563B8FBDB96550F4 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C47AFD6F369F9225D8258E2B73BA7F30 /* PBXContainerItemProxy.swift */; };
+		BF_3B0722E116B1FCA34956CC5A5D88C60E /* XCScheme+BuildableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8B570393529819F320620DD6DD6FD37A /* XCScheme+BuildableReference.swift */; };
 		BF_3FA67A307185D116B5705A4912B69182 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_232A4F5CEAE41A131C7B04C78BC0D926 /* Project.swift */; };
-		BF_43B907320DE8725E78F8B4817CB435A7 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_080CD730A4B117628B6D361E95498AA5 /* PBXShellScriptBuildPhase.swift */; settings = {}; };
-		BF_44EBC0A8578DE6CC2E175908EF441067 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6689AA30B6313431309B9AE9A3D47F37 /* Decoders.swift */; settings = {}; };
-		BF_48C427E84CE4B7231BC94C18C17568E4 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_620306AA53BC6E2398455502232B4D80 /* XCBreakpointList.swift */; settings = {}; };
-		BF_4F31432350EB5F0B93F8C565FB55AB70 /* XCScheme+BuildableProductRunnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_18DED78177EB13EDF52043B7F871628F /* XCScheme+BuildableProductRunnable.swift */; settings = {}; };
-		BF_50963D9ABE3D013C83FD88A095CFBC87 /* XCScheme+ArchiveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4D0D876D0D445DA7A0141A9CC05E9EA6 /* XCScheme+ArchiveAction.swift */; settings = {}; };
-		BF_5823051A3ECB7D4653EDBDABD7A96C2B /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_1330CA7702573F26555A01F8D0E77D0A /* PBXTarget.swift */; settings = {}; };
-		BF_58FFC208EB1ED0675554F830BCF8C7A3 /* XCScheme+SerialAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C7B0439E4FE2EA9E206D7C4781E41A42 /* XCScheme+SerialAction.swift */; settings = {}; };
-		BF_5F132C972A22BA7F55D6F428D3A07466 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EE8E45029B2E7E1A3DA01B2995202483 /* XCBuildConfiguration.swift */; settings = {}; };
-		BF_6193B3CC279CBEF1B95FD11CB1E92A06 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DA43C909DE9A8F19430123A4A9A31FA8 /* PBXBuildRule.swift */; settings = {}; };
-		BF_621A3A44EB5966182A5F3F1D4A1D7FF4 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_40FAC36D8C0BB28A5EB2039849EE25B5 /* XCWorkspaceDataElementLocationType.swift */; settings = {}; };
-		BF_633D766D9CA79966CB5885BAF23ED804 /* Path+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_B196A48F35BB91D874C1548E7CD23415 /* Path+Extras.swift */; settings = {}; };
-		BF_6517198CE55E52105FA831F0D88D286C /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3879D748A8037B20EBBDE4FACF0BF39D /* PBXBuildPhase.swift */; settings = {}; };
-		BF_6A31BAB7D83793FD3188AA51D1F8F03F /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2575E746761A2918210EE0CFA9C8B692 /* PBXTargetDependency.swift */; settings = {}; };
-		BF_6F1E18068CCBB967BA69ECA3096329D7 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_A7AEE9E115601A028278857231274B65 /* PBXNativeTarget.swift */; settings = {}; };
-		BF_74358FDD70E12264B3D28ABEE9E8AD68 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2EE98E9B97CDF89EE9B966298C126EF5 /* XCWorkspace.swift */; settings = {}; };
-		BF_825A612876451751A8D4AE0C36AC224D /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C189E9604451064416B893A63F6E03CD /* XCConfigurationList.swift */; settings = {}; };
-		BF_8ACFBA8CB99909BD7E841C1F3625EF0A /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_0A3196420887693FEA360D544F8BB124 /* BuildSettings.swift */; settings = {}; };
-		BF_8C05B087B8E15713342DDDDBEB76D0F9 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5652ACA2E27564539AC970386CA55143 /* XCWorkspaceDataFileRef.swift */; settings = {}; };
-		BF_9394DA7073AF38360D6F17765C9C0AF0 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EE01A650C4EE8DF58B6948BCF1EF8B3B /* PlistValue.swift */; settings = {}; };
-		BF_93E8BA1DECC537659712C5DF443608AE /* Equality.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7BA6F48254D2A26341C8750669CEB53C /* Equality.generated.swift */; settings = {}; };
-		BF_9547E36F405906EFE3FF2F15C380B2DC /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_F468F92DDF43954524156AE8580A4BFD /* PBXAggregateTarget.swift */; settings = {}; };
+		BF_43B907320DE8725E78F8B4817CB435A7 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_080CD730A4B117628B6D361E95498AA5 /* PBXShellScriptBuildPhase.swift */; };
+		BF_44EBC0A8578DE6CC2E175908EF441067 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6689AA30B6313431309B9AE9A3D47F37 /* Decoders.swift */; };
+		BF_48C427E84CE4B7231BC94C18C17568E4 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_620306AA53BC6E2398455502232B4D80 /* XCBreakpointList.swift */; };
+		BF_4F31432350EB5F0B93F8C565FB55AB70 /* XCScheme+BuildableProductRunnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_18DED78177EB13EDF52043B7F871628F /* XCScheme+BuildableProductRunnable.swift */; };
+		BF_50963D9ABE3D013C83FD88A095CFBC87 /* XCScheme+ArchiveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4D0D876D0D445DA7A0141A9CC05E9EA6 /* XCScheme+ArchiveAction.swift */; };
+		BF_5823051A3ECB7D4653EDBDABD7A96C2B /* PBXTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_1330CA7702573F26555A01F8D0E77D0A /* PBXTarget.swift */; };
+		BF_58FFC208EB1ED0675554F830BCF8C7A3 /* XCScheme+SerialAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C7B0439E4FE2EA9E206D7C4781E41A42 /* XCScheme+SerialAction.swift */; };
+		BF_5F132C972A22BA7F55D6F428D3A07466 /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EE8E45029B2E7E1A3DA01B2995202483 /* XCBuildConfiguration.swift */; };
+		BF_6193B3CC279CBEF1B95FD11CB1E92A06 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DA43C909DE9A8F19430123A4A9A31FA8 /* PBXBuildRule.swift */; };
+		BF_621A3A44EB5966182A5F3F1D4A1D7FF4 /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_40FAC36D8C0BB28A5EB2039849EE25B5 /* XCWorkspaceDataElementLocationType.swift */; };
+		BF_633D766D9CA79966CB5885BAF23ED804 /* Path+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_B196A48F35BB91D874C1548E7CD23415 /* Path+Extras.swift */; };
+		BF_6517198CE55E52105FA831F0D88D286C /* PBXBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3879D748A8037B20EBBDE4FACF0BF39D /* PBXBuildPhase.swift */; };
+		BF_6A31BAB7D83793FD3188AA51D1F8F03F /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2575E746761A2918210EE0CFA9C8B692 /* PBXTargetDependency.swift */; };
+		BF_6F1E18068CCBB967BA69ECA3096329D7 /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_A7AEE9E115601A028278857231274B65 /* PBXNativeTarget.swift */; };
+		BF_74358FDD70E12264B3D28ABEE9E8AD68 /* XCWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2EE98E9B97CDF89EE9B966298C126EF5 /* XCWorkspace.swift */; };
+		BF_825A612876451751A8D4AE0C36AC224D /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C189E9604451064416B893A63F6E03CD /* XCConfigurationList.swift */; };
+		BF_8ACFBA8CB99909BD7E841C1F3625EF0A /* BuildSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_0A3196420887693FEA360D544F8BB124 /* BuildSettings.swift */; };
+		BF_8C05B087B8E15713342DDDDBEB76D0F9 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5652ACA2E27564539AC970386CA55143 /* XCWorkspaceDataFileRef.swift */; };
+		BF_9394DA7073AF38360D6F17765C9C0AF0 /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EE01A650C4EE8DF58B6948BCF1EF8B3B /* PlistValue.swift */; };
+		BF_93E8BA1DECC537659712C5DF443608AE /* Equality.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7BA6F48254D2A26341C8750669CEB53C /* Equality.generated.swift */; };
+		BF_9547E36F405906EFE3FF2F15C380B2DC /* PBXAggregateTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_F468F92DDF43954524156AE8580A4BFD /* PBXAggregateTarget.swift */; };
 		BF_96AAB77521EC219E986F4006C3912D5B /* AEXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_D390F78B45315B07AC1161DC2AD2A813 /* AEXML.framework */; };
-		BF_97757E27E60794E1E4762A1035952F68 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */; settings = {}; };
-		BF_9D9FB6A8BF67DCB13B628AA2AEE94183 /* WorkspaceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_197EB766547E7C536E1CFC13C4FC7E46 /* WorkspaceSettings.swift */; settings = {}; };
-		BF_A29B4B04B8698C752B2DF16229FC1790 /* BuildSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_655F5A53064163BC636AA7D8791940F9 /* BuildSettingsProvider.swift */; settings = {}; };
-		BF_A52FA607B9FC4C09ED2DA4175827CE9D /* XCScheme+TestableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3D85719C63E447FC5AFB96AFD03290E4 /* XCScheme+TestableReference.swift */; settings = {}; };
-		BF_A763C66EAFB57D7B51726653CE1AC86F /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4AFECB267AC21850245F191C7BFAF615 /* XCVersionGroup.swift */; settings = {}; };
-		BF_A85BE6EE15560B1DEA0FE2B829D783A3 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_9C11681035E0D66499C8072D77B3A116 /* PBXRezBuildPhase.swift */; settings = {}; };
-		BF_A94E8E83565A8B2FE9651B79D0A2862F /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_1A4F7F19AB5F23193F26C5B53F3ECBAB /* PBXResourcesBuildPhase.swift */; settings = {}; };
-		BF_ADA51AB675CCF2E8C59DD38AAB4E6E41 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8F2EE5CBB0AAA9124B610A816DDF6F95 /* XCWorkspaceDataElement.swift */; settings = {}; };
-		BF_AF7932819F6FA36B2D1D757BFC8A6CF4 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540D50C87CB33D87736206D1B079925C /* String+Utils.swift */; settings = {}; };
-		BF_B090DF51238D19A6B9924FF00890725F /* PBXOutputSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_A1B3D64F24696C375E4F6E9E9D1C5DA8 /* PBXOutputSettings.swift */; settings = {}; };
-		BF_B0F00BE3544746D359E3736E6BAFC809 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_322B99EEDBAF5F9191801DCB484854B0 /* CommentedString.swift */; settings = {}; };
-		BF_B2F7786B0B16DAB61E19F6550B25003F /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4B1F4D31870B7F87CF8DC5DCAA2CC0CB /* PBXObject.swift */; settings = {}; };
-		BF_B4719EBE6FD6EB4C83D920E4302B8538 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3C0BE88FD8AFF1CFF1238E6575FF8F1D /* PBXFileReference.swift */; settings = {}; };
-		BF_B4A5B8F10D710971D0FB917358ED0305 /* XCScheme+SkippedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_83B737B77DE5B573D5CDE2AE80AB0FCE /* XCScheme+SkippedTests.swift */; settings = {}; };
-		BF_B4EF7B858E33D00794CD31EF388FFFD1 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */; settings = {}; };
-		BF_B6215906AAED8DAD4240AF7D9751614E /* NSRecursiveLock+Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_BAFF6FE076145615AA33AAFAEC32395F /* NSRecursiveLock+Sync.swift */; settings = {}; };
-		BF_B665952B4A063BD38FCDF66C54D4F5EB /* ReferenceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8BD53BFB91881B5AF167D4C9AE9EEE2E /* ReferenceGenerator.swift */; settings = {}; };
-		BF_B815DC099286AFE971F6B1D57E51051F /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6F3BFEFD3EE88733DBA5E6149C0348E4 /* AEXML+XcodeFormat.swift */; settings = {}; };
-		BF_C1DADD116EB5EC25F77AB0D3A5DA3289 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DBC150EF24585E1ADD703292623CB2AD /* PBXGroup.swift */; settings = {}; };
-		BF_C4C54B40C45DF4CE0033C33007C5006B /* PBXObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_FCE8340DC7BD4BAE08AE0919318D469E /* PBXObjectReference.swift */; settings = {}; };
-		BF_C99FE0814D12F8C0C4671D5B017EAD38 /* OSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2CB57B51B510E9D63C2A6190AC2CC68B /* OSLogger.swift */; settings = {}; };
-		BF_D16AC09447FB8A57CA3ADA94BF4B499C /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_31489A9E1B5E24278D5C78B0512DDD29 /* PBXProjEncoder.swift */; settings = {}; };
-		BF_D1EE2E5A149BDAB4305CA0429E14D9F6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8EB0828D71EA7AF27D045D6506F48BE8 /* Errors.swift */; settings = {}; };
-		BF_D4F7F0311B71CCC908DA762FB97DBAC6 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4F0435E4F9123BC98DA604C8C7E15EBB /* PBXProject.swift */; settings = {}; };
-		BF_D8489CA67F58D4D756FB72C7BD130770 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6560ECF80010D51A9C25D0038CA7CAFD /* XCWorkspaceData.swift */; settings = {}; };
-		BF_DA317C6C3A643592EE4B61B5C19443B5 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_54930C4C62749B7EA3D72D594EAED1D8 /* KeyedDecodingContainer+Additions.swift */; settings = {}; };
-		BF_DE2E97F3E8B2E8A289E8D4A98DE25CB0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_54840278DED6955DAB921DD12E6B5EB0 /* PBXBuildFile.swift */; settings = {}; };
-		BF_E026BB6F657F9D4EC0E2D32B3ECEA07A /* XCScheme+CommandLineArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3C59A31BD87C60E6EE1F636A9BFE7FC3 /* XCScheme+CommandLineArguments.swift */; settings = {}; };
-		BF_E24EC0ABFBC15DE000E01AFC6DD9E9BF /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7EA09A0A7408AF0D1E2F1BFC830534C0 /* Dictionary+Extras.swift */; settings = {}; };
-		BF_E4BE7EB0166B300303A01629E8C4D061 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_0B4F62316B529B837B764BF799AFC987 /* PBXFileElement.swift */; settings = {}; };
-		BF_E8FAAB49607C6460A0FF04AE5E36D887 /* XCScheme+EnvironmentVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DD7A3CF85EA55458FCDB36E549492F3F /* XCScheme+EnvironmentVariable.swift */; settings = {}; };
-		BF_ED1F79B5C0FCD26952C9F6A24F30C8D9 /* XCScheme+LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_20538B41021AC795218674D39EB3EE8A /* XCScheme+LaunchAction.swift */; settings = {}; };
-		BF_EFA9F16C95F96AAA6A8A5CE66D16F9D7 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DB0E437ED9AD81F5DA18326227B1BD3E /* PBXReferenceProxy.swift */; settings = {}; };
-		BF_F0F89DA916EDCF834030574307DE51D5 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_36675B1907FA8C31218DDDB517E8D734 /* XCSharedData.swift */; settings = {}; };
-		BF_F12F479FC7AFF239572F5614ED9ECDAF /* OSLog+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C1FCBE05E990D6474AD44E616E4FEDEF /* OSLog+Extras.swift */; settings = {}; };
-		BF_F20720060F70EBDB553C973296B17329 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D6D6D5FE0DA71B6D4E2F5A970F651E83 /* PBXProductType.swift */; settings = {}; };
-		BF_F2C1A7F3552C609BD81CC4B097453719 /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_621EE2962242C1883B808525715E77B0 /* Xcode.swift */; settings = {}; };
-		BF_F653C5259EE192C789FAD196DDFC9F94 /* XCScheme+AnalyzeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_FAB11F143CA74586C62695A71F7254D1 /* XCScheme+AnalyzeAction.swift */; settings = {}; };
-		BF_F6A8C1A56800C2AE853449C604A611CE /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_B2AA9D12EACAFC732C35BDC2CE9D0FA4 /* Bool+Extras.swift */; settings = {}; };
-		BF_F7353A416986663ECEEBD2615F7FF6BF /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_92CEADEDAAB861ADE57C0A977EFDE575 /* Sourcery.swift */; settings = {}; };
-		BF_FAA53414C7E630706EDF8323418A8D08 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6B7B13043408EE4ADB7FC94769921181 /* XCWorkspaceDataGroup.swift */; settings = {}; };
-		BF_FCE3913AC317D79E6B370F423D35E686 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5257319A9112B9C74008BCD653385419 /* BuildPhase.swift */; settings = {}; };
+		BF_97757E27E60794E1E4762A1035952F68 /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */; };
+		BF_9D9FB6A8BF67DCB13B628AA2AEE94183 /* WorkspaceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_197EB766547E7C536E1CFC13C4FC7E46 /* WorkspaceSettings.swift */; };
+		BF_A29B4B04B8698C752B2DF16229FC1790 /* BuildSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_655F5A53064163BC636AA7D8791940F9 /* BuildSettingsProvider.swift */; };
+		BF_A52FA607B9FC4C09ED2DA4175827CE9D /* XCScheme+TestableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3D85719C63E447FC5AFB96AFD03290E4 /* XCScheme+TestableReference.swift */; };
+		BF_A763C66EAFB57D7B51726653CE1AC86F /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4AFECB267AC21850245F191C7BFAF615 /* XCVersionGroup.swift */; };
+		BF_A85BE6EE15560B1DEA0FE2B829D783A3 /* PBXRezBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_9C11681035E0D66499C8072D77B3A116 /* PBXRezBuildPhase.swift */; };
+		BF_A94E8E83565A8B2FE9651B79D0A2862F /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_1A4F7F19AB5F23193F26C5B53F3ECBAB /* PBXResourcesBuildPhase.swift */; };
+		BF_ADA51AB675CCF2E8C59DD38AAB4E6E41 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8F2EE5CBB0AAA9124B610A816DDF6F95 /* XCWorkspaceDataElement.swift */; };
+		BF_AF7932819F6FA36B2D1D757BFC8A6CF4 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_540D50C87CB33D87736206D1B079925C /* String+Utils.swift */; };
+		BF_B090DF51238D19A6B9924FF00890725F /* PBXOutputSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_A1B3D64F24696C375E4F6E9E9D1C5DA8 /* PBXOutputSettings.swift */; };
+		BF_B0F00BE3544746D359E3736E6BAFC809 /* CommentedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_322B99EEDBAF5F9191801DCB484854B0 /* CommentedString.swift */; };
+		BF_B2F7786B0B16DAB61E19F6550B25003F /* PBXObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4B1F4D31870B7F87CF8DC5DCAA2CC0CB /* PBXObject.swift */; };
+		BF_B4719EBE6FD6EB4C83D920E4302B8538 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3C0BE88FD8AFF1CFF1238E6575FF8F1D /* PBXFileReference.swift */; };
+		BF_B4A5B8F10D710971D0FB917358ED0305 /* XCScheme+SkippedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_83B737B77DE5B573D5CDE2AE80AB0FCE /* XCScheme+SkippedTests.swift */; };
+		BF_B4EF7B858E33D00794CD31EF388FFFD1 /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */; };
+		BF_B6215906AAED8DAD4240AF7D9751614E /* NSRecursiveLock+Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_BAFF6FE076145615AA33AAFAEC32395F /* NSRecursiveLock+Sync.swift */; };
+		BF_B665952B4A063BD38FCDF66C54D4F5EB /* ReferenceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8BD53BFB91881B5AF167D4C9AE9EEE2E /* ReferenceGenerator.swift */; };
+		BF_B815DC099286AFE971F6B1D57E51051F /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6F3BFEFD3EE88733DBA5E6149C0348E4 /* AEXML+XcodeFormat.swift */; };
+		BF_C1DADD116EB5EC25F77AB0D3A5DA3289 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DBC150EF24585E1ADD703292623CB2AD /* PBXGroup.swift */; };
+		BF_C4C54B40C45DF4CE0033C33007C5006B /* PBXObjectReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_FCE8340DC7BD4BAE08AE0919318D469E /* PBXObjectReference.swift */; };
+		BF_C99FE0814D12F8C0C4671D5B017EAD38 /* OSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_2CB57B51B510E9D63C2A6190AC2CC68B /* OSLogger.swift */; };
+		BF_D16AC09447FB8A57CA3ADA94BF4B499C /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_31489A9E1B5E24278D5C78B0512DDD29 /* PBXProjEncoder.swift */; };
+		BF_D1EE2E5A149BDAB4305CA0429E14D9F6 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8EB0828D71EA7AF27D045D6506F48BE8 /* Errors.swift */; };
+		BF_D4F7F0311B71CCC908DA762FB97DBAC6 /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4F0435E4F9123BC98DA604C8C7E15EBB /* PBXProject.swift */; };
+		BF_D8489CA67F58D4D756FB72C7BD130770 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6560ECF80010D51A9C25D0038CA7CAFD /* XCWorkspaceData.swift */; };
+		BF_DA317C6C3A643592EE4B61B5C19443B5 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_54930C4C62749B7EA3D72D594EAED1D8 /* KeyedDecodingContainer+Additions.swift */; };
+		BF_DE2E97F3E8B2E8A289E8D4A98DE25CB0 /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_54840278DED6955DAB921DD12E6B5EB0 /* PBXBuildFile.swift */; };
+		BF_E026BB6F657F9D4EC0E2D32B3ECEA07A /* XCScheme+CommandLineArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_3C59A31BD87C60E6EE1F636A9BFE7FC3 /* XCScheme+CommandLineArguments.swift */; };
+		BF_E24EC0ABFBC15DE000E01AFC6DD9E9BF /* Dictionary+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7EA09A0A7408AF0D1E2F1BFC830534C0 /* Dictionary+Extras.swift */; };
+		BF_E4BE7EB0166B300303A01629E8C4D061 /* PBXFileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_0B4F62316B529B837B764BF799AFC987 /* PBXFileElement.swift */; };
+		BF_E8FAAB49607C6460A0FF04AE5E36D887 /* XCScheme+EnvironmentVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DD7A3CF85EA55458FCDB36E549492F3F /* XCScheme+EnvironmentVariable.swift */; };
+		BF_ED1F79B5C0FCD26952C9F6A24F30C8D9 /* XCScheme+LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_20538B41021AC795218674D39EB3EE8A /* XCScheme+LaunchAction.swift */; };
+		BF_EFA9F16C95F96AAA6A8A5CE66D16F9D7 /* PBXReferenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_DB0E437ED9AD81F5DA18326227B1BD3E /* PBXReferenceProxy.swift */; };
+		BF_F0F89DA916EDCF834030574307DE51D5 /* XCSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_36675B1907FA8C31218DDDB517E8D734 /* XCSharedData.swift */; };
+		BF_F12F479FC7AFF239572F5614ED9ECDAF /* OSLog+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C1FCBE05E990D6474AD44E616E4FEDEF /* OSLog+Extras.swift */; };
+		BF_F20720060F70EBDB553C973296B17329 /* PBXProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D6D6D5FE0DA71B6D4E2F5A970F651E83 /* PBXProductType.swift */; };
+		BF_F2C1A7F3552C609BD81CC4B097453719 /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_621EE2962242C1883B808525715E77B0 /* Xcode.swift */; };
+		BF_F653C5259EE192C789FAD196DDFC9F94 /* XCScheme+AnalyzeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_FAB11F143CA74586C62695A71F7254D1 /* XCScheme+AnalyzeAction.swift */; };
+		BF_F6A8C1A56800C2AE853449C604A611CE /* Bool+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_B2AA9D12EACAFC732C35BDC2CE9D0FA4 /* Bool+Extras.swift */; };
+		BF_F7353A416986663ECEEBD2615F7FF6BF /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_92CEADEDAAB861ADE57C0A977EFDE575 /* Sourcery.swift */; };
+		BF_FAA53414C7E630706EDF8323418A8D08 /* XCWorkspaceDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6B7B13043408EE4ADB7FC94769921181 /* XCWorkspaceDataGroup.swift */; };
+		BF_FCE3913AC317D79E6B370F423D35E686 /* BuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5257319A9112B9C74008BCD653385419 /* BuildPhase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,7 +125,7 @@
 		FR_20538B41021AC795218674D39EB3EE8A /* XCScheme+LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+LaunchAction.swift"; sourceTree = "<group>"; };
 		FR_20B241CA11AFA6BFA8A93F2513243EAE /* PBXObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXObjects.swift; sourceTree = "<group>"; };
 		FR_22B995C8E0F62900CAC7E80B3F5256AF /* XCScheme+ProfileAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ProfileAction.swift"; sourceTree = "<group>"; };
-		FR_232A4F5CEAE41A131C7B04C78BC0D926 /* Project.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Project.swift; path = Project.swift; sourceTree = "<group>"; };
+		FR_232A4F5CEAE41A131C7B04C78BC0D926 /* Project.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		FR_2575E746761A2918210EE0CFA9C8B692 /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
 		FR_269157079FBC6F9C7C2D97CB021C51E7 /* XCScheme+ExecutionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ExecutionAction.swift"; sourceTree = "<group>"; };
 		FR_2CB57B51B510E9D63C2A6190AC2CC68B /* OSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogger.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		FR_DBC150EF24585E1ADD703292623CB2AD /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_DD7A3CF85EA55458FCDB36E549492F3F /* XCScheme+EnvironmentVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+EnvironmentVariable.swift"; sourceTree = "<group>"; };
-		FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj-CarthageDescription.framework */ = {isa = PBXFileReference; name = "xcodeproj-CarthageDescription.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = xcodeproj_CarthageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+md5.swift"; sourceTree = "<group>"; };
 		FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_EE01A650C4EE8DF58B6948BCF1EF8B3B /* PlistValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistValue.swift; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				FR_AA5FA4D8D845FC10E5891243587EE73D /* xcodeproj.framework */,
-				FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj-CarthageDescription.framework */,
+				FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -541,7 +541,7 @@
 			);
 			name = "xcodeproj-CarthageDescription";
 			productName = "xcodeproj-CarthageDescription.framework";
-			productReference = FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj-CarthageDescription.framework */;
+			productReference = FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -717,13 +717,17 @@
 				HEADER_SEARCH_PATHS = " ";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.xcodeproj;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
-				SWIFT_VERSION = 4.2.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -744,13 +748,17 @@
 				HEADER_SEARCH_PATHS = " ";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.xcodeproj;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
-				SWIFT_VERSION = 4.2.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -819,7 +827,11 @@
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD = /usr/bin/true;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Users/pedropinera/.tuist/Versions/0.11.0";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -830,7 +842,7 @@
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_INCLUDE_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -906,7 +918,11 @@
 				FRAMEWORK_VERSION = A;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD = /usr/bin/true;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Users/pedropinera/.tuist/Versions/0.11.0";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -917,7 +933,7 @@
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_INCLUDE_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -933,6 +949,7 @@
 				BC_54A68413820EB7C5549846B440FE9BCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "xcodeproj-CarthageDescription" */ = {
 			isa = XCConfigurationList;
@@ -941,6 +958,7 @@
 				BC_83D87B24E02C159AB7D055459BFF53F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CL_DF4087A4F5428BD934E5BEB5374B2395 /* Build configuration list for PBXProject "xcodeproj-Carthage" */ = {
 			isa = XCConfigurationList;
@@ -949,6 +967,7 @@
 				BC_62A3BE0CEFEE0945BB56377BC8B0CCBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
