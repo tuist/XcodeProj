@@ -1,6 +1,6 @@
 import Foundation
 import PathKit
-import SwiftShell
+import Shell
 import xcodeproj
 import XCTest
 
@@ -9,7 +9,7 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertEqual(PBXGroup.isa, "PBXGroup")
     }
 
-    func test_addFile_assignParent() {
+    func test_addFile_assignParent() throws {
         let sourceRoot = Path("/")
         let project = PBXProj(
             rootObject: nil,
@@ -22,11 +22,9 @@ final class PBXGroupTests: XCTestCase {
                              sourceTree: .group,
                              name: "group")
         project.add(object: group)
-        let filePath = "\(Path.temporary.string)/file"
-        Files.createFile(atPath: filePath, contents: nil, attributes: nil)
-        let file = try? group.addFile(at: Path(filePath), sourceRoot: sourceRoot)
-
-        try! Files.removeItem(atPath: filePath)
+        let filePath = try Path.uniqueTemporary() + "file"
+        try Data().write(to: filePath.url)
+        let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot)
         XCTAssertNotNil(file?.parent)
     }
 
