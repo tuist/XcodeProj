@@ -180,7 +180,7 @@
 		FR_9C11681035E0D66499C8072D77B3A116 /* PBXRezBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXRezBuildPhase.swift; sourceTree = "<group>"; };
 		FR_A1B3D64F24696C375E4F6E9E9D1C5DA8 /* PBXOutputSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXOutputSettings.swift; sourceTree = "<group>"; };
 		FR_A7AEE9E115601A028278857231274B65 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
-		FR_AA5FA4D8D845FC10E5891243587EE73D /* xcodeproj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = xcodeproj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_AA5FA4D8D845FC10E5891243587EE73D /* XcodeProj.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XcodeProj.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_AB7B0CE167E4BD1F0092984497663A5B /* XCScheme+TestAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+TestAction.swift"; sourceTree = "<group>"; };
 		FR_B196A48F35BB91D874C1548E7CD23415 /* Path+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Extras.swift"; sourceTree = "<group>"; };
 		FR_B2AA9D12EACAFC732C35BDC2CE9D0FA4 /* Bool+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extras.swift"; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		FR_DBC150EF24585E1ADD703292623CB2AD /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_DD7A3CF85EA55458FCDB36E549492F3F /* XCScheme+EnvironmentVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+EnvironmentVariable.swift"; sourceTree = "<group>"; };
-		FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = xcodeproj_CarthageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XcodeProj_CarthageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+md5.swift"; sourceTree = "<group>"; };
 		FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_EE01A650C4EE8DF58B6948BCF1EF8B3B /* PlistValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistValue.swift; sourceTree = "<group>"; };
@@ -467,8 +467,8 @@
 		G_D685EADCAC61F8A1114DCC767856F75E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FR_AA5FA4D8D845FC10E5891243587EE73D /* xcodeproj.framework */,
-				FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */,
+				FR_AA5FA4D8D845FC10E5891243587EE73D /* XcodeProj.framework */,
+				FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -510,9 +510,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		NT_0121A3F25740E85497BB2706DC833345 /* xcodeproj */ = {
+		NT_0121A3F25740E85497BB2706DC833345 /* XcodeProj */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CL_6D85CDF87DB04D67A1213378A7DF0515 /* Build configuration list for PBXNativeTarget "xcodeproj" */;
+			buildConfigurationList = CL_6D85CDF87DB04D67A1213378A7DF0515 /* Build configuration list for PBXNativeTarget "XcodeProj" */;
 			buildPhases = (
 				SBP_83F793CE0A654C482CEF8C913FB42777 /* Sources */,
 				RBP_199682EE52F4D0A0CF1CC19711A9C1F0 /* Resources */,
@@ -524,14 +524,14 @@
 			);
 			dependencies = (
 			);
-			name = xcodeproj;
+			name = XcodeProj;
 			productName = xcodeproj.framework;
-			productReference = FR_AA5FA4D8D845FC10E5891243587EE73D /* xcodeproj.framework */;
+			productReference = FR_AA5FA4D8D845FC10E5891243587EE73D /* XcodeProj.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		NT_4D35457CB3B54FF8A8A805131F46FCF3 /* xcodeproj-CarthageDescription */ = {
+		NT_4D35457CB3B54FF8A8A805131F46FCF3 /* XcodeProj-CarthageDescription */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "xcodeproj-CarthageDescription" */;
+			buildConfigurationList = CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "XcodeProj-CarthageDescription" */;
 			buildPhases = (
 				SBP_4CCB39D3207656D8BF635DB246C808AE /* Sources */,
 			);
@@ -539,9 +539,9 @@
 			);
 			dependencies = (
 			);
-			name = "xcodeproj-CarthageDescription";
+			name = "XcodeProj-CarthageDescription";
 			productName = "xcodeproj-CarthageDescription.framework";
-			productReference = FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* xcodeproj_CarthageDescription.framework */;
+			productReference = FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -551,7 +551,7 @@
 			isa = PBXProject;
 			attributes = {
 			};
-			buildConfigurationList = CL_DF4087A4F5428BD934E5BEB5374B2395 /* Build configuration list for PBXProject "xcodeproj-Carthage" */;
+			buildConfigurationList = CL_DF4087A4F5428BD934E5BEB5374B2395 /* Build configuration list for PBXProject "XcodeProj-Carthage" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -563,8 +563,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				NT_4D35457CB3B54FF8A8A805131F46FCF3 /* xcodeproj-CarthageDescription */,
-				NT_0121A3F25740E85497BB2706DC833345 /* xcodeproj */,
+				NT_4D35457CB3B54FF8A8A805131F46FCF3 /* XcodeProj-CarthageDescription */,
+				NT_0121A3F25740E85497BB2706DC833345 /* XcodeProj */,
 			);
 		};
 /* End PBXProject section */
@@ -942,7 +942,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CL_6D85CDF87DB04D67A1213378A7DF0515 /* Build configuration list for PBXNativeTarget "xcodeproj" */ = {
+		CL_6D85CDF87DB04D67A1213378A7DF0515 /* Build configuration list for PBXNativeTarget "XcodeProj" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC_4BB7466F3AD08C8EFC1AA6DE6428095D /* Debug */,
@@ -951,7 +951,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "xcodeproj-CarthageDescription" */ = {
+		CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "XcodeProj-CarthageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC_FF5AD17CFF65BF243ED59238FBB848B4 /* Debug */,
@@ -960,7 +960,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CL_DF4087A4F5428BD934E5BEB5374B2395 /* Build configuration list for PBXProject "xcodeproj-Carthage" */ = {
+		CL_DF4087A4F5428BD934E5BEB5374B2395 /* Build configuration list for PBXProject "XcodeProj-Carthage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BC_D49ED7936C8577BC2B34331C942979A9 /* Debug */,
