@@ -17,6 +17,12 @@ final class WorkspaceSettingsTests: XCTestCase {
         XCTAssertEqual(got.buildSystem, .new)
     }
 
+    func test_init_when_autoCreateSchemes_is_true() throws {
+        let path = fixturesPath() + "WorkspaceSettings/Default.xcsettings"
+        let got = try WorkspaceSettings.at(path: path)
+        XCTAssertTrue(got.autoCreateSchemes == true)
+    }
+
     func test_equals() {
         let lhs = WorkspaceSettings(buildSystem: .new)
         let rhs = WorkspaceSettings(buildSystem: .original)

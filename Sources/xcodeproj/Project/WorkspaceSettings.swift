@@ -19,18 +19,26 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     /// Workspace build system.
     public var buildSystem: BuildSystem
 
+    /// When true, Xcode auto-creates schemes in the project.
+    public var autoCreateSchemes: Bool?
+
     /// Decodable coding keys.
     ///
     /// - buildSystem: Build system.
     enum CodingKeys: String, CodingKey {
         case buildSystem = "BuildSystemType"
+        case autoCreateSchemes = "IDEWorkspaceSharedSettings_AutocreateContextsIfNeeded"
     }
 
     /// Initializes the settings with its attributes.
     ///
-    /// - Parameter buildSystem: Workspace build system.
-    init(buildSystem: BuildSystem = .new) {
+    /// - Parameters:
+    ///   - buildSystem: Workspace build system.
+    ///   - autoCreateSchemes: When true, Xcode auto-creates schemes in the project.
+    init(buildSystem: BuildSystem = .new,
+         autoCreateSchemes: Bool? = nil) {
         self.buildSystem = buildSystem
+        self.autoCreateSchemes = autoCreateSchemes
     }
 
     /// Initializes the settings decoding the values from the plist representation.
@@ -45,6 +53,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         } else {
             buildSystem = .new
         }
+        autoCreateSchemes = try container.decodeIfPresent(.autoCreateSchemes)
     }
 
     /// Encodes the settings into the given encoder.
@@ -55,6 +64,9 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         if buildSystem == .original {
             try container.encode(buildSystem.rawValue, forKey: .buildSystem)
+        }
+        if let autoCreateSchemes = autoCreateSchemes {
+            try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
         }
     }
 
@@ -79,7 +91,8 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///   - rhs: Second instance to be compared.
     /// - Returns: True if the two instances are the same.
     public static func == (lhs: WorkspaceSettings, rhs: WorkspaceSettings) -> Bool {
-        return lhs.buildSystem == rhs.buildSystem
+        return lhs.buildSystem == rhs.buildSystem &&
+            lhs.autoCreateSchemes == rhs.autoCreateSchemes
     }
 
     /// Writes the workspace settings.
