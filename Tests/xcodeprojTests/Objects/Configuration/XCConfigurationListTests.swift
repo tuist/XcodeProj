@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class XCConfigurationListTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {

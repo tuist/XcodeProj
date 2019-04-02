@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class XCSchemeIntegrationTests: XCTestCase {
     func test_read_iosScheme() {

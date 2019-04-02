@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class XCConfigTests: XCTestCase {
     var subject: XCConfig?

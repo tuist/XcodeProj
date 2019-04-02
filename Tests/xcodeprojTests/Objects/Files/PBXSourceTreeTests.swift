@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXSourceTreeTests: XCTestCase {
     func test_none_hasTheCorrectValue() {

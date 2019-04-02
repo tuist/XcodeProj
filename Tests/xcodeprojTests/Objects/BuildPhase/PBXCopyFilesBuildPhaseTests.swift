@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXCopyFilesBuildPhaseTests: XCTestCase {
     func test_subFolder_Path_hasTheCorrectValue() {

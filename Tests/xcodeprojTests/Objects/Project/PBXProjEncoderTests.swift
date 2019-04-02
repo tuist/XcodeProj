@@ -1,7 +1,7 @@
 
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 class PBXProjEncoderTests: XCTestCase {
     var proj: PBXProj!

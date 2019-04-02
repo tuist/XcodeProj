@@ -3,9 +3,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "xcodeproj",
+    name: "XcodeProj",
     products: [
-        .library(name: "xcodeproj", targets: ["xcodeproj"]),
+        .library(name: "XcodeProj", targets: ["XcodeProj"]),
     ],
     dependencies: [
         .package(url: "https://github.com/tadija/AEXML", .upToNextMinor(from: "4.4.0")),
@@ -13,11 +13,11 @@ let package = Package(
         .package(url: "https://github.com/tuist/Shell", .upToNextMinor(from: "2.0.1")),
     ],
     targets: [
-        .target(name: "xcodeproj",
+        .target(name: "XcodeProj",
                 dependencies: [
                     "PathKit",
                     "AEXML",
                 ]),
-        .testTarget(name: "xcodeprojTests", dependencies: ["xcodeproj", "Shell"]),
+        .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj", "Shell"]),
     ]
 )

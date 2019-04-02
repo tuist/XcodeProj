@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 import Shell
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXProjIntegrationTests: XCTestCase {
     var shell: Shell!

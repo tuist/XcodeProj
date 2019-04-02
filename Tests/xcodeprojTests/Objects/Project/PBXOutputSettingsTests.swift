@@ -1,6 +1,6 @@
 
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 class PBXOutputSettingsTsts: XCTestCase {
     var proj: PBXProj!
