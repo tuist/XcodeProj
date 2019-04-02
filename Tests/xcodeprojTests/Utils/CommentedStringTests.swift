@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 class CommentedStringTests: XCTestCase {
     func test_commentedStringEscaping() {

@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 func testWrite<T: Writable & Equatable>(file _: StaticString = #file,
                                         line _: UInt = #line,

@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import Shell
-import xcodeproj
+import XcodeProj
 import XCTest
 
 final class PBXGroupTests: XCTestCase {

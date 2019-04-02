@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 import XCTest
 
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class WorkspaceSettingsTests: XCTestCase {
     func test_init_when_original_build_system() throws {

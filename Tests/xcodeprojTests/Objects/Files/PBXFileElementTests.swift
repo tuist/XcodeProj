@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXFileElementTests: XCTestCase {
     var subject: PBXFileElement!

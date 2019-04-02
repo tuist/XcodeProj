@@ -2,6 +2,10 @@
 
 ## next version
 
+### Changed
+
+- **Breaking** Renamed module from `xcodeproj` to `XcodeProj` https://github.com/tuist/xcodeproj/pull/398 by @pepibumur.
+
 ### Added
 
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
