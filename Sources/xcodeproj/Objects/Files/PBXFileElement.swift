@@ -156,7 +156,7 @@ public extension PBXFileElement {
             if let group = parent {
                 groupPath = try group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
             } else {
-                let projectObjects = try objects()
+                let projectObjects = objects()
                 let isThisElementRoot = projectObjects.projects.values.first(where: { $0.mainGroup == self }) != nil
                 if isThisElementRoot {
                     if let path = path {
@@ -170,7 +170,7 @@ public extension PBXFileElement {
             }
 
             guard let fullGroupPath: Path = groupPath else { return nil }
-            guard let filePath = self is PBXVariantGroup ? try baseVariantGroupPath() : path else { return fullGroupPath }
+            guard let filePath = self is PBXVariantGroup ? baseVariantGroupPath() : path else { return fullGroupPath }
             return fullGroupPath + filePath
         default:
             return nil
@@ -180,12 +180,11 @@ public extension PBXFileElement {
     /// Returns the path to the variant group base file.
     ///
     /// - Returns: path to the variant group base file.
-    /// - Throws: an error if the path cannot be obtained.
-    private func baseVariantGroupPath() throws -> String? {
-        guard let variantGroup: PBXVariantGroup = self.reference.getObject() else { return nil }
-        guard let baseReference = try variantGroup
+    private func baseVariantGroupPath() -> String? {
+        guard let variantGroup: PBXVariantGroup = self.reference.materialize() else { return nil }
+        guard let baseReference = variantGroup
             .childrenReferences
-            .compactMap({ try $0.getThrowingObject() as PBXFileElement })
+            .compactMap({ $0.materialize() as? PBXFileElement })
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
     }

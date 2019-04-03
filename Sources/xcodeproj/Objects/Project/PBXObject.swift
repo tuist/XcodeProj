@@ -71,12 +71,10 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
     /// Returns the objects the object belong to.
     ///
     /// - Returns: objects the object belongs to.
-    /// - Throws: an error if this method is accessed before the object has been added to a project.
-    func objects() throws -> PBXObjects {
-        guard let objects = self.reference.objects else {
-            let objectType = String(describing: type(of: self))
-            throw PBXObjectError.orphaned(type: objectType, reference: reference.value)
-        }
-        return objects
+    func objects() -> PBXObjects {
+        let objects = reference.objects
+        let objectType = String(describing: type(of: self))
+        precondition(objects != nil, "trying to use object \(objectType) with reference '\(reference)' before being added to any project")
+        return objects!
     }
 }

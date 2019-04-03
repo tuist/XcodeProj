@@ -25,7 +25,7 @@ public final class PBXProj: Decodable {
             rootObjectReference = newValue?.reference
         }
         get {
-            return rootObjectReference?.getObject()
+            return rootObjectReference?.materialize()
         }
     }
 
@@ -133,13 +133,13 @@ public extension PBXProj {
 
     /// Returns root project.
     func rootProject() throws -> PBXProject? {
-        return try rootObjectReference?.getThrowingObject()
+        return rootObjectReference?.materialize()
     }
 
     /// Returns root project's root group.
     func rootGroup() throws -> PBXGroup? {
         let project = try rootProject()
-        return try project?.mainGroupReference.getThrowingObject()
+        return project?.mainGroup
     }
 
     /// Adds a new object to the project.

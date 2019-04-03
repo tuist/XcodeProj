@@ -44,8 +44,14 @@ public final class XcodeProj: Equatable {
             } else {
                 workspace = try XCWorkspace(path: xcworkspacePaths.first!)
             }
+            
+            // xcshareddata
             let sharedDataPath = path + "xcshareddata"
-            sharedData = try? XCSharedData(path: sharedDataPath)
+            if sharedDataPath.exists {
+                sharedData = try XCSharedData(path: sharedDataPath)
+            } else {
+                sharedData = nil
+            }
         }
 
         self.pbxproj = pbxproj

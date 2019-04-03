@@ -13,7 +13,7 @@ final class PBXObjectParser {
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = reference
         let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])
-        guard let isa = dictionary["isa"] as? String else { throw PBXObjectError.missingIsa }
+        let isa = dictionary["isa"] as! String
         // Order is important for performance
         switch isa {
         case PBXFileElement.isa:
@@ -67,7 +67,7 @@ final class PBXObjectParser {
         case XCSwiftPackageProductDependency.isa:
             return try decoder.decode(XCSwiftPackageProductDependency.self, from: data)
         default:
-            throw PBXObjectError.unknownElement(isa)
+            preconditionFailure("unsupported object type")
         }
     }
 

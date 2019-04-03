@@ -15,9 +15,7 @@ public final class XCWorkspace: Writable, Equatable {
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
     public convenience init(path: Path) throws {
-        if !path.exists {
-            throw XCWorkspaceError.notFound(path: path)
-        }
+        precondition(path.exists, "the workspace doesn't exist")
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
         if xcworkspaceDataPaths.isEmpty {
             self.init()

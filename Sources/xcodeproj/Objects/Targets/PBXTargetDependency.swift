@@ -13,7 +13,7 @@ public final class PBXTargetDependency: PBXObject {
     /// Target.
     public var target: PBXTarget? {
         get {
-            return targetReference?.getObject()
+            return targetReference?.materialize()
         }
         set {
             targetReference = newValue?.reference
@@ -26,7 +26,7 @@ public final class PBXTargetDependency: PBXObject {
     /// Target proxy.
     public var targetProxy: PBXContainerItemProxy? {
         get {
-            return targetProxyReference?.getObject()
+            return targetProxyReference?.materialize()
         }
         set {
             targetProxyReference = newValue?.reference
@@ -83,7 +83,7 @@ extension PBXTargetDependency: PlistSerializable {
             dictionary["name"] = .string(CommentedString(name))
         }
         if let targetReference = targetReference {
-            let targetObject: PBXTarget? = targetReference.getObject()
+            let targetObject: PBXTarget? = targetReference.materialize()
             dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject?.name))
         }
         if let targetProxyReference = targetProxyReference {

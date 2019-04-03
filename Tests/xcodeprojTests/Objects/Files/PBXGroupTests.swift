@@ -47,7 +47,7 @@ final class PBXGroupTests: XCTestCase {
                              name: "group")
         project.add(object: group)
 
-        let childGroup = try? group.addGroup(named: "child_group").first
+        let childGroup = group.addGroup(named: "child_group").first
 
         XCTAssertNotNil(childGroup?.parent)
     }

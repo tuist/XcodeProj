@@ -24,9 +24,7 @@ extension XCWorkspaceData: Writable {
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
     public convenience init(path: Path) throws {
-        if !path.exists {
-            throw XCWorkspaceDataError.notFound(path: path)
-        }
+        precondition(path.exists, "the workspace data doesn't exist")
 
         let xml = try AEXMLDocument(xml: path.read())
         let children = try xml

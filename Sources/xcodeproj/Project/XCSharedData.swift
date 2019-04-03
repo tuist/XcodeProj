@@ -33,12 +33,18 @@ public final class XCSharedData: Equatable {
     ///
     /// - Parameter path: path where the .xcshareddata is.
     public init(path: Path) throws {
-        if !path.exists {
-            throw XCSharedDataError.notFound(path: path)
-        }
+        precondition(path.exists, "shared data doesn't exist")
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
+        
+        // Breakpoints
+        let breakpointsPath = path + "xcdebugger/Breakpoints_v2.xcbkptlist"
+        if breakpointsPath.exists {
+            breakpoints = try XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
+        } else {
+            breakpoints = nil
+        }
+        
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {

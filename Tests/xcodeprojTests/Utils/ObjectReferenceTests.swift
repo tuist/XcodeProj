@@ -7,11 +7,12 @@ class ObjectReferenceTests: XCTestCase {
     let prefixedReferenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings(projReferenceFormat: .withPrefixAndSuffix))
 
     func test_reference_cachesObject() {
-        let reference = PBXObjectReference()
+        let objects = PBXObjects()
+        let reference = PBXObjectReference(objects: objects)
         let object = PBXFileReference()
-        XCTAssertNil(reference.getObject())
+        XCTAssertNil(reference.materialize())
         reference.setObject(object)
-        XCTAssertEqual(object, reference.getObject())
+        XCTAssertEqual(object, reference.materialize())
     }
 
     func test_reference_fetches() {
@@ -19,7 +20,7 @@ class ObjectReferenceTests: XCTestCase {
         object.reference.fix("a")
         let objects = PBXObjects(objects: [object])
         let reference = PBXObjectReference("a", objects: objects)
-        XCTAssertEqual(object, reference.getObject())
+        XCTAssertEqual(object, reference.materialize())
     }
 
     func test_reference_handleReferenceChange() {

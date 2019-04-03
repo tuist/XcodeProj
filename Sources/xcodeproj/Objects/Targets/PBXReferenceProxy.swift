@@ -15,7 +15,7 @@ public final class PBXReferenceProxy: PBXFileElement {
     /// Element remote.
     public var remote: PBXContainerItemProxy? {
         get {
-            return remoteReference?.getObject()
+            return remoteReference?.materialize()
         }
         set {
             remoteReference = newValue?.reference
@@ -61,7 +61,7 @@ public final class PBXReferenceProxy: PBXFileElement {
 
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         guard case var .dictionary(dictionary) = try super.plistKeyAndValue(proj: proj, reference: reference).value else {
-            fatalError("super implementation changed and we didn’t realise!")
+            preconditionFailure("expected super to return base attributes")
         }
         dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))
         if let fileType = fileType {

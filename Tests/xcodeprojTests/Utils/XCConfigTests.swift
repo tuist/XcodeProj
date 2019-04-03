@@ -70,11 +70,6 @@ final class XCConfigTests: XCTestCase {
             }
         }
     }
-
-    func test_errorDescription_returnsTheCorrectDescription_whenNotFound() {
-        let error = XCConfigError.notFound(path: Path("/test"))
-        XCTAssertEqual(error.description, ".xcconfig file not found at /test")
-    }
 }
 
 final class XCConfigIntegrationTests: XCTestCase {

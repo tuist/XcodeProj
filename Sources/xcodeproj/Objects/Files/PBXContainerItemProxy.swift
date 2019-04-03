@@ -63,7 +63,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Returns the project that contains the remote object. If container portal is a remote project this getter will fail. Use isContainerPortalFileReference to check if you can use the getter
     public var containerPortal: ContainerPortal {
         get {
-            return ContainerPortal(object: containerPortalReference.getObject())
+            return ContainerPortal(object: containerPortalReference.materialize())
         }
         set {
             guard let reference = newValue.reference else { fatalError("Container portal is mandatory field that has to be set to a known value instead of: \(newValue)") }

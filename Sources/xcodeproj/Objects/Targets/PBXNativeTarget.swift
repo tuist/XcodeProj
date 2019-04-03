@@ -76,9 +76,8 @@ public extension PBXNativeTarget {
     ///
     /// - Parameter target: dependency target.
     /// - Returns: target dependency reference.
-    /// - Throws: an error if the dependency cannot be created.
-    func addDependency(target: PBXTarget) throws -> PBXTargetDependency? {
-        let objects = try target.objects()
+    func addDependency(target: PBXTarget) -> PBXTargetDependency? {
+        let objects = target.objects()
         guard let project = objects.projects.first?.value else {
             return nil
         }

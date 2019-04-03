@@ -32,13 +32,6 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
         }
     }
 
-    func test_init_throwsIfThePathIsWrong() {
-        do {
-            _ = try XCWorkspace(path: Path("/test"))
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
-        } catch {}
-    }
-
     func test_write() {
         testWrite(
             from: fixturePath(),

@@ -214,7 +214,7 @@ class PBXObjects: Equatable {
         case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
 
-        default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
+        default: preconditionFailure("unhandled PBXObject type for \(object), this is likely a bug")
         }
     }
 

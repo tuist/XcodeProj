@@ -94,8 +94,8 @@ extension XCConfigurationList {
     ///
     /// - Parameter reference: configuration list reference.
     /// - Returns: target or project with the given configuration list.
-    public func objectWithConfigurationList() throws -> PBXObject? {
-        let projectObjects = try objects()
+    public func objectWithConfigurationList() -> PBXObject? {
+        let projectObjects = objects()
         return projectObjects.projects.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
             projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
             projectObjects.aggregateTargets.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
@@ -111,19 +111,19 @@ extension XCConfigurationList: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurationReferences
             .map { configReference in
-                let config: XCBuildConfiguration? = configReference.getObject()
+                let config: XCBuildConfiguration? = configReference.materialize()
                 return .string(CommentedString(configReference.value, comment: config?.name))
         })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
         if let defaultConfigurationName = defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }
-        return (key: CommentedString(reference, comment: try plistComment()),
+        return (key: CommentedString(reference, comment: plistComment()),
                 value: .dictionary(dictionary))
     }
 
-    private func plistComment() throws -> String? {
-        let object = try objectWithConfigurationList()
+    private func plistComment() -> String? {
+        let object = objectWithConfigurationList()
         if let project = object as? PBXProject {
             return "Build configuration list for PBXProject \"\(project.name)\""
         } else if let target = object as? PBXTarget {

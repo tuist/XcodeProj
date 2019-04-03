@@ -72,7 +72,7 @@ public class PBXGroup: PBXFileElement {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
         dictionary["children"] = .array(childrenReferences.map { (fileReference) -> PlistValue in
-            let fileElement: PBXFileElement? = fileReference.getObject()
+            let fileElement: PBXFileElement? = fileReference.materialize()
             return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         })
 
@@ -128,8 +128,8 @@ public extension PBXGroup {
     ///   - options: creation options.
     /// - Returns: created groups.
     @discardableResult
-    func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
-        let objects = try self.objects()
+    func addGroup(named groupName: String, options: GroupAddingOptions = []) -> [PBXGroup] {
+        let objects = self.objects()
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup]()) { groups, name in
             let group = groups.last ?? self
             let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
@@ -157,10 +157,11 @@ public extension PBXGroup {
         override: Bool = true,
         validatePresence: Bool = true
     ) throws -> PBXFileReference {
-        let projectObjects = try objects()
+        let projectObjects = objects()
         if validatePresence, !filePath.exists {
-            throw XcodeprojEditingError.unexistingFile(filePath)
+            preconditionFailure("the file doesn't exist")
         }
+
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
         if override, let existingFileReference = try projectObjects.fileReferences.first(where: {

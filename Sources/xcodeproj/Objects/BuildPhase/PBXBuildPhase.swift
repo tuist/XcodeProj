@@ -88,7 +88,7 @@ public class PBXBuildPhase: PBXContainerItem {
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         if let fileReferences = fileReferences {
             let files: PlistValue = .array(fileReferences.map { fileReference in
-                let buildFile: PBXBuildFile? = fileReference.getObject()
+                let buildFile: PBXBuildFile? = fileReference.materialize()
                 let name = buildFile.flatMap { try? $0.fileName() } ?? nil
                 let fileName: String = name ?? "(null)"
                 let type = self.name()
@@ -115,12 +115,11 @@ public extension PBXBuildPhase {
     ///
     /// - Parameter file: file element to be added to the build phase.
     /// - Returns: proxy build file.
-    /// - Throws: an error if the file cannot be added.
-    func add(file: PBXFileElement) throws -> PBXBuildFile {
+    func add(file: PBXFileElement) -> PBXBuildFile {
         if let existing = files?.first(where: { $0.fileReference == file.reference }) {
             return existing
         }
-        let projectObjects = try objects()
+        let projectObjects = objects()
         let buildFile = PBXBuildFile(file: file)
         projectObjects.add(object: buildFile)
         files?.append(buildFile)

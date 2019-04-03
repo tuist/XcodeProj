@@ -31,7 +31,7 @@ public final class XCConfig {
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     /// - Throws: an error if the config file cannot be found or it has an invalid format.
     public init(path: Path, projectPath: Path? = nil) throws {
-        if !path.exists { throw XCConfigError.notFound(path: path) }
+        precondition(path.exists, "the file doesn't exist")
         let fileLines = try path.read().components(separatedBy: "\n")
         includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
@@ -66,9 +66,13 @@ final class XCConfigParser {
                     let includePath: Path = Path(pathString)
                     var config: XCConfig?
                     do {
-                        // first try to load the included xcconfig relative to the current xcconfig
-                        config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
-                    } catch (XCConfigError.notFound(_)) where projectPath != nil {
+                        if path.parent().exists {
+                            // first try to load the included xcconfig relative to the current xcconfig
+                            config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
+                        } else {
+                            config = nil
+                        }
+                    } catch where projectPath != nil {
                         // if that fails, try to load the included xcconfig relative to the project
                         config = try? XCConfig(path: projectPath!.parent() + includePath, projectPath: projectPath)
                     } catch {

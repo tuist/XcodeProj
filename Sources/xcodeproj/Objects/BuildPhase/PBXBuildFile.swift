@@ -10,7 +10,7 @@ public final class PBXBuildFile: PBXObject {
     /// Returns the file the build file refers to.
     public var file: PBXFileElement? {
         get {
-            return fileReference?.getObject()
+            return fileReference?.materialize()
         }
         set {
             fileReference = newValue?.reference
@@ -84,20 +84,19 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        if let fileElement: PBXFileElement = fileReference?.getObject(), let name = fileElement.fileName() { return name }
-        if let product: XCSwiftPackageProductDependency = productReference?.getObject() { return product.productName }
+        if let fileElement: PBXFileElement = fileReference?.materialize(), let name = fileElement.fileName() { return name }
+        if let product: XCSwiftPackageProductDependency = productReference?.materialize() { return product.productName }
         return nil
     }
 
     /// Returns the type of the build phase the build file belongs to.
     ///
     /// - Returns: build phase type.
-    /// - Throws: an error if this method is called before the build file is added to any project.
-    func getBuildPhase() throws -> PBXBuildPhase? {
+    func getBuildPhase() -> PBXBuildPhase? {
         if let buildPhase = buildPhase {
             return buildPhase
         }
-        let projectObjects = try objects()
+        let projectObjects = objects()
         if let buildPhase = projectObjects.sourcesBuildPhases.values
             .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
@@ -124,9 +123,8 @@ extension PBXBuildFile {
     /// Returns the name of the build phase the build file belongs to.
     ///
     /// - Returns: build phase name.
-    /// - Throws: an error if the name cannot be obtained.
-    func buildPhaseName() throws -> String? {
-        guard let buildPhase = try getBuildPhase() else {
+    func buildPhaseName() -> String? {
+        guard let buildPhase = getBuildPhase() else {
             return nil
         }
         return buildPhase.name()
@@ -151,7 +149,7 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = buildFile.fileReference {
-            let fileElement: PBXFileElement? = fileReference.getObject()
+            let fileElement: PBXFileElement? = fileReference.materialize()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
         if let product = buildFile.product {

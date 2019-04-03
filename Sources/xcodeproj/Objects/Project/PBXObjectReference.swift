@@ -116,30 +116,32 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         self.object = object
     }
 
-    /// Returns the object the reference is referfing to.
+    /// Materializes the object the reference is pointing to.
     ///
-    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
-    func getObject<T: PBXObject>() -> T? {
-        return try? getThrowingObject()
-    }
-
-    /// Returns the object the reference is referfing to.
-    ///
-    /// - Returns: object the reference is referring to.
-    /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func getThrowingObject<T: PBXObject>() throws -> T {
-        return try OSLogger.instance.log(name: "Materialize Object") {
+    /// - Returns: Object the reference is referring to.
+    func materialize<T: PBXObject>() -> T? {
+        return OSLogger.instance.log(name: "Materialize Object") {
             if let object = object as? T {
                 return object
             }
             guard let objects = objects else {
-                throw PBXObjectError.objectsReleased
+                let message = "the object with reference \(self.value) doesn't belong to any project."
+                    + " This happens when an object that has been removed is still being referenced by other object."
+                preconditionFailure(message)
             }
-            guard let object = objects.get(reference: self) as? T else {
-                throw PBXObjectError.objectNotFound(value)
+            guard let object = objects.get(reference: self) else {
+                // Getting nil when materializing a reference might happen when an object being
+                // referenced has been removed without cleaning up its referencees.
+                // Read projects might already have that issue so we should gracefully deal with that
+                // scenario and don't error.
+                return nil
             }
-            self.object = object
-            return object
+            guard let typedObject = object as? T else {
+                // I
+                let message = "invalid reference to object with \(self.value) whose type doesn't match the expected one, \(String(describing: T.self))."
+                preconditionFailure(message)
+            }
+            return typedObject
         }
     }
 }
@@ -152,6 +154,6 @@ extension Array where Element: PBXObject {
 
 extension Array where Element: PBXObjectReference {
     func objects<T: PBXObject>() -> [T] {
-        return compactMap { $0.getObject() }
+        return compactMap { $0.materialize() }
     }
 }

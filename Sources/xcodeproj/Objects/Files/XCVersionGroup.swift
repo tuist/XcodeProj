@@ -12,7 +12,7 @@ public final class XCVersionGroup: PBXGroup {
     /// Returns the current version file reference.
     public var currentVersion: PBXFileReference? {
         get {
-            return currentVersionReference?.getObject()
+            return currentVersionReference?.materialize()
         }
         set {
             currentVersionReference = newValue?.reference
@@ -91,7 +91,7 @@ public final class XCVersionGroup: PBXGroup {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))
         }
         if let currentVersionReference = currentVersionReference {
-            let fileElement: PBXFileElement? = currentVersionReference.getObject()
+            let fileElement: PBXFileElement? = currentVersionReference.materialize()
             dictionary["currentVersion"] = .string(CommentedString(currentVersionReference.value, comment: fileElement?.fileName()))
         }
         return (key: CommentedString(reference, comment: path?.split(separator: "/").last.map(String.init)),
