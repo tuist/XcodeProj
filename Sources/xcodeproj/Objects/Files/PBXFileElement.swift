@@ -95,7 +95,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
 
     var multiline: Bool { return true }
 
-    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileElement.isa))
         if let name = name {

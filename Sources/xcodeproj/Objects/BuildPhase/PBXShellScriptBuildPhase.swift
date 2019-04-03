@@ -89,8 +89,8 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
 // MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)
 
 extension PBXShellScriptBuildPhase: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
         if let shellPath = shellPath {
             dictionary["shellPath"] = .string(CommentedString(shellPath))

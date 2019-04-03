@@ -2,7 +2,7 @@ import Foundation
 
 /// Protocol that defines that the element can return a plist element that represents itself.
 protocol PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue)
     var multiline: Bool { get }
 }
 
@@ -44,9 +44,10 @@ final class PBXProjEncoder {
     }
 
     // swiftlint:disable function_body_length
-    func encode(proj: PBXProj) throws -> String {
-        try referenceGenerator.generateReferences(proj: proj)
-        guard let rootObject = proj.rootObjectReference else { throw PBXProjEncoderError.emptyProjectReference }
+    func encode(proj: PBXProj) -> String {
+        referenceGenerator.generateReferences(proj: proj)
+        let rootObject: PBXObjectReference! = proj.rootObjectReference
+        precondition(rootObject != nil, "missing root project object")
 
         sort(buildPhases: proj.objects.copyFilesBuildPhases, outputSettings: outputSettings)
         sort(buildPhases: proj.objects.frameworksBuildPhases, outputSettings: outputSettings)
@@ -77,151 +78,150 @@ final class PBXProjEncoder {
         write(string: "objects = {", to: &output)
         stateHolder.increaseIndent()
         writeNewLine(stateHolder: &stateHolder, to: &output)
-        try write(section: "PBXAggregateTarget",
-                  proj: proj,
-                  objects: proj.objects.aggregateTargets,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXBuildFile",
-                  proj: proj,
-                  objects: proj.objects.buildPhaseFile,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXBuildRule",
-                  proj: proj,
-                  objects: proj.objects.buildRules,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXContainerItemProxy",
-                  proj: proj,
-                  objects: proj.objects.containerItemProxies,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXCopyFilesBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.copyFilesBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXFileReference",
-                  proj: proj,
-                  objects: proj.objects.fileReferences,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXFrameworksBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.frameworksBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXGroup",
-                  proj: proj,
-                  objects: proj.objects.groups,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXHeadersBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.headersBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXLegacyTarget",
-                  proj: proj,
-                  objects: proj.objects.legacyTargets,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXNativeTarget",
-                  proj: proj,
-                  objects: proj.objects.nativeTargets,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXProject",
-                  proj: proj,
-                  objects: proj.objects.projects,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXReferenceProxy",
-                  proj: proj,
-                  objects: proj.objects.referenceProxies,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXResourcesBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.resourcesBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXRezBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.carbonResourcesBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXShellScriptBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.shellScriptBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXSourcesBuildPhase",
-                  proj: proj,
-                  objects: proj.objects.sourcesBuildPhases,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXTargetDependency",
-                  proj: proj,
-                  objects: proj.objects.targetDependencies,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "PBXVariantGroup",
-                  proj: proj,
-                  objects: proj.objects.variantGroups,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "XCBuildConfiguration",
-                  proj: proj,
-                  objects: proj.objects.buildConfigurations,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "XCConfigurationList",
-                  proj: proj,
-                  objects: proj.objects.configurationLists,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-        try write(section: "XCRemoteSwiftPackageReference",
+        write(section: "PBXAggregateTarget",
+              proj: proj,
+              objects: proj.objects.aggregateTargets,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXBuildFile",
+              proj: proj,
+              objects: proj.objects.buildPhaseFile,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXBuildRule",
+              proj: proj,
+              objects: proj.objects.buildRules,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXContainerItemProxy",
+              proj: proj,
+              objects: proj.objects.containerItemProxies,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXCopyFilesBuildPhase",
+              proj: proj,
+              objects: proj.objects.copyFilesBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXFileReference",
+              proj: proj,
+              objects: proj.objects.fileReferences,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXFrameworksBuildPhase",
+              proj: proj,
+              objects: proj.objects.frameworksBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXGroup",
+              proj: proj,
+              objects: proj.objects.groups,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXHeadersBuildPhase",
+              proj: proj,
+              objects: proj.objects.headersBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXLegacyTarget",
+              proj: proj,
+              objects: proj.objects.legacyTargets,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXNativeTarget",
+              proj: proj,
+              objects: proj.objects.nativeTargets,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXProject",
+              proj: proj,
+              objects: proj.objects.projects,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXReferenceProxy",
+              proj: proj,
+              objects: proj.objects.referenceProxies,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXResourcesBuildPhase",
+              proj: proj,
+              objects: proj.objects.resourcesBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXRezBuildPhase",
+              proj: proj,
+              objects: proj.objects.carbonResourcesBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXShellScriptBuildPhase",
+              proj: proj,
+              objects: proj.objects.shellScriptBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXSourcesBuildPhase",
+              proj: proj,
+              objects: proj.objects.sourcesBuildPhases,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXTargetDependency",
+              proj: proj,
+              objects: proj.objects.targetDependencies,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "PBXVariantGroup",
+              proj: proj,
+              objects: proj.objects.variantGroups,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "XCBuildConfiguration",
+              proj: proj,
+              objects: proj.objects.buildConfigurations,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "XCConfigurationList",
+              proj: proj,
+              objects: proj.objects.configurationLists,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
+        write(section: "XCRemoteSwiftPackageReference",
                   proj: proj,
                   objects: proj.objects.remoteSwiftPackageReferences,
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)
-        try write(section: "XCSwiftPackageProductDependency",
+        write(section: "XCSwiftPackageProductDependency",
                   proj: proj,
                   objects: proj.objects.swiftPackageProductDependencies,
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)
-        try write(section: "XCVersionGroup",
-                  proj: proj,
-                  objects: proj.objects.versionGroups,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
-
+        write(section: "XCVersionGroup",
+              proj: proj,
+              objects: proj.objects.versionGroups,
+              outputSettings: outputSettings,
+              stateHolder: &stateHolder,
+              to: &output)
         stateHolder.decreaseIndent()
         writeIndent(stateHolder: &stateHolder, to: &output)
         write(string: "};", to: &output)
@@ -286,8 +286,13 @@ final class PBXProjEncoder {
                           objects: [PBXObjectReference: T],
                           outputSettings: PBXOutputSettings,
                           stateHolder: inout StateHolder,
-                          to output: inout [String]) throws where T: PlistSerializable & Equatable {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
+                          to output: inout [String]) where T: PlistSerializable & Equatable {
+        write(section: section,
+              proj: proj,
+              objects: objects,
+              sort: outputSettings.projFileListOrder.sort,
+              stateHolder: &stateHolder,
+              to: &output)
     }
 
     private func write(section: String,
@@ -295,8 +300,13 @@ final class PBXProjEncoder {
                        objects: [PBXObjectReference: PBXBuildPhaseFile],
                        outputSettings: PBXOutputSettings,
                        stateHolder: inout StateHolder,
-                       to output: inout [String]) throws {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
+                       to output: inout [String]) {
+        write(section: section,
+              proj: proj,
+              objects: objects,
+              sort: outputSettings.projFileListOrder.sort,
+              stateHolder: &stateHolder,
+              to: &output)
     }
 
     private func write(section: String,
@@ -304,8 +314,13 @@ final class PBXProjEncoder {
                        objects: [PBXObjectReference: PBXFileReference],
                        outputSettings: PBXOutputSettings,
                        stateHolder: inout StateHolder,
-                       to output: inout [String]) throws {
-        try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
+                       to output: inout [String]) {
+        write(section: section,
+              proj: proj,
+              objects: objects,
+              sort: outputSettings.projFileListOrder.sort,
+              stateHolder: &stateHolder,
+              to: &output)
     }
 
     final class PBXProjElement {
@@ -325,14 +340,14 @@ final class PBXProjEncoder {
                           objects: [PBXObjectReference: T],
                           sort: ((PBXObjectReference, T), (PBXObjectReference, T)) -> Bool,
                           stateHolder: inout StateHolder,
-                          to output: inout [String]) throws where T: PlistSerializable & Equatable {
+                          to output: inout [String]) where T: PlistSerializable & Equatable {
         if objects.isEmpty { return }
         writeNewLine(stateHolder: &stateHolder, to: &output)
         write(string: "/* Begin \(section) section */", to: &output)
         writeNewLine(stateHolder: &stateHolder, to: &output)
         let sorted = objects.sorted(by: sort)
-        let elements: [PBXProjElement] = try sorted.map { key, value in
-            let element = try value.plistKeyAndValue(proj: proj, reference: key.value)
+        let elements: [PBXProjElement] = sorted.map { key, value in
+            let element = value.plistKeyAndValue(proj: proj, reference: key.value)
             return PBXProjElement(key: element.key, value: element.value, multiline: value.multiline)
         }
         let elementsArray = NSArray(array: elements)

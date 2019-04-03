@@ -106,7 +106,7 @@ extension XCConfigurationList {
 // MARK: - PlistSerializable
 
 extension XCConfigurationList: PlistSerializable {
-    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurationReferences

@@ -6,7 +6,7 @@ public final class PBXAggregateTarget: PBXTarget {}
 // MARK: - PBXAggregateTarget Extension (PlistSerializable)
 
 extension PBXAggregateTarget: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXAggregateTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXAggregateTarget.isa, reference: reference)
     }
 }

@@ -84,8 +84,8 @@ public final class XCVersionGroup: PBXGroup {
 
     // MARK: - XCVersionGroup Extension (PlistSerializable)
 
-    override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(XCVersionGroup.isa))
         if let versionGroupType = versionGroupType {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))

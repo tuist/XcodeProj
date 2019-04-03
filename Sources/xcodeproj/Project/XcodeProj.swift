@@ -44,7 +44,7 @@ public final class XcodeProj: Equatable {
             } else {
                 workspace = try XCWorkspace(path: xcworkspacePaths.first!)
             }
-            
+
             // xcshareddata
             let sharedDataPath = path + "xcshareddata"
             if sharedDataPath.exists {

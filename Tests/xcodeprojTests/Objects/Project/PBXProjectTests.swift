@@ -20,7 +20,7 @@ final class PBXProjectTests: XCTestCase {
         project.setTargetAttributes(["custom": "abc", "TestTargetID": testTarget], target: target)
 
         // When
-        let plist = try project.plistKeyAndValue(proj: pbxproj, reference: "")
+        let plist = project.plistKeyAndValue(proj: pbxproj, reference: "")
         let attributes = plist.value.dictionary?["attributes"]?.dictionary ?? [:]
 
         // Then

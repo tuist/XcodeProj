@@ -76,7 +76,7 @@ public final class PBXTargetDependency: PBXObject {
 // MARK: - PlistSerializable
 
 extension PBXTargetDependency: PlistSerializable {
-    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         if let name = name {

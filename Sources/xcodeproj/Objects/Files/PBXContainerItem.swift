@@ -24,7 +24,7 @@ public class PBXContainerItem: PBXObject {
         try super.init(from: decoder)
     }
 
-    func plistValues(proj _: PBXProj, reference _: String) throws -> [CommentedString: PlistValue] {
+    func plistValues(proj _: PBXProj, reference _: String) -> [CommentedString: PlistValue] {
         var dictionary = [CommentedString: PlistValue]()
         if let comments = comments {
             dictionary["comments"] = .string(CommentedString(comments))

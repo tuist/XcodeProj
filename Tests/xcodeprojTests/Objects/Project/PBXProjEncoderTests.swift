@@ -298,24 +298,8 @@ class PBXProjEncoderTests: XCTestCase {
 
     // MARK: - Test internals
 
-    private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
-        do {
-            return try PBXProjEncoder(outputSettings: settings).encode(proj: proj)
-        } catch {
-            XCTFail("Unexpected error encoding project: \(error)", line: line)
-            return ""
-        }
-    }
-
-    private func encodeProjectThrows<E>(error expectedError: E, line: UInt = #line) where E: Error {
-        do {
-            _ = try PBXProjEncoder(outputSettings: PBXOutputSettings()).encode(proj: proj)
-            XCTFail("Expected '\(expectedError)' to be thrown", line: line)
-        } catch {
-            if type(of: expectedError) != type(of: error) {
-                XCTFail("Expected '\(expectedError)' to be thrown, but got \(error)", line: line)
-            }
-        }
+    private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line _: UInt = #line) -> String {
+        return PBXProjEncoder(outputSettings: settings).encode(proj: proj)
     }
 
     private func lines(fromFile file: String) -> [String] {

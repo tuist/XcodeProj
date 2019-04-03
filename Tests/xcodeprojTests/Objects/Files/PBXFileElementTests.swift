@@ -133,7 +133,7 @@ final class PBXFileElementTests: XCTestCase {
         let foo = PBXFileElement()
         let proj = PBXProj()
         let reference = ""
-        if case .dictionary = try foo.plistKeyAndValue(proj: proj, reference: reference).value {
+        if case .dictionary = foo.plistKeyAndValue(proj: proj, reference: reference).value {
             // noop we’re good!
         } else {
             XCTFail("""

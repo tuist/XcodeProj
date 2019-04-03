@@ -12,8 +12,8 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
         let doNotShow = PBXShellScriptBuildPhase(showEnvVarsInLog: false)
         let proj = PBXProj.fixture()
 
-        let (_, showPlistValue) = try show.plistKeyAndValue(proj: proj, reference: "ref")
-        let (_, doNotShowPlistValue) = try doNotShow.plistKeyAndValue(proj: proj, reference: "ref")
+        let (_, showPlistValue) = show.plistKeyAndValue(proj: proj, reference: "ref")
+        let (_, doNotShowPlistValue) = doNotShow.plistKeyAndValue(proj: proj, reference: "ref")
 
         if case let PlistValue.dictionary(showDictionary) = showPlistValue,
             case let PlistValue.dictionary(doNotShowDictionary) = doNotShowPlistValue {

@@ -49,23 +49,21 @@ public final class PBXNativeTarget: PBXTarget {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = try super.plistValues(proj: proj, isa: isa, reference: reference)
-        guard case var PlistValue.dictionary(dict) = value else {
-            throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
-        }
+    override func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = super.plistValues(proj: proj, isa: isa, reference: reference)
+        var dictionary = value.dictionary!
         if let productInstallPath = productInstallPath {
-            dict["productInstallPath"] = .string(CommentedString(productInstallPath))
+            dictionary["productInstallPath"] = .string(CommentedString(productInstallPath))
         }
-        return (key: key, value: .dictionary(dict))
+        return (key: key, value: .dictionary(dictionary))
     }
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXNativeTarget: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
 }
 

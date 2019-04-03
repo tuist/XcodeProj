@@ -76,8 +76,8 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)
 
 extension PBXCopyFilesBuildPhase: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
         if let dstPath = dstPath {
             dictionary["dstPath"] = .string(CommentedString(dstPath))

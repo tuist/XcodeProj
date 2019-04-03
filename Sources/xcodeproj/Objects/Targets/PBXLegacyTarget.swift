@@ -73,36 +73,32 @@ public final class PBXLegacyTarget: PBXTarget {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, isa _: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        let (key, value) = try super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
-        var dict: [CommentedString: PlistValue]!
-        switch value {
-        case let .dictionary(dictValue):
-            dict = dictValue
-            if let buildToolPath = buildToolPath {
-                dict["buildToolPath"] = PlistValue.string(CommentedString(buildToolPath))
-            }
-            if let buildArgumentsString = buildArgumentsString {
-                dict["buildArgumentsString"] =
-                    PlistValue.string(CommentedString(buildArgumentsString))
-            }
-            dict["passBuildSettingsInEnvironment"] =
-                PlistValue.string(CommentedString(passBuildSettingsInEnvironment.int.description))
-            if let buildWorkingDirectory = buildWorkingDirectory {
-                dict["buildWorkingDirectory"] =
-                    PlistValue.string(CommentedString(buildWorkingDirectory))
-            }
-        default:
-            throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
+    override func plistValues(proj: PBXProj, isa _: String, reference: String) -> (key: CommentedString, value: PlistValue) {
+        let (key, value) = super.plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
+
+        var dictionary = value.dictionary!
+        if let buildToolPath = buildToolPath {
+            dictionary["buildToolPath"] = PlistValue.string(CommentedString(buildToolPath))
         }
-        return (key: key, value: .dictionary(dict))
+        if let buildArgumentsString = buildArgumentsString {
+            dictionary["buildArgumentsString"] =
+                PlistValue.string(CommentedString(buildArgumentsString))
+        }
+        dictionary["passBuildSettingsInEnvironment"] =
+            PlistValue.string(CommentedString(passBuildSettingsInEnvironment.int.description))
+        if let buildWorkingDirectory = buildWorkingDirectory {
+            dictionary["buildWorkingDirectory"] =
+                PlistValue.string(CommentedString(buildWorkingDirectory))
+        }
+
+        return (key: key, value: .dictionary(dictionary))
     }
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)
 
 extension PBXLegacyTarget: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        return plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
     }
 }

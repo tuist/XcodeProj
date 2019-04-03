@@ -36,7 +36,7 @@ public final class XCSharedData: Equatable {
         precondition(path.exists, "shared data doesn't exist")
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        
+
         // Breakpoints
         let breakpointsPath = path + "xcdebugger/Breakpoints_v2.xcbkptlist"
         if breakpointsPath.exists {
@@ -44,7 +44,6 @@ public final class XCSharedData: Equatable {
         } else {
             breakpoints = nil
         }
-        
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {

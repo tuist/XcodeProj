@@ -166,8 +166,8 @@ public class PBXTarget: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    func plistValues(proj: PBXProj, isa: String, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary = try super.plistValues(proj: proj, reference: reference)
+    func plistValues(proj: PBXProj, isa: String, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
         if let buildConfigurationListReference = buildConfigurationListReference {

@@ -59,8 +59,8 @@ public final class PBXReferenceProxy: PBXFileElement {
         try super.init(from: decoder)
     }
 
-    override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        guard case var .dictionary(dictionary) = try super.plistKeyAndValue(proj: proj, reference: reference).value else {
+    override func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        guard case var .dictionary(dictionary) = super.plistKeyAndValue(proj: proj, reference: reference).value else {
             preconditionFailure("expected super to return base attributes")
         }
         dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))

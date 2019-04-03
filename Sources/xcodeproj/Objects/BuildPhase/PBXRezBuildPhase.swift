@@ -11,8 +11,8 @@ public final class PBXRezBuildPhase: PBXBuildPhase {
 // MARK: - PBXRezBuildPhase Extension (PlistSerializable)
 
 extension PBXRezBuildPhase: PlistSerializable {
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary: [CommentedString: PlistValue] = plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXRezBuildPhase.isa))
         return (key: CommentedString(reference, comment: "Rez"), value: .dictionary(dictionary))
     }

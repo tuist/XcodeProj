@@ -317,7 +317,7 @@ public final class PBXProject: PBXObject {
 
 extension PBXProject: PlistSerializable {
     // swiftlint:disable:next function_body_length
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXProject.isa))
         let buildConfigurationListComment = "Build configuration list for PBXProject \"\(name)\""
@@ -347,7 +347,7 @@ extension PBXProject: PlistSerializable {
         } else {
             dictionary["projectRoot"] = .string(CommentedString(projectRoots.first ?? ""))
         }
-        if let projectReferences = try projectReferencesPlistValue(proj: proj) {
+        if let projectReferences = projectReferencesPlistValue(proj: proj) {
             dictionary["projectReferences"] = projectReferences
         }
         dictionary["targets"] = PlistValue.array(targetReferences
@@ -380,7 +380,7 @@ extension PBXProject: PlistSerializable {
                 value: .dictionary(dictionary))
     }
 
-    private func projectReferencesPlistValue(proj _: PBXProj) throws -> PlistValue? {
+    private func projectReferencesPlistValue(proj _: PBXProj) -> PlistValue? {
         guard !projectReferences.isEmpty else {
             return nil
         }

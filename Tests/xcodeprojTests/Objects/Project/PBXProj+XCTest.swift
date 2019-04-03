@@ -2,9 +2,9 @@ import Foundation
 @testable import XcodeProj
 
 extension PBXProj {
-    func encode() throws -> String {
+    func encode() -> String {
         let outputSettings = PBXOutputSettings()
         let encoder = PBXProjEncoder(outputSettings: outputSettings)
-        return try encoder.encode(proj: self)
+        return encoder.encode(proj: self)
     }
 }

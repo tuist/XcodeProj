@@ -9,7 +9,7 @@ protocol ReferenceGenerating: AnyObject {
     ///
     /// - Parameter proj: project whose objects references will be generated.
     /// - Parameter settings: settings to control the output references
-    func generateReferences(proj: PBXProj) throws
+    func generateReferences(proj: PBXProj)
 }
 
 /// Reference generator.
@@ -24,7 +24,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// Generates the references of the objects of the given project.
     ///
     /// - Parameter proj: project whose objects references will be generated.
-    func generateReferences(proj: PBXProj) throws {
+    func generateReferences(proj: PBXProj) {
         guard let project: PBXProject = proj.rootObjectReference?.materialize() else {
             return
         }
@@ -45,24 +45,24 @@ final class ReferenceGenerator: ReferenceGenerating {
         ///      the file it refers to.
         let identifiers = [project.name]
         generateProjectAndTargets(project: project, identifiers: identifiers)
-        try generateGroupReferences(project.mainGroup, identifiers: identifiers)
+        generateGroupReferences(project.mainGroup, identifiers: identifiers)
         if let productsGroup: PBXGroup = project.productsGroup {
-            try generateGroupReferences(productsGroup, identifiers: identifiers)
+            generateGroupReferences(productsGroup, identifiers: identifiers)
         }
 
         // Targets
         let targets: [PBXTarget] = project.targets
-        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
+        targets.forEach { generateTargetReferences($0, identifiers: identifiers) }
 
         // Project references
-        try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
+        project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             guard let fileReference: PBXFileReference = objectReference.materialize() else { return }
-            try generateFileReference(fileReference, identifiers: identifiers)
+            generateFileReference(fileReference, identifiers: identifiers)
         }
 
         /// Configuration list
         if let configurationList: XCConfigurationList = project.buildConfigurationListReference.materialize() {
-            try generateConfigurationListReferences(configurationList, identifiers: identifiers)
+            generateConfigurationListReferences(configurationList, identifiers: identifiers)
         }
     }
 
@@ -107,7 +107,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - group: group instance.
     ///   - identifiers: list of identifiers.
     private func generateGroupReferences(_ group: PBXGroup,
-                                         identifiers: [String]) throws {
+                                         identifiers: [String]) {
         var identifiers = identifiers
         if let groupName = group.fileName() {
             identifiers.append(groupName)
@@ -117,12 +117,12 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: group, identifiers: identifiers)
 
         // Children
-        try group.childrenReferences.forEach { child in
+        group.childrenReferences.forEach { child in
             guard let childFileElement: PBXFileElement = child.materialize() else { return }
             if let childGroup = childFileElement as? PBXGroup {
-                try generateGroupReferences(childGroup, identifiers: identifiers)
+                generateGroupReferences(childGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
-                try generateFileReference(childFileReference, identifiers: identifiers)
+                generateFileReference(childFileReference, identifiers: identifiers)
             }
         }
     }
@@ -132,7 +132,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     /// - Parameters:
     ///   - fileReference: file reference instance.
     ///   - identifiers: list of identifiers.
-    private func generateFileReference(_ fileReference: PBXFileReference, identifiers: [String]) throws {
+    private func generateFileReference(_ fileReference: PBXFileReference, identifiers: [String]) {
         var identifiers = identifiers
         if let groupName = fileReference.fileName() {
             identifiers.append(groupName)
@@ -147,7 +147,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - configurationList: configuration list instance.
     ///   - identifiers: list of identifiers.
     private func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
-                                                     identifiers: [String]) throws {
+                                                     identifiers: [String]) {
         fixReference(for: configurationList, identifiers: identifiers)
 
         let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
@@ -168,28 +168,28 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - target: target instance.
     ///   - identifiers: list of identifiers.
     private func generateTargetReferences(_ target: PBXTarget,
-                                          identifiers: [String]) throws {
+                                          identifiers: [String]) {
         var identifiers = identifiers
         identifiers.append(target.name)
 
         // Configuration list
         if let configurationList = target.buildConfigurationList {
-            try generateConfigurationListReferences(configurationList,
-                                                    identifiers: identifiers)
+            generateConfigurationListReferences(configurationList,
+                                                identifiers: identifiers)
         }
 
         // Build phases
         let buildPhases: [PBXBuildPhase] = target.buildPhaseReferences.objects()
-        try buildPhases.forEach { try generateBuildPhaseReferences($0,
-                                                                   identifiers: identifiers) }
+        buildPhases.forEach { generateBuildPhaseReferences($0,
+                                                           identifiers: identifiers) }
 
         // Build rules
         let buildRules: [PBXBuildRule] = target.buildRuleReferences.objects()
-        try buildRules.forEach { try generateBuildRules($0, identifiers: identifiers) }
+        buildRules.forEach { generateBuildRules($0, identifiers: identifiers) }
 
         // Dependencies
         let dependencies: [PBXTargetDependency] = target.dependencyReferences.objects()
-        try dependencies.forEach { try generateTargetDependencyReferences($0, identifiers: identifiers) }
+        dependencies.forEach { generateTargetDependencyReferences($0, identifiers: identifiers) }
     }
 
     /// Generates the reference for a target dependency object.
@@ -198,7 +198,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - targetDependency: target dependency instance.
     ///   - identifiers: list of identifiers.
     private func generateTargetDependencyReferences(_ targetDependency: PBXTargetDependency,
-                                                    identifiers: [String]) throws {
+                                                    identifiers: [String]) {
         var identifiers = identifiers
 
         // Target proxy
@@ -229,7 +229,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - buildPhase: build phase instance.
     ///   - identifiers: list of identifiers.
     private func generateBuildPhaseReferences(_ buildPhase: PBXBuildPhase,
-                                              identifiers: [String]) throws {
+                                              identifiers: [String]) {
         var identifiers = identifiers
         if let name = buildPhase.name() {
             identifiers.append(name)
@@ -261,7 +261,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - buildRule: build phase instance.
     ///   - identifiers: list of identifiers.
     private func generateBuildRules(_ buildRule: PBXBuildRule,
-                                    identifiers: [String]) throws {
+                                    identifiers: [String]) {
         var identifiers = identifiers
         if let name = buildRule.name {
             identifiers.append(name)

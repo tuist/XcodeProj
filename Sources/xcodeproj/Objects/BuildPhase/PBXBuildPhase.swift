@@ -83,13 +83,13 @@ public class PBXBuildPhase: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
-        var dictionary = try super.plistValues(proj: proj, reference: reference)
+    override func plistValues(proj: PBXProj, reference: String) -> [CommentedString: PlistValue] {
+        var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
         if let fileReferences = fileReferences {
             let files: PlistValue = .array(fileReferences.map { fileReference in
                 let buildFile: PBXBuildFile? = fileReference.materialize()
-                let name = buildFile.flatMap { try? $0.fileName() } ?? nil
+                let name = buildFile.flatMap { $0.fileName() } ?? nil
                 let fileName: String = name ?? "(null)"
                 let type = self.name()
                 let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name

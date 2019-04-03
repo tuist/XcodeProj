@@ -68,7 +68,7 @@ public final class XCBuildConfiguration: PBXObject {
 // MARK: - PlistSerializable
 
 extension XCBuildConfiguration: PlistSerializable {
-    func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
+    func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
