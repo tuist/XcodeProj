@@ -43,7 +43,7 @@ final class PBXGroupTests: XCTestCase {
 
         let childGroup = try? group.addGroup(named: "child_group").first
 
-        XCTAssertNotNil(childGroup??.parent)
+        XCTAssertNotNil(childGroup?.parent)
     }
 
     func test_createGroupWithFile_assignParent() {
