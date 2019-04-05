@@ -10,6 +10,7 @@
 
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
 - `WorkspaceSettings.autoCreateSchemes` attribute https://github.com/tuist/xcodeproj/pull/399 by @pepibumur
+- Additional Swift 5 fixes: https://github.com/tuist/xcodeproj/pull/402 by @samisuteria
 
 ## 6.7.0
 
