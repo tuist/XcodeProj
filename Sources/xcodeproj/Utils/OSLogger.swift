@@ -54,6 +54,44 @@ class OSLogger {
     ///   - name: Name for the code being logged. If we are logging the time it takes to write a project, the name can be "Project Writing"
     ///   - arguments: Arguments to be passed to the function.
     ///   - closure: Piece of code that will be logged.
+    func log(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () -> Void) {
+        if !shouldLog {
+            closure()
+            return
+        }
+
+        if #available(OSX 10.14, *) {
+            let log: OSLog = OSLog.xcodeproj(category: category)
+            let signpostID = OSSignpostID(log: log)
+            os_signpost(.begin,
+                        log: log,
+                        name: name,
+                        signpostID: signpostID,
+                        "%{public}s",
+                        arguments)
+        }
+
+        closure()
+
+        if #available(OSX 10.14, *) {
+            let log: OSLog = OSLog.xcodeproj(category: category)
+            let signpostID = OSSignpostID(log: log)
+            os_signpost(.end,
+                        log: log,
+                        name: name,
+                        signpostID: signpostID,
+                        "%{public}s",
+                        arguments)
+        }
+    }
+
+    /// Logs when the given closure starts and ends.
+    ///
+    /// - Parameters:
+    ///   - category: Category of the code being logged. For example, if it's a function in PBXObjectReference, that can be the category.
+    ///   - name: Name for the code being logged. If we are logging the time it takes to write a project, the name can be "Project Writing"
+    ///   - arguments: Arguments to be passed to the function.
+    ///   - closure: Piece of code that will be logged.
     /// - Returns: The value returned by the closure.
     /// - Throws: An error if the given closure throws.
     func log<T>(category: String = #file, name: StaticString, _ arguments: CVarArg..., closure: () throws -> T) throws -> T {

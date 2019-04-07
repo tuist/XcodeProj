@@ -47,7 +47,7 @@ public final class PBXProj: Decodable {
         self.classes = classes
         rootObjectReference = rootObject?.reference
         self.objects = PBXObjects(objects: objects)
-        if let rootGroup = try? rootGroup() {
+        if let rootGroup = rootGroup() {
             rootGroup.assignParentToChildren()
         }
     }
@@ -90,7 +90,7 @@ public final class PBXProj: Decodable {
         }
         self.objects = objects
 
-        try rootGroup()?.assignParentToChildren()
+        rootGroup()?.assignParentToChildren()
     }
 }
 
@@ -132,13 +132,13 @@ public extension PBXProj {
     var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
 
     /// Returns root project.
-    func rootProject() throws -> PBXProject? {
+    func rootProject() -> PBXProject? {
         return rootObjectReference?.materialize()
     }
 
     /// Returns root project's root group.
-    func rootGroup() throws -> PBXGroup? {
-        let project = try rootProject()
+    func rootGroup() -> PBXGroup? {
+        let project = rootProject()
         return project?.mainGroup
     }
 
@@ -202,12 +202,12 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
-    func updateProjectName(path: Path) throws {
+    func updateProjectName(path: Path) {
         guard path.parent().extension == "xcodeproj" else {
             return
         }
         let projectName = path.parent().lastComponent.split(separator: ".").first
-        try rootProject()?.name = projectName.map(String.init) ?? ""
+        rootProject()?.name = projectName.map(String.init) ?? ""
     }
 }
 
@@ -226,16 +226,16 @@ extension PBXProj: Equatable {
 // MARK: - Writable
 
 extension PBXProj: Writable {
-    public func write(path: Path, override: Bool) throws {
-        try write(path: path, override: override, outputSettings: PBXOutputSettings())
+    public func write(path: Path, override: Bool) {
+        write(path: path, override: override, outputSettings: PBXOutputSettings())
     }
 
-    public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) throws {
+    public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) {
         let encoder = PBXProjEncoder(outputSettings: outputSettings)
         let output = encoder.encode(proj: self)
         if override, path.exists {
-            try path.delete()
+            try! path.delete()
         }
-        try path.write(output)
+        try! path.write(output)
     }
 }

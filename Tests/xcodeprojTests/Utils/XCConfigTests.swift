@@ -74,16 +74,14 @@ final class XCConfigTests: XCTestCase {
 
 final class XCConfigIntegrationTests: XCTestCase {
     func test_init_initializesXCConfigWithTheRightProperties() {
-        let subject = try? XCConfig(path: childrenPath())
+        let subject = XCConfig(path: childrenPath())
         XCTAssertNotNil(subject)
-        if let subject = subject {
-            assert(config: subject)
-        }
+        assert(config: subject)
     }
 
     func test_write_writesTheContentProperly() {
         testWrite(from: childrenPath(),
-                  initModel: { try? XCConfig(path: $0) },
+                  initModel: { XCConfig(path: $0) },
                   modify: { $0 })
     }
 

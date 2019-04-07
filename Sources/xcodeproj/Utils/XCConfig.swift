@@ -29,10 +29,9 @@ public final class XCConfig {
     ///
     /// - Parameter path: path where the .xcconfig file is.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
-    /// - Throws: an error if the config file cannot be found or it has an invalid format.
-    public init(path: Path, projectPath: Path? = nil) throws {
+    public init(path: Path, projectPath: Path? = nil) {
         precondition(path.exists, "the file doesn't exist")
-        let fileLines = try path.read().components(separatedBy: "\n")
+        let fileLines = try! path.read().components(separatedBy: "\n")
         includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
         var buildSettings: [String: String] = [:]
@@ -65,17 +64,10 @@ final class XCConfigParser {
                 .compactMap { pathString in
                     let includePath: Path = Path(pathString)
                     var config: XCConfig?
-                    do {
-                        if path.parent().exists {
-                            // first try to load the included xcconfig relative to the current xcconfig
-                            config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
-                        } else {
-                            config = nil
-                        }
-                    } catch where projectPath != nil {
-                        // if that fails, try to load the included xcconfig relative to the project
-                        config = try? XCConfig(path: projectPath!.parent() + includePath, projectPath: projectPath)
-                    } catch {
+                    if path.parent().exists {
+                        // first try to load the included xcconfig relative to the current xcconfig
+                        config = XCConfig(path: path.parent() + includePath, projectPath: projectPath)
+                    } else {
                         config = nil
                     }
                     return config.map { (includePath, $0) }
@@ -146,15 +138,15 @@ extension XCConfig {
 // MARK: - XCConfig Extension (Writable)
 
 extension XCConfig: Writable {
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: Path, override: Bool) {
         var content = ""
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
         if override, path.exists {
-            try path.delete()
+            try! path.delete()
         }
-        try path.write(content)
+        try! path.write(content)
     }
 
     private func writeIncludes() -> String {

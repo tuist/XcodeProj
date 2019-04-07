@@ -74,11 +74,9 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///
     /// - Parameter path: Path to the WorkspaceSettings.xcsettings
     /// - Returns: The initialized workspace settings.
-    /// - Throws: An error if the file doesn't exist or has an invalid format.
+    /// - Throws: An error if the file has an invalid format.
     public static func at(path: Path) throws -> WorkspaceSettings {
-        if !path.exists {
-            throw WorkspaceSettingsError.notFound(path: path)
-        }
+        precondition(path.exists)
         let data = try Data(contentsOf: path.url)
         let plistDecoder = PropertyListDecoder()
         return try plistDecoder.decode(WorkspaceSettings.self, from: data)
@@ -99,13 +97,12 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///
     /// - Parameter path: The path to write to
     /// - Parameter override: True if the content should be overriden if it already exists.
-    /// - Throws: writing error if something goes wrong.
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: Path, override: Bool) {
         let encoder = PropertyListEncoder()
-        let data = try encoder.encode(self)
+        let data = try! encoder.encode(self)
         if override, path.exists {
-            try path.delete()
+            try! path.delete()
         }
-        try path.write(data)
+        try! path.write(data)
     }
 }

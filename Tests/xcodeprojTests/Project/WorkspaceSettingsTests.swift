@@ -36,7 +36,7 @@ final class WorkspaceSettingsTests: XCTestCase {
 
             var settings = try WorkspaceSettings.at(path: path)
             settings.buildSystem = .original
-            try settings.write(path: copyPath, override: true)
+            settings.write(path: copyPath, override: true)
 
             settings = try WorkspaceSettings.at(path: copyPath)
             XCTAssertEqual(settings.buildSystem, .original)
