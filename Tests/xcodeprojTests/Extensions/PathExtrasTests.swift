@@ -11,6 +11,10 @@ final class PathExtrasTests: XCTestCase {
         XCTAssertEqual(Path("/absolute/dir/file.txt").relative(to: Path("/absolute/anotherDir")), Path("../dir/file.txt"))
     }
 
+    func testThat_GivenAbsoluteSubPath_WhenRelativeToIntersectingAbsolutePath_ThenResultIsTheFullPathToTheRootAndThenFullAbsolutePath() {
+        XCTAssertEqual(Path("/absolute/dir/file.txt").relative(to: Path("/var")), Path("../absolute/dir/file.txt"))
+    }
+
     func testThat_GivenSubPath_WhenRelativeToSuperPath_ThenResultIsTheRemainder() {
         XCTAssertEqual(Path("some/dir/file.txt").relative(to: Path("some")), Path("dir/file.txt"))
     }
