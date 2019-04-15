@@ -160,10 +160,13 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
 /// - notFound: the .pbxproj cannot be found at the given path.
 enum PBXProjError: Error, CustomStringConvertible {
     case notFound(path: Path)
+    case invalidGroupPath(sourceRoot: Path, elementPath: String?)
     var description: String {
         switch self {
         case let .notFound(path):
             return ".pbxproj not found at path \(path.string)"
+        case .invalidGroupPath(let sourceRoot, let elementPath):
+            return "Cannot calculate full path for file element \"\(elementPath ?? "")\" in source root: \"\(sourceRoot)\""
         }
     }
 }

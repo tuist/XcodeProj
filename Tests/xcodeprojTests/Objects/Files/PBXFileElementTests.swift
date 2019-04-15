@@ -73,8 +73,7 @@ final class PBXFileElementTests: XCTestCase {
         // Remove parent for fallback test
         fileref.parent = nil
 
-        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
-        XCTAssertEqual(fullPath?.string, "/a/path")
+        XCTAssertThrowsError(try fileref.fullPath(sourceRoot: sourceRoot))
     }
 
     func test_fullPath_with_nested_groups() throws {
