@@ -130,11 +130,11 @@ public extension PBXBuildPhase {
 
 // MARK: - Utils
 
-extension PBXBuildPhase {
+public extension PBXBuildPhase {
     /// Returns the build phase type.
     ///
     /// - Returns: build phase type.
-    public func type() -> BuildPhase? {
+    func type() -> BuildPhase? {
         return buildPhase
     }
 
