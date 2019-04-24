@@ -11,7 +11,7 @@
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
 - `WorkspaceSettings.autoCreateSchemes` attribute https://github.com/tuist/xcodeproj/pull/399 by @pepibumur
 - Additional Swift 5 fixes: https://github.com/tuist/xcodeproj/pull/402 by @samisuteria
-- Make build phase name public.
+- Make build phase name public by @llinardos.
 
 ## 6.7.0
 
