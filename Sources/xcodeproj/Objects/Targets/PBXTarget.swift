@@ -228,4 +228,14 @@ public extension PBXTarget {
             .compactMap { try $0.fileReference!.getThrowingObject() as? PBXFileElement }
             ?? []
     }
+
+    /// Returns the embed frameworks build phases.
+    ///
+    /// - Returns: Embed frameworks build phases.
+    func embedFrameworksBuildPhases() -> [PBXCopyFilesBuildPhase] {
+        return self.buildPhases
+            .filter { $0.buildPhase == .copyFiles }
+            .compactMap { $0 as? PBXCopyFilesBuildPhase }
+            .filter { $0.dstSubfolderSpec == .frameworks }
+    }
 }
