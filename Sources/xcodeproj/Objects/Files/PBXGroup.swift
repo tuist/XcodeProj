@@ -140,6 +140,51 @@ public extension PBXGroup {
         }
     }
 
+    /// Adds file at the give path to the project.
+    ///
+    /// - Parameters:
+    ///   - filePath: path to the file.
+    ///   - sourceTree: file sourceTree, default is `.group`
+    ///   - sourceRoot: path to project's source root.
+    /// - Returns: new file and its reference.
+    @discardableResult
+    func addNewFile(
+        at filePath: Path,
+        sourceTree: PBXSourceTree = .group,
+        sourceRoot: Path
+    ) throws -> PBXFileReference {
+        let projectObjects = try objects()
+        guard filePath.exists else {
+            throw XcodeprojEditingError.unexistingFile(filePath)
+        }
+        let groupPath = try fullPath(sourceRoot: sourceRoot)
+
+        let path: String?
+        switch sourceTree {
+        case .group:
+            path = groupPath.map { filePath.relative(to: $0) }?.string
+        case .sourceRoot:
+            path = filePath.relative(to: sourceRoot).string
+        case .absolute:
+            path = filePath.string
+        default:
+            path = nil
+        }
+        let fileReference = PBXFileReference(
+            sourceTree: sourceTree,
+            name: filePath.lastComponent,
+            explicitFileType: filePath.extension.flatMap(Xcode.filetype),
+            lastKnownFileType: filePath.extension.flatMap(Xcode.filetype),
+            path: path
+        )
+        projectObjects.add(object: fileReference)
+        fileReference.parent = self
+        if !childrenReferences.contains(fileReference.reference) {
+            childrenReferences.append(fileReference.reference)
+        }
+        return fileReference
+    }
+
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
