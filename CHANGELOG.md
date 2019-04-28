@@ -12,6 +12,7 @@
 - `WorkspaceSettings.autoCreateSchemes` attribute https://github.com/tuist/xcodeproj/pull/399 by @pepibumur
 - Additional Swift 5 fixes: https://github.com/tuist/xcodeproj/pull/402 by @samisuteria
 - Make build phase name public by @llinardos.
+- Can access embed frameworks build phase for a target by @llinardos.
 
 ## 6.7.0
 
