@@ -20,7 +20,6 @@
 		BF_13C115CFC9FF763E80B8568495FB9747 /* PBXHeadersBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5C7969F032D9379BD6D259240A1E4DED /* PBXHeadersBuildPhase.swift */; };
 		BF_15B9C30FF51414FCA3F2499B2684E26E /* PBXProj.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D33D58516A50A2314380E6FE31F49CE3 /* PBXProj.swift */; };
 		BF_1A74165FBE5F33E4E26D693697AB4913 /* XCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5F694668636B07CD454EFA3E4C621C85 /* XCConfig.swift */; };
-		BF_1B2B54DE52518A3BEECFFC0E20362E5D /* SwiftShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_5656AA9F53F6DE92D90072FDC227BAEC /* SwiftShell.framework */; };
 		BF_1D9DCD319672BB4CE71DE7BED7A44758 /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_94F0F8038C977732229D7179BE902BB1 /* PBXFrameworksBuildPhase.swift */; };
 		BF_1E3917F81F740441BB46391D2D8AD32F /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */; };
 		BF_20AC9E7313419052B45B3D52358D0EDD /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6703A7DC94DD08EF6E678DD952BBE906 /* PBXVariantGroup.swift */; };
@@ -33,7 +32,6 @@
 		BF_39985E04483EF21A04F9772D9085C374 /* XCScheme+TestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_AB7B0CE167E4BD1F0092984497663A5B /* XCScheme+TestAction.swift */; };
 		BF_3A81A9D9DFA1F554563B8FBDB96550F4 /* PBXContainerItemProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C47AFD6F369F9225D8258E2B73BA7F30 /* PBXContainerItemProxy.swift */; };
 		BF_3B0722E116B1FCA34956CC5A5D88C60E /* XCScheme+BuildableReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8B570393529819F320620DD6DD6FD37A /* XCScheme+BuildableReference.swift */; };
-		BF_3FA67A307185D116B5705A4912B69182 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_232A4F5CEAE41A131C7B04C78BC0D926 /* Project.swift */; };
 		BF_43B907320DE8725E78F8B4817CB435A7 /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_080CD730A4B117628B6D361E95498AA5 /* PBXShellScriptBuildPhase.swift */; };
 		BF_44EBC0A8578DE6CC2E175908EF441067 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_6689AA30B6313431309B9AE9A3D47F37 /* Decoders.swift */; };
 		BF_48C427E84CE4B7231BC94C18C17568E4 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_620306AA53BC6E2398455502232B4D80 /* XCBreakpointList.swift */; };
@@ -150,7 +148,6 @@
 		FR_54840278DED6955DAB921DD12E6B5EB0 /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		FR_54930C4C62749B7EA3D72D594EAED1D8 /* KeyedDecodingContainer+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Additions.swift"; sourceTree = "<group>"; };
 		FR_5652ACA2E27564539AC970386CA55143 /* XCWorkspaceDataFileRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataFileRef.swift; sourceTree = "<group>"; };
-		FR_5656AA9F53F6DE92D90072FDC227BAEC /* SwiftShell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftShell.framework; sourceTree = "<group>"; };
 		FR_576E881DDECA1982DD170D60BF04BB23 /* XcodeProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProj.swift; sourceTree = "<group>"; };
 		FR_58216FC7286422DACD806BE3138A6417 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FR_5C7969F032D9379BD6D259240A1E4DED /* PBXHeadersBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXHeadersBuildPhase.swift; sourceTree = "<group>"; };
@@ -199,7 +196,6 @@
 		FR_DBC150EF24585E1ADD703292623CB2AD /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
 		FR_DCDEF0B6D19133674C841594B09EED0A /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_DD7A3CF85EA55458FCDB36E549492F3F /* XCScheme+EnvironmentVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+EnvironmentVariable.swift"; sourceTree = "<group>"; };
-		FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = XcodeProj_CarthageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_E91C1EA4C45C850C76B600606DBA2B82 /* String+md5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+md5.swift"; sourceTree = "<group>"; };
 		FR_EDD94C567063C30B3F87ED3ED9E4436D /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
 		FR_EE01A650C4EE8DF58B6948BCF1EF8B3B /* PlistValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistValue.swift; sourceTree = "<group>"; };
@@ -216,7 +212,6 @@
 			files = (
 				BF_96AAB77521EC219E986F4006C3912D5B /* AEXML.framework in Frameworks */,
 				BF_214BDC9DB7C52592B597506D7F0AD98F /* PathKit.framework in Frameworks */,
-				BF_1B2B54DE52518A3BEECFFC0E20362E5D /* SwiftShell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				FR_8E82C7D76A8AA35BDE153362F4524B65 /* PathKit.framework */,
-				FR_5656AA9F53F6DE92D90072FDC227BAEC /* SwiftShell.framework */,
 				FR_D390F78B45315B07AC1161DC2AD2A813 /* AEXML.framework */,
 			);
 			path = Mac;
@@ -468,7 +462,6 @@
 			isa = PBXGroup;
 			children = (
 				FR_AA5FA4D8D845FC10E5891243587EE73D /* XcodeProj.framework */,
-				FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -529,21 +522,6 @@
 			productReference = FR_AA5FA4D8D845FC10E5891243587EE73D /* XcodeProj.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		NT_4D35457CB3B54FF8A8A805131F46FCF3 /* XcodeProj-CarthageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "XcodeProj-CarthageDescription" */;
-			buildPhases = (
-				SBP_4CCB39D3207656D8BF635DB246C808AE /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "XcodeProj-CarthageDescription";
-			productName = "xcodeproj-CarthageDescription.framework";
-			productReference = FR_DE55D0663BC648575CB0EE3F08C6CDF9 /* XcodeProj_CarthageDescription.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -563,7 +541,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				NT_4D35457CB3B54FF8A8A805131F46FCF3 /* XcodeProj-CarthageDescription */,
 				NT_0121A3F25740E85497BB2706DC833345 /* XcodeProj */,
 			);
 		};
@@ -597,14 +574,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		SBP_4CCB39D3207656D8BF635DB246C808AE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BF_3FA67A307185D116B5705A4912B69182 /* Project.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		SBP_83F793CE0A654C482CEF8C913FB42777 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -712,7 +681,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = " ";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
@@ -743,7 +715,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Carthage/Build/Mac";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = " ";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
@@ -813,41 +788,6 @@
 			};
 			name = Release;
 		};
-		BC_83D87B24E02C159AB7D055459BFF53F4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				FRAMEWORK_VERSION = A;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD = /usr/bin/true;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Users/pedropinera/.tuist/Versions/0.11.0";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_INCLUDE_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		BC_D49ED7936C8577BC2B34331C942979A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -904,41 +844,6 @@
 			};
 			name = Debug;
 		};
-		BC_FF5AD17CFF65BF243ED59238FBB848B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				FRAMEWORK_VERSION = A;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD = /usr/bin/true;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Users/pedropinera/.tuist/Versions/0.11.0";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_INCLUDE_PATHS = /Users/pedropinera/.tuist/Versions/0.11.0;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -947,15 +852,6 @@
 			buildConfigurations = (
 				BC_4BB7466F3AD08C8EFC1AA6DE6428095D /* Debug */,
 				BC_54A68413820EB7C5549846B440FE9BCE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CL_C6968342F5783CE0B8D0A69E609FF6DF /* Build configuration list for PBXNativeTarget "XcodeProj-CarthageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BC_FF5AD17CFF65BF243ED59238FBB848B4 /* Debug */,
-				BC_83D87B24E02C159AB7D055459BFF53F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
