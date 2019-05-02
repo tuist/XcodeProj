@@ -5,6 +5,7 @@
 ### Changed
 
 - **Breaking** Renamed module from `xcodeproj` to `XcodeProj` https://github.com/tuist/xcodeproj/pull/398 by @pepibumur.
+- Add `override` flag to `PBXGroup.addFile(at:,sourceTree:,sourceRoot:)` https://github.com/tuist/xcodeproj/pull/410 by @mrylmz
 
 ### Added
 

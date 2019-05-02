@@ -144,14 +144,16 @@ public extension PBXGroup {
     ///
     /// - Parameters:
     ///   - filePath: path to the file.
-    ///   - sourceTree: file sourceTree, default is `.group`
+    ///   - sourceTree: file sourceTree, default is `.group`.
     ///   - sourceRoot: path to project's source root.
+    ///   - override: flag to enable overriding of existing file references, default is `true`.
     /// - Returns: new or existing file and its reference.
     @discardableResult
     func addFile(
         at filePath: Path,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: Path
+        sourceRoot: Path,
+        override: Bool = true
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
         guard filePath.exists else {
@@ -159,9 +161,11 @@ public extension PBXGroup {
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
-        if let existingFileReference = try projectObjects.fileReferences.first(where: {
+        let isFileReferencePathEqual: (Dictionary<PBXObjectReference, PBXFileReference>.Element) throws -> Bool = {
             try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
-        }) {
+        }
+
+        if let existingFileReference = try projectObjects.fileReferences.first(where: isFileReferencePathEqual), override {
             if !childrenReferences.contains(existingFileReference.key) {
                 existingFileReference.value.path = groupPath.flatMap { filePath.relative(to: $0) }?.string
                 childrenReferences.append(existingFileReference.key)
