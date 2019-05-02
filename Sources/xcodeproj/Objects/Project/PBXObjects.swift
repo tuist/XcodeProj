@@ -6,118 +6,118 @@ class PBXObjects: Equatable {
 
     private let lock = NSRecursiveLock()
 
-    private var unsyncProjects: [PBXObjectReference: PBXProject] = [:]
+    private var notThreadSafeProjects: [PBXObjectReference: PBXProject] = [:]
     var projects: [PBXObjectReference: PBXProject] {
-        return lock.whileLocked { unsyncProjects }
+        return lock.whileLocked { notThreadSafeProjects }
     }
 
-    private var unsyncReferenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+    private var notThreadSafeReferenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
     var referenceProxies: [PBXObjectReference: PBXReferenceProxy] {
-        return lock.whileLocked { unsyncReferenceProxies }
+        return lock.whileLocked { notThreadSafeReferenceProxies }
     }
 
     // File elements
-    private var unsyncFileReferences: [PBXObjectReference: PBXFileReference] = [:]
+    private var notThreadSafeFileReferences: [PBXObjectReference: PBXFileReference] = [:]
     var fileReferences: [PBXObjectReference: PBXFileReference] {
-        return lock.whileLocked { unsyncFileReferences }
+        return lock.whileLocked { notThreadSafeFileReferences }
     }
 
-    private var unsyncVersionGroups: [PBXObjectReference: XCVersionGroup] = [:]
+    private var notThreadSafeVersionGroups: [PBXObjectReference: XCVersionGroup] = [:]
     var versionGroups: [PBXObjectReference: XCVersionGroup] {
-        return lock.whileLocked { unsyncVersionGroups }
+        return lock.whileLocked { notThreadSafeVersionGroups }
     }
 
-    private var unsyncVariantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
+    private var notThreadSafeVariantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
     var variantGroups: [PBXObjectReference: PBXVariantGroup] {
-        return lock.whileLocked { unsyncVariantGroups }
+        return lock.whileLocked { notThreadSafeVariantGroups }
     }
 
-    private var unsyncGroups: [PBXObjectReference: PBXGroup] = [:]
+    private var notThreadSafeGroups: [PBXObjectReference: PBXGroup] = [:]
     var groups: [PBXObjectReference: PBXGroup] {
-        return lock.whileLocked { unsyncGroups }
+        return lock.whileLocked { notThreadSafeGroups }
     }
 
     // Configuration
-    private var unsyncBuildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
+    private var notThreadSafeBuildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
     var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] {
-        return lock.whileLocked { unsyncBuildConfigurations }
+        return lock.whileLocked { notThreadSafeBuildConfigurations }
     }
 
-    private var unsyncConfigurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+    private var notThreadSafeConfigurationLists: [PBXObjectReference: XCConfigurationList] = [:]
     var configurationLists: [PBXObjectReference: XCConfigurationList] {
-        return lock.whileLocked { unsyncConfigurationLists }
+        return lock.whileLocked { notThreadSafeConfigurationLists }
     }
 
     // Targets
-    private var unsyncLegacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
+    private var notThreadSafeLegacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
     var legacyTargets: [PBXObjectReference: PBXLegacyTarget] {
-        return lock.whileLocked { unsyncLegacyTargets }
+        return lock.whileLocked { notThreadSafeLegacyTargets }
     }
 
-    private var unsyncAggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
+    private var notThreadSafeAggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
     var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] {
-        return lock.whileLocked { unsyncAggregateTargets }
+        return lock.whileLocked { notThreadSafeAggregateTargets }
     }
 
-    private var unsyncNativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
+    private var notThreadSafeNativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
     var nativeTargets: [PBXObjectReference: PBXNativeTarget] {
-        return lock.whileLocked { unsyncNativeTargets }
+        return lock.whileLocked { notThreadSafeNativeTargets }
     }
 
-    private var unsyncTargetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
+    private var notThreadSafeTargetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
     var targetDependencies: [PBXObjectReference: PBXTargetDependency] {
-        return lock.whileLocked { unsyncTargetDependencies }
+        return lock.whileLocked { notThreadSafeTargetDependencies }
     }
 
-    private var unsyncContainerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
+    private var notThreadSafeContainerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
     var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] {
-        return lock.whileLocked { unsyncContainerItemProxies }
+        return lock.whileLocked { notThreadSafeContainerItemProxies }
     }
 
-    private var unsyncBuildRules: [PBXObjectReference: PBXBuildRule] = [:]
+    private var notThreadSafeBuildRules: [PBXObjectReference: PBXBuildRule] = [:]
     var buildRules: [PBXObjectReference: PBXBuildRule] {
-        return lock.whileLocked { unsyncBuildRules }
+        return lock.whileLocked { notThreadSafeBuildRules }
     }
 
     // Build Phases
-    private var unsyncBuildFiles: [PBXObjectReference: PBXBuildFile] = [:]
+    private var notThreadSafeBuildFiles: [PBXObjectReference: PBXBuildFile] = [:]
     var buildFiles: [PBXObjectReference: PBXBuildFile] {
-        return lock.whileLocked { unsyncBuildFiles }
+        return lock.whileLocked { notThreadSafeBuildFiles }
     }
 
-    private var unsyncCopyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
+    private var notThreadSafeCopyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
     var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] {
-        return lock.whileLocked { unsyncCopyFilesBuildPhases }
+        return lock.whileLocked { notThreadSafeCopyFilesBuildPhases }
     }
 
-    private var unsyncShellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
+    private var notThreadSafeShellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
     var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] {
-        return lock.whileLocked { unsyncShellScriptBuildPhases }
+        return lock.whileLocked { notThreadSafeShellScriptBuildPhases }
     }
 
-    private var unsyncResourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
+    private var notThreadSafeResourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
     var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] {
-        return lock.whileLocked { unsyncResourcesBuildPhases }
+        return lock.whileLocked { notThreadSafeResourcesBuildPhases }
     }
 
-    private var unsyncFrameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
+    private var notThreadSafeFrameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
     var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] {
-        return lock.whileLocked { unsyncFrameworksBuildPhases }
+        return lock.whileLocked { notThreadSafeFrameworksBuildPhases }
     }
 
-    private var unsyncHeadersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
+    private var notThreadSafeHeadersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
     var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] {
-        return lock.whileLocked { unsyncHeadersBuildPhases }
+        return lock.whileLocked { notThreadSafeHeadersBuildPhases }
     }
 
-    private var unsyncSourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
+    private var notThreadSafeSourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
     var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] {
-        return lock.whileLocked { unsyncSourcesBuildPhases }
+        return lock.whileLocked { notThreadSafeSourcesBuildPhases }
     }
 
-    private var unsyncCarbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
+    private var notThreadSafeCarbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
     var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
-        return lock.whileLocked { unsyncCarbonResourcesBuildPhases }
+        return lock.whileLocked { notThreadSafeCarbonResourcesBuildPhases }
     }
 
     /// Initializes the project objects container
@@ -173,30 +173,30 @@ class PBXObjects: Equatable {
 
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup
-        case let object as PBXVariantGroup: unsyncVariantGroups[objectReference] = object
-        case let object as XCVersionGroup: unsyncVersionGroups[objectReference] = object
+        case let object as PBXVariantGroup: notThreadSafeVariantGroups[objectReference] = object
+        case let object as XCVersionGroup: notThreadSafeVersionGroups[objectReference] = object
 
         // everything else
-        case let object as PBXBuildFile: unsyncBuildFiles[objectReference] = object
-        case let object as PBXAggregateTarget: unsyncAggregateTargets[objectReference] = object
-        case let object as PBXLegacyTarget: unsyncLegacyTargets[objectReference] = object
-        case let object as PBXContainerItemProxy: unsyncContainerItemProxies[objectReference] = object
-        case let object as PBXCopyFilesBuildPhase: unsyncCopyFilesBuildPhases[objectReference] = object
-        case let object as PBXGroup: unsyncGroups[objectReference] = object
-        case let object as XCConfigurationList: unsyncConfigurationLists[objectReference] = object
-        case let object as XCBuildConfiguration: unsyncBuildConfigurations[objectReference] = object
-        case let object as PBXTargetDependency: unsyncTargetDependencies[objectReference] = object
-        case let object as PBXSourcesBuildPhase: unsyncSourcesBuildPhases[objectReference] = object
-        case let object as PBXShellScriptBuildPhase: unsyncShellScriptBuildPhases[objectReference] = object
-        case let object as PBXResourcesBuildPhase: unsyncResourcesBuildPhases[objectReference] = object
-        case let object as PBXFrameworksBuildPhase: unsyncFrameworksBuildPhases[objectReference] = object
-        case let object as PBXHeadersBuildPhase: unsyncHeadersBuildPhases[objectReference] = object
-        case let object as PBXNativeTarget: unsyncNativeTargets[objectReference] = object
-        case let object as PBXFileReference: unsyncFileReferences[objectReference] = object
-        case let object as PBXProject: unsyncProjects[objectReference] = object
-        case let object as PBXReferenceProxy: unsyncReferenceProxies[objectReference] = object
-        case let object as PBXRezBuildPhase: unsyncCarbonResourcesBuildPhases[objectReference] = object
-        case let object as PBXBuildRule: unsyncBuildRules[objectReference] = object
+        case let object as PBXBuildFile: notThreadSafeBuildFiles[objectReference] = object
+        case let object as PBXAggregateTarget: notThreadSafeAggregateTargets[objectReference] = object
+        case let object as PBXLegacyTarget: notThreadSafeLegacyTargets[objectReference] = object
+        case let object as PBXContainerItemProxy: notThreadSafeContainerItemProxies[objectReference] = object
+        case let object as PBXCopyFilesBuildPhase: notThreadSafeCopyFilesBuildPhases[objectReference] = object
+        case let object as PBXGroup: notThreadSafeGroups[objectReference] = object
+        case let object as XCConfigurationList: notThreadSafeConfigurationLists[objectReference] = object
+        case let object as XCBuildConfiguration: notThreadSafeBuildConfigurations[objectReference] = object
+        case let object as PBXTargetDependency: notThreadSafeTargetDependencies[objectReference] = object
+        case let object as PBXSourcesBuildPhase: notThreadSafeSourcesBuildPhases[objectReference] = object
+        case let object as PBXShellScriptBuildPhase: notThreadSafeShellScriptBuildPhases[objectReference] = object
+        case let object as PBXResourcesBuildPhase: notThreadSafeResourcesBuildPhases[objectReference] = object
+        case let object as PBXFrameworksBuildPhase: notThreadSafeFrameworksBuildPhases[objectReference] = object
+        case let object as PBXHeadersBuildPhase: notThreadSafeHeadersBuildPhases[objectReference] = object
+        case let object as PBXNativeTarget: notThreadSafeNativeTargets[objectReference] = object
+        case let object as PBXFileReference: notThreadSafeFileReferences[objectReference] = object
+        case let object as PBXProject: notThreadSafeProjects[objectReference] = object
+        case let object as PBXReferenceProxy: notThreadSafeReferenceProxies[objectReference] = object
+        case let object as PBXRezBuildPhase: notThreadSafeCarbonResourcesBuildPhases[objectReference] = object
+        case let object as PBXBuildRule: notThreadSafeBuildRules[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
@@ -209,49 +209,49 @@ class PBXObjects: Equatable {
     @discardableResult func delete(reference: PBXObjectReference) -> PBXObject? {
         lock.lock()
         if let index = buildFiles.index(forKey: reference) {
-            return unsyncBuildFiles.remove(at: index).value
+            return notThreadSafeBuildFiles.remove(at: index).value
         } else if let index = aggregateTargets.index(forKey: reference) {
-            return unsyncAggregateTargets.remove(at: index).value
+            return notThreadSafeAggregateTargets.remove(at: index).value
         } else if let index = legacyTargets.index(forKey: reference) {
-            return unsyncLegacyTargets.remove(at: index).value
+            return notThreadSafeLegacyTargets.remove(at: index).value
         } else if let index = containerItemProxies.index(forKey: reference) {
-            return unsyncContainerItemProxies.remove(at: index).value
+            return notThreadSafeContainerItemProxies.remove(at: index).value
         } else if let index = groups.index(forKey: reference) {
-            return unsyncGroups.remove(at: index).value
+            return notThreadSafeGroups.remove(at: index).value
         } else if let index = configurationLists.index(forKey: reference) {
-            return unsyncConfigurationLists.remove(at: index).value
+            return notThreadSafeConfigurationLists.remove(at: index).value
         } else if let index = buildConfigurations.index(forKey: reference) {
-            return unsyncBuildConfigurations.remove(at: index).value
+            return notThreadSafeBuildConfigurations.remove(at: index).value
         } else if let index = variantGroups.index(forKey: reference) {
-            return unsyncVariantGroups.remove(at: index).value
+            return notThreadSafeVariantGroups.remove(at: index).value
         } else if let index = targetDependencies.index(forKey: reference) {
-            return unsyncTargetDependencies.remove(at: index).value
+            return notThreadSafeTargetDependencies.remove(at: index).value
         } else if let index = nativeTargets.index(forKey: reference) {
-            return unsyncNativeTargets.remove(at: index).value
+            return notThreadSafeNativeTargets.remove(at: index).value
         } else if let index = fileReferences.index(forKey: reference) {
-            return unsyncFileReferences.remove(at: index).value
+            return notThreadSafeFileReferences.remove(at: index).value
         } else if let index = projects.index(forKey: reference) {
-            return unsyncProjects.remove(at: index).value
+            return notThreadSafeProjects.remove(at: index).value
         } else if let index = versionGroups.index(forKey: reference) {
-            return unsyncVersionGroups.remove(at: index).value
+            return notThreadSafeVersionGroups.remove(at: index).value
         } else if let index = referenceProxies.index(forKey: reference) {
-            return unsyncReferenceProxies.remove(at: index).value
+            return notThreadSafeReferenceProxies.remove(at: index).value
         } else if let index = copyFilesBuildPhases.index(forKey: reference) {
-            return unsyncCopyFilesBuildPhases.remove(at: index).value
+            return notThreadSafeCopyFilesBuildPhases.remove(at: index).value
         } else if let index = shellScriptBuildPhases.index(forKey: reference) {
-            return unsyncShellScriptBuildPhases.remove(at: index).value
+            return notThreadSafeShellScriptBuildPhases.remove(at: index).value
         } else if let index = resourcesBuildPhases.index(forKey: reference) {
-            return unsyncResourcesBuildPhases.remove(at: index).value
+            return notThreadSafeResourcesBuildPhases.remove(at: index).value
         } else if let index = frameworksBuildPhases.index(forKey: reference) {
-            return unsyncFrameworksBuildPhases.remove(at: index).value
+            return notThreadSafeFrameworksBuildPhases.remove(at: index).value
         } else if let index = headersBuildPhases.index(forKey: reference) {
-            return unsyncHeadersBuildPhases.remove(at: index).value
+            return notThreadSafeHeadersBuildPhases.remove(at: index).value
         } else if let index = sourcesBuildPhases.index(forKey: reference) {
-            return unsyncSourcesBuildPhases.remove(at: index).value
+            return notThreadSafeSourcesBuildPhases.remove(at: index).value
         } else if let index = carbonResourcesBuildPhases.index(forKey: reference) {
-            return unsyncCarbonResourcesBuildPhases.remove(at: index).value
+            return notThreadSafeCarbonResourcesBuildPhases.remove(at: index).value
         } else if let index = buildRules.index(forKey: reference) {
-            return unsyncBuildRules.remove(at: index).value
+            return notThreadSafeBuildRules.remove(at: index).value
         }
         lock.unlock()
         return nil
