@@ -14,6 +14,7 @@
 - Additional Swift 5 fixes: https://github.com/tuist/xcodeproj/pull/402 by @samisuteria
 - Make build phase name public by @llinardos.
 - Can access embed frameworks build phase for a target by @llinardos.
+- Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
 
 ### Fixed
 - Carthage integration https://github.com/tuist/xcodeproj/pull/416 by @pepibumur.
