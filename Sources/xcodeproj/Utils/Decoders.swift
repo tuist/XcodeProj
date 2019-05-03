@@ -4,6 +4,7 @@ import Foundation
 class PBXObjectReferenceRepository {
     /// References.
     var references: [String: PBXObjectReference] = [:]
+    let lock = NSRecursiveLock()
 
     /// Returns and creates if it doesn't exist an object reference.
     ///
@@ -12,12 +13,14 @@ class PBXObjectReferenceRepository {
     ///   - objects: objects.
     /// - Returns: object reference.
     func getOrCreate(reference: String, objects: PBXObjects) -> PBXObjectReference {
-        if let objectReference = references[reference] {
+        return lock.whileLocked {
+            if let objectReference = references[reference] {
+                return objectReference
+            }
+            let objectReference = PBXObjectReference(reference, objects: objects)
+            references[reference] = objectReference
             return objectReference
         }
-        let objectReference = PBXObjectReference(reference, objects: objects)
-        references[reference] = objectReference
-        return objectReference
     }
 }
 
@@ -28,10 +31,12 @@ class ProjectDecodingContext {
 
     /// Objects.
     let objects: PBXObjects
+    let pbxProjValueReader: ((String) -> Any?)?
 
-    init() {
+    init(pbxProjValueReader: ((String) -> Any?)? = nil) {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])
+        self.pbxProjValueReader = pbxProjValueReader
     }
 }
 

@@ -1,6 +1,6 @@
 import Foundation
-@testable import xcodeproj
 import XCTest
+@testable import XcodeProj
 
 final class PBXFrameworksBuildPhaseTests: XCTestCase {
     func test_isa_returnsTheRightValue() {

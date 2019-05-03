@@ -129,30 +129,28 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
     func getThrowingObject<T: PBXObject>() throws -> T {
         return try OSLogger.instance.log(name: "Materialize Object") {
-          if let object = object as? T {
-              return object
-          }
-          guard let objects = objects else {
-              throw PBXObjectError.objectsReleased
-          }
-          guard let object = objects.get(reference: self) as? T else {
-              throw PBXObjectError.objectNotFound(value)
-          }
-          self.object = object
-          return object
+            if let object = object as? T {
+                return object
+            }
+            guard let objects = objects else {
+                throw PBXObjectError.objectsReleased
+            }
+            guard let object = objects.get(reference: self) as? T else {
+                throw PBXObjectError.objectNotFound(value)
+            }
+            self.object = object
+            return object
         }
     }
 }
 
 extension Array where Element: PBXObject {
-
     func references() -> [PBXObjectReference] {
         return map { $0.reference }
     }
 }
 
 extension Array where Element: PBXObjectReference {
-
     func objects<T: PBXObject>() -> [T] {
         return compactMap { $0.getObject() }
     }

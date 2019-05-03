@@ -1,6 +1,6 @@
-import PathKit
 import Foundation
-import xcodeproj
+import PathKit
+import XcodeProj
 import XCTest
 
 final class XCWorkspaceDataTests: XCTestCase {

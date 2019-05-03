@@ -1,7 +1,7 @@
 
 import AEXML
-@testable import xcodeproj
 import XCTest
+@testable import XcodeProj
 
 extension String {
     var cleaned: String {

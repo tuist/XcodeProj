@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 // MARK: - Xcodeproj
 

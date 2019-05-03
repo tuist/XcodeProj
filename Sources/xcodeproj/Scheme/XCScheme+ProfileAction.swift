@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 extension XCScheme {
     public final class ProfileAction: SerialAction {
@@ -90,7 +90,7 @@ extension XCScheme {
                                            "savedToolIdentifier": savedToolIdentifier,
                                            "useCustomWorkingDirectory": useCustomWorkingDirectory.xmlString,
                                            "debugDocumentVersioning": debugDocumentVersioning.xmlString,
-            ])
+                                       ])
             super.writeXML(parent: element)
             if ignoresPersistentStateOnLaunch {
                 element.attributes["ignoresPersistentStateOnLaunch"] = ignoresPersistentStateOnLaunch.xmlString

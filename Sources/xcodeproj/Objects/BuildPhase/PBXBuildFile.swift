@@ -77,19 +77,24 @@ extension PBXBuildFile {
             return buildPhase
         }
         let projectObjects = try objects()
-        if let buildPhase = projectObjects.sourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        if let buildPhase = projectObjects.sourcesBuildPhases.values
+            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.frameworksBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.resourcesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects
+            .resourcesBuildPhases.values
+            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.copyFilesBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.copyFilesBuildPhases
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
-        } else if let buildPhase = projectObjects.headersBuildPhases.values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+        } else if let buildPhase = projectObjects.headersBuildPhases
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
-            .values.first(where: { $0.fileReferences.map { $0.value }.contains(reference.value) }) {
+            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
             return buildPhase
         }
         return nil
@@ -109,21 +114,34 @@ extension PBXBuildFile {
 
 // MARK: - PlistSerializable
 
-extension PBXBuildFile: PlistSerializable {
+// Helper for serialize the BuildFile with associated BuildPhase
+final class PBXBuildPhaseFile: PlistSerializable, Equatable {
     var multiline: Bool { return false }
+
+    let buildFile: PBXBuildFile
+    let buildPhase: PBXBuildPhase
+
+    init(buildFile: PBXBuildFile, buildPhase: PBXBuildPhase) {
+        self.buildFile = buildFile
+        self.buildPhase = buildPhase
+    }
 
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
-        if let fileReference = fileReference {
+        if let fileReference = buildFile.fileReference {
             let fileElement: PBXFileElement? = fileReference.getObject()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
-        if let settings = settings {
+        if let settings = buildFile.settings {
             dictionary["settings"] = settings.plist()
         }
-        let comment = try buildPhaseName().flatMap({ "\(try fileName() ?? "(null)") in \($0)" })
+        let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
+    }
+
+    static func == (lhs: PBXBuildPhaseFile, rhs: PBXBuildPhaseFile) -> Bool {
+        return lhs.buildFile == rhs.buildFile && lhs.buildPhase == rhs.buildPhase
     }
 }

@@ -1,7 +1,7 @@
-import PathKit
 import Foundation
-@testable import xcodeproj
+import PathKit
 import XCTest
+@testable import XcodeProj
 
 final class PBXFileElementTests: XCTestCase {
     var subject: PBXFileElement!
@@ -36,7 +36,7 @@ final class PBXFileElementTests: XCTestCase {
         XCTAssertEqual(subject, another)
     }
 
-    func test_fullPath() throws {
+    func test_fullPath_with_parent() throws {
         let sourceRoot = Path("/")
         let fileref = PBXFileReference(sourceTree: .group,
                                        fileEncoding: 1,
@@ -53,8 +53,30 @@ final class PBXFileElementTests: XCTestCase {
 
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/a/path")
+        XCTAssertNotNil(group.children.first?.parent)
     }
-    
+
+    func test_fullPath_without_parent() throws {
+        let sourceRoot = Path("/")
+        let fileref = PBXFileReference(sourceTree: .group,
+                                       fileEncoding: 1,
+                                       explicitFileType: "sourcecode.swift",
+                                       lastKnownFileType: nil,
+                                       path: "/a/path")
+        let group = PBXGroup(children: [fileref],
+                             sourceTree: .group,
+                             name: "/to/be/ignored")
+
+        let objects = PBXObjects(objects: [fileref, group])
+        fileref.reference.objects = objects
+        group.reference.objects = objects
+        // Remove parent for fallback test
+        fileref.parent = nil
+
+        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
+        XCTAssertEqual(fullPath?.string, "/a/path")
+    }
+
     func test_fullPath_with_nested_groups() throws {
         let sourceRoot = Path("/")
         let fileref = PBXFileReference(sourceTree: .group,
@@ -63,8 +85,8 @@ final class PBXFileElementTests: XCTestCase {
                                        lastKnownFileType: nil,
                                        path: "file/path")
         let nestedGroup = PBXGroup(children: [fileref],
-                             sourceTree: .group,
-                             path: "group/path")
+                                   sourceTree: .group,
+                                   path: "group/path")
         let rootGroup = PBXGroup(children: [nestedGroup],
                                  sourceTree: .group)
 
@@ -75,7 +97,6 @@ final class PBXFileElementTests: XCTestCase {
         let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/group/path/file/path")
     }
-    
 
     private func testDictionary() -> [String: Any] {
         return [
@@ -85,5 +106,20 @@ final class PBXFileElementTests: XCTestCase {
             "includeInIndex": "0",
             "wrapsLines": "1",
         ]
+    }
+
+    func test_plistKeyAndValue_returns_dictionary_value() throws {
+        let foo = PBXFileElement()
+        let proj = PBXProj()
+        let reference = ""
+        if case .dictionary = try foo.plistKeyAndValue(proj: proj, reference: reference).value {
+            // noop we’re good!
+        } else {
+            XCTFail("""
+            The implementation of PBXFileElement.plistKeyAndValue has changed,
+            which will break PBXReferenceProxy’s overriden implementation.
+            This must be fixed!
+            """)
+        }
     }
 }

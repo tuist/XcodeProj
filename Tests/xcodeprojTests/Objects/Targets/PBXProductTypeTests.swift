@@ -1,5 +1,5 @@
 import Foundation
-import xcodeproj
+import XcodeProj
 import XCTest
 
 final class PBXProductTypeTests: XCTestCase {
@@ -85,5 +85,9 @@ final class PBXProductTypeTests: XCTestCase {
 
     func test_xcodeExtension_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.xcodeExtension.rawValue, "com.apple.product-type.xcode-extension")
+    }
+
+    func test_intentsServiceExtension_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.intentsServiceExtension.rawValue, "com.apple.product-type.app-extension.intents-service")
     }
 }

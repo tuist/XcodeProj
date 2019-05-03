@@ -9,16 +9,16 @@ public class PBXBuildPhase: PBXContainerItem {
     public var buildActionMask: UInt
 
     /// References to build files.
-    var fileReferences: [PBXObjectReference]
+    var fileReferences: [PBXObjectReference]?
 
     /// Build files.
-    public var files: [PBXBuildFile] {
+    public var files: [PBXBuildFile]? {
         get {
-            return fileReferences.objects()
+            return fileReferences?.objects()
         }
         set {
-            newValue.forEach { $0.buildPhase = self }
-            fileReferences = newValue.references()
+            newValue?.forEach { $0.buildPhase = self }
+            fileReferences = newValue?.references()
         }
     }
 
@@ -75,8 +75,8 @@ public class PBXBuildPhase: PBXContainerItem {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         buildActionMask = try container.decodeIntIfPresent(.buildActionMask) ?? PBXBuildPhase.defaultBuildActionMask
-        let fileReferences: [String] = try container.decodeIfPresent(.files) ?? []
-        self.fileReferences = fileReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        let fileReferences: [String]? = try container.decodeIfPresent(.files)
+        self.fileReferences = fileReferences?.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         inputFileListPaths = try container.decodeIfPresent(.inputFileListPaths)
         outputFileListPaths = try container.decodeIfPresent(.outputFileListPaths)
         runOnlyForDeploymentPostprocessing = try container.decodeIntBool(.runOnlyForDeploymentPostprocessing)
@@ -86,20 +86,22 @@ public class PBXBuildPhase: PBXContainerItem {
     override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        let files: PlistValue = .array(fileReferences.map { fileReference in
-            let buildFile: PBXBuildFile? = fileReference.getObject()
-            let name = buildFile.flatMap { try? $0.fileName() } ?? nil
-            let fileName: String = name ?? "(null)"
-            let type = self.name()
-            let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
-            return .string(CommentedString(fileReference.value, comment: comment))
-        })
-        dictionary["files"] = files
+        if let fileReferences = fileReferences {
+            let files: PlistValue = .array(fileReferences.map { fileReference in
+                let buildFile: PBXBuildFile? = fileReference.getObject()
+                let name = buildFile.flatMap { try? $0.fileName() } ?? nil
+                let fileName: String = name ?? "(null)"
+                let type = self.name()
+                let comment = (type.flatMap { "\(fileName) in \($0)" }) ?? name
+                return .string(CommentedString(fileReference.value, comment: comment))
+            })
+            dictionary["files"] = files
+        }
         if let inputFileListPaths = inputFileListPaths {
-            dictionary["inputFileListPaths"] = .array(inputFileListPaths.map({ .string(CommentedString($0)) }))
+            dictionary["inputFileListPaths"] = .array(inputFileListPaths.map { .string(CommentedString($0)) })
         }
         if let outputFileListPaths = outputFileListPaths {
-            dictionary["outputFileListPaths"] = .array(outputFileListPaths.map({ .string(CommentedString($0)) }))
+            dictionary["outputFileListPaths"] = .array(outputFileListPaths.map { .string(CommentedString($0)) })
         }
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
@@ -114,25 +116,25 @@ public extension PBXBuildPhase {
     /// - Parameter file: file element to be added to the build phase.
     /// - Returns: proxy build file.
     /// - Throws: an error if the file cannot be added.
-    public func add(file: PBXFileElement) throws -> PBXBuildFile {
-        if let existing = files.first(where: { $0.fileReference == reference }) {
+    func add(file: PBXFileElement) throws -> PBXBuildFile {
+        if let existing = files?.first(where: { $0.fileReference == file.reference }) {
             return existing
         }
         let projectObjects = try objects()
         let buildFile = PBXBuildFile(file: file)
         projectObjects.add(object: buildFile)
-        files.append(buildFile)
+        files?.append(buildFile)
         return buildFile
     }
 }
 
 // MARK: - Utils
 
-extension PBXBuildPhase {
+public extension PBXBuildPhase {
     /// Returns the build phase type.
     ///
     /// - Returns: build phase type.
-    public func type() -> BuildPhase? {
+    func type() -> BuildPhase? {
         return buildPhase
     }
 

@@ -1,5 +1,5 @@
 import Foundation
-@testable import xcodeproj
 import XCTest
+@testable import XcodeProj
 
 final class PBXReferenceProxyTests: XCTestCase {}

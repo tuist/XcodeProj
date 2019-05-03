@@ -183,3 +183,4 @@ build/
 xcodeproj.xcodeproj
 .idea/
 tmp/
+xcodeproj.framework.zip

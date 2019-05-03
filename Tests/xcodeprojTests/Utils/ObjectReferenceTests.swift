@@ -1,9 +1,8 @@
 import Foundation
-@testable import xcodeproj
 import XCTest
+@testable import XcodeProj
 
 class ObjectReferenceTests: XCTestCase {
-
     let xcodeReferenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings(projReferenceFormat: .xcode))
     let prefixedReferenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings(projReferenceFormat: .withPrefixAndSuffix))
 
@@ -102,13 +101,12 @@ class ObjectReferenceTests: XCTestCase {
         let reference = PBXObjectReference()
         XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
         reference.fix("a")
-        XCTAssertTrue(reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
+        XCTAssertTrue(reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.isEmpty)
         reference.invalidate()
         XCTAssertTrue(reference.value.hasPrefix("TEMP_"))
     }
 
-
-    /// MARK: - XCode style generation
+    // MARK: - XCode style generation
 
     func test_reference_generation_xcode_isDeterministic() {
         let object = PBXFileReference()
@@ -139,10 +137,9 @@ class ObjectReferenceTests: XCTestCase {
         let object2 = PBXFileReference()
         xcodeReferenceGenerator.fixReference(for: object, identifiers: ["a"])
         xcodeReferenceGenerator.fixReference(for: object2, identifiers: ["a"])
-        XCTAssertTrue(object.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
-        XCTAssertTrue(object2.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.count == 0)
+        XCTAssertTrue(object.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.isEmpty)
+        XCTAssertTrue(object2.reference.value.unicodeScalars.filter { CharacterSet.alphanumerics.inverted.contains($0) }.isEmpty)
     }
-
 
     // MARK: - Prefix format generation
 

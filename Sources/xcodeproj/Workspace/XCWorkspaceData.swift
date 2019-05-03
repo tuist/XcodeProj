@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 public final class XCWorkspaceData {
     public var children: [XCWorkspaceDataElement]
@@ -43,10 +43,10 @@ extension XCWorkspaceData: Writable {
         let document = AEXMLDocument()
         let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
         _ = children
-            .map({ $0.xmlElement() })
+            .map { $0.xmlElement() }
             .map(workspace.addChild)
 
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)
@@ -55,7 +55,7 @@ extension XCWorkspaceData: Writable {
 
 // MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding
 
-fileprivate extension XCWorkspaceDataElement {
+private extension XCWorkspaceDataElement {
     init(element: AEXMLElement) throws {
         switch element.name {
         case "FileRef":
@@ -67,7 +67,7 @@ fileprivate extension XCWorkspaceDataElement {
         }
     }
 
-    fileprivate func xmlElement() -> AEXMLElement {
+    func xmlElement() -> AEXMLElement {
         switch self {
         case let .file(fileRef):
             return fileRef.xmlElement()
@@ -79,7 +79,7 @@ fileprivate extension XCWorkspaceDataElement {
 
 // MARK: - XCWorkspaceDataGroup AEXMLElement decoding and encoding
 
-fileprivate extension XCWorkspaceDataGroup {
+private extension XCWorkspaceDataGroup {
     enum Error: Swift.Error {
         case wrongElementName
         case missingLocationAttribute
@@ -104,7 +104,7 @@ fileprivate extension XCWorkspaceDataGroup {
         let element = AEXMLElement(name: "Group", value: nil, attributes: attributes)
 
         _ = children
-            .map({ $0.xmlElement() })
+            .map { $0.xmlElement() }
             .map(element.addChild)
 
         return element
@@ -113,7 +113,7 @@ fileprivate extension XCWorkspaceDataGroup {
 
 // MARK: - XCWorkspaceDataFileRef AEXMLElement decoding and encoding
 
-fileprivate extension XCWorkspaceDataFileRef {
+private extension XCWorkspaceDataFileRef {
     enum Error: Swift.Error {
         case wrongElementName
         case missingLocationAttribute

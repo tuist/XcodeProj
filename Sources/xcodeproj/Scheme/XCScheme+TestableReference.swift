@@ -40,7 +40,7 @@ extension XCScheme {
         // MARK: - XML
 
         func xmlElement() -> AEXMLElement {
-            var attributes: [String : String] = ["skipped": skipped.xmlString]
+            var attributes: [String: String] = ["skipped": skipped.xmlString]
             attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
             attributes["testExecutionOrdering"] = randomExecutionOrdering ? "random" : nil
             let element = AEXMLElement(name: "TestableReference",

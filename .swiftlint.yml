@@ -20,3 +20,6 @@ identifier_name:
   min_length:
     error: 1
     warning: 1
+function_parameter_count:
+  warning: 7
+  error: 8

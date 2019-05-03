@@ -6,8 +6,8 @@
 //  Copyright © 2017 es.ppinera. All rights reserved.
 //
 
-@testable import iOS
 import XCTest
+@testable import iOS
 
 class iOSTests: XCTestCase {
     override func setUp() {

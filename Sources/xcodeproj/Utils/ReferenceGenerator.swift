@@ -14,12 +14,10 @@ protocol ReferenceGenerating: AnyObject {
 
 /// Reference generator.
 final class ReferenceGenerator: ReferenceGenerating {
-
     let outputSettings: PBXOutputSettings
     var references: Set<String> = []
 
     init(outputSettings: PBXOutputSettings) {
-
         self.outputSettings = outputSettings
     }
 
@@ -54,10 +52,10 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Targets
         let targets: [PBXTarget] = project.targets
-        try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
+        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         // Project references
-        try project.projectReferences.flatMap({ $0.values }).forEach { objectReference in
+        try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             guard let fileReference: PBXFileReference = objectReference.getObject() else { return }
             try generateFileReference(fileReference, identifiers: identifiers)
         }
@@ -136,7 +134,6 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - identifiers: list of identifiers.
     private func generateConfigurationListReferences(_ configurationList: XCConfigurationList,
                                                      identifiers: [String]) throws {
-
         fixReference(for: configurationList, identifiers: identifiers)
 
         let buildConfigurations: [XCBuildConfiguration] = configurationList.buildConfigurations
@@ -169,16 +166,16 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Build phases
         let buildPhases: [PBXBuildPhase] = target.buildPhaseReferences.objects()
-        try buildPhases.forEach({ try generateBuildPhaseReferences($0,
-                                                                   identifiers: identifiers) })
+        try buildPhases.forEach { try generateBuildPhaseReferences($0,
+                                                                   identifiers: identifiers) }
 
         // Build rules
         let buildRules: [PBXBuildRule] = target.buildRuleReferences.objects()
-        try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
+        try buildRules.forEach { try generateBuildRules($0, identifiers: identifiers) }
 
         // Dependencies
         let dependencies: [PBXTargetDependency] = target.dependencyReferences.objects()
-        try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
+        try dependencies.forEach { try generateTargetDependencyReferences($0, identifiers: identifiers) }
     }
 
     /// Generates the reference for a target dependency object.
@@ -228,7 +225,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: buildPhase, identifiers: identifiers)
 
         // Build files
-        buildPhase.fileReferences.forEach { buildFileReference in
+        buildPhase.fileReferences?.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
             guard let buildFile: PBXBuildFile = buildFileReference.getObject() else { return }
@@ -262,7 +259,6 @@ final class ReferenceGenerator: ReferenceGenerating {
 }
 
 extension ReferenceGenerator {
-
     /// Given a list of identifiers, it generates a deterministic reference for a PBXObject.
     ///
     /// - Parameters:
@@ -289,11 +285,11 @@ extension ReferenceGenerator {
             // Get the first reference that doesn't already exist
             repeat {
                 counter += 1
-                reference = self.generateReferenceFrom(acronym: acronym,
-                                                       typeName: typeName,
-                                                       identifiers: identifiers,
-                                                       counter: counter)
-            } while (references.contains(reference))
+                reference = generateReferenceFrom(acronym: acronym,
+                                                  typeName: typeName,
+                                                  identifiers: identifiers,
+                                                  counter: counter)
+            } while references.contains(reference)
             references.insert(reference)
             object.reference.fix(reference)
         }
@@ -303,10 +299,8 @@ extension ReferenceGenerator {
                                        typeName: String,
                                        identifiers: [String],
                                        counter: Int) -> String {
-
         let typeNameAndIdentifiers = ([typeName] + identifiers).joined(separator: "-")
-        switch self.outputSettings.projReferenceFormat {
-
+        switch outputSettings.projReferenceFormat {
         case .withPrefixAndSuffix:
             let base = "\(acronym)_\(typeNameAndIdentifiers.md5.uppercased())"
             if counter > 1 {

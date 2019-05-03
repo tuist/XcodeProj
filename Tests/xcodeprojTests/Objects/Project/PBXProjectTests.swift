@@ -1,5 +1,5 @@
-@testable import xcodeproj
 import XCTest
+@testable import XcodeProj
 
 final class PBXProjectTests: XCTestCase {
     func test_attributes() throws {
@@ -25,7 +25,7 @@ final class PBXProjectTests: XCTestCase {
             "LastUpgradeCheck": "0940",
             "TargetAttributes": ["app": [
                 "custom": "abc",
-                "TestTargetID": "test"
+                "TestTargetID": "test",
             ]],
         ]
         XCTAssertEqual(attributes, expectedAttributes)

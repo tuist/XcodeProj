@@ -47,7 +47,7 @@ public final class PBXContainerItemProxy: PBXObject {
     ///   - remoteGlobalID: remote global ID.
     ///   - proxyType: proxy type.
     ///   - remoteInfo: remote info.
-    public init(containerPortal: PBXProject,
+    public init(containerPortal: PBXObject,
                 remoteGlobalID: PBXObject? = nil,
                 proxyType: ProxyType? = nil,
                 remoteInfo: String? = nil) {

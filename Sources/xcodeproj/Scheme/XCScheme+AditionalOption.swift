@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 extension XCScheme {
     public final class AdditionalOption: Equatable {
@@ -33,7 +33,7 @@ extension XCScheme {
                                     "key": key,
                                     "value": value,
                                     "isEnabled": isEnabled.xmlString,
-            ])
+                                ])
         }
 
         // MARK: - Equatable

@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// Model that represents a .xcodeproj project.
 public final class XcodeProj: Equatable {
@@ -24,16 +24,22 @@ public final class XcodeProj: Equatable {
         try OSLogger.instance.log(name: "Write workspace", path.string) {
             if !path.exists { throw XCodeProjError.notFound(path: path) }
             let pbxprojPaths = path.glob("*.pbxproj")
-            if pbxprojPaths.count == 0 {
+            if pbxprojPaths.isEmpty {
                 throw XCodeProjError.pbxprojNotFound(path: path)
             }
-            let pbxProjData = try Data(contentsOf: pbxprojPaths.first!.url)
-            let context = ProjectDecodingContext()
+            let pbxprojPath = pbxprojPaths.first!
+            let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
+            let context = ProjectDecodingContext(
+                pbxProjValueReader: { key in
+                    pbxProjDictionary[key]
+                }
+            )
+
             let plistDecoder = XcodeprojPropertyListDecoder(context: context)
             pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
             try pbxproj.updateProjectName(path: pbxprojPaths.first!)
             let xcworkspacePaths = path.glob("*.xcworkspace")
-            if xcworkspacePaths.count == 0 {
+            if xcworkspacePaths.isEmpty {
                 workspace = XCWorkspace()
             } else {
                 workspace = try XCWorkspace(path: xcworkspacePaths.first!)
@@ -68,6 +74,21 @@ public final class XcodeProj: Equatable {
         return lhs.workspace == rhs.workspace &&
             lhs.pbxproj == rhs.pbxproj &&
             lhs.sharedData == rhs.sharedData
+    }
+
+    // MARK: - Private
+
+    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
+        let plistXML = try Data(contentsOf: path.url)
+        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
+        let serialized = try PropertyListSerialization.propertyList(
+            from: plistXML,
+            options: .mutableContainersAndLeaves,
+            format: &propertyListFormat
+        )
+        // swiftlint:disable:next force_cast
+        let pbxProjDictionary = serialized as! [String: Any]
+        return (plistXML, pbxProjDictionary)
     }
 }
 
@@ -175,7 +196,7 @@ extension XcodeProj: Writable {
         guard let sharedData = sharedData else { return }
 
         let schemesPath = XcodeProj.schemesPath(path)
-        if override && schemesPath.exists {
+        if override, schemesPath.exists {
             try schemesPath.delete()
         }
         try schemesPath.mkpath()
@@ -212,7 +233,7 @@ extension XcodeProj: Writable {
         guard let sharedData = sharedData else { return }
 
         let debuggerPath = XcodeProj.debuggerPath(path)
-        if override && debuggerPath.exists {
+        if override, debuggerPath.exists {
             try debuggerPath.delete()
         }
         try debuggerPath.mkpath()

@@ -131,11 +131,11 @@ public class PBXTarget: PBXContainerItem {
             buildConfigurationListReference = nil
         }
         let buildPhaseReferences: [String] = try container.decodeIfPresent(.buildPhases) ?? []
-        self.buildPhaseReferences = buildPhaseReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.buildPhaseReferences = buildPhaseReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         let buildRuleReferences: [String] = try container.decodeIfPresent(.buildRules) ?? []
-        self.buildRuleReferences = buildRuleReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.buildRuleReferences = buildRuleReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         let dependencyReferences: [String] = try container.decodeIfPresent(.dependencies) ?? []
-        self.dependencyReferences = dependencyReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.dependencyReferences = dependencyReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         productName = try container.decodeIfPresent(.productName)
         if let productReferenceString: String = try container.decodeIfPresent(.productReference) {
             productReference = objectReferenceRepository.getOrCreate(reference: productReferenceString, objects: objects)
@@ -188,7 +188,7 @@ public extension PBXTarget {
     /// Returns the product name with the extension joined with a period.
     ///
     /// - Returns: product name with extension.
-    public func productNameWithExtension() -> String? {
+    func productNameWithExtension() -> String? {
         guard let productName = self.productName else { return nil }
         guard let fileExtension = self.productType?.fileExtension else { return nil }
         return "\(productName).\(fileExtension)"
@@ -198,10 +198,10 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    public func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
+    func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
         return try buildPhaseReferences
-            .compactMap({ try $0.getThrowingObject() as PBXBuildPhase })
-            .filter({ $0.buildPhase == .sources })
+            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+            .filter { $0.buildPhase == .sources }
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
     }
@@ -210,10 +210,10 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    public func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
+    func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
         return try buildPhaseReferences
-            .compactMap({ try $0.getThrowingObject() as PBXResourcesBuildPhase })
-            .filter({ $0.buildPhase == .sources })
+            .compactMap { try $0.getThrowingObject() as? PBXResourcesBuildPhase }
+            .filter { $0.buildPhase == .resources }
             .first
     }
 
@@ -221,11 +221,21 @@ public extension PBXTarget {
     ///
     /// - Returns: source files.
     /// - Throws: an error if something goes wrong.
-    public func sourceFiles() throws -> [PBXFileElement] {
-        return try sourcesBuildPhase()?.fileReferences
-            .compactMap { try $0.getThrowingObject() as PBXBuildFile }
+    func sourceFiles() throws -> [PBXFileElement] {
+        return try sourcesBuildPhase()?.fileReferences?
+            .compactMap { try $0.getThrowingObject() as? PBXBuildFile }
             .filter { $0.fileReference != nil }
-            .compactMap { try $0.fileReference!.getThrowingObject() as PBXFileElement }
+            .compactMap { try $0.fileReference!.getThrowingObject() as? PBXFileElement }
             ?? []
+    }
+
+    /// Returns the embed frameworks build phases.
+    ///
+    /// - Returns: Embed frameworks build phases.
+    func embedFrameworksBuildPhases() -> [PBXCopyFilesBuildPhase] {
+        return self.buildPhases
+            .filter { $0.buildPhase == .copyFiles }
+            .compactMap { $0 as? PBXCopyFilesBuildPhase }
+            .filter { $0.dstSubfolderSpec == .frameworks }
     }
 }

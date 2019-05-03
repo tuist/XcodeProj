@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 public class PBXGroup: PBXFileElement {
     // MARK: - Attributes
@@ -62,7 +62,7 @@ public class PBXGroup: PBXFileElement {
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let childrenReferences: [String] = (try container.decodeIfPresent(.children)) ?? []
-        self.childrenReferences = childrenReferences.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        self.childrenReferences = childrenReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         try super.init(from: decoder)
     }
 
@@ -71,10 +71,10 @@ public class PBXGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["children"] = .array(childrenReferences.map({ (fileReference) -> PlistValue in
+        dictionary["children"] = .array(childrenReferences.map { (fileReference) -> PlistValue in
             let fileElement: PBXFileElement? = fileReference.getObject()
             return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
-        }))
+        })
 
         return (key: CommentedString(reference,
                                      comment: name ?? path),
@@ -105,7 +105,7 @@ public extension PBXGroup {
     ///
     /// - Parameter groupName: group name.
     /// - Returns: group with the given name contained in the given parent group.
-    public func group(named name: String) -> PBXGroup? {
+    func group(named name: String) -> PBXGroup? {
         return childrenReferences
             .objects()
             .first(where: { $0.name == name })
@@ -115,7 +115,7 @@ public extension PBXGroup {
     ///
     /// - Parameter name: file name.
     /// - Returns: file with the given name contained in the given parent group.
-    public func file(named name: String) -> PBXFileReference? {
+    func file(named name: String) -> PBXFileReference? {
         return childrenReferences
             .objects()
             .first(where: { $0.name == name })
@@ -128,29 +128,32 @@ public extension PBXGroup {
     ///   - options: creation options.
     /// - Returns: created groups.
     @discardableResult
-    public func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
+    func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
         let objects = try self.objects()
-        return groupName.components(separatedBy: "/").reduce(into: [PBXGroup](), { groups, name in
+        return groupName.components(separatedBy: "/").reduce(into: [PBXGroup]()) { groups, name in
             let group = groups.last ?? self
             let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
+            newGroup.parent = self
             group.childrenReferences.append(newGroup.reference)
             objects.add(object: newGroup)
             groups.append(newGroup)
-        })
+        }
     }
 
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
     ///   - filePath: path to the file.
-    ///   - sourceTree: file sourceTree, default is `.group`
+    ///   - sourceTree: file sourceTree, default is `.group`.
     ///   - sourceRoot: path to project's source root.
+    ///   - override: flag to enable overriding of existing file references, default is `true`.
     /// - Returns: new or existing file and its reference.
     @discardableResult
-    public func addFile(
+    func addFile(
         at filePath: Path,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: Path
+        sourceRoot: Path,
+        override: Bool = true
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
         guard filePath.exists else {
@@ -158,11 +161,13 @@ public extension PBXGroup {
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
-        if let existingFileReference = try projectObjects.fileReferences.first(where: {
+        let isFileReferencePathEqual: (Dictionary<PBXObjectReference, PBXFileReference>.Element) throws -> Bool = {
             try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
-        }) {
+        }
+
+        if let existingFileReference = try projectObjects.fileReferences.first(where: isFileReferencePathEqual), override {
             if !childrenReferences.contains(existingFileReference.key) {
-                existingFileReference.value.path = groupPath.flatMap({ filePath.relative(to: $0) })?.string
+                existingFileReference.value.path = groupPath.flatMap { filePath.relative(to: $0) }?.string
                 childrenReferences.append(existingFileReference.key)
             }
         }
@@ -170,7 +175,7 @@ public extension PBXGroup {
         let path: String?
         switch sourceTree {
         case .group:
-            path = groupPath.map({ filePath.relative(to: $0) })?.string
+            path = groupPath.map { filePath.relative(to: $0) }?.string
         case .sourceRoot:
             path = filePath.relative(to: sourceRoot).string
         case .absolute:
@@ -186,6 +191,7 @@ public extension PBXGroup {
             path: path
         )
         projectObjects.add(object: fileReference)
+        fileReference.parent = self
         if !childrenReferences.contains(fileReference.reference) {
             childrenReferences.append(fileReference.reference)
         }

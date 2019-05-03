@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 public typealias XCConfigInclude = (include: Path, config: XCConfig)
 
@@ -53,7 +53,7 @@ final class XCConfigParser {
     static func configFrom(path: Path, projectPath: Path?) -> (String) -> (include: Path, config: XCConfig)? {
         return { line in
             includeRegex.matches(in: line,
-                                 options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                 options: [],
                                  range: NSRange(location: 0,
                                                 length: line.count))
                 .compactMap { (match) -> String? in
@@ -82,7 +82,7 @@ final class XCConfigParser {
 
     static func settingFrom(line: String) -> (key: String, value: String)? {
         return settingRegex.matches(in: line,
-                                    options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                    options: [],
                                     range: NSRange(location: 0,
                                                    length: line.count))
             .compactMap { (match) -> (key: String, value: String)? in
@@ -147,7 +147,7 @@ extension XCConfig: Writable {
         content.append(writeIncludes())
         content.append("\n")
         content.append(writeBuildSettings())
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(content)

@@ -1,6 +1,6 @@
 import AEXML
-import PathKit
 import Foundation
+import PathKit
 
 // swiftlint:disable:next type_body_length
 public final class XCBreakpointList: Equatable, Writable {
@@ -295,11 +295,11 @@ public final class XCBreakpointList: Equatable, Writable {
                                            attributes: attributes)
 
                 let actions = AEXMLElement(name: "Actions", value: nil, attributes: [:])
-                self.actions.map({ $0.xmlElement() }).forEach({ actions.addChild($0) })
+                self.actions.map { $0.xmlElement() }.forEach { actions.addChild($0) }
                 element.addChild(actions)
 
                 let locations = AEXMLElement(name: "Locations", value: nil, attributes: [:])
-                self.locations.map({ $0.xmlElement() }).forEach({ locations.addChild($0) })
+                self.locations.map { $0.xmlElement() }.forEach { locations.addChild($0) }
                 element.addChild(locations)
 
                 return element
@@ -409,10 +409,10 @@ public final class XCBreakpointList: Equatable, Writable {
         let bucket = document.addChild(name: "Bucket", value: nil, attributes: schemeAttributes)
 
         let breakpoints = AEXMLElement(name: "Breakpoints", value: nil, attributes: [:])
-        self.breakpoints.map({ $0.xmlElement() }).forEach({ breakpoints.addChild($0) })
+        self.breakpoints.map { $0.xmlElement() }.forEach { breakpoints.addChild($0) }
         bucket.addChild(breakpoints)
 
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(document.xmlXcodeFormat)

@@ -36,7 +36,7 @@ extension XCScheme {
                                        attributes: [
                                            "title": title,
                                            "scriptText": scriptText,
-            ])
+                                       ])
             element.addChild(content)
             if let environmentBuildable = environmentBuildable {
                 let environment = content.addChild(name: "EnvironmentBuildable")

@@ -1,5 +1,5 @@
-import PathKit
 import Foundation
+import PathKit
 
 /// Represents a .pbxproj file
 public final class PBXProj: Decodable {
@@ -47,6 +47,9 @@ public final class PBXProj: Decodable {
         self.classes = classes
         rootObjectReference = rootObject?.reference
         self.objects = PBXObjects(objects: objects)
+        if let rootGroup = try? rootGroup() {
+            rootGroup.assignParentToChildren()
+        }
     }
 
     // MARK: - Decodable
@@ -70,11 +73,24 @@ public final class PBXProj: Decodable {
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
         let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
         let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
-        try objectsDictionaries.forEach { reference, dictionary in
-            let object = try PBXObject.parse(reference: reference, dictionary: dictionary, userInfo: decoder.userInfo)
+
+        let parser = PBXObjectParser(
+            userInfo: decoder.userInfo
+        )
+        try objectsDictionaries.enumerateKeysAndObjects(options: .concurrent) { key, obj, _ in
+            // swiftlint:disable force_cast
+            let reference = key as! String
+            let dictionary = obj as! [String: Any]
+            // swiftlint:enable force_cast
+            let object = try parser.parse(
+                reference: reference,
+                dictionary: dictionary
+            )
             objects.add(object: object)
         }
         self.objects = objects
+
+        try rootGroup()?.assignParentToChildren()
     }
 }
 
@@ -83,45 +99,45 @@ public final class PBXProj: Decodable {
 public extension PBXProj {
     // MARK: - Properties
 
-    public var projects: [PBXProject] { return Array(objects.projects.values) }
-    public var referenceProxies: [PBXReferenceProxy] { return Array(objects.referenceProxies.values) }
+    var projects: [PBXProject] { return Array(objects.projects.values) }
+    var referenceProxies: [PBXReferenceProxy] { return Array(objects.referenceProxies.values) }
 
     // File elements
-    public var fileReferences: [PBXFileReference] { return Array(objects.fileReferences.values) }
-    public var versionGroups: [XCVersionGroup] { return Array(objects.versionGroups.values) }
-    public var variantGroups: [PBXVariantGroup] { return Array(objects.variantGroups.values) }
-    public var groups: [PBXGroup] { return Array(objects.groups.values) }
+    var fileReferences: [PBXFileReference] { return Array(objects.fileReferences.values) }
+    var versionGroups: [XCVersionGroup] { return Array(objects.versionGroups.values) }
+    var variantGroups: [PBXVariantGroup] { return Array(objects.variantGroups.values) }
+    var groups: [PBXGroup] { return Array(objects.groups.values) }
 
     // Configuration
-    public var buildConfigurations: [XCBuildConfiguration] { return Array(objects.buildConfigurations.values) }
-    public var configurationLists: [XCConfigurationList] { return Array(objects.configurationLists.values) }
+    var buildConfigurations: [XCBuildConfiguration] { return Array(objects.buildConfigurations.values) }
+    var configurationLists: [XCConfigurationList] { return Array(objects.configurationLists.values) }
 
     // Targets
-    public var legacyTargets: [PBXLegacyTarget] { return Array(objects.legacyTargets.values) }
-    public var aggregateTargets: [PBXAggregateTarget] { return Array(objects.aggregateTargets.values) }
-    public var nativeTargets: [PBXNativeTarget] { return Array(objects.nativeTargets.values) }
-    public var targetDependencies: [PBXTargetDependency] { return Array(objects.targetDependencies.values) }
-    public var containerItemProxies: [PBXContainerItemProxy] { return Array(objects.containerItemProxies.values) }
-    public var buildRules: [PBXBuildRule] { return Array(objects.buildRules.values) }
+    var legacyTargets: [PBXLegacyTarget] { return Array(objects.legacyTargets.values) }
+    var aggregateTargets: [PBXAggregateTarget] { return Array(objects.aggregateTargets.values) }
+    var nativeTargets: [PBXNativeTarget] { return Array(objects.nativeTargets.values) }
+    var targetDependencies: [PBXTargetDependency] { return Array(objects.targetDependencies.values) }
+    var containerItemProxies: [PBXContainerItemProxy] { return Array(objects.containerItemProxies.values) }
+    var buildRules: [PBXBuildRule] { return Array(objects.buildRules.values) }
 
     // Build
-    public var buildFiles: [PBXBuildFile] { return Array(objects.buildFiles.values) }
-    public var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] { return Array(objects.copyFilesBuildPhases.values) }
-    public var shellScriptBuildPhases: [PBXShellScriptBuildPhase] { return Array(objects.shellScriptBuildPhases.values) }
-    public var resourcesBuildPhases: [PBXResourcesBuildPhase] { return Array(objects.resourcesBuildPhases.values) }
-    public var frameworksBuildPhases: [PBXFrameworksBuildPhase] { return Array(objects.frameworksBuildPhases.values) }
-    public var headersBuildPhases: [PBXHeadersBuildPhase] { return Array(objects.headersBuildPhases.values) }
-    public var sourcesBuildPhases: [PBXSourcesBuildPhase] { return Array(objects.sourcesBuildPhases.values) }
-    public var carbonResourcesBuildPhases: [PBXRezBuildPhase] { return Array(objects.carbonResourcesBuildPhases.values) }
-    public var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
+    var buildFiles: [PBXBuildFile] { return Array(objects.buildFiles.values) }
+    var copyFilesBuildPhases: [PBXCopyFilesBuildPhase] { return Array(objects.copyFilesBuildPhases.values) }
+    var shellScriptBuildPhases: [PBXShellScriptBuildPhase] { return Array(objects.shellScriptBuildPhases.values) }
+    var resourcesBuildPhases: [PBXResourcesBuildPhase] { return Array(objects.resourcesBuildPhases.values) }
+    var frameworksBuildPhases: [PBXFrameworksBuildPhase] { return Array(objects.frameworksBuildPhases.values) }
+    var headersBuildPhases: [PBXHeadersBuildPhase] { return Array(objects.headersBuildPhases.values) }
+    var sourcesBuildPhases: [PBXSourcesBuildPhase] { return Array(objects.sourcesBuildPhases.values) }
+    var carbonResourcesBuildPhases: [PBXRezBuildPhase] { return Array(objects.carbonResourcesBuildPhases.values) }
+    var buildPhases: [PBXBuildPhase] { return Array(objects.buildPhases.values) }
 
     /// Returns root project.
-    public func rootProject() throws -> PBXProject? {
+    func rootProject() throws -> PBXProject? {
         return try rootObjectReference?.getThrowingObject()
     }
 
     /// Returns root project's root group.
-    public func rootGroup() throws -> PBXGroup? {
+    func rootGroup() throws -> PBXGroup? {
         let project = try rootProject()
         return try project?.mainGroupReference.getThrowingObject()
     }
@@ -129,14 +145,14 @@ public extension PBXProj {
     /// Adds a new object to the project.
     ///
     /// - Parameter object: object to be added.
-    public func add(object: PBXObject) {
+    func add(object: PBXObject) {
         objects.add(object: object)
     }
 
     /// Deletes an object from the project.
     ///
     /// - Parameter object: object to be deleted.
-    public func delete(object: PBXObject) {
+    func delete(object: PBXObject) {
         objects.delete(reference: object.reference)
     }
 
@@ -145,20 +161,20 @@ public extension PBXProj {
     /// - Parameters:
     ///   - name: target name.
     /// - Returns: targets with the given name.
-    public func targets(named name: String) -> [PBXTarget] {
+    func targets(named name: String) -> [PBXTarget] {
         return objects.targets(named: name)
     }
 
     /// Invalidates all the objects UUIDs.
     /// Those UUIDs will be generated deterministically when the project is saved.
-    public func invalidateUUIDs() {
+    func invalidateUUIDs() {
         objects.invalidateReferences()
     }
 
     /// Runs the given closure passing each of the objects that are part of the project.
     ///
     /// - Parameter closure: closure to be run.
-    public func forEach(_ closure: (PBXObject) -> Void) {
+    func forEach(_ closure: (PBXObject) -> Void) {
         objects.forEach(closure)
     }
 }
@@ -203,7 +219,7 @@ extension PBXProj: Writable {
     public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) throws {
         let encoder = PBXProjEncoder(outputSettings: outputSettings)
         let output = try encoder.encode(proj: self)
-        if override && path.exists {
+        if override, path.exists {
             try path.delete()
         }
         try path.write(output)

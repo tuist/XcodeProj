@@ -1,45 +1,133 @@
 import Foundation
 
+// swiftlint:disable type_body_length
 class PBXObjects: Equatable {
     // MARK: - Properties
 
-    var projects: [PBXObjectReference: PBXProject] = [:]
-    var referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+    private let lock = NSRecursiveLock()
+
+    private var unsyncProjects: [PBXObjectReference: PBXProject] = [:]
+    var projects: [PBXObjectReference: PBXProject] {
+        return lock.whileLocked { unsyncProjects }
+    }
+
+    private var unsyncReferenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
+    var referenceProxies: [PBXObjectReference: PBXReferenceProxy] {
+        return lock.whileLocked { unsyncReferenceProxies }
+    }
 
     // File elements
-    var fileReferences: [PBXObjectReference: PBXFileReference] = [:]
-    var versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
-    var variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
-    var groups: [PBXObjectReference: PBXGroup] = [:]
+    private var unsyncFileReferences: [PBXObjectReference: PBXFileReference] = [:]
+    var fileReferences: [PBXObjectReference: PBXFileReference] {
+        return lock.whileLocked { unsyncFileReferences }
+    }
+
+    private var unsyncVersionGroups: [PBXObjectReference: XCVersionGroup] = [:]
+    var versionGroups: [PBXObjectReference: XCVersionGroup] {
+        return lock.whileLocked { unsyncVersionGroups }
+    }
+
+    private var unsyncVariantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
+    var variantGroups: [PBXObjectReference: PBXVariantGroup] {
+        return lock.whileLocked { unsyncVariantGroups }
+    }
+
+    private var unsyncGroups: [PBXObjectReference: PBXGroup] = [:]
+    var groups: [PBXObjectReference: PBXGroup] {
+        return lock.whileLocked { unsyncGroups }
+    }
 
     // Configuration
-    var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
-    var configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+    private var unsyncBuildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
+    var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] {
+        return lock.whileLocked { unsyncBuildConfigurations }
+    }
+
+    private var unsyncConfigurationLists: [PBXObjectReference: XCConfigurationList] = [:]
+    var configurationLists: [PBXObjectReference: XCConfigurationList] {
+        return lock.whileLocked { unsyncConfigurationLists }
+    }
 
     // Targets
-    var legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
-    var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
-    var nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
-    var targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
-    var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
-    var buildRules: [PBXObjectReference: PBXBuildRule] = [:]
+    private var unsyncLegacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
+    var legacyTargets: [PBXObjectReference: PBXLegacyTarget] {
+        return lock.whileLocked { unsyncLegacyTargets }
+    }
+
+    private var unsyncAggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
+    var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] {
+        return lock.whileLocked { unsyncAggregateTargets }
+    }
+
+    private var unsyncNativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
+    var nativeTargets: [PBXObjectReference: PBXNativeTarget] {
+        return lock.whileLocked { unsyncNativeTargets }
+    }
+
+    private var unsyncTargetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
+    var targetDependencies: [PBXObjectReference: PBXTargetDependency] {
+        return lock.whileLocked { unsyncTargetDependencies }
+    }
+
+    private var unsyncContainerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
+    var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] {
+        return lock.whileLocked { unsyncContainerItemProxies }
+    }
+
+    private var unsyncBuildRules: [PBXObjectReference: PBXBuildRule] = [:]
+    var buildRules: [PBXObjectReference: PBXBuildRule] {
+        return lock.whileLocked { unsyncBuildRules }
+    }
 
     // Build Phases
-    var buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
-    var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
-    var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
-    var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
-    var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
-    var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
-    var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
-    var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
+    private var unsyncBuildFiles: [PBXObjectReference: PBXBuildFile] = [:]
+    var buildFiles: [PBXObjectReference: PBXBuildFile] {
+        return lock.whileLocked { unsyncBuildFiles }
+    }
+
+    private var unsyncCopyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
+    var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] {
+        return lock.whileLocked { unsyncCopyFilesBuildPhases }
+    }
+
+    private var unsyncShellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
+    var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] {
+        return lock.whileLocked { unsyncShellScriptBuildPhases }
+    }
+
+    private var unsyncResourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
+    var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] {
+        return lock.whileLocked { unsyncResourcesBuildPhases }
+    }
+
+    private var unsyncFrameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
+    var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] {
+        return lock.whileLocked { unsyncFrameworksBuildPhases }
+    }
+
+    private var unsyncHeadersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
+    var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] {
+        return lock.whileLocked { unsyncHeadersBuildPhases }
+    }
+
+    private var unsyncSourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
+    var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] {
+        return lock.whileLocked { unsyncSourcesBuildPhases }
+    }
+
+    private var unsyncCarbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
+    var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
+        return lock.whileLocked { unsyncCarbonResourcesBuildPhases }
+    }
 
     /// Initializes the project objects container
     ///
     /// - Parameters:
     ///   - objects: project objects
     init(objects: [PBXObject] = []) {
-        objects.forEach { _ = self.add(object: $0) }
+        objects.forEach {
+            _ = self.add(object: $0)
+        }
     }
 
     // MARK: - Equatable
@@ -76,35 +164,39 @@ class PBXObjects: Equatable {
     /// - Parameters:
     ///   - object: object.
     func add(object: PBXObject) {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
 
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup
-        case let object as PBXVariantGroup: variantGroups[objectReference] = object
-        case let object as XCVersionGroup: versionGroups[objectReference] = object
+        case let object as PBXVariantGroup: unsyncVariantGroups[objectReference] = object
+        case let object as XCVersionGroup: unsyncVersionGroups[objectReference] = object
 
         // everything else
-        case let object as PBXBuildFile: buildFiles[objectReference] = object
-        case let object as PBXAggregateTarget: aggregateTargets[objectReference] = object
-        case let object as PBXLegacyTarget: legacyTargets[objectReference] = object
-        case let object as PBXContainerItemProxy: containerItemProxies[objectReference] = object
-        case let object as PBXCopyFilesBuildPhase: copyFilesBuildPhases[objectReference] = object
-        case let object as PBXGroup: groups[objectReference] = object
-        case let object as XCConfigurationList: configurationLists[objectReference] = object
-        case let object as XCBuildConfiguration: buildConfigurations[objectReference] = object
-        case let object as PBXTargetDependency: targetDependencies[objectReference] = object
-        case let object as PBXSourcesBuildPhase: sourcesBuildPhases[objectReference] = object
-        case let object as PBXShellScriptBuildPhase: shellScriptBuildPhases[objectReference] = object
-        case let object as PBXResourcesBuildPhase: resourcesBuildPhases[objectReference] = object
-        case let object as PBXFrameworksBuildPhase: frameworksBuildPhases[objectReference] = object
-        case let object as PBXHeadersBuildPhase: headersBuildPhases[objectReference] = object
-        case let object as PBXNativeTarget: nativeTargets[objectReference] = object
-        case let object as PBXFileReference: fileReferences[objectReference] = object
-        case let object as PBXProject: projects[objectReference] = object
-        case let object as PBXReferenceProxy: referenceProxies[objectReference] = object
-        case let object as PBXRezBuildPhase: carbonResourcesBuildPhases[objectReference] = object
-        case let object as PBXBuildRule: buildRules[objectReference] = object
+        case let object as PBXBuildFile: unsyncBuildFiles[objectReference] = object
+        case let object as PBXAggregateTarget: unsyncAggregateTargets[objectReference] = object
+        case let object as PBXLegacyTarget: unsyncLegacyTargets[objectReference] = object
+        case let object as PBXContainerItemProxy: unsyncContainerItemProxies[objectReference] = object
+        case let object as PBXCopyFilesBuildPhase: unsyncCopyFilesBuildPhases[objectReference] = object
+        case let object as PBXGroup: unsyncGroups[objectReference] = object
+        case let object as XCConfigurationList: unsyncConfigurationLists[objectReference] = object
+        case let object as XCBuildConfiguration: unsyncBuildConfigurations[objectReference] = object
+        case let object as PBXTargetDependency: unsyncTargetDependencies[objectReference] = object
+        case let object as PBXSourcesBuildPhase: unsyncSourcesBuildPhases[objectReference] = object
+        case let object as PBXShellScriptBuildPhase: unsyncShellScriptBuildPhases[objectReference] = object
+        case let object as PBXResourcesBuildPhase: unsyncResourcesBuildPhases[objectReference] = object
+        case let object as PBXFrameworksBuildPhase: unsyncFrameworksBuildPhases[objectReference] = object
+        case let object as PBXHeadersBuildPhase: unsyncHeadersBuildPhases[objectReference] = object
+        case let object as PBXNativeTarget: unsyncNativeTargets[objectReference] = object
+        case let object as PBXFileReference: unsyncFileReferences[objectReference] = object
+        case let object as PBXProject: unsyncProjects[objectReference] = object
+        case let object as PBXReferenceProxy: unsyncReferenceProxies[objectReference] = object
+        case let object as PBXRezBuildPhase: unsyncCarbonResourcesBuildPhases[objectReference] = object
+        case let object as PBXBuildRule: unsyncBuildRules[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
@@ -115,51 +207,53 @@ class PBXObjects: Equatable {
     /// - Returns: the deleted object.
     // swiftlint:disable:next function_body_length Note: SwiftLint doesn't disable if @discardable and the function are on different lines.
     @discardableResult func delete(reference: PBXObjectReference) -> PBXObject? {
+        lock.lock()
         if let index = buildFiles.index(forKey: reference) {
-            return buildFiles.remove(at: index).value
+            return unsyncBuildFiles.remove(at: index).value
         } else if let index = aggregateTargets.index(forKey: reference) {
-            return aggregateTargets.remove(at: index).value
+            return unsyncAggregateTargets.remove(at: index).value
         } else if let index = legacyTargets.index(forKey: reference) {
-            return legacyTargets.remove(at: index).value
+            return unsyncLegacyTargets.remove(at: index).value
         } else if let index = containerItemProxies.index(forKey: reference) {
-            return containerItemProxies.remove(at: index).value
+            return unsyncContainerItemProxies.remove(at: index).value
         } else if let index = groups.index(forKey: reference) {
-            return groups.remove(at: index).value
+            return unsyncGroups.remove(at: index).value
         } else if let index = configurationLists.index(forKey: reference) {
-            return configurationLists.remove(at: index).value
+            return unsyncConfigurationLists.remove(at: index).value
         } else if let index = buildConfigurations.index(forKey: reference) {
-            return buildConfigurations.remove(at: index).value
+            return unsyncBuildConfigurations.remove(at: index).value
         } else if let index = variantGroups.index(forKey: reference) {
-            return variantGroups.remove(at: index).value
+            return unsyncVariantGroups.remove(at: index).value
         } else if let index = targetDependencies.index(forKey: reference) {
-            return targetDependencies.remove(at: index).value
+            return unsyncTargetDependencies.remove(at: index).value
         } else if let index = nativeTargets.index(forKey: reference) {
-            return nativeTargets.remove(at: index).value
+            return unsyncNativeTargets.remove(at: index).value
         } else if let index = fileReferences.index(forKey: reference) {
-            return fileReferences.remove(at: index).value
+            return unsyncFileReferences.remove(at: index).value
         } else if let index = projects.index(forKey: reference) {
-            return projects.remove(at: index).value
+            return unsyncProjects.remove(at: index).value
         } else if let index = versionGroups.index(forKey: reference) {
-            return versionGroups.remove(at: index).value
+            return unsyncVersionGroups.remove(at: index).value
         } else if let index = referenceProxies.index(forKey: reference) {
-            return referenceProxies.remove(at: index).value
+            return unsyncReferenceProxies.remove(at: index).value
         } else if let index = copyFilesBuildPhases.index(forKey: reference) {
-            return copyFilesBuildPhases.remove(at: index).value
+            return unsyncCopyFilesBuildPhases.remove(at: index).value
         } else if let index = shellScriptBuildPhases.index(forKey: reference) {
-            return shellScriptBuildPhases.remove(at: index).value
+            return unsyncShellScriptBuildPhases.remove(at: index).value
         } else if let index = resourcesBuildPhases.index(forKey: reference) {
-            return resourcesBuildPhases.remove(at: index).value
+            return unsyncResourcesBuildPhases.remove(at: index).value
         } else if let index = frameworksBuildPhases.index(forKey: reference) {
-            return frameworksBuildPhases.remove(at: index).value
+            return unsyncFrameworksBuildPhases.remove(at: index).value
         } else if let index = headersBuildPhases.index(forKey: reference) {
-            return headersBuildPhases.remove(at: index).value
+            return unsyncHeadersBuildPhases.remove(at: index).value
         } else if let index = sourcesBuildPhases.index(forKey: reference) {
-            return sourcesBuildPhases.remove(at: index).value
+            return unsyncSourcesBuildPhases.remove(at: index).value
         } else if let index = carbonResourcesBuildPhases.index(forKey: reference) {
-            return carbonResourcesBuildPhases.remove(at: index).value
+            return unsyncCarbonResourcesBuildPhases.remove(at: index).value
         } else if let index = buildRules.index(forKey: reference) {
-            return buildRules.remove(at: index).value
+            return unsyncBuildRules.remove(at: index).value
         }
+        lock.unlock()
         return nil
     }
 
@@ -233,10 +327,13 @@ extension PBXObjects {
     /// - Returns: targets with the given name.
     func targets(named name: String) -> [PBXTarget] {
         var targets: [PBXTarget] = []
-        targets.append(contentsOf: nativeTargets.values.map({ $0 as PBXTarget }))
-        targets.append(contentsOf: legacyTargets.values.map({ $0 as PBXTarget }))
-        targets.append(contentsOf: aggregateTargets.values.map({ $0 as PBXTarget }))
-        return targets.filter { $0.name == name }
+        let filter = { (targets: [PBXObjectReference: PBXTarget]) -> [PBXTarget] in
+            targets.values.filter { $0.name == name }
+        }
+        targets.append(contentsOf: filter(nativeTargets))
+        targets.append(contentsOf: filter(legacyTargets))
+        targets.append(contentsOf: filter(aggregateTargets))
+        return targets
     }
 
     /// Invalidates all the objects references.
@@ -250,14 +347,31 @@ extension PBXObjects {
 
     var buildPhases: [PBXObjectReference: PBXBuildPhase] {
         var phases: [PBXObjectReference: PBXBuildPhase] = [:]
-        phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(shellScriptBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(resourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(headersBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(carbonResourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
-        phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in return first })
+        phases.merge(copyFilesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(sourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(shellScriptBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(resourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(headersBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(carbonResourcesBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
+        phases.merge(frameworksBuildPhases as [PBXObjectReference: PBXBuildPhase], uniquingKeysWith: { first, _ in first })
         return phases
+    }
+
+    // This dictionary is used to quickly get a connection between the build phase and the build files of this phase.
+    // This is used to decode build files. (we need the name of the build phase)
+    // Otherwise, we would have to go through all the build phases for each file.
+    var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
+        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map { buildPhase in
+            let files = buildPhase.files
+            let buildPhaseFile: [PBXBuildPhaseFile] = files?.compactMap { (file: PBXBuildFile) -> PBXBuildPhaseFile in
+                PBXBuildPhaseFile(
+                    buildFile: file,
+                    buildPhase: buildPhase
+                )
+            } ?? []
+            return buildPhaseFile
+        }
+        return Dictionary(uniqueKeysWithValues: values.flatMap { $0 }.map { ($0.buildFile.reference, $0) })
     }
 
     /// Runs the given closure for each of the objects that are part of the project.
