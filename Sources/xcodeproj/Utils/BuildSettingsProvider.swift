@@ -45,8 +45,10 @@ public class BuildSettingsProvider {
         var buildSettings: [String: Any] = [:]
         if let platform = platform, platform == .iOS {
             buildSettings["SDKROOT"] = "iphoneos"
-            buildSettings["CODE_SIGN_IDENTITY"] = "iPhone Developer"
             buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+            if let variant = variant {
+                buildSettings["CODE_SIGN_IDENTITY"] = variant == .debug ? "iPhone Developer" : "iPhone Distribution"
+            }
         }
         if let platform = platform, platform == .macOS {
             buildSettings["SDKROOT"] = "macosx"
@@ -67,10 +69,12 @@ public class BuildSettingsProvider {
         if let variant = variant, let swift = swift, variant == .debug, swift == true {
             buildSettings["SWIFT_OPTIMIZATION_LEVEL"] = "-Onone"
             buildSettings["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = "DEBUG"
+            buildSettings["SWIFT_COMPILATION_MODE"] = "singlefile"
         }
         if let variant = variant, let swift = swift, variant == .release, swift == true {
             buildSettings["SWIFT_OPTIMIZATION_LEVEL"] = "-Owholemodule"
-            buildSettings["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = "DEBUG"
+            buildSettings["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = "RELEASE"
+            buildSettings["SWIFT_COMPILATION_MODE"] = "wholemodule"
         }
         if let product = product, product == .framework {
             buildSettings["CODE_SIGN_IDENTITY"] = ""
