@@ -6,6 +6,7 @@
 
 - **Breaking** Renamed module from `xcodeproj` to `XcodeProj` https://github.com/tuist/xcodeproj/pull/398 by @pepibumur.
 - Add `override` flag to `PBXGroup.addFile(at:,sourceTree:,sourceRoot:)` https://github.com/tuist/xcodeproj/pull/410 by @mrylmz
+- Rename some internal variables to have a more representative name https://github.com/tuist/xcodeproj/pull/415 by @pepibumur.
 
 ### Added
 
@@ -17,6 +18,7 @@
 - Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
 
 ### Fixed
+
 - Carthage integration https://github.com/tuist/xcodeproj/pull/416 by @pepibumur.
 
 ## 6.7.0
