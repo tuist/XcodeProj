@@ -73,7 +73,7 @@ public class BuildSettingsProvider {
         }
         if let variant = variant, let swift = swift, variant == .release, swift == true {
             buildSettings["SWIFT_OPTIMIZATION_LEVEL"] = "-Owholemodule"
-            buildSettings["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = "RELEASE"
+            buildSettings["SWIFT_ACTIVE_COMPILATION_CONDITIONS"] = ""
             buildSettings["SWIFT_COMPILATION_MODE"] = "wholemodule"
         }
         if let product = product, product == .framework {
