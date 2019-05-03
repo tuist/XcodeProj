@@ -15,6 +15,9 @@
 - Make build phase name public by @llinardos.
 - Can access embed frameworks build phase for a target by @llinardos.
 
+### Fixed
+- Carthage integration https://github.com/tuist/xcodeproj/pull/416 by @pepibumur.
+
 ## 6.7.0
 
 ### Changed
