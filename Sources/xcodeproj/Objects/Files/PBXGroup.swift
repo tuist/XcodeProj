@@ -147,16 +147,18 @@ public extension PBXGroup {
     ///   - sourceTree: file sourceTree, default is `.group`.
     ///   - sourceRoot: path to project's source root.
     ///   - override: flag to enable overriding of existing file references, default is `true`.
+    ///   - validatePresence: flag to validate the existence of the file in the file system, default is `true`.
     /// - Returns: new or existing file and its reference.
     @discardableResult
     func addFile(
         at filePath: Path,
         sourceTree: PBXSourceTree = .group,
         sourceRoot: Path,
-        override: Bool = true
+        override: Bool = true,
+        validatePresence: Bool = true
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
-        guard filePath.exists else {
+        if validatePresence && !filePath.exists {
             throw XcodeprojEditingError.unexistingFile(filePath)
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)

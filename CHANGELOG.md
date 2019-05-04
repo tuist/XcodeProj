@@ -16,6 +16,7 @@
 - Make build phase name public by @llinardos.
 - Can access embed frameworks build phase for a target by @llinardos.
 - Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
+- Can add a not existing file to a group https://github.com/tuist/xcodeproj/pull/418 by @llinardos.
 
 ### Fixed
 
