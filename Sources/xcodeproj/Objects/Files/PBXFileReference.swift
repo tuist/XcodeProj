@@ -6,25 +6,25 @@ import PathKit
 public final class PBXFileReference: PBXFileElement {
     // MARK: - Attributes
 
-    /// Element file encoding.
+    /// Text encoding of file content
     public var fileEncoding: UInt?
 
-    /// Element explicit file type.
+    /// User-specified file type. Typically this is not set and you want to use `lastKnownFileType` instead.
     public var explicitFileType: String?
 
-    /// Element last known file type.
+    /// Derived file type. For a file named "foo.swift" this value would be "sourcecode.swift"
     public var lastKnownFileType: String?
 
-    /// Element line ending.
+    /// Line ending type for the file
     public var lineEnding: UInt?
 
-    /// Element language specification identifier
+    /// Legacy programming language identifier
     public var languageSpecificationIdentifier: String?
 
-    /// Element xc language specification identifier
+    /// Programming language identifier
     public var xcLanguageSpecificationIdentifier: String?
 
-    /// Element plist structure definition identifier
+    /// Plist organizational family identifier
     public var plistStructureDefinitionIdentifier: String?
 
     // MARK: - Init
