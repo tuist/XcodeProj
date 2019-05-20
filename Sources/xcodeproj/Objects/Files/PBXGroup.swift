@@ -158,7 +158,7 @@ public extension PBXGroup {
         validatePresence: Bool = true
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
-        if validatePresence && !filePath.exists {
+        if validatePresence, !filePath.exists {
             throw XcodeprojEditingError.unexistingFile(filePath)
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)

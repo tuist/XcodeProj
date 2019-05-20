@@ -59,7 +59,7 @@ final class PBXGroupTests: XCTestCase {
 
         XCTAssertNotNil(group.children.first?.parent)
     }
-    
+
     func test_addNotExistingFileWithoutValidatinPresence_throws() {
         do {
             let sourceRoot = Path("/")
@@ -75,7 +75,7 @@ final class PBXGroupTests: XCTestCase {
                                  name: "group")
             project.add(object: group)
             let filePath = try Path.uniqueTemporary() + "file"
-            
+
             // ensure it doesnt exist
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: filePath.string) {
@@ -89,7 +89,7 @@ final class PBXGroupTests: XCTestCase {
             XCTFail("Should throw XcodeprojEditingError.unexistingFile but throws \(error)")
         }
     }
-    
+
     func test_addNotExistingFileValidatinPresence_assignsParent() throws {
         let sourceRoot = Path("/")
         let project = PBXProj(
@@ -104,7 +104,7 @@ final class PBXGroupTests: XCTestCase {
                              name: "group")
         project.add(object: group)
         let filePath = try Path.uniqueTemporary() + "file"
-        
+
         // ensure it doesnt exist
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: filePath.string) {
@@ -113,7 +113,7 @@ final class PBXGroupTests: XCTestCase {
         let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot, validatePresence: false)
         XCTAssertNotNil(file?.parent)
     }
-    
+
     private func testDictionary() -> [String: Any] {
         return [
             "children": ["child"],
