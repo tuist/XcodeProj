@@ -161,7 +161,7 @@ public extension PBXGroup {
         if validatePresence && !filePath.exists {
             throw XcodeprojEditingError.unexistingFile(filePath)
         }
-        let groupPath = try? fullPath(sourceRoot: sourceRoot) ?? sourceRoot
+        let groupPath = try fullPath(sourceRoot: sourceRoot)
 
         let isFileReferencePathEqual: (Dictionary<PBXObjectReference, PBXFileReference>.Element) throws -> Bool = {
             try filePath == $0.value.fullPath(sourceRoot: sourceRoot)

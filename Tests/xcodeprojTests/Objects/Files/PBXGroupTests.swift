@@ -22,6 +22,12 @@ final class PBXGroupTests: XCTestCase {
                              sourceTree: .group,
                              name: "group")
         project.add(object: group)
+        let pbxProject = PBXProject(name: "ProjectName",
+                                    buildConfigurationList: XCConfigurationList(),
+                                    compatibilityVersion: "0",
+                                    mainGroup: group)
+        project.add(object: pbxProject)
+
         let filePath = try Path.uniqueTemporary() + "file"
         try Data().write(to: filePath.url)
         let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot)
@@ -103,6 +109,12 @@ final class PBXGroupTests: XCTestCase {
                              sourceTree: .group,
                              name: "group")
         project.add(object: group)
+        let pbxProject = PBXProject(name: "ProjectName",
+                                    buildConfigurationList: XCConfigurationList(),
+                                    compatibilityVersion: "0",
+                                    mainGroup: group)
+        project.add(object: pbxProject)
+
         let filePath = try Path.uniqueTemporary() + "file"
         
         // ensure it doesnt exist
