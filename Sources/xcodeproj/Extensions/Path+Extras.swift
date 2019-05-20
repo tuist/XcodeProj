@@ -40,7 +40,21 @@ extension Path {
     }
 
     func relative(to path: Path) -> Path {
-        return Path(normalize().string.replacingOccurrences(of: "\(path.normalize().string)/", with: ""))
+        let pathComponents = self.absolute().components
+        let baseComponents = path.absolute().components
+
+        var commonComponents = 0
+        for (index, component) in baseComponents.enumerated() {
+            if component != pathComponents[index] {
+                break
+            }
+            commonComponents += 1
+        }
+
+        var resultComponents = Array(repeating: "..", count: baseComponents.count - commonComponents)
+        resultComponents.append(contentsOf: pathComponents[commonComponents...])
+
+        return Path(components: resultComponents)
     }
 }
 
