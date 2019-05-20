@@ -47,7 +47,16 @@ final class PBXFileElementTests: XCTestCase {
                              sourceTree: .group,
                              name: "/to/be/ignored")
 
-        let objects = PBXObjects(objects: [fileref, group])
+        let mainGroup = PBXGroup(children: [group],
+                                 sourceTree: .group,
+                                 name: "/to/be/ignored")
+
+        let project = PBXProject(name: "ProjectName",
+                   buildConfigurationList: XCConfigurationList(),
+                   compatibilityVersion: "0",
+                   mainGroup: mainGroup)
+
+        let objects = PBXObjects(objects: [project, mainGroup, fileref, group])
         fileref.reference.objects = objects
         group.reference.objects = objects
 
@@ -89,7 +98,12 @@ final class PBXFileElementTests: XCTestCase {
         let rootGroup = PBXGroup(children: [nestedGroup],
                                  sourceTree: .group)
 
-        let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup])
+        let project = PBXProject(name: "ProjectName",
+                                 buildConfigurationList: XCConfigurationList(),
+                                 compatibilityVersion: "0",
+                                 mainGroup: rootGroup)
+
+        let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup, project])
         fileref.reference.objects = objects
         nestedGroup.reference.objects = objects
 
