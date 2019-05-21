@@ -72,7 +72,7 @@ extension PBXNativeTarget: PlistSerializable {
 // MARK: - Helpers
 
 public extension PBXNativeTarget {
-    /// Adds a dependency to the target.
+    /// Adds a local target dependency to the target.
     ///
     /// - Parameter target: dependency target.
     /// - Returns: target dependency reference.
@@ -82,8 +82,8 @@ public extension PBXNativeTarget {
         guard let project = objects.projects.first?.value else {
             return nil
         }
-        let proxy = PBXContainerItemProxy(containerPortal: project,
-                                          remoteGlobalID: target,
+        let proxy = PBXContainerItemProxy(containerPortal: .project(project),
+                                          remoteGlobalIDString: target.uuid,
                                           proxyType: .nativeTarget,
                                           remoteInfo: target.name)
         objects.add(object: proxy)

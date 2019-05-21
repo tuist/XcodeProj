@@ -191,9 +191,9 @@ final class ReferenceGenerator: ReferenceGenerating {
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
             let targetProxy = targetDependency.targetProxy,
-            let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
+            let remoteGlobalIDString = targetProxy.remoteGlobalIDString {
             var identifiers = identifiers
-            identifiers.append(remoteGlobalIDReference.value)
+            identifiers.append(remoteGlobalIDString)
             fixReference(for: targetProxy, identifiers: identifiers)
         }
 
