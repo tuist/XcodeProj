@@ -97,12 +97,12 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///
     /// - Parameter path: The path to write to
     /// - Parameter override: True if the content should be overriden if it already exists.
-    public func write(path: Path, override: Bool) {
+    public func write(path: Path, override: Bool) throws {
         let encoder = PropertyListEncoder()
-        let data = try! encoder.encode(self)
+        let data = try encoder.encode(self)
         if override, path.exists {
-            try! path.delete()
+            try path.delete()
         }
-        try! path.write(data)
+        try path.write(data)
     }
 }

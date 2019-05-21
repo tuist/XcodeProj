@@ -50,7 +50,7 @@ final class PBXProjIntegrationTests: XCTestCase {
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
-            project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
+            try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
 
             let got = try shell.capture(["git", "status"]).get()
             XCTAssertTrue(got.contains("nothing to commit"))

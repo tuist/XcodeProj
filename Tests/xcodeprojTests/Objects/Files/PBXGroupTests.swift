@@ -66,36 +66,6 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertNotNil(group.children.first?.parent)
     }
 
-    func test_addNotExistingFileWithoutValidatinPresence_throws() {
-        do {
-            let sourceRoot = Path("/")
-            let project = PBXProj(
-                rootObject: nil,
-                objectVersion: 0,
-                archiveVersion: 0,
-                classes: [:],
-                objects: []
-            )
-            let group = PBXGroup(children: [],
-                                 sourceTree: .group,
-                                 name: "group")
-            project.add(object: group)
-            let filePath = try Path.uniqueTemporary() + "file"
-
-            // ensure it doesnt exist
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath.string) {
-                try FileManager.default.removeItem(atPath: filePath.string)
-            }
-            try group.addFile(at: filePath, sourceRoot: sourceRoot)
-            XCTFail("Should throw XcodeprojEditingError.unexistingFile")
-        } catch XcodeprojEditingError.unexistingFile {
-            XCTAssertTrue(true)
-        } catch {
-            XCTFail("Should throw XcodeprojEditingError.unexistingFile but throws \(error)")
-        }
-    }
-
     func test_addNotExistingFileValidatinPresence_assignsParent() throws {
         let sourceRoot = Path("/")
         let project = PBXProj(
