@@ -18,6 +18,7 @@
 - Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
 - Can add a not existing file to a group https://github.com/tuist/xcodeproj/pull/418 by @llinardos.
 - **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91 
+- **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
 - **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
 
 ### Fixed
