@@ -68,7 +68,7 @@ GEM
       terminal-table (~> 1)
     danger-plugin-api (1.0.0)
       danger (> 2.0)
-    danger-swiftformat (0.4.0)
+    danger-swiftformat (0.5.0)
       danger-plugin-api (~> 1.0)
     danger-swiftlint (0.19.0)
       danger
@@ -150,7 +150,7 @@ DEPENDENCIES
   cocoapods (= 1.6.0.beta.1)
   colorize (~> 0.8.1)
   danger (~> 6.0)
-  danger-swiftformat (~> 0.4.0)
+  danger-swiftformat (~> 0.5.0)
   danger-swiftlint (~> 0.19.0)
   jazzy
   rake

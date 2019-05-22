@@ -371,7 +371,7 @@ extension PBXObjects {
             } ?? []
             return buildPhaseFile
         }
-        return Dictionary(uniqueKeysWithValues: values.flatMap { $0 }.map { ($0.buildFile.reference, $0) })
+        return Dictionary(values.flatMap { $0 }.map { ($0.buildFile.reference, $0) }, uniquingKeysWith: { first, _ in return first })
     }
 
     /// Runs the given closure for each of the objects that are part of the project.

@@ -19,11 +19,13 @@
 - Can add a not existing file to a group https://github.com/tuist/xcodeproj/pull/418 by @llinardos.
 - **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91 
 - **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
+- **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
 
 ### Fixed
 
 - Carthage integration https://github.com/tuist/xcodeproj/pull/416 by @pepibumur.
 - Relative path is wrong when referencing file outside of project folder https://github.com/tuist/xcodeproj/issues/423 by @damirdavletov
+- [crash] Fatal error: Duplicate values for key https://github.com/tuist/xcodeproj/issues/426 by @toshi0383
 
 ## 6.7.0
 

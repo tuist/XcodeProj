@@ -15,6 +15,7 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var testables: [TestableReference]
+        public var codeCoverageTargets: [BuildableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
@@ -45,6 +46,7 @@ extension XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     codeCoverageEnabled: Bool = false,
+                    codeCoverageTargets: [BuildableReference] = [],
                     enableAddressSanitizer: Bool = false,
                     enableASanStackUseAfterReturn: Bool = false,
                     enableThreadSanitizer: Bool = false,
@@ -64,6 +66,7 @@ extension XCScheme {
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.codeCoverageEnabled = codeCoverageEnabled
+            self.codeCoverageTargets = codeCoverageTargets
             self.enableAddressSanitizer = enableAddressSanitizer
             self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
             self.enableThreadSanitizer = enableThreadSanitizer
@@ -93,7 +96,9 @@ extension XCScheme {
             testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
-
+            codeCoverageTargets = try element["CodeCoverageTargets"]["BuildableReference"]
+                .all?
+                .map(BuildableReference.init) ?? []
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
             if buildableReferenceElement.error == nil {
                 macroExpansion = try BuildableReference(element: buildableReferenceElement)
@@ -181,6 +186,12 @@ extension XCScheme {
             additionalOptions.forEach { additionalOption in
                 additionalOptionsElement.addChild(additionalOption.xmlElement())
             }
+
+            let codeCoverageTargetsElement = element.addChild(AEXMLElement(name: "CodeCoverageTargets"))
+            codeCoverageTargets.forEach { target in
+                codeCoverageTargetsElement.addChild(target.xmlElement())
+            }
+
             return element
         }
 
@@ -206,7 +217,8 @@ extension XCScheme {
                 language == rhs.language &&
                 region == rhs.region &&
                 systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
-                userAttachmentLifetime == rhs.userAttachmentLifetime
+                userAttachmentLifetime == rhs.userAttachmentLifetime &&
+                codeCoverageTargets == rhs.codeCoverageTargets
         }
     }
 }
