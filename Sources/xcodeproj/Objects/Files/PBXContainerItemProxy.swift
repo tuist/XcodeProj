@@ -1,10 +1,5 @@
 import Foundation
 
-public enum ContainerPortal {
-    case project(PBXProject)                /// Project where the proxied object is located in
-    case fileReference(PBXFileReference)    /// File reference to .xcodeproj where the proxied object is located
-    case unknownObject(PBXObject?)          /// This is used only for reading from corrupted projects. Don't use it.
-}
 
 /// This is the element to decorate a target item.
 public final class PBXContainerItemProxy: PBXObject {
@@ -12,6 +7,12 @@ public final class PBXContainerItemProxy: PBXObject {
         case nativeTarget = 1
         case reference = 2
         case other
+    }
+
+    public enum ContainerPortal: Equatable {
+        case project(PBXProject)                /// Project where the proxied object is located in
+        case fileReference(PBXFileReference)    /// File reference to .xcodeproj where the proxied object is located
+        case unknownObject(PBXObject?)          /// This is used only for reading from corrupted projects. Don't use it.
     }
 
     /// The object is a reference to a PBXProject element if proxy is for the object located in current .xcodeproj, otherwise PBXFileReference.
@@ -103,7 +104,7 @@ extension PBXContainerItemProxy: PlistSerializable {
     }
 }
 
-private extension ContainerPortal {
+private extension PBXContainerItemProxy.ContainerPortal {
     init(object: PBXObject?) {
         if let project = object as? PBXProject {
             self = .project(project)
