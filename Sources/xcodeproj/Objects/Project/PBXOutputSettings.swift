@@ -134,7 +134,7 @@ public enum PBXReferenceFormat {
     /// The prefix characters identify the type of reference generated (e.g. BP for Build Phase).
     /// The suffix number is only added for uniqueness if clashes occur.
     case withPrefixAndSuffix
-    /// Standard 32 char format that XCode generates.
+    /// Standard 24 char format that XCode generates.
     /// Note: Not guaranteed to be the same as XCode generates - only the format is the same.
     case xcode
 }
