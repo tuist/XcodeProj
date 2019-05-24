@@ -7,7 +7,7 @@
 - **Breaking** Renamed module from `xcodeproj` to `XcodeProj` https://github.com/tuist/xcodeproj/pull/398 by @pepibumur.
 - Add `override` flag to `PBXGroup.addFile(at:,sourceTree:,sourceRoot:)` https://github.com/tuist/xcodeproj/pull/410 by @mrylmz
 - Rename some internal variables to have a more representative name https://github.com/tuist/xcodeproj/pull/415 by @pepibumur.
-
+- **Breaking** Change the UUID generation logic to generate ids with a length of 24 https://github.com/tuist/xcodeproj/pull/432 by @pepibumur.
 ### Added
 
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
