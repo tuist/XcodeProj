@@ -309,7 +309,8 @@ extension ReferenceGenerator {
                 return base
             }
         case .xcode:
-            return "\(acronym)_\(typeNameAndIdentifiers)_\(counter)".md5.uppercased()
+            let reference = "\(acronym)_\(typeNameAndIdentifiers)_\(counter)".md5.uppercased()
+            return String(reference.substring(to: reference.index(reference.startIndex, offsetBy: 24)))
         }
     }
 }
