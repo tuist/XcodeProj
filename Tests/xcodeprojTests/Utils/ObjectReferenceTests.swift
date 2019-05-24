@@ -117,19 +117,19 @@ class ObjectReferenceTests: XCTestCase {
         XCTAssertEqual(object.reference.value, object2.reference.value)
     }
 
-    func test_reference_generation_xcode_nonTempHas32Characters() {
+    func test_reference_generation_xcode_nonTempHas24Characters() {
         let object = PBXFileReference()
         xcodeReferenceGenerator.fixReference(for: object, identifiers: ["a"])
-        XCTAssertTrue(object.reference.value.count == 32)
+        XCTAssertTrue(object.reference.value.count == 24)
     }
 
-    func test_reference_generation_xcode_duplicatesHave32Characters() {
+    func test_reference_generation_xcode_duplicatesHave24Characters() {
         let object = PBXFileReference()
         let object2 = PBXFileReference()
         xcodeReferenceGenerator.fixReference(for: object, identifiers: ["a"])
         xcodeReferenceGenerator.fixReference(for: object2, identifiers: ["a"])
-        XCTAssertTrue(object.reference.value.count == 32)
-        XCTAssertTrue(object2.reference.value.count == 32)
+        XCTAssertTrue(object.reference.value.count == 24)
+        XCTAssertTrue(object2.reference.value.count == 24)
     }
 
     func test_reference_generation_xcode_duplicatesHaveOnlyAlphaNumerics() {
