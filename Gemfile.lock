@@ -154,6 +154,7 @@ DEPENDENCIES
   danger-swiftlint (~> 0.19.0)
   jazzy
   rake
+  redcarpet (~> 3.4.0)
 
 BUNDLED WITH
    1.17.3
