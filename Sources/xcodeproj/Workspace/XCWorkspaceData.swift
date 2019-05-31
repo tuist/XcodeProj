@@ -43,7 +43,7 @@ extension XCWorkspaceData: Writable {
         let document = AEXMLDocument()
         let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
         _ = children
-            .map({ $0.xmlElement() })
+            .map { $0.xmlElement() }
             .map(workspace.addChild)
 
         if override, path.exists {
@@ -104,7 +104,7 @@ private extension XCWorkspaceDataGroup {
         let element = AEXMLElement(name: "Group", value: nil, attributes: attributes)
 
         _ = children
-            .map({ $0.xmlElement() })
+            .map { $0.xmlElement() }
             .map(element.addChild)
 
         return element

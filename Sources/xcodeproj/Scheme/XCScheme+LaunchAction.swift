@@ -5,6 +5,7 @@ import PathKit
 extension XCScheme {
     // swiftlint:disable:next type_body_length
     public final class LaunchAction: SerialAction {
+        
         public enum Style: String {
             case auto = "0"
             case wait = "1"
@@ -33,7 +34,7 @@ extension XCScheme {
 
         // MARK: - Attributes
 
-        public var buildableProductRunnable: BuildableProductRunnable?
+        public var runnable: Runnable?
         public var macroExpansion: BuildableReference?
         public var selectedDebuggerIdentifier: String
         public var selectedLauncherIdentifier: String
@@ -64,7 +65,7 @@ extension XCScheme {
 
         // MARK: - Init
 
-        public init(buildableProductRunnable: BuildableProductRunnable?,
+        public init(runnable: Runnable?,
                     buildConfiguration: String,
                     preActions: [ExecutionAction] = [],
                     postActions: [ExecutionAction] = [],
@@ -94,7 +95,7 @@ extension XCScheme {
                     language: String? = nil,
                     region: String? = nil,
                     launchAutomaticallySubstyle: String? = nil) {
-            self.buildableProductRunnable = buildableProductRunnable
+            self.runnable = runnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
             self.launchStyle = launchStyle
@@ -137,10 +138,16 @@ extension XCScheme {
             debugServiceExtension = element.attributes["debugServiceExtension"] ?? LaunchAction.defaultDebugServiceExtension
             allowLocationSimulation = element.attributes["allowLocationSimulation"].map { $0 == "YES" } ?? true
 
+        
+            // Runnable
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
+            let remoteRunnableElement = element["RemoteRunnable"]
             if buildableProductRunnableElement.error == nil {
-                buildableProductRunnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
+                runnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
+            } else if remoteRunnableElement.error == nil {
+                runnable = try RemoteRunnable(element: remoteRunnableElement)
             }
+            
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
             if buildableReferenceElement.error == nil {
                 macroExpansion = try BuildableReference(element: buildableReferenceElement)
@@ -239,8 +246,8 @@ extension XCScheme {
                                        value: nil,
                                        attributes: xmlAttributes)
             super.writeXML(parent: element)
-            if let buildableProductRunnable = buildableProductRunnable {
-                element.addChild(buildableProductRunnable.xmlElement())
+            if let runnable = runnable {
+                element.addChild(runnable.xmlElement())
             }
 
             if let locationScenarioReference = locationScenarioReference {
@@ -283,7 +290,7 @@ extension XCScheme {
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? LaunchAction else { return false }
             return super.isEqual(to: to) &&
-                buildableProductRunnable == rhs.buildableProductRunnable &&
+                runnable == rhs.runnable &&
                 macroExpansion == rhs.macroExpansion &&
                 selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
                 selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&

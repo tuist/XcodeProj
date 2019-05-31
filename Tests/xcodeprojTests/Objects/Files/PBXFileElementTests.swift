@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXFileElementTests: XCTestCase {
     var subject: PBXFileElement!
@@ -47,7 +47,16 @@ final class PBXFileElementTests: XCTestCase {
                              sourceTree: .group,
                              name: "/to/be/ignored")
 
-        let objects = PBXObjects(objects: [fileref, group])
+        let mainGroup = PBXGroup(children: [group],
+                                 sourceTree: .group,
+                                 name: "/to/be/ignored")
+
+        let project = PBXProject(name: "ProjectName",
+                   buildConfigurationList: XCConfigurationList(),
+                   compatibilityVersion: "0",
+                   mainGroup: mainGroup)
+
+        let objects = PBXObjects(objects: [project, mainGroup, fileref, group])
         fileref.reference.objects = objects
         group.reference.objects = objects
 
@@ -65,7 +74,8 @@ final class PBXFileElementTests: XCTestCase {
                                        path: "/a/path")
         let group = PBXGroup(children: [fileref],
                              sourceTree: .group,
-                             name: "/to/be/ignored")
+                             name: "/to/be/ignored",
+                             path: "groupPath")
 
         let objects = PBXObjects(objects: [fileref, group])
         fileref.reference.objects = objects
@@ -73,8 +83,14 @@ final class PBXFileElementTests: XCTestCase {
         // Remove parent for fallback test
         fileref.parent = nil
 
-        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
-        XCTAssertEqual(fullPath?.string, "/a/path")
+        XCTAssertThrowsError(try fileref.fullPath(sourceRoot: sourceRoot)) { (error) in
+            if case PBXProjError.invalidGroupPath(let sourceRoot, let elementPath) = error {
+                XCTAssertEqual(sourceRoot, "/")
+                XCTAssertEqual(elementPath, "groupPath")
+            } else {
+                XCTAssert(false, "fullPath should fails with PBXProjError.invalidGroupPath instaed of: \(error)")
+            }
+        }
     }
 
     func test_fullPath_with_nested_groups() throws {
@@ -90,7 +106,12 @@ final class PBXFileElementTests: XCTestCase {
         let rootGroup = PBXGroup(children: [nestedGroup],
                                  sourceTree: .group)
 
-        let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup])
+        let project = PBXProject(name: "ProjectName",
+                                 buildConfigurationList: XCConfigurationList(),
+                                 compatibilityVersion: "0",
+                                 mainGroup: rootGroup)
+
+        let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup, project])
         fileref.reference.objects = objects
         nestedGroup.reference.objects = objects
 

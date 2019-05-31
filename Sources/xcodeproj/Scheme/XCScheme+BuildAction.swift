@@ -115,7 +115,7 @@ extension XCScheme {
                                        attributes: [
                                            "parallelizeBuildables": parallelizeBuild.xmlString,
                                            "buildImplicitDependencies": buildImplicitDependencies.xmlString,
-            ])
+                                       ])
             super.writeXML(parent: element)
             let entries = element.addChild(name: "BuildActionEntries")
             buildActionEntries.forEach { entry in

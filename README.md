@@ -1,4 +1,4 @@
-# xcodeproj
+# XcodeProj
 
 [![CircleCI](https://circleci.com/gh/tuist/xcodeproj.svg?style=svg)](https://circleci.com/gh/tuist/xcodeproj)
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -7,27 +7,26 @@
 [![Slack](http://slack.tuist.io/badge.svg)](http://slack.tuist.io/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md)
 
-xcodeproj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
-
-**This project is a fork and evolution from [xcproj](https://github.com/xcodeswift/xcproj)**
+XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 ---
 
-- [Projects Using xcodeproj](#projects-using-xcodeproj)
+- [Projects Using XcodeProj](#projects-using-xcodeproj)
 - [Installation](#installation)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Projects Using xcodeproj
+## Projects Using XcodeProj
 
-| Project | Repository             |
-|---------|------------------------|
-| Tuist   | [github.com/tuist/tuist](https://github.com/tuist/tuist) |
+| Project  | Repository                                                                             |
+| -------- | -------------------------------------------------------------------------------------- |
+| Tuist    | [github.com/tuist/tuist](https://github.com/tuist/tuist)                               |
 | Sourcery | [github.com/krzysztofzablocki/Sourcery](https://github.com/krzysztofzablocki/Sourcery) |
-| ProjLint | [github.com/JamitLabs/ProjLint](https://github.com/JamitLabs/ProjLint) |
-| XcodeGen | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen) |
+| ProjLint | [github.com/JamitLabs/ProjLint](https://github.com/JamitLabs/ProjLint)                 |
+| XcodeGen | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)                 |
+| xspm     | [gitlab.com/Pyroh/xspm](https://gitlab.com/Pyroh/xspm)                                 |
 
-If you are also leveraging xcodeproj in your project, feel free to open a PR to include it in the list above.
+If you are also leveraging XcodeProj in your project, feel free to open a PR to include it in the list above.
 
 ## Installation
 
@@ -39,28 +38,29 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.6.0")),
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.7.0")),
         ],
     targets: [
         .target(
             name: "myproject",
-            dependencies: ["xcodeproj"]),
+            dependencies: ["XcodeProj"]),
         ]
 )
 ```
 
 ### Carthage
+
 **Only macOS**
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 6.6.0
+github "tuist/xcodeproj" ~> 6.7.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 6.6.0'
+pod 'xcodeproj', '~> 6.7.0'
 ```
 
 ### Scripting
@@ -72,7 +72,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import xcodeproj  // @tuist ~> 6.5
+import XcodeProj  // @tuist ~> 6.7.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {
@@ -111,7 +111,7 @@ object.
 
 ## Documentation 📝
 
-Want to start using xcodeproj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.
+Want to start using XcodeProj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.
 
 ## References 📚
 
@@ -128,12 +128,12 @@ Want to start using xcodeproj? Start by digging into our [documentation](/Docume
 ## Contributing
 
 1. Git clone the repository `git@github.com:tuist/xcodeproj.git`.
-2. Generate xcodeproj with  `swift package generate-xcodeproj`.
-3. Open `xcodeproj.xcodeproj`.
+2. Generate xcodeproj with `swift package generate-xcodeproj`.
+3. Open `XcodeProj.xcodeproj`.
 
 ## License
 
-xcodeproj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
+XcodeProj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj?ref=badge_large)
 

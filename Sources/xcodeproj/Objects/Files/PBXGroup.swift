@@ -144,19 +144,26 @@ public extension PBXGroup {
     ///
     /// - Parameters:
     ///   - filePath: path to the file.
-    ///   - sourceTree: file sourceTree, default is `.group`
+    ///   - sourceTree: file sourceTree, default is `.group`.
     ///   - sourceRoot: path to project's source root.
+    ///   - override: flag to enable overriding of existing file references, default is `true`.
+    ///   - validatePresence: flag to validate the existence of the file in the file system, default is `true`.
     /// - Returns: new or existing file and its reference.
     @discardableResult
     func addFile(
         at filePath: Path,
         sourceTree: PBXSourceTree = .group,
-        sourceRoot: Path
+        sourceRoot: Path,
+        override: Bool = true,
+        validatePresence: Bool = true
     ) throws -> PBXFileReference {
         let projectObjects = try objects()
+        if validatePresence, !filePath.exists {
+            throw XcodeprojEditingError.unexistingFile(filePath)
+        }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
-        if let existingFileReference = try projectObjects.fileReferences.first(where: {
+        if override, let existingFileReference = try projectObjects.fileReferences.first(where: {
             // Optimization: compare lastComponent before fullPath compare
             guard let fileRefPath = $0.value.path else {
                 return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
@@ -168,6 +175,7 @@ public extension PBXGroup {
             return false
         }) {
             if !childrenReferences.contains(existingFileReference.key) {
+                existingFileReference.value.path = groupPath.flatMap { filePath.relative(to: $0) }?.string
                 childrenReferences.append(existingFileReference.key)
             }
             return existingFileReference.value

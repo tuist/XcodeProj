@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXNativeTargetTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {
@@ -54,7 +54,7 @@ final class PBXNativeTargetTests: XCTestCase {
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
         let containerItemProxy: PBXContainerItemProxy? = targetDependency?.targetProxyReference?.getObject()
         XCTAssertEqual(containerItemProxy?.containerPortalReference, project.reference)
-        XCTAssertEqual(containerItemProxy?.remoteGlobalIDReference, dependency.reference)
+        XCTAssertEqual(containerItemProxy?.remoteGlobalIDString, dependency.reference.value)
         XCTAssertEqual(containerItemProxy?.proxyType, .nativeTarget)
         XCTAssertEqual(containerItemProxy?.remoteInfo, "Dependency")
     }

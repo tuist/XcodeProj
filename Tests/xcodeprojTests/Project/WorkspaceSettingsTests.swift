@@ -2,7 +2,7 @@ import Foundation
 import PathKit
 import XCTest
 
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class WorkspaceSettingsTests: XCTestCase {
     func test_init_when_original_build_system() throws {
@@ -15,6 +15,12 @@ final class WorkspaceSettingsTests: XCTestCase {
         let path = fixturesPath() + "WorkspaceSettings/Default.xcsettings"
         let got = try WorkspaceSettings.at(path: path)
         XCTAssertEqual(got.buildSystem, .new)
+    }
+
+    func test_init_when_autoCreateSchemes_is_true() throws {
+        let path = fixturesPath() + "WorkspaceSettings/Default.xcsettings"
+        let got = try WorkspaceSettings.at(path: path)
+        XCTAssertTrue(got.autoCreateSchemes == true)
     }
 
     func test_equals() {

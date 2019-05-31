@@ -1,7 +1,7 @@
 
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 class PBXProjEncoderTests: XCTestCase {
     var proj: PBXProj!
@@ -20,7 +20,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     func test_writeHeaders() throws {
         let lines = self.lines(fromFile: encodeProject())
-        XCTAssertEqual(530, lines.count)
+        XCTAssertEqual(529, lines.count)
         XCTAssertEqual("// !$*UTF8*$!", lines[0])
     }
 

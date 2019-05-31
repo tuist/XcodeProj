@@ -1,9 +1,17 @@
 import Foundation
 import PathKit
+import Shell
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class PBXProjIntegrationTests: XCTestCase {
+    var shell: Shell!
+
+    override func setUp() {
+        super.setUp()
+        shell = Shell()
+    }
+
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
         let decoder = XcodeprojPropertyListDecoder()
@@ -22,6 +30,31 @@ final class PBXProjIntegrationTests: XCTestCase {
                       return try? decoder.decode(PBXProj.self, from: data)
                   },
                   modify: { $0 })
+    }
+
+    func test_write_produces_no_diff() throws {
+        let tmpDir = try Path.uniqueTemporary()
+        defer {
+            try? tmpDir.delete()
+        }
+
+        let fixturePath = self.fixturePath().parent()
+        let xcodeprojPath = tmpDir + "Project.xcodeproj"
+        try fixturePath.copy(xcodeprojPath)
+
+        try tmpDir.chdir {
+            // Create a commit
+            _ = try shell.capture(["git", "init"]).get()
+            _ = try shell.capture(["git", "add", "."]).get()
+            _ = try shell.capture(["git", "commit", "-m", "'test'"]).get()
+
+            // Read/write the project
+            let project = try XcodeProj(path: xcodeprojPath)
+            try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
+
+            let got = try shell.capture(["git", "status"]).get()
+            XCTAssertTrue(got.contains("nothing to commit"))
+        }
     }
 
     private func fixturePath() -> Path {

@@ -52,10 +52,10 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Targets
         let targets: [PBXTarget] = project.targets
-        try targets.forEach({ try generateTargetReferences($0, identifiers: identifiers) })
+        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         // Project references
-        try project.projectReferences.flatMap({ $0.values }).forEach { objectReference in
+        try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             guard let fileReference: PBXFileReference = objectReference.getObject() else { return }
             try generateFileReference(fileReference, identifiers: identifiers)
         }
@@ -166,16 +166,16 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Build phases
         let buildPhases: [PBXBuildPhase] = target.buildPhaseReferences.objects()
-        try buildPhases.forEach({ try generateBuildPhaseReferences($0,
-                                                                   identifiers: identifiers) })
+        try buildPhases.forEach { try generateBuildPhaseReferences($0,
+                                                                   identifiers: identifiers) }
 
         // Build rules
         let buildRules: [PBXBuildRule] = target.buildRuleReferences.objects()
-        try buildRules.forEach({ try generateBuildRules($0, identifiers: identifiers) })
+        try buildRules.forEach { try generateBuildRules($0, identifiers: identifiers) }
 
         // Dependencies
         let dependencies: [PBXTargetDependency] = target.dependencyReferences.objects()
-        try dependencies.forEach({ try generateTargetDependencyReferences($0, identifiers: identifiers) })
+        try dependencies.forEach { try generateTargetDependencyReferences($0, identifiers: identifiers) }
     }
 
     /// Generates the reference for a target dependency object.
@@ -191,9 +191,9 @@ final class ReferenceGenerator: ReferenceGenerating {
         if let targetProxyReference = targetDependency.targetProxyReference,
             targetProxyReference.temporary,
             let targetProxy = targetDependency.targetProxy,
-            let remoteGlobalIDReference = targetProxy.remoteGlobalIDReference {
+            let remoteGlobalIDString = targetProxy.remoteGlobalIDString {
             var identifiers = identifiers
-            identifiers.append(remoteGlobalIDReference.value)
+            identifiers.append(remoteGlobalIDString)
             fixReference(for: targetProxy, identifiers: identifiers)
         }
 
@@ -225,7 +225,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: buildPhase, identifiers: identifiers)
 
         // Build files
-        buildPhase.fileReferences.forEach { buildFileReference in
+        buildPhase.fileReferences?.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
             guard let buildFile: PBXBuildFile = buildFileReference.getObject() else { return }
@@ -309,7 +309,8 @@ extension ReferenceGenerator {
                 return base
             }
         case .xcode:
-            return "\(acronym)_\(typeNameAndIdentifiers)_\(counter)".md5.uppercased()
+            let reference = "\(acronym)_\(typeNameAndIdentifiers)_\(counter)".md5.uppercased()
+            return String(reference.substring(to: reference.index(reference.startIndex, offsetBy: 24)))
         }
     }
 }

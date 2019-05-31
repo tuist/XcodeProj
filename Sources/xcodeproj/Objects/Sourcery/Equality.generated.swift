@@ -65,7 +65,7 @@ extension PBXContainerItemProxy {
         guard let rhs = object as? PBXContainerItemProxy else { return false }
         if containerPortalReference != rhs.containerPortalReference { return false }
         if proxyType != rhs.proxyType { return false }
-        if remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
+        if remoteGlobalIDString != rhs.remoteGlobalIDString { return false }
         if remoteInfo != rhs.remoteInfo { return false }
         return super.isEqual(to: rhs)
     }

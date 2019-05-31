@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class XCBuildConfigurationTests: XCTestCase {
     func test_initFails_ifNameIsMissing() {

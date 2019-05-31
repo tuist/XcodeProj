@@ -8,7 +8,7 @@ workflows:
 jobs:
   build:
     macos:
-      xcode: "10.0.0"
+      xcode: "10.2.0"
     steps:
       - checkout
       - restore_cache:
@@ -17,8 +17,8 @@ jobs:
       - run:
           name: Install Tools
           command: |
+            brew upgrade
             brew install swiftformat
-            brew install swiftlint
             bundle config build.sqlite3 --with-sqlite3-dir=/opt/local
       - run:
           name: Install dependencies
@@ -35,7 +35,7 @@ jobs:
           name: Run tests
           command: |
             swift package generate-xcodeproj
-            xcodebuild test -project xcodeproj.xcodeproj -scheme xcodeproj-Package -enableCodeCoverage YES
+            xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
       - run:
           name: Send test coverage report
           command: |

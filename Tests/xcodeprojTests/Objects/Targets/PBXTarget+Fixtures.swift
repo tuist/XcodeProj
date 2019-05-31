@@ -1,6 +1,6 @@
 import Foundation
 
-@testable import xcodeproj
+@testable import XcodeProj
 
 extension PBXTarget {
     static func fixture(name: String = "Test",

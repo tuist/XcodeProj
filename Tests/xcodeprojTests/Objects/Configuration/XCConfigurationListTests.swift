@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import xcodeproj
+@testable import XcodeProj
 
 final class XCConfigurationListTests: XCTestCase {
     func test_isa_returnsTheCorrectValue() {
@@ -12,7 +12,7 @@ final class XCConfigurationListTests: XCTestCase {
         let configurationList = XCConfigurationList(buildConfigurations: [])
         objects.add(object: configurationList)
         let configurations = try configurationList.addDefaultConfigurations()
-        let names = configurations.map({ $0.name })
+        let names = configurations.map { $0.name }
 
         XCTAssertEqual(configurations.count, 2)
         XCTAssertTrue(names.contains("Debug"))

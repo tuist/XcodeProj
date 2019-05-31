@@ -95,11 +95,11 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if let shellPath = shellPath {
             dictionary["shellPath"] = .string(CommentedString(shellPath))
         }
-        dictionary["inputPaths"] = .array(inputPaths.map({ .string(CommentedString($0)) }))
+        dictionary["inputPaths"] = .array(inputPaths.map { .string(CommentedString($0)) })
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        dictionary["outputPaths"] = .array(outputPaths.map({ .string(CommentedString($0)) }))
+        dictionary["outputPaths"] = .array(outputPaths.map { .string(CommentedString($0)) })
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }

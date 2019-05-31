@@ -64,6 +64,8 @@ let attributesOrder: [String: [String]] = [
     "ActionContent": [
         "title",
         "scriptText",
+        "message",
+        "conveyanceType",
     ],
     "EnvironmentVariable": [
         "key",
@@ -74,6 +76,16 @@ let attributesOrder: [String: [String]] = [
         "skipped",
         "parallelizable",
         "testExecutionOrdering",
+    ],
+    "BreakpointContent": [
+        "shouldBeEnabled",
+        "ignoreCount",
+        "continueAfterRunningActions",
+        "breakpointStackSelectionBehavior",
+        "scope",
+        "stopOnStyle",
+        "symbolName",
+        "moduleName",
     ],
 ]
 

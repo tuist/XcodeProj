@@ -165,7 +165,7 @@ public extension PBXFileElement {
                     return sourceRoot
                 }
                 // Fallback if parent is nil and it's not root element
-                guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { return sourceRoot }
+                guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { throw PBXProjError.invalidGroupPath(sourceRoot: sourceRoot, elementPath: path) }
                 groupPath = try group.value.fullPath(sourceRoot: sourceRoot)
             }
 
