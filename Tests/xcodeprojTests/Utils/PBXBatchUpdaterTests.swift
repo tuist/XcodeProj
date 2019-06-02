@@ -15,7 +15,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
             let fileName = "file.swift"
             let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(fileName)")
-            try Data().write(to: filePath.url)
+            try createFile(at: filePath)
             let file = try updater.addFile(to: project, at: filePath)
             let fileFullPath = try file.fullPath(sourceRoot: sourceRoot)
             XCTAssertEqual(
@@ -42,7 +42,7 @@ class PBXBatchUpdaterTests: XCTestCase {
             let fileName = "file.swift"
             let subgroupPath = subgroupNames.joined(separator: "/")
             let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(subgroupPath)/\(fileName)")
-            try Data().write(to: filePath.url)
+            try createFile(at: filePath)
             let file = try updater.addFile(to: project, at: filePath)
             let fileFullPath = try file.fullPath(sourceRoot: sourceRoot)
             XCTAssertEqual(
@@ -67,7 +67,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
             let fileName = "file.swift"
             let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(fileName)")
-            try Data().write(to: filePath.url)
+            try createFile(at: filePath)
             let file = try updater.addFile(to: mainGroup, fileName: fileName)
             let fileFullPath = try file.fullPath(sourceRoot: sourceRoot)
             XCTAssertEqual(
@@ -92,7 +92,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
             let fileName = "file.swift"
             let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(fileName)")
-            try Data().write(to: filePath.url)
+            try createFile(at: filePath)
             let firstFile = try updater.addFile(to: project, at: filePath)
             let secondFile = try updater.addFile(to: mainGroup, fileName: fileName)
             let firstFileFullPath = try firstFile.fullPath(sourceRoot: sourceRoot)
@@ -129,7 +129,7 @@ class PBXBatchUpdaterTests: XCTestCase {
             let fileName = "file.swift"
             let subgroupPath = subgroupNames.joined(separator: "/")
             let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(subgroupPath)/\(fileName)")
-            try Data().write(to: filePath.url)
+            try createFile(at: filePath)
             let firstFile = try updater.addFile(to: project, at: filePath)
             let parentGroup = proj.groups.first(where: { $0.path == subgroupNames.last! })!
             let secondFile = try updater.addFile(to: parentGroup, fileName: fileName)
@@ -169,5 +169,14 @@ class PBXBatchUpdaterTests: XCTestCase {
         let project = PBXProject.fixture(mainGroup: group)
         proj.add(object: project)
         return proj
+    }
+    
+    private func createFile(at filePath: Path) throws {
+        let directoryURL = filePath.url.deletingLastPathComponent()
+        try FileManager.default.createDirectory(
+            at: directoryURL,
+            withIntermediateDirectories: true
+        )
+        try Data().write(to: filePath.url)
     }
 }
