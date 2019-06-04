@@ -119,18 +119,18 @@ class PBXObjects: Equatable {
     var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
         return lock.whileLocked { _carbonResourcesBuildPhases }
     }
-    
+
     private var _remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] = [:]
     var remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] {
         return lock.whileLocked { _remoteSwiftPackageReferences }
     }
-    
+
     private var _swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] = [:]
     var swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] {
         return lock.whileLocked { _swiftPackageProductDependencies }
     }
-    
-    //XCSwiftPackageProductDependency
+
+    // XCSwiftPackageProductDependency
 
     /// Initializes the project objects container
     ///
@@ -396,7 +396,7 @@ extension PBXObjects {
             } ?? []
             return buildPhaseFile
         }
-        return Dictionary(values.flatMap { $0 }.map { ($0.buildFile.reference, $0) }, uniquingKeysWith: { first, _ in return first })
+        return Dictionary(values.flatMap { $0 }.map { ($0.buildFile.reference, $0) }, uniquingKeysWith: { first, _ in first })
     }
 
     /// Runs the given closure for each of the objects that are part of the project.

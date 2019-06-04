@@ -5,7 +5,6 @@ import PathKit
 extension XCScheme {
     // swiftlint:disable:next type_body_length
     public final class LaunchAction: SerialAction {
-        
         public enum Style: String {
             case auto = "0"
             case wait = "1"
@@ -138,7 +137,6 @@ extension XCScheme {
             debugServiceExtension = element.attributes["debugServiceExtension"] ?? LaunchAction.defaultDebugServiceExtension
             allowLocationSimulation = element.attributes["allowLocationSimulation"].map { $0 == "YES" } ?? true
 
-        
             // Runnable
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
             let remoteRunnableElement = element["RemoteRunnable"]
@@ -147,7 +145,7 @@ extension XCScheme {
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
             }
-            
+
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
             if buildableReferenceElement.error == nil {
                 macroExpansion = try BuildableReference(element: buildableReferenceElement)

@@ -1,5 +1,5 @@
-import XCTest
 import PathKit
+import XCTest
 @testable import XcodeProj
 
 final class PathExtrasTests: XCTestCase {

@@ -16,17 +16,17 @@ public final class PBXBuildFile: PBXObject {
             fileReference = newValue?.reference
         }
     }
-    
+
     /// Product reference.
     var productReference: PBXObjectReference?
-    
+
     /// Product.
     public var product: XCSwiftPackageProductDependency? {
         get {
             return productReference?.getObject()
         }
         set {
-            self.productReference = newValue?.reference
+            productReference = newValue?.reference
         }
     }
 

@@ -76,12 +76,26 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Project
         fixReference(for: project, identifiers: identifiers)
 
+        // Packages
+        project.packages?.forEach {
+            var identifiers = identifiers
+            identifiers.append($0.name)
+            fixReference(for: $0, identifiers: identifiers)
+        }
+
         // Targets
         let targets: [PBXTarget] = project.targetReferences.objects()
         targets.forEach { target in
 
             var identifiers = identifiers
             identifiers.append(target.name)
+
+            // Packages
+            target.packageProductDependencies?.forEach {
+                var identifiers = identifiers
+                identifiers.append($0.productName)
+                fixReference(for: $0, identifiers: identifiers)
+            }
 
             fixReference(for: target, identifiers: identifiers)
         }
