@@ -119,6 +119,18 @@ class PBXObjects: Equatable {
     var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
         return lock.whileLocked { _carbonResourcesBuildPhases }
     }
+    
+    private var _remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] = [:]
+    var remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] {
+        return lock.whileLocked { _remoteSwiftPackageReferences }
+    }
+    
+    private var _swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] = [:]
+    var swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] {
+        return lock.whileLocked { _swiftPackageProductDependencies }
+    }
+    
+    //XCSwiftPackageProductDependency
 
     /// Initializes the project objects container
     ///
@@ -154,7 +166,9 @@ class PBXObjects: Equatable {
             lhs.versionGroups == rhs.versionGroups &&
             lhs.referenceProxies == rhs.referenceProxies &&
             lhs.carbonResourcesBuildPhases == rhs.carbonResourcesBuildPhases &&
-            lhs.buildRules == rhs.buildRules
+            lhs.buildRules == rhs.buildRules &&
+            lhs.swiftPackageProductDependencies == rhs._swiftPackageProductDependencies &&
+            lhs.remoteSwiftPackageReferences == rhs.remoteSwiftPackageReferences
     }
 
     // MARK: - Helpers
@@ -197,6 +211,9 @@ class PBXObjects: Equatable {
         case let object as PBXReferenceProxy: _referenceProxies[objectReference] = object
         case let object as PBXRezBuildPhase: _carbonResourcesBuildPhases[objectReference] = object
         case let object as PBXBuildRule: _buildRules[objectReference] = object
+        case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
+        case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
+
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
@@ -252,6 +269,10 @@ class PBXObjects: Equatable {
             return _carbonResourcesBuildPhases.remove(at: index).value
         } else if let index = buildRules.index(forKey: reference) {
             return _buildRules.remove(at: index).value
+        } else if let index = remoteSwiftPackageReferences.index(forKey: reference) {
+            return _remoteSwiftPackageReferences.remove(at: index).value
+        } else if let index = swiftPackageProductDependencies.index(forKey: reference) {
+            return _swiftPackageProductDependencies.remove(at: index).value
         }
         lock.unlock()
         return nil
@@ -310,6 +331,10 @@ class PBXObjects: Equatable {
         } else if let object = carbonResourcesBuildPhases[reference] {
             return object
         } else if let object = buildRules[reference] {
+            return object
+        } else if let object = remoteSwiftPackageReferences[reference] {
+            return object
+        } else if let object = swiftPackageProductDependencies[reference] {
             return object
         } else {
             return nil
