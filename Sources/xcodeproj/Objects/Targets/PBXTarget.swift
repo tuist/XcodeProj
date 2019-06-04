@@ -72,6 +72,19 @@ public class PBXTarget: PBXContainerItem {
             productReference = newValue?.reference
         }
     }
+    
+    /// Swift package product references.
+    var packageProductDependencyReferences: [PBXObjectReference]?
+    
+    /// Swift packages products.
+    var packageProductDependencies: [XCSwiftPackageProductDependency]? {
+        set {
+            packageProductDependencyReferences = newValue?.map({ $0.reference })
+        }
+        get {
+            return self.packageProductDependencyReferences?.objects()
+        }
+    }
 
     /// Target product type.
     public var productType: PBXProductType?
@@ -117,6 +130,7 @@ public class PBXTarget: PBXContainerItem {
         case productName
         case productReference
         case productType
+        case packageProductDependencies
     }
 
     public required init(from decoder: Decoder) throws {
@@ -142,6 +156,10 @@ public class PBXTarget: PBXContainerItem {
         } else {
             productReference = nil
         }
+        
+        let packageProductDependencyReferenceStrings: [String]? = try container.decodeIfPresent(.packageProductDependencies)
+        self.packageProductDependencyReferences = packageProductDependencyReferenceStrings?.map({ objectReferenceRepository.getOrCreate(reference: $0, objects: objects) })
+        
         productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
     }
@@ -176,6 +194,11 @@ public class PBXTarget: PBXContainerItem {
         if let productReference = productReference {
             let fileElement: PBXFileElement? = productReference.getObject()
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
+        }
+        if let packageProductDependencies = packageProductDependencies {
+            dictionary["packageProductDependency"] = PlistValue.array(packageProductDependencies.map({
+                PlistValue.string(.init($0.reference.value, comment: $0.productName))
+            }))
         }
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))

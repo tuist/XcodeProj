@@ -123,6 +123,19 @@ public final class PBXProject: PBXObject {
             return attributes
         }
     }
+    
+    /// Package references.
+    var packageReferences: [PBXObjectReference]?
+    
+    /// Swift packages.
+    var packages: [XCRemoteSwiftPackageReference]? {
+        set {
+            packageReferences = newValue?.map({ $0.reference })
+        }
+        get {
+            return self.packageReferences?.objects()
+        }
+    }
 
     /// Sets the attributes for the given target.
     ///
@@ -219,6 +232,7 @@ public final class PBXProject: PBXObject {
         case projectRoots
         case targets
         case attributes
+        case packageReferences
     }
 
     public required init(from decoder: Decoder) throws {
@@ -255,6 +269,9 @@ public final class PBXProject: PBXObject {
         let targetReferences: [String] = (try container.decodeIfPresent(.targets)) ?? []
         self.targetReferences = targetReferences.map { referenceRepository.getOrCreate(reference: $0, objects: objects) }
 
+        let packageRefeferenceStrings: [String]? = try container.decodeIfPresent(.packageReferences)
+        self.packageReferences = packageRefeferenceStrings?.map({ referenceRepository.getOrCreate(reference: $0, objects: objects) })
+        
         var attributes = (try container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:])
         var targetAttributeReferences: [PBXObjectReference: [String: Any]] = [:]
         if let targetAttributes = attributes[PBXProject.targetAttributesKey] as? [String: [String: Any]] {
@@ -310,6 +327,12 @@ extension PBXProject: PlistSerializable {
                 let target: PBXTarget? = targetReference.getObject()
                 return .string(CommentedString(targetReference.value, comment: target?.name))
         })
+        
+        if let packages = packages {
+            dictionary["packageReferences"] = PlistValue.array(packages.map({
+                PlistValue.string(CommentedString.init($0.reference.value, comment: "XCRemoteSwiftPackageReference \"\($0.name)\""))
+            }))
+        }
 
         var plistAttributes: [String: Any] = attributes
         if !targetAttributeReferences.isEmpty {

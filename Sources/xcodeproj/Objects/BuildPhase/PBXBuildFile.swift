@@ -16,6 +16,9 @@ public final class PBXBuildFile: PBXObject {
             fileReference = newValue?.reference
         }
     }
+    
+    /// Product reference.
+    public var productReference: PBXObjectReference?
 
     /// Element settings
     public var settings: [String: Any]?
