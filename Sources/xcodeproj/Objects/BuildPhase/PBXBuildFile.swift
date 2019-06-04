@@ -18,7 +18,17 @@ public final class PBXBuildFile: PBXObject {
     }
     
     /// Product reference.
-    public var productReference: PBXObjectReference?
+    var productReference: PBXObjectReference?
+    
+    /// Product.
+    public var product: XCSwiftPackageProductDependency? {
+        get {
+            return productReference?.getObject()
+        }
+        set {
+            self.productReference = newValue?.reference
+        }
+    }
 
     /// Element settings
     public var settings: [String: Any]?
@@ -45,6 +55,7 @@ public final class PBXBuildFile: PBXObject {
     enum CodingKeys: String, CodingKey {
         case fileRef
         case settings
+        case productRef
     }
 
     public required init(from decoder: Decoder) throws {
@@ -53,6 +64,9 @@ public final class PBXBuildFile: PBXObject {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let fileRefString: String = try container.decodeIfPresent(.fileRef) {
             fileReference = objectReferenceRepository.getOrCreate(reference: fileRefString, objects: objects)
+        }
+        if let productRefString: String = try container.decodeIfPresent(.productRef) {
+            productReference = objectReferenceRepository.getOrCreate(reference: productRefString, objects: objects)
         }
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
@@ -135,6 +149,9 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         if let fileReference = buildFile.fileReference {
             let fileElement: PBXFileElement? = fileReference.getObject()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
+        }
+        if let product = buildFile.product {
+            dictionary["productRef"] = .string(.init(product.reference.value, comment: product.productName))
         }
         if let settings = buildFile.settings {
             dictionary["settings"] = settings.plist()
