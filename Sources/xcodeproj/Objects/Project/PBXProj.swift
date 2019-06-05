@@ -177,6 +177,20 @@ public extension PBXProj {
     func forEach(_ closure: (PBXObject) -> Void) {
         objects.forEach(closure)
     }
+
+    /// This is a helper method for quickly adding a large number of files.
+    /// It is forbidden to add a file to a group one by one using the PBXGroup method addFile(...) while you are working with this class.
+    ///
+    /// - Parameters:
+    ///     - sourceRoot: source root path.
+    ///     - closure: closure in which you get the updater and can call the add method on it.
+    func batchUpdate(sourceRoot: Path, closure: (PBXBatchUpdater) throws -> Void) throws {
+        let fileBatchUpdater = PBXBatchUpdater(
+            objects: objects,
+            sourceRoot: sourceRoot
+        )
+        try closure(fileBatchUpdater)
+    }
 }
 
 // MARK: - Internal helpers

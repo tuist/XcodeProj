@@ -163,15 +163,22 @@ public extension PBXGroup {
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
-        let isFileReferencePathEqual: (Dictionary<PBXObjectReference, PBXFileReference>.Element) throws -> Bool = {
-            try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
-        }
-
-        if let existingFileReference = try projectObjects.fileReferences.first(where: isFileReferencePathEqual), override {
+        if override, let existingFileReference = try projectObjects.fileReferences.first(where: {
+            // Optimization: compare lastComponent before fullPath compare
+            guard let fileRefPath = $0.value.path else {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            let fileRefLastPathComponent = fileRefPath.split(separator: "/").last!
+            if filePath.lastComponent == fileRefLastPathComponent {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            return false
+        }) {
             if !childrenReferences.contains(existingFileReference.key) {
                 existingFileReference.value.path = groupPath.flatMap { filePath.relative(to: $0) }?.string
                 childrenReferences.append(existingFileReference.key)
             }
+            return existingFileReference.value
         }
 
         let path: String?

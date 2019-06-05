@@ -194,6 +194,18 @@ public extension PBXTarget {
         return "\(productName).\(fileExtension)"
     }
 
+    /// Returns the frameworks build phase.
+    ///
+    /// - Returns: frameworks build phase.
+    /// - Throws: an error if the build phase cannot be obtained.
+    func frameworksBuildPhase() throws -> PBXFrameworksBuildPhase? {
+        return try buildPhaseReferences
+            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+            .filter { $0.buildPhase == .frameworks }
+            .compactMap { $0 as? PBXFrameworksBuildPhase }
+            .first
+    }
+
     /// Returns the sources build phase.
     ///
     /// - Returns: sources build phase.
