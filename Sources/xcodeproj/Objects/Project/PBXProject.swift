@@ -175,11 +175,13 @@ public final class PBXProject: PBXObject {
         // Reference
         let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRules: versionRules)
         objects.add(object: reference)
+        if packages == nil { packages = [] }
         packages?.append(reference)
 
         // Product
         let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
         objects.add(object: productDependency)
+        if target?.packageProductDependencies == nil { target?.packageProductDependencies = [] }
         target?.packageProductDependencies?.append(productDependency)
 
         // Build file
@@ -356,7 +358,7 @@ extension PBXProject: PlistSerializable {
 
         if let packages = packages {
             dictionary["packageReferences"] = PlistValue.array(packages.map {
-                PlistValue.string(CommentedString($0.reference.value, comment: "XCRemoteSwiftPackageReference \"\($0.name)\""))
+                .string(CommentedString($0.reference.value, comment: "XCRemoteSwiftPackageReference \"\($0.name ?? "")\""))
             })
         }
 
