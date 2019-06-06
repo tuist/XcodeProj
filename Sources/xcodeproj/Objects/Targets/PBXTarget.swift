@@ -196,7 +196,7 @@ public class PBXTarget: PBXContainerItem {
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
         if let packageProductDependencies = packageProductDependencies {
-            dictionary["packageProductDependency"] = PlistValue.array(packageProductDependencies.map {
+            dictionary["packageProductDependencies"] = .array(packageProductDependencies.map {
                 PlistValue.string(.init($0.reference.value, comment: $0.productName))
             })
         }
