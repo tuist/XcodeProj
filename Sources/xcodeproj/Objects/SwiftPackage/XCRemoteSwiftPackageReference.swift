@@ -24,6 +24,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
             case branch
             case minimumVersion
             case maximumVersion
+            case version
         }
 
         public init(from decoder: Decoder) throws {
@@ -36,7 +37,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
                 let branch = try container.decode(String.self, forKey: .branch)
                 self = .branch(branch)
             } else if kind == "exactVersion" {
-                let version = try container.decode(String.self, forKey: .minimumVersion)
+                let version = try container.decode(String.self, forKey: .version)
                 self = .exact(version)
             } else if kind == "versionRange" {
                 let minimumVersion = try container.decode(String.self, forKey: .minimumVersion)
@@ -68,7 +69,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
             case let .exact(version):
                 return [
                     "kind": "exactVersion",
-                    "minimumVersion": .string(.init(version)),
+                    "version": .string(.init(version)),
                 ]
             case let .range(from, to):
                 return [
