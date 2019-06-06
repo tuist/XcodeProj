@@ -42,10 +42,13 @@ public final class PBXBuildFile: PBXObject {
     ///
     /// - Parameters:
     ///   - file: file the build file refers to.
+    ///   - productRef: The Swift package product dependency.
     ///   - settings: build file settings.
-    public init(file: PBXFileElement,
+    public init(file: PBXFileElement? = nil,
+                product: XCSwiftPackageProductDependency? = nil,
                 settings: [String: Any]? = nil) {
-        fileReference = file.reference
+        fileReference = file?.reference
+        self.productReference = product?.reference
         self.settings = settings
         super.init()
     }

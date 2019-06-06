@@ -228,6 +228,18 @@ public extension PBXTarget {
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
     }
+    
+    /// Returns the frameworks build phase.
+    ///
+    /// - Returns: sources build phase.
+    /// - Throws: an error if the build phase cannot be obtained.
+    func frameworksBuildPhase() throws -> PBXFrameworksBuildPhase? {
+        return try buildPhaseReferences
+            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+            .filter { $0.buildPhase == .frameworks }
+            .compactMap { $0 as? PBXFrameworksBuildPhase }
+            .first
+    }
 
     /// Returns the resources build phase.
     ///
