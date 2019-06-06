@@ -79,7 +79,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Packages
         project.packages?.forEach {
             var identifiers = identifiers
-            identifiers.append($0.name)
+            identifiers.append($0.repositoryURL ?? $0.name ?? "")
             fixReference(for: $0, identifiers: identifiers)
         }
 

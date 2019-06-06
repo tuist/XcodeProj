@@ -166,6 +166,26 @@ public final class PBXProject: PBXObject {
         return targetAttributeReferences[target.reference]
     }
 
+    public func addSwiftPackage(repositoryURL: String,
+                                productName: String,
+                                versionRules: XCRemoteSwiftPackageReference.VersionRules,
+                                target: PBXTarget? = nil) -> XCRemoteSwiftPackageReference {
+        let objects = try! self.objects()
+
+        // Reference
+        let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRules: versionRules)
+        objects.add(object: reference)
+        packages?.append(reference)
+
+        // Product
+        let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
+        objects.add(object: productDependency)
+        target?.packageProductDependencies?.append(productDependency)
+
+        // Build file
+//        let buildFile = PBXBuildFile(
+    }
+
     // MARK: - Init
 
     /// Initializes the project with its attributes

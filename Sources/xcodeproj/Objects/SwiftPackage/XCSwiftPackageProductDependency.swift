@@ -43,7 +43,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem {
     override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         if let package = package {
-            dictionary["package"] = PlistValue.string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name)\""))
+            dictionary["package"] = .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\""))
         }
         dictionary["productName"] = .string(.init(productName))
         return dictionary

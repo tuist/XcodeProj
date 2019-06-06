@@ -53,7 +53,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem {
             }
         }
 
-        func plistValues() throws -> [CommentedString: PlistValue] {
+        func plistValues() -> [CommentedString: PlistValue] {
             switch self {
             case let .revision(revision):
                 return [
@@ -133,19 +133,28 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem {
     }
 
     public required init(from decoder: Decoder) throws {
-        let objects = decoder.context.objects
-        let repository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        repositoryURL = try container.decodeIfPresent(String.self, forKey: .repositoryURL)
+        versionRules = try container.decodeIfPresent(VersionRules.self, forKey: .requirement)
 
         try super.init(from: decoder)
     }
 
-    var name: String {
-        return "TODO"
+    /// It returns the name of the package reference.
+    var name: String? {
+        return self.repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
     }
 
-    override func plistValues(proj _: PBXProj, reference _: String) throws -> [CommentedString: PlistValue] {
-        return [:]
+    override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
+        var dictionary = try super.plistValues(proj: proj, reference: reference)
+        if let repositoryURL = repositoryURL {
+            dictionary["repositoryURL"] = .string(.init(repositoryURL))
+        }
+        if let versionRules = versionRules {
+            dictionary["requirement"] = PlistValue.dictionary(versionRules.plistValues())
+        }
+        return dictionary
     }
 
     // MARK: - Equatable
