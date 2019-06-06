@@ -42,6 +42,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
 
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
+        dictionary["isa"] = .string(CommentedString(XCSwiftPackageProductDependency.isa))
         if let package = package {
             dictionary["package"] = .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\""))
         }
