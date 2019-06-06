@@ -209,6 +209,18 @@ final class PBXProjEncoder {
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)
+        try write(section: "XCSwiftPackageProductDependency",
+                  proj: proj,
+                  objects: proj.objects.swiftPackageProductDependencies,
+                  outputSettings: outputSettings,
+                  stateHolder: &stateHolder,
+                  to: &output)
+        try write(section: "XCRemoteSwiftPackageReference",
+                  proj: proj,
+                  objects: proj.objects.remoteSwiftPackageReferences,
+                  outputSettings: outputSettings,
+                  stateHolder: &stateHolder,
+                  to: &output)
         stateHolder.decreaseIndent()
         writeIndent(stateHolder: &stateHolder, to: &output)
         write(string: "};", to: &output)

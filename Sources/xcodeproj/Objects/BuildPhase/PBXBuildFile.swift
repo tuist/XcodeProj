@@ -48,7 +48,7 @@ public final class PBXBuildFile: PBXObject {
                 product: XCSwiftPackageProductDependency? = nil,
                 settings: [String: Any]? = nil) {
         fileReference = file?.reference
-        self.productReference = product?.reference
+        productReference = product?.reference
         self.settings = settings
         super.init()
     }

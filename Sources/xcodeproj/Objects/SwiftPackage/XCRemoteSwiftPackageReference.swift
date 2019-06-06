@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for specialized targets.
-public class XCRemoteSwiftPackageReference: PBXContainerItem {
+public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable {
     /// It represents the version rules for a Swift Package.
     ///
     /// - upToNextMajorVersion: The package version can be bumped up to the next major version.
@@ -143,10 +143,10 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem {
 
     /// It returns the name of the package reference.
     var name: String? {
-        return self.repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
+        return repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
     }
 
-    override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         if let repositoryURL = repositoryURL {
             dictionary["repositoryURL"] = .string(.init(repositoryURL))
@@ -154,7 +154,8 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem {
         if let versionRules = versionRules {
             dictionary["requirement"] = PlistValue.dictionary(versionRules.plistValues())
         }
-        return dictionary
+        return (key: CommentedString(reference),
+                value: .dictionary(dictionary))
     }
 
     // MARK: - Equatable

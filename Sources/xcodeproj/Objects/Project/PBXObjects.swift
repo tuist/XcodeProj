@@ -425,5 +425,7 @@ extension PBXObjects {
         headersBuildPhases.values.forEach(closure)
         sourcesBuildPhases.values.forEach(closure)
         carbonResourcesBuildPhases.values.forEach(closure)
+        remoteSwiftPackageReferences.values.forEach(closure)
+        swiftPackageProductDependencies.values.forEach(closure)
     }
 }

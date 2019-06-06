@@ -185,10 +185,10 @@ public final class PBXProject: PBXObject {
         // Build file
         let buildFile = PBXBuildFile(product: productDependency)
         objects.add(object: buildFile)
-        
+
         // Link the product
         try? target?.sourcesBuildPhase()?.files?.append(buildFile)
-        
+
         return reference
     }
 

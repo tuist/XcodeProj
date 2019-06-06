@@ -1,7 +1,7 @@
 import Foundation
 
 /// This element is an abstract parent for specialized targets.
-public class XCSwiftPackageProductDependency: PBXContainerItem {
+public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializable {
     /// Product name.
     public var productName: String
 
@@ -40,13 +40,15 @@ public class XCSwiftPackageProductDependency: PBXContainerItem {
         try super.init(from: decoder)
     }
 
-    override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
+    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         if let package = package {
             dictionary["package"] = .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\""))
         }
         dictionary["productName"] = .string(.init(productName))
-        return dictionary
+
+        return (key: CommentedString(reference),
+                value: .dictionary(dictionary))
     }
 
     // MARK: - Codable

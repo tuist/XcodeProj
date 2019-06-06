@@ -228,7 +228,7 @@ public extension PBXTarget {
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
     }
-    
+
     /// Returns the frameworks build phase.
     ///
     /// - Returns: sources build phase.
