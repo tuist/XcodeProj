@@ -17,6 +17,19 @@ public final class PBXBuildFile: PBXObject {
         }
     }
 
+    /// Product reference.
+    var productReference: PBXObjectReference?
+
+    /// Product.
+    public var product: XCSwiftPackageProductDependency? {
+        get {
+            return productReference?.getObject()
+        }
+        set {
+            productReference = newValue?.reference
+        }
+    }
+
     /// Element settings
     public var settings: [String: Any]?
 
@@ -29,10 +42,13 @@ public final class PBXBuildFile: PBXObject {
     ///
     /// - Parameters:
     ///   - file: file the build file refers to.
+    ///   - productRef: The Swift package product dependency.
     ///   - settings: build file settings.
-    public init(file: PBXFileElement,
+    public init(file: PBXFileElement? = nil,
+                product: XCSwiftPackageProductDependency? = nil,
                 settings: [String: Any]? = nil) {
-        fileReference = file.reference
+        fileReference = file?.reference
+        productReference = product?.reference
         self.settings = settings
         super.init()
     }
@@ -42,6 +58,7 @@ public final class PBXBuildFile: PBXObject {
     enum CodingKeys: String, CodingKey {
         case fileRef
         case settings
+        case productRef
     }
 
     public required init(from decoder: Decoder) throws {
@@ -50,6 +67,9 @@ public final class PBXBuildFile: PBXObject {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let fileRefString: String = try container.decodeIfPresent(.fileRef) {
             fileReference = objectReferenceRepository.getOrCreate(reference: fileRefString, objects: objects)
+        }
+        if let productRefString: String = try container.decodeIfPresent(.productRef) {
+            productReference = objectReferenceRepository.getOrCreate(reference: productRefString, objects: objects)
         }
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         try super.init(from: decoder)
@@ -64,8 +84,9 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        guard let fileElement: PBXFileElement = fileReference?.getObject() else { return nil }
-        return fileElement.fileName()
+        if let fileElement: PBXFileElement = fileReference?.getObject(), let name = fileElement.fileName() { return name }
+        if let product: XCSwiftPackageProductDependency = productReference?.getObject() { return product.productName }
+        return nil
     }
 
     /// Returns the type of the build phase the build file belongs to.
@@ -132,6 +153,9 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         if let fileReference = buildFile.fileReference {
             let fileElement: PBXFileElement? = fileReference.getObject()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
+        }
+        if let product = buildFile.product {
+            dictionary["productRef"] = .string(.init(product.reference.value, comment: product.productName))
         }
         if let settings = buildFile.settings {
             dictionary["settings"] = settings.plist()

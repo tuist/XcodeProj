@@ -165,7 +165,7 @@ enum PBXProjError: Error, CustomStringConvertible {
         switch self {
         case let .notFound(path):
             return ".pbxproj not found at path \(path.string)"
-        case .invalidGroupPath(let sourceRoot, let elementPath):
+        case let .invalidGroupPath(sourceRoot, elementPath):
             return "Cannot calculate full path for file element \"\(elementPath ?? "")\" in source root: \"\(sourceRoot)\""
         }
     }

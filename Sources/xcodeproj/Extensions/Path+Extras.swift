@@ -40,7 +40,7 @@ extension Path {
     }
 
     func relative(to path: Path) -> Path {
-        let pathComponents = self.absolute().components
+        let pathComponents = absolute().components
         let baseComponents = path.absolute().components
 
         var commonComponents = 0

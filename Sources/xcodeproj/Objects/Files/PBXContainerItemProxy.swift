@@ -1,6 +1,5 @@
 import Foundation
 
-
 /// This is the element to decorate a target item.
 public final class PBXContainerItemProxy: PBXObject {
     public enum ProxyType: UInt, Decodable {
@@ -10,9 +9,9 @@ public final class PBXContainerItemProxy: PBXObject {
     }
 
     public enum ContainerPortal: Equatable {
-        case project(PBXProject)                /// Project where the proxied object is located in
-        case fileReference(PBXFileReference)    /// File reference to .xcodeproj where the proxied object is located
-        case unknownObject(PBXObject?)          /// This is used only for reading from corrupted projects. Don't use it.
+        case project(PBXProject) /// Project where the proxied object is located in
+        case fileReference(PBXFileReference) /// File reference to .xcodeproj where the proxied object is located
+        case unknownObject(PBXObject?) /// This is used only for reading from corrupted projects. Don't use it.
     }
 
     /// The object is a reference to a PBXProject element if proxy is for the object located in current .xcodeproj, otherwise PBXFileReference.
@@ -117,11 +116,11 @@ private extension PBXContainerItemProxy.ContainerPortal {
 
     var reference: PBXObjectReference? {
         switch self {
-        case .project(let project):
+        case let .project(project):
             return project.reference
-        case .fileReference(let fileReference):
+        case let .fileReference(fileReference):
             return fileReference.reference
-        case .unknownObject(_):
+        case .unknownObject:
             return nil
         }
     }
@@ -129,7 +128,7 @@ private extension PBXContainerItemProxy.ContainerPortal {
     var comment: String {
         let defaultComment = "Project object"
         switch self {
-        case .fileReference(let fileReference):
+        case let .fileReference(fileReference):
             return fileReference.name ?? defaultComment
         default:
             return defaultComment

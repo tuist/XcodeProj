@@ -2,7 +2,7 @@
 import XCTest
 @testable import XcodeProj
 
-class PBXOutputSettingsTsts: XCTestCase {
+class PBXOutputSettingsTests: XCTestCase {
     var proj: PBXProj!
     var buildFileAssets: PBXBuildFile!
     var buildFileMain: PBXBuildFile!
@@ -32,10 +32,10 @@ class PBXOutputSettingsTsts: XCTestCase {
         do {
             proj = try PBXProj(jsonDictionary: dic.1)
         } catch {
-            XCTFail("Failed to load project from file \(error)")
+            XCTFail("Failed to load project from file: \(error)")
         }
 
-        proj.buildFiles.forEach { print("\(type(of: $0.file!)) \($0.file!.fileName()!)") }
+//        proj.buildFiles.forEach { print("\(type(of: $0.file!)) \($0.file!.fileName()!)") }
         buildFileAssets = proj.buildFiles.first { $0.file?.fileName() == "Assets.xcassets" }!
         buildFileMain = proj.buildFiles.first { $0.file?.fileName() == "Main.storyboard" }!
 

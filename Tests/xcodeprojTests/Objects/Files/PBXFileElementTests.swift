@@ -52,9 +52,9 @@ final class PBXFileElementTests: XCTestCase {
                                  name: "/to/be/ignored")
 
         let project = PBXProject(name: "ProjectName",
-                   buildConfigurationList: XCConfigurationList(),
-                   compatibilityVersion: "0",
-                   mainGroup: mainGroup)
+                                 buildConfigurationList: XCConfigurationList(),
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup)
 
         let objects = PBXObjects(objects: [project, mainGroup, fileref, group])
         fileref.reference.objects = objects
@@ -83,8 +83,8 @@ final class PBXFileElementTests: XCTestCase {
         // Remove parent for fallback test
         fileref.parent = nil
 
-        XCTAssertThrowsError(try fileref.fullPath(sourceRoot: sourceRoot)) { (error) in
-            if case PBXProjError.invalidGroupPath(let sourceRoot, let elementPath) = error {
+        XCTAssertThrowsError(try fileref.fullPath(sourceRoot: sourceRoot)) { error in
+            if case let PBXProjError.invalidGroupPath(sourceRoot, elementPath) = error {
                 XCTAssertEqual(sourceRoot, "/")
                 XCTAssertEqual(elementPath, "groupPath")
             } else {
