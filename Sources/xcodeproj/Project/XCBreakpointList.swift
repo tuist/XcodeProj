@@ -371,7 +371,6 @@ public final class XCBreakpointList: Equatable, Writable {
     /// - Parameters:
     ///   - path: breakpoints path.
     public init(path: Path) throws {
-        precondition(path.exists, "breakpoint list doesn't exist")
         let document = try AEXMLDocument(xml: try path.read())
         let bucket = document["Bucket"]
         type = bucket.attributes["type"]

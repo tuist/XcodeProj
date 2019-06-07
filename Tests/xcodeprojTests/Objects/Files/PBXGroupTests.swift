@@ -92,7 +92,7 @@ final class PBXGroupTests: XCTestCase {
         if fileManager.fileExists(atPath: filePath.string) {
             try FileManager.default.removeItem(atPath: filePath.string)
         }
-        let file = group.addFile(at: filePath, sourceRoot: sourceRoot, validatePresence: false)
+        let file = group.addFile(at: filePath, sourceRoot: sourceRoot)
         XCTAssertNotNil(file.parent)
     }
 

@@ -258,8 +258,7 @@ public extension PBXTarget {
     func sourceFiles() -> [PBXFileElement] {
         return sourcesBuildPhase()?.fileReferences?
             .compactMap { $0.materialize() as? PBXBuildFile }
-            .filter { $0.fileReference != nil }
-            .compactMap { $0.fileReference!.materialize() as? PBXFileElement }
+            .compactMap { $0.fileReference?.materialize() as? PBXFileElement }
             ?? []
     }
 

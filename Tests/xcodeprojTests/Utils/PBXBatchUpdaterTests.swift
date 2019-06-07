@@ -4,18 +4,17 @@ import XCTest
 @testable import XcodeProj
 
 class PBXBatchUpdaterTests: XCTestCase {
-    
     var tmpDir: Path!
-    
+
     override func setUp() {
         super.setUp()
         tmpDir = try! Path.uniqueTemporary()
     }
-    
+
     override func tearDown() {
         try! tmpDir.delete()
     }
-    
+
     func test_addFile_useMainProjectGroup() throws {
         // Given: Project is created
         let proj = fillAndCreateProj(
@@ -23,16 +22,16 @@ class PBXBatchUpdaterTests: XCTestCase {
             mainGroupPath: tmpDir.string
         )
         let project = proj.projects.first!
-        
+
         // Given: A file exists
-        let filePath =  tmpDir + "file.swift"
+        let filePath = tmpDir + "file.swift"
         try createFile(at: filePath)
-        
+
         // When
         try proj.batchUpdate(sourceRoot: tmpDir) {
             let file = $0.addFile(to: project, at: filePath)
             let fileFullPath = file.fullPath(sourceRoot: tmpDir)
-            
+
             XCTAssertEqual(fileFullPath, filePath)
         }
 
@@ -183,7 +182,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         proj.add(object: project)
         return proj
     }
-    
+
     private func createFile(at filePath: Path) throws {
         let directoryURL = filePath.url.deletingLastPathComponent()
         try FileManager.default.createDirectory(
