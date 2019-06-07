@@ -85,5 +85,7 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.buildRules.count, 1)
         XCTAssertEqual(proj.objects.versionGroups.count, 1)
         XCTAssertEqual(proj.objects.projects.count, 1)
+        XCTAssertEqual(proj.objects.swiftPackageProductDependencies.count, 2)
+        XCTAssertEqual(proj.objects.remoteSwiftPackageReferences.count, 1)
     }
 }
