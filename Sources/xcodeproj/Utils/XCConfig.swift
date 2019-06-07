@@ -30,7 +30,7 @@ public final class XCConfig {
     /// - Parameter path: path where the .xcconfig file is.
     /// - Parameter projectPath: path where the .xcodeproj is, for resolving project-relative includes.
     public init(path: Path, projectPath: Path? = nil) {
-        precondition(path.exists, "the file doesn't exist")
+        precondition(path.exists, "the xcconfig file doesn't exist")
         let fileLines = try! path.read().components(separatedBy: "\n")
         includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
