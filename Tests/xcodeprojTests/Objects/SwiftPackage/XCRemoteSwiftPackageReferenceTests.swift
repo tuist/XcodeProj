@@ -62,7 +62,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(got, [
             "kind": "exactVersion",
-            "minimumVersion": .string(.init("3.2.1")),
+            "version": .string(.init("3.2.1")),
         ])
     }
 
@@ -116,16 +116,17 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
                                                     versionRules: .exact("1.2.3"))
 
         // Given
-        let got = try subject.plistValues(proj: proj, reference: "ref")
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
 
         // Then
-        XCTAssertEqual(got, [
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCRemoteSwiftPackageReference",
             "repositoryURL": "repository",
             "requirement": .dictionary([
                 "kind": "exactVersion",
-                "minimumVersion": "1.2.3",
+                "version": "1.2.3",
             ]),
-        ])
+        ]))
     }
 
     func test_equal() {

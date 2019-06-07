@@ -29,13 +29,14 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
                                                       package: package)
 
         // When
-        let got = try subject.plistValues(proj: proj, reference: "reference")
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "reference")
 
         // Then
-        XCTAssertEqual(got, [
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCSwiftPackageProductDependency",
             "productName": "product",
             "package": .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\"")),
-        ])
+        ]))
     }
 
     func test_equal() {
