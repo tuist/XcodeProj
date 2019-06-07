@@ -191,6 +191,7 @@ public extension PBXProj {
         )
         try closure(fileBatchUpdater)
     }
+    
 }
 
 // MARK: - Internal helpers

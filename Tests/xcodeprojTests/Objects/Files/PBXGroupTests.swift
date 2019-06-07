@@ -30,8 +30,8 @@ final class PBXGroupTests: XCTestCase {
 
         let filePath = try Path.uniqueTemporary() + "file"
         try Data().write(to: filePath.url)
-        let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot)
-        XCTAssertNotNil(file?.parent)
+        let file = group.addFile(at: filePath, sourceRoot: sourceRoot)
+        XCTAssertNotNil(file.parent)
     }
 
     func test_addGroup_assignParent() {
@@ -92,8 +92,8 @@ final class PBXGroupTests: XCTestCase {
         if fileManager.fileExists(atPath: filePath.string) {
             try FileManager.default.removeItem(atPath: filePath.string)
         }
-        let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot, validatePresence: false)
-        XCTAssertNotNil(file?.parent)
+        let file = group.addFile(at: filePath, sourceRoot: sourceRoot, validatePresence: false)
+        XCTAssertNotNil(file.parent)
     }
 
     private func testDictionary() -> [String: Any] {

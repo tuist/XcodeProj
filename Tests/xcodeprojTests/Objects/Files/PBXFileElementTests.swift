@@ -60,7 +60,7 @@ final class PBXFileElementTests: XCTestCase {
         fileref.reference.objects = objects
         group.reference.objects = objects
 
-        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
+        let fullPath = fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/a/path")
         XCTAssertNotNil(group.children.first?.parent)
     }
@@ -83,14 +83,7 @@ final class PBXFileElementTests: XCTestCase {
         // Remove parent for fallback test
         fileref.parent = nil
 
-        XCTAssertThrowsError(try fileref.fullPath(sourceRoot: sourceRoot)) { error in
-            if case let PBXProjError.invalidGroupPath(sourceRoot, elementPath) = error {
-                XCTAssertEqual(sourceRoot, "/")
-                XCTAssertEqual(elementPath, "groupPath")
-            } else {
-                XCTAssert(false, "fullPath should fails with PBXProjError.invalidGroupPath instaed of: \(error)")
-            }
-        }
+        XCTAssertNil(fileref.fullPath(sourceRoot: sourceRoot))
     }
 
     func test_fullPath_with_nested_groups() throws {
@@ -115,7 +108,7 @@ final class PBXFileElementTests: XCTestCase {
         fileref.reference.objects = objects
         nestedGroup.reference.objects = objects
 
-        let fullPath = try fileref.fullPath(sourceRoot: sourceRoot)
+        let fullPath = fileref.fullPath(sourceRoot: sourceRoot)
         XCTAssertEqual(fullPath?.string, "/group/path/file/path")
     }
 

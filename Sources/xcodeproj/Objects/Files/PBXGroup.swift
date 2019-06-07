@@ -156,22 +156,22 @@ public extension PBXGroup {
         sourceRoot: Path,
         override: Bool = true,
         validatePresence: Bool = true
-    ) throws -> PBXFileReference {
+    ) -> PBXFileReference {
         let projectObjects = objects()
         if validatePresence, !filePath.exists {
             preconditionFailure("the file doesn't exist")
         }
 
-        let groupPath = try fullPath(sourceRoot: sourceRoot)
+        let groupPath = fullPath(sourceRoot: sourceRoot)
 
-        if override, let existingFileReference = try projectObjects.fileReferences.first(where: {
+        if override, let existingFileReference = projectObjects.fileReferences.first(where: {
             // Optimization: compare lastComponent before fullPath compare
             guard let fileRefPath = $0.value.path else {
-                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+                return filePath == $0.value.fullPath(sourceRoot: sourceRoot)
             }
             let fileRefLastPathComponent = fileRefPath.split(separator: "/").last!
             if filePath.lastComponent == fileRefLastPathComponent {
-                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+                return filePath == $0.value.fullPath(sourceRoot: sourceRoot)
             }
             return false
         }) {

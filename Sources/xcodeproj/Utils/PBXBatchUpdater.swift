@@ -27,12 +27,12 @@ public final class PBXBatchUpdater {
         at filePath: Path,
         sourceTree: PBXSourceTree = .group
     )
-        throws -> PBXFileReference {
-        let (group, groupPath) = try groupAndGroupPathForFile(
+        -> PBXFileReference {
+        let (group, groupPath) = groupAndGroupPathForFile(
             at: filePath,
             project: project
         )
-        return try addFile(
+        return addFile(
             to: group,
             groupPath: groupPath,
             filePath: filePath,
@@ -53,10 +53,10 @@ public final class PBXBatchUpdater {
         fileName: String,
         sourceTree: PBXSourceTree = .group
     )
-        throws -> PBXFileReference {
-        let groupPath = try group.fullPath(sourceRoot: sourceRoot)!
+        -> PBXFileReference {
+        let groupPath = group.fullPath(sourceRoot: sourceRoot)!
         let filePath = groupPath + Path(fileName)
-        return try addFile(
+        return addFile(
             to: group,
             groupPath: groupPath,
             filePath: filePath,
@@ -70,8 +70,8 @@ public final class PBXBatchUpdater {
         filePath: Path,
         sourceTree: PBXSourceTree = .group
     )
-        throws -> PBXFileReference {
-        if let existing = try existingFileReference(at: filePath, in: group) {
+        -> PBXFileReference {
+        if let existing = existingFileReference(at: filePath, in: group) {
             return existing
         }
 
@@ -102,8 +102,8 @@ public final class PBXBatchUpdater {
         return fileReference
     }
 
-    private func existingFileReference(at filePath: Path, in group: PBXGroup) throws -> PBXFileReference? {
-        let objectReferences = try lazilyInstantiateObjectReferences()
+    private func existingFileReference(at filePath: Path, in group: PBXGroup) -> PBXFileReference? {
+        let objectReferences = lazilyInstantiateObjectReferences()
         if let existingObjectReference = objectReferences[filePath],
             let existingFileReference = objects.fileReferences[existingObjectReference] {
             if !group.childrenReferences.contains(existingObjectReference) {
@@ -114,9 +114,9 @@ public final class PBXBatchUpdater {
         return nil
     }
 
-    private func groupAndGroupPathForFile(at path: Path, project: PBXProject) throws -> (PBXGroup, Path) {
+    private func groupAndGroupPathForFile(at path: Path, project: PBXProject) -> (PBXGroup, Path) {
         let groupPath = path.parent()
-        if let fileParentGroup = try lazilyInstantiateGroups()[groupPath] {
+        if let fileParentGroup = lazilyInstantiateGroups()[groupPath] {
             return (fileParentGroup, groupPath)
         }
         var components = groupPath.components
@@ -124,11 +124,11 @@ public final class PBXBatchUpdater {
         for componentIndex in (0 ... componentsCount).reversed() {
             let currentPathComponents = components[0 ... componentIndex]
             let currentPath = Path(components: currentPathComponents)
-            if let rootGroup = try lazilyInstantiateGroups()[currentPath] {
+            if let rootGroup = lazilyInstantiateGroups()[currentPath] {
                 let subgroupNames = Array(
                     components[componentIndex + 1 ... componentsCount]
                 )
-                let fileParentGroup = try createChildGroups(
+                let fileParentGroup = createChildGroups(
                     in: rootGroup,
                     groupPath: currentPath,
                     with: subgroupNames
@@ -138,8 +138,8 @@ public final class PBXBatchUpdater {
             }
         }
         let mainGroup = project.mainGroup!
-        let mainGroupFullPath = try mainGroup.fullPath(sourceRoot: sourceRoot)!
-        let fileParentGroup = try createChildGroups(
+        let mainGroupFullPath = mainGroup.fullPath(sourceRoot: sourceRoot)!
+        let fileParentGroup = createChildGroups(
             in: mainGroup,
             groupPath: mainGroupFullPath,
             with: groupPath.components
@@ -154,25 +154,25 @@ public final class PBXBatchUpdater {
         groupPath: Path,
         with names: [String]
     )
-        throws -> PBXGroup {
+        -> PBXGroup {
         var parent = group
         for (index, name) in names.enumerated() {
             let path = groupPath + Path(components: names[0 ... index])
-            parent = try parent.addGroup(named: name).last!
+            parent = parent.addGroup(named: name).last!
             groups?[path] = parent
         }
         return parent
     }
 
     private func lazilyInstantiateObjectReferences()
-        throws -> [Path: PBXObjectReference] {
+        -> [Path: PBXObjectReference] {
         let objectReferences: [Path: PBXObjectReference]
         if let references = self.references {
             objectReferences = references
         } else {
             objectReferences = Dictionary(uniqueKeysWithValues:
-                try objects.fileReferences.compactMap {
-                    let fullPath = try $0.value.fullPath(sourceRoot: sourceRoot)!
+                objects.fileReferences.compactMap {
+                    let fullPath = $0.value.fullPath(sourceRoot: sourceRoot)!
                     return (fullPath, $0.key)
             })
             references = objectReferences
@@ -180,14 +180,14 @@ public final class PBXBatchUpdater {
         return objectReferences
     }
 
-    private func lazilyInstantiateGroups() throws -> [Path: PBXGroup] {
+    private func lazilyInstantiateGroups() -> [Path: PBXGroup] {
         let unwrappedGroups: [Path: PBXGroup]
         if let groups = self.groups {
             unwrappedGroups = groups
         } else {
             unwrappedGroups = Dictionary(uniqueKeysWithValues:
-                try objects.groups.compactMap {
-                    let fullPath = try $0.value.fullPath(sourceRoot: sourceRoot)!
+                objects.groups.compactMap {
+                    guard let fullPath = $0.value.fullPath(sourceRoot: sourceRoot) else { return nil }
                     return (fullPath, $0.value)
             })
             groups = unwrappedGroups

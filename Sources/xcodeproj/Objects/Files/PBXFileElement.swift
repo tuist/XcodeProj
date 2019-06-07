@@ -144,7 +144,7 @@ public extension PBXFileElement {
     /// - Parameter sourceRoot: project source root.
     /// - Returns: file element absolute path.
     /// - Throws: an error if the absolute path cannot be obtained.
-    func fullPath(sourceRoot: Path) throws -> Path? {
+    func fullPath(sourceRoot: Path) -> Path? {
         switch sourceTree {
         case .absolute?:
             return path.flatMap { Path($0) }
@@ -154,7 +154,7 @@ public extension PBXFileElement {
             let groupPath: Path?
 
             if let group = parent {
-                groupPath = try group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
+                groupPath = group.fullPath(sourceRoot: sourceRoot) ?? sourceRoot
             } else {
                 let projectObjects = objects()
                 let isThisElementRoot = projectObjects.projects.values.first(where: { $0.mainGroup == self }) != nil
@@ -165,8 +165,10 @@ public extension PBXFileElement {
                     return sourceRoot
                 }
                 // Fallback if parent is nil and it's not root element
-                guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else { throw PBXProjError.invalidGroupPath(sourceRoot: sourceRoot, elementPath: path) }
-                groupPath = try group.value.fullPath(sourceRoot: sourceRoot)
+                guard let group = projectObjects.groups.first(where: { $0.value.childrenReferences.contains(reference) }) else {
+                    return nil
+                }
+                groupPath = group.value.fullPath(sourceRoot: sourceRoot)
             }
 
             guard let fullGroupPath: Path = groupPath else { return nil }
