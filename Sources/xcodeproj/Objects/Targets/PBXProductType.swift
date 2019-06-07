@@ -14,6 +14,7 @@ public enum PBXProductType: String, Decodable {
     case commandLineTool = "com.apple.product-type.tool"
     case watchApp = "com.apple.product-type.application.watchapp"
     case watch2App = "com.apple.product-type.application.watchapp2"
+    case watch2AppContainer = "com.apple.product-type.application.watchapp2-container"
     case watchExtension = "com.apple.product-type.watchkit-extension"
     case watch2Extension = "com.apple.product-type.watchkit2-extension"
     case tvExtension = "com.apple.product-type.tv-app-extension"
@@ -29,7 +30,7 @@ public enum PBXProductType: String, Decodable {
     /// Returns the file extension for the given product type.
     public var fileExtension: String? {
         switch self {
-        case .application, .watchApp, .watch2App, .messagesApplication:
+        case .application, .watchApp, .watch2App, .watch2AppContainer, .messagesApplication:
             return "app"
         case .framework, .staticFramework:
             return "framework"

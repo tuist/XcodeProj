@@ -10,6 +10,7 @@
 - **Breaking** Change the UUID generation logic to generate ids with a length of 24 https://github.com/tuist/xcodeproj/pull/432 by @pepibumur.
 ### Added
 
+- Added `com.apple.product-type.application.watchapp2-container` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/441 by @leogdion.
 - Add BatchUpdater to quickly add files to the group https://github.com/tuist/xcodeproj/pull/388 by @CognitiveDisson.
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
 - `WorkspaceSettings.autoCreateSchemes` attribute https://github.com/tuist/xcodeproj/pull/399 by @pepibumur
