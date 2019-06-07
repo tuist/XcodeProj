@@ -9,7 +9,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     var packageReference: PBXObjectReference?
 
     /// Package the product dependency refers to.
-    var package: XCRemoteSwiftPackageReference? {
+    public var package: XCRemoteSwiftPackageReference? {
         get {
             return packageReference?.getObject()
         }
@@ -20,7 +20,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
 
     // MARK: - Init
 
-    init(productName: String,
+    public init(productName: String,
          package: XCRemoteSwiftPackageReference? = nil) {
         self.productName = productName
         packageReference = package?.reference
