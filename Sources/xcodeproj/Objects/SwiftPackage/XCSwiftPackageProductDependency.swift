@@ -48,7 +48,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         }
         dictionary["productName"] = .string(.init(productName))
 
-        return (key: CommentedString(reference),
+        return (key: CommentedString(reference, comment: productName),
                 value: .dictionary(dictionary))
     }
 

@@ -64,9 +64,9 @@ final class PBXProjIntegrationTests: XCTestCase {
 
     private func assert(proj: PBXProj) {
         XCTAssertEqual(proj.archiveVersion, 1)
-        XCTAssertEqual(proj.objectVersion, 46)
+        XCTAssertEqual(proj.objectVersion, 52)
         XCTAssertEqual(proj.classes.count, 0)
-        XCTAssertEqual(proj.objects.buildFiles.count, 11)
+        XCTAssertEqual(proj.objects.buildFiles.count, 13)
         XCTAssertEqual(proj.objects.aggregateTargets.count, 0)
         XCTAssertEqual(proj.objects.containerItemProxies.count, 1)
         XCTAssertEqual(proj.objects.copyFilesBuildPhases.count, 1)
@@ -81,7 +81,7 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
         XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
         XCTAssertEqual(proj.objects.nativeTargets.count, 2)
-        XCTAssertEqual(proj.objects.fileReferences.count, 15)
+        XCTAssertEqual(proj.objects.fileReferences.count, 16)
         XCTAssertEqual(proj.objects.buildRules.count, 1)
         XCTAssertEqual(proj.objects.versionGroups.count, 1)
         XCTAssertEqual(proj.objects.projects.count, 1)

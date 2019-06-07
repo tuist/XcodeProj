@@ -20,7 +20,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     func test_writeHeaders() throws {
         let lines = self.lines(fromFile: encodeProject())
-        XCTAssertEqual(529, lines.count)
+        XCTAssertEqual(581, lines.count)
         XCTAssertEqual("// !$*UTF8*$!", lines[0])
     }
 
@@ -40,6 +40,8 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "23766C201EAA3484007A9026 /* LaunchScreen.storyboard in Resources */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2B1EAA3484007A9026 /* iOSTests.swift in Sources */", onLineAfter: line)
         line = lines.validate(lineContaining: "3CD1EADD205763E400DAEECB /* Model.xcdatamodeld in Sources */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1A22AAF48100428760 /* MyLocalPackage in Frameworks */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1C22AAF48100428760 /* RxSwift in Frameworks */", onLineAfter: line)
         lines.validate(line: "/* End PBXBuildFile section */", onLineAfter: line)
     }
 
@@ -58,6 +60,8 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "04D5C0A31F153924008A2F98 /* Public.h in Headers */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C181EAA3484007A9026 /* ViewController.swift in Sources */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2B1EAA3484007A9026 /* iOSTests.swift in Sources */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1A22AAF48100428760 /* MyLocalPackage in Frameworks */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1C22AAF48100428760 /* RxSwift in Frameworks */", onLineAfter: line)
         lines.validate(line: "/* End PBXBuildFile section */", onLineAfter: line)
     }
 
@@ -79,6 +83,7 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "23766C2A1EAA3484007A9026 /* iOSTests.swift */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2C1EAA3484007A9026 /* Info.plist */", onLineAfter: line)
         line = lines.validate(lineContaining: "3CD1EADC205763E400DAEECB /* Model.xcdatamodel */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1822AAF41000428760 /* MyLocalPackage */", onLineAfter: line)
         lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
     }
 
@@ -94,6 +99,7 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "23766C211EAA3484007A9026 /* Info.plist */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2C1EAA3484007A9026 /* Info.plist */", onLineAfter: line)
         line = lines.validate(lineContaining: "3CD1EADC205763E400DAEECB /* Model.xcdatamodel */", onLineAfter: line)
+        line = lines.validate(lineContaining: "42AA1A1822AAF41000428760 /* MyLocalPackage */", onLineAfter: line)
         line = lines.validate(lineContaining: "04D5C0A21F153921008A2F98 /* Private.h */", onLineAfter: line)
         line = lines.validate(lineContaining: "04D5C0A11F15391B008A2F98 /* Protected.h */", onLineAfter: line)
         line = lines.validate(lineContaining: "04D5C0A01F153915008A2F98 /* Public.h */", onLineAfter: line)

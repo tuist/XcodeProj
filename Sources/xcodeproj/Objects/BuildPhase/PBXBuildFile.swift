@@ -84,8 +84,9 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        guard let fileElement: PBXFileElement = fileReference?.getObject() else { return nil }
-        return fileElement.fileName()
+        if let fileElement: PBXFileElement = fileReference?.getObject(), let name = fileElement.fileName() { return name }
+        if let product: XCSwiftPackageProductDependency = productReference?.getObject() { return product.productName }
+        return nil
     }
 
     /// Returns the type of the build phase the build file belongs to.

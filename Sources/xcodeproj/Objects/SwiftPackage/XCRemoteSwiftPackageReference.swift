@@ -156,7 +156,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         if let versionRules = versionRules {
             dictionary["requirement"] = PlistValue.dictionary(versionRules.plistValues())
         }
-        return (key: CommentedString(reference),
+        return (key: CommentedString(reference, comment: "XCRemoteSwiftPackageReference \"\(name ?? "")\""),
                 value: .dictionary(dictionary))
     }
 
