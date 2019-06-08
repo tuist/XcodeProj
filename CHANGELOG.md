@@ -24,7 +24,7 @@
 - **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
 - **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
 - **Breaking** Add support for `RemoteRunnable` https://github.com/tuist/xcodeproj/pull/400 by @pepibumur.
-- Support for Swift Package Manager https://github.com/tuist/xcodeproj/pull/439 by @pepibumur.
+- Support for Swift PM Packages https://github.com/tuist/xcodeproj/pull/439 https://github.com/tuist/xcodeproj/pull/444 by @pepibumur @yonaskolb.
 
 ### Fixed
 
