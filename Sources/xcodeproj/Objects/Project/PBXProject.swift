@@ -170,7 +170,7 @@ public final class PBXProject: PBXObject {
                                 productName: String,
                                 versionRules: XCRemoteSwiftPackageReference.VersionRules,
                                 target: PBXTarget? = nil) -> XCRemoteSwiftPackageReference {
-        let objects = try! self.objects()
+        let objects = self.objects()
 
         // Reference
         let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRules: versionRules)
@@ -187,7 +187,7 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        try? target?.sourcesBuildPhase()?.files?.append(buildFile)
+        target?.sourcesBuildPhase()?.files?.append(buildFile)
 
         return reference
     }

@@ -11,7 +11,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     /// Package the product dependency refers to.
     public var package: XCRemoteSwiftPackageReference? {
         get {
-            return packageReference?.getObject()
+            return packageReference?.materialize()
         }
         set {
             packageReference = newValue?.reference
@@ -40,8 +40,8 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         try super.init(from: decoder)
     }
 
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary = try super.plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(XCSwiftPackageProductDependency.isa))
         if let package = package {
             dictionary["package"] = .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\""))

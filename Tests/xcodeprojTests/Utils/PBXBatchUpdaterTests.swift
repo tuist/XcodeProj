@@ -16,11 +16,8 @@ class PBXBatchUpdaterTests: XCTestCase {
     }
 
     func test_addFile_useMainProjectGroup() throws {
-        // Given: Project is created
-        let proj = fillAndCreateProj(
-            sourceRoot: tmpDir,
-            mainGroupPath: tmpDir.string
-        )
+        // Given: The project is created
+        let proj = fillAndCreateProj(path: tmpDir.string)
         let project = proj.projects.first!
 
         // Given: A file exists
@@ -41,51 +38,48 @@ class PBXBatchUpdaterTests: XCTestCase {
     }
 
     func test_addFile_withSubgroups() {
-        let sourceRoot = Path.temporary
-        let mainGroupPath = UUID().uuidString
-        let proj = fillAndCreateProj(
-            sourceRoot: sourceRoot,
-            mainGroupPath: mainGroupPath
-        )
+        // Given: The project is created
+        let proj = fillAndCreateProj(path: tmpDir.string)
+
         let project = proj.projects.first!
         let subgroupNames = (0 ... 5).map { _ in UUID().uuidString }
         let expectedGroupCount = 1 + subgroupNames.count
-        try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
+
+        try! proj.batchUpdate(sourceRoot: tmpDir) { updater in
+            // When: A file is added
             let fileName = "file.swift"
             let subgroupPath = subgroupNames.joined(separator: "/")
-            let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(subgroupPath)/\(fileName)")
+            let filePath = tmpDir + subgroupPath + fileName
             try createFile(at: filePath)
+
             let file = updater.addFile(to: project, at: filePath)
-            let fileFullPath = file.fullPath(sourceRoot: sourceRoot)
-            XCTAssertEqual(
-                fileFullPath,
-                filePath
-            )
+            let fileFullPath = file.fullPath(sourceRoot: tmpDir)
+
+            // Then: The paths are the same
+            XCTAssertEqual(fileFullPath, filePath)
         }
 
+        // Then
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, expectedGroupCount)
     }
 
     func test_addFile_byFileName() {
-        let sourceRoot = Path.temporary
-        let mainGroupPath = UUID().uuidString
-        let proj = fillAndCreateProj(
-            sourceRoot: sourceRoot,
-            mainGroupPath: mainGroupPath
-        )
+        // Given: The project is created
+        let proj = fillAndCreateProj(path: tmpDir.string)
         let project = proj.projects.first!
         let mainGroup = project.mainGroup!
-        try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
+
+        try! proj.batchUpdate(sourceRoot: tmpDir) { updater in
+            // When: A file is added
             let fileName = "file.swift"
-            let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(fileName)")
+            let filePath = tmpDir + fileName
             try createFile(at: filePath)
             let file = updater.addFile(to: mainGroup, fileName: fileName)
-            let fileFullPath = file.fullPath(sourceRoot: sourceRoot)
-            XCTAssertEqual(
-                fileFullPath,
-                filePath
-            )
+            let fileFullPath = file.fullPath(sourceRoot: tmpDir)
+
+            // Then: The path is right
+            XCTAssertEqual(fileFullPath, filePath)
         }
 
         XCTAssertEqual(proj.fileReferences.count, 2)
@@ -93,93 +87,92 @@ class PBXBatchUpdaterTests: XCTestCase {
     }
 
     func test_addFile_alreadyExisted() {
-        let sourceRoot = Path.temporary
-        let mainGroupPath = UUID().uuidString
-        let proj = fillAndCreateProj(
-            sourceRoot: sourceRoot,
-            mainGroupPath: mainGroupPath
-        )
+        // Given: The project is created
+        let proj = fillAndCreateProj(path: tmpDir.string)
+
         let project = proj.projects.first!
         let mainGroup = project.mainGroup!
-        try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
+        try! proj.batchUpdate(sourceRoot: tmpDir) { updater in
+
+            // When: A file that already exists is added
             let fileName = "file.swift"
-            let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(fileName)")
+            let filePath = tmpDir + fileName
             try createFile(at: filePath)
             let firstFile = updater.addFile(to: project, at: filePath)
             let secondFile = updater.addFile(to: mainGroup, fileName: fileName)
-            let firstFileFullPath = firstFile.fullPath(sourceRoot: sourceRoot)
-            let secondFileFullPath = secondFile.fullPath(sourceRoot: sourceRoot)
-            XCTAssertEqual(
-                firstFileFullPath,
-                filePath
-            )
-            XCTAssertEqual(
-                secondFileFullPath,
-                filePath
-            )
-            XCTAssertEqual(
-                firstFile,
-                secondFile
-            )
+            let firstFileFullPath = firstFile.fullPath(sourceRoot: tmpDir)
+            let secondFileFullPath = secondFile.fullPath(sourceRoot: tmpDir)
+
+            // Then: The paths are right
+            XCTAssertEqual(firstFileFullPath, filePath)
+            XCTAssertEqual(secondFileFullPath, filePath)
+            XCTAssertEqual(firstFile, secondFile)
         }
 
+        // Then: The number of files and groups is right
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, 1)
     }
 
     func test_addFile_alreadyExistedWithSubgroups() {
-        let sourceRoot = Path.temporary
-        let mainGroupPath = UUID().uuidString
-        let proj = fillAndCreateProj(
-            sourceRoot: sourceRoot,
-            mainGroupPath: mainGroupPath
-        )
+        // Given: The project is created
+        let proj = fillAndCreateProj(path: tmpDir.string)
+
         let project = proj.projects.first!
         let subgroupNames = (0 ... 5).map { _ in UUID().uuidString }
         let expectedGroupCount = 1 + subgroupNames.count
-        try! proj.batchUpdate(sourceRoot: sourceRoot) { updater in
+
+        try! proj.batchUpdate(sourceRoot: tmpDir) { updater in
+            // When: Files and groups are added
             let fileName = "file.swift"
             let subgroupPath = subgroupNames.joined(separator: "/")
-            let filePath = Path("\(sourceRoot.string)\(mainGroupPath)/\(subgroupPath)/\(fileName)")
+            let filePath = tmpDir + subgroupPath + fileName
             try createFile(at: filePath)
             let firstFile = updater.addFile(to: project, at: filePath)
             let parentGroup = proj.groups.first(where: { $0.path == subgroupNames.last! })!
             let secondFile = updater.addFile(to: parentGroup, fileName: fileName)
-            let firstFileFullPath = firstFile.fullPath(sourceRoot: sourceRoot)
-            let secondFileFullPath = secondFile.fullPath(sourceRoot: sourceRoot)
-            XCTAssertEqual(
-                firstFileFullPath,
-                filePath
-            )
-            XCTAssertEqual(
-                secondFileFullPath,
-                filePath
-            )
-            XCTAssertEqual(
-                firstFile,
-                secondFile
-            )
+            let firstFileFullPath = firstFile.fullPath(sourceRoot: tmpDir)
+            let secondFileFullPath = secondFile.fullPath(sourceRoot: tmpDir)
+
+            // Then: The paths have the right value
+            XCTAssertEqual(firstFileFullPath, filePath)
+            XCTAssertEqual(secondFileFullPath, filePath)
+            XCTAssertEqual(firstFile, secondFile)
         }
 
+        // Then: The number of files and groups is the expected
         XCTAssertEqual(proj.fileReferences.count, 2)
         XCTAssertEqual(proj.groups.count, expectedGroupCount)
     }
 
-    private func fillAndCreateProj(sourceRoot _: Path, mainGroupPath: String) -> PBXProj {
-        let proj = PBXProj.fixture()
+    private func fillAndCreateProj(path: String) -> PBXProj {
+        // Proj
+        let proj = PBXProj()
+
+        // Group
+        let mainGroup = PBXGroup()
+        mainGroup.sourceTree = .absolute
+        mainGroup.path = path
+        proj.add(object: mainGroup)
+
+        // Configuration
+        let configurationList = XCConfigurationList(buildConfigurations: [], defaultConfigurationName: nil, defaultConfigurationIsVisible: true)
+        proj.add(object: configurationList)
+
+        // Project
+        let project = PBXProject(name: "test", buildConfigurationList: configurationList, compatibilityVersion: "1", mainGroup: mainGroup)
+        proj.add(object: project)
+        proj.rootObject = project
+
+        // File
         let fileref = PBXFileReference(sourceTree: .group,
                                        fileEncoding: 1,
                                        explicitFileType: "sourcecode.swift",
                                        lastKnownFileType: nil,
                                        path: "path")
         proj.add(object: fileref)
-        let group = PBXGroup(children: [fileref],
-                             sourceTree: .group,
-                             name: "group",
-                             path: mainGroupPath)
-        proj.add(object: group)
-        let project = PBXProject.fixture(mainGroup: group)
-        proj.add(object: project)
+        mainGroup.children.append(fileref)
+
         return proj
     }
 

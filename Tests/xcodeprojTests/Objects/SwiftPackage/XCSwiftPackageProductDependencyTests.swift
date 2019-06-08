@@ -29,7 +29,7 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
                                                       package: package)
 
         // When
-        let got = try subject.plistKeyAndValue(proj: proj, reference: "reference")
+        let got = subject.plistKeyAndValue(proj: proj, reference: "reference")
 
         // Then
         XCTAssertEqual(got.value, .dictionary([

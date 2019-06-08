@@ -23,7 +23,7 @@ public final class PBXBuildFile: PBXObject {
     /// Product.
     public var product: XCSwiftPackageProductDependency? {
         get {
-            return productReference?.getObject()
+            return productReference?.materialize()
         }
         set {
             productReference = newValue?.reference

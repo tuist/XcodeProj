@@ -22,11 +22,10 @@ public final class XcodeProj: Equatable {
         var sharedData: XCSharedData?
 
         try OSLogger.instance.log(name: "Write workspace", path.string) {
-            if !path.exists { throw XCodeProjError.notFound(path: path) }
+            precondition(path.exists, "can't open a project that doesn't exist at path \(path)")
             let pbxprojPaths = path.glob("*.pbxproj")
-            if pbxprojPaths.isEmpty {
-                throw XCodeProjError.pbxprojNotFound(path: path)
-            }
+            precondition(!pbxprojPaths.isEmpty, "the project at path \(path) doesn't have a project.pbxproj file")
+
             let pbxprojPath = pbxprojPaths.first!
             let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
             let context = ProjectDecodingContext(

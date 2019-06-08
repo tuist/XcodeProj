@@ -2,6 +2,20 @@ import AEXML
 import Foundation
 import PathKit
 
+/// XCBreakpointList error.
+///
+/// - missing: returned when there's a property missing in the Breakpoints_v2.xcbkptlist.
+public enum XCBreakpointListError: Error, CustomStringConvertible {
+    case missing(property: String)
+
+    public var description: String {
+        switch self {
+        case let .missing(property):
+            return "Property \(property) missing"
+        }
+    }
+}
+
 // swiftlint:disable:next type_body_length
 public final class XCBreakpointList: Equatable, Writable {
     // MARK: - Breakpoint Proxy

@@ -116,7 +116,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
                                                     versionRules: .exact("1.2.3"))
 
         // Given
-        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+        let got = subject.plistKeyAndValue(proj: proj, reference: "ref")
 
         // Then
         XCTAssertEqual(got.value, .dictionary([

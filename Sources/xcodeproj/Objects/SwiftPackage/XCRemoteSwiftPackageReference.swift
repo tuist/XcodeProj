@@ -147,8 +147,8 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         return repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
     }
 
-    func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary = try super.plistValues(proj: proj, reference: reference)
+    func plistKeyAndValue(proj: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
+        var dictionary = super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(XCRemoteSwiftPackageReference.isa))
         if let repositoryURL = repositoryURL {
             dictionary["repositoryURL"] = .string(.init(repositoryURL))
