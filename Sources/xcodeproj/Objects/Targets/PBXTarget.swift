@@ -74,15 +74,15 @@ public class PBXTarget: PBXContainerItem {
     }
 
     /// Swift package product references.
-    var packageProductDependencyReferences: [PBXObjectReference]?
+    var packageProductDependencyReferences: [PBXObjectReference]
 
     /// Swift packages products.
-    var packageProductDependencies: [XCSwiftPackageProductDependency]? {
+    public var packageProductDependencies: [XCSwiftPackageProductDependency] {
         set {
-            packageProductDependencyReferences = newValue?.map { $0.reference }
+            packageProductDependencyReferences = newValue.references()
         }
         get {
-            return packageProductDependencyReferences?.objects()
+            return packageProductDependencyReferences.objects()
         }
     }
 
@@ -105,6 +105,7 @@ public class PBXTarget: PBXContainerItem {
                 buildPhases: [PBXBuildPhase] = [],
                 buildRules: [PBXBuildRule] = [],
                 dependencies: [PBXTargetDependency] = [],
+                packageProductDependencies: [XCSwiftPackageProductDependency] = [],
                 productName: String? = nil,
                 product: PBXFileReference? = nil,
                 productType: PBXProductType? = nil) {
@@ -112,6 +113,7 @@ public class PBXTarget: PBXContainerItem {
         buildPhaseReferences = buildPhases.references()
         buildRuleReferences = buildRules.references()
         dependencyReferences = dependencies.references()
+        self.packageProductDependencyReferences = packageProductDependencies.references()
         self.name = name
         self.productName = productName
         productReference = product?.reference
@@ -157,8 +159,8 @@ public class PBXTarget: PBXContainerItem {
             productReference = nil
         }
 
-        let packageProductDependencyReferenceStrings: [String]? = try container.decodeIfPresent(.packageProductDependencies)
-        packageProductDependencyReferences = packageProductDependencyReferenceStrings?.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
+        let packageProductDependencyReferenceStrings: [String] = try container.decodeIfPresent(.packageProductDependencies) ?? []
+        packageProductDependencyReferences = packageProductDependencyReferenceStrings.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
 
         productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
@@ -195,7 +197,7 @@ public class PBXTarget: PBXContainerItem {
             let fileElement: PBXFileElement? = productReference.getObject()
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
-        if let packageProductDependencies = packageProductDependencies {
+        if !packageProductDependencies.isEmpty {
             dictionary["packageProductDependencies"] = .array(packageProductDependencies.map {
                 PlistValue.string(.init($0.reference.value, comment: $0.productName))
             })

@@ -180,8 +180,7 @@ public final class PBXProject: PBXObject {
         // Product
         let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
         objects.add(object: productDependency)
-        if target?.packageProductDependencies == nil { target?.packageProductDependencies = [] }
-        target?.packageProductDependencies?.append(productDependency)
+        target?.packageProductDependencies.append(productDependency)
 
         // Build file
         let buildFile = PBXBuildFile(product: productDependency)

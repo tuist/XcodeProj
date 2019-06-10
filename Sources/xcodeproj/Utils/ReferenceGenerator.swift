@@ -91,7 +91,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             identifiers.append(target.name)
 
             // Packages
-            target.packageProductDependencies?.forEach {
+            target.packageProductDependencies.forEach {
                 var identifiers = identifiers
                 identifiers.append($0.productName)
                 fixReference(for: $0, identifiers: identifiers)
