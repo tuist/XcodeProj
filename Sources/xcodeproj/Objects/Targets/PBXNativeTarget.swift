@@ -83,7 +83,7 @@ public extension PBXNativeTarget {
             return nil
         }
         let proxy = PBXContainerItemProxy(containerPortal: .project(project),
-                                          remoteGlobalIDString: target.uuid,
+                                          remoteGlobalID: .object(target),
                                           proxyType: .nativeTarget,
                                           remoteInfo: target.name)
         objects.add(object: proxy)

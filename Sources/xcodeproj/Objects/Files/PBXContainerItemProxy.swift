@@ -14,6 +14,49 @@ public final class PBXContainerItemProxy: PBXObject {
         case unknownObject(PBXObject?) /// This is used only for reading from corrupted projects. Don't use it.
     }
 
+    enum RemoteGlobalIDReference: Equatable {
+        case reference(PBXObjectReference)
+        case string(String)
+
+        var uuid: String {
+            switch self {
+            case .reference(let reference): return reference.value
+            case .string(let string): return string
+            }
+        }
+
+        var id: RemoteGlobalID {
+            switch self {
+            case .reference(let reference):
+                if let object = reference.getObject() {
+                    return .object(object)
+                } else {
+                    return .string(reference.value)
+                }
+            case .string(let string): return .string(string)
+            }
+        }
+    }
+
+    public enum RemoteGlobalID: Equatable {
+        case object(PBXObject)
+        case string(String)
+
+        var uuid: String {
+            switch self {
+            case .object(let object): return object.uuid
+            case .string(let string): return string
+            }
+        }
+
+        var reference: RemoteGlobalIDReference {
+            switch self {
+            case .object(let object): return .reference(object.reference)
+            case .string(let string): return .string(string)
+            }
+        }
+    }
+
     /// The object is a reference to a PBXProject element if proxy is for the object located in current .xcodeproj, otherwise PBXFileReference.
     var containerPortalReference: PBXObjectReference
 
@@ -32,7 +75,16 @@ public final class PBXContainerItemProxy: PBXObject {
     public var proxyType: ProxyType?
 
     /// Element remote global ID reference. ID of the proxied object.
-    public var remoteGlobalIDString: String?
+    public var remoteGlobalID: RemoteGlobalID? {
+        get {
+            return remoteGlobalIDReference?.id
+        } set {
+            remoteGlobalIDReference = newValue?.reference
+        }
+    }
+
+    /// Element remote global ID reference. ID of the proxied object.
+    var remoteGlobalIDReference: RemoteGlobalIDReference?
 
     /// Element remote info.
     public var remoteInfo: String?
@@ -42,16 +94,16 @@ public final class PBXContainerItemProxy: PBXObject {
     ///
     /// - Parameters:
     ///   - containerPortal: container portal. For proxied object located in the same .xcodeproj use .project. For remote object use .fileReference with PBXFileRefence of remote .xcodeproj
-    ///   - remoteGlobalIDString: ID of the proxied object. Can be ID from remote .xcodeproj referenced if containerPortal is .fileReference
+    ///   - remoteGlobalID: ID of the proxied object. Can be ID from remote .xcodeproj referenced if containerPortal is .fileReference
     ///   - proxyType: proxy type.
     ///   - remoteInfo: remote info.
     public init(containerPortal: ContainerPortal,
-                remoteGlobalIDString: String? = nil,
+                remoteGlobalID: RemoteGlobalID? = nil,
                 proxyType: ProxyType? = nil,
                 remoteInfo: String? = nil) {
         guard let containerPortalReference = containerPortal.reference else { fatalError("Container portal is mandatory field that has to be set to a known value instead of: \(containerPortal)") }
         self.containerPortalReference = containerPortalReference
-        self.remoteGlobalIDString = remoteGlobalIDString
+        self.remoteGlobalIDReference = remoteGlobalID?.reference
         self.remoteInfo = remoteInfo
         self.proxyType = proxyType
         super.init()
@@ -75,7 +127,11 @@ public final class PBXContainerItemProxy: PBXObject {
                                                                          objects: objects)
 
         proxyType = try container.decodeIntIfPresent(.proxyType).flatMap(ProxyType.init)
-        remoteGlobalIDString = try container.decodeIfPresent(.remoteGlobalIDString)
+        if let remoteGlobalIDString: String = try container.decodeIfPresent(.remoteGlobalIDString) {
+            let remoteGlobalReference = objectReferenceRepository.getOrCreate(reference: remoteGlobalIDString,
+                                                                            objects: objects)
+            remoteGlobalIDReference = .reference(remoteGlobalReference)
+        }
         remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }
@@ -91,8 +147,8 @@ extension PBXContainerItemProxy: PlistSerializable {
         if let proxyType = proxyType {
             dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
         }
-        if let remoteGlobalIDString = remoteGlobalIDString {
-            dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalIDString))
+        if let remoteGlobalID = remoteGlobalID {
+            dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalID.uuid))
         }
         if let remoteInfo = remoteInfo {
             dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
