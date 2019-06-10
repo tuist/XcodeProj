@@ -54,7 +54,7 @@ final class PBXNativeTargetTests: XCTestCase {
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
         let containerItemProxy: PBXContainerItemProxy? = targetDependency?.targetProxyReference?.getObject()
         XCTAssertEqual(containerItemProxy?.containerPortalReference, project.reference)
-        XCTAssertEqual(containerItemProxy?.remoteGlobalIDString, dependency.reference.value)
+        XCTAssertEqual(containerItemProxy?.remoteGlobalID?.uuid, dependency.reference.value)
         XCTAssertEqual(containerItemProxy?.proxyType, .nativeTarget)
         XCTAssertEqual(containerItemProxy?.remoteInfo, "Dependency")
     }
