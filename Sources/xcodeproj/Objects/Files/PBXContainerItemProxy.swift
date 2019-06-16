@@ -28,7 +28,7 @@ public final class PBXContainerItemProxy: PBXObject {
         var id: RemoteGlobalID {
             switch self {
             case .reference(let reference):
-                if let object = reference.getObject() {
+                if let object = reference.materialize() {
                     return .object(object)
                 } else {
                     return .string(reference.value)
