@@ -1,7 +1,7 @@
 .DS_Store
 /.build
 /Packages
-
+.swiftpm
 # Created by https://www.gitignore.io/api/macos,swift,xcode,appcode,swiftpm
 
 ### AppCode ###

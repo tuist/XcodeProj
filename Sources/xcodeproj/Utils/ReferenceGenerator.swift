@@ -77,7 +77,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: project, identifiers: identifiers)
 
         // Packages
-        project.packages?.forEach {
+        project.packages.forEach {
             var identifiers = identifiers
             identifiers.append($0.repositoryURL ?? $0.name ?? "")
             fixReference(for: $0, identifiers: identifiers)
@@ -91,7 +91,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             identifiers.append(target.name)
 
             // Packages
-            target.packageProductDependencies?.forEach {
+            target.packageProductDependencies.forEach {
                 var identifiers = identifiers
                 identifiers.append($0.productName)
                 fixReference(for: $0, identifiers: identifiers)

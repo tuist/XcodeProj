@@ -111,17 +111,17 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     }
 
     /// Repository url.
-    var repositoryURL: String?
+    public var repositoryURL: String?
 
     /// Version rules.
-    var versionRules: VersionRules?
+    public var versionRules: VersionRules?
 
     /// Initializes the remote swift package reference with its attributes.
     ///
     /// - Parameters:
     ///   - repositoryURL: Package repository url.
     ///   - versionRules: Package version rules.
-    init(repositoryURL: String,
+    public init(repositoryURL: String,
          versionRules: VersionRules? = nil) {
         self.repositoryURL = repositoryURL
         self.versionRules = versionRules
@@ -143,7 +143,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     }
 
     /// It returns the name of the package reference.
-    var name: String? {
+    public var name: String? {
         return repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
     }
 
