@@ -125,7 +125,7 @@ public final class PBXProject: PBXObject {
     }
 
     /// Package references.
-    var packageReferences: [PBXObjectReference]
+    var packageReferences: [PBXObjectReference]?
 
     /// Swift packages.
     public var packages: [XCRemoteSwiftPackageReference] {
@@ -133,7 +133,7 @@ public final class PBXProject: PBXObject {
             packageReferences = newValue.references()
         }
         get {
-            return packageReferences.objects()
+            return packageReferences?.objects() ?? []
         }
     }
 
