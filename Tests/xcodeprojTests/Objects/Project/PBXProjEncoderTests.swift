@@ -298,7 +298,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     // MARK: - Test internals
 
-    private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line _: UInt = #line) -> String {
+    private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings()) -> String {
         return PBXProjEncoder(outputSettings: settings).encode(proj: proj)
     }
 
