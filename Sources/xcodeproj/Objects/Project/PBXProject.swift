@@ -168,12 +168,12 @@ public final class PBXProject: PBXObject {
 
     public func addSwiftPackage(repositoryURL: String,
                                 productName: String,
-                                versionRules: XCRemoteSwiftPackageReference.VersionRules,
+                                versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement,
                                 target: PBXTarget? = nil) -> XCRemoteSwiftPackageReference {
         let objects = try! self.objects()
 
         // Reference
-        let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRules: versionRules)
+        let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
         objects.add(object: reference)
         packages.append(reference)
 

@@ -10,7 +10,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     /// - exact: The package version needs to be the given version.
     /// - branch: To use a specific branch of the git repository.
     /// - revision: To use an specific revision of the git repository.
-    public enum VersionRules: Decodable, Equatable {
+    public enum VersionRequirement: Decodable, Equatable {
         case upToNextMajorVersion(String)
         case upToNextMinorVersion(String)
         case range(from: String, to: String)
@@ -89,42 +89,23 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
                 ]
             }
         }
-
-        public static func == (lhs: VersionRules, rhs: VersionRules) -> Bool {
-            switch (lhs, rhs) {
-            case let (.revision(lhsRevision), .revision(rhsRevision)):
-                return lhsRevision == rhsRevision
-            case let (.branch(lhsBranch), .branch(rhsBranch)):
-                return lhsBranch == rhsBranch
-            case let (.exact(lhsVersion), .exact(rhsVersion)):
-                return lhsVersion == rhsVersion
-            case let (.range(lhsFrom, lhsTo), .range(rhsFrom, rhsTo)):
-                return lhsFrom == rhsFrom && lhsTo == rhsTo
-            case let (.upToNextMinorVersion(lhsVersion), .upToNextMinorVersion(rhsVersion)):
-                return lhsVersion == rhsVersion
-            case let (.upToNextMajorVersion(lhsVersion), .upToNextMajorVersion(rhsVersion)):
-                return lhsVersion == rhsVersion
-            default:
-                return false
-            }
-        }
     }
 
     /// Repository url.
     public var repositoryURL: String?
 
     /// Version rules.
-    public var versionRules: VersionRules?
+    public var versionRequirement: VersionRequirement?
 
     /// Initializes the remote swift package reference with its attributes.
     ///
     /// - Parameters:
     ///   - repositoryURL: Package repository url.
-    ///   - versionRules: Package version rules.
+    ///   - versionRequirement: Package version rules.
     public init(repositoryURL: String,
-         versionRules: VersionRules? = nil) {
+         versionRequirement: VersionRequirement? = nil) {
         self.repositoryURL = repositoryURL
-        self.versionRules = versionRules
+        self.versionRequirement = versionRequirement
         super.init()
     }
 
@@ -137,7 +118,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         repositoryURL = try container.decodeIfPresent(String.self, forKey: .repositoryURL)
-        versionRules = try container.decodeIfPresent(VersionRules.self, forKey: .requirement)
+        versionRequirement = try container.decodeIfPresent(VersionRequirement.self, forKey: .requirement)
 
         try super.init(from: decoder)
     }
@@ -153,8 +134,8 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         if let repositoryURL = repositoryURL {
             dictionary["repositoryURL"] = .string(.init(repositoryURL))
         }
-        if let versionRules = versionRules {
-            dictionary["requirement"] = PlistValue.dictionary(versionRules.plistValues())
+        if let versionRequirement = versionRequirement {
+            dictionary["requirement"] = PlistValue.dictionary(versionRequirement.plistValues())
         }
         return (key: CommentedString(reference, comment: "XCRemoteSwiftPackageReference \"\(name ?? "")\""),
                 value: .dictionary(dictionary))
@@ -165,7 +146,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     @objc public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCRemoteSwiftPackageReference else { return false }
         if repositoryURL != rhs.repositoryURL { return false }
-        if versionRules != rhs.versionRules { return false }
+        if versionRequirement != rhs.versionRequirement { return false }
         return super.isEqual(to: rhs)
     }
 }

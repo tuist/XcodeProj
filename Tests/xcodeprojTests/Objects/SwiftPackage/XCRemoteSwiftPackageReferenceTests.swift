@@ -21,12 +21,12 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(got.reference.value, "ref")
         XCTAssertEqual(got.repositoryURL, "url")
-        XCTAssertEqual(got.versionRules, XCRemoteSwiftPackageReference.VersionRules.revision("abc"))
+        XCTAssertEqual(got.versionRequirement, XCRemoteSwiftPackageReference.VersionRequirement.revision("abc"))
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_revision() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_revision() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.revision("sha")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.revision("sha")
 
         // Given
         let got = subject.plistValues()
@@ -38,9 +38,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         ])
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_branch() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_branch() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.branch("master")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.branch("master")
 
         // Given
         let got = subject.plistValues()
@@ -52,9 +52,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         ])
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_exact() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_exact() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.exact("3.2.1")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.exact("3.2.1")
 
         // Given
         let got = subject.plistValues()
@@ -66,9 +66,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         ])
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_upToNextMajorVersion() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_upToNextMajorVersion() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.upToNextMajorVersion("3.2.1")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.upToNextMajorVersion("3.2.1")
 
         // Given
         let got = subject.plistValues()
@@ -80,9 +80,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         ])
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_range() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_range() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.range(from: "3.2.1", to: "4.0.0")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.range(from: "3.2.1", to: "4.0.0")
 
         // Given
         let got = subject.plistValues()
@@ -95,9 +95,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         ])
     }
 
-    func test_versionRules_returnsTheRightPlistValues_when_upToNextMinorVersion() throws {
+    func test_versionRequirement_returnsTheRightPlistValues_when_upToNextMinorVersion() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRules.upToNextMinorVersion("3.2.1")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.upToNextMinorVersion("3.2.1")
 
         // Given
         let got = subject.plistValues()
@@ -113,7 +113,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         // When
         let proj = PBXProj()
         let subject = XCRemoteSwiftPackageReference(repositoryURL: "repository",
-                                                    versionRules: .exact("1.2.3"))
+                                                    versionRequirement: .exact("1.2.3"))
 
         // Given
         let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
@@ -132,9 +132,9 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
     func test_equal() {
         // When
         let first = XCRemoteSwiftPackageReference(repositoryURL: "repository",
-                                                  versionRules: .exact("1.2.3"))
+                                                  versionRequirement: .exact("1.2.3"))
         let second = XCRemoteSwiftPackageReference(repositoryURL: "repository",
-                                                   versionRules: .exact("1.2.3"))
+                                                   versionRequirement: .exact("1.2.3"))
 
         // Then
         XCTAssertEqual(first, second)
@@ -142,7 +142,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
 
     func test_name() {
         // When
-        let subject = XCRemoteSwiftPackageReference(repositoryURL: "https://github.com/tuist/xcodeproj", versionRules: nil)
+        let subject = XCRemoteSwiftPackageReference(repositoryURL: "https://github.com/tuist/xcodeproj", versionRequirement: nil)
 
         // Then
         XCTAssertEqual(subject.name, "xcodeproj")
