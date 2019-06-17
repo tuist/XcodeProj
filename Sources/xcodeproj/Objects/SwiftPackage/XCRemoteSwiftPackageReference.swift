@@ -89,42 +89,23 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
                 ]
             }
         }
-
-        public static func == (lhs: VersionRules, rhs: VersionRules) -> Bool {
-            switch (lhs, rhs) {
-            case let (.revision(lhsRevision), .revision(rhsRevision)):
-                return lhsRevision == rhsRevision
-            case let (.branch(lhsBranch), .branch(rhsBranch)):
-                return lhsBranch == rhsBranch
-            case let (.exact(lhsVersion), .exact(rhsVersion)):
-                return lhsVersion == rhsVersion
-            case let (.range(lhsFrom, lhsTo), .range(rhsFrom, rhsTo)):
-                return lhsFrom == rhsFrom && lhsTo == rhsTo
-            case let (.upToNextMinorVersion(lhsVersion), .upToNextMinorVersion(rhsVersion)):
-                return lhsVersion == rhsVersion
-            case let (.upToNextMajorVersion(lhsVersion), .upToNextMajorVersion(rhsVersion)):
-                return lhsVersion == rhsVersion
-            default:
-                return false
-            }
-        }
     }
 
     /// Repository url.
     public var repositoryURL: String?
 
     /// Version rules.
-    public var versionRules: VersionRules?
+    public var versionRequirement: VersionRequirement?
 
     /// Initializes the remote swift package reference with its attributes.
     ///
     /// - Parameters:
     ///   - repositoryURL: Package repository url.
-    ///   - versionRules: Package version rules.
+    ///   - versionRequirement: Package version rules.
     public init(repositoryURL: String,
-         versionRules: VersionRules? = nil) {
+         versionRequirement: VersionRequirement? = nil) {
         self.repositoryURL = repositoryURL
-        self.versionRules = versionRules
+        self.versionRequirement = versionRequirement
         super.init()
     }
 
