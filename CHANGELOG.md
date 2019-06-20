@@ -32,7 +32,7 @@
 - Relative path is wrong when referencing file outside of project folder https://github.com/tuist/xcodeproj/issues/423 by @damirdavletov
 - [crash] Fatal error: Duplicate values for key https://github.com/tuist/xcodeproj/issues/426 by @toshi0383
 - Change PBXContainerItemProxy.remoteGlobalID attribute to support object references https://github.com/tuist/xcodeproj/pull/445 by @yonaskolb
-
+- Dead lock in the `PBXObjects.delete` method https://github.com/tuist/xcodeproj/pull/449 by @pepibumur
 ## 6.7.0
 
 ### Changed
