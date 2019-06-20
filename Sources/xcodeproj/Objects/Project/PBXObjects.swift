@@ -225,6 +225,7 @@ class PBXObjects: Equatable {
     // swiftlint:disable:next function_body_length Note: SwiftLint doesn't disable if @discardable and the function are on different lines.
     @discardableResult func delete(reference: PBXObjectReference) -> PBXObject? {
         lock.lock()
+        defer { lock.unlock() }
         if let index = buildFiles.index(forKey: reference) {
             return _buildFiles.remove(at: index).value
         } else if let index = aggregateTargets.index(forKey: reference) {
@@ -274,7 +275,6 @@ class PBXObjects: Equatable {
         } else if let index = swiftPackageProductDependencies.index(forKey: reference) {
             return _swiftPackageProductDependencies.remove(at: index).value
         }
-        lock.unlock()
         return nil
     }
 
