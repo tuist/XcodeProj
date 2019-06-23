@@ -21,7 +21,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     // MARK: - Init
 
     public init(productName: String,
-         package: XCRemoteSwiftPackageReference? = nil) {
+                package: XCRemoteSwiftPackageReference? = nil) {
         self.productName = productName
         packageReference = package?.reference
         super.init()

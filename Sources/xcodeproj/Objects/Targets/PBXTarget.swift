@@ -113,7 +113,7 @@ public class PBXTarget: PBXContainerItem {
         buildPhaseReferences = buildPhases.references()
         buildRuleReferences = buildRules.references()
         dependencyReferences = dependencies.references()
-        self.packageProductDependencyReferences = packageProductDependencies.references()
+        packageProductDependencyReferences = packageProductDependencies.references()
         self.name = name
         self.productName = productName
         productReference = product?.reference
