@@ -4,13 +4,9 @@ import XCTest
 @testable import XcodeProj
 
 final class XCSchemeIntegrationTests: XCTestCase {
-    func test_read_iosScheme() {
-        let subject = try? XCScheme(path: iosSchemePath)
-
-        XCTAssertNotNil(subject)
-        if let subject = subject {
-            assert(scheme: subject)
-        }
+    func test_read_iosScheme() throws {
+        let subject = try XCScheme(path: iosSchemePath)
+        assert(scheme: subject)
     }
 
     func test_write_iosScheme() {
@@ -76,7 +72,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
-        XCTAssertEqual(scheme.version, "1.7")
+        XCTAssertEqual(scheme.version, "2.0")
         XCTAssertEqual(scheme.lastUpgradeVersion, "0830")
         // Build action
         XCTAssertTrue(scheme.buildAction?.parallelizeBuild == true)
@@ -182,7 +178,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
         XCTAssertEqual(scheme.launchAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
         XCTAssertEqual(scheme.launchAction?.selectedLauncherIdentifier, "Xcode.DebuggerFoundation.Launcher.LLDB")
-        XCTAssertEqual(scheme.launchAction?.launchStyle, .auto)
+        XCTAssertEqual(scheme.launchAction?.launchStyle, .custom)
         XCTAssertEqual(scheme.launchAction?.useCustomWorkingDirectory, false)
         XCTAssertEqual(scheme.launchAction?.ignoresPersistentStateOnLaunch, false)
         XCTAssertEqual(scheme.launchAction?.debugDocumentVersioning, true)

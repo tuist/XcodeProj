@@ -8,6 +8,7 @@ extension XCScheme {
         public enum Style: String {
             case auto = "0"
             case wait = "1"
+            case custom = "2"
         }
 
         public enum GPUFrameCaptureMode: String {
@@ -61,6 +62,8 @@ extension XCScheme {
         public var language: String?
         public var region: String?
         public var launchAutomaticallySubstyle: String?
+        // To enable the option in Xcode: defaults write com.apple.dt.Xcode IDEDebuggerFeatureSetting 12
+        public var customLaunchCommand: String?
 
         // MARK: - Init
 
@@ -93,7 +96,8 @@ extension XCScheme {
                     environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
                     region: String? = nil,
-                    launchAutomaticallySubstyle: String? = nil) {
+                    launchAutomaticallySubstyle: String? = nil,
+                    customLaunchCommand: String? = nil) {
             self.runnable = runnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
@@ -122,6 +126,7 @@ extension XCScheme {
             self.language = language
             self.region = region
             self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
+            self.customLaunchCommand = customLaunchCommand
             super.init(preActions, postActions)
         }
 
@@ -187,6 +192,8 @@ extension XCScheme {
             language = element.attributes["language"]
             region = element.attributes["region"]
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
+            customLaunchCommand = element.attributes["customLaunchCommand"]
+            
             try super.init(element: element)
         }
 
@@ -275,6 +282,10 @@ extension XCScheme {
             if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
+            
+            if let customLaunchCommand = customLaunchCommand {
+                element.attributes["customLaunchCommand"] = customLaunchCommand
+            }
 
             let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
             additionalOptions.forEach { additionalOption in
@@ -315,7 +326,8 @@ extension XCScheme {
                 environmentVariables == rhs.environmentVariables &&
                 language == rhs.language &&
                 region == rhs.region &&
-                launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle
+                launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle &&
+                customLaunchCommand == rhs.customLaunchCommand
         }
     }
 }

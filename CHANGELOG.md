@@ -25,6 +25,7 @@
 - **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
 - **Breaking** Add support for `RemoteRunnable` https://github.com/tuist/xcodeproj/pull/400 by @pepibumur.
 - Support for Swift PM Packages https://github.com/tuist/xcodeproj/pull/439 https://github.com/tuist/xcodeproj/pull/444 by @pepibumur @yonaskolb.
+- `LaunchAction.customLaunchCommand` attribute https://github.com/tuist/xcodeproj/pull/451 by @pepibumur.
 
 ### Fixed
 
