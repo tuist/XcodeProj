@@ -44,19 +44,32 @@ final class XCBuildConfigurationTests: XCTestCase {
         XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? String, "flag1 flag2")
     }
 
-    func test_append_removesDuplicates() {
+    func test_append_removesDuplicates_when_theSettingIsAnArray() {
         // Given
         let subject = XCBuildConfiguration(name: "Debug",
                                            baseConfiguration: nil,
                                            buildSettings: [
-                                               "PRODUCT_NAME": "$(TARGET_NAME:c99extidentifier)",
-                                           ])
-
+                                            "OTHER_LDFLAGS": ["flag1", "flag2"],
+            ])
+        
         // When
-        subject.append(setting: "PRODUCT_NAME", value: "$(TARGET_NAME:c99extidentifier)")
-
+        subject.append(setting: "OTHER_LDFLAGS", value: "flag1")
+        
         // Then
-        XCTAssertEqual(subject.buildSettings["PRODUCT_NAME"] as? String, "$(TARGET_NAME:c99extidentifier)")
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? [String], ["flag1", "flag2"])
+    }
+    
+    func test_append_when_theSettingExistsAsAnArray() {
+        // Given
+        let subject = XCBuildConfiguration(name: "Debug",
+                                           baseConfiguration: nil,
+                                           buildSettings: ["OTHER_LDFLAGS": ["flag1", "flag2"]])
+        
+        // When
+        subject.append(setting: "OTHER_LDFLAGS", value: "flag3")
+        
+        // Then
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? [String], ["flag1", "flag2", "flag3"])
     }
 
     private func testDictionary() -> [String: Any] {
