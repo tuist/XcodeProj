@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT_0121A3F25740E85497BB2706DC833345"
+               BlueprintIdentifier = "E82CDD1906A3FD44DA63FD47"
                BuildableName = "XcodeProj.framework"
                BlueprintName = "XcodeProj"
-               ReferencedContainer = "container:XcodeProj-Carthage.xcodeproj">
+               ReferencedContainer = "container:xcodeproj-Carthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_0121A3F25740E85497BB2706DC833345"
+            BlueprintIdentifier = "E82CDD1906A3FD44DA63FD47"
             BuildableName = "XcodeProj.framework"
             BlueprintName = "XcodeProj"
-            ReferencedContainer = "container:XcodeProj-Carthage.xcodeproj">
+            ReferencedContainer = "container:xcodeproj-Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -63,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_0121A3F25740E85497BB2706DC833345"
+            BlueprintIdentifier = "E82CDD1906A3FD44DA63FD47"
             BuildableName = "XcodeProj.framework"
             BlueprintName = "XcodeProj"
-            ReferencedContainer = "container:XcodeProj-Carthage.xcodeproj">
+            ReferencedContainer = "container:xcodeproj-Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

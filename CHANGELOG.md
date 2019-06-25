@@ -2,6 +2,8 @@
 
 ## next version
 
+## 0.7.0
+
 ### Changed
 
 - **Breaking** Change the UUID generation logic to generate ids with a length of 24 https://github.com/tuist/xcodeproj/pull/432 by @pepibumur.
