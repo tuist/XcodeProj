@@ -170,7 +170,7 @@ class PBXBatchUpdaterTests: XCTestCase {
         proj.add(object: project)
         return proj
     }
-    
+
     private func createFile(at filePath: Path) throws {
         let directoryURL = filePath.url.deletingLastPathComponent()
         try FileManager.default.createDirectory(

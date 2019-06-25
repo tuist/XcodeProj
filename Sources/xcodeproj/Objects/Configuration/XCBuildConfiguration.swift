@@ -63,6 +63,32 @@ public final class XCBuildConfiguration: PBXObject {
         name = try container.decode(.name)
         try super.init(from: decoder)
     }
+
+    // MARK: - Public
+
+    /// Appends a value to the given setting.
+    /// If the setting doesn't exist, it initializes it with the $(inherited) value and appends the given value to it.
+    ///
+    /// - Parameters:
+    ///   - name: Setting to which the value will be appended.
+    ///   - value: Value to be appended.
+    public func append(setting name: String, value: String) {
+        guard !value.isEmpty else { return }
+
+        let existing: Any = buildSettings[name] ?? "$(inherited)"
+
+        switch existing {
+        case let string as String where string != value:
+            let newValue = [string, value].joined(separator: " ")
+            buildSettings[name] = newValue
+        case let array as [String]:
+            var newValue = array
+            newValue.append(value)
+            buildSettings[name] = newValue.uniqued()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - PlistSerializable

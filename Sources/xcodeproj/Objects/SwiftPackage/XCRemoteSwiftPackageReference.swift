@@ -103,7 +103,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     ///   - repositoryURL: Package repository url.
     ///   - versionRequirement: Package version rules.
     public init(repositoryURL: String,
-         versionRequirement: VersionRequirement? = nil) {
+                versionRequirement: VersionRequirement? = nil) {
         self.repositoryURL = repositoryURL
         self.versionRequirement = versionRequirement
         super.init()

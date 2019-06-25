@@ -20,20 +20,20 @@ public final class PBXContainerItemProxy: PBXObject {
 
         var uuid: String {
             switch self {
-            case .reference(let reference): return reference.value
-            case .string(let string): return string
+            case let .reference(reference): return reference.value
+            case let .string(string): return string
             }
         }
 
         var id: RemoteGlobalID {
             switch self {
-            case .reference(let reference):
+            case let .reference(reference):
                 if let object = reference.getObject() {
                     return .object(object)
                 } else {
                     return .string(reference.value)
                 }
-            case .string(let string): return .string(string)
+            case let .string(string): return .string(string)
             }
         }
     }
@@ -44,15 +44,15 @@ public final class PBXContainerItemProxy: PBXObject {
 
         var uuid: String {
             switch self {
-            case .object(let object): return object.uuid
-            case .string(let string): return string
+            case let .object(object): return object.uuid
+            case let .string(string): return string
             }
         }
 
         var reference: RemoteGlobalIDReference {
             switch self {
-            case .object(let object): return .reference(object.reference)
-            case .string(let string): return .string(string)
+            case let .object(object): return .reference(object.reference)
+            case let .string(string): return .string(string)
             }
         }
     }
@@ -103,7 +103,7 @@ public final class PBXContainerItemProxy: PBXObject {
                 remoteInfo: String? = nil) {
         guard let containerPortalReference = containerPortal.reference else { fatalError("Container portal is mandatory field that has to be set to a known value instead of: \(containerPortal)") }
         self.containerPortalReference = containerPortalReference
-        self.remoteGlobalIDReference = remoteGlobalID?.reference
+        remoteGlobalIDReference = remoteGlobalID?.reference
         self.remoteInfo = remoteInfo
         self.proxyType = proxyType
         super.init()
@@ -129,7 +129,7 @@ public final class PBXContainerItemProxy: PBXObject {
         proxyType = try container.decodeIntIfPresent(.proxyType).flatMap(ProxyType.init)
         if let remoteGlobalIDString: String = try container.decodeIfPresent(.remoteGlobalIDString) {
             let remoteGlobalReference = objectReferenceRepository.getOrCreate(reference: remoteGlobalIDString,
-                                                                            objects: objects)
+                                                                              objects: objects)
             remoteGlobalIDReference = .reference(remoteGlobalReference)
         }
         remoteInfo = try container.decodeIfPresent(.remoteInfo)

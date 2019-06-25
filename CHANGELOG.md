@@ -4,28 +4,29 @@
 
 ### Changed
 
+- **Breaking** Change the UUID generation logic to generate ids with a length of 24 https://github.com/tuist/xcodeproj/pull/432 by @pepibumur.
 - **Breaking** Renamed module from `xcodeproj` to `XcodeProj` https://github.com/tuist/xcodeproj/pull/398 by @pepibumur.
 - Add `override` flag to `PBXGroup.addFile(at:,sourceTree:,sourceRoot:)` https://github.com/tuist/xcodeproj/pull/410 by @mrylmz
 - Rename some internal variables to have a more representative name https://github.com/tuist/xcodeproj/pull/415 by @pepibumur.
-- **Breaking** Change the UUID generation logic to generate ids with a length of 24 https://github.com/tuist/xcodeproj/pull/432 by @pepibumur.
 
 ### Added
 
+- **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91 
+- **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
+- **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
+- **Breaking** Add support for `RemoteRunnable` https://github.com/tuist/xcodeproj/pull/400 by @pepibumur.
+- **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
 - Added `com.apple.product-type.application.watchapp2-container` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/441 by @leogdion.
 - Add BatchUpdater to quickly add files to the group https://github.com/tuist/xcodeproj/pull/388 by @CognitiveDisson.
-- **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
 - `WorkspaceSettings.autoCreateSchemes` attribute https://github.com/tuist/xcodeproj/pull/399 by @pepibumur
 - Additional Swift 5 fixes: https://github.com/tuist/xcodeproj/pull/402 by @samisuteria
 - Make build phase name public by @llinardos.
 - Can access embed frameworks build phase for a target by @llinardos.
 - Added `com.apple.product-type.framework.static` to `PBXProductType`. https://github.com/tuist/xcodeproj/pull/347 by @ileitch.
 - Can add a not existing file to a group https://github.com/tuist/xcodeproj/pull/418 by @llinardos.
-- **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91 
-- **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
-- **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
-- **Breaking** Add support for `RemoteRunnable` https://github.com/tuist/xcodeproj/pull/400 by @pepibumur.
 - Support for Swift PM Packages https://github.com/tuist/xcodeproj/pull/439 https://github.com/tuist/xcodeproj/pull/444 by @pepibumur @yonaskolb.
 - `LaunchAction.customLaunchCommand` attribute https://github.com/tuist/xcodeproj/pull/451 by @pepibumur.
+- `XCBuildConfiguration.append` method https://github.com/tuist/xcodeproj/pull/450 by @pepibumur.
 
 ### Fixed
 
