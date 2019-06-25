@@ -193,7 +193,7 @@ extension XCScheme {
             region = element.attributes["region"]
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
             customLaunchCommand = element.attributes["customLaunchCommand"]
-            
+
             try super.init(element: element)
         }
 
@@ -282,7 +282,7 @@ extension XCScheme {
             if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
-            
+
             if let customLaunchCommand = customLaunchCommand {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }

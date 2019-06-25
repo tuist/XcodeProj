@@ -74,11 +74,11 @@ public final class XCBuildConfiguration: PBXObject {
     ///   - value: Value to be appended.
     public func append(setting name: String, value: String) {
         guard !value.isEmpty else { return }
-        
+
         let existing: Any = buildSettings[name] ?? "$(inherited)"
-        
+
         switch existing {
-        case let string as String:
+        case let string as String where string != value:
             let newValue = [string, value].joined(separator: " ")
             buildSettings[name] = newValue
         case let array as [String]:

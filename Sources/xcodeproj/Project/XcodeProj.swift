@@ -31,9 +31,9 @@ public final class XcodeProj: Equatable {
         let context = ProjectDecodingContext(
             pbxProjValueReader: { key in
                 pbxProjDictionary[key]
-        }
+            }
         )
-        
+
         let plistDecoder = XcodeprojPropertyListDecoder(context: context)
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         try pbxproj.updateProjectName(path: pbxprojPaths.first!)

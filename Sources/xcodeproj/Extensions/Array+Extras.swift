@@ -1,7 +1,6 @@
 import Foundation
 
 extension Array where Element: Hashable {
-    
     /// Return the array with all duplicates removed.
     ///
     /// i.e. `[ 1, 2, 3, 1, 2 ].uniqued() == [ 1, 2, 3 ]`
@@ -10,6 +9,6 @@ extension Array where Element: Hashable {
     ///         per @Alexander's comment.
     public func uniqued() -> [Element] {
         var seen = Set<Element>()
-        return self.filter { seen.insert($0).inserted }
+        return filter { seen.insert($0).inserted }
     }
 }
