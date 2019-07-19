@@ -2,6 +2,10 @@
 
 ## next version
 
+### Added
+
+- Adding additional `lastKnownFileType`s https://github.com/tuist/xcodeproj/pull/458 by @kwridan
+
 ## 0.7.0
 
 ### Changed
