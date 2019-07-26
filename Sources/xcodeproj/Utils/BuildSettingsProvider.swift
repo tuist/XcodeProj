@@ -45,21 +45,21 @@ public class BuildSettingsProvider {
         var buildSettings: [String: Any] = [:]
         if let platform = platform, platform == .iOS {
             buildSettings["SDKROOT"] = "iphoneos"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"]
             buildSettings["CODE_SIGN_IDENTITY"] = "iPhone Developer"
         }
         if let platform = platform, platform == .macOS {
             buildSettings["SDKROOT"] = "macosx"
             buildSettings["CODE_SIGN_IDENTITY"] = "-"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"]
         }
         if let platform = platform, platform == .watchOS {
             buildSettings["SDKROOT"] = "watchos"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"]
         }
         if let platform = platform, platform == .tvOS {
             buildSettings["SDKROOT"] = "appletvos"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"]
         }
         if let platform = platform, let variant = variant, [.iOS, .watchOS, .tvOS].contains(platform), variant == .release {
             buildSettings["VALIDATE_PRODUCT"] = "YES"
@@ -133,7 +133,7 @@ public class BuildSettingsProvider {
             buildSettings["ASSETCATALOG_COMPILER_APPICON_NAME"] = "AppIcon"
         }
         if let platform = platform, let product = product, platform == .iOS, product == .application {
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/Frameworks"]
             buildSettings["TARGETED_DEVICE_FAMILY"] = "1,2"
         }
         if let platform = platform, let product = product, platform == .watchOS, product == .application {
@@ -143,12 +143,12 @@ public class BuildSettingsProvider {
         if let platform = platform, let product = product, platform == .tvOS, product == .application {
             buildSettings["ASSETCATALOG_COMPILER_APPICON_NAME"] = "App Icon & Top Shelf Image"
             buildSettings["ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME"] = "LaunchImage"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/Frameworks"]
             buildSettings["TARGETED_DEVICE_FAMILY"] = "3"
         }
         if let platform = platform, let product = product, platform == .macOS, product == .application {
             buildSettings["COMBINE_HIDPI_IMAGES"] = "YES"
-            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/../Frameworks"
+            buildSettings["LD_RUNPATH_SEARCH_PATHS"] = ["$(inherited)", "@executable_path/../Frameworks"]
         }
         if let platform = platform, let product = product, let swift = swift, platform == .watchOS, product == .application, swift == true {
             buildSettings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "YES"
