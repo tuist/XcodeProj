@@ -5,6 +5,7 @@
 ### Added
 
 - Adding additional `lastKnownFileType`s https://github.com/tuist/xcodeproj/pull/458 by @kwridan
+- Adding possibility to create variant group for referencing localized resources https://github.com/tuist/xcodeproj/pull/462 by @timbaev
 
 ## 0.7.0
 
