@@ -2,6 +2,10 @@
 
 ## next version
 
+### Changed
+
+- Update `BuildSettingProvider` to return `LD_RUNPATH_SEARCH_PATHS` as `Array<String>` https://github.com/tuist/xcodeproj/pull/463 by @marciniwanicki
+
 ### Added
 
 - Adding additional `lastKnownFileType`s https://github.com/tuist/xcodeproj/pull/458 by @kwridan
