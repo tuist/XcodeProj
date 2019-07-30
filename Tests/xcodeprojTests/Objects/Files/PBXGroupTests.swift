@@ -52,6 +52,26 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertNotNil(childGroup?.parent)
     }
 
+    func test_addVariantGroup_assignParent() {
+        let project = PBXProj(
+            rootObject: nil,
+            objectVersion: 0,
+            archiveVersion: 0,
+            classes: [:],
+            objects: []
+        )
+
+        let group = PBXGroup(children: [],
+                             sourceTree: .group,
+                             name: "group")
+
+        project.add(object: group)
+
+        let childVariantGroup = try? group.addVariantGroup(named: "child_variant_group").first
+
+        XCTAssertNotNil(childVariantGroup?.parent)
+    }
+
     func test_createGroupWithFile_assignParent() {
         let fileref = PBXFileReference(sourceTree: .group,
                                        fileEncoding: 1,
