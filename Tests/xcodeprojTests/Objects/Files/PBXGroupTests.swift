@@ -52,7 +52,7 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertNotNil(childGroup?.parent)
     }
 
-    func test_addVariantGroup_assignParent() {
+    func test_addVariantGroup() {
         let project = PBXProj(
             rootObject: nil,
             objectVersion: 0,
@@ -67,9 +67,25 @@ final class PBXGroupTests: XCTestCase {
 
         project.add(object: group)
 
-        let childVariantGroup = try? group.addVariantGroup(named: "child_variant_group").first
+        let expectedGroupNames = ["child", "variant", "group"]
 
-        XCTAssertNotNil(childVariantGroup?.parent)
+        guard let childVariantGroups = try? group.addVariantGroup(named: expectedGroupNames.joined(separator: "/")) else {
+            return XCTFail("Failed to create variant groups")
+        }
+
+        XCTAssertEqual(childVariantGroups.count, expectedGroupNames.count)
+
+        childVariantGroups.enumerated().forEach { index, variantGroup in
+            let parentGroup = (index == 0) ? group : childVariantGroups[index - 1]
+
+            XCTAssertTrue(variantGroup.children.isEmpty)
+            XCTAssertEqual(variantGroup.sourceTree, PBXSourceTree.group)
+            XCTAssertEqual(variantGroup.name, expectedGroupNames[index])
+
+            XCTAssertEqual(variantGroup.parent, group)
+            XCTAssertTrue(parentGroup.children.contains(variantGroup))
+            XCTAssertNotNil(group.group(named: expectedGroupNames[index]))
+        }
     }
 
     func test_createGroupWithFile_assignParent() {
