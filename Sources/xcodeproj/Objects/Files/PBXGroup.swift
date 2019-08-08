@@ -140,6 +140,25 @@ public extension PBXGroup {
         }
     }
 
+    /// Creates a variant group with the given name and returns it.
+    ///
+    /// - Parameters:
+    ///   - groupName: group name.
+    /// - Returns: created groups.
+    @discardableResult
+    func addVariantGroup(named groupName: String) throws -> [PBXVariantGroup] {
+        let objects = try self.objects()
+
+        return groupName.components(separatedBy: "/").reduce(into: [PBXVariantGroup]()) { groups, name in
+            let group = groups.last ?? self
+            let newGroup = PBXVariantGroup(children: [], sourceTree: .group, name: name)
+            newGroup.parent = self
+            group.childrenReferences.append(newGroup.reference)
+            objects.add(object: newGroup)
+            groups.append(newGroup)
+        }
+    }
+
     /// Adds file at the give path to the project or returns existing file and its reference.
     ///
     /// - Parameters:
