@@ -191,6 +191,33 @@ public final class PBXProject: PBXObject {
 
         return reference
     }
+    
+    public func addLocalSwiftPackage(path: String, productName: String, target: PBXTarget? = nil) -> XCSwiftPackageProductDependency {
+        let objects = try! self.objects()
+        
+        // Product
+        let productDependency = XCSwiftPackageProductDependency(productName: productName)
+        objects.add(object: productDependency)
+        target?.packageProductDependencies.append(productDependency)
+                
+        // File reference
+        let reference = PBXFileReference(sourceTree: .group,
+                                         name: productName,
+                                         lastKnownFileType: "folder",
+                                         path: path)
+        objects.add(object: reference)
+        mainGroup.children.append(reference)
+
+        // Build file
+        let buildFile = PBXBuildFile(reference: reference.reference,
+                                     product: productDependency)
+        objects.add(object: buildFile)
+        
+        // Link the product
+        try? target?.frameworksBuildPhase()?.files?.append(buildFile)
+
+        return productDependency
+    }
 
     // MARK: - Init
 
