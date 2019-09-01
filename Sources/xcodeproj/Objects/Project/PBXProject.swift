@@ -187,35 +187,46 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        try? target?.sourcesBuildPhase()?.files?.append(buildFile)
+        try? target?.frameworksBuildPhase()?.files?.append(buildFile)
 
         return reference
     }
     
-    public func addLocalSwiftPackage(path: String, productName: String, target: PBXTarget? = nil) -> XCSwiftPackageProductDependency {
+    
+    /// Adds a local swift package
+    ///
+    /// - Parameter path: Relative path to the swift package
+    /// - Parameter productName: The product to depend on
+    /// - Parameter target: Target to link package product to
+    /// - Parameter addFileReference: Include a file reference to the package (defaults to main group)
+    public func addLocalSwiftPackage(path: String,
+                                     productName: String,
+                                     target: PBXTarget? = nil,
+                                     addFileReference: Bool = true) -> XCSwiftPackageProductDependency {
         let objects = try! self.objects()
         
         // Product
         let productDependency = XCSwiftPackageProductDependency(productName: productName)
         objects.add(object: productDependency)
         target?.packageProductDependencies.append(productDependency)
-                
-        // File reference
-        let reference = PBXFileReference(sourceTree: .group,
-                                         name: productName,
-                                         lastKnownFileType: "folder",
-                                         path: path)
-        objects.add(object: reference)
-        mainGroup.children.append(reference)
 
         // Build file
-        let buildFile = PBXBuildFile(reference: reference.reference,
-                                     product: productDependency)
+        let buildFile = PBXBuildFile(product: productDependency)
         objects.add(object: buildFile)
         
         // Link the product
         try? target?.frameworksBuildPhase()?.files?.append(buildFile)
-
+        
+        // File reference
+        if addFileReference {
+            let reference = PBXFileReference(sourceTree: .group,
+                                             name: productName,
+                                             lastKnownFileType: "folder",
+                                             path: path)
+            objects.add(object: reference)
+            mainGroup.children.append(reference)
+        }
+        
         return productDependency
     }
 
