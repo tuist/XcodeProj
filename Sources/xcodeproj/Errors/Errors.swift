@@ -173,9 +173,9 @@ enum PBXProjError: Error, CustomStringConvertible {
         case let .targetNotFound(targetName):
             return "Could not find target with \(targetName)"
         case let .frameworksBuildPhaseNotFound(targetName):
-            return "Could not find frameworks build phase for \(targetName) target."
+            return "Could not find frameworks build phase for target \(targetName)."
         case let .sourcesBuildPhaseNotFound(targetName):
-            return "Could not find sources build phase for \(targetName) target."
+            return "Could not find sources build phase for target \(targetName)."
         }
     }
 }
