@@ -170,8 +170,8 @@ public final class PBXProject: PBXObject {
     public func addSwiftPackage(repositoryURL: String,
                                 productName: String,
                                 versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement,
-                                target: PBXTarget? = nil) -> XCRemoteSwiftPackageReference {
-        let objects = try! self.objects()
+                                target: PBXTarget? = nil) throws -> XCRemoteSwiftPackageReference {
+        let objects = try self.objects()
 
         // Reference
         let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
@@ -188,7 +188,7 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        try? target?.sourcesBuildPhase()?.files?.append(buildFile)
+        try target?.sourcesBuildPhase()?.files?.append(buildFile)
 
         return reference
     }
@@ -197,7 +197,7 @@ public final class PBXProject: PBXObject {
     /// Adds a local swift package
     ///
     /// - Parameter path: Relative path to the swift package
-    /// - Parameter productName: The product to depend on
+    /// - Parameter productName: The product to depend on without the extension
     /// - Parameter targetName: Target's name to link package product to
     /// - Parameter addFileReference: Include a file reference to the package (defaults to main group)
     public func addLocalSwiftPackage(path: String,
@@ -223,6 +223,8 @@ public final class PBXProject: PBXObject {
         frameworksBuildPhase.files?.append(buildFile)
         
         // File reference
+        // The user might want to control adding the file's reference (to be exact when the reference is added)
+        // To achieve desired hierarchy of the group's children
         if addFileReference {
             let reference = PBXFileReference(sourceTree: .group,
                                              name: productName,

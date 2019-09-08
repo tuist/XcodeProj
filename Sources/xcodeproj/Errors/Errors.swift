@@ -163,6 +163,7 @@ enum PBXProjError: Error, CustomStringConvertible {
     case invalidGroupPath(sourceRoot: Path, elementPath: String?)
     case targetNotFound(targetName: String)
     case frameworksBuildPhaseNotFound(targetName: String)
+    case sourcesBuildPhaseNotFound(targetName: String)
     var description: String {
         switch self {
         case let .notFound(path):
@@ -173,6 +174,8 @@ enum PBXProjError: Error, CustomStringConvertible {
             return "Could not find target with \(targetName)"
         case let .frameworksBuildPhaseNotFound(targetName):
             return "Could not find frameworks build phase for \(targetName) target."
+        case let .sourcesBuildPhaseNotFound(targetName):
+            return "Could not find sources build phase for \(targetName) target."
         }
     }
 }
