@@ -26,13 +26,9 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
 
     // MARK: - Init
 
-    init(reference: PBXObjectReference? = nil) {
-        if let reference = reference {
-            self.reference = reference
-        } else {
-            self.reference = PBXObjectReference()
-            self.reference.setObject(self)
-        }
+    init() {
+        reference = PBXObjectReference()
+        reference.setObject(self)
     }
 
     // MARK: - Decodable

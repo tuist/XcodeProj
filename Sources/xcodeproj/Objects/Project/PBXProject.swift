@@ -187,7 +187,7 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        try? target?.frameworksBuildPhase()?.files?.append(buildFile)
+        try? target?.sourcesBuildPhase()?.files?.append(buildFile)
 
         return reference
     }

@@ -50,7 +50,7 @@ public class PBXGroup: PBXFileElement {
                    tabWidth: tabWidth,
                    wrapsLines: wrapsLines)
     }
-    
+
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {

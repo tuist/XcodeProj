@@ -52,16 +52,6 @@ public final class PBXBuildFile: PBXObject {
         self.settings = settings
         super.init()
     }
-    
-    init(file: PBXFileElement? = nil,
-         reference: PBXObjectReference? = nil,
-         product: XCSwiftPackageProductDependency? = nil,
-         settings: [String: Any]? = nil) {
-        fileReference = file?.reference
-        productReference = product?.reference
-        self.settings = settings
-        super.init(reference: reference)
-    }
 
     // MARK: - Decodable
 
