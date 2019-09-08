@@ -62,7 +62,7 @@ final class PBXProjectTests: XCTestCase {
         // When
         let packageProduct = try project.addLocalSwiftPackage(path: "Product",
                                          productName: "Product",
-                                         targetName: "Target")
+                                         targetName: target.name)
         
         // Then
         XCTAssertEqual(packageProduct, objects.buildFiles.first?.value.product)
@@ -71,6 +71,38 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(objects.fileReferences.first?.value.name, "Product")
         
         XCTAssertEqual(objects.swiftPackageProductDependencies.first?.value, buildPhase.files?.first?.product)
+    }
+    
+    func test_addLocalSwiftPackage_throws_frameworksPhaseError() {
+        // Given
+        let objects = PBXObjects(objects: [])
+
+        let target = PBXNativeTarget(name: "Target")
+        objects.add(object: target)
+        
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
+        
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup,
+                                 targets: [target])
+        
+        objects.add(object: project)
+        
+        // When
+        do {
+            _ = try project.addLocalSwiftPackage(path: "Product",
+                                             productName: "Product",
+                                             targetName: target.name)
+        }
+        // Then
+        catch let error {
+            XCTAssertEqual(PBXProjError.frameworksBuildPhaseNotFound(targetName: target.name).localizedDescription, error.localizedDescription)
+        }
     }
     
     func test_addSwiftPackage() throws {
@@ -105,7 +137,7 @@ final class PBXProjectTests: XCTestCase {
         let remoteReference = try project.addSwiftPackage(repositoryURL: "url",
                                                          productName: "Product",
                                                          versionRequirement: .branch("master"),
-                                                         target: target)
+                                                         targetName: "Target")
         
         // Then
         XCTAssertEqual(remoteReference, project.packages.first)

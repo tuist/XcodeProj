@@ -164,6 +164,7 @@ enum PBXProjError: Error, CustomStringConvertible {
     case targetNotFound(targetName: String)
     case frameworksBuildPhaseNotFound(targetName: String)
     case sourcesBuildPhaseNotFound(targetName: String)
+    case pathIsAbsolute(Path)
     var description: String {
         switch self {
         case let .notFound(path):
@@ -173,9 +174,11 @@ enum PBXProjError: Error, CustomStringConvertible {
         case let .targetNotFound(targetName):
             return "Could not find target with \(targetName)"
         case let .frameworksBuildPhaseNotFound(targetName):
-            return "Could not find frameworks build phase for target \(targetName)."
+            return "Could not find frameworks build phase for target \(targetName)"
         case let .sourcesBuildPhaseNotFound(targetName):
-            return "Could not find sources build phase for target \(targetName)."
+            return "Could not find sources build phase for target \(targetName)"
+        case let .pathIsAbsolute(path):
+            return "Path must be relative, but path \(path.string) is absolute"
         }
     }
 }
