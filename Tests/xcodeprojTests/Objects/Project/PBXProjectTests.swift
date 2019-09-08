@@ -67,6 +67,7 @@ final class PBXProjectTests: XCTestCase {
         // Then
         XCTAssertEqual(packageProduct, objects.buildFiles.first?.value.product)
         XCTAssertEqual(packageProduct, objects.swiftPackageProductDependencies.first?.value)
+        XCTAssertEqual(packageProduct, target.packageProductDependencies.first)
         
         XCTAssertEqual(objects.fileReferences.first?.value.name, "Product")
         
