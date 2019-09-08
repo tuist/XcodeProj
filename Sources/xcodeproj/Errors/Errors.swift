@@ -161,12 +161,18 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
 enum PBXProjError: Error, CustomStringConvertible {
     case notFound(path: Path)
     case invalidGroupPath(sourceRoot: Path, elementPath: String?)
+    case targetNotFound(targetName: String)
+    case frameworksBuildPhaseNotFound(targetName: String)
     var description: String {
         switch self {
         case let .notFound(path):
             return ".pbxproj not found at path \(path.string)"
         case let .invalidGroupPath(sourceRoot, elementPath):
             return "Cannot calculate full path for file element \"\(elementPath ?? "")\" in source root: \"\(sourceRoot)\""
+        case let .targetNotFound(targetName):
+            return "Could not find target with \(targetName)"
+        case let .frameworksBuildPhaseNotFound(targetName):
+            return "Could not find frameworks build phase for \(targetName) target."
         }
     }
 }
