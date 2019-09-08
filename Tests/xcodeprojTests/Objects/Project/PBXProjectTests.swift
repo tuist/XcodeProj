@@ -31,7 +31,7 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(attributes, expectedAttributes)
     }
     
-    func test_addLocalPackage() throws {
+    func test_addLocalSwiftPackage() throws {
         // Given
         let objects = PBXObjects(objects: [])
 
@@ -65,12 +65,53 @@ final class PBXProjectTests: XCTestCase {
                                          targetName: "Target")
         
         // Then
-        let projectObjects = try project.objects()
+        XCTAssertEqual(packageProduct, objects.buildFiles.first?.value.product)
+        XCTAssertEqual(packageProduct, objects.swiftPackageProductDependencies.first?.value)
         
-        let buildFile = XCTAssertNotNilAndUnwrap(projectObjects.buildFiles.first)
-        XCTAssertEqual(packageProduct, buildFile.value.product)
+        XCTAssertEqual(objects.fileReferences.first?.value.name, "Product")
         
-        let fileReference = XCTAssertNotNilAndUnwrap(projectObjects.fileReferences.first?.value)
-        XCTAssertEqual(fileReference.name, "Product")
+        XCTAssertEqual(objects.swiftPackageProductDependencies.first?.value, buildPhase.files?.first?.product)
+    }
+    
+    func test_addSwiftPackage() throws {
+        // Given
+        let objects = PBXObjects(objects: [])
+        
+        let buildPhase = PBXSourcesBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let target = PBXNativeTarget(name: "Target",
+                                     buildConfigurationList: nil,
+                                     buildPhases: [buildPhase])
+        objects.add(object: target)
+        
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
+        
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup,
+                                 targets: [target])
+        
+        objects.add(object: project)
+        
+        // When
+        let remoteReference = try project.addSwiftPackage(repositoryURL: "url",
+                                                         productName: "Product",
+                                                         versionRequirement: .branch("master"),
+                                                         target: target)
+        
+        // Then
+        XCTAssertEqual(remoteReference, project.packages.first)
+        XCTAssertEqual(remoteReference, objects.remoteSwiftPackageReferences.first?.value)
+        
+        XCTAssertEqual(remoteReference, objects.buildFiles.first?.value.product?.package)
+        XCTAssertEqual(objects.swiftPackageProductDependencies.first?.value, buildPhase.files?.first?.product)
     }
 }
