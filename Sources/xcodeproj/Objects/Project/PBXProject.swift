@@ -203,7 +203,6 @@ public final class PBXProject: PBXObject {
         return reference
     }
     
-    
     /// Adds a local swift package
     ///
     /// - Parameters:
@@ -231,7 +230,9 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
         
         // Link the product
-        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
+        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else {
+            throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName)
+        }
         
         frameworksBuildPhase.files?.append(buildFile)
         
