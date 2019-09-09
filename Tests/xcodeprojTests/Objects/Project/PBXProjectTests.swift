@@ -31,6 +31,7 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(attributes, expectedAttributes)
     }
     
+    
     func test_addLocalSwiftPackage() throws {
         // Given
         let objects = PBXObjects(objects: [])
@@ -142,5 +143,58 @@ final class PBXProjectTests: XCTestCase {
         
         XCTAssertEqual(remoteReference, objects.buildFiles.first?.value.product?.package)
         XCTAssertEqual(objects.swiftPackageProductDependencies.first?.value, buildPhase.files?.first?.product)
+    }
+    
+    func test_addSwiftPackage_duplication() throws {
+        // Given
+        let objects = PBXObjects(objects: [])
+        
+        let buildPhase = PBXSourcesBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let target = PBXNativeTarget(name: "Target",
+                                     buildConfigurationList: nil,
+                                     buildPhases: [buildPhase])
+        objects.add(object: target)
+        
+        let secondBuildPhase = PBXSourcesBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let secondTarget = PBXNativeTarget(name: "SecondTarget",
+                                     buildConfigurationList: nil,
+                                     buildPhases: [secondBuildPhase])
+        objects.add(object: secondTarget)
+        
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
+        
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup,
+                                 targets: [target, secondTarget])
+        
+        objects.add(object: project)
+        
+        // When
+        let packageProduct = try project.addSwiftPackage(repositoryURL: "url",
+                                                         productName: "Product",
+                                                         versionRequirement: .branch("master"),
+                                                         targetName: target.name)
+        let secondPackageProduct = try project.addSwiftPackage(repositoryURL: "url",
+                                                               productName: "Product",
+                                                               versionRequirement: .branch("master"),
+                                                               targetName: secondTarget.name)
+        
+        // Then
+        XCTAssertEqual(packageProduct, secondPackageProduct)
     }
 }

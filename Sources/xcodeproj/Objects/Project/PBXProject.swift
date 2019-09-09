@@ -181,11 +181,17 @@ public final class PBXProject: PBXObject {
         let objects = try self.objects()
         
         guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
-
+        
         // Reference
-        let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
-        objects.add(object: reference)
-        packages.append(reference)
+        let reference: XCRemoteSwiftPackageReference
+        if let package = packages.first(where: { $0.repositoryURL == repositoryURL }) {
+            guard package.versionRequirement == versionRequirement else { fatalError() }
+            reference = package
+        } else {
+            reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
+            objects.add(object: reference)
+            packages.append(reference)
+        }
 
         // Product
         let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
