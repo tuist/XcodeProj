@@ -5,6 +5,7 @@
 ### Changed
 
 - Update `BuildSettingProvider` to return `LD_RUNPATH_SEARCH_PATHS` as `Array<String>` https://github.com/tuist/xcodeproj/pull/463 by @marciniwanicki
+- Update `Project.swift` to make it compatible with tuist 0.17.0 https://github.com/tuist/xcodeproj/pull/469 by @marciniwanicki
 
 ### Added
 
