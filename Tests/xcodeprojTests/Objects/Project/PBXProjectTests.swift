@@ -94,16 +94,12 @@ final class PBXProjectTests: XCTestCase {
         
         objects.add(object: project)
         
-        // When
-        do {
-            _ = try project.addLocalSwiftPackage(path: "Product",
-                                             productName: "Product",
-                                             targetName: target.name)
-        }
         // Then
-        catch let error {
-            XCTAssertEqual(PBXProjError.frameworksBuildPhaseNotFound(targetName: target.name).localizedDescription, error.localizedDescription)
-        }
+        
+        XCTAssertThrowsSpecificError(try project.addLocalSwiftPackage(path: "Product",
+                                                                      productName: "Product",
+                                                                      targetName: target.name),
+                                     PBXProjError.frameworksBuildPhaseNotFound(targetName: target.name))
     }
     
     func test_addSwiftPackage() throws {

@@ -158,7 +158,7 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
 /// PBXProj error.
 ///
 /// - notFound: the .pbxproj cannot be found at the given path.
-enum PBXProjError: Error, CustomStringConvertible {
+enum PBXProjError: Error, CustomStringConvertible, Equatable {
     case notFound(path: Path)
     case invalidGroupPath(sourceRoot: Path, elementPath: String?)
     case targetNotFound(targetName: String)
