@@ -1,6 +1,6 @@
 import ProjectDescription
 
-let project = Project(name: "XcodeProj-Carthage",
+let project = Project(name: "XcodeProj_Carthage",
                       targets: [
                           Target(name: "XcodeProj",
                                  platform: .macOS,
