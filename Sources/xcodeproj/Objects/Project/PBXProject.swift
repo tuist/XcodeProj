@@ -1,4 +1,5 @@
 import Foundation
+import PathKit
 
 public final class PBXProject: PBXObject {
     // MARK: - Attributes
@@ -166,11 +167,20 @@ public final class PBXProject: PBXObject {
         return targetAttributeReferences[target.reference]
     }
 
+    /// Adds a remote swift package
+    ///
+    /// - Parameters:
+    ///   - repositoryURL: URL in String pointing to the location of remote Swift package
+    ///   - productName: The product to depend on without the extension
+    ///   - versionRequirement: Describes the rules of the version to use
+    ///   - targetName: Target's name to link package product to
     public func addSwiftPackage(repositoryURL: String,
                                 productName: String,
                                 versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement,
-                                target: PBXTarget? = nil) -> XCRemoteSwiftPackageReference {
-        let objects = try! self.objects()
+                                targetName: String) throws -> XCRemoteSwiftPackageReference {
+        let objects = try self.objects()
+        
+        guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
 
         // Reference
         let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
@@ -180,16 +190,65 @@ public final class PBXProject: PBXObject {
         // Product
         let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
         objects.add(object: productDependency)
-        target?.packageProductDependencies.append(productDependency)
+        target.packageProductDependencies.append(productDependency)
 
         // Build file
         let buildFile = PBXBuildFile(product: productDependency)
         objects.add(object: buildFile)
 
         // Link the product
-        try? target?.sourcesBuildPhase()?.files?.append(buildFile)
+        guard let sourcesBuildPhase = try target.sourcesBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
+        sourcesBuildPhase.files?.append(buildFile)
 
         return reference
+    }
+    
+    /// Adds a local swift package
+    ///
+    /// - Parameters:
+    ///   - path: Relative path to the swift package (throws an error if the path is absolute)
+    ///   - productName: The product to depend on without the extension
+    ///   - targetName: Target's name to link package product to
+    ///   - addFileReference: Include a file reference to the package (defaults to main group)
+    public func addLocalSwiftPackage(path: Path,
+                                     productName: String,
+                                     targetName: String,
+                                     addFileReference: Bool = true) throws -> XCSwiftPackageProductDependency {
+        guard path.isRelative else { throw PBXProjError.pathIsAbsolute(path) }
+        
+        let objects = try self.objects()
+        
+        guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
+        
+        // Product
+        let productDependency = XCSwiftPackageProductDependency(productName: productName)
+        objects.add(object: productDependency)
+        target.packageProductDependencies.append(productDependency)
+
+        // Build file
+        let buildFile = PBXBuildFile(product: productDependency)
+        objects.add(object: buildFile)
+        
+        // Link the product
+        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else {
+            throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName)
+        }
+        
+        frameworksBuildPhase.files?.append(buildFile)
+        
+        // File reference
+        // The user might want to control adding the file's reference (to be exact when the reference is added)
+        // to achieve desired hierarchy of the group's children
+        if addFileReference {
+            let reference = PBXFileReference(sourceTree: .group,
+                                             name: productName,
+                                             lastKnownFileType: "folder",
+                                             path: path.string)
+            objects.add(object: reference)
+            mainGroup.children.append(reference)
+        }
+        
+        return productDependency
     }
 
     // MARK: - Init

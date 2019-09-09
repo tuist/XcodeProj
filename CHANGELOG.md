@@ -8,6 +8,7 @@
 
 ### Added
 
+- Adding support for adding local Swift packages https://github.com/tuist/XcodeProj/pull/468 by @fortmarek
 - Adding additional `lastKnownFileType`s https://github.com/tuist/xcodeproj/pull/458 by @kwridan
 - Adding possibility to create variant group for referencing localized resources https://github.com/tuist/xcodeproj/pull/462 by @timbaev
 
