@@ -32,7 +32,7 @@ final class PBXProjectTests: XCTestCase {
     }
     
     
-    func test_SwiftPackage() throws {
+    func test_addLocalSwiftPackage() throws {
         // Given
         let objects = PBXObjects(objects: [])
 
@@ -200,62 +200,70 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(target.packageProductDependencies, secondTarget.packageProductDependencies)
         XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
         XCTAssertEqual(objects.swiftPackageProductDependencies.count, 1)
+        
+        XCTAssertThrowsSpecificError(try project.addSwiftPackage(repositoryURL: "url",
+                                                                 productName: "Product",
+                                                                 versionRequirement: .branch("second-master"),
+                                                                 targetName: secondTarget.name),
+                                     PBXProjError.multipleRemotePackages(productName: "Product"))
     }
     
-    func test_addLocalSwiftPackage_duplication() {
-        func test_addSwiftPackage_duplication() throws {
-            // Given
-            let objects = PBXObjects(objects: [])
-            
-            let buildPhase = PBXFrameworksBuildPhase(
-                files: [],
-                inputFileListPaths: nil,
-                outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: true
-            )
-            let target = PBXNativeTarget(name: "Target",
-                                         buildConfigurationList: nil,
-                                         buildPhases: [buildPhase])
-            objects.add(object: target)
-            
-            let secondBuildPhase = PBXFrameworksBuildPhase(
-                files: [],
-                inputFileListPaths: nil,
-                outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
-                runOnlyForDeploymentPostprocessing: true
-            )
-            let secondTarget = PBXNativeTarget(name: "SecondTarget",
-                                               buildConfigurationList: nil,
-                                               buildPhases: [secondBuildPhase])
-            objects.add(object: secondTarget)
-            
-            let configurationList = XCConfigurationList.fixture()
-            let mainGroup = PBXGroup.fixture()
-            objects.add(object: configurationList)
-            objects.add(object: mainGroup)
-            
-            let project = PBXProject(name: "Project",
-                                     buildConfigurationList: configurationList,
-                                     compatibilityVersion: "0",
-                                     mainGroup: mainGroup,
-                                     targets: [target, secondTarget])
-            
-            objects.add(object: project)
-            
-            // When
-            let packageProduct = try project.addLocalSwiftPackage(path: "Product",
-                                                                  productName: "Product",
-                                                                  targetName: target.name)
-            // When
-            let secondPackageProduct = try project.addLocalSwiftPackage(path: "Product",
-                                                                        productName: "Product",
-                                                                        targetName: secondTarget.name)
-            
-            // Then
-            XCTAssertEqual(packageProduct, secondPackageProduct)
-            XCTAssertEqual(target.packageProductDependencies, secondTarget.packageProductDependencies)
-            XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
-            XCTAssertEqual(objects.swiftPackageProductDependencies.count, 1)
-        }
+    func test_addLocalSwiftPackage_duplication() throws {
+        // Given
+        let objects = PBXObjects(objects: [])
+        
+        let buildPhase = PBXFrameworksBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let target = PBXNativeTarget(name: "Target",
+                                     buildConfigurationList: nil,
+                                     buildPhases: [buildPhase])
+        objects.add(object: target)
+        
+        let secondBuildPhase = PBXFrameworksBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let secondTarget = PBXNativeTarget(name: "SecondTarget",
+                                           buildConfigurationList: nil,
+                                           buildPhases: [secondBuildPhase])
+        objects.add(object: secondTarget)
+        
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
+        
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup,
+                                 targets: [target, secondTarget])
+        
+        objects.add(object: project)
+        
+        // When
+        let packageProduct = try project.addLocalSwiftPackage(path: "Product",
+                                                              productName: "Product",
+                                                              targetName: target.name)
+        let secondPackageProduct = try project.addLocalSwiftPackage(path: "Product",
+                                                                    productName: "Product",
+                                                                    targetName: secondTarget.name)
+        
+        // Then
+        XCTAssertEqual(packageProduct, secondPackageProduct)
+        XCTAssertEqual(target.packageProductDependencies, secondTarget.packageProductDependencies)
+        XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
+        XCTAssertEqual(objects.swiftPackageProductDependencies.count, 1)
+        
+        XCTAssertThrowsSpecificError(try project.addLocalSwiftPackage(path: "Sources/Product",
+                                                              productName: "Product",
+                                                              targetName: target.name),
+                                     PBXProjError.multipleLocalPackages(productName: "Product"))
     }
 }

@@ -165,6 +165,8 @@ enum PBXProjError: Error, CustomStringConvertible, Equatable {
     case frameworksBuildPhaseNotFound(targetName: String)
     case sourcesBuildPhaseNotFound(targetName: String)
     case pathIsAbsolute(Path)
+    case multipleLocalPackages(productName: String)
+    case multipleRemotePackages(productName: String)
     var description: String {
         switch self {
         case let .notFound(path):
@@ -179,6 +181,10 @@ enum PBXProjError: Error, CustomStringConvertible, Equatable {
             return "Could not find sources build phase for target \(targetName)"
         case let .pathIsAbsolute(path):
             return "Path must be relative, but path \(path.string) is absolute"
+        case let .multipleLocalPackages(productName: productName):
+            return "Found multiple top-level packages named \(productName)"
+        case let .multipleRemotePackages(productName: productName):
+            return "Can not resolve dependency \(productName) - conflicting version requirements"
         }
     }
 }

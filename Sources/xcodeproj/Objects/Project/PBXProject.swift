@@ -185,7 +185,9 @@ public final class PBXProject: PBXObject {
         // Reference
         let reference: XCRemoteSwiftPackageReference
         if let package = packages.first(where: { $0.repositoryURL == repositoryURL }) {
-            guard package.versionRequirement == versionRequirement else { fatalError() }
+            guard package.versionRequirement == versionRequirement else {
+                throw PBXProjError.multipleRemotePackages(productName: productName)
+            }
             reference = package
         } else {
             reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
@@ -195,8 +197,9 @@ public final class PBXProject: PBXObject {
 
         // Product
         let productDependency: XCSwiftPackageProductDependency
-        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference }) {
-            productDependency = product.value
+        // Avoid duplication
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference })?.value {
+            productDependency = product
         } else {
             productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
             objects.add(object: productDependency)
@@ -232,8 +235,17 @@ public final class PBXProject: PBXObject {
         guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
         
         // Product
-        let productDependency = XCSwiftPackageProductDependency(productName: productName)
-        objects.add(object: productDependency)
+        let productDependency: XCSwiftPackageProductDependency
+        // Avoid duplication
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.productName == productName }) {
+            guard objects.fileReferences.first(where: { $0.value.name == productName })?.value.path == path.string else {
+                throw PBXProjError.multipleLocalPackages(productName: productName)
+            }
+            productDependency = product.value
+        } else {
+            productDependency = XCSwiftPackageProductDependency(productName: productName)
+            objects.add(object: productDependency)
+        }
         target.packageProductDependencies.append(productDependency)
 
         // Build file
