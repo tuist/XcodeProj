@@ -194,8 +194,13 @@ public final class PBXProject: PBXObject {
         }
 
         // Product
-        let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
-        objects.add(object: productDependency)
+        let productDependency: XCSwiftPackageProductDependency
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference }) {
+            productDependency = product.value
+        } else {
+            productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
+            objects.add(object: productDependency)
+        }
         target.packageProductDependencies.append(productDependency)
 
         // Build file
