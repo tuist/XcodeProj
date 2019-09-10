@@ -16,7 +16,7 @@ task :release_check do
   system("swift build -c release")
 
   puts "Compiling Carthage project".colorize(:cyan)
-  system("xcodebuild -project Xcodeproj-Carthage.xcodeproj -scheme XcodeProj")
+  system("xcodebuild -project Xcodeproj_Carthage.xcodeproj -scheme XcodeProj")
 end
 
 task :arhive_carthage do
