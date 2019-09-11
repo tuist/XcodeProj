@@ -181,17 +181,17 @@ public final class PBXProject: PBXObject {
         let objects = try self.objects()
         
         guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
-
+        
         // Reference
-        let reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
-        objects.add(object: reference)
-        packages.append(reference)
+        let reference = try addSwiftPackageReference(repositoryURL: repositoryURL,
+                                                     productName: productName,
+                                                     versionRequirement: versionRequirement)
 
         // Product
-        let productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
-        objects.add(object: productDependency)
-        target.packageProductDependencies.append(productDependency)
-
+        let productDependency = try addSwiftPackageProduct(reference: reference,
+                                                           productName: productName,
+                                                           target: target)
+        
         // Build file
         let buildFile = PBXBuildFile(product: productDependency)
         objects.add(object: buildFile)
@@ -221,10 +221,10 @@ public final class PBXProject: PBXObject {
         guard let target = targets.first(where: { $0.name == targetName}) else { throw PBXProjError.targetNotFound(targetName: targetName) }
         
         // Product
-        let productDependency = XCSwiftPackageProductDependency(productName: productName)
-        objects.add(object: productDependency)
-        target.packageProductDependencies.append(productDependency)
-
+        let productDependency = try addLocalSwiftPackageProduct(path: path,
+                                                                productName: productName,
+                                                                target: target)
+        
         // Build file
         let buildFile = PBXBuildFile(product: productDependency)
         objects.add(object: buildFile)
@@ -369,6 +369,70 @@ public final class PBXProject: PBXObject {
         self.targetAttributeReferences = targetAttributeReferences
 
         try super.init(from: decoder)
+    }
+}
+
+// MARK: - Helpers
+
+extension PBXProject {
+    /// Adds reference for remote Swift package
+    private func addSwiftPackageReference(repositoryURL: String,
+                                          productName: String,
+                                          versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement) throws -> XCRemoteSwiftPackageReference {
+        let reference: XCRemoteSwiftPackageReference
+        if let package = packages.first(where: { $0.repositoryURL == repositoryURL }) {
+            guard package.versionRequirement == versionRequirement else {
+                throw PBXProjError.multipleRemotePackages(productName: productName)
+            }
+            reference = package
+        } else {
+            reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
+            try self.objects().add(object: reference)
+            packages.append(reference)
+        }
+        
+        return reference
+    }
+    
+    /// Adds package product for remote Swift package
+    private func addSwiftPackageProduct(reference: XCRemoteSwiftPackageReference,
+                                        productName: String,
+                                        target: PBXTarget) throws -> XCSwiftPackageProductDependency {
+        let objects = try self.objects()
+        
+        let productDependency: XCSwiftPackageProductDependency
+        // Avoid duplication
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference })?.value {
+            productDependency = product
+        } else {
+            productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
+            objects.add(object: productDependency)
+        }
+        target.packageProductDependencies.append(productDependency)
+        
+        return productDependency
+    }
+    
+    /// Adds package product for local Swift package
+    private func addLocalSwiftPackageProduct(path: Path,
+                                             productName: String,
+                                             target: PBXTarget) throws -> XCSwiftPackageProductDependency {
+        let objects = try self.objects()
+        
+        let productDependency: XCSwiftPackageProductDependency
+        // Avoid duplication
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.productName == productName }) {
+            guard objects.fileReferences.first(where: { $0.value.name == productName })?.value.path == path.string else {
+                throw PBXProjError.multipleLocalPackages(productName: productName)
+            }
+            productDependency = product.value
+        } else {
+            productDependency = XCSwiftPackageProductDependency(productName: productName)
+            objects.add(object: productDependency)
+        }
+        target.packageProductDependencies.append(productDependency)
+        
+        return productDependency
     }
 }
 
