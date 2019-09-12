@@ -1,6 +1,15 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## next version
+## Next version
+
+### Changed
+
+### Added
+
+### Fixed
+
+
+## 7.0.1
 
 ### Changed
 
@@ -17,7 +26,7 @@
 
 - Duplication of packages https://github.com/tuist/XcodeProj/pull/470 by @fortmarek
 
-## 0.7.0
+## 7.0.0
 
 ### Changed
 
@@ -28,8 +37,8 @@
 
 ### Added
 
-- **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91 
-- **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov  
+- **Breaking** Add `SWIFT_COMPILATION_MODE` and `CODE_SIGN_IDENTITY` build settings, remove `DEBUG` flag for Release https://github.com/tuist/xcodeproj/pull/417 @dangthaison91
+- **Breaking** Added throwing an error in case group path can't be resolved by @damirdavletov
 - **Breaking** Added remote project support to PBXContainerItemProxy by @damirdavletov
 - **Breaking** Add support for `RemoteRunnable` https://github.com/tuist/xcodeproj/pull/400 by @pepibumur.
 - **Breaking** Swift 5 support https://github.com/tuist/xcodeproj/pull/397 by @pepibumur.
