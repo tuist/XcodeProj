@@ -6,6 +6,8 @@
 
 ### Added
 
+- Add `onlyGenerateCoverageForSpecifiedTargets` parameter to `TestAction` https://github.com/tuist/XcodeProj/pull/473 by @kateinoigakukun
+
 ### Fixed
 
 
