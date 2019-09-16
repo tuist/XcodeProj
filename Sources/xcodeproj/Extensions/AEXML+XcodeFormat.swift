@@ -35,6 +35,7 @@ let attributesOrder: [String: [String]] = [
         "language",
         "region",
         "codeCoverageEnabled",
+        "onlyGenerateCoverageForSpecifiedTargets",
         "shouldUseLaunchSchemeArgsEnv",
     ],
     "LaunchAction": [

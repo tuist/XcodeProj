@@ -21,6 +21,7 @@ extension XCScheme {
         public var selectedLauncherIdentifier: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var codeCoverageEnabled: Bool
+        public var onlyGenerateCoverageForSpecifiedTargets: Bool?
         public var enableAddressSanitizer: Bool
         public var enableASanStackUseAfterReturn: Bool
         public var enableThreadSanitizer: Bool
@@ -47,6 +48,7 @@ extension XCScheme {
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     codeCoverageEnabled: Bool = false,
                     codeCoverageTargets: [BuildableReference] = [],
+                    onlyGenerateCoverageForSpecifiedTargets: Bool? = nil,
                     enableAddressSanitizer: Bool = false,
                     enableASanStackUseAfterReturn: Bool = false,
                     enableThreadSanitizer: Bool = false,
@@ -67,6 +69,7 @@ extension XCScheme {
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.codeCoverageEnabled = codeCoverageEnabled
             self.codeCoverageTargets = codeCoverageTargets
+            self.onlyGenerateCoverageForSpecifiedTargets = onlyGenerateCoverageForSpecifiedTargets
             self.enableAddressSanitizer = enableAddressSanitizer
             self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
             self.enableThreadSanitizer = enableThreadSanitizer
@@ -88,6 +91,8 @@ extension XCScheme {
             selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"].map { $0 == "YES" } ?? true
             codeCoverageEnabled = element.attributes["codeCoverageEnabled"] == "YES"
+            onlyGenerateCoverageForSpecifiedTargets = element.attributes["onlyGenerateCoverageForSpecifiedTargets"]
+                .map { $0 == "YES" }
             enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
             enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
             enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"
@@ -142,6 +147,9 @@ extension XCScheme {
             attributes["shouldUseLaunchSchemeArgsEnv"] = shouldUseLaunchSchemeArgsEnv.xmlString
             if codeCoverageEnabled {
                 attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
+            }
+            if let onlyGenerateCoverageForSpecifiedTargets = onlyGenerateCoverageForSpecifiedTargets {
+                attributes["onlyGenerateCoverageForSpecifiedTargets"] = onlyGenerateCoverageForSpecifiedTargets.xmlString
             }
             if enableAddressSanitizer {
                 attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
@@ -205,6 +213,7 @@ extension XCScheme {
                 selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
                 shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
                 codeCoverageEnabled == rhs.codeCoverageEnabled &&
+                onlyGenerateCoverageForSpecifiedTargets == onlyGenerateCoverageForSpecifiedTargets &&
                 enableAddressSanitizer == rhs.enableAddressSanitizer &&
                 enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
                 enableThreadSanitizer == rhs.enableThreadSanitizer &&
