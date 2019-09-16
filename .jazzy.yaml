@@ -7,9 +7,9 @@ documentation: guides/*.md
 sdk: macosx
 xcodebuild_arguments:
   - -project
-  - xcodeproj.xcodeproj
+  - XcodeProj.xcodeproj
   - -scheme
-  - xcodeproj-Package
+  - XcodeProj-Package
 skip_undocumented: true
 custom_categories:
   - name: Models
