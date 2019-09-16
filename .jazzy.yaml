@@ -1,5 +1,5 @@
 author: Tuist
-module: xcodeproj
+module: XcodeProj
 github_url: https://github.com/tuist/xcodeproj
 copyright: 'Copyright © from 2018 Pedro Piñera Buendía. All rights reserved.'
 readme: ABOUT.md
