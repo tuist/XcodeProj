@@ -180,7 +180,7 @@ xcuserdata
 .vscode
 
 build/
-xcodeproj.xcodeproj
+XcodeProj.xcodeproj
 .idea/
 tmp/
-xcodeproj.framework.zip
+XcodeProj.framework.zip
