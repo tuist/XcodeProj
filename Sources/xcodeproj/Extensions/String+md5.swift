@@ -25,8 +25,10 @@ import Foundation
 extension String {
     var md5: String {
         if let data = data(using: .utf8, allowLossyConversion: true) {
-            let message = data.withUnsafeBytes { bytes -> [UInt8] in
-                Array(UnsafeBufferPointer(start: bytes, count: data.count))
+            let message = data.withUnsafeBytes { bufferPointer in
+                Array(UnsafeBufferPointer(
+                    start: bufferPointer.baseAddress?.assumingMemoryBound(to: UInt8.self),
+                    count: data.count))
             }
 
             let MD5Calculator = MD5(message)
@@ -215,7 +217,7 @@ class MD5: HashProtocol {
 
         for chunk in BytesSequence(chunkSize: chunkSizeBytes, data: tmpMessage) {
             // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15
-            var M = toUInt32Array(chunk)
+            let M = toUInt32Array(chunk)
             assert(M.count == 16, "Invalid array")
 
             // Initialize hash value for this chunk:
