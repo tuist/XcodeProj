@@ -4,7 +4,7 @@ import PathKit
 public class PBXGroup: PBXFileElement {
     // MARK: - Attributes
 
-    /// Grou children references.
+    /// Group children references.
     var childrenReferences: [PBXObjectReference]
 
     /// Group children.
