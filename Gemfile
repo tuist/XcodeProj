@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rake"
 gem "jazzy"
-gem "cocoapods", "1.7.5"
+gem "cocoapods", "1.8.0"
 gem "colorize", "~> 0.8.1"
 gem "danger", "~> 6.0"
 gem "danger-swiftformat", "~> 0.6.0"
