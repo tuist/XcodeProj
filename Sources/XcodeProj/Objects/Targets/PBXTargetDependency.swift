@@ -33,6 +33,19 @@ public final class PBXTargetDependency: PBXObject {
         }
     }
 
+    /// Product reference.
+    var productReference: PBXObjectReference?
+
+    /// Product.
+    public var product: XCSwiftPackageProductDependency? {
+        get {
+            return productReference?.getObject()
+        }
+        set {
+            productReference = newValue?.reference
+        }
+    }
+
     // MARK: - Init
 
     /// Initializes the target dependency with dependencies as objects.
@@ -43,10 +56,12 @@ public final class PBXTargetDependency: PBXObject {
     ///   - targetProxy: Target proxy.
     public init(name: String? = nil,
                 target: PBXTarget? = nil,
-                targetProxy: PBXContainerItemProxy? = nil) {
+                targetProxy: PBXContainerItemProxy? = nil,
+                product: XCSwiftPackageProductDependency? = nil) {
         self.name = name
         targetReference = target?.reference
         targetProxyReference = targetProxy?.reference
+        productReference = product?.reference
         super.init()
     }
 
@@ -56,6 +71,7 @@ public final class PBXTargetDependency: PBXObject {
         case name
         case target
         case targetProxy
+        case productRef
     }
 
     public required init(from decoder: Decoder) throws {
@@ -68,6 +84,9 @@ public final class PBXTargetDependency: PBXObject {
         }
         if let targetProxyReference: String = try container.decodeIfPresent(.targetProxy) {
             self.targetProxyReference = referenceRepository.getOrCreate(reference: targetProxyReference, objects: objects)
+        }
+        if let productReference: String = try container.decodeIfPresent(.productRef) {
+            self.productReference = referenceRepository.getOrCreate(reference: productReference, objects: objects)
         }
         try super.init(from: decoder)
     }
@@ -88,6 +107,9 @@ extension PBXTargetDependency: PlistSerializable {
         }
         if let targetProxyReference = targetProxyReference {
             dictionary["targetProxy"] = .string(CommentedString(targetProxyReference.value, comment: "PBXContainerItemProxy"))
+        }
+        if let productReference = productReference {
+            dictionary["productRef"] = .string(CommentedString(productReference.value, comment: product?.productName))
         }
         return (key: CommentedString(reference,
                                      comment: "PBXTargetDependency"),
