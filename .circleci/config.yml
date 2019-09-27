@@ -15,9 +15,6 @@ jobs:
           keys:
             - 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
-          name: Set Ruby Version
-          command:  echo "ruby-2.4" > ~/.ruby-version
-      - run:
           name: Install Tools
           command: |
             brew upgrade
