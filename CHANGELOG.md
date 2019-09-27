@@ -9,7 +9,6 @@
 - Add `onlyGenerateCoverageForSpecifiedTargets` parameter to `TestAction` https://github.com/tuist/XcodeProj/pull/473 by @kateinoigakukun
 - Added support for `PBXTargetDependency.product` https://github.com/tuist/XcodeProj/pull/481 by @yonaskolb
 
-
 ## 7.0.1
 
 ### Changed
