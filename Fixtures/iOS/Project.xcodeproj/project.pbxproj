@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,8 @@
 		23766C201EAA3484007A9026 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23766C1E1EAA3484007A9026 /* LaunchScreen.storyboard */; };
 		23766C2B1EAA3484007A9026 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23766C2A1EAA3484007A9026 /* iOSTests.swift */; };
 		3CD1EADD205763E400DAEECB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1EADB205763E400DAEECB /* Model.xcdatamodeld */; };
+		42AA1A1A22AAF48100428760 /* MyLocalPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 42AA1A1922AAF48100428760 /* MyLocalPackage */; };
+		42AA1A1C22AAF48100428760 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 42AA1A1B22AAF48100428760 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -26,6 +28,8 @@
 			compilerSpec = com.apple.compilers.proxy.script;
 			filePatterns = "*.myrule";
 			fileType = pattern.proxy;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 				"$(DERIVED_FILE_DIR)/CompiledRule",
@@ -69,6 +73,7 @@
 		23766C2A1EAA3484007A9026 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
 		23766C2C1EAA3484007A9026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CD1EADC205763E400DAEECB /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		42AA1A1822AAF41000428760 /* MyLocalPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyLocalPackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42AA1A1C22AAF48100428760 /* RxSwift in Frameworks */,
 				04D5C09F1F153824008A2F98 /* CoreData.framework in Frameworks */,
+				42AA1A1A22AAF48100428760 /* MyLocalPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +108,7 @@
 		23766C091EAA3484007A9026 = {
 			isa = PBXGroup;
 			children = (
+				42AA1A1822AAF41000428760 /* MyLocalPackage */,
 				23766C141EAA3484007A9026 /* iOS */,
 				23766C291EAA3484007A9026 /* iOSTests */,
 				23766C131EAA3484007A9026 /* Products */,
@@ -184,6 +192,10 @@
 			dependencies = (
 			);
 			name = iOS;
+			packageProductDependencies = (
+				42AA1A1922AAF48100428760 /* MyLocalPackage */,
+				42AA1A1B22AAF48100428760 /* RxSwift */,
+			);
 			productName = iOS;
 			productReference = 23766C121EAA3484007A9026 /* iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -236,6 +248,9 @@
 				Base,
 			);
 			mainGroup = 23766C091EAA3484007A9026;
+			packageReferences = (
+				42AA19FF22AAF0D600428760 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 23766C131EAA3484007A9026 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -280,7 +295,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = /test;
+			shellScript = "echo \"/test\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -432,10 +447,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = iOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -444,10 +462,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = iOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -457,11 +478,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = iOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Project.app/Project";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS.app/iOS";
 			};
 			name = Debug;
 		};
@@ -471,11 +496,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = iOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Project.app/Project";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS.app/iOS";
 			};
 			name = Release;
 		};
@@ -510,6 +539,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		42AA19FF22AAF0D600428760 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		42AA1A1922AAF48100428760 /* MyLocalPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyLocalPackage;
+		};
+		42AA1A1B22AAF48100428760 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 42AA19FF22AAF0D600428760 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3CD1EADB205763E400DAEECB /* Model.xcdatamodeld */ = {

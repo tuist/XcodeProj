@@ -8,9 +8,9 @@ This improvement makes the API easier, safer and more convenient, but at the cos
 
 - `PBXObjectReference` is an internal class now. Object references to other objects are attributes with the type of the object that is being referred. For example, a `XCConfigurationList` object has an attribute `buildConfigurations` of type `XCBuildConfiguration`. Adding a new configuration is as easy as calling `list.buildConfigurations.append(config)`.
 - Note that object references have different types of optionals based on the type of attribute:
-  - **Implicitly unwrapped optional:** When the attribute is required by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProject.swift#L38)
-  - **Explicitly unwrapped optional:** When the attribute is optional by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Targets/PBXTargetDependency.swift#L11)
-- `PBXObjects` has also been made internal. It was exposed through the attribute `objects` on the `PBXProj` class. If you used to use this class for adding, removing, or getting objects, those methods have been moved to the `PBXProj` class - [Public helpers](https://github.com/tuist/xcodeproj/blob/master/Sources/xcodeproj/Objects/Project/PBXProj.swift#L85) 
+  - **Implicitly unwrapped optional:** When the attribute is required by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/XcodeProj/Objects/Project/PBXProject.swift#L38)
+  - **Explicitly unwrapped optional:** When the attribute is optional by Xcode. [Example](https://github.com/tuist/xcodeproj/blob/master/Sources/XcodeProj/Objects/Targets/PBXTargetDependency.swift#L11)
+- `PBXObjects` has also been made internal. It was exposed through the attribute `objects` on the `PBXProj` class. If you used to use this class for adding, removing, or getting objects, those methods have been moved to the `PBXProj` class - [Public helpers](https://github.com/tuist/xcodeproj/blob/master/Sources/XcodeProj/Objects/Project/PBXProj.swift#L85) 
 
 **And yes, in case you are wondering, it fully supports Xcode 10 🎉**
 
