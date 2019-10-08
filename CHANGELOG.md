@@ -2,6 +2,10 @@
 
 ## Next version
 
+## Fixed
+
+- Add remote Swift packages to the Frameworks build phase https://github.com/tuist/XcodeProj/pull/487 by @kwridan
+
 ## 7.1.0
 
 ### Added
