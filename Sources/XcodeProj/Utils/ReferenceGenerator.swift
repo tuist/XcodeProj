@@ -56,8 +56,11 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Project references
         try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
-            guard let fileReference: PBXFileReference = objectReference.getObject() else { return }
-            try generateFileReference(fileReference, identifiers: identifiers)
+            if let fileReference = objectReference.getObject() as? PBXFileReference {
+                try generateFileReference(fileReference, identifiers: identifiers)
+            } else if let group = objectReference.getObject() as? PBXGroup {
+                try generateGroupReferences(group, identifiers: identifiers)
+            }
         }
 
         /// Configuration list
@@ -123,6 +126,8 @@ final class ReferenceGenerator: ReferenceGenerating {
                 try generateGroupReferences(childGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
                 try generateFileReference(childFileReference, identifiers: identifiers)
+            } else if let childReferenceProxy = childFileElement as? PBXReferenceProxy {
+                try generateReferenceProxyReference(childReferenceProxy, identifiers: identifiers)
             }
         }
     }
@@ -221,6 +226,41 @@ final class ReferenceGenerator: ReferenceGenerating {
             }
             fixReference(for: targetDependency, identifiers: identifiers)
         }
+    }
+
+    /// Generates the reference for a reference proxy  object.
+    ///
+    /// - Parameters:
+    ///   - referenceProxy: reference proxy instance.
+    ///   - identifiers: list of identifiers.
+    private func generateReferenceProxyReference(_ referenceProxy: PBXReferenceProxy,
+                                                    identifiers: [String]) throws {
+        var identifiers = identifiers
+
+        if let path = referenceProxy.path {
+            identifiers.append(path)
+        }
+
+        fixReference(for: referenceProxy, identifiers: identifiers)
+
+        if let remote = referenceProxy.remote {
+            try generateContainerItemProxyReference(remote, identifiers: identifiers)
+        }
+    }
+
+    /// Generates the reference for a container item proxy  object.
+    ///
+    /// - Parameters:
+    ///   - containerItemProxy: ontainer item proxy instance.
+    ///   - identifiers: list of identifiers.
+    private func generateContainerItemProxyReference(_ containerItemProxy: PBXContainerItemProxy,
+                                                      identifiers: [String]) throws  {
+        var identifiers = identifiers
+
+        if let remoteInfo = containerItemProxy.remoteInfo {
+            identifiers.append(remoteInfo)
+        }
+        fixReference(for: containerItemProxy, identifiers: identifiers)
     }
 
     /// Generates the reference for a build phase object.
