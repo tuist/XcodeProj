@@ -2,6 +2,10 @@
 
 ## Next version
 
+### Fixed
+
+-  System library added to a group has empty path https://github.com/tuist/XcodeProj/pull/488 by @damirdavletov
+
 ## 7.1.0
 
 ### Added
