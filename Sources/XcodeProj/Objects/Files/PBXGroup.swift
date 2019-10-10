@@ -206,7 +206,9 @@ public extension PBXGroup {
             path = groupPath.map { filePath.relative(to: $0) }?.string
         case .sourceRoot:
             path = filePath.relative(to: sourceRoot).string
-        case .absolute:
+        case .absolute,
+             .sdkRoot,
+             .developerDir:
             path = filePath.string
         default:
             path = nil
