@@ -234,7 +234,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - referenceProxy: reference proxy instance.
     ///   - identifiers: list of identifiers.
     private func generateReferenceProxyReference(_ referenceProxy: PBXReferenceProxy,
-                                                    identifiers: [String]) throws {
+                                                 identifiers: [String]) throws {
         var identifiers = identifiers
 
         if let path = referenceProxy.path {
@@ -254,7 +254,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///   - containerItemProxy: ontainer item proxy instance.
     ///   - identifiers: list of identifiers.
     private func generateContainerItemProxyReference(_ containerItemProxy: PBXContainerItemProxy,
-                                                      identifiers: [String]) throws {
+                                                     identifiers: [String]) throws {
         var identifiers = identifiers
 
         if let remoteInfo = containerItemProxy.remoteInfo {
