@@ -197,8 +197,8 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        guard let sourcesBuildPhase = try target.sourcesBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
-        sourcesBuildPhase.files?.append(buildFile)
+        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
+        frameworksBuildPhase.files?.append(buildFile)
 
         return reference
     }

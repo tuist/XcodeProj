@@ -2,9 +2,10 @@
 
 ## Next version
 
-### Fixed
+## Fixed
 
--  System library added to a group has empty path https://github.com/tuist/XcodeProj/pull/488 by @damirdavletov
+- Add remote Swift packages to the Frameworks build phase https://github.com/tuist/XcodeProj/pull/487 by @kwridan
+- System library added to a group has empty path https://github.com/tuist/XcodeProj/pull/488 by @damirdavletov
 
 ## 7.1.0
 
