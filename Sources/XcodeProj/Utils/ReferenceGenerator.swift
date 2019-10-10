@@ -228,7 +228,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
     }
 
-    /// Generates the reference for a reference proxy  object.
+    /// Generates the reference for a reference proxy object.
     ///
     /// - Parameters:
     ///   - referenceProxy: reference proxy instance.
@@ -248,13 +248,13 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
     }
 
-    /// Generates the reference for a container item proxy  object.
+    /// Generates the reference for a container item proxy object.
     ///
     /// - Parameters:
     ///   - containerItemProxy: ontainer item proxy instance.
     ///   - identifiers: list of identifiers.
     private func generateContainerItemProxyReference(_ containerItemProxy: PBXContainerItemProxy,
-                                                      identifiers: [String]) throws  {
+                                                      identifiers: [String]) throws {
         var identifiers = identifiers
 
         if let remoteInfo = containerItemProxy.remoteInfo {
