@@ -107,7 +107,7 @@ final class PBXProjectTests: XCTestCase {
         // Given
         let objects = PBXObjects(objects: [])
         
-        let buildPhase = PBXSourcesBuildPhase(
+        let buildPhase = PBXFrameworksBuildPhase(
             files: [],
             inputFileListPaths: nil,
             outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
@@ -149,7 +149,7 @@ final class PBXProjectTests: XCTestCase {
         // Given
         let objects = PBXObjects(objects: [])
         
-        let buildPhase = PBXSourcesBuildPhase(
+        let buildPhase = PBXFrameworksBuildPhase(
             files: [],
             inputFileListPaths: nil,
             outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
@@ -160,7 +160,7 @@ final class PBXProjectTests: XCTestCase {
                                      buildPhases: [buildPhase])
         objects.add(object: target)
         
-        let secondBuildPhase = PBXSourcesBuildPhase(
+        let secondBuildPhase = PBXFrameworksBuildPhase(
             files: [],
             inputFileListPaths: nil,
             outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
