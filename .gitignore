@@ -184,3 +184,6 @@ XcodeProj.xcodeproj
 .idea/
 tmp/
 XcodeProj.framework.zip
+
+# Tapestry
+tapestries/.build
