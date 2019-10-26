@@ -5,6 +5,11 @@ public final class PBXSourcesBuildPhase: PBXBuildPhase {
     public override var buildPhase: BuildPhase {
         return .sources
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXSourcesBuildPhase else { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 extension PBXSourcesBuildPhase: PlistSerializable {

@@ -142,6 +142,15 @@ public final class PBXContainerItemProxy: PBXObject {
         remoteInfo = try container.decodeIfPresent(.remoteInfo)
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXContainerItemProxy else { return false }
+        if containerPortalReference != rhs.containerPortalReference { return false }
+        if proxyType != rhs.proxyType { return false }
+        if remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
+        if remoteInfo != rhs.remoteInfo { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXContainerItemProxy Extension (PlistSerializable)

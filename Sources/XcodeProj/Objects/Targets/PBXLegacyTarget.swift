@@ -97,6 +97,15 @@ public final class PBXLegacyTarget: PBXTarget {
         }
         return (key: key, value: .dictionary(dict))
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXLegacyTarget else { return false }
+        if buildToolPath != rhs.buildToolPath { return false }
+        if buildArgumentsString != rhs.buildArgumentsString { return false }
+        if passBuildSettingsInEnvironment != rhs.passBuildSettingsInEnvironment { return false }
+        if buildWorkingDirectory != rhs.buildWorkingDirectory { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXNativeTarget Extension (PlistSerializable)

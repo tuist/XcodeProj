@@ -81,6 +81,19 @@ public final class PBXBuildRule: PBXObject {
         script = try container.decodeIfPresent(.script)
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXBuildRule else { return false }
+        if compilerSpec != rhs.compilerSpec { return false }
+        if filePatterns != rhs.filePatterns { return false }
+        if fileType != rhs.fileType { return false }
+        if isEditable != rhs.isEditable { return false }
+        if name != rhs.name { return false }
+        if outputFiles != rhs.outputFiles { return false }
+        if outputFilesCompilerFlags != rhs.outputFilesCompilerFlags { return false }
+        if script != rhs.script { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXBuildRule Extension (PlistSerializable)

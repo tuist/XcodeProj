@@ -90,6 +90,14 @@ public final class PBXTargetDependency: PBXObject {
         }
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXTargetDependency else { return false }
+        if name != rhs.name { return false }
+        if targetReference != rhs.targetReference { return false }
+        if targetProxyReference != rhs.targetProxyReference { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PlistSerializable

@@ -80,6 +80,12 @@ public class PBXGroup: PBXFileElement {
                                      comment: name ?? path),
                 value: .dictionary(dictionary))
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXGroup else { return false }
+        if childrenReferences != rhs.childrenReferences { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

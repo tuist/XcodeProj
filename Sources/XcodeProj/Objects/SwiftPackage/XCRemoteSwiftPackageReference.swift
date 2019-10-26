@@ -143,7 +143,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
 
     // MARK: - Equatable
 
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCRemoteSwiftPackageReference else { return false }
         if repositoryURL != rhs.repositoryURL { return false }
         if versionRequirement != rhs.versionRequirement { return false }

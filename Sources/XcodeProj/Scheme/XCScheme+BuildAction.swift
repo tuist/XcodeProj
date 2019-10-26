@@ -126,7 +126,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
+        public override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? BuildAction else { return false }
             return super.isEqual(to: to) &&
                 buildActionEntries == rhs.buildActionEntries &&

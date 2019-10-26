@@ -296,7 +296,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
+        public override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? LaunchAction else { return false }
             return super.isEqual(to: to) &&
                 runnable == rhs.runnable &&

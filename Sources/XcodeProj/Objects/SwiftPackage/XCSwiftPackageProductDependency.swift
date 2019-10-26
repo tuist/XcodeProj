@@ -61,7 +61,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
 
     // MARK: - Equatable
 
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    public override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCSwiftPackageProductDependency else { return false }
         if packageReference != rhs.packageReference { return false }
         if productName != rhs.productName { return false }

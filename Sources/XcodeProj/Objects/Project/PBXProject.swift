@@ -370,6 +370,25 @@ public final class PBXProject: PBXObject {
 
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXProject else { return false }
+        if name != rhs.name { return false }
+        if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
+        if compatibilityVersion != rhs.compatibilityVersion { return false }
+        if developmentRegion != rhs.developmentRegion { return false }
+        if hasScannedForEncodings != rhs.hasScannedForEncodings { return false }
+        if knownRegions != rhs.knownRegions { return false }
+        if mainGroupReference != rhs.mainGroupReference { return false }
+        if productsGroupReference != rhs.productsGroupReference { return false }
+        if projectDirPath != rhs.projectDirPath { return false }
+        if projectReferences != rhs.projectReferences { return false }
+        if projectRoots != rhs.projectRoots { return false }
+        if targetReferences != rhs.targetReferences { return false }
+        if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
+        if !NSDictionary(dictionary: targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

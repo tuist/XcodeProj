@@ -31,4 +31,10 @@ public class PBXContainerItem: PBXObject {
         }
         return dictionary
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXContainerItem else { return false }
+        if comments != rhs.comments { return false }
+        return super.isEqual(to: rhs)
+    }
 }

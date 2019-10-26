@@ -219,7 +219,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(to: Any?) -> Bool {
+        public override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? TestAction else { return false }
             return testables == rhs.testables &&
                 testPlans == rhs.testPlans &&

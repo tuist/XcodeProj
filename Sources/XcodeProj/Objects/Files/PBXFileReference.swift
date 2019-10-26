@@ -134,4 +134,16 @@ public final class PBXFileReference: PBXFileElement {
         return (key: CommentedString(reference, comment: name ?? path),
                 value: .dictionary(dictionary))
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXFileReference else { return false }
+        if fileEncoding != rhs.fileEncoding { return false }
+        if explicitFileType != rhs.explicitFileType { return false }
+        if lastKnownFileType != rhs.lastKnownFileType { return false }
+        if lineEnding != rhs.lineEnding { return false }
+        if languageSpecificationIdentifier != rhs.languageSpecificationIdentifier { return false }
+        if xcLanguageSpecificationIdentifier != rhs.xcLanguageSpecificationIdentifier { return false }
+        if plistStructureDefinitionIdentifier != rhs.plistStructureDefinitionIdentifier { return false }
+        return super.isEqual(to: rhs)
+    }
 }

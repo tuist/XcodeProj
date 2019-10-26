@@ -89,6 +89,14 @@ public final class XCBuildConfiguration: PBXObject {
             break
         }
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCBuildConfiguration else { return false }
+        if baseConfigurationReference != rhs.baseConfigurationReference { return false }
+        if !NSDictionary(dictionary: buildSettings).isEqual(to: rhs.buildSettings) { return false }
+        if name != rhs.name { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PlistSerializable

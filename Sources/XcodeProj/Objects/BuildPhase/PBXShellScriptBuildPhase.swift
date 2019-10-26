@@ -84,6 +84,17 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXShellScriptBuildPhase else { return false }
+        if name != rhs.name { return false }
+        if inputPaths != rhs.inputPaths { return false }
+        if outputPaths != rhs.outputPaths { return false }
+        if shellPath != rhs.shellPath { return false }
+        if shellScript != rhs.shellScript { return false }
+        if showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)

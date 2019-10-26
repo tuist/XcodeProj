@@ -97,4 +97,11 @@ public final class XCVersionGroup: PBXGroup {
         return (key: CommentedString(reference, comment: path?.split(separator: "/").last.map(String.init)),
                 value: .dictionary(dictionary))
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCVersionGroup else { return false }
+        if currentVersionReference != rhs.currentVersionReference { return false }
+        if versionGroupType != rhs.versionGroupType { return false }
+        return super.isEqual(to: rhs)
+    }
 }

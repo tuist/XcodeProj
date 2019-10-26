@@ -6,6 +6,11 @@ public final class PBXHeadersBuildPhase: PBXBuildPhase {
     public override var buildPhase: BuildPhase {
         return .headers
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXHeadersBuildPhase else { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXHeadersBuildPhase Extension (PlistSerializable)

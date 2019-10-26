@@ -59,6 +59,14 @@ public final class XCConfigurationList: PBXObject {
         defaultConfigurationName = try container.decodeIfPresent(.defaultConfigurationName)
         try super.init(from: decoder)
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCConfigurationList else { return false }
+        if buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
+        if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
+        if defaultConfigurationName != rhs.defaultConfigurationName { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

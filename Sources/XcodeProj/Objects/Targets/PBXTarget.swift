@@ -207,6 +207,19 @@ public class PBXTarget: PBXContainerItem {
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
+
+    public override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXTarget else { return false }
+        if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
+        if buildPhaseReferences != rhs.buildPhaseReferences { return false }
+        if buildRuleReferences != rhs.buildRuleReferences { return false }
+        if dependencyReferences != rhs.dependencyReferences { return false }
+        if name != rhs.name { return false }
+        if productName != rhs.productName { return false }
+        if productReference != rhs.productReference { return false }
+        if productType != rhs.productType { return false }
+        return super.isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers
