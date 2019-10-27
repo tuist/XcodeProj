@@ -23,17 +23,3 @@ jobs:
         run: xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
       - name: Send test coverage report
         run: bash <(curl -s https://codecov.io/bash)
-
-  danger:
-    name: Danger
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: GitHub Action for SwiftLint
-        uses: norio-nomura/action-swiftlint@2.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Changelog Reminder
-        uses: peterjgrainger/action-changelog-reminder@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
