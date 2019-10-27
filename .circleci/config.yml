@@ -27,15 +27,6 @@ jobs:
       - run:
           name: Run Danger
           command: bundle exec danger
-      - run:
-          name: Run tests
-          command: |
-            swift package generate-xcodeproj
-            xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
-      - run:
-          name: Send test coverage report
-          command: |
-            bash <(curl -s https://codecov.io/bash)
       - save_cache:
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
