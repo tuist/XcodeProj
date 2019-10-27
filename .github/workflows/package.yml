@@ -1,3 +1,4 @@
+# https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idname
 name: Package
 
 on: [push]
@@ -33,8 +34,6 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
-      - name: Install Bundler 2.0.2
-        run: gem install bundler --version 2.0.2
       - name: Danger
         run: bundle exec danger
         env:
