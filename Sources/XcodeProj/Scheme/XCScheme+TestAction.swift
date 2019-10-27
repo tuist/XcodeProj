@@ -15,6 +15,7 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var testables: [TestableReference]
+        public var testPlans: [TestPlanReference]
         public var codeCoverageTargets: [BuildableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
@@ -41,6 +42,7 @@ extension XCScheme {
         public init(buildConfiguration: String,
                     macroExpansion: BuildableReference?,
                     testables: [TestableReference] = [],
+                    testPlans: [TestPlanReference] = [],
                     preActions: [ExecutionAction] = [],
                     postActions: [ExecutionAction] = [],
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
@@ -64,6 +66,7 @@ extension XCScheme {
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
             self.testables = testables
+            self.testPlans = testPlans
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
@@ -101,6 +104,9 @@ extension XCScheme {
             testables = try element["Testables"]["TestableReference"]
                 .all?
                 .map(TestableReference.init) ?? []
+            testPlans = try element["TestPlans"]["TestPlanReference"]
+                .all?
+                .map(TestPlanReference.init) ?? []
             codeCoverageTargets = try element["CodeCoverageTargets"]["BuildableReference"]
                 .all?
                 .map(BuildableReference.init) ?? []
@@ -173,6 +179,10 @@ extension XCScheme {
 
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             super.writeXML(parent: element)
+            let testPlansElement = element.addChild(name: "TestPlans")
+            testPlans.forEach { testPlan in
+                testPlansElement.addChild(testPlan.xmlElement())
+            }
             let testablesElement = element.addChild(name: "Testables")
             testables.forEach { testable in
                 testablesElement.addChild(testable.xmlElement())
@@ -208,6 +218,7 @@ extension XCScheme {
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? TestAction else { return false }
             return testables == rhs.testables &&
+                testPlans == rhs.testPlans &&
                 buildConfiguration == rhs.buildConfiguration &&
                 selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
                 selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&

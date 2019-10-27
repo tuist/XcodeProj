@@ -81,7 +81,7 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
         XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
         XCTAssertEqual(proj.objects.nativeTargets.count, 2)
-        XCTAssertEqual(proj.objects.fileReferences.count, 16)
+        XCTAssertEqual(proj.objects.fileReferences.count, 17)
         XCTAssertEqual(proj.objects.buildRules.count, 1)
         XCTAssertEqual(proj.objects.versionGroups.count, 1)
         XCTAssertEqual(proj.objects.projects.count, 1)

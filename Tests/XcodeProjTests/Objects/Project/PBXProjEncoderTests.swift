@@ -20,7 +20,7 @@ class PBXProjEncoderTests: XCTestCase {
 
     func test_writeHeaders() throws {
         let lines = self.lines(fromFile: encodeProject())
-        XCTAssertEqual(581, lines.count)
+        XCTAssertEqual(583, lines.count)
         XCTAssertEqual("// !$*UTF8*$!", lines[0])
     }
 
@@ -82,6 +82,7 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "23766C261EAA3484007A9026 /* iOSTests.xctest */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2A1EAA3484007A9026 /* iOSTests.swift */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2C1EAA3484007A9026 /* Info.plist */", onLineAfter: line)
+        line = lines.validate(lineContaining: "23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */", onLineAfter: line)
         line = lines.validate(lineContaining: "3CD1EADC205763E400DAEECB /* Model.xcdatamodel */", onLineAfter: line)
         line = lines.validate(lineContaining: "42AA1A1822AAF41000428760 /* MyLocalPackage */", onLineAfter: line)
         lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
@@ -105,6 +106,7 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "04D5C0A01F153915008A2F98 /* Public.h */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C171EAA3484007A9026 /* ViewController.swift */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C121EAA3484007A9026 /* iOS.app */", onLineAfter: line)
+        line = lines.validate(lineContaining: "23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2A1EAA3484007A9026 /* iOSTests.swift */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C261EAA3484007A9026 /* iOSTests.xctest */", onLineAfter: line)
         lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)

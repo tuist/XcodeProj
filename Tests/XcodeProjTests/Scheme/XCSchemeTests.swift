@@ -68,6 +68,22 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["parallelizable"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
+    
+    func test_write_testPlanReferenceDefaultAttributesValuesAreOmitted() {
+        let reference = XCScheme.TestPlanReference(reference: "to_some_path")
+        let subject = reference.xmlElement()
+        XCTAssertNil(subject.attributes["default"])
+    }
+
+    func test_write_testPlanReferenceAttributesValues() {
+        let reference = XCScheme.TestPlanReference(
+            reference: "to_some_paht",
+            default: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["reference"], "to_some_paht")
+        XCTAssertEqual(subject.attributes["default"], "YES")
+    }
 
     // MARK: - Private
 
@@ -107,6 +123,8 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintName, "iOSTests")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.testAction?.testPlans.first?.reference, "container:iOS.xctestplan")
+        XCTAssertEqual(scheme.testAction?.testPlans.first?.default, true)
         XCTAssertEqual(scheme.testAction?.preActions.first?.title, "First Pre-action")
         XCTAssertEqual(scheme.testAction?.preActions.first?.scriptText, "echo first")
         XCTAssertEqual(scheme.testAction?.preActions.last?.title, "Second Pre-action")
