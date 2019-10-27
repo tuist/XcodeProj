@@ -16,5 +16,4 @@ Pod::Spec.new do |s|
 
   s.dependency "PathKit", "~> 1.0.0"
   s.dependency "AEXML", "~> 4.4.0"
-  s.dependency "Shell", "~> 2.0.0"
 end

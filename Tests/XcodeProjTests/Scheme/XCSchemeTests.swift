@@ -68,7 +68,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["parallelizable"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
-    
+
     func test_write_testPlanReferenceDefaultAttributesValuesAreOmitted() {
         let reference = XCScheme.TestPlanReference(reference: "to_some_path")
         let subject = reference.xmlElement()

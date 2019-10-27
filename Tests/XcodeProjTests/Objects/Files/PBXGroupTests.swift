@@ -1,6 +1,5 @@
 import Foundation
 import PathKit
-import Shell
 import XcodeProj
 import XCTest
 
