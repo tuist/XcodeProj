@@ -2,6 +2,10 @@
 
 ## Next version
 
+### Added
+
+- Added support for Xcode 11 test plans https://github.com/tuist/XcodeProj/pull/491 by @maniramezan
+
 ## Fixed
 
 - Add remote Swift packages to the Frameworks build phase https://github.com/tuist/XcodeProj/pull/487 by @kwridan
