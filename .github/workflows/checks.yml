@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: GitHub Action for SwiftLint
-        uses: norio-nomura/action-swiftlint@2.1.0
+        uses: pepibumur/action-swiftlint@0d4afd006bb24e4525b5afcefd4ab5e2537193ac
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   changelog:
