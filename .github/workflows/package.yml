@@ -29,8 +29,6 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Generate project
-        run: swift package generate-xcodeproj
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
