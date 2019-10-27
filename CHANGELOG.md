@@ -2,6 +2,8 @@
 
 ## Next version
 
+## 7.2.0
+
 ### Added
 
 - Added support for Xcode 11 test plans https://github.com/tuist/XcodeProj/pull/491 by @maniramezan
