@@ -29,10 +29,11 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6.5'
-      - name: Danger
-        run: bundle exec danger
+      - name: GitHub Action for SwiftLint
+        uses: norio-nomura/action-swiftlint@2.1.0
         env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Changelog Reminder
+        uses: peterjgrainger/action-changelog-reminder@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
