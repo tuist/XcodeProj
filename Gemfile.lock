@@ -80,7 +80,7 @@ GEM
       rake (> 10)
       thor (~> 0.19)
     escape (0.0.4)
-    faraday (0.16.2)
+    faraday (0.17.0)
       multipart-post (>= 1.2, < 3)
     faraday-http-cache (2.0.0)
       faraday (~> 0.8)
@@ -120,7 +120,7 @@ GEM
     public_suffix (4.0.1)
     rake (13.0.0)
     redcarpet (3.5.0)
-    rouge (3.11.0)
+    rouge (3.12.0)
     ruby-macho (1.4.0)
     sassc (2.2.1)
       ffi (~> 1.9)
@@ -158,4 +158,4 @@ DEPENDENCIES
   redcarpet (~> 3.5.0)
 
 BUNDLED WITH
-   1.17.3
+   2.0.2
