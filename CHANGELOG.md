@@ -2,6 +2,9 @@
 
 ## Next version
 
+### Changed
+- Replaced CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+
 ## 7.2.0
 
 ### Added
