@@ -8,7 +8,7 @@ extension XCScheme {
         public var reference: String
         public var `default`: Bool
     
-        // MARK: -Init
+        // MARK: - Init
         
         public init(reference: String,
                     default: Bool = false) {
