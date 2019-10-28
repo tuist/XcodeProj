@@ -11,4 +11,4 @@ let config = TapestryConfig(release: Release(actions: [.pre(.dependenciesCompati
                                                    "xcodeproj.podspec",
                                                    "CHANGELOG.md"],
                                              commitMessage: "Version \(Argument.version)",
-                                             push: false))
+                                             push: true))

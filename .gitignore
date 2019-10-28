@@ -187,3 +187,4 @@ XcodeProj.framework.zip
 
 # Tapestry
 tapestries/.build
+tapestries/.swiftpm
