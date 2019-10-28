@@ -1,7 +1,6 @@
 import PackageDescription
 
 let config = TapestryConfig(release: Release(actions: [.pre(.dependenciesCompatibility([.cocoapods, .spm(.all)])),
-                                                       .pre(tool: "bash", arguments: ["<(curl -Ls https://install.tuist.io)"]),
                                                        .pre(tool: "tuist", arguments: ["generate"]),
                                                        .pre(tool: "bundle", arguments: ["exec", "rake", "carthage_update_dependencies"]),
                                                        .pre(tool: "bundle", arguments: ["exec", "rake", "release_check"]),
