@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "id" : "B98CEFD8-D0A3-4BDD-BA5B-8DC671AA5291",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+
+      ]
+    },
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "MyLaunchArgument"
+      }
+    ],
+    "environmentVariableEntries" : [
+      {
+        "key" : "ENV_VAR",
+        "value" : "RUN"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Project.xcodeproj",
+      "identifier" : "23766C111EAA3484007A9026",
+      "name" : "iOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Project.xcodeproj",
+        "identifier" : "23766C251EAA3484007A9026",
+        "name" : "iOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "xcodeproj"
-  s.version          = "7.1.0"
+  s.version          = "7.2.0"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/tuist/xcodeproj"
   s.social_media_url = 'https://twitter.com/tuistapp'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/tuist/xcodeproj.git", :tag => s.version.to_s }
   s.requires_arc = true
   s.authors = "Tuist"
-  s.swift_version = "5.0"
+  s.swift_version = "5.1"
   s.osx.deployment_target = '10.10'
 
   s.source_files = "Sources/**/*.{swift}"

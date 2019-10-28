@@ -1,0 +1,25 @@
+# https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idname
+name: Package
+
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: swift build -c release
+
+  test:
+    name: Test
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Generate project
+        run: swift package generate-xcodeproj
+      - name: Run tests
+        run: xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
+      - name: Send test coverage report
+        run: bash <(curl -s https://codecov.io/bash)

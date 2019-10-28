@@ -72,6 +72,7 @@
 		23766C261EAA3484007A9026 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23766C2A1EAA3484007A9026 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
 		23766C2C1EAA3484007A9026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = iOS.xctestplan; sourceTree = "<group>"; };
 		3CD1EADC205763E400DAEECB /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42AA1A1822AAF41000428760 /* MyLocalPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyLocalPackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +109,7 @@
 		23766C091EAA3484007A9026 = {
 			isa = PBXGroup;
 			children = (
+				23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */,
 				42AA1A1822AAF41000428760 /* MyLocalPackage */,
 				23766C141EAA3484007A9026 /* iOS */,
 				23766C291EAA3484007A9026 /* iOSTests */,

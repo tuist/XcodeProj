@@ -160,7 +160,9 @@ public class PBXTarget: PBXContainerItem {
         }
 
         let packageProductDependencyReferenceStrings: [String] = try container.decodeIfPresent(.packageProductDependencies) ?? []
-        packageProductDependencyReferences = packageProductDependencyReferenceStrings.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
+        packageProductDependencyReferences = packageProductDependencyReferenceStrings.map {
+            objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
+        }
 
         productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
