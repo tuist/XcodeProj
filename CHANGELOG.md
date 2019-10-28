@@ -1,9 +1,14 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## Next version
+## Next
 
 ### Changed
+
 - Replaced CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+
+### Added
+
+- Automating release process with [tapestry](https://github.com/ackeecz/tapestry) https://github.com/tuist/XcodeProj/pull/495 by @fortmarek
 
 ## 7.2.0
 
@@ -11,7 +16,7 @@
 
 - Added support for Xcode 11 test plans https://github.com/tuist/XcodeProj/pull/491 by @maniramezan
 
-## Fixed
+### Fixed
 
 - Add remote Swift packages to the Frameworks build phase https://github.com/tuist/XcodeProj/pull/487 by @kwridan
 - System library added to a group has empty path https://github.com/tuist/XcodeProj/pull/488 by @damirdavletov
