@@ -2,6 +2,11 @@
 
 ## Next
 
+## 7.2.1
+
+### Fixed
+- Make test plans optional by https://github.com/tuist/XcodeProj/commit/c15034948a2a132bf559f14d3c6b4d1b73749663 @pepibumur
+
 ### Changed
 
 - Replaced CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
