@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/tadija/AEXML", .upToNextMinor(from: "4.4.0")),
         .package(url: "https://github.com/kylef/PathKit", .upToNextMinor(from: "1.0.0")),
-        .package(url: "https://github.com/tuist/Shell", .upToNextMinor(from: "2.0.1")),
+        .package(url: "https://github.com/apple/swift-package-manager", .branch("swift-5.0-RELEASE")),
     ],
     targets: [
         .target(name: "XcodeProj",
@@ -18,6 +18,6 @@ let package = Package(
                     "PathKit",
                     "AEXML",
                 ]),
-        .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj", "Shell"]),
+        .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj", "SPMUtility"]),
     ]
 )

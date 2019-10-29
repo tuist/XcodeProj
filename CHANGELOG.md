@@ -5,6 +5,8 @@
 ### Changed
 
 - Replaced CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+- Replace CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+- Replace Shell with the SPM's Process utility class https://github.com/tuist/XcodeProj/pull/492 by @pepibumur
 
 ### Added
 

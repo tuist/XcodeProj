@@ -1,10 +1,9 @@
 import Foundation
-import XCTest
 import PathKit
+import XCTest
 @testable import XcodeProj
 
 class ReferenceGeneratorTests: XCTestCase {
-
     func test_projectReferencingRemoteXcodeprojBundle_convertsReferencesToPermanent() throws {
         let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
         let pbxProject = project.makeProject()
@@ -13,7 +12,7 @@ class ReferenceGeneratorTests: XCTestCase {
         let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
         let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
 
-        pbxProject.projectReferences.append([ "ProductGroup" : productsGroup.reference ])
+        pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference])
 
         let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
         try referenceGenerator.generateReferences(proj: project)
@@ -36,15 +35,15 @@ private extension PBXProj {
                                  compatibilityVersion: Xcode.Default.compatibilityVersion,
                                  mainGroup: mainGroup)
 
-        self.add(object: mainGroup)
-        self.add(object: project)
-        self.rootObject = project
+        add(object: mainGroup)
+        add(object: project)
+        rootObject = project
 
         return project
     }
 
     func makeFileReference() -> PBXFileReference {
-        return try! self.rootObject!.mainGroup.addFile(at: Path("../Remote.xcodeproj"), sourceRoot: Path("/"), validatePresence: false)
+        return try! rootObject!.mainGroup.addFile(at: Path("../Remote.xcodeproj"), sourceRoot: Path("/"), validatePresence: false)
     }
 
     func makeContainerItemProxy(fileReference: PBXFileReference) -> PBXContainerItemProxy {
@@ -53,7 +52,7 @@ private extension PBXProj {
                                                        proxyType: .reference,
                                                        remoteInfo: "RemoteTarget")
 
-        self.add(object: containerItemProxy)
+        add(object: containerItemProxy)
 
         return containerItemProxy
     }
@@ -63,7 +62,7 @@ private extension PBXProj {
                                                       path: "Remote.framework",
                                                       remote: containerItemProxy,
                                                       sourceTree: .buildProductsDir)
-        self.add(object: productReferenceProxy)
+        add(object: productReferenceProxy)
         return productReferenceProxy
     }
 
@@ -71,7 +70,7 @@ private extension PBXProj {
         let productsGroup = PBXGroup(children: children,
                                      sourceTree: .group,
                                      name: "Products")
-        self.add(object: productsGroup)
+        add(object: productsGroup)
         return productsGroup
     }
 }
