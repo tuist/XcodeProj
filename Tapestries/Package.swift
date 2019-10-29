@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Tapestries",
     products: [
-    .library(name: "TapestryConfig", targets: ["TapestryConfig"])
+        .library(name: "TapestryConfig", targets: ["TapestryConfig"]),
     ],
     dependencies: [
         // Tapestry
@@ -15,7 +15,7 @@ let package = Package(
     targets: [
         .target(name: "TapestryConfig",
                 dependencies: [
-                    "PackageDescription"
-        ])
+                    "PackageDescription",
+                ]),
     ]
 )

@@ -32,8 +32,7 @@ public final class PBXBuildFile: PBXObject {
 
     /// Element settings
     public var settings: [String: Any]?
-    
-    
+
     /// Platform filter attribute.
     /// Introduced in: Xcode 11
     public var platformFilter: String?

@@ -15,7 +15,7 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var testables: [TestableReference]
-        public var testPlans: [TestPlanReference]
+        public var testPlans: [TestPlanReference]?
         public var codeCoverageTargets: [BuildableReference]
         public var buildConfiguration: String
         public var selectedDebuggerIdentifier: String
@@ -42,7 +42,7 @@ extension XCScheme {
         public init(buildConfiguration: String,
                     macroExpansion: BuildableReference?,
                     testables: [TestableReference] = [],
-                    testPlans: [TestPlanReference] = [],
+                    testPlans: [TestPlanReference]? = nil,
                     preActions: [ExecutionAction] = [],
                     postActions: [ExecutionAction] = [],
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
@@ -179,10 +179,14 @@ extension XCScheme {
 
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             super.writeXML(parent: element)
-            let testPlansElement = element.addChild(name: "TestPlans")
-            testPlans.forEach { testPlan in
-                testPlansElement.addChild(testPlan.xmlElement())
+
+            if let testPlans = testPlans {
+                let testPlansElement = element.addChild(name: "TestPlans")
+                testPlans.forEach { testPlan in
+                    testPlansElement.addChild(testPlan.xmlElement())
+                }
             }
+
             let testablesElement = element.addChild(name: "Testables")
             testables.forEach { testable in
                 testablesElement.addChild(testable.xmlElement())
