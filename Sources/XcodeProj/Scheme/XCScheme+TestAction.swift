@@ -106,7 +106,7 @@ extension XCScheme {
                 .map(TestableReference.init) ?? []
             testPlans = try element["TestPlans"]["TestPlanReference"]
                 .all?
-                .map(TestPlanReference.init) ?? []
+                .map(TestPlanReference.init)
             codeCoverageTargets = try element["CodeCoverageTargets"]["BuildableReference"]
                 .all?
                 .map(BuildableReference.init) ?? []
