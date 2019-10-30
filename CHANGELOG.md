@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.2.2
+
 ### Fixed
  - Make test plans deserialise correctly https://github.com/tuist/XcodeProj/pull/496 by @adamkhazi
 
