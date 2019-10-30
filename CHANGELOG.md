@@ -2,10 +2,13 @@
 
 ## Next
 
+### Fixed
+ - Make test plans deserialise correctly https://github.com/tuist/XcodeProj/pull/496 by @adamkhazi
+
 ## 7.2.1
 
 ### Fixed
-- Make test plans optional by https://github.com/tuist/XcodeProj/commit/c15034948a2a132bf559f14d3c6b4d1b73749663 @pepibumur
+- Make test plans optional https://github.com/tuist/XcodeProj/commit/c15034948a2a132bf559f14d3c6b4d1b73749663 by @pepibumur
 
 ### Changed
 
