@@ -2,6 +2,10 @@
 
 ## Next
 
+### Changed
+
+- Update BuildSettingsProvider to include extension settings https://github.com/tuist/XcodeProj/pull/497 by @kwridan
+
 ## 7.2.2
 
 ### Fixed
