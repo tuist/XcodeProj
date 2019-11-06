@@ -2,9 +2,12 @@
 
 ## Next
 
+## 7.3.0
+
 ### Changed
 
 - Update BuildSettingsProvider to include extension settings https://github.com/tuist/XcodeProj/pull/497 by @kwridan
+- Remove the dependency with the Swift Package Manager https://github.com/tuist/XcodeProj/pull/499 by @elliottwilliams
 
 ## 7.2.2
 
