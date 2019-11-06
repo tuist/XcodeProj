@@ -1,8 +1,9 @@
-import Basic
 import Foundation
 import PathKit
 import XCTest
 @testable import XcodeProj
+
+import Darwin
 
 final class PBXProjIntegrationTests: XCTestCase {
     func test_init_initializesTheProjCorrectly() {
@@ -37,16 +38,16 @@ final class PBXProjIntegrationTests: XCTestCase {
 
         try tmpDir.chdir {
             // Create a commit
-            _ = try Basic.Process.checkNonZeroExit(args: "git", "init")
-            _ = try Basic.Process.checkNonZeroExit(args: "git", "add", ".")
-            _ = try Basic.Process.checkNonZeroExit(args: "git", "commit", "-m", "'test'")
+            try checkedOutput("git", ["init"])
+            try checkedOutput("git", ["add", "."])
+            try checkedOutput("git", ["commit", "-m", "test"])
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
             try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
 
-            let got = try Basic.Process.checkNonZeroExit(args: "git", "status")
-            XCTAssertTrue(got.contains("nothing to commit"))
+            let got = try checkedOutput("git", ["status"])
+            XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
     }
 
@@ -81,4 +82,28 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.swiftPackageProductDependencies.count, 2)
         XCTAssertEqual(proj.objects.remoteSwiftPackageReferences.count, 1)
     }
+}
+
+/// Returns the output of running `executable` with `args`. Throws an error if the process exits indicating failure.
+@discardableResult
+private func checkedOutput(_ executable: String, _ args: [String]) throws -> String? {
+    let process = Process()
+    let output = Pipe()
+
+    if executable.contains("/") {
+        process.launchPath = executable
+    } else {
+        process.launchPath = try checkedOutput("/usr/bin/which", [executable])?.trimmingCharacters(in: .newlines)
+    }
+
+    process.arguments = args
+    process.standardOutput = output
+    process.launch()
+    process.waitUntilExit()
+
+    guard process.terminationStatus == 0 else {
+        throw NSError(domain: NSPOSIXErrorDomain, code: Int(process.terminationStatus))
+    }
+
+    return String(data: output.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
 }

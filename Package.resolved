@@ -27,24 +27,6 @@
           "revision": "f14ff47f45642aa5703900980b014c2e9394b6e5",
           "version": "0.9.0"
         }
-      },
-      {
-        "package": "llbuild",
-        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
-        "state": {
-          "branch": "master",
-          "revision": "0a778ca0c51025ffec95de881e59eb35c92f9944",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftPM",
-        "repositoryURL": "https://github.com/apple/swift-package-manager",
-        "state": {
-          "branch": "swift-5.0-RELEASE",
-          "revision": "3a57975e10be0b1a8b87992ddf3a49701036f96c",
-          "version": null
-        }
       }
     ]
   },
