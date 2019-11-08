@@ -2,6 +2,10 @@
 
 ## Next
 
+### Changed
+
+- Update list of recognized file extensions https://github.com/tuist/XcodeProj/pull/500 by @dflems
+
 ## 7.3.0
 
 ### Changed
