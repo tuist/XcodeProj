@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.4.0
+
 ### Changed
 
 - Update list of recognized file extensions https://github.com/tuist/XcodeProj/pull/500 by @dflems
@@ -16,11 +18,13 @@
 ## 7.2.2
 
 ### Fixed
- - Make test plans deserialise correctly https://github.com/tuist/XcodeProj/pull/496 by @adamkhazi
+
+- Make test plans deserialise correctly https://github.com/tuist/XcodeProj/pull/496 by @adamkhazi
 
 ## 7.2.1
 
 ### Fixed
+
 - Make test plans optional https://github.com/tuist/XcodeProj/commit/c15034948a2a132bf559f14d3c6b4d1b73749663 by @pepibumur
 
 ### Changed
@@ -107,6 +111,7 @@
 - Dead lock in the `PBXObjects.delete` method https://github.com/tuist/xcodeproj/pull/449 by @pepibumur
 
 ### Removed
+
 - OSLogs https://github.com/tuist/xcodeproj/pull/453 by @pepibumur.
 
 ## 6.7.0

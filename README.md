@@ -1,6 +1,5 @@
 # XcodeProj
 
-[![CircleCI](https://circleci.com/gh/tuist/xcodeproj.svg?style=svg)](https://circleci.com/gh/tuist/xcodeproj)
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Release](https://img.shields.io/github/release/tuist/xcodeproj.svg)](https://github.com/tuist/xcodeproj/releases)
 [![Code Coverage](https://codecov.io/gh/tuist/xcodeproj/branch/master/graph/badge.svg)](https://codecov.io/gh/tuist/xcodeproj)
@@ -38,7 +37,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.3.0")),
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.4.0")),
         ],
     targets: [
         .target(
@@ -54,13 +53,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 7.3.0
+github "tuist/xcodeproj" ~> 7.4.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.3.0'
+pod 'xcodeproj', '~> 7.4.0'
 ```
 
 ### Scripting
@@ -72,7 +71,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import XcodeProj  // @tuist ~> 7.3.0
+import XcodeProj  // @tuist ~> 7.4.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {
@@ -134,8 +133,6 @@ Want to start using XcodeProj? Start by digging into our [documentation](/Docume
 ## License
 
 XcodeProj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftuist%2Fxcodeproj?ref=badge_large)
 
 ## Open source
 

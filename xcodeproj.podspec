@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "xcodeproj"
-  s.version          = "7.3.0"
+  s.version          = "7.4.0"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/tuist/xcodeproj"
   s.social_media_url = 'https://twitter.com/tuistapp'
