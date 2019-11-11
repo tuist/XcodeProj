@@ -143,6 +143,96 @@ class BuildSettingProviderTests: XCTestCase {
         ])
     }
     
+    func test_targetSettings_iOSUnitTests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .iOS,
+                                                          product: .unitTests,
+                                                          swift: true)
+        
+        // Then
+        assertEqualSettings(results, [
+            "CODE_SIGN_IDENTITY": "iPhone Developer",
+            "SDKROOT": "iphoneos",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks"
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "DEBUG",
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+            "TARGETED_DEVICE_FAMILY": "1,2"
+        ])
+    }
+    
+    func test_targetSettings_iOSUITests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .iOS,
+                                                          product: .uiTests,
+                                                          swift: true)
+        
+        // Then
+        assertEqualSettings(results, [
+            "CODE_SIGN_IDENTITY": "iPhone Developer",
+            "SDKROOT": "iphoneos",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks"
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "DEBUG",
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+            "TARGETED_DEVICE_FAMILY": "1,2"
+        ])
+    }
+    
+    func test_targetSettings_macOSUnitTests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .macOS,
+                                                          product: .unitTests,
+                                                          swift: true)
+        
+        // Then
+        assertEqualSettings(results, [
+            "CODE_SIGN_IDENTITY": "-",
+            "SDKROOT": "macosx",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/../Frameworks",
+                "@loader_path/../Frameworks"
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "DEBUG",
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+        ])
+    }
+    
+    func test_targetSettings_tvOSUnitTests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .tvOS,
+                                                          product: .unitTests,
+                                                          swift: true)
+        
+        // Then
+        assertEqualSettings(results, [
+            "SDKROOT": "appletvos",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks"
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "DEBUG",
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+            "TARGETED_DEVICE_FAMILY": "3"
+        ])
+    }
+    
     // MARK: - Helpers
     
     func assertEqualSettings(_ lhs: BuildSettings, _ rhs: BuildSettings, file: StaticString = #file, line: UInt = #line) {

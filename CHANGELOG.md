@@ -2,6 +2,10 @@
 
 ## Next
 
+### Fixed
+
+- Provide default build settings for unit and ui test targets https://github.com/tuist/XcodeProj/pull/501 by @kwridan
+
 ## 7.4.0
 
 ### Changed

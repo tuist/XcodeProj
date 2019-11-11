@@ -32,7 +32,7 @@ public class BuildSettingsProvider {
     /// - appExtension: application extension
     /// - watchExtension: watch extension
     public enum Product {
-        case framework, staticLibrary, dynamicLibrary, application, bundle, appExtension, watchExtension
+        case framework, staticLibrary, dynamicLibrary, application, bundle, appExtension, watchExtension, unitTests, uiTests
     }
 
     /// Returns the default target build settings.
@@ -308,6 +308,14 @@ public class BuildSettingsProvider {
                     "@executable_path/../../../../Frameworks"
                 ]
             ]
+        case ([.iOS, .tvOS], [.unitTests, .uiTests]):
+        return [
+            "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
+        ]
+        case (.macOS, [.unitTests, .uiTests]):
+        return [
+            "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"]
+        ]
         default:
             return [:]
         }
