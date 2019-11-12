@@ -5,6 +5,7 @@
 ### Fixed
 
 - Provide default build settings for unit and ui test targets https://github.com/tuist/XcodeProj/pull/501 by @kwridan
+- Remove "Shell" Carthage dependency from project manifest as it's no longer used https://github.com/tuist/XcodeProj/pull/505 by @kwridan
 
 ## 7.4.0
 
