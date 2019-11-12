@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/fortmarek/acho",
         "state": {
           "branch": "spm_bump",
-          "revision": "a5d68cc0da728ccee157a0861877e474d92cd5a8",
+          "revision": "7fb6330df1a1e647e43a15f9ff0f03e02e9f46e8",
           "version": null
         }
       },
@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/apple/swift-llbuild.git",
         "state": {
           "branch": "master",
-          "revision": "973a3e299d39b89e6594babcd7cfab2a333a5782",
+          "revision": "c0aafa63fb42311c3754bd50530e0f7b3c6db357",
           "version": null
         }
       },
@@ -69,16 +69,16 @@
         "repositoryURL": "https://github.com/AckeeCZ/tapestry.git",
         "state": {
           "branch": "master",
-          "revision": "39d40860d990449c8b7ee23103a90274ebfc9674",
+          "revision": "3e11df7e2efa03b6fb71c2e093edc035ed52066a",
           "version": null
         }
       },
       {
         "package": "tuist",
-        "repositoryURL": "https://github.com/tuist/tuist.git",
+        "repositoryURL": "https://github.com/fortmarek/tuist.git",
         "state": {
           "branch": "master",
-          "revision": "212f61684a49a1a0c3c8247be029c059bc844e6a",
+          "revision": "4644c388abf3545bc6fe2c3862964463f54e1fb7",
           "version": null
         }
       },
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/tuist/XcodeProj",
         "state": {
           "branch": "master",
-          "revision": "6039b39a045427b8baf04b917253de2057d8fced",
+          "revision": "cdc932551da8f464d1dbd9e940e162f2f7da2ab6",
           "version": null
         }
       }
