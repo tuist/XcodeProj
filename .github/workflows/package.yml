@@ -23,3 +23,25 @@ jobs:
         run: xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
       - name: Send test coverage report
         run: bash <(curl -s https://codecov.io/bash)
+
+  build-linux:
+    name: Build on Linux
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        uses: docker://swift:5.1.2
+        with:
+          entrypoint: swift
+          args: build
+
+  test-linux:
+    name: Test on Linux
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Test
+        uses: docker://swift:5.1.2
+        with:
+          entrypoint: swift
+          args: test
