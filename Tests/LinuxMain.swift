@@ -1,4 +1,6 @@
 import XCTest
 @testable import XcodeProjTests
 
-// testDictionaryExtras()
+var tests = [XCTestCaseEntry]()
+tests += XcodeProjTests.allTests()
+XCTMain(tests)

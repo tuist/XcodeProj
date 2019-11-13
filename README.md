@@ -113,7 +113,7 @@ object.
 If you want to test or build the package in a Linux environment, you can run the following command that uses the official Swift Docker image for that:
 
 ```
-docker run --rm --volume "$(pwd):/package" --workdir "/package" swift:5.1.2 /bin/bash -c "swift package fetch && swift test --build-path ./.build/linux"
+docker run --rm --volume "$(pwd):/package" --workdir "/package" swift:5.1.2 /bin/bash -c "swift package resolve && swift test --build-path ./.build/linux"
 ```
 
 ## Documentation 📝
