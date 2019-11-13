@@ -1,6 +1,8 @@
 import XCTest
-@testable import XcodeProjTests
+
+import XcodeProjTests
 
 var tests = [XCTestCaseEntry]()
-tests += XcodeProjTests.allTests()
+tests += XcodeProjTests.__allTests()
+
 XCTMain(tests)
