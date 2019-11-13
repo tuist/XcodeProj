@@ -40,9 +40,9 @@ class AEXML_XcodeFormatTests: XCTestCase {
         let result = document.xmlXcodeFormat
         XCTAssertEqual(expectedXml.cleaned, result.cleaned, line: line)
     }
-    
+
     static var allTests = [
         ("test_BuildAction_attributes_sorted_when_original_sorted", test_BuildAction_attributes_sorted_when_original_sorted),
         ("test_BuildAction_attributes_sorted_when_original_unsorted", test_BuildAction_attributes_sorted_when_original_unsorted),
-        ]
+    ]
 }

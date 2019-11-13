@@ -8,7 +8,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let subject = try XCScheme(path: iosSchemePath)
         assert(scheme: subject)
     }
-    
+
     func test_write_iosScheme() {
         testWrite(from: iosSchemePath,
                   initModel: { try? XCScheme(path: $0) },
@@ -84,15 +84,15 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["reference"], "to_some_paht")
         XCTAssertEqual(subject.attributes["default"], "YES")
     }
-    
+
     func test_testAction_serializingAndDeserializing() throws {
         // Given
         let subject = XCScheme.TestAction(buildConfiguration: "Debug", macroExpansion: nil)
-        
+
         // When
         let element = subject.xmlElement()
         let reconstructedSubject = try XCScheme.TestAction(element: element)
-        
+
         // Then
         XCTAssertEqual(subject, reconstructedSubject)
     }

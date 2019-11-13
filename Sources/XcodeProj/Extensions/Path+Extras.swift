@@ -4,7 +4,7 @@ import PathKit
 
 // MARK: - Path extras.
 
-//let systemGlob = Darwin.glob
+// let systemGlob = Darwin.glob
 
 extension Path {
     /// Creates a directory

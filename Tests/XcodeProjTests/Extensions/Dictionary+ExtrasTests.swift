@@ -19,9 +19,9 @@ class DictionaryExtrasTests: XCTestCase {
         let iosProject = fixtures + "iOS/Project.xcodeproj/project.pbxproj"
         XCTAssertNotNil(loadPlist(path: iosProject.string))
     }
-    
+
     static var allTests = [
-    ("test_loadPlist_returnsANilValue_whenTheFileDoesntExist", test_loadPlist_returnsANilValue_whenTheFileDoesntExist),
-    ("test_loadPlist_returnsTheDictionary_whenTheFileDoesExist", test_loadPlist_returnsTheDictionary_whenTheFileDoesExist),
+        ("test_loadPlist_returnsANilValue_whenTheFileDoesntExist", test_loadPlist_returnsANilValue_whenTheFileDoesntExist),
+        ("test_loadPlist_returnsTheDictionary_whenTheFileDoesExist", test_loadPlist_returnsTheDictionary_whenTheFileDoesExist),
     ]
 }

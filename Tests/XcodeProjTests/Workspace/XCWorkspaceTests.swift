@@ -4,6 +4,12 @@ import XcodeProj
 import XCTest
 
 final class XCWorkspaceIntegrationTests: XCTestCase {
+    static var allTests = [
+        ("test_initTheWorkspaceWithTheRightPropeties", test_initTheWorkspaceWithTheRightPropeties),
+        ("test_initFailsIfThePathIsWrong", test_initFailsIfThePathIsWrong),
+        ("test_init_returnsAWorkspaceWithTheCorrectReference", test_init_returnsAWorkspaceWithTheCorrectReference),
+    ]
+
     func test_initTheWorkspaceWithTheRightPropeties() {
         let path = fixturesPath() + "iOS/Project.xcodeproj/project.xcworkspace"
         let got = try? XCWorkspace(path: path)

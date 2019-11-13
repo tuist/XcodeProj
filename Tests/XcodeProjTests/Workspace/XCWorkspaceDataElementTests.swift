@@ -4,6 +4,11 @@ import XcodeProj
 import XCTest
 
 final class XCWorkspaceDataElementTests: XCTestCase {
+    static var allTests = [
+        ("test_location_when_group", test_location_when_group),
+        ("test_location_when_file", test_location_when_file),
+    ]
+
     func test_location_when_group() {
         let location: XCWorkspaceDataElementLocationType = .absolute("/path/to/group")
         let group = XCWorkspaceDataGroup(location: location,

@@ -22,12 +22,12 @@ final class PathExtrasTests: XCTestCase {
     func testThat_GivenPath_WhenRelativeToNotSuperseedingPath_ThenResultHasDoubleDot() {
         XCTAssertEqual(Path("some/dir/file.txt").relative(to: Path("anotherDir")), Path("../some/dir/file.txt"))
     }
-    
+
     static var allTests = [
-    ("testThat_GivenAbsoluteSubPath_WhenRelativeToAbsoluteSuperPath_ThenResultIsTheRemainder", testThat_GivenAbsoluteSubPath_WhenRelativeToAbsoluteSuperPath_ThenResultIsTheRemainder),
-    ("testThat_GivenAbsolutePath_WhenRelativeToNotSuperseedingAbsolutePath_ThenResultHasDoubleDot", testThat_GivenAbsolutePath_WhenRelativeToNotSuperseedingAbsolutePath_ThenResultHasDoubleDot),
-    ("testThat_GivenAbsoluteSubPath_WhenRelativeToIntersectingAbsolutePath_ThenResultIsTheFullPathToTheRootAndThenFullAbsolutePath", testThat_GivenAbsoluteSubPath_WhenRelativeToIntersectingAbsolutePath_ThenResultIsTheFullPathToTheRootAndThenFullAbsolutePath),
-    ("testThat_GivenSubPath_WhenRelativeToSuperPath_ThenResultIsTheRemainder", testThat_GivenSubPath_WhenRelativeToSuperPath_ThenResultIsTheRemainder),
-    ("testThat_GivenPath_WhenRelativeToNotSuperseedingPath_ThenResultHasDoubleDot", testThat_GivenPath_WhenRelativeToNotSuperseedingPath_ThenResultHasDoubleDot)
+        ("testThat_GivenAbsoluteSubPath_WhenRelativeToAbsoluteSuperPath_ThenResultIsTheRemainder", testThat_GivenAbsoluteSubPath_WhenRelativeToAbsoluteSuperPath_ThenResultIsTheRemainder),
+        ("testThat_GivenAbsolutePath_WhenRelativeToNotSuperseedingAbsolutePath_ThenResultHasDoubleDot", testThat_GivenAbsolutePath_WhenRelativeToNotSuperseedingAbsolutePath_ThenResultHasDoubleDot),
+        ("testThat_GivenAbsoluteSubPath_WhenRelativeToIntersectingAbsolutePath_ThenResultIsTheFullPathToTheRootAndThenFullAbsolutePath", testThat_GivenAbsoluteSubPath_WhenRelativeToIntersectingAbsolutePath_ThenResultIsTheFullPathToTheRootAndThenFullAbsolutePath),
+        ("testThat_GivenSubPath_WhenRelativeToSuperPath_ThenResultIsTheRemainder", testThat_GivenSubPath_WhenRelativeToSuperPath_ThenResultIsTheRemainder),
+        ("testThat_GivenPath_WhenRelativeToNotSuperseedingPath_ThenResultHasDoubleDot", testThat_GivenPath_WhenRelativeToNotSuperseedingPath_ThenResultHasDoubleDot),
     ]
 }

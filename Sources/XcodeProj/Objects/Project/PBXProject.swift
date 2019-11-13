@@ -386,7 +386,7 @@ public final class PBXProject: PBXObject {
         if projectRoots != rhs.projectRoots { return false }
         if targetReferences != rhs.targetReferences { return false }
         if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
-        // TODO
+        // TODO:
 //        if !NSDictionary(dictionary: targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
         return super.isEqual(to: rhs)
     }

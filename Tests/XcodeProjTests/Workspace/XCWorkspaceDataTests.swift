@@ -7,6 +7,10 @@ final class XCWorkspaceDataTests: XCTestCase {
     var subject: XCWorkspaceData!
     var fileRef: XCWorkspaceDataFileRef!
 
+    static var allTests = [
+        ("test_equal_returnsTheCorrectValue", test_equal_returnsTheCorrectValue),
+    ]
+
     override func setUp() {
         super.setUp()
         fileRef = XCWorkspaceDataFileRef(
@@ -22,6 +26,15 @@ final class XCWorkspaceDataTests: XCTestCase {
 }
 
 final class XCWorkspaceDataIntegrationTests: XCTestCase {
+    static var allTests = [
+        ("test_init_returnsTheModelWithTheRightProperties", test_init_returnsTheModelWithTheRightProperties),
+        ("test_init_throwsIfThePathIsWrong", test_init_throwsIfThePathIsWrong),
+        ("test_write", test_write),
+        ("test_init_returnsAllChildren", test_init_returnsAllChildren),
+        ("test_init_returnsNestedElements", test_init_returnsNestedElements),
+        ("test_init_returnsAllLocationTypes", test_init_returnsAllLocationTypes),
+    ]
+
     func test_init_returnsTheModelWithTheRightProperties() throws {
         let path = fixturePath()
         let got = try XCWorkspaceData(path: path)
