@@ -108,6 +108,14 @@ object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
 
+## Docker
+
+If you want to test or build the package in a Linux environment, you can run the following command that uses the official Swift Docker image for that:
+
+```
+docker run --rm --volume "$(pwd):/package" --workdir "/package" swift:5.1.2 /bin/bash -c "swift package fetch && swift test --build-path ./.build/linux"
+```
+
 ## Documentation 📝
 
 Want to start using XcodeProj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.

@@ -3,8 +3,6 @@ import PathKit
 import XCTest
 @testable import XcodeProj
 
-import Darwin
-
 final class PBXProjIntegrationTests: XCTestCase {
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
