@@ -5,6 +5,7 @@ public enum PBXProductType: String, Decodable {
     case application = "com.apple.product-type.application"
     case framework = "com.apple.product-type.framework"
     case staticFramework = "com.apple.product-type.framework.static"
+	case xcFramework = "com.apple.product-type.xcframework"
     case dynamicLibrary = "com.apple.product-type.library.dynamic"
     case staticLibrary = "com.apple.product-type.library.static"
     case bundle = "com.apple.product-type.bundle"
@@ -34,6 +35,8 @@ public enum PBXProductType: String, Decodable {
             return "app"
         case .framework, .staticFramework:
             return "framework"
+		case .xcFramework:
+			return "xcframework"
         case .dynamicLibrary:
             return "dylib"
         case .staticLibrary:
