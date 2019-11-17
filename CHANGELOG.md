@@ -5,6 +5,9 @@
 ### Fixed
 - Remove "Shell" Carthage dependency from carthage xcode project as it's no longer used https://github.com/tuist/XcodeProj/pull/507 by @imben123
 
+### Added
+- Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
+
 ## 7.5.0
 
 ### Fixed
