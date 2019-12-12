@@ -127,6 +127,7 @@ public class BuildSettingsProvider {
             "CLANG_WARN_UNREACHABLE_CODE": "YES",
             "COPY_PHASE_STRIP": "NO",
             "ENABLE_STRICT_OBJC_MSGSEND": "YES",
+            "ENABLE_PREVIEWS": "YES",
             "GCC_C_LANGUAGE_STANDARD": "gnu11",
             "GCC_NO_COMMON_BLOCKS": "YES",
             "GCC_WARN_64_TO_32_BIT_CONVERSION": "YES",
