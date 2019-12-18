@@ -7,6 +7,7 @@
 
 ### Added
 - Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
+- Added `"ENABLE_PREVIEWS"` to target application build settings https://github.com/tuist/XcodeProj/pull/511 by @fortmarek
 
 ## 7.5.0
 
