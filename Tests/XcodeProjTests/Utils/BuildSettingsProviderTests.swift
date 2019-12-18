@@ -14,6 +14,7 @@ class BuildSettingProviderTests: XCTestCase {
         // Then
         assertEqualSettings(results, [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ENABLE_PREVIEWS": "YES",
             "CODE_SIGN_IDENTITY": "iPhone Developer",
             "LD_RUNPATH_SEARCH_PATHS": [
                   "$(inherited)",
@@ -90,6 +91,7 @@ class BuildSettingProviderTests: XCTestCase {
         // Then
         assertEqualSettings(results, [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ENABLE_PREVIEWS": "YES",
             "CODE_SIGN_IDENTITY": "-",
             "COMBINE_HIDPI_IMAGES": "YES",
             "LD_RUNPATH_SEARCH_PATHS": [
@@ -112,6 +114,7 @@ class BuildSettingProviderTests: XCTestCase {
         // Then
         assertEqualSettings(results, [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "App Icon & Top Shelf Image",
+            "ENABLE_PREVIEWS": "YES",
             "ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME": "LaunchImage",
             "LD_RUNPATH_SEARCH_PATHS": [
                   "$(inherited)",
@@ -135,6 +138,7 @@ class BuildSettingProviderTests: XCTestCase {
         assertEqualSettings(results, [
             "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ENABLE_PREVIEWS": "YES",
             "SDKROOT": "watchos",
             "SKIP_INSTALL": "YES",
             "SWIFT_COMPILATION_MODE": "wholemodule",
