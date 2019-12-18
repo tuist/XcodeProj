@@ -127,7 +127,6 @@ public class BuildSettingsProvider {
             "CLANG_WARN_UNREACHABLE_CODE": "YES",
             "COPY_PHASE_STRIP": "NO",
             "ENABLE_STRICT_OBJC_MSGSEND": "YES",
-            "ENABLE_PREVIEWS": "YES",
             "GCC_C_LANGUAGE_STANDARD": "gnu11",
             "GCC_NO_COMMON_BLOCKS": "YES",
             "GCC_WARN_64_TO_32_BIT_CONVERSION": "YES",
@@ -191,7 +190,8 @@ public class BuildSettingsProvider {
         switch product {
         case .application:
             return [
-                "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon"
+                "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                "ENABLE_PREVIEWS": "YES",
             ]
         case .framework:
             return [
