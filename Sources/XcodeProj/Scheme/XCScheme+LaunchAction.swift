@@ -40,6 +40,7 @@ extension XCScheme {
         public var selectedLauncherIdentifier: String
         public var buildConfiguration: String
         public var launchStyle: Style
+        public var askForAppToLaunch: Bool
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
         public var debugDocumentVersioning: Bool
@@ -75,6 +76,7 @@ extension XCScheme {
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
+                    askForAppToLaunch: Bool = false,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
                     debugDocumentVersioning: Bool = true,
@@ -104,6 +106,7 @@ extension XCScheme {
             self.launchStyle = launchStyle
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
+            self.askForAppToLaunch = askForAppToLaunch
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
             self.debugDocumentVersioning = debugDocumentVersioning
@@ -136,6 +139,7 @@ extension XCScheme {
             selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
             selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             launchStyle = element.attributes["launchStyle"].flatMap { Style(rawValue: $0) } ?? .auto
+            askForAppToLaunch = element.attributes["askForAppToLaunch"] == "YES"
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
@@ -212,6 +216,9 @@ extension XCScheme {
                 "allowLocationSimulation": allowLocationSimulation.xmlString,
             ]
 
+            if askForAppToLaunch {
+                attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
+            }
             if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {
                 attributes["enableGPUFrameCaptureMode"] = enableGPUFrameCaptureMode.rawValue
             }
@@ -305,6 +312,7 @@ extension XCScheme {
                 selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
                 buildConfiguration == rhs.buildConfiguration &&
                 launchStyle == rhs.launchStyle &&
+                askForAppToLaunch == rhs.askForAppToLaunch &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
                 debugDocumentVersioning == rhs.debugDocumentVersioning &&
