@@ -132,6 +132,7 @@ extension XCScheme {
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 debugDocumentVersioning == rhs.debugDocumentVersioning &&
+                askForAppToLaunch == rhs.askForAppToLaunch &&
                 commandlineArguments == rhs.commandlineArguments &&
                 environmentVariables == rhs.environmentVariables &&
                 macroExpansion == rhs.macroExpansion &&
