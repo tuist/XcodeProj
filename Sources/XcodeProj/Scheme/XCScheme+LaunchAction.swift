@@ -40,7 +40,7 @@ extension XCScheme {
         public var selectedLauncherIdentifier: String
         public var buildConfiguration: String
         public var launchStyle: Style
-        public var askForAppToLaunch: Bool
+        public var askForAppToLaunch: Bool?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
         public var debugDocumentVersioning: Bool
@@ -76,7 +76,7 @@ extension XCScheme {
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
-                    askForAppToLaunch: Bool = false,
+                    askForAppToLaunch: Bool? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
                     debugDocumentVersioning: Bool = true,
@@ -139,7 +139,7 @@ extension XCScheme {
             selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
             selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             launchStyle = element.attributes["launchStyle"].flatMap { Style(rawValue: $0) } ?? .auto
-            askForAppToLaunch = element.attributes["askForAppToLaunch"] == "YES"
+            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" }
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
@@ -216,7 +216,7 @@ extension XCScheme {
                 "allowLocationSimulation": allowLocationSimulation.xmlString,
             ]
 
-            if askForAppToLaunch {
+            if let askForAppToLaunch = askForAppToLaunch {
                 attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
             }
             if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {

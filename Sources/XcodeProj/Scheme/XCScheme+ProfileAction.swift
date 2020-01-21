@@ -17,7 +17,7 @@ extension XCScheme {
         public var ignoresPersistentStateOnLaunch: Bool
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
-        public var askForAppToLaunch: Bool
+        public var askForAppToLaunch: Bool?
         public var commandlineArguments: CommandLineArguments?
         public var environmentVariables: [EnvironmentVariable]?
         public var macroExpansion: BuildableReference?
@@ -35,7 +35,7 @@ extension XCScheme {
                     ignoresPersistentStateOnLaunch: Bool = false,
                     useCustomWorkingDirectory: Bool = false,
                     debugDocumentVersioning: Bool = true,
-                    askForAppToLaunch: Bool = false,
+                    askForAppToLaunch: Bool? = nil,
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
                     enableTestabilityWhenProfilingTests: Bool = true) {
@@ -60,7 +60,7 @@ extension XCScheme {
             savedToolIdentifier = element.attributes["savedToolIdentifier"] ?? ""
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
-            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" } ?? false
+            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" }
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"].map { $0 == "YES" } ?? false
 
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
