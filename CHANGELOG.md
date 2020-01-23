@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.6.0
+
 ### Changed
 - **Breaking** Make `PBXProject.targetAttributes` optional https://github.com/tuist/XcodeProj/pull/517 by @pepibumur
 
