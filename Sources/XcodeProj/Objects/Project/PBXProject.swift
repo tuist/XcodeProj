@@ -105,23 +105,31 @@ public final class PBXProject: PBXObject {
     public var attributes: [String: Any]
 
     /// Target attribute references.
-    var targetAttributeReferences: [PBXObjectReference: [String: Any]]
+    var targetAttributeReferences: [PBXObjectReference: [String: Any]]?
 
     /// Target attributes.
-    public var targetAttributes: [PBXTarget: [String: Any]] {
+    public var targetAttributes: [PBXTarget: [String: Any]]? {
         set {
-            targetAttributeReferences = [:]
-            newValue.forEach {
-                targetAttributeReferences[$0.key.reference] = $0.value
+            if let newValue = newValue {
+                targetAttributeReferences = [:]
+                newValue.forEach {
+                    targetAttributeReferences?[$0.key.reference] = $0.value
+                }
+            } else {
+                targetAttributeReferences = nil
             }
         } get {
-            var attributes: [PBXTarget: [String: Any]] = [:]
-            targetAttributeReferences.forEach {
-                if let object: PBXTarget = $0.key.getObject() {
-                    attributes[object] = $0.value
+            if let targetAttributeReferences = targetAttributeReferences {
+                var attributes: [PBXTarget: [String: Any]] = [:]
+                targetAttributeReferences.forEach {
+                    if let object: PBXTarget = $0.key.getObject() {
+                        attributes[object] = $0.value
+                    }
                 }
+                return attributes
+            } else {
+                return nil
             }
-            return attributes
         }
     }
 
@@ -144,19 +152,22 @@ public final class PBXProject: PBXObject {
     ///   - attributes: attributes that will be set.
     ///   - target: target.
     public func setTargetAttributes(_ attributes: [String: Any], target: PBXTarget) {
-        targetAttributeReferences[target.reference] = attributes
+        if targetAttributeReferences == nil {
+            targetAttributeReferences = [:]
+        }
+        targetAttributeReferences?[target.reference] = attributes
     }
 
     /// Removes the attributes for the given target.
     ///
     /// - Parameter target: target whose attributes will be removed.
     public func removeTargetAttributes(target: PBXTarget) {
-        targetAttributeReferences.removeValue(forKey: target.reference)
+        targetAttributeReferences?.removeValue(forKey: target.reference)
     }
 
     /// Removes the all the target attributes
     public func clearAllTargetAttributes() {
-        targetAttributeReferences.removeAll()
+        targetAttributeReferences?.removeAll()
     }
 
     /// Returns the attributes of a given target.
@@ -164,7 +175,7 @@ public final class PBXProject: PBXObject {
     /// - Parameter for: target whose attributes will be returned.
     /// - Returns: target attributes.
     public func attributes(for target: PBXTarget) -> [String: Any]? {
-        return targetAttributeReferences[target.reference]
+        return targetAttributeReferences?[target.reference]
     }
 
     /// Adds a remote swift package
@@ -486,7 +497,7 @@ extension PBXProject: PlistSerializable {
         }
 
         var plistAttributes: [String: Any] = attributes
-        if !targetAttributeReferences.isEmpty {
+        if let targetAttributeReferences = targetAttributeReferences, !targetAttributeReferences.isEmpty {
             // merge target attributes
             var plistTargetAttributes: [String: Any] = [:]
             for (reference, value) in targetAttributeReferences {
