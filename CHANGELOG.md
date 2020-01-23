@@ -8,6 +8,7 @@
 ### Added
 - Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
 - Added `askForAppToLaunch` parameter to `LaunchAction` and `ProfileAction`. https://github.com/tuist/XcodeProj/pull/515 by @YutoMizutani
+- Added `useTestSelectionWhitelist` attribute to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/516 by @basvankuijck.
 
 ## 7.5.0
 
