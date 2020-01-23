@@ -190,7 +190,8 @@ public class BuildSettingsProvider {
         switch product {
         case .application:
             return [
-                "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon"
+                "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                "ENABLE_PREVIEWS": "YES",
             ]
         case .framework:
             return [
