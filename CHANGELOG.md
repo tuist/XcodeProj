@@ -2,6 +2,9 @@
 
 ## Next
 
+### Changed
+- **Breaking** Make `PBXProject.targetAttributes` optional https://github.com/tuist/XcodeProj/pull/517 by @pepibumur
+
 ### Fixed
 - Remove "Shell" Carthage dependency from carthage xcode project as it's no longer used https://github.com/tuist/XcodeProj/pull/507 by @imben123
 

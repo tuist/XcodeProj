@@ -497,7 +497,7 @@ extension PBXProject: PlistSerializable {
         }
 
         var plistAttributes: [String: Any] = attributes
-        if let targetAttributeReferences = targetAttributeReferences, !targetAttributeReferences.isEmpty {
+        if let targetAttributeReferences = targetAttributeReferences {
             // merge target attributes
             var plistTargetAttributes: [String: Any] = [:]
             for (reference, value) in targetAttributeReferences {
