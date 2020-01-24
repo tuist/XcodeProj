@@ -48,6 +48,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let subject = reference.xmlElement()
         XCTAssertNil(subject.attributes["parallelizable"])
         XCTAssertNil(subject.attributes["testExecutionOrdering"])
+        XCTAssertNil(subject.attributes["useTestSelectionWhitelist"])
     }
 
     func test_write_testableReferenceAttributesValues() {
@@ -61,11 +62,13 @@ final class XCSchemeIntegrationTests: XCTestCase {
                 buildableName: "",
                 blueprintName: ""
             ),
-            skippedTests: []
+            skippedTests: [],
+            useTestSelectionWhitelist: true
         )
         let subject = reference.xmlElement()
         XCTAssertEqual(subject.attributes["skipped"], "NO")
         XCTAssertEqual(subject.attributes["parallelizable"], "YES")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
@@ -129,6 +132,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
+        XCTAssertEqual(scheme.testAction?.testables.first?.useTestSelectionWhitelist, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableName, "iOSTests.xctest")
