@@ -2,6 +2,11 @@
 
 ## Next
 
+## 7.6.0
+
+### Changed
+- **Breaking** Make `PBXProject.targetAttributes` optional https://github.com/tuist/XcodeProj/pull/517 by @pepibumur
+
 ### Fixed
 - Remove "Shell" Carthage dependency from carthage xcode project as it's no longer used https://github.com/tuist/XcodeProj/pull/507 by @imben123
 
@@ -9,6 +14,7 @@
 - Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
 - Added `askForAppToLaunch` parameter to `LaunchAction` and `ProfileAction`. https://github.com/tuist/XcodeProj/pull/515 by @YutoMizutani
 - Added `useTestSelectionWhitelist` attribute to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/516 by @basvankuijck.
+- Added `"ENABLE_PREVIEWS"` to target application build settings https://github.com/tuist/XcodeProj/pull/511 by @fortmarek
 
 ## 7.5.0
 
