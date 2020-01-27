@@ -50,10 +50,6 @@ final class ReferenceGenerator: ReferenceGenerating {
             try generateGroupReferences(productsGroup, identifiers: identifiers)
         }
 
-        // Targets
-        let targets: [PBXTarget] = project.targets
-        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
-
         // Project references
         try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             if let fileReference = objectReference.getObject() as? PBXFileReference {
@@ -62,6 +58,10 @@ final class ReferenceGenerator: ReferenceGenerating {
                 try generateGroupReferences(group, identifiers: identifiers)
             }
         }
+
+        // Targets
+        let targets: [PBXTarget] = project.targets
+        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         /// Configuration list
         if let configurationList: XCConfigurationList = project.buildConfigurationListReference.getObject() {
