@@ -2,6 +2,9 @@
 
 ## Next
 
+### Fixed
+- Ensure references to products in external projects are generated with deterministic UUIDs https://github.com/tuist/XcodeProj/pull/518 by @evandcoleman
+
 ## 7.6.0
 
 ### Changed
