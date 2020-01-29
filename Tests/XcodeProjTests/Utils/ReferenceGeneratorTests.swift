@@ -22,6 +22,32 @@ class ReferenceGeneratorTests: XCTestCase {
         XCTAssert(!productReferenceProxy.reference.temporary)
         XCTAssert(!remoteProjectFileReference.reference.temporary)
     }
+
+    func test_projectReferencingRemoteXcodeprojBundle_generatesDeterministicIdentifiers() throws {
+        func generateProject() throws -> [String] {
+            let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
+            let pbxProject = project.makeProject()
+            let remoteProjectFileReference = project.makeFileReference()
+            let containerItemProxy = project.makeContainerItemProxy(fileReference: remoteProjectFileReference)
+            let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
+            let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
+            let (target, buildFile) = project.makeTarget(productReferenceProxy: productReferenceProxy)
+
+            pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference])
+            pbxProject.targets.append(target)
+
+            let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
+            try referenceGenerator.generateReferences(proj: project)
+
+            return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile]
+                .map { $0.reference.value }
+        }
+
+        let firstUUIDs = try generateProject()
+        let secondUUIDs = try generateProject()
+
+        XCTAssertEqual(Set(firstUUIDs), Set(secondUUIDs))
+    }
 }
 
 private extension PBXProj {
@@ -72,5 +98,24 @@ private extension PBXProj {
                                      name: "Products")
         add(object: productsGroup)
         return productsGroup
+    }
+
+    func makeTarget(productReferenceProxy: PBXReferenceProxy) -> (target: PBXTarget, buildFile: PBXBuildFile) {
+        let buildFile = PBXBuildFile(file: productReferenceProxy)
+        add(object: buildFile)
+
+        let buildPhase = PBXCopyFilesBuildPhase(dstPath: "",
+                                                dstSubfolderSpec: .frameworks,
+                                                name: "Embed Frameworks",
+                                                files: [buildFile])
+        add(object: buildPhase)
+
+        let target = PBXNativeTarget(name: "MyApp",
+                                     buildPhases: [buildPhase],
+                                     productName: "MyApp.app",
+                                     productType: .application)
+        add(object: target)
+
+        return (target, buildFile)
     }
 }
