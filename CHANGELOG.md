@@ -5,6 +5,9 @@
 ### Added
 - Added `PathRunnable` to the `LaunchAction` to allow running any executable https://github.com/tuist/XcodeProj/pull/521 by @vytis
 
+### Fixed
+- Make `PBXProject.targetAttributes` non optional again and fix equality https://github.com/tuist/XcodeProj/pull/519 by @yonaskolb
+
 ## 7.7.0
 
 ### Fixed
