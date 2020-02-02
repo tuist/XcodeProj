@@ -85,6 +85,20 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["default"], "YES")
     }
     
+    func test_testAction_pathRunnable_serializingAndDeserializing() throws {
+        // Given
+        let filePath = "/usr/bin/foo"
+        let pathRunnable = XCScheme.PathRunnable(filePath: filePath, runnableDebuggingMode: "0")
+        let subject = XCScheme.LaunchAction(runnable: nil, buildConfiguration: "Debug", pathRunnable: pathRunnable)
+        
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.LaunchAction(element: element)
+        
+        // Then
+        XCTAssertEqual(subject, reconstructedSubject)
+    }
+    
     func test_testAction_serializingAndDeserializing() throws {
         // Given
         let subject = XCScheme.TestAction(buildConfiguration: "Debug", macroExpansion: nil)
