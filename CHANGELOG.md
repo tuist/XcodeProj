@@ -2,6 +2,9 @@
 
 ## Next
 
+### Added
+- Added `PathRunnable` to the `LaunchAction` to allow running any executable https://github.com/tuist/XcodeProj/pull/521 by @vytis
+
 ## 7.7.0
 
 ### Fixed
