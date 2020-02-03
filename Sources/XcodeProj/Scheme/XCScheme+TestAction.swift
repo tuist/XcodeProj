@@ -204,16 +204,20 @@ extension XCScheme {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
-            let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
-            additionalOptions.forEach { additionalOption in
-                additionalOptionsElement.addChild(additionalOption.xmlElement())
+            if !additionalOptions.isEmpty {
+                let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
+                additionalOptions.forEach { additionalOption in
+                    additionalOptionsElement.addChild(additionalOption.xmlElement())
+                }
             }
 
-            let codeCoverageTargetsElement = element.addChild(AEXMLElement(name: "CodeCoverageTargets"))
-            codeCoverageTargets.forEach { target in
-                codeCoverageTargetsElement.addChild(target.xmlElement())
+            if !codeCoverageTargets.isEmpty {
+                let codeCoverageTargetsElement = element.addChild(AEXMLElement(name: "CodeCoverageTargets"))
+                codeCoverageTargets.forEach { target in
+                    codeCoverageTargetsElement.addChild(target.xmlElement())
+                }
             }
-
+            
             return element
         }
 

@@ -306,10 +306,13 @@ extension XCScheme {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }
 
-            let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
-            additionalOptions.forEach { additionalOption in
-                additionalOptionsElement.addChild(additionalOption.xmlElement())
+            if !additionalOptions.isEmpty {
+                let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
+                additionalOptions.forEach { additionalOption in
+                    additionalOptionsElement.addChild(additionalOption.xmlElement())
+                }
             }
+
             return element
         }
 
