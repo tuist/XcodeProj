@@ -6,6 +6,10 @@
 
 - Remove `Tapestries` folder for tapestry 0.0.5 version https://github.com/tuist/XcodeProj/pull/523 by @fortmarek
 
+### Fixed
+
+- Code Coverage Targets and Additional Options Scheme Instability https://github.com/tuist/XcodeProj/pull/522 by @adamkhazi
+
 ## 7.8.0
 
 ### Added
