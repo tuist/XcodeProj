@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Code Coverage Targets and Additional Options Scheme Instability https://github.com/tuist/XcodeProj/pull/522 by @adamkhazi
 - Fix `XCWorkspace` `Equatable` https://github.com/tuist/XcodeProj/pull/524 by @adamkhazi
 
 ## 7.8.0
