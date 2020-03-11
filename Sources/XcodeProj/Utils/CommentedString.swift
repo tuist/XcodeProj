@@ -43,31 +43,10 @@ struct CommentedString {
         default: break
         }
 
-        var escaped = string
-        // escape escape
-        if escaped.contains("\\" as Character) {
-            escaped = escaped.replacingOccurrences(of: "\\", with: "\\\\")
+        return string.withCString { buffer in
+            let esc = PATEscapedString(buffer)!
+            return String(bytesNoCopy: UnsafeMutableRawPointer(mutating: esc), length: strlen(esc), encoding: .utf8, freeWhenDone: true)!
         }
-        // escape quotes
-        if escaped.contains("\"" as Character) {
-            escaped = escaped.replacingOccurrences(of: "\"", with: "\\\"")
-        }
-        // escape tab
-        if escaped.contains("\t" as Character) {
-            escaped = escaped.replacingOccurrences(of: "\t", with: "\\t")
-        }
-        // escape newlines
-        if escaped.contains("\n" as Character) {
-            escaped = escaped.replacingOccurrences(of: "\n", with: "\\n")
-        }
-
-        if !escaped.isQuoted,
-            escaped.rangeOfCharacter(from: CommentedString.invalidCharacters) != nil ||
-            invalidStrings.contains(where: { escaped.range(of: $0) != nil }) {
-            escaped = escaped.quoted
-        }
-
-        return escaped
     }
 }
 

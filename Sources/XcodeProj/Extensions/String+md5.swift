@@ -21,28 +21,29 @@
  */
 
 import Foundation
+import CommonCrypto
 
 extension String {
-    var md5: String {
-        if let data = data(using: .utf8, allowLossyConversion: true) {
-            let message = data.withUnsafeBytes { bufferPointer in
-                Array(UnsafeBufferPointer(
-                    start: bufferPointer.baseAddress?.assumingMemoryBound(to: UInt8.self),
-                    count: data.count
-                ))
-            }
-
-            let MD5Calculator = MD5(message)
-            let MD5Data = MD5Calculator.calculate()
-
-            var MD5String = String()
-            for c in MD5Data {
-                MD5String += String(format: "%02x", c)
-            }
-            return MD5String
-
+    private func toHex(_ char: UInt8) -> UInt8 {
+        if char < 10 {
+            return char + 48
         } else {
-            return self
+            return (char - 10) + 65
+        }
+    }
+
+    var md5: String {
+        guard let data = data(using: .utf8, allowLossyConversion: true) else { abort() }
+        return data.withUnsafeBytes { bufferPointer in
+            let buffer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
+            CC_MD5(bufferPointer.baseAddress!, UInt32(data.count), buffer)
+            let hex = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: Int(CC_MD5_DIGEST_LENGTH) * 2)
+            for i in 0..<Int(CC_MD5_DIGEST_LENGTH) {
+                let char = buffer[i]
+                hex[i*2] = toHex(char / 16)
+                hex[i*2 + 1] = toHex(char % 16)
+            }
+            return String(bytesNoCopy: hex.baseAddress!, length: hex.count, encoding: .ascii, freeWhenDone: true)!
         }
     }
 }
