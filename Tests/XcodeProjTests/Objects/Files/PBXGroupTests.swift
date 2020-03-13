@@ -11,13 +11,7 @@ final class PBXGroupTests: XCTestCase {
 
     func test_addFile_assignParent() throws {
         let sourceRoot = Path("/")
-        let project = PBXProj(
-            rootObject: nil,
-            objectVersion: 0,
-            archiveVersion: 0,
-            classes: [:],
-            objects: []
-        )
+        let project = makeEmptyPBXProj()
         let group = PBXGroup(children: [],
                              sourceTree: .group,
                              name: "group")
@@ -35,13 +29,7 @@ final class PBXGroupTests: XCTestCase {
     }
 
     func test_addGroup_assignParent() {
-        let project = PBXProj(
-            rootObject: nil,
-            objectVersion: 0,
-            archiveVersion: 0,
-            classes: [:],
-            objects: []
-        )
+        let project = makeEmptyPBXProj()
         let group = PBXGroup(children: [],
                              sourceTree: .group,
                              name: "group")
@@ -53,14 +41,7 @@ final class PBXGroupTests: XCTestCase {
     }
 
     func test_addVariantGroup() {
-        let project = PBXProj(
-            rootObject: nil,
-            objectVersion: 0,
-            archiveVersion: 0,
-            classes: [:],
-            objects: []
-        )
-
+        let project = makeEmptyPBXProj()
         let group = PBXGroup(children: [],
                              sourceTree: .group,
                              name: "group")
@@ -112,13 +93,7 @@ final class PBXGroupTests: XCTestCase {
     func test_addNotExistingFileWithoutValidatinPresence_throws() {
         do {
             let sourceRoot = Path("/")
-            let project = PBXProj(
-                rootObject: nil,
-                objectVersion: 0,
-                archiveVersion: 0,
-                classes: [:],
-                objects: []
-            )
+            let project = makeEmptyPBXProj()
             let group = PBXGroup(children: [],
                                  sourceTree: .group,
                                  name: "group")
@@ -141,13 +116,7 @@ final class PBXGroupTests: XCTestCase {
 
     func test_addNotExistingFileValidatinPresence_assignsParent() throws {
         let sourceRoot = Path("/")
-        let project = PBXProj(
-            rootObject: nil,
-            objectVersion: 0,
-            archiveVersion: 0,
-            classes: [:],
-            objects: []
-        )
+        let project = makeEmptyPBXProj()
         let group = PBXGroup(children: [],
                              sourceTree: .group,
                              name: "group")
@@ -167,6 +136,62 @@ final class PBXGroupTests: XCTestCase {
         }
         let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot, validatePresence: false)
         XCTAssertNotNil(file?.parent)
+    }
+
+    func test_addFileWithSDKRootSourceTreePath_pathIsTheSameAsAdded() throws {
+        let sourceRoot = Path("/")
+        let project = makeEmptyPBXProj()
+        let group = PBXGroup(children: [],
+                             sourceTree: .group,
+                             name: "group")
+        project.add(object: group)
+        let pbxProject = PBXProject(name: "ProjectName",
+                                    buildConfigurationList: XCConfigurationList(),
+                                    compatibilityVersion: "0",
+                                    mainGroup: group)
+        project.add(object: pbxProject)
+
+        let filePath = Path("usr/lib/libresolv.9.tbd")
+        let file = try? group.addFile(at: filePath,
+                                      sourceTree: .sdkRoot,
+                                      sourceRoot: sourceRoot,
+                                      validatePresence: false)
+
+        XCTAssertEqual(file!.path!, filePath.description)
+        XCTAssertEqual(file!.sourceTree, .sdkRoot)
+    }
+
+    func test_addFileWithDeveloperDirSourceTreePath_pathIsTheSameAsAdded() throws {
+        let sourceRoot = Path("/")
+        let project = makeEmptyPBXProj()
+        let group = PBXGroup(children: [],
+                             sourceTree: .group,
+                             name: "group")
+        project.add(object: group)
+        let pbxProject = PBXProject(name: "ProjectName",
+                                    buildConfigurationList: XCConfigurationList(),
+                                    compatibilityVersion: "0",
+                                    mainGroup: group)
+        project.add(object: pbxProject)
+
+        let filePath = Path("Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libresolv.9.tbd")
+        let file = try? group.addFile(at: filePath,
+                                      sourceTree: .developerDir,
+                                      sourceRoot: sourceRoot,
+                                      validatePresence: false)
+
+        XCTAssertEqual(file!.path!, filePath.description)
+        XCTAssertEqual(file!.sourceTree, .developerDir)
+    }
+
+    private func makeEmptyPBXProj() -> PBXProj {
+        return PBXProj(
+            rootObject: nil,
+            objectVersion: 0,
+            archiveVersion: 0,
+            classes: [:],
+            objects: []
+        )
     }
 
     private func testDictionary() -> [String: Any] {
