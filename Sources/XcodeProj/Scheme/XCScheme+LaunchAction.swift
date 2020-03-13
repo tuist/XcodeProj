@@ -40,6 +40,8 @@ extension XCScheme {
         public var selectedLauncherIdentifier: String
         public var buildConfiguration: String
         public var launchStyle: Style
+        public var askForAppToLaunch: Bool?
+        public var pathRunnable: PathRunnable?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
         public var debugDocumentVersioning: Bool
@@ -75,6 +77,8 @@ extension XCScheme {
                     selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
+                    askForAppToLaunch: Bool? = nil,
+                    pathRunnable: PathRunnable? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
                     debugDocumentVersioning: Bool = true,
@@ -104,6 +108,8 @@ extension XCScheme {
             self.launchStyle = launchStyle
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
+            self.askForAppToLaunch = askForAppToLaunch
+            self.pathRunnable = pathRunnable
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
             self.debugDocumentVersioning = debugDocumentVersioning
@@ -136,6 +142,7 @@ extension XCScheme {
             selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
             selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             launchStyle = element.attributes["launchStyle"].flatMap { Style(rawValue: $0) } ?? .auto
+            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" }
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
@@ -150,7 +157,12 @@ extension XCScheme {
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
             }
-
+            
+            let pathRunnable = element["PathRunnable"]
+            if pathRunnable.error == nil {
+                self.pathRunnable = try PathRunnable(element: pathRunnable)
+            }
+            
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
             if buildableReferenceElement.error == nil {
                 macroExpansion = try BuildableReference(element: buildableReferenceElement)
@@ -212,6 +224,9 @@ extension XCScheme {
                 "allowLocationSimulation": allowLocationSimulation.xmlString,
             ]
 
+            if let askForAppToLaunch = askForAppToLaunch {
+                attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
+            }
             if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {
                 attributes["enableGPUFrameCaptureMode"] = enableGPUFrameCaptureMode.rawValue
             }
@@ -254,6 +269,10 @@ extension XCScheme {
             if let runnable = runnable {
                 element.addChild(runnable.xmlElement())
             }
+            
+            if let pathRunnable = pathRunnable {
+                element.addChild(pathRunnable.xmlElement())
+            }
 
             if let locationScenarioReference = locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
@@ -287,10 +306,13 @@ extension XCScheme {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }
 
-            let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
-            additionalOptions.forEach { additionalOption in
-                additionalOptionsElement.addChild(additionalOption.xmlElement())
+            if !additionalOptions.isEmpty {
+                let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
+                additionalOptions.forEach { additionalOption in
+                    additionalOptionsElement.addChild(additionalOption.xmlElement())
+                }
             }
+
             return element
         }
 
@@ -305,6 +327,8 @@ extension XCScheme {
                 selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
                 buildConfiguration == rhs.buildConfiguration &&
                 launchStyle == rhs.launchStyle &&
+                askForAppToLaunch == rhs.askForAppToLaunch &&
+                pathRunnable == rhs.pathRunnable &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
                 debugDocumentVersioning == rhs.debugDocumentVersioning &&

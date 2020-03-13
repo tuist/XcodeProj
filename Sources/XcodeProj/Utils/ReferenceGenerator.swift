@@ -50,10 +50,6 @@ final class ReferenceGenerator: ReferenceGenerating {
             try generateGroupReferences(productsGroup, identifiers: identifiers)
         }
 
-        // Targets
-        let targets: [PBXTarget] = project.targets
-        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
-
         // Project references
         try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
             if let fileReference = objectReference.getObject() as? PBXFileReference {
@@ -62,6 +58,10 @@ final class ReferenceGenerator: ReferenceGenerating {
                 try generateGroupReferences(group, identifiers: identifiers)
             }
         }
+
+        // Targets
+        let targets: [PBXTarget] = project.targets
+        try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         /// Configuration list
         if let configurationList: XCConfigurationList = project.buildConfigurationListReference.getObject() {
@@ -228,13 +228,13 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
     }
 
-    /// Generates the reference for a reference proxy  object.
+    /// Generates the reference for a reference proxy object.
     ///
     /// - Parameters:
     ///   - referenceProxy: reference proxy instance.
     ///   - identifiers: list of identifiers.
     private func generateReferenceProxyReference(_ referenceProxy: PBXReferenceProxy,
-                                                    identifiers: [String]) throws {
+                                                 identifiers: [String]) throws {
         var identifiers = identifiers
 
         if let path = referenceProxy.path {
@@ -248,13 +248,13 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
     }
 
-    /// Generates the reference for a container item proxy  object.
+    /// Generates the reference for a container item proxy object.
     ///
     /// - Parameters:
     ///   - containerItemProxy: ontainer item proxy instance.
     ///   - identifiers: list of identifiers.
     private func generateContainerItemProxyReference(_ containerItemProxy: PBXContainerItemProxy,
-                                                      identifiers: [String]) throws  {
+                                                     identifiers: [String]) throws {
         var identifiers = identifiers
 
         if let remoteInfo = containerItemProxy.remoteInfo {

@@ -19,7 +19,7 @@ task :release_check do
   system("xcodebuild -project Xcodeproj_Carthage.xcodeproj -scheme XcodeProj")
 end
 
-task :arhive_carthage do
+task :archive_carthage do
   system("carthage build --no-skip-current --platform macOS")
   system("carthage archive xcodeproj")
 end

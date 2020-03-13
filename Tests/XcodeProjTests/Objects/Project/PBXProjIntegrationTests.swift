@@ -1,17 +1,11 @@
 import Foundation
 import PathKit
-import Shell
 import XCTest
 @testable import XcodeProj
 
+import Darwin
+
 final class PBXProjIntegrationTests: XCTestCase {
-    var shell: Shell!
-
-    override func setUp() {
-        super.setUp()
-        shell = Shell()
-    }
-
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
         let decoder = XcodeprojPropertyListDecoder()
@@ -44,16 +38,16 @@ final class PBXProjIntegrationTests: XCTestCase {
 
         try tmpDir.chdir {
             // Create a commit
-            _ = try shell.capture(["git", "init"]).get()
-            _ = try shell.capture(["git", "add", "."]).get()
-            _ = try shell.capture(["git", "commit", "-m", "'test'"]).get()
+            try checkedOutput("git", ["init"])
+            try checkedOutput("git", ["add", "."])
+            try checkedOutput("git", ["commit", "-m", "test"])
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
             try project.writePBXProj(path: xcodeprojPath, outputSettings: PBXOutputSettings())
 
-            let got = try shell.capture(["git", "status"]).get()
-            XCTAssertTrue(got.contains("nothing to commit"))
+            let got = try checkedOutput("git", ["status"])
+            XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
     }
 
@@ -81,11 +75,35 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.frameworksBuildPhases.count, 2)
         XCTAssertEqual(proj.objects.headersBuildPhases.count, 1)
         XCTAssertEqual(proj.objects.nativeTargets.count, 2)
-        XCTAssertEqual(proj.objects.fileReferences.count, 16)
+        XCTAssertEqual(proj.objects.fileReferences.count, 17)
         XCTAssertEqual(proj.objects.buildRules.count, 1)
         XCTAssertEqual(proj.objects.versionGroups.count, 1)
         XCTAssertEqual(proj.objects.projects.count, 1)
         XCTAssertEqual(proj.objects.swiftPackageProductDependencies.count, 2)
         XCTAssertEqual(proj.objects.remoteSwiftPackageReferences.count, 1)
     }
+}
+
+/// Returns the output of running `executable` with `args`. Throws an error if the process exits indicating failure.
+@discardableResult
+private func checkedOutput(_ executable: String, _ args: [String]) throws -> String? {
+    let process = Process()
+    let output = Pipe()
+
+    if executable.contains("/") {
+        process.launchPath = executable
+    } else {
+        process.launchPath = try checkedOutput("/usr/bin/which", [executable])?.trimmingCharacters(in: .newlines)
+    }
+
+    process.arguments = args
+    process.standardOutput = output
+    process.launch()
+    process.waitUntilExit()
+
+    guard process.terminationStatus == 0 else {
+        throw NSError(domain: NSPOSIXErrorDomain, code: Int(process.terminationStatus))
+    }
+
+    return String(data: output.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
 }

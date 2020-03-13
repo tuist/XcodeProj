@@ -1,11 +1,101 @@
 🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
 
-## Next version
+## Next
 
-## Fixed
+### Changed
+
+- Remove `Tapestries` folder for tapestry 0.0.5 version https://github.com/tuist/XcodeProj/pull/523 by @fortmarek
+
+### Fixed
+
+- Code Coverage Targets and Additional Options Scheme Instability https://github.com/tuist/XcodeProj/pull/522 by @adamkhazi
+- Fix `XCWorkspace` `Equatable` https://github.com/tuist/XcodeProj/pull/524 by @adamkhazi
+
+## 7.8.0
+
+### Added
+
+- Added `PathRunnable` to the `LaunchAction` to allow running any executable https://github.com/tuist/XcodeProj/pull/521 by @vytis
+
+### Fixed
+
+- Make `PBXProject.targetAttributes` non optional again and fix equality https://github.com/tuist/XcodeProj/pull/519 by @yonaskolb
+
+## 7.7.0
+
+### Fixed
+
+- Ensure references to products in external projects are generated with deterministic UUIDs https://github.com/tuist/XcodeProj/pull/518 by @evandcoleman
+
+## 7.6.0
+
+### Changed
+
+- **Breaking** Make `PBXProject.targetAttributes` optional https://github.com/tuist/XcodeProj/pull/517 by @pepibumur
+
+### Fixed
+
+- Remove "Shell" Carthage dependency from carthage xcode project as it's no longer used https://github.com/tuist/XcodeProj/pull/507 by @imben123
+
+### Added
+
+- Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
+- Added `askForAppToLaunch` parameter to `LaunchAction` and `ProfileAction`. https://github.com/tuist/XcodeProj/pull/515 by @YutoMizutani
+- Added `"ENABLE_PREVIEWS"` to target application build settings https://github.com/tuist/XcodeProj/pull/511 by @fortmarek
+
+## 7.5.0
+
+### Fixed
+
+- Provide default build settings for unit and ui test targets https://github.com/tuist/XcodeProj/pull/501 by @kwridan
+- Remove "Shell" Carthage dependency from project manifest as it's no longer used https://github.com/tuist/XcodeProj/pull/505 by @kwridan
+
+## 7.4.0
+
+### Changed
+
+- Update list of recognized file extensions https://github.com/tuist/XcodeProj/pull/500 by @dflems
+
+## 7.3.0
+
+### Changed
+
+- Update BuildSettingsProvider to include extension settings https://github.com/tuist/XcodeProj/pull/497 by @kwridan
+- Remove the dependency with the Swift Package Manager https://github.com/tuist/XcodeProj/pull/499 by @elliottwilliams
+
+## 7.2.2
+
+### Fixed
+
+- Make test plans deserialise correctly https://github.com/tuist/XcodeProj/pull/496 by @adamkhazi
+
+## 7.2.1
+
+### Fixed
+
+- Make test plans optional https://github.com/tuist/XcodeProj/commit/c15034948a2a132bf559f14d3c6b4d1b73749663 by @pepibumur
+
+### Changed
+
+- Replaced CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+- Replace CircleCI with GitHub actions https://github.com/tuist/XcodeProj/pull/493 by @pepibumur
+- Replace Shell with the SPM's Process utility class https://github.com/tuist/XcodeProj/pull/492 by @pepibumur
+
+### Added
+
+- Automating release process with [tapestry](https://github.com/ackeecz/tapestry) https://github.com/tuist/XcodeProj/pull/495 by @fortmarek
+
+## 7.2.0
+
+### Added
+
+- Added support for Xcode 11 test plans https://github.com/tuist/XcodeProj/pull/491 by @maniramezan
+
+### Fixed
 
 - Add remote Swift packages to the Frameworks build phase https://github.com/tuist/XcodeProj/pull/487 by @kwridan
 - System library added to a group has empty path https://github.com/tuist/XcodeProj/pull/488 by @damirdavletov
+- Fix Products group serialisation with temporary ids https://github.com/tuist/XcodeProj/pull/489 by @damirdavletov
 
 ## 7.1.0
 
@@ -69,6 +159,7 @@
 - Dead lock in the `PBXObjects.delete` method https://github.com/tuist/xcodeproj/pull/449 by @pepibumur
 
 ### Removed
+
 - OSLogs https://github.com/tuist/xcodeproj/pull/453 by @pepibumur.
 
 ## 6.7.0

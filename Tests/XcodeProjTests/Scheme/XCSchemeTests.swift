@@ -8,7 +8,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let subject = try XCScheme(path: iosSchemePath)
         assert(scheme: subject)
     }
-
+    
     func test_write_iosScheme() {
         testWrite(from: iosSchemePath,
                   initModel: { try? XCScheme(path: $0) },
@@ -69,6 +69,48 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
+    func test_write_testPlanReferenceDefaultAttributesValuesAreOmitted() {
+        let reference = XCScheme.TestPlanReference(reference: "to_some_path")
+        let subject = reference.xmlElement()
+        XCTAssertNil(subject.attributes["default"])
+    }
+
+    func test_write_testPlanReferenceAttributesValues() {
+        let reference = XCScheme.TestPlanReference(
+            reference: "to_some_paht",
+            default: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["reference"], "to_some_paht")
+        XCTAssertEqual(subject.attributes["default"], "YES")
+    }
+    
+    func test_testAction_pathRunnable_serializingAndDeserializing() throws {
+        // Given
+        let filePath = "/usr/bin/foo"
+        let pathRunnable = XCScheme.PathRunnable(filePath: filePath, runnableDebuggingMode: "0")
+        let subject = XCScheme.LaunchAction(runnable: nil, buildConfiguration: "Debug", pathRunnable: pathRunnable)
+        
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.LaunchAction(element: element)
+        
+        // Then
+        XCTAssertEqual(subject, reconstructedSubject)
+    }
+    
+    func test_testAction_serializingAndDeserializing() throws {
+        // Given
+        let subject = XCScheme.TestAction(buildConfiguration: "Debug", macroExpansion: nil)
+        
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.TestAction(element: element)
+        
+        // Then
+        XCTAssertEqual(subject, reconstructedSubject)
+    }
+
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
@@ -107,6 +149,8 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintName, "iOSTests")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
+        XCTAssertEqual(scheme.testAction?.testPlans?.first?.reference, "container:iOS.xctestplan")
+        XCTAssertEqual(scheme.testAction?.testPlans?.first?.default, true)
         XCTAssertEqual(scheme.testAction?.preActions.first?.title, "First Pre-action")
         XCTAssertEqual(scheme.testAction?.preActions.first?.scriptText, "echo first")
         XCTAssertEqual(scheme.testAction?.preActions.last?.title, "Second Pre-action")
@@ -154,6 +198,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.savedToolIdentifier, "")
         XCTAssertEqual(scheme.profileAction?.useCustomWorkingDirectory, false)
         XCTAssertEqual(scheme.profileAction?.debugDocumentVersioning, true)
+        XCTAssertNil(scheme.profileAction?.askForAppToLaunch)
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable?.runnableDebuggingMode, "0")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable?.buildableReference.buildableIdentifier, "primary")
         XCTAssertEqual(scheme.profileAction?.buildableProductRunnable?.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
@@ -180,6 +225,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
         XCTAssertEqual(scheme.launchAction?.selectedLauncherIdentifier, "Xcode.DebuggerFoundation.Launcher.LLDB")
         XCTAssertEqual(scheme.launchAction?.launchStyle, .custom)
+        XCTAssertNil(scheme.launchAction?.askForAppToLaunch)
         XCTAssertEqual(scheme.launchAction?.useCustomWorkingDirectory, false)
         XCTAssertEqual(scheme.launchAction?.ignoresPersistentStateOnLaunch, false)
         XCTAssertEqual(scheme.launchAction?.debugDocumentVersioning, true)
@@ -270,6 +316,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.selectedLauncherIdentifier, XCScheme.defaultLauncher)
         XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
         XCTAssertEqual(scheme.launchAction?.launchStyle, XCScheme.LaunchAction.Style.auto)
+        XCTAssertNil(scheme.launchAction?.askForAppToLaunch)
         XCTAssertTrue(scheme.launchAction?.useCustomWorkingDirectory == false)
         XCTAssertTrue(scheme.launchAction?.ignoresPersistentStateOnLaunch == false)
         XCTAssertTrue(scheme.launchAction?.debugDocumentVersioning == true)
@@ -300,6 +347,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.savedToolIdentifier, "")
         XCTAssertTrue(scheme.profileAction?.useCustomWorkingDirectory == false)
         XCTAssertTrue(scheme.profileAction?.debugDocumentVersioning == true)
+        XCTAssertNil(scheme.profileAction?.askForAppToLaunch)
         XCTAssertNil(scheme.profileAction?.commandlineArguments)
         XCTAssertNil(scheme.profileAction?.environmentVariables)
 

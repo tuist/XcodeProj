@@ -33,6 +33,10 @@ public final class PBXBuildFile: PBXObject {
     /// Element settings
     public var settings: [String: Any]?
 
+    /// Platform filter attribute.
+    /// Introduced in: Xcode 11
+    public var platformFilter: String?
+
     /// The cached build phase this build file belongs to
     weak var buildPhase: PBXBuildPhase?
 
@@ -59,6 +63,7 @@ public final class PBXBuildFile: PBXObject {
         case fileRef
         case settings
         case productRef
+        case platformFilter
     }
 
     public required init(from decoder: Decoder) throws {
@@ -72,6 +77,7 @@ public final class PBXBuildFile: PBXObject {
             productReference = objectReferenceRepository.getOrCreate(reference: productRefString, objects: objects)
         }
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
+        platformFilter = try container.decodeIfPresent(.platformFilter)
         try super.init(from: decoder)
     }
 }
@@ -159,6 +165,9 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         }
         if let settings = buildFile.settings {
             dictionary["settings"] = settings.plist()
+        }
+        if let platformFilter = buildFile.platformFilter {
+            dictionary["platformFilter"] = .string(.init(platformFilter))
         }
         let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),

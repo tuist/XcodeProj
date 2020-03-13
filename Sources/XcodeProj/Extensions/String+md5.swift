@@ -28,7 +28,8 @@ extension String {
             let message = data.withUnsafeBytes { bufferPointer in
                 Array(UnsafeBufferPointer(
                     start: bufferPointer.baseAddress?.assumingMemoryBound(to: UInt8.self),
-                    count: data.count))
+                    count: data.count
+                ))
             }
 
             let MD5Calculator = MD5(message)
