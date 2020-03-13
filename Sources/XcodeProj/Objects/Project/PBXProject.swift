@@ -508,7 +508,8 @@ extension PBXProject: PlistSerializable {
             return nil
         }
         return .array(projectReferences.compactMap { reference in
-            guard let productGroupReference = reference["ProductGroup"], let projectRef = reference["ProjectRef"] else {
+            guard let productGroupReference = reference[Xcode.ProjectReference.productGroupKey],
+                let projectRef = reference[Xcode.ProjectReference.projectReferenceKey] else {
                 return nil
             }
             let producGroup: PBXGroup? = productGroupReference.getObject()
@@ -517,8 +518,8 @@ extension PBXProject: PlistSerializable {
             let fileRefName = project?.fileName()
 
             return [
-                CommentedString("ProductGroup"): PlistValue.string(CommentedString(productGroupReference.value, comment: groupName)),
-                CommentedString("ProjectRef"): PlistValue.string(CommentedString(projectRef.value, comment: fileRefName)),
+                CommentedString(Xcode.ProjectReference.productGroupKey): PlistValue.string(CommentedString(productGroupReference.value, comment: groupName)),
+                CommentedString(Xcode.ProjectReference.projectReferenceKey): PlistValue.string(CommentedString(projectRef.value, comment: fileRefName)),
             ]
         })
     }
