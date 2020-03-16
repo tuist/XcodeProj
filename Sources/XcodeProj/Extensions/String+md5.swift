@@ -21,7 +21,7 @@
  */
 
 import Foundation
-import CommonCrypto
+import XcodeProjCExt
 
 extension String {
     private func toHex(_ char: UInt8) -> UInt8 {
@@ -33,17 +33,13 @@ extension String {
     }
 
     var md5: String {
-        guard let data = data(using: .utf8, allowLossyConversion: true) else { abort() }
+        guard let data = data(using: .utf8, allowLossyConversion: true) else {
+            fatalError("Unable to get UTF-8 string from data")
+        }
         return data.withUnsafeBytes { bufferPointer in
-            let buffer = malloc(Int(CC_MD5_DIGEST_LENGTH))!.assumingMemoryBound(to: UInt8.self)
-            CC_MD5(bufferPointer.baseAddress!, UInt32(data.count), buffer)
-            let hex = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: Int(CC_MD5_DIGEST_LENGTH) * 2)
-            for i in 0..<Int(CC_MD5_DIGEST_LENGTH) {
-                let char = buffer[i]
-                hex[i*2] = toHex(char / 16)
-                hex[i*2 + 1] = toHex(char % 16)
-            }
-            return String(bytesNoCopy: hex.baseAddress!, length: hex.count, encoding: .ascii, freeWhenDone: true)!
+            let castedBuffer = bufferPointer.bindMemory(to: Int8.self)
+            let hex = XCPComputeMD5(castedBuffer.baseAddress, Int32(data.count))!
+            return String(cString: hex, encoding: .ascii)!
         }
     }
 }

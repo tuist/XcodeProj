@@ -1,4 +1,5 @@
 import Foundation
+import XcodeProjCExt
 
 /// String that includes a comment
 struct CommentedString {
@@ -44,7 +45,7 @@ struct CommentedString {
         }
 
         return string.withCString { buffer in
-            let esc = PATEscapedString(buffer)!
+            let esc = XCPEscapedString(buffer)!
             return String(bytesNoCopy: UnsafeMutableRawPointer(mutating: esc), length: strlen(esc), encoding: .utf8, freeWhenDone: true)!
         }
     }

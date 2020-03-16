@@ -8,12 +8,15 @@ let package = Package(
         .library(name: "XcodeProj", targets: ["XcodeProj"]),
     ],
     dependencies: [
+        .package(path: "../XcodeProjCExt"),
+        //.package(url: "https://github.com/tuist/XcodeProjCExt", .branch("master")),
         .package(url: "https://github.com/tadija/AEXML", .upToNextMinor(from: "4.4.0")),
         .package(url: "https://github.com/kylef/PathKit", .upToNextMinor(from: "1.0.0")),
     ],
     targets: [
         .target(name: "XcodeProj",
                 dependencies: [
+                    "XcodeProjCExt",
                     "PathKit",
                     "AEXML",
                 ]),
