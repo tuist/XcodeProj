@@ -24,14 +24,6 @@ import Foundation
 import XcodeProjCExt
 
 extension String {
-    private func toHex(_ char: UInt8) -> UInt8 {
-        if char < 10 {
-            return char + 48
-        } else {
-            return (char - 10) + 65
-        }
-    }
-
     var md5: String {
         guard let data = data(using: .utf8, allowLossyConversion: true) else {
             fatalError("Unable to get UTF-8 string from data")
