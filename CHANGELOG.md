@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.9.0
+
 ### Changed
 
 - Remove `Tapestries` folder for tapestry 0.0.5 version https://github.com/tuist/XcodeProj/pull/523 by @fortmarek
