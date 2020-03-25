@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.8.1
+
 ### Changed
 
 - Remove `Tapestries` folder for tapestry 0.0.5 version https://github.com/tuist/XcodeProj/pull/523 by @fortmarek
@@ -10,6 +12,7 @@
 
 - Code Coverage Targets and Additional Options Scheme Instability https://github.com/tuist/XcodeProj/pull/522 by @adamkhazi
 - Fix `XCWorkspace` `Equatable` https://github.com/tuist/XcodeProj/pull/524 by @adamkhazi
+- Remove warning when compiling with Swift 5.2 https://github.com/tuist/XcodeProj/pull/531 by @natanrolnik
 
 ## 7.8.0
 
