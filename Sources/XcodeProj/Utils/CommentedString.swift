@@ -46,7 +46,9 @@ struct CommentedString {
 
         return string.withCString { buffer in
             let esc = XCPEscapedString(buffer)!
-            return String(bytesNoCopy: UnsafeMutableRawPointer(mutating: esc), length: strlen(esc), encoding: .utf8, freeWhenDone: true)!
+            let newString = String(cString: esc)
+            free(UnsafeMutableRawPointer(mutating: esc))
+            return newString
         }
     }
 }
