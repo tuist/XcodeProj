@@ -7,18 +7,26 @@ jobs:
   build:
     name: Build
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        xcode: ["11.3", "11.3.1", "11.4"]
     steps:
       - uses: actions/checkout@v1
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
       - name: Build
         run: swift build -c release
 
   test:
     name: Test
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        xcode: ["11.3", "11.3.1", "11.4"]
     steps:
       - uses: actions/checkout@v1
-      - name: Select Xcode 11.4
-        run: sudo xcode-select -switch /Applications/Xcode_11.4.app
+      - name: Select Xcode ${{ matrix.xcode }}
+        run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
       - name: Generate project
         run: swift package generate-xcodeproj
       - name: Run tests
