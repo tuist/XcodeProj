@@ -21,28 +21,17 @@
  */
 
 import Foundation
+import XcodeProjCExt
 
 extension String {
     var md5: String {
-        if let data = data(using: .utf8, allowLossyConversion: true) {
-            let message = data.withUnsafeBytes { bufferPointer in
-                Array(UnsafeBufferPointer(
-                    start: bufferPointer.baseAddress?.assumingMemoryBound(to: UInt8.self),
-                    count: data.count
-                ))
-            }
-
-            let MD5Calculator = MD5(message)
-            let MD5Data = MD5Calculator.calculate()
-
-            var MD5String = String()
-            for c in MD5Data {
-                MD5String += String(format: "%02x", c)
-            }
-            return MD5String
-
-        } else {
-            return self
+        guard let data = data(using: .utf8, allowLossyConversion: true) else {
+            fatalError("Unable to get UTF-8 string from data")
+        }
+        return data.withUnsafeBytes { bufferPointer in
+            let castedBuffer = bufferPointer.bindMemory(to: Int8.self)
+            let hex = XCPComputeMD5(castedBuffer.baseAddress, Int32(data.count))!
+            return String(cString: hex, encoding: .ascii)!
         }
     }
 }

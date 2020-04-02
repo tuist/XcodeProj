@@ -7,6 +7,7 @@
 ### Changed
 
 - Remove `Tapestries` folder for tapestry 0.0.5 version https://github.com/tuist/XcodeProj/pull/523 by @fortmarek
+- Sped up the generation of commented strings, especially those that include an MD5 hash
 
 ### Fixed
 
