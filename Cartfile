@@ -1,2 +1,3 @@
 github "tuist/PathKit" == 1.0.0
 github "tadija/AEXML" == 4.4.0
+github "tuist/XcodeProjCExt" == 0.1.0

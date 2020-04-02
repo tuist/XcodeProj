@@ -2,6 +2,11 @@
 
 ## Next
 
+## 7.10.0
+
+### Changed
+- Optimize bottlenecks https://github.com/tuist/XcodeProj/pull/529 by @michaeleisel
+
 ## 7.9.0
 
 ### Changed

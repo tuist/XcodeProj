@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "xcodeproj"
-  s.version          = "7.9.0"
+  s.version          = "7.10.0"
   s.summary          = "Read/Modify/Write your Xcode projects"
   s.homepage         = "https://github.com/tuist/xcodeproj"
   s.license          = 'MIT'
@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "Sources/**/*.{swift}"
 
+  s.dependency "XcodeProjCExt", "0.1.0"
   s.dependency "PathKit", "~> 1.0.0"
   s.dependency "AEXML", "~> 4.4.0"
 end
