@@ -2,6 +2,10 @@
 
 ## Next
 
+### Fixed
+
+- "Products" group has the same ID for any project https://github.com/tuist/XcodeProj/issues/538 by @damirdavletov
+
 ## 7.10.0
 
 ### Changed
