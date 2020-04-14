@@ -27,6 +27,15 @@
           "revision": "f14ff47f45642aa5703900980b014c2e9394b6e5",
           "version": "0.9.0"
         }
+      },
+      {
+        "package": "XcodeProjCExt",
+        "repositoryURL": "https://github.com/tuist/XcodeProjCExt",
+        "state": {
+          "branch": null,
+          "revision": "3873f83da1a2c99207af387972589c495785b93f",
+          "version": "7.8.0-1"
+        }
       }
     ]
   },
