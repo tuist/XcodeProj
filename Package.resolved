@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/tuist/XcodeProjCExt",
         "state": {
           "branch": null,
-          "revision": "3873f83da1a2c99207af387972589c495785b93f",
-          "version": "7.8.0-1"
+          "revision": "21a510c225ff2bc83d5920a21d902af4b1e7e218",
+          "version": "0.1.0"
         }
       }
     ]
