@@ -1,4 +1,4 @@
-🚀 Check out the guidelines [here](https://github.com/xcodeswift/contributors/blob/master/CHANGELOG_GUIDELINES.md)
+🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
 ## Next
 
