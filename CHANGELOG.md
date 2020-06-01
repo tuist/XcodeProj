@@ -2,6 +2,10 @@
 
 ## Next
 
+### Added
+
+- Added `platformFilter` to the `PBXTargetDependency` https://github.com/tuist/XcodeProj/pull/546 by @tomaslinhart
+
 ## 7.11.0
 
 ### Changed
