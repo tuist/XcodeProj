@@ -46,6 +46,10 @@ public final class PBXTargetDependency: PBXObject {
         }
     }
 
+    /// Platform filter attribute.
+    /// Introduced in: Xcode 11
+    public var platformFilter: String?
+
     // MARK: - Init
 
     /// Initializes the target dependency with dependencies as objects.
@@ -69,6 +73,7 @@ public final class PBXTargetDependency: PBXObject {
 
     fileprivate enum CodingKeys: String, CodingKey {
         case name
+        case platformFilter
         case target
         case targetProxy
         case productRef
@@ -79,6 +84,7 @@ public final class PBXTargetDependency: PBXObject {
         let referenceRepository = decoder.context.objectReferenceRepository
         let objects = decoder.context.objects
         name = try container.decodeIfPresent(.name)
+        platformFilter = try container.decodeIfPresent(.platformFilter)
         if let targetReference: String = try container.decodeIfPresent(.target) {
             self.targetReference = referenceRepository.getOrCreate(reference: targetReference, objects: objects)
         }
@@ -100,6 +106,9 @@ extension PBXTargetDependency: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
         if let name = name {
             dictionary["name"] = .string(CommentedString(name))
+        }
+        if let platformFilter = platformFilter {
+            dictionary["platformFilter"] = .string(CommentedString(platformFilter))
         }
         if let targetReference = targetReference {
             let targetObject: PBXTarget? = targetReference.getObject()
