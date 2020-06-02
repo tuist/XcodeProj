@@ -6,6 +6,10 @@
 
 - Point `XcodeProjCExt` to version 0.1.0 https://github.com/tuist/XcodeProj/pull/540 by @khoi
 
+### Fixed
+
+- "Products" group has the same ID for any project https://github.com/tuist/XcodeProj/issues/538 by @damirdavletov
+
 ## 7.10.0
 
 ### Changed

@@ -333,4 +333,10 @@ public struct Xcode {
         "yxx": "sourcecode.yacc",
         "zip": "archive.zip",
     ]
+
+    /// Remote project reference dictionary keys.
+    public struct ProjectReference {
+        public static let projectReferenceKey = "ProjectRef"
+        public static let productGroupKey = "ProductGroup"
+    }
 }

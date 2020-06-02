@@ -12,7 +12,8 @@ class ReferenceGeneratorTests: XCTestCase {
         let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
         let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
 
-        pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference])
+        pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference,
+                                             "ProjectRef": remoteProjectFileReference.reference])
 
         let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
         try referenceGenerator.generateReferences(proj: project)
@@ -33,7 +34,8 @@ class ReferenceGeneratorTests: XCTestCase {
             let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
             let (target, buildFile) = project.makeTarget(productReferenceProxy: productReferenceProxy)
 
-            pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference])
+            pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference,
+                                                 "ProjectRef": remoteProjectFileReference.reference])
             pbxProject.targets.append(target)
 
             let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
@@ -47,6 +49,32 @@ class ReferenceGeneratorTests: XCTestCase {
         let secondUUIDs = try generateProject()
 
         XCTAssertEqual(Set(firstUUIDs), Set(secondUUIDs))
+    }
+
+    func test_twoProjectsReferencingTwoDifferentRemoteXcodeprojBundles_generatesDifferentProductGroupIdentifiers() throws {
+        func generateProject(remoteProjectPath: String) throws -> String {
+            let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
+            let pbxProject = project.makeProject()
+            let remoteProjectFileReference = project.makeFileReference(with: Path(remoteProjectPath))
+            let containerItemProxy = project.makeContainerItemProxy(fileReference: remoteProjectFileReference)
+            let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
+            let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
+            let (target, _) = project.makeTarget(productReferenceProxy: productReferenceProxy)
+
+            pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference,
+                                                 "ProjectRef": remoteProjectFileReference.reference])
+            pbxProject.targets.append(target)
+
+            let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
+            try referenceGenerator.generateReferences(proj: project)
+
+            return productsGroup.reference.value
+        }
+
+        let firstProductsGroupUUID = try generateProject(remoteProjectPath: "../Remote1.xcodeproj")
+        let secondProductsGroupUUID = try generateProject(remoteProjectPath: "../Remote2.xcodeproj")
+
+        XCTAssertNotEqual(firstProductsGroupUUID, secondProductsGroupUUID)
     }
 }
 
@@ -69,7 +97,11 @@ private extension PBXProj {
     }
 
     func makeFileReference() -> PBXFileReference {
-        return try! rootObject!.mainGroup.addFile(at: Path("../Remote.xcodeproj"), sourceRoot: Path("/"), validatePresence: false)
+        self.makeFileReference(with: Path("../Remote.xcodeproj"))
+    }
+
+    func makeFileReference(with path: Path) -> PBXFileReference {
+        return try! rootObject!.mainGroup.addFile(at: path, sourceRoot: Path("/"), validatePresence: false)
     }
 
     func makeContainerItemProxy(fileReference: PBXFileReference) -> PBXContainerItemProxy {

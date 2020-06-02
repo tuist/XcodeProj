@@ -51,12 +51,11 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         // Project references
-        try project.projectReferences.flatMap { $0.values }.forEach { objectReference in
-            if let fileReference = objectReference.getObject() as? PBXFileReference {
-                try generateFileReference(fileReference, identifiers: identifiers)
-            } else if let group = objectReference.getObject() as? PBXGroup {
-                try generateGroupReferences(group, identifiers: identifiers)
-            }
+        try project.projectReferences.forEach { objectReferenceDict in
+            guard let projectReference = objectReferenceDict[Xcode.ProjectReference.projectReferenceKey]?.getObject() as? PBXFileReference,
+                let productsGroup = objectReferenceDict[Xcode.ProjectReference.productGroupKey]?.getObject() as? PBXGroup else { return }
+            try generateFileReference(projectReference, identifiers: identifiers)
+            try generateGroupReferences(productsGroup, identifiers: identifiers + [projectReference.name ?? projectReference.path ?? ""])
         }
 
         // Targets
