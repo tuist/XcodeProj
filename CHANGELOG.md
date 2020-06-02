@@ -8,6 +8,9 @@
 
 - Point `XcodeProjCExt` to version 0.1.0 https://github.com/tuist/XcodeProj/pull/540 by @khoi
 
+### Added
+- Added `useTestSelectionWhitelist` attribute to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/516 by @basvankuijck.
+
 ### Fixed
 
 - "Products" group has the same ID for any project https://github.com/tuist/XcodeProj/issues/538 by @damirdavletov
@@ -59,7 +62,6 @@
 
 - Added `com.apple.product-type.xcframework` to `PBXProductType`. https://github.com/tuist/XcodeProj/pull/508 by @lakpa
 - Added `askForAppToLaunch` parameter to `LaunchAction` and `ProfileAction`. https://github.com/tuist/XcodeProj/pull/515 by @YutoMizutani
-- Added `useTestSelectionWhitelist` attribute to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/516 by @basvankuijck.
 - Added `"ENABLE_PREVIEWS"` to target application build settings https://github.com/tuist/XcodeProj/pull/511 by @fortmarek
 
 ## 7.5.0
