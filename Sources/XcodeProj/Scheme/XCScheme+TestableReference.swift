@@ -8,7 +8,7 @@ extension XCScheme {
         public var skipped: Bool
         public var parallelizable: Bool
         public var randomExecutionOrdering: Bool
-        public var useTestSelectionWhitelist: Bool
+        public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
         public var skippedTests: [SkippedTest]
 
@@ -19,7 +19,7 @@ extension XCScheme {
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
                     skippedTests: [SkippedTest] = [],
-                    useTestSelectionWhitelist: Bool = false) {
+                    useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
             self.parallelizable = parallelizable
             self.randomExecutionOrdering = randomExecutionOrdering
@@ -46,7 +46,9 @@ extension XCScheme {
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
             attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
-            attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist ? useTestSelectionWhitelist.xmlString : nil
+            if let useTestSelectionWhitelist = useTestSelectionWhitelist {
+                attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
+            }
             attributes["testExecutionOrdering"] = randomExecutionOrdering ? "random" : nil
             let element = AEXMLElement(name: "TestableReference",
                                        value: nil,
