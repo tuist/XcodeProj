@@ -56,13 +56,16 @@ public final class PBXTargetDependency: PBXObject {
     ///
     /// - Parameters:
     ///   - name: Dependency name.
+    ///   - platformFilter: Platform filter.
     ///   - target: Target.
     ///   - targetProxy: Target proxy.
     public init(name: String? = nil,
+                platformFilter: String? = nil,
                 target: PBXTarget? = nil,
                 targetProxy: PBXContainerItemProxy? = nil,
                 product: XCSwiftPackageProductDependency? = nil) {
         self.name = name
+        self.platformFilter = platformFilter
         targetReference = target?.reference
         targetProxyReference = targetProxy?.reference
         productReference = product?.reference
