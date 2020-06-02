@@ -8,6 +8,7 @@ extension XCScheme {
         public var skipped: Bool
         public var parallelizable: Bool
         public var randomExecutionOrdering: Bool
+        public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
         public var skippedTests: [SkippedTest]
 
@@ -17,17 +18,20 @@ extension XCScheme {
                     parallelizable: Bool = false,
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
-                    skippedTests: [SkippedTest] = []) {
+                    skippedTests: [SkippedTest] = [],
+                    useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
             self.parallelizable = parallelizable
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.skippedTests = skippedTests
+            self.useTestSelectionWhitelist = useTestSelectionWhitelist
         }
 
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"
             parallelizable = element.attributes["parallelizable"] == "YES"
+            useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
             if let skippedTests = element["SkippedTests"]["Test"].all, !skippedTests.isEmpty {
@@ -42,6 +46,9 @@ extension XCScheme {
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
             attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
+            if let useTestSelectionWhitelist = useTestSelectionWhitelist {
+                attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
+            }
             attributes["testExecutionOrdering"] = randomExecutionOrdering ? "random" : nil
             let element = AEXMLElement(name: "TestableReference",
                                        value: nil,
@@ -63,6 +70,7 @@ extension XCScheme {
                 lhs.parallelizable == rhs.parallelizable &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&
+                lhs.useTestSelectionWhitelist == rhs.useTestSelectionWhitelist &&
                 lhs.skippedTests == rhs.skippedTests
         }
     }
