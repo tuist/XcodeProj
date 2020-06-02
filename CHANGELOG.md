@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.11.0
+
 ### Changed
 
 - Point `XcodeProjCExt` to version 0.1.0 https://github.com/tuist/XcodeProj/pull/540 by @khoi
