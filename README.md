@@ -6,7 +6,7 @@
 [![Slack](http://slack.tuist.io/badge.svg)](http://slack.tuist.io/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md)
 
-XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired in [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
+XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired by [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
 ---
 
