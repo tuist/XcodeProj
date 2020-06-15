@@ -66,6 +66,7 @@ extension XCScheme {
         public var launchAutomaticallySubstyle: String?
         // To enable the option in Xcode: defaults write com.apple.dt.Xcode IDEDebuggerFeatureSetting 12
         public var customLaunchCommand: String?
+        public var customLLDBInitFile: String?
 
         // MARK: - Init
 
@@ -101,7 +102,8 @@ extension XCScheme {
                     language: String? = nil,
                     region: String? = nil,
                     launchAutomaticallySubstyle: String? = nil,
-                    customLaunchCommand: String? = nil) {
+                    customLaunchCommand: String? = nil,
+                    customLLDBInitFile: String? = nil) {
             self.runnable = runnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
@@ -133,6 +135,7 @@ extension XCScheme {
             self.region = region
             self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
             self.customLaunchCommand = customLaunchCommand
+            self.customLLDBInitFile = customLLDBInitFile
             super.init(preActions, postActions)
         }
 
@@ -205,6 +208,7 @@ extension XCScheme {
             region = element.attributes["region"]
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
             customLaunchCommand = element.attributes["customLaunchCommand"]
+            customLLDBInitFile = element.attributes["customLLDBInitFile"]
 
             try super.init(element: element)
         }
@@ -306,6 +310,10 @@ extension XCScheme {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }
 
+            if let customLLDBInitFile = customLLDBInitFile {
+                element.attributes["customLLDBInitFile"] = customLLDBInitFile
+            }
+
             if !additionalOptions.isEmpty {
                 let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
                 additionalOptions.forEach { additionalOption in
@@ -351,7 +359,8 @@ extension XCScheme {
                 language == rhs.language &&
                 region == rhs.region &&
                 launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle &&
-                customLaunchCommand == rhs.customLaunchCommand
+                customLaunchCommand == rhs.customLaunchCommand &&
+                customLLDBInitFile == rhs.customLLDBInitFile
         }
     }
 }
