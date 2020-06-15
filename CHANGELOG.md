@@ -4,7 +4,7 @@
 
 ### Added
 
-- `LaunchAction.customLLDBInitFile` and `TestAction.customLLDBInitFile` attributes https://github.com/tuist/xcodeproj/pull/553 by @polac24
+- Added `LaunchAction.customLLDBInitFile` and `TestAction.customLLDBInitFile` attributes https://github.com/tuist/xcodeproj/pull/553 by @polac24
 
 ## 7.11.1
 
