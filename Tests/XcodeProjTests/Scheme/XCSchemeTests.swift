@@ -114,6 +114,34 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject, reconstructedSubject)
     }
 
+    func test_launchAction_customLLDBInitFile_serializingAndDeserializing() throws {
+        // Given
+        let lldbInitPath = "/Users/user/custom/.lldbinit"
+        let subject = XCScheme.LaunchAction(runnable: nil, buildConfiguration: "Debug", customLLDBInitFile: lldbInitPath)
+
+
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.LaunchAction(element: element)
+
+        // Then
+        XCTAssertEqual(subject, reconstructedSubject)
+    }
+
+    func test_testAction_customLLDBInitFile_serializingAndDeserializing() throws {
+        // Given
+        let lldbInitPath = "/Users/user/custom/.lldbinit"
+        let subject = XCScheme.TestAction(buildConfiguration: "Debug", macroExpansion: nil, customLLDBInitFile: lldbInitPath)
+
+
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.TestAction(element: element)
+
+        // Then
+        XCTAssertEqual(subject, reconstructedSubject)
+    }
+
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
@@ -277,6 +305,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertTrue(!launchCLIArgs.arguments.isEmpty)
         XCTAssertEqual(launchCLIArgs.arguments[0].name, "MyLaunchArgument")
         XCTAssertTrue(launchCLIArgs.arguments[0].enabled)
+        XCTAssertNil(scheme.launchAction?.customLLDBInitFile)
     }
 
     private func assert(minimalScheme scheme: XCScheme) {
