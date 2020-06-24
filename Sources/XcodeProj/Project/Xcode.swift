@@ -26,7 +26,7 @@ public struct Xcode {
         public static let swiftVersion = "4.2"
 
         /// Last known object version for Xcodeproj.
-        public static let objectVersion: UInt = 51
+        public static let objectVersion: UInt = 54
 
         /// Last known upgrade check.
         public static let upgradeCheck = "1000"
