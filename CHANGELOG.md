@@ -2,6 +2,9 @@
 
 ## Next
 
+### Added
+- Support `on-demand-install-capable` application https://github.com/tuist/XcodeProj/pull/554 by @d-date
+
 ## 7.12.0
 
 ### Added

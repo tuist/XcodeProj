@@ -27,11 +27,12 @@ public enum PBXProductType: String, Decodable {
     case xcodeExtension = "com.apple.product-type.xcode-extension"
     case instrumentsPackage = "com.apple.product-type.instruments-package"
     case intentsServiceExtension = "com.apple.product-type.app-extension.intents-service"
+    case onDemandInstallCapableApplication = "com.apple.product-type.application.on-demand-install-capable"
 
     /// Returns the file extension for the given product type.
     public var fileExtension: String? {
         switch self {
-        case .application, .watchApp, .watch2App, .watch2AppContainer, .messagesApplication:
+        case .application, .watchApp, .watch2App, .watch2AppContainer, .messagesApplication, .onDemandInstallCapableApplication:
             return "app"
         case .framework, .staticFramework:
             return "framework"
