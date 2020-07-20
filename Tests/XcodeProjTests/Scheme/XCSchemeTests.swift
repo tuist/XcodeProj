@@ -43,7 +43,8 @@ final class XCSchemeIntegrationTests: XCTestCase {
                 buildableName: "",
                 blueprintName: ""
             ),
-            skippedTests: []
+            skippedTests: [],
+            selectedTests: []
         )
         let subject = reference.xmlElement()
         XCTAssertNil(subject.attributes["parallelizable"])
@@ -63,6 +64,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
                 blueprintName: ""
             ),
             skippedTests: [],
+            selectedTests: [],
             useTestSelectionWhitelist: true
         )
         let subject = reference.xmlElement()
@@ -70,6 +72,34 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["parallelizable"], "YES")
         XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
+    func test_write_testableReferenceAttributesValuesSelectedTests() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: true,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [
+                .init(identifier: "test1_identifier"),
+                .init(identifier: "test2_identifier")
+            ],
+            useTestSelectionWhitelist: false
+        )
+        let subject = reference.xmlElement()
+
+        let selectedTests = subject.children.first(where: { $0.name == "SelectedTests"})
+        XCTAssertNotNil(selectedTests)
+
+        let firstSelectedTest = selectedTests?.children.first(where: { $0.name == "Test"})
+        XCTAssertNotNil(firstSelectedTest)
+        XCTAssertEqual(firstSelectedTest?.attributes["Identifier"], "test1_identifier")
     }
 
     func test_write_testPlanReferenceDefaultAttributesValuesAreOmitted() {
