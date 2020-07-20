@@ -74,7 +74,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
-    func test_write_testableReferenceAttributesValuesSelectedTests() {
+    func test_write_testableReferenceSelectedTests() {
         // Given
         let reference = XCScheme.TestableReference(
             skipped: false,
