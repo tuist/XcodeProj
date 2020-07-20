@@ -27,14 +27,8 @@ extension XCScheme {
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.useTestSelectionWhitelist = useTestSelectionWhitelist
-
-            if useTestSelectionWhitelist == false {
-                self.skippedTests = []
-                self.selectedTests = selectedTests
-            } else {
-                self.selectedTests = []
-                self.skippedTests = skippedTests
-            }
+            self.selectedTests = selectedTests
+            self.skippedTests = skippedTests
         }
 
         init(element: AEXMLElement) throws {
@@ -44,22 +38,15 @@ extension XCScheme {
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
 
-            if useTestSelectionWhitelist == false {
-                skippedTests = []
-
-                if let selectedTests = element["SelectedTests"]["Test"].all, !selectedTests.isEmpty {
-                    self.selectedTests = try selectedTests.map(TestItem.init)
-                } else {
-                    selectedTests = []
-                }
+            if let selectedTests = element["SelectedTests"]["Test"].all {
+                self.selectedTests = try selectedTests.map(TestItem.init)
             } else {
                 selectedTests = []
-
-                if let skippedTests = element["SelectedTests"]["Test"].all, !skippedTests.isEmpty {
-                    self.skippedTests = try skippedTests.map(TestItem.init)
-                } else {
-                    skippedTests = []
-                }
+            }
+            if let skippedTests = element["SkippedTests"]["Test"].all {
+                self.skippedTests = try skippedTests.map(TestItem.init)
+            } else {
+                skippedTests = []
             }
         }
 
@@ -76,16 +63,20 @@ extension XCScheme {
                                        value: nil,
                                        attributes: attributes)
             element.addChild(buildableReference.xmlElement())
-            if !skippedTests.isEmpty {
-                let skippedTestsElement = element.addChild(name: "SkippedTests")
-                skippedTests.forEach { skippedTest in
-                    skippedTestsElement.addChild(skippedTest.xmlElement())
+
+            if useTestSelectionWhitelist == true {
+                if !selectedTests.isEmpty {
+                    let selectedTestsElement = element.addChild(name: "SelectedTests")
+                    selectedTests.forEach { selectedTest in
+                        selectedTestsElement.addChild(selectedTest.xmlElement())
+                    }
                 }
-            }
-            if !selectedTests.isEmpty {
-                let selectedTestsElement = element.addChild(name: "SelectedTests")
-                selectedTests.forEach { selectedTest in
-                    selectedTestsElement.addChild(selectedTest.xmlElement())
+            } else {
+                if !skippedTests.isEmpty {
+                    let skippedTestsElement = element.addChild(name: "SkippedTests")
+                    skippedTests.forEach { skippedTest in
+                        skippedTestsElement.addChild(skippedTest.xmlElement())
+                    }
                 }
             }
             return element

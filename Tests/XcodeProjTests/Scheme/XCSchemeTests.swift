@@ -75,6 +75,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
     }
 
     func test_write_testableReferenceAttributesValuesSelectedTests() {
+        // Given
         let reference = XCScheme.TestableReference(
             skipped: false,
             parallelizable: true,
@@ -87,19 +88,22 @@ final class XCSchemeIntegrationTests: XCTestCase {
             ),
             skippedTests: [],
             selectedTests: [
-                .init(identifier: "test1_identifier"),
-                .init(identifier: "test2_identifier")
+                .init(identifier: "foo"),
             ],
-            useTestSelectionWhitelist: false
+            useTestSelectionWhitelist: true
         )
         let subject = reference.xmlElement()
 
-        let selectedTests = subject.children.first(where: { $0.name == "SelectedTests"})
-        XCTAssertNotNil(selectedTests)
+        // When
+        let selectedTests = subject.children.first { $0.name == "SelectedTests"}
+        let skippedTests = subject.children.first { $0.name == "SkippedTests"}
+        let firstSelectedTest = selectedTests?.children.first { $0.name == "Test"}
 
-        let firstSelectedTest = selectedTests?.children.first(where: { $0.name == "Test"})
+        // Then
+        XCTAssertNil(skippedTests)
+        XCTAssertNotNil(selectedTests)
         XCTAssertNotNil(firstSelectedTest)
-        XCTAssertEqual(firstSelectedTest?.attributes["Identifier"], "test1_identifier")
+        XCTAssertEqual(firstSelectedTest?.attributes["Identifier"], "foo")
     }
 
     func test_write_testPlanReferenceDefaultAttributesValuesAreOmitted() {
