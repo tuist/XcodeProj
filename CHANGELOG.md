@@ -2,14 +2,14 @@
 
 ## Next
 
+### Fixed
+- lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
+
 ## 7.13.0
 
 ### Added
 - Support `on-demand-install-capable` application https://github.com/tuist/XcodeProj/pull/554 by @d-date
 - Add RemotePath to RemoteRunnable https://github.com/tuist/XcodeProj/pull/555 by @kwridan
-
-### Fixed
-- lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
 
 ## 7.12.0
 
