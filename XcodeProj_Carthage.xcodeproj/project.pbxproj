@@ -89,7 +89,6 @@
 		D4CDCEFF10BE6E80B9057132 /* PBXOutputSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1325A961D9CCFB45B639868 /* PBXOutputSettings.swift */; };
 		D5D82B59980521FBA427EED8 /* XCScheme+TestPlanReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87331972540CB510D7E0C333 /* XCScheme+TestPlanReference.swift */; };
 		D5DB78ED46F818640BC41A9D /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE15F98D3349F2FCED4A913A /* PBXTargetDependency.swift */; };
-		D783F0B2AC4CA6F10A0FC5B9 /* XCScheme+SkippedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A9ABE50677EEB0638B056 /* XCScheme+SkippedTests.swift */; };
 		DA0ACE91B9EEA6D3BD7170F3 /* PBXVariantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F7AC32AFFBEA9741906F2B /* PBXVariantGroup.swift */; };
 		DE1F130B4C81A1ABE9DB6DC0 /* ReferenceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9EA2BB676DB8C978248670 /* ReferenceGenerator.swift */; };
 		DF37E12A489F0FBFDCF4C7A1 /* XCWorkspaceDataElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747281C8826015AE5CE869D8 /* XCWorkspaceDataElement.swift */; };
@@ -100,6 +99,7 @@
 		E863D2A025082CB472079D90 /* PBXFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72367B782B23A3759F3A1D /* PBXFileReference.swift */; };
 		EC0897B21DBC4594857BAD07 /* XCWorkspaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F2F50C66ADD5D0C12F3B70 /* XCWorkspaceData.swift */; };
 		ED4BFA372B68053D67F0E379 /* WorkspaceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353E37D0FBA49BA04C82476 /* WorkspaceSettings.swift */; };
+		EE4B80C64D6B7911947345E4 /* XCScheme+TestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFDD2E86D3F0ADE3502A29A /* XCScheme+TestItem.swift */; };
 		F48082472D45B18B36F00F09 /* AEXML+XcodeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D1A6857702BDE0C036055 /* AEXML+XcodeFormat.swift */; };
 		F6AF8B5725B94DC6136239DF /* PlistValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0549EED6A8FF85CA7FEBC5 /* PlistValue.swift */; };
 		FEBD1114F05F3A9667F26CCC /* XCScheme+AnalyzeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE462CBB08512CB108E356 /* XCScheme+AnalyzeAction.swift */; };
@@ -157,7 +157,6 @@
 		4E93E589F09F66B673712EAE /* PBXObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXObject.swift; sourceTree = "<group>"; };
 		4EE77276DEE6859DE961F94D /* XCScheme+LaunchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+LaunchAction.swift"; sourceTree = "<group>"; };
 		51CBC0FF736F69D538FFEC78 /* XCRemoteSwiftPackageReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCRemoteSwiftPackageReference.swift; sourceTree = "<group>"; };
-		522A9ABE50677EEB0638B056 /* XCScheme+SkippedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+SkippedTests.swift"; sourceTree = "<group>"; };
 		568D1BA84A39807930EA26CF /* Dictionary+Enumerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Enumerate.swift"; sourceTree = "<group>"; };
 		577B27811EEAD46794E8DE90 /* PBXRezBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXRezBuildPhase.swift; sourceTree = "<group>"; };
 		59F2F50C66ADD5D0C12F3B70 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		747281C8826015AE5CE869D8 /* XCWorkspaceDataElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataElement.swift; sourceTree = "<group>"; };
 		76F663AC6487521F684ED182 /* Decoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoders.swift; sourceTree = "<group>"; };
 		7A72367B782B23A3759F3A1D /* PBXFileReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
+		7DFDD2E86D3F0ADE3502A29A /* XCScheme+TestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+TestItem.swift"; sourceTree = "<group>"; };
 		8485AE4255BB935C7B7FE93C /* PBXResourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXResourcesBuildPhase.swift; sourceTree = "<group>"; };
 		87054AE28F2715C09767FE77 /* XCScheme+AditionalOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+AditionalOption.swift"; sourceTree = "<group>"; };
 		87331972540CB510D7E0C333 /* XCScheme+TestPlanReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+TestPlanReference.swift"; sourceTree = "<group>"; };
@@ -348,9 +348,9 @@
 				0BFCA27253AECAC6A2EF5E66 /* XCScheme+RemoteRunnable.swift */,
 				1D5C2732048660AC71431D9C /* XCScheme+Runnable.swift */,
 				694034B4B7C9DF231B007A84 /* XCScheme+SerialAction.swift */,
-				522A9ABE50677EEB0638B056 /* XCScheme+SkippedTests.swift */,
 				0AE91C6982618C1EDDAAD596 /* XCScheme+TestableReference.swift */,
 				161E967D0979EF34C7DF6348 /* XCScheme+TestAction.swift */,
+				7DFDD2E86D3F0ADE3502A29A /* XCScheme+TestItem.swift */,
 				87331972540CB510D7E0C333 /* XCScheme+TestPlanReference.swift */,
 			);
 			path = Scheme;
@@ -675,8 +675,8 @@
 				209B0AC5FFCE800A35624C49 /* XCScheme+RemoteRunnable.swift in Sources */,
 				B972348A969282D604A5C325 /* XCScheme+Runnable.swift in Sources */,
 				53CE6B2F74AB5FAA69D58923 /* XCScheme+SerialAction.swift in Sources */,
-				D783F0B2AC4CA6F10A0FC5B9 /* XCScheme+SkippedTests.swift in Sources */,
 				AB74DA38A17EE261024A711C /* XCScheme+TestAction.swift in Sources */,
+				EE4B80C64D6B7911947345E4 /* XCScheme+TestItem.swift in Sources */,
 				D5D82B59980521FBA427EED8 /* XCScheme+TestPlanReference.swift in Sources */,
 				0390AF375B465D1DC7AB6194 /* XCScheme+TestableReference.swift in Sources */,
 				E113D0F651A2213459C65387 /* XCScheme.swift in Sources */,

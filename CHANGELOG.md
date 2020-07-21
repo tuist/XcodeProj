@@ -2,8 +2,12 @@
 
 ## Next
 
+## 7.14.0
+
 ### Fixed
 - lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
+### Added
+- Added selectedTests attribute to XCScheme.TestableReference https://github.com/tuist/XcodeProj/pull/559 by @ooodin
 
 ## 7.13.0
 
