@@ -49,6 +49,9 @@ final class ReferenceGenerator: ReferenceGenerating {
         if let productsGroup: PBXGroup = project.productsGroup {
             try generateGroupReferences(productsGroup, identifiers: identifiers)
         }
+        for embeddedProductGroup in project.projects.compactMap({ $0["ProductGroup"] as? PBXGroup }) {
+            try generateGroupReferences(embeddedProductGroup, identifiers: identifiers)
+        }
 
         // Project references
         try project.projectReferences.forEach { objectReferenceDict in
