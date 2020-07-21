@@ -2,6 +2,9 @@
 
 ## Next
 
+### Fixed
+- lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
+
 ## 7.13.0
 
 ### Added
