@@ -2,7 +2,7 @@ import AEXML
 import Foundation
 
 extension XCScheme {
-    public final class SkippedTest: Equatable {
+    public final class TestItem: Equatable {
         // MARK: - Attributes
 
         public var identifier: String
@@ -27,7 +27,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        public static func == (lhs: SkippedTest, rhs: SkippedTest) -> Bool {
+        public static func == (lhs: TestItem, rhs: TestItem) -> Bool {
             return lhs.identifier == rhs.identifier
         }
     }
