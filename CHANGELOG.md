@@ -2,6 +2,9 @@
 
 ## Next
 
+### Fixed
+- explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
+
 ## 7.14.0
 
 ### Fixed
