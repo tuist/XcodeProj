@@ -102,7 +102,7 @@ public struct Xcode {
         "avi": "video.avi",
         "bin": "archive.macbinary",
         "bmp": "image.bmp",
-        "bundle": "wrapper.plug-in",
+        "bundle": "wrapper.cfbundle",
         "c": "sourcecode.c.c",
         "c++": "sourcecode.cpp.cpp",
         "cc": "sourcecode.cpp.cpp",
