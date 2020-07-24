@@ -2,6 +2,10 @@
 
 ## Next
 
+### Changed
+
+- Simplify release process with new tapestry version https://github.com/tuist/XcodeProj/pull/564 by @fortmarek
+
 ## 7.14.0
 
 ### Fixed
