@@ -120,7 +120,7 @@ final class PBXFileElementTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "sourceTree": "absolute",
             "path": "path",
             "name": "name",

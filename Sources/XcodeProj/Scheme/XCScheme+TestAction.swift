@@ -224,7 +224,7 @@ extension XCScheme {
                     codeCoverageTargetsElement.addChild(target.xmlElement())
                 }
             }
-            
+
             return element
         }
 

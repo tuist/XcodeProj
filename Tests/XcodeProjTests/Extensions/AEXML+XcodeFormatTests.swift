@@ -5,7 +5,7 @@ import XCTest
 
 extension String {
     var cleaned: String {
-        return replacingOccurrences(of: "   ", with: "").components(separatedBy: "\n").filter { !$0.isEmpty }.joined(separator: " ")
+        replacingOccurrences(of: "   ", with: "").components(separatedBy: "\n").filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
 

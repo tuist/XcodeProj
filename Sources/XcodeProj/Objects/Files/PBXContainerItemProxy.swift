@@ -65,7 +65,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Use isContainerPortalFileReference to check if you can use the getter
     public var containerPortal: ContainerPortal {
         get {
-            return ContainerPortal(object: containerPortalReference.getObject())
+            ContainerPortal(object: containerPortalReference.getObject())
         }
         set {
             guard let reference = newValue.reference else {
@@ -81,7 +81,7 @@ public final class PBXContainerItemProxy: PBXObject {
     /// Element remote global ID reference. ID of the proxied object.
     public var remoteGlobalID: RemoteGlobalID? {
         get {
-            return remoteGlobalIDReference?.id
+            remoteGlobalIDReference?.id
         } set {
             remoteGlobalIDReference = newValue?.reference
         }

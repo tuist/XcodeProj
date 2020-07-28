@@ -41,7 +41,7 @@ final class PBXHeadersBuildPhaseTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "buildActionMask": 3,
             "files": ["file"],
             "runOnlyForDeploymentPostprocessing": 2,

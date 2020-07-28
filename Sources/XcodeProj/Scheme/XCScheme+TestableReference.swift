@@ -85,7 +85,7 @@ extension XCScheme {
         // MARK: - Equatable
 
         public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
-            return lhs.skipped == rhs.skipped &&
+            lhs.skipped == rhs.skipped &&
                 lhs.parallelizable == rhs.parallelizable &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&

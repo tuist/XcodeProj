@@ -27,7 +27,7 @@ final class PBXContainerItemProxyTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "containerPortal": "containerPortal",
             "remoteGlobalIDString": "remoteGlobalIDString",
             "remoteInfo": "remoteInfo",

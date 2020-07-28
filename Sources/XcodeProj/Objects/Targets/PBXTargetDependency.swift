@@ -13,7 +13,7 @@ public final class PBXTargetDependency: PBXObject {
     /// Target.
     public var target: PBXTarget? {
         get {
-            return targetReference?.getObject()
+            targetReference?.getObject()
         }
         set {
             targetReference = newValue?.reference
@@ -26,7 +26,7 @@ public final class PBXTargetDependency: PBXObject {
     /// Target proxy.
     public var targetProxy: PBXContainerItemProxy? {
         get {
-            return targetProxyReference?.getObject()
+            targetProxyReference?.getObject()
         }
         set {
             targetProxyReference = newValue?.reference
@@ -39,7 +39,7 @@ public final class PBXTargetDependency: PBXObject {
     /// Product.
     public var product: XCSwiftPackageProductDependency? {
         get {
-            return productReference?.getObject()
+            productReference?.getObject()
         }
         set {
             productReference = newValue?.reference

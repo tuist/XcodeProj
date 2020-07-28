@@ -3,8 +3,8 @@ import PathKit
 
 /// This is the element for the framework headers build phase.
 public final class PBXHeadersBuildPhase: PBXBuildPhase {
-    public override var buildPhase: BuildPhase {
-        return .headers
+    override public var buildPhase: BuildPhase {
+        .headers
     }
 }
 

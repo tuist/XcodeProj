@@ -64,7 +64,7 @@ public struct Xcode {
     /// - Parameter extension: file extension.
     /// - Returns: Xcode file type.
     public static func filetype(extension: String) -> String? {
-        return allExtensions[`extension`]
+        allExtensions[`extension`]
     }
 
     // Derived from Xcode3Core.ideplugin in Xcode 11.1

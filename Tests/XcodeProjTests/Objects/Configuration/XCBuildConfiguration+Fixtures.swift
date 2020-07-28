@@ -3,6 +3,6 @@ import Foundation
 
 extension XCBuildConfiguration {
     static func fixture(name: String = "Debug") -> XCBuildConfiguration {
-        return XCBuildConfiguration(name: name)
+        XCBuildConfiguration(name: name)
     }
 }

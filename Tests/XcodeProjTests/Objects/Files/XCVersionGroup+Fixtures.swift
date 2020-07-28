@@ -18,7 +18,7 @@ extension XCVersionGroup {
         if let currentVersion = currentVersion {
             objects.add(object: currentVersion)
         }
-        children.forEach({ objects.add(object: $0) })
+        children.forEach { objects.add(object: $0) }
         objects.add(object: group)
         return group
     }

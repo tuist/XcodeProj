@@ -107,6 +107,6 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
     }
 
     private func fixturePath() -> Path {
-        return fixturesPath() + "iOS/Project.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist"
+        fixturesPath() + "iOS/Project.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist"
     }
 }

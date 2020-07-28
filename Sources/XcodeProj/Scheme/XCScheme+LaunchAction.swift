@@ -160,12 +160,12 @@ extension XCScheme {
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
             }
-            
+
             let pathRunnable = element["PathRunnable"]
             if pathRunnable.error == nil {
                 self.pathRunnable = try PathRunnable(element: pathRunnable)
             }
-            
+
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
             if buildableReferenceElement.error == nil {
                 macroExpansion = try BuildableReference(element: buildableReferenceElement)
@@ -273,7 +273,7 @@ extension XCScheme {
             if let runnable = runnable {
                 element.addChild(runnable.xmlElement())
             }
-            
+
             if let pathRunnable = pathRunnable {
                 element.addChild(pathRunnable.xmlElement())
             }

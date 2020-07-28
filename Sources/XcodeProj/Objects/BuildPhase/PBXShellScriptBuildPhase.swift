@@ -22,8 +22,8 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: Bool
 
-    public override var buildPhase: BuildPhase {
-        return .runScript
+    override public var buildPhase: BuildPhase {
+        .runScript
     }
 
     // MARK: - Init

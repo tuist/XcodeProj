@@ -93,11 +93,11 @@ final class XCConfigIntegrationTests: XCTestCase {
     }
 
     private func childrenPath() -> Path {
-        return fixturesPath() + "XCConfigs/Children.xcconfig"
+        fixturesPath() + "XCConfigs/Children.xcconfig"
     }
 
     private func parentPath() -> Path {
-        return fixturesPath() + "XCConfigs/Parent.xcconfig"
+        fixturesPath() + "XCConfigs/Parent.xcconfig"
     }
 
     private func assert(config: XCConfig) {

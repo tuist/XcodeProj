@@ -7,7 +7,7 @@ protocol PlistSerializable {
 }
 
 extension PlistSerializable {
-    var multiline: Bool { return true }
+    var multiline: Bool { true }
 }
 
 final class StateHolder {
@@ -28,7 +28,7 @@ final class StateHolder {
     }
 
     func copy() -> StateHolder {
-        return StateHolder(indent: indent, multiline: multiline)
+        StateHolder(indent: indent, multiline: multiline)
     }
 }
 

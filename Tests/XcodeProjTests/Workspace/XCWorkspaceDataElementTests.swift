@@ -21,13 +21,13 @@ final class XCWorkspaceDataElementTests: XCTestCase {
 
         XCTAssertEqual(element.location, location)
     }
-    
+
     func test_equatable_when_unequal_data_elements() {
         // Given
         let location: XCWorkspaceDataElementLocationType = .absolute("/path/to/file.swift")
         let file = XCWorkspaceDataFileRef(location: location)
         let element = XCWorkspaceDataElement.file(file)
-        
+
         // When
         let firstWorkspace = XCWorkspace(data: .init(children: [element]))
         let secondWorkspace = XCWorkspace(data: .init(children: []))
@@ -35,7 +35,7 @@ final class XCWorkspaceDataElementTests: XCTestCase {
         // Then
         XCTAssertNotEqual(firstWorkspace, secondWorkspace)
     }
-    
+
     func test_equatable_when_equal_data_elements() {
         // Given
         let groupLocation: XCWorkspaceDataElementLocationType = .absolute("/path/to/group")
@@ -43,11 +43,11 @@ final class XCWorkspaceDataElementTests: XCTestCase {
                                          name: "group",
                                          children: [])
         let elementOne = XCWorkspaceDataElement.group(group)
-        
+
         let fileLocation: XCWorkspaceDataElementLocationType = .absolute("/path/to/file.swift")
         let file = XCWorkspaceDataFileRef(location: fileLocation)
         let elementTwo = XCWorkspaceDataElement.file(file)
-        
+
         // When
         let firstWorkspace = XCWorkspace(data: .init(children: [elementOne, elementTwo]))
         let secondWorkspace = XCWorkspace(data: .init(children: [elementOne, elementTwo]))

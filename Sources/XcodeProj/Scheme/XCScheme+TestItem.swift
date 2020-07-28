@@ -20,15 +20,15 @@ extension XCScheme {
         // MARK: - XML
 
         func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "Test",
-                                value: nil,
-                                attributes: ["Identifier": identifier])
+            AEXMLElement(name: "Test",
+                         value: nil,
+                         attributes: ["Identifier": identifier])
         }
 
         // MARK: - Equatable
 
         public static func == (lhs: TestItem, rhs: TestItem) -> Bool {
-            return lhs.identifier == rhs.identifier
+            lhs.identifier == rhs.identifier
         }
     }
 }

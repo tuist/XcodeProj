@@ -97,11 +97,11 @@ private extension PBXProj {
     }
 
     func makeFileReference() -> PBXFileReference {
-        self.makeFileReference(with: Path("../Remote.xcodeproj"))
+        makeFileReference(with: Path("../Remote.xcodeproj"))
     }
 
     func makeFileReference(with path: Path) -> PBXFileReference {
-        return try! rootObject!.mainGroup.addFile(at: path, sourceRoot: Path("/"), validatePresence: false)
+        try! rootObject!.mainGroup.addFile(at: path, sourceRoot: Path("/"), validatePresence: false)
     }
 
     func makeContainerItemProxy(fileReference: PBXFileReference) -> PBXContainerItemProxy {

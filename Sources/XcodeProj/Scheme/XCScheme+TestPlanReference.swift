@@ -39,7 +39,7 @@ extension XCScheme {
         // MARK: - Equatable
 
         public static func == (lhs: TestPlanReference, rhs: TestPlanReference) -> Bool {
-            return lhs.reference == rhs.reference &&
+            lhs.reference == rhs.reference &&
                 lhs.default == rhs.default
         }
     }

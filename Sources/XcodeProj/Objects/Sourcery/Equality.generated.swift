@@ -5,7 +5,7 @@ import Foundation
 
 extension PBXAggregateTarget {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXAggregateTarget else { return false }
         return super.isEqual(to: rhs)
     }
@@ -13,7 +13,7 @@ extension PBXAggregateTarget {
 
 extension PBXBuildFile {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildFile else { return false }
         if fileReference != rhs.fileReference { return false }
         if !NSDictionary(dictionary: settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
@@ -23,7 +23,7 @@ extension PBXBuildFile {
 
 extension PBXBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildPhase else { return false }
         if buildActionMask != rhs.buildActionMask { return false }
         if fileReferences != rhs.fileReferences { return false }
@@ -36,7 +36,7 @@ extension PBXBuildPhase {
 
 extension PBXBuildRule {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildRule else { return false }
         if compilerSpec != rhs.compilerSpec { return false }
         if filePatterns != rhs.filePatterns { return false }
@@ -52,7 +52,7 @@ extension PBXBuildRule {
 
 extension PBXContainerItem {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXContainerItem else { return false }
         if comments != rhs.comments { return false }
         return super.isEqual(to: rhs)
@@ -61,7 +61,7 @@ extension PBXContainerItem {
 
 extension PBXContainerItemProxy {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXContainerItemProxy else { return false }
         if containerPortalReference != rhs.containerPortalReference { return false }
         if proxyType != rhs.proxyType { return false }
@@ -73,7 +73,7 @@ extension PBXContainerItemProxy {
 
 extension PBXCopyFilesBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXCopyFilesBuildPhase else { return false }
         if dstPath != rhs.dstPath { return false }
         if dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
@@ -84,7 +84,7 @@ extension PBXCopyFilesBuildPhase {
 
 extension PBXFileElement {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXFileElement else { return false }
         if sourceTree != rhs.sourceTree { return false }
         if path != rhs.path { return false }
@@ -100,7 +100,7 @@ extension PBXFileElement {
 
 extension PBXFileReference {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXFileReference else { return false }
         if fileEncoding != rhs.fileEncoding { return false }
         if explicitFileType != rhs.explicitFileType { return false }
@@ -115,7 +115,7 @@ extension PBXFileReference {
 
 extension PBXFrameworksBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXFrameworksBuildPhase else { return false }
         return super.isEqual(to: rhs)
     }
@@ -123,7 +123,7 @@ extension PBXFrameworksBuildPhase {
 
 extension PBXGroup {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXGroup else { return false }
         if childrenReferences != rhs.childrenReferences { return false }
         return super.isEqual(to: rhs)
@@ -132,7 +132,7 @@ extension PBXGroup {
 
 extension PBXHeadersBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXHeadersBuildPhase else { return false }
         return super.isEqual(to: rhs)
     }
@@ -140,7 +140,7 @@ extension PBXHeadersBuildPhase {
 
 extension PBXLegacyTarget {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXLegacyTarget else { return false }
         if buildToolPath != rhs.buildToolPath { return false }
         if buildArgumentsString != rhs.buildArgumentsString { return false }
@@ -152,7 +152,7 @@ extension PBXLegacyTarget {
 
 extension PBXNativeTarget {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXNativeTarget else { return false }
         if productInstallPath != rhs.productInstallPath { return false }
         return super.isEqual(to: rhs)
@@ -161,7 +161,7 @@ extension PBXNativeTarget {
 
 extension PBXProject {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXProject else { return false }
         if name != rhs.name { return false }
         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
@@ -183,7 +183,7 @@ extension PBXProject {
 
 extension PBXReferenceProxy {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXReferenceProxy else { return false }
         if fileType != rhs.fileType { return false }
         if path != rhs.path { return false }
@@ -195,7 +195,7 @@ extension PBXReferenceProxy {
 
 extension PBXResourcesBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXResourcesBuildPhase else { return false }
         return super.isEqual(to: rhs)
     }
@@ -203,7 +203,7 @@ extension PBXResourcesBuildPhase {
 
 extension PBXRezBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXRezBuildPhase else { return false }
         return super.isEqual(to: rhs)
     }
@@ -211,7 +211,7 @@ extension PBXRezBuildPhase {
 
 extension PBXShellScriptBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXShellScriptBuildPhase else { return false }
         if name != rhs.name { return false }
         if inputPaths != rhs.inputPaths { return false }
@@ -225,7 +225,7 @@ extension PBXShellScriptBuildPhase {
 
 extension PBXSourcesBuildPhase {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXSourcesBuildPhase else { return false }
         return super.isEqual(to: rhs)
     }
@@ -233,7 +233,7 @@ extension PBXSourcesBuildPhase {
 
 extension PBXTarget {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTarget else { return false }
         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
         if buildPhaseReferences != rhs.buildPhaseReferences { return false }
@@ -249,7 +249,7 @@ extension PBXTarget {
 
 extension PBXTargetDependency {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXTargetDependency else { return false }
         if name != rhs.name { return false }
         if targetReference != rhs.targetReference { return false }
@@ -260,7 +260,7 @@ extension PBXTargetDependency {
 
 extension PBXVariantGroup {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXVariantGroup else { return false }
         return super.isEqual(to: rhs)
     }
@@ -268,7 +268,7 @@ extension PBXVariantGroup {
 
 extension XCBuildConfiguration {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCBuildConfiguration else { return false }
         if baseConfigurationReference != rhs.baseConfigurationReference { return false }
         if !NSDictionary(dictionary: buildSettings).isEqual(to: rhs.buildSettings) { return false }
@@ -279,7 +279,7 @@ extension XCBuildConfiguration {
 
 extension XCConfigurationList {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCConfigurationList else { return false }
         if buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
         if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
@@ -290,7 +290,7 @@ extension XCConfigurationList {
 
 extension XCVersionGroup {
     /// :nodoc:
-    @objc public override func isEqual(to object: Any?) -> Bool {
+    @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCVersionGroup else { return false }
         if currentVersionReference != rhs.currentVersionReference { return false }
         if versionGroupType != rhs.versionGroupType { return false }

@@ -25,19 +25,18 @@ extension XCScheme {
         // MARK: - XML
 
         func xmlElement() -> AEXMLElement {
-            return AEXMLElement(name: "PathRunnable",
-                                       value: nil,
-                                       attributes: [
-                                        "runnableDebuggingMode": runnableDebuggingMode,
-                                        "FilePath" : filePath
-                ]
-            )
+            AEXMLElement(name: "PathRunnable",
+                         value: nil,
+                         attributes: [
+                             "runnableDebuggingMode": runnableDebuggingMode,
+                             "FilePath": filePath,
+                         ])
         }
 
         // MARK: - Equatable
 
         public static func == (lhs: PathRunnable, rhs: PathRunnable) -> Bool {
-            return lhs.runnableDebuggingMode == rhs.runnableDebuggingMode &&
+            lhs.runnableDebuggingMode == rhs.runnableDebuggingMode &&
                 lhs.filePath == rhs.filePath
         }
     }

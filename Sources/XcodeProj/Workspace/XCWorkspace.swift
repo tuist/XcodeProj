@@ -62,6 +62,6 @@ public final class XCWorkspace: Writable, Equatable {
     // MARK: - Equatable
 
     public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
-        return lhs.data == rhs.data
+        lhs.data == rhs.data
     }
 }

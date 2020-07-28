@@ -86,7 +86,7 @@ final class XCBuildConfigurationTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "baseConfigurationReference": "baseConfigurationReference",
             "buildSettings": [:],
             "name": "name",

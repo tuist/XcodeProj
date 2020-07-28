@@ -27,8 +27,8 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     /// Copy files build phase name
     public var name: String?
 
-    public override var buildPhase: BuildPhase {
-        return .copyFiles
+    override public var buildPhase: BuildPhase {
+        .copyFiles
     }
 
     // MARK: - Init

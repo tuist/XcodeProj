@@ -103,7 +103,7 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
     }
 
     func testDictionary() -> [String: Any] {
-        return [
+        [
             "dstPath": "dstPath",
             "buildActionMask": 0,
             "dstSubfolderSpec": 12,
