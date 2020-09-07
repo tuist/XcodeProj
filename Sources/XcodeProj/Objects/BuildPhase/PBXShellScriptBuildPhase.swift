@@ -22,6 +22,9 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: Bool
 
+    /// Path to the discovery .d dependency file
+    public var dependencyFile: String?
+
     public override var buildPhase: BuildPhase {
         return .runScript
     }
@@ -39,6 +42,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
+    ///   - dependencyFile: discovery dependency file path.
     public init(files: [PBXBuildFile] = [],
                 name: String? = nil,
                 inputPaths: [String] = [],
@@ -49,13 +53,15 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
                 shellScript: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false,
-                showEnvVarsInLog: Bool = true) {
+                showEnvVarsInLog: Bool = true,
+                dependencyFile: String? = nil) {
         self.name = name
         self.inputPaths = inputPaths
         self.outputPaths = outputPaths
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.showEnvVarsInLog = showEnvVarsInLog
+        self.dependencyFile = dependencyFile
         super.init(files: files,
                    inputFileListPaths: inputFileListPaths,
                    outputFileListPaths: outputFileListPaths,
@@ -72,6 +78,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         case shellPath
         case shellScript
         case showEnvVarsInLog
+        case dependencyFile
     }
 
     public required init(from decoder: Decoder) throws {
@@ -82,6 +89,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         shellPath = try container.decodeIfPresent(.shellPath)
         shellScript = try container.decodeIfPresent(.shellScript)
         showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
+        dependencyFile = try container.decodeIfPresent(.dependencyFile)
         try super.init(from: decoder)
     }
 }
@@ -102,6 +110,9 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         dictionary["outputPaths"] = .array(outputPaths.map { .string(CommentedString($0)) })
         if let shellScript = shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
+        }
+        if let dependencyFile = dependencyFile {
+            dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))
         }
         if !showEnvVarsInLog {
             // Xcode only writes this key if it's set to false; default is true and is omitted
