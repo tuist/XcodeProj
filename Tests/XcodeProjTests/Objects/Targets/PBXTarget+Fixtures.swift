@@ -11,13 +11,13 @@ extension PBXTarget {
                         productName: String? = "Test",
                         product: PBXFileReference = PBXFileReference.fixture(name: "Test.app"),
                         productType: PBXProductType = PBXProductType.application) -> PBXTarget {
-        return PBXTarget(name: name,
-                         buildConfigurationList: buildConfigurationList,
-                         buildPhases: buildPhases,
-                         buildRules: buildRules,
-                         dependencies: dependencies,
-                         productName: productName,
-                         product: product,
-                         productType: productType)
+        PBXTarget(name: name,
+                  buildConfigurationList: buildConfigurationList,
+                  buildPhases: buildPhases,
+                  buildRules: buildRules,
+                  dependencies: dependencies,
+                  productName: productName,
+                  product: product,
+                  productType: productType)
     }
 }

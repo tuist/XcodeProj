@@ -6,7 +6,7 @@ extension XCConfigurationList {
                                                                        XCBuildConfiguration.fixture(name: "Release")],
                         defaultConfigurationName: String? = "Debug",
                         defaultConfigurationIsVisible _: Bool = true) -> XCConfigurationList {
-        return XCConfigurationList(buildConfigurations: buildConfigurations,
-                                   defaultConfigurationName: defaultConfigurationName)
+        XCConfigurationList(buildConfigurations: buildConfigurations,
+                            defaultConfigurationName: defaultConfigurationName)
     }
 }

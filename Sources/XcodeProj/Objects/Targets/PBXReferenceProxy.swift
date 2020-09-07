@@ -15,7 +15,7 @@ public final class PBXReferenceProxy: PBXFileElement {
     /// Element remote.
     public var remote: PBXContainerItemProxy? {
         get {
-            return remoteReference?.getObject()
+            remoteReference?.getObject()
         }
         set {
             remoteReference = newValue?.reference

@@ -112,7 +112,7 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
     // MARK: - Private
 
     private func fixturePath() -> Path {
-        return fixturesPath() + "iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
+        fixturesPath() + "iOS/Project.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
     }
 
     private func fixtureWorkspace() throws -> XCWorkspace {

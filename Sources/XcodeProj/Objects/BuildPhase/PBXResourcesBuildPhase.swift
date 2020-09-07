@@ -2,8 +2,8 @@ import Foundation
 
 /// This is the element for the resources copy build phase.
 public final class PBXResourcesBuildPhase: PBXBuildPhase {
-    public override var buildPhase: BuildPhase {
-        return .resources
+    override public var buildPhase: BuildPhase {
+        .resources
     }
 }
 

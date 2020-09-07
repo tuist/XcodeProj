@@ -21,16 +21,16 @@ final class XCWorkspaceIntegrationTests: XCTestCase {
         XCTAssertEqual(XCWorkspace().data.children.count, 1)
         XCTAssertEqual(XCWorkspace().data.children.first, .file(.init(location: .self(""))))
     }
-    
+
     func test_equatable_emptyWorkspacesAreEqual() {
         // When
         let firstWorkspace = XCWorkspace(data: .init(children: []))
         let secondWorkspace = XCWorkspace(data: .init(children: []))
-        
+
         // Then
         XCTAssertEqual(firstWorkspace, secondWorkspace)
     }
-    
+
     func test_equatable_unEqualWorkspacesAreNotEqual() {
         // Given
         let pathOne = fixturesPath() + "iOS/Project.xcodeproj/project.xcworkspace"
@@ -39,11 +39,11 @@ final class XCWorkspaceIntegrationTests: XCTestCase {
         // When
         let firstWorkspace = try? XCWorkspace(path: pathOne)
         let secondWorkspace = try? XCWorkspace(path: pathTwo)
-        
+
         // Then
         XCTAssertNotEqual(firstWorkspace, secondWorkspace)
     }
-    
+
     func test_equatable_equalWorkspacesAreEqual() {
         // Given
         let pathOne = fixturesPath() + "iOS/Workspace.xcworkspace"
@@ -52,7 +52,7 @@ final class XCWorkspaceIntegrationTests: XCTestCase {
         // When
         let firstWorkspace = try? XCWorkspace(path: pathOne)
         let secondWorkspace = try? XCWorkspace(path: pathTwo)
-        
+
         // Then
         XCTAssertEqual(firstWorkspace, secondWorkspace)
     }

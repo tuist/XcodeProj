@@ -3,7 +3,7 @@ import PathKit
 import XcodeProj
 
 func fixturesPath() -> Path {
-    return Path(#file).parent().parent().parent().parent() + "Fixtures"
+    Path(#file).parent().parent().parent().parent() + "Fixtures"
 }
 
 func iosProjectDictionary() -> (Path, [String: Any]) {

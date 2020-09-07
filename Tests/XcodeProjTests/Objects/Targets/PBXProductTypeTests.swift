@@ -90,4 +90,8 @@ final class PBXProductTypeTests: XCTestCase {
     func test_intentsServiceExtension_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.intentsServiceExtension.rawValue, "com.apple.product-type.app-extension.intents-service")
     }
+
+    func test_appClip_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.onDemandInstallCapableApplication.rawValue, "com.apple.product-type.application.on-demand-install-capable")
+    }
 }

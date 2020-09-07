@@ -2,9 +2,30 @@
 
 ## Next
 
+### Fixed
+- explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
+
+### Added
+- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
+
+## 7.14.0
+
+### Fixed
+- lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
+### Added
+- Added selectedTests attribute to XCScheme.TestableReference https://github.com/tuist/XcodeProj/pull/559 by @ooodin
+
+## 7.13.0
+
+### Added
+- Support `on-demand-install-capable` application https://github.com/tuist/XcodeProj/pull/554 by @d-date
+- Add RemotePath to RemoteRunnable https://github.com/tuist/XcodeProj/pull/555 by @kwridan
+
+## 7.12.0
+
 ### Added
 
-- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
+- Added `LaunchAction.customLLDBInitFile` and `TestAction.customLLDBInitFile` attributes https://github.com/tuist/xcodeproj/pull/553 by @polac24
 
 ## 7.11.1
 

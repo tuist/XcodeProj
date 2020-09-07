@@ -86,7 +86,7 @@ public final class PBXBuildRule: PBXObject {
 // MARK: - PBXBuildRule Extension (PlistSerializable)
 
 extension PBXBuildRule: PlistSerializable {
-    var multiline: Bool { return true }
+    var multiline: Bool { true }
 
     func plistKeyAndValue(proj _: PBXProj, reference: String) -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]

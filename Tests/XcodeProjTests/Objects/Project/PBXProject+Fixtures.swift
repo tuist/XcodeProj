@@ -6,9 +6,9 @@ extension PBXProject {
                         buildConfigurationList: XCConfigurationList = XCConfigurationList.fixture(),
                         compatibilityVersion: String = Xcode.Default.compatibilityVersion,
                         mainGroup: PBXGroup = PBXGroup.fixture()) -> PBXProject {
-        return PBXProject(name: name,
-                          buildConfigurationList: buildConfigurationList,
-                          compatibilityVersion: compatibilityVersion,
-                          mainGroup: mainGroup)
+        PBXProject(name: name,
+                   buildConfigurationList: buildConfigurationList,
+                   compatibilityVersion: compatibilityVersion,
+                   mainGroup: mainGroup)
     }
 }

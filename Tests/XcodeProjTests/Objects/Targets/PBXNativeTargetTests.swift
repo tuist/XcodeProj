@@ -19,7 +19,7 @@ final class PBXNativeTargetTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "buildConfigurationList": "test",
             "buildPhases": ["phase"],
             "buildRules": ["rule"],

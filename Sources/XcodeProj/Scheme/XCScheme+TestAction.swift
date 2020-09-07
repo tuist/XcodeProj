@@ -36,6 +36,7 @@ extension XCScheme {
         public var region: String?
         public var systemAttachmentLifetime: AttachmentLifetime?
         public var userAttachmentLifetime: AttachmentLifetime?
+        public var customLLDBInitFile: String?
 
         // MARK: - Init
 
@@ -62,7 +63,8 @@ extension XCScheme {
                     language: String? = nil,
                     region: String? = nil,
                     systemAttachmentLifetime: AttachmentLifetime? = nil,
-                    userAttachmentLifetime: AttachmentLifetime? = nil) {
+                    userAttachmentLifetime: AttachmentLifetime? = nil,
+                    customLLDBInitFile: String? = nil) {
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
             self.testables = testables
@@ -85,6 +87,7 @@ extension XCScheme {
             self.region = region
             self.systemAttachmentLifetime = systemAttachmentLifetime
             self.userAttachmentLifetime = userAttachmentLifetime
+            self.customLLDBInitFile = customLLDBInitFile
             super.init(preActions, postActions)
         }
 
@@ -136,6 +139,7 @@ extension XCScheme {
                 .flatMap(AttachmentLifetime.init(rawValue:))
             userAttachmentLifetime = element.attributes["userAttachmentLifetime"]
                 .flatMap(AttachmentLifetime.init(rawValue:))
+            customLLDBInitFile = element.attributes["customLLDBInitFile"]
             try super.init(element: element)
         }
 
@@ -175,6 +179,9 @@ extension XCScheme {
             attributes["systemAttachmentLifetime"] = systemAttachmentLifetime?.rawValue
             if case .keepAlways? = userAttachmentLifetime {
                 attributes["userAttachmentLifetime"] = userAttachmentLifetime?.rawValue
+            }
+            if let customLLDBInitFile = customLLDBInitFile {
+                attributes["customLLDBInitFile"] = customLLDBInitFile
             }
 
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
@@ -217,7 +224,7 @@ extension XCScheme {
                     codeCoverageTargetsElement.addChild(target.xmlElement())
                 }
             }
-            
+
             return element
         }
 
@@ -246,7 +253,8 @@ extension XCScheme {
                 region == rhs.region &&
                 systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
                 userAttachmentLifetime == rhs.userAttachmentLifetime &&
-                codeCoverageTargets == rhs.codeCoverageTargets
+                codeCoverageTargets == rhs.codeCoverageTargets &&
+                customLLDBInitFile == rhs.customLLDBInitFile
         }
     }
 }

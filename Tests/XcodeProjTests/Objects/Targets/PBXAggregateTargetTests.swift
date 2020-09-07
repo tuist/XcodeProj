@@ -19,7 +19,7 @@ final class PBXAggregateTargetTests: XCTestCase {
     }
 
     func testDictionary() -> [String: Any] {
-        return [
+        [
             "buildConfigurationList": "buildConfigurationList",
             "buildPhases": ["phase"],
             "buildRules": ["rule"],

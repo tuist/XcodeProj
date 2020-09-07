@@ -61,7 +61,7 @@ extension CommentedString: Hashable {
     }
 
     static func == (lhs: CommentedString, rhs: CommentedString) -> Bool {
-        return lhs.string == rhs.string && lhs.comment == rhs.comment
+        lhs.string == rhs.string && lhs.comment == rhs.comment
     }
 }
 

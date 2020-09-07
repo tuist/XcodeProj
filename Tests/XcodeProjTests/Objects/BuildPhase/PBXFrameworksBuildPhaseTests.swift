@@ -19,7 +19,7 @@ final class PBXFrameworksBuildPhaseTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "files": ["file1"],
             "runOnlyForDeploymentPostprocessing": 0,
             "reference": "reference",

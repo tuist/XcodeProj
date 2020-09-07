@@ -184,7 +184,7 @@ final class PBXGroupTests: XCTestCase {
     }
 
     private func makeEmptyPBXProj() -> PBXProj {
-        return PBXProj(
+        PBXProj(
             rootObject: nil,
             objectVersion: 0,
             archiveVersion: 0,
@@ -194,7 +194,7 @@ final class PBXGroupTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "children": ["child"],
             "name": "name",
             "sourceTree": "absolute",

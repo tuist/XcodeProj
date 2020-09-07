@@ -13,7 +13,7 @@ public class PBXGroup: PBXFileElement {
             childrenReferences = newValue.references()
         }
         get {
-            return childrenReferences.objects()
+            childrenReferences.objects()
         }
     }
 
@@ -106,7 +106,7 @@ public extension PBXGroup {
     /// - Parameter groupName: group name.
     /// - Returns: group with the given name contained in the given parent group.
     func group(named name: String) -> PBXGroup? {
-        return childrenReferences
+        childrenReferences
             .objects()
             .first(where: { $0.name == name })
     }
@@ -116,7 +116,7 @@ public extension PBXGroup {
     /// - Parameter name: file name.
     /// - Returns: file with the given name contained in the given parent group.
     func file(named name: String) -> PBXFileReference? {
-        return childrenReferences
+        childrenReferences
             .objects()
             .first(where: { $0.name == name })
     }

@@ -93,7 +93,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
 
     // MARK: - PlistSerializable
 
-    var multiline: Bool { return true }
+    var multiline: Bool { true }
 
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
@@ -132,7 +132,7 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     ///
     /// - Returns: file name.
     func fileName() -> String? {
-        return name ?? path
+        name ?? path
     }
 }
 
@@ -185,7 +185,7 @@ public extension PBXFileElement {
     /// - Returns: path to the variant group base file.
     /// - Throws: an error if the path cannot be obtained.
     private func baseVariantGroupPath() throws -> String? {
-        guard let variantGroup: PBXVariantGroup = self.reference.getObject() else { return nil }
+        guard let variantGroup: PBXVariantGroup = reference.getObject() else { return nil }
         guard let baseReference = try variantGroup
             .childrenReferences
             .compactMap({ try $0.getThrowingObject() as PBXFileElement })

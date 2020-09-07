@@ -26,7 +26,7 @@ public struct Xcode {
         public static let swiftVersion = "4.2"
 
         /// Last known object version for Xcodeproj.
-        public static let objectVersion: UInt = 51
+        public static let objectVersion: UInt = 54
 
         /// Last known upgrade check.
         public static let upgradeCheck = "1000"
@@ -64,7 +64,7 @@ public struct Xcode {
     /// - Parameter extension: file extension.
     /// - Returns: Xcode file type.
     public static func filetype(extension: String) -> String? {
-        return allExtensions[`extension`]
+        allExtensions[`extension`]
     }
 
     // Derived from Xcode3Core.ideplugin in Xcode 11.1
@@ -102,7 +102,7 @@ public struct Xcode {
         "avi": "video.avi",
         "bin": "archive.macbinary",
         "bmp": "image.bmp",
-        "bundle": "wrapper.plug-in",
+        "bundle": "wrapper.cfbundle",
         "c": "sourcecode.c.c",
         "c++": "sourcecode.cpp.cpp",
         "cc": "sourcecode.cpp.cpp",
@@ -271,6 +271,7 @@ public struct Xcode {
         "sit": "archive.stuffit",
         "sks": "file.sks",
         "skybox": "file.skybox",
+        "sqlite": "file",
         "storyboard": "file.storyboard",
         "storyboardc": "wrapper.storyboardc",
         "strings": "text.plist.strings",
@@ -283,6 +284,7 @@ public struct Xcode {
         "text": "net.daringfireball.markdown",
         "tif": "image.tiff",
         "tiff": "image.tiff",
+        "ttf": "file",
         "txt": "text",
         "uicatalog": "file.uicatalog",
         "usdz": "file.usdz",

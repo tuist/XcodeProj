@@ -10,7 +10,7 @@ public final class XCBuildConfiguration: PBXObject {
     /// Base xcconfig file reference.
     public var baseConfiguration: PBXFileReference? {
         get {
-            return baseConfigurationReference?.getObject()
+            baseConfigurationReference?.getObject()
         }
         set {
             if let newValue = newValue {

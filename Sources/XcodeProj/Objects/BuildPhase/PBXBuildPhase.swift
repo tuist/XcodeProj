@@ -14,7 +14,7 @@ public class PBXBuildPhase: PBXContainerItem {
     /// Build files.
     public var files: [PBXBuildFile]? {
         get {
-            return fileReferences?.objects()
+            fileReferences?.objects()
         }
         set {
             newValue?.forEach { $0.buildPhase = self }
@@ -135,7 +135,7 @@ public extension PBXBuildPhase {
     ///
     /// - Returns: build phase type.
     func type() -> BuildPhase? {
-        return buildPhase
+        buildPhase
     }
 
     /// Build phase name.

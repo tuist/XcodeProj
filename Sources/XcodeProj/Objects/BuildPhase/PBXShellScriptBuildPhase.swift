@@ -25,8 +25,8 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     /// Path to the discovery .d dependency file
     public var dependencyFile: String?
 
-    public override var buildPhase: BuildPhase {
-        return .runScript
+    override public var buildPhase: BuildPhase {
+        .runScript
     }
 
     // MARK: - Init

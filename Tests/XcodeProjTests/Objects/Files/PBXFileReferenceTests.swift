@@ -39,7 +39,7 @@ final class PBXFileReferenceTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "name": "name",
             "sourceTree": "group",
         ]

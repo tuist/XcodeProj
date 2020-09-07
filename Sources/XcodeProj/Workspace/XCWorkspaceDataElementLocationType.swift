@@ -71,7 +71,7 @@ public enum XCWorkspaceDataElementLocationType {
 
 extension XCWorkspaceDataElementLocationType: CustomStringConvertible {
     public var description: String {
-        return "\(schema):\(path)"
+        "\(schema):\(path)"
     }
 }
 

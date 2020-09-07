@@ -7,10 +7,10 @@ extension PBXProj {
                         archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
                         classes: [String: Any] = [:],
                         objects: [PBXObject] = []) -> PBXProj {
-        return PBXProj(rootObject: rootObject,
-                       objectVersion: objectVersion,
-                       archiveVersion: archiveVersion,
-                       classes: classes,
-                       objects: objects)
+        PBXProj(rootObject: rootObject,
+                objectVersion: objectVersion,
+                archiveVersion: archiveVersion,
+                classes: classes,
+                objects: objects)
     }
 }

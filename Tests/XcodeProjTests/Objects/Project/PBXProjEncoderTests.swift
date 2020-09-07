@@ -321,7 +321,7 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     private func lines(fromFile file: String) -> [String] {
-        return file.replacingOccurrences(of: "\t", with: "").components(separatedBy: "\n")
+        file.replacingOccurrences(of: "\t", with: "").components(separatedBy: "\n")
     }
 }
 
@@ -329,11 +329,11 @@ class PBXProjEncoderTests: XCTestCase {
 
 private extension Array where Element == String {
     @discardableResult func validate(line string: String, betweenLine lineAbove: Int, andLine lineBelow: Int, line: UInt = #line) -> Int {
-        return validate(string, using: { $0 == $1 }, betweenLine: lineAbove, andLine: lineBelow, line: line)
+        validate(string, using: { $0 == $1 }, betweenLine: lineAbove, andLine: lineBelow, line: line)
     }
 
     @discardableResult func validate(lineContaining string: String, betweenLine lineAbove: Int, andLine lineBelow: Int, line: UInt = #line) -> Int {
-        return validate(string, using: { $0.contains($1) }, betweenLine: lineAbove, andLine: lineBelow, line: line)
+        validate(string, using: { $0.contains($1) }, betweenLine: lineAbove, andLine: lineBelow, line: line)
     }
 
     func validate(_ string: String, using: (String, String) -> Bool, betweenLine lineAbove: Int, andLine lineBelow: Int, line: UInt) -> Int {
@@ -345,11 +345,11 @@ private extension Array where Element == String {
     }
 
     @discardableResult func validate(line string: String, onLineAfter: Int, line: UInt = #line) -> Int {
-        return validate(string, using: { $0 == $1 }, onLineAfter: onLineAfter, line: line)
+        validate(string, using: { $0 == $1 }, onLineAfter: onLineAfter, line: line)
     }
 
     @discardableResult func validate(lineContaining string: String, onLineAfter: Int, line: UInt = #line) -> Int {
-        return validate(string, using: { $0.contains($1) }, onLineAfter: onLineAfter, line: line)
+        validate(string, using: { $0.contains($1) }, onLineAfter: onLineAfter, line: line)
     }
 
     func validate(_ string: String, using: (String, String) -> Bool, onLineAfter: Int, line: UInt) -> Int {
@@ -361,11 +361,11 @@ private extension Array where Element == String {
     }
 
     @discardableResult func validate(line string: String, after: Int = 0, line: UInt = #line) -> Int {
-        return validate(string, using: { $0 == $1 }, after: after, line: line)
+        validate(string, using: { $0 == $1 }, after: after, line: line)
     }
 
     @discardableResult func validate(lineContaining string: String, after: Int = 0, line: UInt = #line) -> Int {
-        return validate(string, using: { $0.contains($1) }, after: after, line: line)
+        validate(string, using: { $0.contains($1) }, after: after, line: line)
     }
 
     func validate(_ string: String, using: (String, String) -> Bool, after: Int, line: UInt) -> Int {
@@ -377,11 +377,11 @@ private extension Array where Element == String {
     }
 
     func findLine(_ string: String, after: Int = 0) -> Int {
-        return findLine(string, matcher: { $0 == $1 }, after: after)
+        findLine(string, matcher: { $0 == $1 }, after: after)
     }
 
     func findLine(containing string: String, after: Int = 0) -> Int {
-        return findLine(string, matcher: { $0.contains($1) }, after: after)
+        findLine(string, matcher: { $0.contains($1) }, after: after)
     }
 
     func findLine(_ string: String, matcher: (String, String) -> Bool, after: Int) -> Int {

@@ -72,11 +72,11 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Hash value.
     override var hash: Int {
-        return value.hashValue
+        value.hashValue
     }
 
     func copy(with _: NSZone? = nil) -> Any {
-        return type(of: self).init(self)
+        type(of: self).init(self)
     }
 
     /// Compares two instances of PBXObjectReference
@@ -86,7 +86,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///   - rhs: second instance to be compared.
     /// - Returns: true if the two instances are equal.
     static func == (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.isEqual(rhs)
+        lhs.isEqual(rhs)
     }
 
     /// Compares with another instance of PBXObjectReference.
@@ -106,7 +106,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///   - rhs: second instance to be compared.
     /// - Returns: comparison result.
     static func < (lhs: PBXObjectReference, rhs: PBXObjectReference) -> Bool {
-        return lhs.value < rhs.value
+        lhs.value < rhs.value
     }
 
     /// Sets the object so it can be retrieved quickly again later
@@ -120,7 +120,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
     func getObject<T: PBXObject>() -> T? {
-        return try? getThrowingObject()
+        try? getThrowingObject()
     }
 
     /// Returns the object the reference is referfing to.
@@ -144,12 +144,12 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
 extension Array where Element: PBXObject {
     func references() -> [PBXObjectReference] {
-        return map { $0.reference }
+        map { $0.reference }
     }
 }
 
 extension Array where Element: PBXObjectReference {
     func objects<T: PBXObject>() -> [T] {
-        return compactMap { $0.getObject() }
+        compactMap { $0.getObject() }
     }
 }

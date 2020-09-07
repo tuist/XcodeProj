@@ -51,7 +51,7 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
     }
 
     private func testDictionary() -> [String: Any] {
-        return [
+        [
             "files": ["files"],
             "inputPaths": ["input"],
             "outputPaths": ["output"],
