@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/TBD by @polac24
+- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
 
 ## 7.11.1
 
