@@ -14,7 +14,8 @@ final class PBXBuildRuleTests: XCTestCase {
                                name: "rule",
                                outputFiles: ["a", "b"],
                                outputFilesCompilerFlags: ["-1", "-2"],
-                               script: "script")
+                               script: "script",
+                               runOncePerArchitecture: false)
     }
 
     func test_init_initializesTheBuildRuleWithTheRightAttributes() {
@@ -26,6 +27,7 @@ final class PBXBuildRuleTests: XCTestCase {
         XCTAssertEqual(subject.outputFiles, ["a", "b"])
         XCTAssertEqual(subject.outputFilesCompilerFlags ?? [], ["-1", "-2"])
         XCTAssertEqual(subject.script, "script")
+        XCTAssertEqual(subject.runOncePerArchitecture, false)
     }
 
     func test_isa_returnsTheCorrectValue() {
@@ -40,7 +42,8 @@ final class PBXBuildRuleTests: XCTestCase {
                                    name: "rule",
                                    outputFiles: ["a", "b"],
                                    outputFilesCompilerFlags: ["-1", "-2"],
-                                   script: "script")
+                                   script: "script",
+                                   runOncePerArchitecture: false)
         XCTAssertEqual(subject, another)
     }
 }
