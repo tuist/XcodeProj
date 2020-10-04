@@ -5,6 +5,9 @@
 ### Fixed
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
 
+### Added
+- Add support for alwaysOutOfDate flag in PBXShellScriptBuildPhase https://github.com/tuist/XcodeProj/pull/572 by @marciniwanicki
+
 ## 7.14.0
 
 ### Fixed
