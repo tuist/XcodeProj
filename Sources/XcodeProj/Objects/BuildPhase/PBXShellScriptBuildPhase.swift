@@ -116,7 +116,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
             dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
         }
         if alwaysOutOfDate {
-            // Xcode only write this key if it's set to true; default is false and it omitted
+            // Xcode only write this key if it's set to true; default is false and is omitted
             dictionary["alwaysOutOfDate"] = .string(CommentedString("\(alwaysOutOfDate.int)"))
         }
         return (key: CommentedString(reference, comment: name ?? "ShellScript"), value: .dictionary(dictionary))
