@@ -5,6 +5,9 @@
 ### Fixed
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
 
+### Added
+- Deprecate PBXBuildPhase.type() function https://github.com/tuist/XcodeProj/pull/571 by @marciniwanicki
+
 ## 7.14.0
 
 ### Fixed
