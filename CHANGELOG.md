@@ -5,6 +5,9 @@
 ### Fixed
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
 
+### Added
+- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
+
 ## 7.14.0
 
 ### Fixed
