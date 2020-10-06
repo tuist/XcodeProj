@@ -219,6 +219,7 @@ extension PBXShellScriptBuildPhase {
         if shellPath != rhs.shellPath { return false }
         if shellScript != rhs.shellScript { return false }
         if showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
+        if dependencyFile != rhs.dependencyFile { return false }
         return super.isEqual(to: rhs)
     }
 }

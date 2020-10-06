@@ -45,6 +45,32 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
         XCTAssertFalse(valuesWhenFalse.keys.contains("alwaysOutOfDate"))
         XCTAssertEqual(valuesWhenTrue["alwaysOutOfDate"], "1")
     }
+  
+    func test_write_dependencyFile() throws {
+        let discoveryPath = "$(DERIVED_FILE_DIR)/target.d"
+        let discovery = PBXShellScriptBuildPhase(dependencyFile: discoveryPath)
+        let proj = PBXProj.fixture()
+
+        let (_, discoveryPlistValue) = try discovery.plistKeyAndValue(proj: proj, reference: "ref")
+
+        XCTAssertEqual(discoveryPlistValue.dictionary?["dependencyFile"]?.string, CommentedString(discoveryPath))
+    }
+
+    func test_skips_nilDependencyFile() throws {
+        let noDiscovery = PBXShellScriptBuildPhase(dependencyFile: nil)
+        let proj = PBXProj.fixture()
+
+        let (_, noDiscoveryPlistValue) = try noDiscovery.plistKeyAndValue(proj: proj, reference: "ref")
+
+        XCTAssertNil(noDiscoveryPlistValue.dictionary?["dependencyFile"])
+    }
+
+    func test_notequal_differentDependencyFile() throws {
+        let noDiscovery = PBXShellScriptBuildPhase(dependencyFile: nil)
+        let discovery = PBXShellScriptBuildPhase(dependencyFile: "$(DERIVED_FILE_DIR)/target.d")
+
+        XCTAssertNotEqual(noDiscovery, discovery)
+    }
 
     private func testDictionary() -> [String: Any] {
         [

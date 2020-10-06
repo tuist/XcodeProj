@@ -7,6 +7,7 @@
 
 ### Added
 - Add support for alwaysOutOfDate flag in PBXShellScriptBuildPhase https://github.com/tuist/XcodeProj/pull/572 by @marciniwanicki
+- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
 
 ## 7.14.0
 
