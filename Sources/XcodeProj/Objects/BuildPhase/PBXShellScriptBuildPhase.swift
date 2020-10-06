@@ -22,6 +22,9 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: Bool
 
+    /// Force script to run in all incremental builds.
+    public var alwaysOutOfDate: Bool
+
     /// Path to the discovery .d dependency file
     public var dependencyFile: String?
 
@@ -42,6 +45,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     ///   - shellPath: shell path.
     ///   - shellScript: shell script.
     ///   - buildActionMask: build action mask.
+    ///   - alwaysOutOfDate: always out of date.
     ///   - dependencyFile: discovery dependency file path.
     public init(files: [PBXBuildFile] = [],
                 name: String? = nil,
@@ -54,6 +58,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false,
                 showEnvVarsInLog: Bool = true,
+                alwaysOutOfDate: Bool = false,
                 dependencyFile: String? = nil) {
         self.name = name
         self.inputPaths = inputPaths
@@ -61,6 +66,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellPath = shellPath
         self.shellScript = shellScript
         self.showEnvVarsInLog = showEnvVarsInLog
+        self.alwaysOutOfDate = alwaysOutOfDate
         self.dependencyFile = dependencyFile
         super.init(files: files,
                    inputFileListPaths: inputFileListPaths,
@@ -78,6 +84,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         case shellPath
         case shellScript
         case showEnvVarsInLog
+        case alwaysOutOfDate
         case dependencyFile
     }
 
@@ -89,6 +96,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         shellPath = try container.decodeIfPresent(.shellPath)
         shellScript = try container.decodeIfPresent(.shellScript)
         showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
+        alwaysOutOfDate = try container.decodeIntBoolIfPresent(.alwaysOutOfDate) ?? false
         dependencyFile = try container.decodeIfPresent(.dependencyFile)
         try super.init(from: decoder)
     }
@@ -117,6 +125,10 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         if !showEnvVarsInLog {
             // Xcode only writes this key if it's set to false; default is true and is omitted
             dictionary["showEnvVarsInLog"] = .string(CommentedString("\(showEnvVarsInLog.int)"))
+        }
+        if alwaysOutOfDate {
+            // Xcode only write this key if it's set to true; default is false and is omitted
+            dictionary["alwaysOutOfDate"] = .string(CommentedString("\(alwaysOutOfDate.int)"))
         }
         return (key: CommentedString(reference, comment: name ?? "ShellScript"), value: .dictionary(dictionary))
     }
