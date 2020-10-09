@@ -1,10 +1,3 @@
-//
-//  XCScheme+StoreKitConfigurationFileReference.swift
-//  XcodeProj
-//
-//  Created by Joseph Colicchio on 10/7/20.
-//
-
 import AEXML
 import Foundation
 
