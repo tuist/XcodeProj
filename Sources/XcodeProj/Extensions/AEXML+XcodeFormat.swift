@@ -52,6 +52,7 @@ let attributesOrder: [String: [String]] = [
         "enableGPUFrameCaptureMode",
         "enableGPUValidationMode",
         "allowLocationSimulation",
+        "storeKitConfigurationFileReference",
     ],
     "ProfileAction": [
         "buildConfiguration",
