@@ -6,7 +6,7 @@
 
 ### Added
 
-- Set the right `module_name` in the `.podspec.` [#578](https://github.com/tuist/XcodeProj/pull/578) by @dflems
+- Set the right `module_name` in the `.podspec.` [#578](https://github.com/tuist/XcodeProj/pull/578) by [@dflems](https://github.com/dflems).
 
 ## 7.15.0 - Marea
 
