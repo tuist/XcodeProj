@@ -37,7 +37,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.15.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.16.0"))
         ],
     targets: [
         .target(
@@ -59,7 +59,7 @@ github "tuist/xcodeproj" ~> 7.11.
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.15.0
+pod 'xcodeproj', '~> 7.16.0
 ```
 
 ### Scripting

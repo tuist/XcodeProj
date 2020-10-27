@@ -2,6 +2,12 @@
 
 ## Next
 
+## 7.16.0 - Cieza
+
+### Added
+
+- Set the right `module_name` in the `.podspec.` [#578](https://github.com/tuist/XcodeProj/pull/578) by @dflems
+
 ## 7.15.0 - Marea
 
 ### Fixed
