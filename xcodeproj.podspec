@@ -13,6 +13,8 @@ Pod::Spec.new do |s|
 
   s.source_files = "Sources/**/*.{swift}"
 
+  s.module_name = 'XcodeProj'
+
   s.dependency "XcodeProjCExt", "0.1.0"
   s.dependency "PathKit", "~> 1.0.0"
   s.dependency "AEXML", "~> 4.4.0"
