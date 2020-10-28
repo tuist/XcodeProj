@@ -133,7 +133,7 @@ final class PBXProjectTests: XCTestCase {
         // When
         let remoteReference = try project.addSwiftPackage(repositoryURL: "url",
                                                           productName: "Product",
-                                                          versionRequirement: .branch("master"),
+                                                          versionRequirement: .branch("main"),
                                                           targetName: "Target")
 
         // Then
@@ -186,11 +186,11 @@ final class PBXProjectTests: XCTestCase {
         // When
         let packageProduct = try project.addSwiftPackage(repositoryURL: "url",
                                                          productName: "Product",
-                                                         versionRequirement: .branch("master"),
+                                                         versionRequirement: .branch("main"),
                                                          targetName: target.name)
         let secondPackageProduct = try project.addSwiftPackage(repositoryURL: "url",
                                                                productName: "Product",
-                                                               versionRequirement: .branch("master"),
+                                                               versionRequirement: .branch("main"),
                                                                targetName: secondTarget.name)
 
         // Then
@@ -202,7 +202,7 @@ final class PBXProjectTests: XCTestCase {
 
         XCTAssertThrowsSpecificError(try project.addSwiftPackage(repositoryURL: "url",
                                                                  productName: "Product",
-                                                                 versionRequirement: .branch("second-master"),
+                                                                 versionRequirement: .branch("second-main"),
                                                                  targetName: secondTarget.name),
                                      PBXProjError.multipleRemotePackages(productName: "Product"))
     }

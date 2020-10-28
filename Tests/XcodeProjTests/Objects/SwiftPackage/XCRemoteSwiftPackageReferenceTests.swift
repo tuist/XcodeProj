@@ -40,7 +40,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
 
     func test_versionRequirement_returnsTheRightPlistValues_when_branch() throws {
         // When
-        let subject = XCRemoteSwiftPackageReference.VersionRequirement.branch("master")
+        let subject = XCRemoteSwiftPackageReference.VersionRequirement.branch("main")
 
         // Given
         let got = subject.plistValues()
@@ -48,7 +48,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(got, [
             "kind": "branch",
-            "branch": .string(.init("master")),
+            "branch": .string(.init("main")),
         ])
     }
 
