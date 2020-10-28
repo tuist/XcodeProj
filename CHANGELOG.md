@@ -2,22 +2,42 @@
 
 ## Next
 
+### Added
+
+- Added the `com.apple.product-type.metal-library` PBXProductType [#576](https://github.com/tuist/XcodeProj/pull/576) by [@deatondg](https://github.com/deatondg).
+- Deprecate PBXBuildPhase.type() function https://github.com/tuist/XcodeProj/pull/571 by [@marciniwanicki](https://github.com/marciniwanicki).
+
+## 7.16.0 - Cieza
+
+### Added
+
+- Set the right `module_name` in the `.podspec.` [#578](https://github.com/tuist/XcodeProj/pull/578) by [@dflems](https://github.com/dflems).
+
+## 7.15.0 - Marea
+
 ### Fixed
+
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
 
 ### Added
-- Deprecate PBXBuildPhase.type() function https://github.com/tuist/XcodeProj/pull/571 by @marciniwanicki
+- Add support for alwaysOutOfDate flag in PBXShellScriptBuildPhase https://github.com/tuist/XcodeProj/pull/572 by @marciniwanicki
+- Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
+- Add support for StoreKitConfigurationFileReference in LaunchAction of XCScheme https://github.com/tuist/XcodeProj/pull/573 by @jcolicchio
 
 ## 7.14.0
 
 ### Fixed
+
 - lastKnownFileType for .ttf and .sqlite files https://github.com/tuist/XcodeProj/pull/557 by @adamkhazi
+
 ### Added
+
 - Added selectedTests attribute to XCScheme.TestableReference https://github.com/tuist/XcodeProj/pull/559 by @ooodin
 
 ## 7.13.0
 
 ### Added
+
 - Support `on-demand-install-capable` application https://github.com/tuist/XcodeProj/pull/554 by @d-date
 - Add RemotePath to RemoteRunnable https://github.com/tuist/XcodeProj/pull/555 by @kwridan
 
@@ -40,6 +60,7 @@
 - Point `XcodeProjCExt` to version 0.1.0 https://github.com/tuist/XcodeProj/pull/540 by @khoi
 
 ### Added
+
 - Added `useTestSelectionWhitelist` attribute to `XCScheme.TestableReference` https://github.com/tuist/xcodeproj/pull/516 by @basvankuijck.
 
 ### Fixed
@@ -49,6 +70,7 @@
 ## 7.10.0
 
 ### Changed
+
 - Optimize bottlenecks https://github.com/tuist/XcodeProj/pull/529 by @michaeleisel
 
 ## 7.9.0

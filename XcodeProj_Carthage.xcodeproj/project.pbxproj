@@ -74,6 +74,7 @@
 		B07C3C11C0C5E9123C5D9D15 /* PBXObjectParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4FB9142BF91F6E449998C /* PBXObjectParser.swift */; };
 		B7703E87F0E986D0BECC6C92 /* PBXResourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485AE4255BB935C7B7FE93C /* PBXResourcesBuildPhase.swift */; };
 		B972348A969282D604A5C325 /* XCScheme+Runnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5C2732048660AC71431D9C /* XCScheme+Runnable.swift */; };
+		B9B6EEA9252EBD4600BAD611 /* XCScheme+StoreKitConfigurationFileReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B6EEA8252EBD4600BAD611 /* XCScheme+StoreKitConfigurationFileReference.swift */; };
 		BBA09A7C8D3D9697C10F300B /* PBXLegacyTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C46C4D934731EA4A844FD3 /* PBXLegacyTarget.swift */; };
 		BD65503EF698EE4EAF11892C /* Path+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE041A9A60D18302045BA2AE /* Path+Extras.swift */; };
 		BD7A3EBFD6C9D1AA78E6E822 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F663AC6487521F684ED182 /* Decoders.swift */; };
@@ -192,6 +193,7 @@
 		B50CD65FDAA9B3F4269F4AAF /* PBXBuildRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildRule.swift; sourceTree = "<group>"; };
 		B837566EDF23D002AC881D07 /* XCScheme+CommandLineArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+CommandLineArguments.swift"; sourceTree = "<group>"; };
 		B92DC66EE80F3D7611319ACC /* XCWorkspaceDataFileRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceDataFileRef.swift; sourceTree = "<group>"; };
+		B9B6EEA8252EBD4600BAD611 /* XCScheme+StoreKitConfigurationFileReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+StoreKitConfigurationFileReference.swift"; sourceTree = "<group>"; };
 		BFFE462CBB08512CB108E356 /* XCScheme+AnalyzeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+AnalyzeAction.swift"; sourceTree = "<group>"; };
 		C3FE679A53603AE3FE43462F /* XCScheme+ExecutionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ExecutionAction.swift"; sourceTree = "<group>"; };
 		C6F7AC32AFFBEA9741906F2B /* PBXVariantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXVariantGroup.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				0BFCA27253AECAC6A2EF5E66 /* XCScheme+RemoteRunnable.swift */,
 				1D5C2732048660AC71431D9C /* XCScheme+Runnable.swift */,
 				694034B4B7C9DF231B007A84 /* XCScheme+SerialAction.swift */,
+				B9B6EEA8252EBD4600BAD611 /* XCScheme+StoreKitConfigurationFileReference.swift */,
 				0AE91C6982618C1EDDAAD596 /* XCScheme+TestableReference.swift */,
 				161E967D0979EF34C7DF6348 /* XCScheme+TestAction.swift */,
 				7DFDD2E86D3F0ADE3502A29A /* XCScheme+TestItem.swift */,
@@ -548,8 +551,6 @@
 		223DB5C7FA35E8FD593C4040 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 477F800A701B31C60A80EACC /* Build configuration list for PBXProject "XcodeProj_Carthage" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -668,6 +669,7 @@
 				735E1C6466FF56969767BAA0 /* XCScheme+CommandLineArguments.swift in Sources */,
 				7C3555C09B170AEA2D56E8F2 /* XCScheme+EnvironmentVariable.swift in Sources */,
 				AC49ED6F358FFBF504A3D0AE /* XCScheme+ExecutionAction.swift in Sources */,
+				B9B6EEA9252EBD4600BAD611 /* XCScheme+StoreKitConfigurationFileReference.swift in Sources */,
 				147157016720CE9BC5943AF2 /* XCScheme+LaunchAction.swift in Sources */,
 				69CBD38E1B96198049A02795 /* XCScheme+LocationScenarioReference.swift in Sources */,
 				1270ABC0B6133C84F57A8D3F /* XCScheme+PathRunnable.swift in Sources */,

@@ -2,9 +2,9 @@
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![Release](https://img.shields.io/github/release/tuist/xcodeproj.svg)](https://github.com/tuist/xcodeproj/releases)
-[![Code Coverage](https://codecov.io/gh/tuist/xcodeproj/branch/master/graph/badge.svg)](https://codecov.io/gh/tuist/xcodeproj)
+[![Code Coverage](https://codecov.io/gh/tuist/xcodeproj/branch/main/graph/badge.svg)](https://codecov.io/gh/tuist/xcodeproj)
 [![Slack](http://slack.tuist.io/badge.svg)](http://slack.tuist.io/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/main/LICENSE.md)
 
 XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired by [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
@@ -37,7 +37,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.14.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.16.0"))
         ],
     targets: [
         .target(
@@ -59,7 +59,7 @@ github "tuist/xcodeproj" ~> 7.11.
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.14.0
+pod 'xcodeproj', '~> 7.16.0
 ```
 
 ### Scripting
@@ -122,7 +122,7 @@ Want to start using XcodeProj? Start by digging into our [documentation](/Docume
 - [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
 - [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
-- [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/master/Sources/Xcodeproj)
+- [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/main/Sources/Xcodeproj)
 
 ## Contributing
 
@@ -132,7 +132,7 @@ Want to start using XcodeProj? Start by digging into our [documentation](/Docume
 
 ## License
 
-XcodeProj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/master/LICENSE.md) for details.
+XcodeProj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/main/LICENSE.md) for details.
 
 ## Open source
 

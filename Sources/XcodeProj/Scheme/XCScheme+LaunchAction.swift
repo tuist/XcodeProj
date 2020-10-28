@@ -64,6 +64,7 @@ extension XCScheme {
         public var language: String?
         public var region: String?
         public var launchAutomaticallySubstyle: String?
+        public var storeKitConfigurationFileReference: StoreKitConfigurationFileReference?
         // To enable the option in Xcode: defaults write com.apple.dt.Xcode IDEDebuggerFeatureSetting 12
         public var customLaunchCommand: String?
         public var customLLDBInitFile: String?
@@ -102,6 +103,7 @@ extension XCScheme {
                     language: String? = nil,
                     region: String? = nil,
                     launchAutomaticallySubstyle: String? = nil,
+                    storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
                     customLaunchCommand: String? = nil,
                     customLLDBInitFile: String? = nil) {
             self.runnable = runnable
@@ -134,6 +136,7 @@ extension XCScheme {
             self.language = language
             self.region = region
             self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
+            self.storeKitConfigurationFileReference = storeKitConfigurationFileReference
             self.customLaunchCommand = customLaunchCommand
             self.customLLDBInitFile = customLLDBInitFile
             super.init(preActions, postActions)
@@ -207,6 +210,12 @@ extension XCScheme {
             language = element.attributes["language"]
             region = element.attributes["region"]
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
+
+            if element["StoreKitConfigurationFileReference"].all?.first != nil {
+                storeKitConfigurationFileReference = try StoreKitConfigurationFileReference(element: element["StoreKitConfigurationFileReference"])
+            } else {
+                storeKitConfigurationFileReference = nil
+            }
             customLaunchCommand = element.attributes["customLaunchCommand"]
             customLLDBInitFile = element.attributes["customLLDBInitFile"]
 
@@ -306,6 +315,10 @@ extension XCScheme {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
 
+            if let storeKitConfigurationFileReference = storeKitConfigurationFileReference {
+                element.addChild(storeKitConfigurationFileReference.xmlElement())
+            }
+
             if let customLaunchCommand = customLaunchCommand {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }
@@ -359,6 +372,7 @@ extension XCScheme {
                 language == rhs.language &&
                 region == rhs.region &&
                 launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle &&
+                storeKitConfigurationFileReference == rhs.storeKitConfigurationFileReference &&
                 customLaunchCommand == rhs.customLaunchCommand &&
                 customLLDBInitFile == rhs.customLLDBInitFile
         }

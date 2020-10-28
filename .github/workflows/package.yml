@@ -1,12 +1,12 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idname
 name: Package
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     name: Build
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         xcode: ["11.3", "11.3.1", "11.4"]
@@ -19,10 +19,10 @@ jobs:
 
   test:
     name: Test
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       matrix:
-        xcode: ["11.3", "11.3.1", "11.4"]
+        xcode: ["11.3", "11.3.1", "11.4", "12.0.1"]
     steps:
       - uses: actions/checkout@v1
       - name: Select Xcode ${{ matrix.xcode }}

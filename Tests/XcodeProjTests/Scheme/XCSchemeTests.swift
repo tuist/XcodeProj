@@ -305,6 +305,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.enableUBSanitizer, false)
         XCTAssertEqual(scheme.testAction?.disableMainThreadChecker, false)
         XCTAssertEqual(scheme.testAction?.additionalOptions.isEmpty, true)
+        XCTAssertEqual(scheme.launchAction?.storeKitConfigurationFileReference?.identifier, "../../Configuration.storekit")
 
         let testEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.testAction?.environmentVariables)
         XCTAssertEqual(testEnvironmentVariables.count, 1)
@@ -469,6 +470,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.disableMainThreadChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
+        XCTAssertNil(scheme.launchAction?.storeKitConfigurationFileReference)
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
         XCTAssertEqual(launchEnvironmentVariables.count, 1)
