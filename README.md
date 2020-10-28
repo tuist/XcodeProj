@@ -137,12 +137,6 @@ Want to start using XcodeProj? Start by digging into our [documentation](/Docume
 
 XcodeProj is released under the MIT license. [See LICENSE](https://github.com/tuist/xcodeproj/blob/main/LICENSE.md) for details.
 
-## Open source
-
-Tuist is a proud supporter of the [Software Freedom Conservacy](https://sfconservancy.org/)
-
-<a href="https://sfconservancy.org/supporter/"><img src="https://sfconservancy.org/img/supporter-badge.png" width="194" height="90" alt="Become a Conservancy Supporter!" border="0"/></a>
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
