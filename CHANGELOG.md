@@ -5,6 +5,7 @@
 ### Added
 
 - Added the `com.apple.product-type.metal-library` PBXProductType [#576](https://github.com/tuist/XcodeProj/pull/576) by [@deatondg](https://github.com/deatondg).
+- Deprecate PBXBuildPhase.type() function https://github.com/tuist/XcodeProj/pull/571 by [@marciniwanicki](https://github.com/marciniwanicki).
 
 ## 7.16.0 - Cieza
 
@@ -21,7 +22,6 @@
 - Added `runOncePerArchitecture` attribute to `PBXBuildRule` https://github.com/tuist/XcodeProj/pull/570 by @sascha
 
 ### Added
-
 - Add support for alwaysOutOfDate flag in PBXShellScriptBuildPhase https://github.com/tuist/XcodeProj/pull/572 by @marciniwanicki
 - Added `PBXShellScriptBuildPhase.dependencyFile` attribute https://github.com/tuist/xcodeproj/pull/568 by @polac24
 - Add support for StoreKitConfigurationFileReference in LaunchAction of XCScheme https://github.com/tuist/XcodeProj/pull/573 by @jcolicchio

@@ -134,6 +134,7 @@ public extension PBXBuildPhase {
     /// Returns the build phase type.
     ///
     /// - Returns: build phase type.
+    @available(*, deprecated, message: "Please use buildPhase property instead")
     func type() -> BuildPhase? {
         buildPhase
     }
