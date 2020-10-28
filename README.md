@@ -1,6 +1,6 @@
 # XcodeProj
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -154,6 +154,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://joecolicch.io"><img src="https://avatars3.githubusercontent.com/u/2837288?v=4" width="100px;" alt=""/><br /><sub><b>Joseph Colicchio</b></sub></a><br /><a href="#ideas-jcolicchio" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/deatondg"><img src="https://avatars0.githubusercontent.com/u/3221590?v=4" width="100px;" alt=""/><br /><sub><b>deatondg</b></sub></a><br /><a href="#ideas-deatondg" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/dflems"><img src="https://avatars3.githubusercontent.com/u/925850?v=4" width="100px;" alt=""/><br /><sub><b>Dan Fleming</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=dflems" title="Code">💻</a></td>
   </tr>
 </table>
 
