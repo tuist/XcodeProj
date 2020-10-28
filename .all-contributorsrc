@@ -22,6 +22,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "dflems",
+      "name": "Dan Fleming",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/925850?v=4",
+      "profile": "https://github.com/dflems",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
