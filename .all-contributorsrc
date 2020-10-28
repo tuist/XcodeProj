@@ -40,6 +40,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "marciniwanicki",
+      "name": "Marcin Iwanicki",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/946649?v=4",
+      "profile": "https://github.com/marciniwanicki",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
