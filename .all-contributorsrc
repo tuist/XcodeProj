@@ -31,6 +31,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sascha",
+      "name": "Sascha Schwabbauer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/895505?v=4",
+      "profile": "https://twitter.com/_SaschaS",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
