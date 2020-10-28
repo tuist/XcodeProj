@@ -2,6 +2,10 @@
 
 ## Next
 
+### Added
+
+- Added the `com.apple.product-type.metal-library` PBXProductType [#576](https://github.com/tuist/XcodeProj/pull/576) by [@deatondg](https://github.com/deatondg).
+
 ## 7.16.0 - Cieza
 
 ### Added
