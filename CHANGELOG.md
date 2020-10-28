@@ -13,6 +13,8 @@
 ### Fixed
 
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
+### Added
+- Added `runOncePerArchitecture` attribute to `PBXBuildRule` https://github.com/tuist/XcodeProj/pull/570 by @sascha
 
 ### Added
 
