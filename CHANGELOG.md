@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.17.0 - Tempelhof
+
 ### Added
 
 - Added the `com.apple.product-type.metal-library` PBXProductType [#576](https://github.com/tuist/XcodeProj/pull/576) by [@deatondg](https://github.com/deatondg).
