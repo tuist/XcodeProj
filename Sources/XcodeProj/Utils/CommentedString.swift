@@ -1,5 +1,4 @@
 import Foundation
-import XcodeProjCExt
 
 /// String that includes a comment
 struct CommentedString {
@@ -30,26 +29,91 @@ struct CommentedString {
     }()
 
     /// Substrings that cause Xcode to quote the string content.
-    private let invalidStrings = [
-        "___",
-        "//",
+    ///
+    /// Matches the strings `___` and `//`.
+    private let invalidStrings: Trie = [
+        "_": ["_": "_"],
+        "/": "/"
     ]
+
+    /// A tree of characters to efficiently match string prefixes.
+    private enum Trie: ExpressibleByDictionaryLiteral, ExpressibleByUnicodeScalarLiteral {
+        case match
+        case next([(UnicodeScalar, Trie)])
+
+        init(dictionaryLiteral elements: (UnicodeScalar, Trie)...) {
+            self = .next(elements)
+        }
+
+        init(unicodeScalarLiteral value: UnicodeScalar) {
+            self = .next([(value, .match)])
+        }
+
+        /// Accepts a character and mutates to the subtree of strings which match that character. If the character does
+        /// not match, resets to `default`.
+        mutating func match(_ character: UnicodeScalar, orResetTo default: Trie) {
+            switch self {
+            case .match:
+                return
+            case .next(let options):
+                for (key, subtrie) in options where key == character {
+                    self = subtrie
+                    return
+                }
+                self = `default`
+            }
+        }
+
+        var accepted: Bool {
+            switch self {
+            case .match: return true
+            case .next: return false
+            }
+        }
+    }
+
 
     /// Returns a valid string for Xcode projects.
     var validString: String {
         switch string {
-        case "": return "".quoted
+        case "": return "\"\""
         case "false": return "NO"
         case "true": return "YES"
         default: break
         }
 
-        return string.withCString { buffer in
-            let esc = XCPEscapedString(buffer)!
-            let newString = String(cString: esc)
-            free(UnsafeMutableRawPointer(mutating: esc))
-            return newString
+        var needsQuoting = false
+        var matchingInvalidPrefix: Trie = self.invalidStrings
+
+        let escaped = string.reduce(into: "") { escaped, character in
+            quote: if !needsQuoting {
+                for scalar in character.unicodeScalars {
+                    matchingInvalidPrefix.match(scalar, orResetTo: self.invalidStrings)
+                    if matchingInvalidPrefix.accepted || CommentedString.invalidCharacters.contains(scalar) {
+                        needsQuoting = true
+                        break quote
+                    }
+                }
+            }
+            // As an optimization, only look at the first scalar. This means we're doing a numeric comparison instead
+            // of comparing arbitrary-length characters. This is safe because all our cases are a single scalar.
+            switch character.unicodeScalars.first {
+            case "\\":
+                escaped.append("\\\\")
+            case "\"":
+                escaped.append("\\\"")
+            case "\t":
+                escaped.append("\\t")
+            case "\n":
+                escaped.append("\\n")
+            default:
+                escaped.append(character)
+            }
         }
+        if needsQuoting {
+            return "\"\(escaped)\""
+        }
+        return escaped
     }
 }
 
