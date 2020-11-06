@@ -3,8 +3,6 @@ import PathKit
 import XCTest
 @testable import XcodeProj
 
-import Darwin
-
 final class PBXProjIntegrationTests: XCTestCase {
     func test_init_initializesTheProjCorrectly() {
         let data = try! Data(contentsOf: fixturePath().url)
@@ -40,7 +38,7 @@ final class PBXProjIntegrationTests: XCTestCase {
             // Create a commit
             try checkedOutput("git", ["init"])
             try checkedOutput("git", ["add", "."])
-            try checkedOutput("git", ["commit", "-m", "test"])
+            try checkedOutput("git", ["-c", "user.email=test@example.com", "commit", "-m", "test"])
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
