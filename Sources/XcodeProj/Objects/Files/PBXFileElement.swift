@@ -134,6 +134,11 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     func fileName() -> String? {
         name ?? path
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXFileElement else { return false }
+        return _isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

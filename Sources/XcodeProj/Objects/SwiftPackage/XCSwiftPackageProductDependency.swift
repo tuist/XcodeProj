@@ -58,4 +58,9 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         case productName
         case package
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCSwiftPackageProductDependency else { return false }
+        return _isEqual(to: rhs)
+    }
 }

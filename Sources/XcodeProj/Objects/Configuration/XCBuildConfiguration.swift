@@ -89,6 +89,11 @@ public final class XCBuildConfiguration: PBXObject {
             break
         }
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCBuildConfiguration else { return false }
+        return _isEqual(to: rhs)
+    }
 }
 
 // MARK: - PlistSerializable
