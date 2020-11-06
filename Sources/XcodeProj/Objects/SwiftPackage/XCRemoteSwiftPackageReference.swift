@@ -140,13 +140,4 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         return (key: CommentedString(reference, comment: "XCRemoteSwiftPackageReference \"\(name ?? "")\""),
                 value: .dictionary(dictionary))
     }
-
-    // MARK: - Equatable
-
-    @objc override public func isEqual(to object: Any?) -> Bool {
-        guard let rhs = object as? XCRemoteSwiftPackageReference else { return false }
-        if repositoryURL != rhs.repositoryURL { return false }
-        if versionRequirement != rhs.versionRequirement { return false }
-        return super.isEqual(to: rhs)
-    }
 }

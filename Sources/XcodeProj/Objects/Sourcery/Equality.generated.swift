@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.13.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 import Foundation
@@ -16,7 +16,10 @@ extension PBXBuildFile {
     @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXBuildFile else { return false }
         if fileReference != rhs.fileReference { return false }
+        if productReference != rhs.productReference { return false }
         if !NSDictionary(dictionary: settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
+        if platformFilter != rhs.platformFilter { return false }
+        if buildPhase != rhs.buildPhase { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -44,6 +47,7 @@ extension PBXBuildRule {
         if isEditable != rhs.isEditable { return false }
         if name != rhs.name { return false }
         if outputFiles != rhs.outputFiles { return false }
+        if inputFiles != rhs.inputFiles { return false }
         if outputFilesCompilerFlags != rhs.outputFilesCompilerFlags { return false }
         if script != rhs.script { return false }
         if runOncePerArchitecture != rhs.runOncePerArchitecture { return false }
@@ -95,6 +99,7 @@ extension PBXFileElement {
         if indentWidth != rhs.indentWidth { return false }
         if tabWidth != rhs.tabWidth { return false }
         if wrapsLines != rhs.wrapsLines { return false }
+        if parent != rhs.parent { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -178,6 +183,7 @@ extension PBXProject {
         if targetReferences != rhs.targetReferences { return false }
         if !NSDictionary(dictionary: attributes).isEqual(to: rhs.attributes) { return false }
         if !NSDictionary(dictionary: targetAttributeReferences).isEqual(to: rhs.targetAttributeReferences) { return false }
+        if packageReferences != rhs.packageReferences { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -187,9 +193,7 @@ extension PBXReferenceProxy {
     @objc override public func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXReferenceProxy else { return false }
         if fileType != rhs.fileType { return false }
-        if path != rhs.path { return false }
         if remoteReference != rhs.remoteReference { return false }
-        if sourceTree != rhs.sourceTree { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -220,6 +224,7 @@ extension PBXShellScriptBuildPhase {
         if shellPath != rhs.shellPath { return false }
         if shellScript != rhs.shellScript { return false }
         if showEnvVarsInLog != rhs.showEnvVarsInLog { return false }
+        if alwaysOutOfDate != rhs.alwaysOutOfDate { return false }
         if dependencyFile != rhs.dependencyFile { return false }
         return super.isEqual(to: rhs)
     }
@@ -244,6 +249,7 @@ extension PBXTarget {
         if name != rhs.name { return false }
         if productName != rhs.productName { return false }
         if productReference != rhs.productReference { return false }
+        if packageProductDependencyReferences != rhs.packageProductDependencyReferences { return false }
         if productType != rhs.productType { return false }
         return super.isEqual(to: rhs)
     }
@@ -256,6 +262,8 @@ extension PBXTargetDependency {
         if name != rhs.name { return false }
         if targetReference != rhs.targetReference { return false }
         if targetProxyReference != rhs.targetProxyReference { return false }
+        if productReference != rhs.productReference { return false }
+        if platformFilter != rhs.platformFilter { return false }
         return super.isEqual(to: rhs)
     }
 }
@@ -290,6 +298,26 @@ extension XCConfigurationList {
     }
 }
 
+extension XCRemoteSwiftPackageReference {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCRemoteSwiftPackageReference else { return false }
+        if repositoryURL != rhs.repositoryURL { return false }
+        if versionRequirement != rhs.versionRequirement { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCSwiftPackageProductDependency {
+    /// :nodoc:
+    @objc override public func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? XCSwiftPackageProductDependency else { return false }
+        if productName != rhs.productName { return false }
+        if packageReference != rhs.packageReference { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
 extension XCVersionGroup {
     /// :nodoc:
     @objc override public func isEqual(to object: Any?) -> Bool {
@@ -299,3 +327,4 @@ extension XCVersionGroup {
         return super.isEqual(to: rhs)
     }
 }
+
