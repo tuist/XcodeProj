@@ -72,7 +72,6 @@ struct CommentedString {
         }
     }
 
-
     /// Returns a valid string for Xcode projects.
     var validString: String {
         switch string {

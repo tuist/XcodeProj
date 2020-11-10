@@ -3,7 +3,7 @@ import Foundation
 {% for type in types.implementing.AutoEquatable|class|!annotated:"skipEquality" %}
 extension {{ type.name }} {
     /// :nodoc:
-    func _isEqual(to rhs: {{ type.name }}) -> Bool {
+    func isEqual(to rhs: {{ type.name }}) -> Bool {
         {% for variable in type.storedVariables %}
         {% if variable.typeName.dictionary %}
         if !NSDictionary(dictionary: {{ variable.name}}{% if variable.typeName.isOptional %} ?? [:]{% endif %}).isEqual(to: rhs.{{ variable.name }}{% if variable.typeName.isOptional %} ?? [:]{% endif %}) { return false }

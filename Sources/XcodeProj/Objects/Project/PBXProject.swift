@@ -373,7 +373,7 @@ public final class PBXProject: PBXObject {
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXProject else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }
 

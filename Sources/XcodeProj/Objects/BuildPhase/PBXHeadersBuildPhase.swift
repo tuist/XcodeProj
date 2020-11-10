@@ -9,7 +9,7 @@ public final class PBXHeadersBuildPhase: PBXBuildPhase {
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXHeadersBuildPhase else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }
 

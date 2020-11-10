@@ -100,6 +100,6 @@ public final class XCVersionGroup: PBXGroup {
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCVersionGroup else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }

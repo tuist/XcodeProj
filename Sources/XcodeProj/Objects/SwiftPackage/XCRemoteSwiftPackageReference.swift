@@ -143,6 +143,6 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCRemoteSwiftPackageReference else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }

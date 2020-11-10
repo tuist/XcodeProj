@@ -62,7 +62,7 @@ public final class XCConfigurationList: PBXObject {
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? XCConfigurationList else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }
 

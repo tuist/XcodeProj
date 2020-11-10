@@ -103,7 +103,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
 
     override func isEqual(to object: Any?) -> Bool {
         guard let rhs = object as? PBXShellScriptBuildPhase else { return false }
-        return _isEqual(to: rhs)
+        return isEqual(to: rhs)
     }
 }
 

@@ -5,14 +5,14 @@ import Foundation
 
 extension PBXAggregateTarget {
     /// :nodoc:
-    func _isEqual(to rhs: PBXAggregateTarget) -> Bool {
+    func isEqual(to rhs: PBXAggregateTarget) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXBuildFile {
     /// :nodoc:
-    func _isEqual(to rhs: PBXBuildFile) -> Bool {
+    func isEqual(to rhs: PBXBuildFile) -> Bool {
         if fileReference != rhs.fileReference { return false }
         if productReference != rhs.productReference { return false }
         if !NSDictionary(dictionary: settings ?? [:]).isEqual(to: rhs.settings ?? [:]) { return false }
@@ -24,7 +24,7 @@ extension PBXBuildFile {
 
 extension PBXBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXBuildPhase) -> Bool {
         if buildActionMask != rhs.buildActionMask { return false }
         if fileReferences != rhs.fileReferences { return false }
         if inputFileListPaths != rhs.inputFileListPaths { return false }
@@ -36,7 +36,7 @@ extension PBXBuildPhase {
 
 extension PBXBuildRule {
     /// :nodoc:
-    func _isEqual(to rhs: PBXBuildRule) -> Bool {
+    func isEqual(to rhs: PBXBuildRule) -> Bool {
         if compilerSpec != rhs.compilerSpec { return false }
         if filePatterns != rhs.filePatterns { return false }
         if fileType != rhs.fileType { return false }
@@ -53,7 +53,7 @@ extension PBXBuildRule {
 
 extension PBXContainerItem {
     /// :nodoc:
-    func _isEqual(to rhs: PBXContainerItem) -> Bool {
+    func isEqual(to rhs: PBXContainerItem) -> Bool {
         if comments != rhs.comments { return false }
         return super.isEqual(to: rhs)
     }
@@ -61,7 +61,7 @@ extension PBXContainerItem {
 
 extension PBXContainerItemProxy {
     /// :nodoc:
-    func _isEqual(to rhs: PBXContainerItemProxy) -> Bool {
+    func isEqual(to rhs: PBXContainerItemProxy) -> Bool {
         if containerPortalReference != rhs.containerPortalReference { return false }
         if proxyType != rhs.proxyType { return false }
         if remoteGlobalIDReference != rhs.remoteGlobalIDReference { return false }
@@ -72,7 +72,7 @@ extension PBXContainerItemProxy {
 
 extension PBXCopyFilesBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXCopyFilesBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXCopyFilesBuildPhase) -> Bool {
         if dstPath != rhs.dstPath { return false }
         if dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
         if name != rhs.name { return false }
@@ -82,7 +82,7 @@ extension PBXCopyFilesBuildPhase {
 
 extension PBXFileElement {
     /// :nodoc:
-    func _isEqual(to rhs: PBXFileElement) -> Bool {
+    func isEqual(to rhs: PBXFileElement) -> Bool {
         if sourceTree != rhs.sourceTree { return false }
         if path != rhs.path { return false }
         if name != rhs.name { return false }
@@ -98,7 +98,7 @@ extension PBXFileElement {
 
 extension PBXFileReference {
     /// :nodoc:
-    func _isEqual(to rhs: PBXFileReference) -> Bool {
+    func isEqual(to rhs: PBXFileReference) -> Bool {
         if fileEncoding != rhs.fileEncoding { return false }
         if explicitFileType != rhs.explicitFileType { return false }
         if lastKnownFileType != rhs.lastKnownFileType { return false }
@@ -112,14 +112,14 @@ extension PBXFileReference {
 
 extension PBXFrameworksBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXFrameworksBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXFrameworksBuildPhase) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXGroup {
     /// :nodoc:
-    func _isEqual(to rhs: PBXGroup) -> Bool {
+    func isEqual(to rhs: PBXGroup) -> Bool {
         if childrenReferences != rhs.childrenReferences { return false }
         return super.isEqual(to: rhs)
     }
@@ -127,14 +127,14 @@ extension PBXGroup {
 
 extension PBXHeadersBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXHeadersBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXHeadersBuildPhase) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXLegacyTarget {
     /// :nodoc:
-    func _isEqual(to rhs: PBXLegacyTarget) -> Bool {
+    func isEqual(to rhs: PBXLegacyTarget) -> Bool {
         if buildToolPath != rhs.buildToolPath { return false }
         if buildArgumentsString != rhs.buildArgumentsString { return false }
         if passBuildSettingsInEnvironment != rhs.passBuildSettingsInEnvironment { return false }
@@ -145,7 +145,7 @@ extension PBXLegacyTarget {
 
 extension PBXNativeTarget {
     /// :nodoc:
-    func _isEqual(to rhs: PBXNativeTarget) -> Bool {
+    func isEqual(to rhs: PBXNativeTarget) -> Bool {
         if productInstallPath != rhs.productInstallPath { return false }
         return super.isEqual(to: rhs)
     }
@@ -153,7 +153,7 @@ extension PBXNativeTarget {
 
 extension PBXProject {
     /// :nodoc:
-    func _isEqual(to rhs: PBXProject) -> Bool {
+    func isEqual(to rhs: PBXProject) -> Bool {
         if name != rhs.name { return false }
         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
         if compatibilityVersion != rhs.compatibilityVersion { return false }
@@ -175,7 +175,7 @@ extension PBXProject {
 
 extension PBXReferenceProxy {
     /// :nodoc:
-    func _isEqual(to rhs: PBXReferenceProxy) -> Bool {
+    func isEqual(to rhs: PBXReferenceProxy) -> Bool {
         if fileType != rhs.fileType { return false }
         if remoteReference != rhs.remoteReference { return false }
         return super.isEqual(to: rhs)
@@ -184,21 +184,21 @@ extension PBXReferenceProxy {
 
 extension PBXResourcesBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXResourcesBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXResourcesBuildPhase) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXRezBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXRezBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXRezBuildPhase) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXShellScriptBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXShellScriptBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXShellScriptBuildPhase) -> Bool {
         if name != rhs.name { return false }
         if inputPaths != rhs.inputPaths { return false }
         if outputPaths != rhs.outputPaths { return false }
@@ -213,14 +213,14 @@ extension PBXShellScriptBuildPhase {
 
 extension PBXSourcesBuildPhase {
     /// :nodoc:
-    func _isEqual(to rhs: PBXSourcesBuildPhase) -> Bool {
+    func isEqual(to rhs: PBXSourcesBuildPhase) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension PBXTarget {
     /// :nodoc:
-    func _isEqual(to rhs: PBXTarget) -> Bool {
+    func isEqual(to rhs: PBXTarget) -> Bool {
         if buildConfigurationListReference != rhs.buildConfigurationListReference { return false }
         if buildPhaseReferences != rhs.buildPhaseReferences { return false }
         if buildRuleReferences != rhs.buildRuleReferences { return false }
@@ -236,7 +236,7 @@ extension PBXTarget {
 
 extension PBXTargetDependency {
     /// :nodoc:
-    func _isEqual(to rhs: PBXTargetDependency) -> Bool {
+    func isEqual(to rhs: PBXTargetDependency) -> Bool {
         if name != rhs.name { return false }
         if targetReference != rhs.targetReference { return false }
         if targetProxyReference != rhs.targetProxyReference { return false }
@@ -248,14 +248,14 @@ extension PBXTargetDependency {
 
 extension PBXVariantGroup {
     /// :nodoc:
-    func _isEqual(to rhs: PBXVariantGroup) -> Bool {
+    func isEqual(to rhs: PBXVariantGroup) -> Bool {
         return super.isEqual(to: rhs)
     }
 }
 
 extension XCBuildConfiguration {
     /// :nodoc:
-    func _isEqual(to rhs: XCBuildConfiguration) -> Bool {
+    func isEqual(to rhs: XCBuildConfiguration) -> Bool {
         if baseConfigurationReference != rhs.baseConfigurationReference { return false }
         if !NSDictionary(dictionary: buildSettings).isEqual(to: rhs.buildSettings) { return false }
         if name != rhs.name { return false }
@@ -265,7 +265,7 @@ extension XCBuildConfiguration {
 
 extension XCConfigurationList {
     /// :nodoc:
-    func _isEqual(to rhs: XCConfigurationList) -> Bool {
+    func isEqual(to rhs: XCConfigurationList) -> Bool {
         if buildConfigurationReferences != rhs.buildConfigurationReferences { return false }
         if defaultConfigurationIsVisible != rhs.defaultConfigurationIsVisible { return false }
         if defaultConfigurationName != rhs.defaultConfigurationName { return false }
@@ -275,7 +275,7 @@ extension XCConfigurationList {
 
 extension XCRemoteSwiftPackageReference {
     /// :nodoc:
-    func _isEqual(to rhs: XCRemoteSwiftPackageReference) -> Bool {
+    func isEqual(to rhs: XCRemoteSwiftPackageReference) -> Bool {
         if repositoryURL != rhs.repositoryURL { return false }
         if versionRequirement != rhs.versionRequirement { return false }
         return super.isEqual(to: rhs)
@@ -284,7 +284,7 @@ extension XCRemoteSwiftPackageReference {
 
 extension XCSwiftPackageProductDependency {
     /// :nodoc:
-    func _isEqual(to rhs: XCSwiftPackageProductDependency) -> Bool {
+    func isEqual(to rhs: XCSwiftPackageProductDependency) -> Bool {
         if productName != rhs.productName { return false }
         if packageReference != rhs.packageReference { return false }
         return super.isEqual(to: rhs)
@@ -293,10 +293,9 @@ extension XCSwiftPackageProductDependency {
 
 extension XCVersionGroup {
     /// :nodoc:
-    func _isEqual(to rhs: XCVersionGroup) -> Bool {
+    func isEqual(to rhs: XCVersionGroup) -> Bool {
         if currentVersionReference != rhs.currentVersionReference { return false }
         if versionGroupType != rhs.versionGroupType { return false }
         return super.isEqual(to: rhs)
     }
 }
-
