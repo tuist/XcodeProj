@@ -138,7 +138,7 @@ class PBXObjects: Equatable {
     ///   - objects: project objects
     init(objects: [PBXObject] = []) {
         objects.forEach {
-            _ = self.add(object: $0)
+            self.add(object: $0)
         }
     }
 

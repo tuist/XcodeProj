@@ -8,6 +8,14 @@
     - Tested for compatibility with Swift 5.3 on Ubuntu 18.04.
     - XcodeProj requires FoundationXML / libxml2, which is part of the standard Swift Linux toolchain but not necessarily available in all environments.
 
+## 7.17.0 - Tempelhof
+
+### Added
+
+- Added the `com.apple.product-type.metal-library` PBXProductType [#576](https://github.com/tuist/XcodeProj/pull/576) by [@deatondg](https://github.com/deatondg).
+- Deprecate PBXBuildPhase.type() function https://github.com/tuist/XcodeProj/pull/571 by [@marciniwanicki](https://github.com/marciniwanicki).
+- Added `runOncePerArchitecture` attribute to `PBXBuildRule` https://github.com/tuist/XcodeProj/pull/570 by @sascha
+
 ## 7.16.0 - Cieza
 
 ### Added
@@ -19,8 +27,6 @@
 ### Fixed
 
 - explicitFileType corrected for .bundle https://github.com/tuist/XcodeProj/pull/563 by @adamkhazi
-### Added
-- Added `runOncePerArchitecture` attribute to `PBXBuildRule` https://github.com/tuist/XcodeProj/pull/570 by @sascha
 
 ### Added
 

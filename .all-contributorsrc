@@ -1,0 +1,78 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jcolicchio",
+      "name": "Joseph Colicchio",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2837288?v=4",
+      "profile": "https://joecolicch.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "deatondg",
+      "name": "deatondg",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3221590?v=4",
+      "profile": "https://github.com/deatondg",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "dflems",
+      "name": "Dan Fleming",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/925850?v=4",
+      "profile": "https://github.com/dflems",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sascha",
+      "name": "Sascha Schwabbauer",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/895505?v=4",
+      "profile": "https://twitter.com/_SaschaS",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "marciniwanicki",
+      "name": "Marcin Iwanicki",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/946649?v=4",
+      "profile": "https://github.com/marciniwanicki",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "adamkhazi",
+      "name": "Adam Khazi",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/9820670?v=4",
+      "profile": "https://github.com/adamkhazi",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "elliottwilliams",
+      "name": "Elliott Williams",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/910198?v=4",
+      "profile": "https://github.com/elliottwilliams",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "XcodeProj",
+  "projectOwner": "tuist",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
