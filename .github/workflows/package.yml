@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        run: stdbuf -o0 swift build -c release
+        run: swift build -c release
   test:
     name: Test (macOS)
     runs-on: macos-latest

@@ -38,7 +38,10 @@ final class PBXProjIntegrationTests: XCTestCase {
             // Create a commit
             try checkedOutput("git", ["init"])
             try checkedOutput("git", ["add", "."])
-            try checkedOutput("git", ["-c", "user.email=test@example.com", "commit", "--no-gpg-sign", "-m", "test"])
+            try checkedOutput("git", [
+                "-c", "user.email=test@example.com", "-c", "user.name=Test User",
+                "commit", "-m", "test"
+            ])
 
             // Read/write the project
             let project = try XcodeProj(path: xcodeprojPath)
