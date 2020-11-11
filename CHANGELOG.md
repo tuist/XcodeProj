@@ -2,11 +2,13 @@
 
 ## Next
 
+## 7.18.0 - Penguin
+
 ### Added
 
 - Support for building and running on Linux. [#585](https://github.com/tuist/XcodeProj/pull/585) by [@elliottwilliams](https://github.com/elliottwilliams).
-    - Tested for compatibility with Swift 5.3 on Ubuntu 18.04.
-    - XcodeProj requires FoundationXML / libxml2, which is part of the standard Swift Linux toolchain but not necessarily available in all environments.
+- Tested for compatibility with Swift 5.3 on Ubuntu 18.04.
+- XcodeProj requires FoundationXML / libxml2, which is part of the standard Swift Linux toolchain but not necessarily available in all environments.
 
 ## 7.17.0 - Tempelhof
 

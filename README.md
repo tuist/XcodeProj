@@ -1,6 +1,9 @@
 # XcodeProj
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -40,7 +43,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.17.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.18.0"))
         ],
     targets: [
         .target(
@@ -62,7 +65,7 @@ github "tuist/xcodeproj" ~> 7.11.
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.17.0
+pod 'xcodeproj', '~> 7.18.0
 ```
 
 ### Scripting
@@ -158,6 +161,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
