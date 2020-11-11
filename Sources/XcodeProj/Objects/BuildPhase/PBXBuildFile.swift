@@ -80,6 +80,11 @@ public final class PBXBuildFile: PBXObject {
         platformFilter = try container.decodeIfPresent(.platformFilter)
         try super.init(from: decoder)
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXBuildFile else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - Internal Helpers

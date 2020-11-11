@@ -1,5 +1,4 @@
 import Foundation
-import os.signpost
 
 /// Object used as a reference to PBXObjects from PBXObjects.
 class PBXObjectReference: NSObject, Comparable, NSCopying {

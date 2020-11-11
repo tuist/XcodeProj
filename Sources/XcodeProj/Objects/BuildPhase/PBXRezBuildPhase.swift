@@ -6,6 +6,11 @@ public final class PBXRezBuildPhase: PBXBuildPhase {
     override public var buildPhase: BuildPhase {
         .carbonResources
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXRezBuildPhase else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXRezBuildPhase Extension (PlistSerializable)

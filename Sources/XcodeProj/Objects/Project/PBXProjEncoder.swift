@@ -308,7 +308,7 @@ final class PBXProjEncoder {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
-    final class PBXProjElement {
+    final class PBXProjElement: NSObject {
         let key: CommentedString
         let value: PlistValue
         let multiline: Bool

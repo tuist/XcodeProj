@@ -71,6 +71,11 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
         name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXCopyFilesBuildPhase else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXCopyFilesBuildPhase Extension (PlistSerializable)

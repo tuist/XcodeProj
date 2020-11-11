@@ -5,7 +5,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build
+    name: Build (macOS)
     runs-on: macos-latest
     strategy:
       matrix:
@@ -16,9 +16,15 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
       - name: Build
         run: swift build -c release
-
+  build-linux:
+    name: Build (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: swift build -c release
   test:
-    name: Test
+    name: Test (macOS)
     runs-on: macos-latest
     strategy:
       matrix:
@@ -33,3 +39,10 @@ jobs:
         run: xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
       - name: Send test coverage report
         run: bash <(curl -s https://codecov.io/bash)
+  test-linux:
+    name: Test (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build and run tests
+        run: swift test --enable-test-discovery

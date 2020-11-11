@@ -60,7 +60,7 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
         lhs.isEqual(to: rhs)
     }
 
-    @objc dynamic func isEqual(to _: Any?) -> Bool {
+    func isEqual(to _: Any?) -> Bool {
         true
     }
 

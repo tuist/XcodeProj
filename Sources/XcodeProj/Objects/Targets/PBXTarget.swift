@@ -207,6 +207,11 @@ public class PBXTarget: PBXContainerItem {
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXTarget else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

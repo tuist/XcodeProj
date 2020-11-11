@@ -370,6 +370,11 @@ public final class PBXProject: PBXObject {
 
         try super.init(from: decoder)
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXProject else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

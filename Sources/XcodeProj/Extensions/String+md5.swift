@@ -21,18 +21,50 @@
  */
 
 import Foundation
-import XcodeProjCExt
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
 
 extension String {
     var md5: String {
         guard let data = data(using: .utf8, allowLossyConversion: true) else {
-            fatalError("Unable to get UTF-8 string from data")
+            return self
         }
-        return data.withUnsafeBytes { bufferPointer in
-            let castedBuffer = bufferPointer.bindMemory(to: Int8.self)
-            let hex = XCPComputeMD5(castedBuffer.baseAddress, Int32(data.count))!
-            return String(cString: hex, encoding: .ascii)!
+        #if canImport(CryptoKit)
+        if #available(OSX 10.15, *) {
+            var hasher = Insecure.MD5()
+            hasher.update(data: data)
+            let digest = hasher.finalize()
+            return digest.reduce(into: "") { hexString, byte in
+                hexString.append(String(format: "%02hhx", byte))
+            }
+        } else {
+            return data.slowMD5
         }
+        #else
+        return data.slowMD5
+        #endif
+    }
+}
+
+private extension Data {
+    // Custom md5 for systems without CryptoKit.
+    var slowMD5: String {
+        let message = withUnsafeBytes { bufferPointer in
+            Array(UnsafeBufferPointer(
+                start: bufferPointer.baseAddress?.assumingMemoryBound(to: UInt8.self),
+                count: count
+            ))
+        }
+
+        let MD5Calculator = MD5(message)
+        let MD5Data = MD5Calculator.calculate()
+
+        var MD5String = String()
+        for c in MD5Data {
+            MD5String += String(format: "%02x", c)
+        }
+        return MD5String
     }
 }
 

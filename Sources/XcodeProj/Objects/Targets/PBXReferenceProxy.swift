@@ -73,4 +73,9 @@ public final class PBXReferenceProxy: PBXFileElement {
         return (key: CommentedString(reference, comment: path),
                 value: .dictionary(dictionary))
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXReferenceProxy else { return false }
+        return isEqual(to: rhs)
+    }
 }

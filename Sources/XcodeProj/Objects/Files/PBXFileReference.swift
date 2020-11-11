@@ -134,4 +134,9 @@ public final class PBXFileReference: PBXFileElement {
         return (key: CommentedString(reference, comment: name ?? path),
                 value: .dictionary(dictionary))
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXFileReference else { return false }
+        return isEqual(to: rhs)
+    }
 }

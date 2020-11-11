@@ -88,6 +88,11 @@ public final class PBXBuildRule: PBXObject {
         runOncePerArchitecture = try container.decodeIntBoolIfPresent(.runOncePerArchitecture)
         try super.init(from: decoder)
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXBuildRule else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXBuildRule Extension (PlistSerializable)

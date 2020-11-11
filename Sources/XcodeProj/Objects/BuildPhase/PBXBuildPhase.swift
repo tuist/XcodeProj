@@ -106,6 +106,11 @@ public class PBXBuildPhase: PBXContainerItem {
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))
         return dictionary
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXBuildPhase else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - Helpers

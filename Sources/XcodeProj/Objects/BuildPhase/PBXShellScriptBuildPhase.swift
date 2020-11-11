@@ -100,6 +100,11 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         dependencyFile = try container.decodeIfPresent(.dependencyFile)
         try super.init(from: decoder)
     }
+
+    override func isEqual(to object: Any?) -> Bool {
+        guard let rhs = object as? PBXShellScriptBuildPhase else { return false }
+        return isEqual(to: rhs)
+    }
 }
 
 // MARK: - PBXShellScriptBuildPhase Extension (PlistSerializable)

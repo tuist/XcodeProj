@@ -3,18 +3,18 @@ import Foundation
 {% for type in types.implementing.AutoEquatable|class|!annotated:"skipEquality" %}
 extension {{ type.name }} {
     /// :nodoc:
-    @objc override {{ type.accessLevel }} func isEqual(to object: Any?) -> Bool {
-      guard let rhs = object as? {{ type.name }} else { return false }
-      {% for variable in type.storedVariables %}
-      {% if variable.actualTypeName.name == "[String: Any]" or  variable.actualTypeName.name == "[String: Any]?" or variable.actualTypeName.name == "BuildSettings"%}
-      if !NSDictionary(dictionary: self.{{ variable.name}} {% if variable.typeName.isOptional %}?? [:]{% endif %}).isEqual(to: rhs.{{ variable.name }} {% if variable.typeName.isOptional %}?? [:]{% endif %}) { return false }
-      {% elif variable|!annotated:"skipEquality" %}
-      if self.{{ variable.name }} != rhs.{{ variable.name }} { return false }
-      {% endif %}
-      {% endfor %}
-      {% for variable in type.computedVariables|annotated:"forceEquality" %}if self.{{ variable.name }} != rhs.{{ variable.name }} { return false }
-      {% endfor %}
-      {% if type.inheritedTypes.first == "NSObject" %}return true{% else %}return super.isEqual(to: rhs){% endif %}
+    func isEqual(to rhs: {{ type.name }}) -> Bool {
+        {% for variable in type.storedVariables %}
+        {% if variable.typeName.dictionary %}
+        if !NSDictionary(dictionary: {{ variable.name}}{% if variable.typeName.isOptional %} ?? [:]{% endif %}).isEqual(to: rhs.{{ variable.name }}{% if variable.typeName.isOptional %} ?? [:]{% endif %}) { return false }
+        {% elif variable|!annotated:"skipEquality" %}
+        if {{ variable.name }} != rhs.{{ variable.name }} { return false }
+        {% endif %}
+        {% endfor %}
+        {% for variable in type.computedVariables|annotated:"forceEquality" %}if self.{{ variable.name }} != rhs.{{ variable.name }} { return false }
+        {% endfor %}
+        {% if type.inheritedTypes.first == "NSObject" %}return true{% else %}return super.isEqual(to: rhs){% endif %}
     }
 }
+
 {% endfor %}
