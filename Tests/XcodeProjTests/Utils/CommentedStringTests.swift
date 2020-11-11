@@ -61,7 +61,3 @@ class CommentedStringTests: XCTestCase {
         }
     }
 }
-
-private extension String {
-    var quoted: String { "\"\(self)\"" }
-}
