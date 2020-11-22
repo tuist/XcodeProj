@@ -12,9 +12,9 @@ extension KeyedDecodingContainer {
     func decodeIntIfPresent(_ key: KeyedDecodingContainer.Key) throws -> UInt? {
         if let string: String = try? decodeIfPresent(key) {
             return UInt(string)
-        } else if let int: Int = try? decodeIfPresent(key) {
-            return UInt(int)
-        } else if let bool: Bool = try? decodeIfPresent(key) {
+        } else if let bool: Bool = try decodeIfPresent(key) {
+            // don't `try?` here in case key _does_ exist but isn't an expected type
+            // ie. not a string/bool
             return bool ? 0 : 1
         } else {
             return nil
