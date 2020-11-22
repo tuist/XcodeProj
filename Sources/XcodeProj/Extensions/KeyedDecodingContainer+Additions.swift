@@ -10,10 +10,13 @@ extension KeyedDecodingContainer {
     }
 
     func decodeIntIfPresent(_ key: KeyedDecodingContainer.Key) throws -> UInt? {
-        guard let string: String = try decodeIfPresent(key) else {
+        if let string: String = try? decodeIfPresent(key) {
+            return UInt(string)
+        } else if let int: Int = try? decodeIfPresent(key) {
+            return UInt(int)
+        } else {
             return nil
         }
-        return UInt(string)
     }
 
     func decodeIntBool(_ key: KeyedDecodingContainer.Key) throws -> Bool {
