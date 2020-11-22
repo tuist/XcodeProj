@@ -15,7 +15,7 @@ extension KeyedDecodingContainer {
         } else if let int: Int = try? decodeIfPresent(key) {
             return UInt(int)
         } else if let bool: Bool = try? decodeIfPresent(key) {
-            return UInt(bool)
+            return bool ? 0 : 1
         } else {
             return nil
         }
