@@ -25,6 +25,8 @@ final class PBXProjIntegrationTests: XCTestCase {
     }
 
     func test_write_produces_no_diff() throws {
+        #if os(iOS)
+        #else
         let tmpDir = try Path.uniqueTemporary()
         defer {
             try? tmpDir.delete()
@@ -50,6 +52,7 @@ final class PBXProjIntegrationTests: XCTestCase {
             let got = try checkedOutput("git", ["status"])
             XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
+        #endif
     }
 
     private func fixturePath() -> Path {
@@ -88,6 +91,9 @@ final class PBXProjIntegrationTests: XCTestCase {
 /// Returns the output of running `executable` with `args`. Throws an error if the process exits indicating failure.
 @discardableResult
 private func checkedOutput(_ executable: String, _ args: [String]) throws -> String? {
+    #if os(iOS)
+    throw NSError(domain: NSCocoaErrorDomain, code: 404)
+    #else
     let process = Process()
     let output = Pipe()
 
@@ -107,4 +113,5 @@ private func checkedOutput(_ executable: String, _ args: [String]) throws -> Str
     }
 
     return String(data: output.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
+    #endif
 }
