@@ -31,7 +31,7 @@ extension String {
             return self
         }
         #if canImport(CryptoKit)
-        if #available(OSX 10.15, *) {
+        if #available(OSX 10.15, *, iOS 13.0, *) {
             var hasher = Insecure.MD5()
             hasher.update(data: data)
             let digest = hasher.finalize()
