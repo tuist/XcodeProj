@@ -13,8 +13,8 @@ final class PBXFrameworksBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXFrameworksBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertNil(phase.files, "Expected files to be nil but it's present")
         } catch {}
     }
 
