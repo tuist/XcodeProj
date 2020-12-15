@@ -16,7 +16,7 @@ extension KeyedDecodingContainer {
             return bool ? 0 : 1
         } else if let int: UInt = try decodeIfPresent(key) {
             // don't `try?` here in case key _does_ exist but isn't an expected type
-            // ie. not a string/bool
+            // ie. not a string/bool/int
             return int
         } else {
             return nil
