@@ -49,8 +49,8 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertNil(phase.dstPath, "Expected dstPath to be nil but it's present")
         } catch {}
     }
 
@@ -60,8 +60,8 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertEqual(phase.buildActionMask, PBXBuildPhase.defaultBuildActionMask, "Expected buildActionMask to be equal to \(PBXBuildPhase.defaultBuildActionMask) but it's \(phase.buildActionMask)")
         } catch {}
     }
 
@@ -71,8 +71,8 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertNil(phase.dstSubfolderSpec, "Expected dstSubfolderSpec to be nil but it's present")
         } catch {}
     }
 
@@ -82,8 +82,8 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertNil(phase.files, "Expected files to be nil but it's present")
         } catch {}
     }
 
@@ -93,8 +93,8 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
         let decoder = XcodeprojJSONDecoder()
         do {
-            _ = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
-            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertFalse(phase.runOnlyForDeploymentPostprocessing, "Expected runOnlyForDeploymentPostprocessing to default to false")
         } catch {}
     }
 
