@@ -5,6 +5,8 @@
 ### Fixed
 
 - JSON decoder not properly decoding `defaultConfigurationIsVisible` in some projects [#593](https://github.com/tuist/XcodeProj/pull/593) by [@tjwio](https://github.com/tjwio)
+- JSON decoder not properly decoding `proxyType` in some projects [#596](https://github.com/tuist/XcodeProj/issues/596) by [@tjwio](https://github.com/tjwio)
+- BuildPhaseTests not handling failure cases properly [#597](https://github.com/tuist/XcodeProj/issues/597) by [@tjwio](https://github.com/tjwio)
 
 ## 7.18.0 - Penguin
 
