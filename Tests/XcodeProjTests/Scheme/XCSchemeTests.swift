@@ -253,6 +253,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Build action
         XCTAssertTrue(scheme.buildAction?.parallelizeBuild == true)
         XCTAssertTrue(scheme.buildAction?.buildImplicitDependencies == true)
+        XCTAssertTrue(scheme.buildAction?.runPostActionsOnFailure == false)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.testing) == true)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.running) == true)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.profiling) == true)
@@ -419,6 +420,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Build action
         XCTAssertTrue(scheme.buildAction?.parallelizeBuild == true)
         XCTAssertTrue(scheme.buildAction?.buildImplicitDependencies == true)
+        XCTAssertTrue(scheme.buildAction?.runPostActionsOnFailure == false)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.testing) == true)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.running) == false)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.profiling) == true)
