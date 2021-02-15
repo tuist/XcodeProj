@@ -99,7 +99,7 @@ final class XCConfigParser {
     // swiftlint:disable:next force_try
     private static var includeRegex = try! NSRegularExpression(pattern: "#include\\s+\"(.+\\.xcconfig)\"", options: .caseInsensitive)
     // swiftlint:disable:next force_try
-    private static var settingRegex = try! NSRegularExpression(pattern: "^([a-zA-Z0-9_\\[\\]=\\*~]+)\\s*=\\s*(\"?.*?\"?)\\s*(?:;\\s*)?$", options: [])
+    private static var settingRegex = try! NSRegularExpression(pattern: "^([a-zA-Z0-9_\\[\\]=\\*~]+)\\s*=\\s*(\"?.*?\"?)\\s*(?:;\\s*)?(?=$|\\/\\/)", options: [])
 }
 
 // MARK: - XCConfig Extension (Equatable)
