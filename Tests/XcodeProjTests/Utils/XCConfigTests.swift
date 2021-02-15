@@ -111,5 +111,6 @@ final class XCConfigIntegrationTests: XCTestCase {
         XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0821"] as? String, "$(inherited)")
         XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0830"] as? String, "$(inherited) -enable-bridging-pch")
         XCTAssertEqual(config.flattenedBuildSettings()["PRODUCT_NAME"] as? String, "$(TARGET_NAME)")
+        XCTAssertEqual(config.flattenedBuildSettings()["SWIFT_OPTIMIZATION_LEVEL"] as? String, "-Onone")
     }
 }
