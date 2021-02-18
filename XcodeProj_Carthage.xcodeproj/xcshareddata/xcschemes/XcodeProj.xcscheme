@@ -51,21 +51,13 @@
             ReferencedContainer = "container:XcodeProj_Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
-      <EnvironmentVariables>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
-      shouldUseLaunchSchemeArgsEnv = "NO"
+      shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <CommandLineArguments>
-      </CommandLineArguments>
-      <EnvironmentVariables>
-      </EnvironmentVariables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

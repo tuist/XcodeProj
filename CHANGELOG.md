@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.19.0 - Kreuzberg
+
 ### Fixed
 
 - JSON decoder not properly decoding `defaultConfigurationIsVisible` in some projects [#593](https://github.com/tuist/XcodeProj/pull/593) by [@tjwio](https://github.com/tjwio)
