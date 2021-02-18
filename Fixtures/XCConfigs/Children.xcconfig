@@ -1,5 +1,5 @@
 #include "Parent.xcconfig"
 
-CONFIGURATION_BUILD_DIR = Test/
+CONFIGURATION_BUILD_DIR = Test/ // NOTE: Test comment line to check several slashes
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
 WARNING_CFLAGS = -Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded

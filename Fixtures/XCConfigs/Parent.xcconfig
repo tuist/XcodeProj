@@ -1,2 +1,5 @@
+// NOTE: Top level comment
 OTHER_SWIFT_FLAGS_XCODE_0821 = $(inherited)
 OTHER_SWIFT_FLAGS_XCODE_0830 = $(inherited) -enable-bridging-pch
+PRODUCT_NAME = $(TARGET_NAME) // NOTE: Test Comment
+SWIFT_OPTIMIZATION_LEVEL = -Onone// Edge-case when a comment has no space
