@@ -13,6 +13,7 @@ let attributesOrder: [String: [String]] = [
     "BuildAction": [
         "parallelizeBuildables",
         "buildImplicitDependencies",
+        "runPostActionsOnFailure",
     ],
     "BuildActionEntry": [
         "buildForTesting",

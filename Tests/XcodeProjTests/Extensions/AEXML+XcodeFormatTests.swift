@@ -15,13 +15,15 @@ class AEXML_XcodeFormatTests: XCTestCase {
         <?xml version="1.0" encoding="UTF-8"?>
         <BuildAction
            parallelizeBuildables = "YES"
-           buildImplicitDependencies = "NO">
+           buildImplicitDependencies = "NO"
+           runPostActionsOnFailure = "YES">
         </BuildAction>
         """
 
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(attributes: [
             "parallelizeBuildables": "YES",
+            "runPostActionsOnFailure": "YES",
             "buildImplicitDependencies": "NO",
         ])
     }
@@ -30,6 +32,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
         validateAttributes(attributes: [
             "buildImplicitDependencies": "NO",
             "parallelizeBuildables": "YES",
+            "runPostActionsOnFailure": "YES",
         ])
     }
 
