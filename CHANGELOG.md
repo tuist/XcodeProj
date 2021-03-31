@@ -1,6 +1,9 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
+## 7.20.0 - Sol
+
 ## Next
+
 - Added `runPostActionsOnFailure` to `XCScheme` [#603](https://github.com/tuist/XcodeProj/pull/603) by [@FranzBusch](https://github.com/FranzBusch)
 
 ## 7.19.0 - Kreuzberg
