@@ -46,6 +46,18 @@ extension XCScheme {
             self.blueprintName = blueprintName
         }
 
+        public init(referencedContainer: String,
+                    blueprintIdentifier: String,
+                    buildableName: String,
+                    blueprintName: String,
+                    buildableIdentifier: String = "primary") {
+            self.referencedContainer = referencedContainer
+            self.blueprint = .string(blueprintIdentifier)
+            self.buildableName = buildableName
+            self.buildableIdentifier = buildableIdentifier
+            self.blueprintName = blueprintName
+        }
+
         // MARK: - XML
 
         init(element: AEXMLElement) throws {
