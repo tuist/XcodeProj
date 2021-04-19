@@ -32,18 +32,39 @@ extension String {
         }
         #if canImport(CryptoKit)
         if #available(OSX 10.15, *) {
-            var hasher = Insecure.MD5()
-            hasher.update(data: data)
-            let digest = hasher.finalize()
-            return digest.reduce(into: "") { hexString, byte in
-                hexString.append(String(format: "%02hhx", byte))
-            }
+            return Insecure.MD5.hash(data: data)
+                .withUnsafeBytes { Array($0) }.hexString
         } else {
             return data.slowMD5
         }
         #else
         return data.slowMD5
         #endif
+    }
+}
+
+private let charA = UInt8(UnicodeScalar("a").value)
+private let char0 = UInt8(UnicodeScalar("0").value)
+
+private extension DataProtocol {
+    var hexString: String {
+        let hexLen = self.count * 2
+        let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: hexLen)
+        var offset = 0
+
+        self.regions.forEach { (_) in
+            for i in self {
+                ptr[Int(offset * 2)] = itoh((i >> 4) & 0xF)
+                ptr[Int(offset * 2 + 1)] = itoh(i & 0xF)
+                offset += 1
+            }
+        }
+
+        return String(bytesNoCopy: ptr, length: hexLen, encoding: .utf8, freeWhenDone: true)!
+    }
+
+    func itoh(_ value: UInt8) -> UInt8 {
+        return (value > 9) ? (charA + value - 10) : (char0 + value)
     }
 }
 
@@ -59,12 +80,7 @@ private extension Data {
 
         let MD5Calculator = MD5(message)
         let MD5Data = MD5Calculator.calculate()
-
-        var MD5String = String()
-        for c in MD5Data {
-            MD5String += String(format: "%02x", c)
-        }
-        return MD5String
+        return MD5Data.hexString
     }
 }
 
