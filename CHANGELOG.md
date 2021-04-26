@@ -1,14 +1,20 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
+## Next
+
+### Added
+
+- `CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER` to default build setting [#608](https://github.com/tuist/XcodeProj/pull/608) by [@fortmarek](https://github.com/fortmarek)
+
 ## 7.21.0 - Alfredo
 
-## Changed
+### Changed
 
 - Speed up md5 generation [#606](https://github.com/tuist/XcodeProj/pull/606) by [@adellibovi](https://github.com/adellibovi)
 
 ## 7.20.0 - Sol
 
-## Added
+### Added
 
 - Added `runPostActionsOnFailure` to `XCScheme` [#603](https://github.com/tuist/XcodeProj/pull/603) by [@FranzBusch](https://github.com/FranzBusch)
 
