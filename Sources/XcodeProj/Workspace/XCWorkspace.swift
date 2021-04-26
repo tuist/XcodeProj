@@ -59,7 +59,7 @@ public final class XCWorkspace: Writable, Equatable {
                 // there's no need to overwrite the contents
                 // this mitigates Xcode forcing users to
                 // close and re-open projects/workspaces
-                // on regneration.
+                // on regeneration.
                 return
             }
             try dataPath.delete()
