@@ -130,7 +130,6 @@ extension XcodeProj: Writable {
     /// - Parameter override: if workspace should be overridden. Default is true.
     ///   If false will throw error if workspace already exists at the given path.
     public func writeWorkspace(path: Path, override: Bool = true) throws {
-        guard let p = path.glob("*.xcworkspacedata").first, workspace.data != (try? XCWorkspaceData(path: p)) else { return }
         try workspace.write(path: XcodeProj.workspacePath(path), override: override)
     }
 
