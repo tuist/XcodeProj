@@ -2,6 +2,8 @@
 
 ## Next
 
+## 7.22.0 - Ringui Dingui
+
 ### Added
 
 - `CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER` to default build setting [#608](https://github.com/tuist/XcodeProj/pull/608) by [@fortmarek](https://github.com/fortmarek)
