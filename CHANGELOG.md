@@ -8,6 +8,10 @@
 
 - `CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER` to default build setting [#608](https://github.com/tuist/XcodeProj/pull/608) by [@fortmarek](https://github.com/fortmarek)
 
+### Fixed
+
+- Prevent overwriting identical workspace data [#607](https://github.com/tuist/XcodeProj/pull/607) by [@ferologics](https://github.com/ferologics)
+
 ## 7.21.0 - Alfredo
 
 ### Changed
