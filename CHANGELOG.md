@@ -2,6 +2,10 @@
 
 ## Next
 
+### Added
+
+- Allows passing BuildableIdentifier String to BuildableReference initializer [#605](https://github.com/tuist/XcodeProj/pull/605) by [@freddi-kit](https://github.com/freddi-kit)
+
 ## 7.22.0 - Ringui Dingui
 
 ### Added
