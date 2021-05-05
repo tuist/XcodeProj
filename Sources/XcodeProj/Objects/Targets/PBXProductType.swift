@@ -18,7 +18,7 @@ public enum PBXProductType: String, Decodable {
     case watch2AppContainer = "com.apple.product-type.application.watchapp2-container"
     case watchExtension = "com.apple.product-type.watchkit-extension"
     case watch2Extension = "com.apple.product-type.watchkit2-extension"
-    case tvExtension = "com.apple.product-type.tv-app-extension"
+    case tvExtension = "com.apple.product-type.app-extension"
     case messagesApplication = "com.apple.product-type.application.messages"
     case messagesExtension = "com.apple.product-type.app-extension.messages"
     case stickerPack = "com.apple.product-type.app-extension.messages-sticker-pack"
