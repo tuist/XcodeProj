@@ -23,9 +23,9 @@ extension XCScheme {
             blueprint = .reference(object.reference)
         }
 
-        private var blueprint: Blueprint
-        public var blueprintIdentifier: String {
-            blueprint.string
+        private var blueprint: Blueprint?
+        public var blueprintIdentifier: String? {
+            blueprint?.string
         }
 
         public var buildableName: String
@@ -35,24 +35,24 @@ extension XCScheme {
         // MARK: - Init
 
         public init(referencedContainer: String,
-                    blueprint: PBXObject,
+                    blueprint: PBXObject?,
                     buildableName: String,
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprint = .reference(blueprint.reference)
+            self.blueprint = blueprint.map { Blueprint.reference($0.reference) }
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
         }
 
         public init(referencedContainer: String,
-                    blueprintIdentifier: String,
+                    blueprintIdentifier: String?,
                     buildableName: String,
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprint = .string(blueprintIdentifier)
+            self.blueprint = blueprintIdentifier.map(Blueprint.string)
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
@@ -64,9 +64,6 @@ extension XCScheme {
             guard let buildableIdentifier = element.attributes["BuildableIdentifier"] else {
                 throw XCSchemeError.missing(property: "BuildableIdentifier")
             }
-            guard let blueprintIdentifier = element.attributes["BlueprintIdentifier"] else {
-                throw XCSchemeError.missing(property: "BlueprintIdentifier")
-            }
             guard let buildableName = element.attributes["BuildableName"] else {
                 throw XCSchemeError.missing(property: "BuildableName")
             }
@@ -77,22 +74,26 @@ extension XCScheme {
                 throw XCSchemeError.missing(property: "ReferencedContainer")
             }
             self.buildableIdentifier = buildableIdentifier
-            blueprint = .string(blueprintIdentifier)
+            let blueprintIdentifier = element.attributes["BlueprintIdentifier"]
+            self.blueprint = blueprintIdentifier.map(Blueprint.string)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer
         }
 
         func xmlElement() -> AEXMLElement {
-            AEXMLElement(name: "BuildableReference",
-                         value: nil,
-                         attributes: [
-                             "BuildableIdentifier": buildableIdentifier,
-                             "BlueprintIdentifier": blueprint.string,
-                             "BuildableName": buildableName,
-                             "BlueprintName": blueprintName,
-                             "ReferencedContainer": referencedContainer,
-                         ])
+            var attributes: [String: String] = [
+                "BuildableIdentifier": buildableIdentifier,
+                "BuildableName": buildableName,
+                "BlueprintName": blueprintName,
+                "ReferencedContainer": referencedContainer,
+            ]
+            if let blueprintIdentifier = blueprint?.string {
+                attributes["BlueprintIdentifier"] = blueprintIdentifier
+            }
+            return AEXMLElement(name: "BuildableReference",
+                                value: nil,
+                                attributes: attributes)
         }
 
         // MARK: - Equatable

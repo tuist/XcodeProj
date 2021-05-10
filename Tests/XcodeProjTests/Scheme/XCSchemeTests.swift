@@ -245,6 +245,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNotEqual(runnableA1, remoteRunnableA1)
     }
 
+    func test_schemeWithoutBlueprintIdentifier_canBeCreated() {
+        let subject = try? XCScheme(path: noBlueprintIDPath)
+        XCTAssertNotNil(subject)
+    }
+
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
@@ -521,6 +526,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Not strictly minimal in the sense that it specifies the least amount of information to be valid,
         // but minimal in the sense it doesn't have most of the standard elements and attributes.
         fixturesPath() + "Schemes/MinimalInformation.xcscheme"
+    }
+
+    /// Path to a scheme with a buildable reference that contains no blueprint identifier
+    private var noBlueprintIDPath: Path {
+        fixturesPath() + "Schemes/NoBlueprintID.xcscheme"
     }
 
     private var watchAppSchemePath: Path {
