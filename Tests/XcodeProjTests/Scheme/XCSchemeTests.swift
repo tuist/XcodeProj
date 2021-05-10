@@ -250,6 +250,14 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNotNil(subject)
     }
 
+    func test_schemeWithoutBlueprintIdentifier_serializesWithoutBlueprintIdentifier() throws {
+        let subject = try XCScheme(path: noBlueprintIDPath)
+        let buildable = try XCTUnwrap(subject.buildAction?.buildActionEntries.first?.buildableReference)
+        let buildableXML = buildable.xmlElement()
+        XCTAssertNotNil(buildableXML.attributes["BlueprintName"])
+        XCTAssertNil(buildableXML.attributes["BlueprintIdentifier"])
+    }
+
     // MARK: - Private
 
     private func assert(scheme: XCScheme) {
