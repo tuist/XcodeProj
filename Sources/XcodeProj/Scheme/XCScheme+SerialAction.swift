@@ -39,7 +39,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        @objc dynamic func isEqual(to: Any?) -> Bool {
+        func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? SerialAction else { return false }
             return preActions == rhs.preActions &&
                 postActions == rhs.postActions
