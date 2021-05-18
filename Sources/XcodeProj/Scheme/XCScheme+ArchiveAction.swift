@@ -50,10 +50,7 @@ extension XCScheme {
 
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? ArchiveAction else { return false }
-            return super.isEqual(to: to) &&
-                buildConfiguration == rhs.buildConfiguration &&
-                revealArchiveInOrganizer == rhs.revealArchiveInOrganizer &&
-                customArchiveName == rhs.customArchiveName
+            return isEqual(to: rhs)
         }
     }
 }

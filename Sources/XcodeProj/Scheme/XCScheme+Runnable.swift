@@ -1,8 +1,9 @@
+// sourcery:file: skipEquality
 import AEXML
 import Foundation
 
 extension XCScheme {
-    public class Runnable: Equatable {
+    public class Runnable: Equatable, AutoEquatable {
         // MARK: - Attributes
 
         public var runnableDebuggingMode: String
@@ -33,13 +34,14 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        func isEqual(other: Runnable) -> Bool {
-            runnableDebuggingMode == other.runnableDebuggingMode &&
-                buildableReference == other.buildableReference
+        func isEqual(to rhs: Any?) -> Bool {
+            guard let rhs = rhs as? Runnable else { return false }
+            return runnableDebuggingMode == rhs.runnableDebuggingMode &&
+                buildableReference == rhs.buildableReference
         }
 
         public static func == (lhs: Runnable, rhs: Runnable) -> Bool {
-            lhs.isEqual(other: rhs) && rhs.isEqual(other: lhs)
+            lhs.isEqual(to: rhs) && rhs.isEqual(to: lhs)
         }
     }
 }

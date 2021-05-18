@@ -133,11 +133,7 @@ extension XCScheme {
 
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? BuildAction else { return false }
-            return super.isEqual(to: to) &&
-                buildActionEntries == rhs.buildActionEntries &&
-                parallelizeBuild == rhs.parallelizeBuild &&
-                buildImplicitDependencies == rhs.buildImplicitDependencies &&
-                runPostActionsOnFailure == rhs.runPostActionsOnFailure
+            return isEqual(to: rhs)
         }
     }
 }

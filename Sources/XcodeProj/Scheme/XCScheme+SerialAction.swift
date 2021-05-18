@@ -1,8 +1,9 @@
+// sourcery:file: skipEquality
 import AEXML
 import Foundation
 
 extension XCScheme {
-    public class SerialAction: Equatable {
+    public class SerialAction: Equatable, AutoEquatable {
         // MARK: - Attributes
 
         public var preActions: [ExecutionAction]
@@ -39,7 +40,7 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        @objc dynamic func isEqual(to: Any?) -> Bool {
+        func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? SerialAction else { return false }
             return preActions == rhs.preActions &&
                 postActions == rhs.postActions

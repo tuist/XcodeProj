@@ -341,40 +341,7 @@ extension XCScheme {
 
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? LaunchAction else { return false }
-            return super.isEqual(to: to) &&
-                runnable == rhs.runnable &&
-                macroExpansion == rhs.macroExpansion &&
-                selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
-                selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
-                buildConfiguration == rhs.buildConfiguration &&
-                launchStyle == rhs.launchStyle &&
-                askForAppToLaunch == rhs.askForAppToLaunch &&
-                pathRunnable == rhs.pathRunnable &&
-                useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
-                ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
-                debugDocumentVersioning == rhs.debugDocumentVersioning &&
-                debugServiceExtension == rhs.debugServiceExtension &&
-                allowLocationSimulation == rhs.allowLocationSimulation &&
-                locationScenarioReference == rhs.locationScenarioReference &&
-                enableGPUFrameCaptureMode == rhs.enableGPUFrameCaptureMode &&
-                enableGPUValidationMode == rhs.enableGPUValidationMode &&
-                enableAddressSanitizer == rhs.enableAddressSanitizer &&
-                enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
-                enableThreadSanitizer == rhs.enableThreadSanitizer &&
-                stopOnEveryThreadSanitizerIssue == rhs.stopOnEveryThreadSanitizerIssue &&
-                enableUBSanitizer == rhs.enableUBSanitizer &&
-                stopOnEveryUBSanitizerIssue == rhs.stopOnEveryUBSanitizerIssue &&
-                disableMainThreadChecker == rhs.disableMainThreadChecker &&
-                stopOnEveryMainThreadCheckerIssue == rhs.stopOnEveryMainThreadCheckerIssue &&
-                additionalOptions == rhs.additionalOptions &&
-                commandlineArguments == rhs.commandlineArguments &&
-                environmentVariables == rhs.environmentVariables &&
-                language == rhs.language &&
-                region == rhs.region &&
-                launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle &&
-                storeKitConfigurationFileReference == rhs.storeKitConfigurationFileReference &&
-                customLaunchCommand == rhs.customLaunchCommand &&
-                customLLDBInitFile == rhs.customLLDBInitFile
+            return isEqual(to: rhs)
         }
     }
 }

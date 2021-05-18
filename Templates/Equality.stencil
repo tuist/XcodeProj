@@ -13,7 +13,7 @@ extension {{ type.name }} {
         {% endfor %}
         {% for variable in type.computedVariables|annotated:"forceEquality" %}if self.{{ variable.name }} != rhs.{{ variable.name }} { return false }
         {% endfor %}
-        {% if type.inheritedTypes.first == "NSObject" %}return true{% else %}return super.isEqual(to: rhs){% endif %}
+        {% if type.supertype == nil %}return true{% else %}return super.isEqual(to: rhs){% endif %}
     }
 }
 

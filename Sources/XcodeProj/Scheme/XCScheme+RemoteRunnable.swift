@@ -38,18 +38,11 @@ extension XCScheme {
 
         // MARK: - Equatable
 
-        override func isEqual(other: XCScheme.Runnable) -> Bool {
-            guard let other = other as? RemoteRunnable else {
+        override func isEqual(to rhs: Any?) -> Bool {
+            guard let rhs = rhs as? RemoteRunnable else {
                 return false
             }
-
-            return super.isEqual(other: other) &&
-                bundleIdentifier == other.bundleIdentifier &&
-                remotePath == other.remotePath
-        }
-
-        public static func == (lhs: RemoteRunnable, rhs: RemoteRunnable) -> Bool {
-            lhs.isEqual(other: rhs) && rhs.isEqual(other: lhs)
+            return isEqual(to: rhs)
         }
     }
 }

@@ -1,6 +1,5 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.4.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import Foundation
 
 extension PBXAggregateTarget {
@@ -282,6 +281,132 @@ extension XCRemoteSwiftPackageReference {
     }
 }
 
+extension XCScheme.ArchiveAction {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.ArchiveAction) -> Bool {
+        if buildConfiguration != rhs.buildConfiguration { return false }
+        if revealArchiveInOrganizer != rhs.revealArchiveInOrganizer { return false }
+        if customArchiveName != rhs.customArchiveName { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.BuildAction {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.BuildAction) -> Bool {
+        if buildActionEntries != rhs.buildActionEntries { return false }
+        if parallelizeBuild != rhs.parallelizeBuild { return false }
+        if buildImplicitDependencies != rhs.buildImplicitDependencies { return false }
+        if runPostActionsOnFailure != rhs.runPostActionsOnFailure { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.BuildableProductRunnable {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.BuildableProductRunnable) -> Bool {
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.LaunchAction {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.LaunchAction) -> Bool {
+        if runnable != rhs.runnable { return false }
+        if macroExpansion != rhs.macroExpansion { return false }
+        if selectedDebuggerIdentifier != rhs.selectedDebuggerIdentifier { return false }
+        if selectedLauncherIdentifier != rhs.selectedLauncherIdentifier { return false }
+        if buildConfiguration != rhs.buildConfiguration { return false }
+        if launchStyle != rhs.launchStyle { return false }
+        if askForAppToLaunch != rhs.askForAppToLaunch { return false }
+        if pathRunnable != rhs.pathRunnable { return false }
+        if useCustomWorkingDirectory != rhs.useCustomWorkingDirectory { return false }
+        if ignoresPersistentStateOnLaunch != rhs.ignoresPersistentStateOnLaunch { return false }
+        if debugDocumentVersioning != rhs.debugDocumentVersioning { return false }
+        if debugServiceExtension != rhs.debugServiceExtension { return false }
+        if allowLocationSimulation != rhs.allowLocationSimulation { return false }
+        if locationScenarioReference != rhs.locationScenarioReference { return false }
+        if enableGPUFrameCaptureMode != rhs.enableGPUFrameCaptureMode { return false }
+        if enableGPUValidationMode != rhs.enableGPUValidationMode { return false }
+        if enableAddressSanitizer != rhs.enableAddressSanitizer { return false }
+        if enableASanStackUseAfterReturn != rhs.enableASanStackUseAfterReturn { return false }
+        if enableThreadSanitizer != rhs.enableThreadSanitizer { return false }
+        if stopOnEveryThreadSanitizerIssue != rhs.stopOnEveryThreadSanitizerIssue { return false }
+        if enableUBSanitizer != rhs.enableUBSanitizer { return false }
+        if stopOnEveryUBSanitizerIssue != rhs.stopOnEveryUBSanitizerIssue { return false }
+        if disableMainThreadChecker != rhs.disableMainThreadChecker { return false }
+        if stopOnEveryMainThreadCheckerIssue != rhs.stopOnEveryMainThreadCheckerIssue { return false }
+        if additionalOptions != rhs.additionalOptions { return false }
+        if commandlineArguments != rhs.commandlineArguments { return false }
+        if environmentVariables != rhs.environmentVariables { return false }
+        if language != rhs.language { return false }
+        if region != rhs.region { return false }
+        if launchAutomaticallySubstyle != rhs.launchAutomaticallySubstyle { return false }
+        if storeKitConfigurationFileReference != rhs.storeKitConfigurationFileReference { return false }
+        if customLaunchCommand != rhs.customLaunchCommand { return false }
+        if customLLDBInitFile != rhs.customLLDBInitFile { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.ProfileAction {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.ProfileAction) -> Bool {
+        if buildableProductRunnable != rhs.buildableProductRunnable { return false }
+        if buildConfiguration != rhs.buildConfiguration { return false }
+        if shouldUseLaunchSchemeArgsEnv != rhs.shouldUseLaunchSchemeArgsEnv { return false }
+        if savedToolIdentifier != rhs.savedToolIdentifier { return false }
+        if ignoresPersistentStateOnLaunch != rhs.ignoresPersistentStateOnLaunch { return false }
+        if useCustomWorkingDirectory != rhs.useCustomWorkingDirectory { return false }
+        if debugDocumentVersioning != rhs.debugDocumentVersioning { return false }
+        if askForAppToLaunch != rhs.askForAppToLaunch { return false }
+        if commandlineArguments != rhs.commandlineArguments { return false }
+        if environmentVariables != rhs.environmentVariables { return false }
+        if macroExpansion != rhs.macroExpansion { return false }
+        if enableTestabilityWhenProfilingTests != rhs.enableTestabilityWhenProfilingTests { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.RemoteRunnable {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.RemoteRunnable) -> Bool {
+        if bundleIdentifier != rhs.bundleIdentifier { return false }
+        if remotePath != rhs.remotePath { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension XCScheme.TestAction {
+    /// :nodoc:
+    func isEqual(to rhs: XCScheme.TestAction) -> Bool {
+        if testables != rhs.testables { return false }
+        if testPlans != rhs.testPlans { return false }
+        if codeCoverageTargets != rhs.codeCoverageTargets { return false }
+        if buildConfiguration != rhs.buildConfiguration { return false }
+        if selectedDebuggerIdentifier != rhs.selectedDebuggerIdentifier { return false }
+        if selectedLauncherIdentifier != rhs.selectedLauncherIdentifier { return false }
+        if shouldUseLaunchSchemeArgsEnv != rhs.shouldUseLaunchSchemeArgsEnv { return false }
+        if codeCoverageEnabled != rhs.codeCoverageEnabled { return false }
+        if onlyGenerateCoverageForSpecifiedTargets != rhs.onlyGenerateCoverageForSpecifiedTargets { return false }
+        if enableAddressSanitizer != rhs.enableAddressSanitizer { return false }
+        if enableASanStackUseAfterReturn != rhs.enableASanStackUseAfterReturn { return false }
+        if enableThreadSanitizer != rhs.enableThreadSanitizer { return false }
+        if enableUBSanitizer != rhs.enableUBSanitizer { return false }
+        if disableMainThreadChecker != rhs.disableMainThreadChecker { return false }
+        if macroExpansion != rhs.macroExpansion { return false }
+        if additionalOptions != rhs.additionalOptions { return false }
+        if commandlineArguments != rhs.commandlineArguments { return false }
+        if environmentVariables != rhs.environmentVariables { return false }
+        if language != rhs.language { return false }
+        if region != rhs.region { return false }
+        if systemAttachmentLifetime != rhs.systemAttachmentLifetime { return false }
+        if userAttachmentLifetime != rhs.userAttachmentLifetime { return false }
+        if customLLDBInitFile != rhs.customLLDBInitFile { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
 extension XCSwiftPackageProductDependency {
     /// :nodoc:
     func isEqual(to rhs: XCSwiftPackageProductDependency) -> Bool {
@@ -299,3 +424,4 @@ extension XCVersionGroup {
         return super.isEqual(to: rhs)
     }
 }
+

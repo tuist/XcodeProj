@@ -232,29 +232,7 @@ extension XCScheme {
 
         override func isEqual(to: Any?) -> Bool {
             guard let rhs = to as? TestAction else { return false }
-            return testables == rhs.testables &&
-                testPlans == rhs.testPlans &&
-                buildConfiguration == rhs.buildConfiguration &&
-                selectedDebuggerIdentifier == rhs.selectedDebuggerIdentifier &&
-                selectedLauncherIdentifier == rhs.selectedLauncherIdentifier &&
-                shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
-                codeCoverageEnabled == rhs.codeCoverageEnabled &&
-                onlyGenerateCoverageForSpecifiedTargets == onlyGenerateCoverageForSpecifiedTargets &&
-                enableAddressSanitizer == rhs.enableAddressSanitizer &&
-                enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
-                enableThreadSanitizer == rhs.enableThreadSanitizer &&
-                enableUBSanitizer == rhs.enableUBSanitizer &&
-                disableMainThreadChecker == rhs.disableMainThreadChecker &&
-                macroExpansion == rhs.macroExpansion &&
-                additionalOptions == rhs.additionalOptions &&
-                commandlineArguments == rhs.commandlineArguments &&
-                environmentVariables == rhs.environmentVariables &&
-                language == rhs.language &&
-                region == rhs.region &&
-                systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
-                userAttachmentLifetime == rhs.userAttachmentLifetime &&
-                codeCoverageTargets == rhs.codeCoverageTargets &&
-                customLLDBInitFile == rhs.customLLDBInitFile
+            return isEqual(to: rhs)
         }
     }
 }
