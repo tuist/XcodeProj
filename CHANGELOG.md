@@ -2,6 +2,7 @@
 
 ## Next
 
+## 7.23.0 - Bonsai
 ### Added
 
 - Allows passing BuildableIdentifier String to BuildableReference initializer [#605](https://github.com/tuist/XcodeProj/pull/605) by [@freddi-kit](https://github.com/freddi-kit)

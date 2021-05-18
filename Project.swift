@@ -11,6 +11,5 @@ let project = Project(name: "XcodeProj_Carthage",
                                  dependencies: [
                                      .framework(path: "Carthage/Build/Mac/AEXML.framework"),
                                      .framework(path: "Carthage/Build/Mac/PathKit.framework"),
-                                     .framework(path: "Carthage/Build/Mac/XcodeProjCExt.framework"),
                                  ]),
                       ])
