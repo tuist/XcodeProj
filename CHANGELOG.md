@@ -6,6 +6,10 @@
 
 - Allows passing BuildableIdentifier String to BuildableReference initializer [#605](https://github.com/tuist/XcodeProj/pull/605) by [@freddi-kit](https://github.com/freddi-kit)
 
+### Fixed
+
+- Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
+
 ## 7.22.0 - Ringui Dingui
 
 ### Added
