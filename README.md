@@ -43,7 +43,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.22.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.23.0"))
         ],
     targets: [
         .target(
@@ -59,13 +59,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 7.11.
+github "tuist/xcodeproj" ~> 7.23.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.22.0
+pod 'xcodeproj', '~> 7.23.0
 ```
 
 ### Scripting
@@ -77,7 +77,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import XcodeProj  // @tuist ~> 7.11.
+import XcodeProj  // @tuist ~> 7.23.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {

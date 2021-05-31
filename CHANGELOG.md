@@ -2,13 +2,18 @@
 
 ## Next
 
+### Fixed
+
+- Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
+
+## 7.23.0 - Bonsai
 ### Added
 
 - Allows passing BuildableIdentifier String to BuildableReference initializer [#605](https://github.com/tuist/XcodeProj/pull/605) by [@freddi-kit](https://github.com/freddi-kit)
 
 ### Fixed
 
-- Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
+- Fixed building on Linux [#615](https://github.com/tuist/XcodeProj/pull/615) by [@yonaskolb](https://github.com/yonaskolb)
 
 ## 7.22.0 - Ringui Dingui
 
