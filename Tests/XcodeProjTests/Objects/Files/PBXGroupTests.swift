@@ -39,6 +39,22 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertNotNil(childGroup?.parent)
     }
 
+    func test_addGroup_assignAllParents() {
+        let project = makeEmptyPBXProj()
+        let group = PBXGroup(children: [],
+                             sourceTree: .group,
+                             name: "group")
+        project.add(object: group)
+
+        let expectGroups = ["foo", "bar", "baz"]
+        let createdGroups = try? group.addGroup(named: expectGroups.joined(separator: "/"))
+
+        XCTAssertEqual(3, createdGroups?.count)
+        XCTAssertEqual(createdGroups?[0].parent?.name, "group")
+        XCTAssertEqual(createdGroups?[1].parent?.name, "foo")
+        XCTAssertEqual(createdGroups?[2].parent?.name, "bar")
+    }
+
     func test_addVariantGroup() {
         let project = makeEmptyPBXProj()
         let group = PBXGroup(children: [],
