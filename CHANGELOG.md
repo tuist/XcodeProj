@@ -6,6 +6,10 @@
 
 - Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
 
+### Changed
+
+- **Breaking** Make `runPostActionsOnFailure` optional [#619](https://github.com/tuist/XcodeProj/pull/619) by [@kwridan](https://github.com/kwridan)
+
 ## 7.23.0 - Bonsai
 ### Added
 
