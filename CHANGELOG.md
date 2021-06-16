@@ -5,6 +5,7 @@
 ### Fixed
 
 - Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
+- **Breaking** Fixed issue where some schemes could not be deserialized because a buildable reference did not contain a blueprint identifier [#612](https://github.com/tuist/XcodeProj/pull/612) by [@daltonclaybrook](https://github.com/daltonclaybrook)
 
 ## 7.23.0 - Bonsai
 ### Added
