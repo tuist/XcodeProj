@@ -16,10 +16,18 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
 
 ---
 
-- [Projects Using XcodeProj](#projects-using-xcodeproj)
-- [Installation](#installation)
-- [Contributing](#contributing)
-- [License](#license)
+- [XcodeProj](#xcodeproj)
+  - [Projects Using XcodeProj](#projects-using-xcodeproj)
+  - [Installation](#installation)
+    - [Swift Package Manager](#swift-package-manager)
+    - [Carthage](#carthage)
+    - [CocoaPods](#cocoapods)
+    - [Scripting](#scripting)
+  - [Documentation 📝](#documentation-)
+  - [References 📚](#references-)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contributors ✨](#contributors-)
 
 ## Projects Using XcodeProj
 
@@ -43,7 +51,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "7.23.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "8.0.0"))
         ],
     targets: [
         .target(
@@ -59,13 +67,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 7.23.0
+github "tuist/xcodeproj" ~> 8.0.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 7.23.0
+pod 'xcodeproj', '~> 8.0.0
 ```
 
 ### Scripting
@@ -77,7 +85,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import XcodeProj  // @tuist ~> 7.23.0
+import XcodeProj  // @tuist ~> 8.0.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {
