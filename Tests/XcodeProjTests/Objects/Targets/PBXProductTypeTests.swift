@@ -100,6 +100,6 @@ final class PBXProductTypeTests: XCTestCase {
     }
 
     func test_systemExtension_hasTheRightValue() {
-        XCTAssertEqual(PBXProductType.systemExtension.rawValue, "com.apple.product-type.driver-extension")
+        XCTAssertEqual(PBXProductType.systemExtension.rawValue, "com.apple.product-type.system-extension")
     }
 }
