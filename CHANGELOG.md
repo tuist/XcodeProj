@@ -7,6 +7,10 @@
 - Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
 - Added the `com.apple.product-type.driver-extension` and `com.apple.product-type.system-extension` PBXProductType [#618](https://github.com/tuist/XcodeProj/pull/618) by [@vgorloff](https://github.com/vgorloff).
 
+### Changed
+
+- **Breaking** Make `runPostActionsOnFailure` optional [#619](https://github.com/tuist/XcodeProj/pull/619) by [@kwridan](https://github.com/kwridan)
+
 ## 7.23.0 - Bonsai
 ### Added
 
