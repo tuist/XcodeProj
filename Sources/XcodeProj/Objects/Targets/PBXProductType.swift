@@ -29,6 +29,8 @@ public enum PBXProductType: String, Decodable {
     case intentsServiceExtension = "com.apple.product-type.app-extension.intents-service"
     case onDemandInstallCapableApplication = "com.apple.product-type.application.on-demand-install-capable"
     case metalLibrary = "com.apple.product-type.metal-library"
+    case driverExtension = "com.apple.product-type.driver-extension"
+    case systemExtension = "com.apple.product-type.system-extension"
 
     /// Returns the file extension for the given product type.
     public var fileExtension: String? {
@@ -59,6 +61,10 @@ public enum PBXProductType: String, Decodable {
             return "xcframework"
         case .metalLibrary:
             return "metallib"
+        case .systemExtension:
+            return "systemextension"
+        case .driverExtension:
+            return "dext"
         case .none:
             return nil
         }

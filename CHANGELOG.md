@@ -6,6 +6,11 @@
 
 - Adding group set incorrect parent in case of complex path [#614](https://github.com/tuist/XcodeProj/pull/614) by [@avdyushin](https://github.com/avdyushin)
 - **Breaking** Fixed issue where some schemes could not be deserialized because a buildable reference did not contain a blueprint identifier [#612](https://github.com/tuist/XcodeProj/pull/612) by [@daltonclaybrook](https://github.com/daltonclaybrook)
+- Added the `com.apple.product-type.driver-extension` and `com.apple.product-type.system-extension` PBXProductType [#618](https://github.com/tuist/XcodeProj/pull/618) by [@vgorloff](https://github.com/vgorloff).
+
+### Changed
+
+- **Breaking** Make `runPostActionsOnFailure` optional [#619](https://github.com/tuist/XcodeProj/pull/619) by [@kwridan](https://github.com/kwridan)
 
 ## 7.23.0 - Bonsai
 ### Added
