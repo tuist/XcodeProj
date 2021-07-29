@@ -148,7 +148,7 @@ extension XCScheme {
             selectedDebuggerIdentifier = element.attributes["selectedDebuggerIdentifier"] ?? XCScheme.defaultDebugger
             selectedLauncherIdentifier = element.attributes["selectedLauncherIdentifier"] ?? XCScheme.defaultLauncher
             launchStyle = element.attributes["launchStyle"].flatMap { Style(rawValue: $0) } ?? .auto
-            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" }
+            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" || $0 == "Yes" }
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
