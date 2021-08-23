@@ -22,11 +22,9 @@ public final class XcodeProj: Equatable {
         var sharedData: XCSharedData?
 
         if !path.exists { throw XCodeProjError.notFound(path: path) }
-        let pbxprojPaths = path.glob("*.pbxproj")
-        if pbxprojPaths.isEmpty {
+        guard let pbxprojPath = path.glob("*.pbxproj").first else {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        let pbxprojPath = pbxprojPaths.first!
         let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
         let context = ProjectDecodingContext(
             pbxProjValueReader: { key in
@@ -36,7 +34,7 @@ public final class XcodeProj: Equatable {
 
         let plistDecoder = XcodeprojPropertyListDecoder(context: context)
         pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
-        try pbxproj.updateProjectName(path: pbxprojPaths.first!)
+        try pbxproj.updateProjectName(path: pbxprojPath)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.isEmpty {
             workspace = XCWorkspace()
