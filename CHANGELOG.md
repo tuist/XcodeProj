@@ -4,7 +4,7 @@
 
 ### Changed
 
-- mprove performance of commented string [#635](https://github.com/tuist/XcodeProj/pull/635) by [@adellibovi](https://github.com/adellibovi)
+- Improve performance of commented string [#635](https://github.com/tuist/XcodeProj/pull/635) by [@adellibovi](https://github.com/adellibovi)
 
 ## 8.0.0 - Amor
 ### Fixed
