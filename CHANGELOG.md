@@ -2,6 +2,7 @@
 
 ## Next
 
+### 8.2.0 - Bubbles
 ### Added
 
 - Support obtaining the full path of a file element by passing the source root as a string [#624](https://github.com/tuist/XcodeProj/pull/624) by [@ileitch](https://github.com/ileitch).
