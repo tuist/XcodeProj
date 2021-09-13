@@ -60,7 +60,7 @@ extension XCScheme {
             savedToolIdentifier = element.attributes["savedToolIdentifier"] ?? ""
             useCustomWorkingDirectory = element.attributes["useCustomWorkingDirectory"] == "YES"
             debugDocumentVersioning = element.attributes["debugDocumentVersioning"].map { $0 == "YES" } ?? true
-            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" }
+            askForAppToLaunch = element.attributes["askForAppToLaunch"].map { $0 == "YES" || $0 == "Yes" }
             ignoresPersistentStateOnLaunch = element.attributes["ignoresPersistentStateOnLaunch"].map { $0 == "YES" } ?? false
 
             let buildableProductRunnableElement = element["BuildableProductRunnable"]

@@ -6,7 +6,7 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var runnableDebuggingMode: String
-        public var buildableReference: BuildableReference
+        public var buildableReference: BuildableReference?
 
         // MARK: - Init
 
@@ -18,7 +18,7 @@ extension XCScheme {
 
         init(element: AEXMLElement) throws {
             runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
-            buildableReference = try BuildableReference(element: element["BuildableReference"])
+            buildableReference = try? BuildableReference(element: element["BuildableReference"])
         }
 
         // MARK: - XML
@@ -27,7 +27,9 @@ extension XCScheme {
             let element = AEXMLElement(name: "Runnable",
                                        value: nil,
                                        attributes: ["runnableDebuggingMode": runnableDebuggingMode])
-            element.addChild(buildableReference.xmlElement())
+            if let buildableReference = buildableReference {
+                element.addChild(buildableReference.xmlElement())
+            }
             return element
         }
 
