@@ -9,6 +9,10 @@
 ### Fixed
 
 - If RemoteRunnable doesn't contains BuildableReference XcodeProj removes xcscheme file [#627](https://github.com/tuist/XcodeProj/pull/627) by [@subdan](https://github.com/subdan).
+
+### Changed
+
+- Updated AEXML to 4.6.1 [#632](https://github.com/tuist/XcodeProj/pull/632) by [@nnsnodnb](https://github.com/nnsnodnb).
 ## 8.1.0 - Barcelona
 ### Changed
 
