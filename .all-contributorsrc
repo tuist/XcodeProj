@@ -94,6 +94,15 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "ileitch",
+      "name": "Ian Leitch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48235?v=4",
+      "profile": "https://github.com/ileitch",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
