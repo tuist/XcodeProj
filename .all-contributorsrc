@@ -67,6 +67,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "muukii",
+      "name": "Muukii",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1888355?v=4",
+      "profile": "http://muukii.app",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "nnsnodnb",
+      "name": "Yuya Oka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9856514?v=4",
+      "profile": "https://nnsnodnb.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

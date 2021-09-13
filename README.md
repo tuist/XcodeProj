@@ -1,9 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -51,7 +49,7 @@ Add the dependency in your `Package.swift` file:
 let package = Package(
     name: "myproject",
     dependencies: [
-        .package(url: "https://github.com/tuist/XcodeProj.git", .upToNextMajor(from: "8.0.0")),
+        .package(url: "https://github.com/tuist/XcodeProj.git", .upToNextMajor(from: "8.1.0")),
     ],
     targets: [
         .target(
@@ -67,13 +65,13 @@ let package = Package(
 
 ```bash
 # Cartfile
-github "tuist/xcodeproj" ~> 8.0.0
+github "tuist/xcodeproj" ~> 8.1.0
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'xcodeproj', '~> 8.0.0
+pod 'xcodeproj', '~> 8.1.0
 ```
 
 ### Scripting
@@ -85,7 +83,7 @@ git tag that represents the project’s version:
 ```swift
 #!/usr/bin/swift sh
 import Foundation
-import XcodeProj  // @tuist ~> 8.0.0
+import XcodeProj  // @tuist ~> 8.1.0
 import PathKit
 
 guard CommandLine.arguments.count == 3 else {
@@ -157,17 +155,21 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://joecolicch.io"><img src="https://avatars3.githubusercontent.com/u/2837288?v=4" width="100px;" alt=""/><br /><sub><b>Joseph Colicchio</b></sub></a><br /><a href="#ideas-jcolicchio" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/deatondg"><img src="https://avatars0.githubusercontent.com/u/3221590?v=4" width="100px;" alt=""/><br /><sub><b>deatondg</b></sub></a><br /><a href="#ideas-deatondg" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/dflems"><img src="https://avatars3.githubusercontent.com/u/925850?v=4" width="100px;" alt=""/><br /><sub><b>Dan Fleming</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=dflems" title="Code">💻</a></td>
-    <td align="center"><a href="https://twitter.com/_SaschaS"><img src="https://avatars3.githubusercontent.com/u/895505?v=4" width="100px;" alt=""/><br /><sub><b>Sascha Schwabbauer</b></sub></a><br /><a href="#ideas-sascha" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/marciniwanicki"><img src="https://avatars3.githubusercontent.com/u/946649?v=4" width="100px;" alt=""/><br /><sub><b>Marcin Iwanicki</b></sub></a><br /><a href="#maintenance-marciniwanicki" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/adamkhazi"><img src="https://avatars2.githubusercontent.com/u/9820670?v=4" width="100px;" alt=""/><br /><sub><b>Adam Khazi</b></sub></a><br /><a href="#maintenance-adamkhazi" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/elliottwilliams"><img src="https://avatars3.githubusercontent.com/u/910198?v=4" width="100px;" alt=""/><br /><sub><b>Elliott Williams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=elliottwilliams" title="Code">💻</a></td>
+    <td align="center"><a href="https://joecolicch.io"><img src="https://avatars3.githubusercontent.com/u/2837288?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joseph Colicchio</b></sub></a><br /><a href="#ideas-jcolicchio" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/deatondg"><img src="https://avatars0.githubusercontent.com/u/3221590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>deatondg</b></sub></a><br /><a href="#ideas-deatondg" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/dflems"><img src="https://avatars3.githubusercontent.com/u/925850?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Fleming</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=dflems" title="Code">💻</a></td>
+    <td align="center"><a href="https://twitter.com/_SaschaS"><img src="https://avatars3.githubusercontent.com/u/895505?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sascha Schwabbauer</b></sub></a><br /><a href="#ideas-sascha" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/marciniwanicki"><img src="https://avatars3.githubusercontent.com/u/946649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcin Iwanicki</b></sub></a><br /><a href="#maintenance-marciniwanicki" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/adamkhazi"><img src="https://avatars2.githubusercontent.com/u/9820670?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adam Khazi</b></sub></a><br /><a href="#maintenance-adamkhazi" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/elliottwilliams"><img src="https://avatars3.githubusercontent.com/u/910198?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elliott Williams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=elliottwilliams" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://muukii.app"><img src="https://avatars.githubusercontent.com/u/1888355?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Muukii</b></sub></a><br /><a href="#content-muukii" title="Content">🖋</a></td>
+    <td align="center"><a href="https://nnsnodnb.github.io"><img src="https://avatars.githubusercontent.com/u/9856514?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuya Oka</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=nnsnodnb" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

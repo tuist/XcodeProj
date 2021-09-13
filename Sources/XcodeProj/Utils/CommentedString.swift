@@ -28,49 +28,8 @@ struct CommentedString {
         return invalidSet
     }()
 
-    /// Substrings that cause Xcode to quote the string content.
-    ///
-    /// Matches the strings `___` and `//`.
-    private let invalidStrings: Trie = [
-        "_": ["_": "_"],
-        "/": "/"
-    ]
-
-    /// A tree of characters to efficiently match string prefixes.
-    private enum Trie: ExpressibleByDictionaryLiteral, ExpressibleByUnicodeScalarLiteral {
-        case match
-        case next([(UnicodeScalar, Trie)])
-
-        init(dictionaryLiteral elements: (UnicodeScalar, Trie)...) {
-            self = .next(elements)
-        }
-
-        init(unicodeScalarLiteral value: UnicodeScalar) {
-            self = .next([(value, .match)])
-        }
-
-        /// Accepts a character and mutates to the subtree of strings which match that character. If the character does
-        /// not match, resets to `default`.
-        mutating func match(_ character: UnicodeScalar, orResetTo default: Trie) {
-            switch self {
-            case .match:
-                return
-            case .next(let options):
-                for (key, subtrie) in options where key == character {
-                    self = subtrie
-                    return
-                }
-                self = `default`
-            }
-        }
-
-        var accepted: Bool {
-            switch self {
-            case .match: return true
-            case .next: return false
-            }
-        }
-    }
+    /// Set of characters that are invalid.
+    private static var specialCheckCharacters = CharacterSet(charactersIn: "_/")
 
     /// Returns a valid string for Xcode projects.
     var validString: String {
@@ -81,19 +40,15 @@ struct CommentedString {
         default: break
         }
 
-        var needsQuoting = false
-        var matchingInvalidPrefix: Trie = self.invalidStrings
+        if string.rangeOfCharacter(from: CommentedString.invalidCharacters) == nil {
+            if string.rangeOfCharacter(from: CommentedString.specialCheckCharacters) == nil {
+                return string
+            } else if !string.contains("//") && !string.contains("___") {
+                return string
+            }
+        }
 
         let escaped = string.reduce(into: "") { escaped, character in
-            quote: if !needsQuoting {
-                for scalar in character.unicodeScalars {
-                    matchingInvalidPrefix.match(scalar, orResetTo: self.invalidStrings)
-                    if matchingInvalidPrefix.accepted || CommentedString.invalidCharacters.contains(scalar) {
-                        needsQuoting = true
-                        break quote
-                    }
-                }
-            }
             // As an optimization, only look at the first scalar. This means we're doing a numeric comparison instead
             // of comparing arbitrary-length characters. This is safe because all our cases are a single scalar.
             switch character.unicodeScalars.first {
@@ -109,10 +64,7 @@ struct CommentedString {
                 escaped.append(character)
             }
         }
-        if needsQuoting {
-            return "\"\(escaped)\""
-        }
-        return escaped
+        return "\"\(escaped)\""
     }
 }
 
