@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -166,6 +166,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://muukii.app"><img src="https://avatars.githubusercontent.com/u/1888355?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Muukii</b></sub></a><br /><a href="#content-muukii" title="Content">🖋</a></td>
     <td align="center"><a href="https://nnsnodnb.github.io"><img src="https://avatars.githubusercontent.com/u/9856514?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuya Oka</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=nnsnodnb" title="Code">💻</a></td>
+    <td align="center"><a href="https://smileykeith.com"><img src="https://avatars.githubusercontent.com/u/283886?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Keith Smiley</b></sub></a><br /><a href="#content-keith" title="Content">🖋</a></td>
   </tr>
 </table>
 
