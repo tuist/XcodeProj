@@ -67,6 +67,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "muukii",
+      "name": "Muukii",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1888355?v=4",
+      "profile": "http://muukii.app",
+      "contributions": [
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
