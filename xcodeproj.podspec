@@ -15,5 +15,5 @@ Pod::Spec.new do |s|
   s.module_name = 'XcodeProj'
 
   s.dependency 'PathKit', '~> 1.0.0'
-  s.dependency 'AEXML', '~> 4.6.0'
+  s.dependency 'AEXML', '~> 4.6.1'
 end
