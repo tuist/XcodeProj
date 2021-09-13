@@ -103,6 +103,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "subdan",
+      "name": "Daniil Subbotin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/410293?v=4",
+      "profile": "https://github.com/subdan",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
