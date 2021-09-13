@@ -1,7 +1,7 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
 ## Next
-
+## 8.1.0 - Barcelona
 ### Changed
 
 - Improve performance of commented string [#635](https://github.com/tuist/XcodeProj/pull/635) by [@adellibovi](https://github.com/adellibovi)
