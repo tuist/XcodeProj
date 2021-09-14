@@ -97,6 +97,7 @@ public class BuildSettingsProvider {
     private static func projectAll() -> BuildSettings {
         [
             "ALWAYS_SEARCH_USER_PATHS": "NO",
+            "CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED": "YES",
             "CLANG_ANALYZER_NONNULL": "YES",
             "CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION": "YES_AGGRESSIVE",
             "CLANG_CXX_LANGUAGE_STANDARD": "gnu++14",
