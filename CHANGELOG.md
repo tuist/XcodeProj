@@ -2,6 +2,10 @@
 
 ## Next
 
+### Added
+
+- `CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED` to default build setting [#641](https://github.com/tuist/XcodeProj/pull/641) by [@flowbe](https://github.com/flowbe)
+
 ### 8.2.0 - Bubbles
 ### Added
 
