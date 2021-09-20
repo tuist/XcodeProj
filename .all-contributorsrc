@@ -121,6 +121,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "CognitiveDisson",
+      "name": "Vadim Smal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10621118?v=4",
+      "profile": "https://github.com/CognitiveDisson",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
