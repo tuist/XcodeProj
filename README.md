@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -169,6 +169,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/ileitch"><img src="https://avatars.githubusercontent.com/u/48235?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian Leitch</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ileitch" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/subdan"><img src="https://avatars.githubusercontent.com/u/410293?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniil Subbotin</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=subdan" title="Code">💻</a></td>
     <td align="center"><a href="https://www.florentin.tech"><img src="https://avatars.githubusercontent.com/u/8288625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Florentin Bekier</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=flowbe" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/CognitiveDisson"><img src="https://avatars.githubusercontent.com/u/10621118?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vadim Smal</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/issues?q=author%3ACognitiveDisson" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
