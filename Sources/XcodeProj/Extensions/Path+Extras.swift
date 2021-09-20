@@ -24,10 +24,7 @@ extension Path {
     /// - Returns: found directories and files.
     func glob(_ pattern: String) -> [Path] {
         var gt = glob_t()
-        guard let cPattern = strdup((self + pattern).string) else {
-            globfree(&gt)
-            return []
-        }
+        let cPattern = strdup((self + pattern).string)
         defer {
             globfree(&gt)
             free(cPattern)
