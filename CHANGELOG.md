@@ -2,9 +2,14 @@
 
 ## Next
 
+### 8.3.0 - Mojo
 ### Added
 
 - `CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED` to default build setting [#641](https://github.com/tuist/XcodeProj/pull/641) by [@flowbe](https://github.com/flowbe)
+
+### Fixed
+
+- Xcode 13 build issues [#646](https://github.com/tuist/XcodeProj/pull/646) by [@jsorge](https://github.com/jsorge)
 
 ### 8.2.0 - Bubbles
 ### Added
