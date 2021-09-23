@@ -2,6 +2,12 @@
 
 ## Next
 
+
+### 8.3.1
+### Fixed
+
+- Fix Xcode 13 build [#648](https://github.com/tuist/XcodeProj/pull/648) by [@raptorxcz](https://github.com/raptorxcz)
+
 ### 8.3.0 - Mojo
 ### Added
 
