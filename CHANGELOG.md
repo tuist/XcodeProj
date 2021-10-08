@@ -4,7 +4,7 @@
 
 ### Added
 
-- Support customized DerrivedData in `WorkspaceSettings` [#650](https://github.com/tuist/XcodeProj/pull/650) by [@freddi-kit](https://github.com/freddi-kit).
+- Support customized DerrivedData path in `WorkspaceSettings` [#650](https://github.com/tuist/XcodeProj/pull/650) by [@freddi-kit](https://github.com/freddi-kit).
 
 ### 8.3.1
 ### Fixed
