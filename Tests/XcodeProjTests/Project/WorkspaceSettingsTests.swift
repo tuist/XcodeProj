@@ -36,10 +36,14 @@ final class WorkspaceSettingsTests: XCTestCase {
 
             var settings = try WorkspaceSettings.at(path: path)
             settings.buildSystem = .original
+            settings.derivedDataLocationStyle = .workspaceRelativePath
+            settings.derivedDataCustomLocation = "DerivedData"
             try settings.write(path: copyPath, override: true)
 
             settings = try WorkspaceSettings.at(path: copyPath)
             XCTAssertEqual(settings.buildSystem, .original)
+            XCTAssertEqual(settings.derivedDataLocationStyle, .workspaceRelativePath)
+            XCTAssertEqual(settings.derivedDataCustomLocation, "DerivedData")
         }
     }
 }
