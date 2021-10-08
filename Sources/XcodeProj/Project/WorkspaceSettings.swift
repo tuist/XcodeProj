@@ -31,7 +31,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public var buildSystem: BuildSystem
     
     /// Workspace DerivedData directory.
-    public var derivedDataLocationStyle: DerivedDataLocationStyle
+    public var derivedDataLocationStyle: DerivedDataLocationStyle?
     
     /// Path to workspace DerivedData directory.
     public var derivedDataCustomLocation: String?
@@ -57,7 +57,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///   - derivedDataCustomLocation: Path to workspace DerivedData directory.
     ///   - autoCreateSchemes: When true, Xcode auto-creates schemes in the project.
     init(buildSystem: BuildSystem = .new,
-         derivedDataLocationStyle: DerivedDataLocationStyle = .default,
+         derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
          derivedDataCustomLocation: String? = nil,
          autoCreateSchemes: Bool? = nil) {
         self.buildSystem = buildSystem
@@ -97,7 +97,9 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         if buildSystem == .original {
             try container.encode(buildSystem.rawValue, forKey: .buildSystem)
         }
-        try container.encode(derivedDataLocationStyle.rawValue, forKey: .derivedDataLocationStyle)
+        if let derivedDataLocationStyle = derivedDataLocationStyle {
+            try container.encode(derivedDataLocationStyle.rawValue, forKey: .derivedDataLocationStyle)
+        }
         if let derivedDataCustomLocation = derivedDataCustomLocation {
             try container.encode(derivedDataCustomLocation, forKey: .derivedDataCustomLocation)
         }
