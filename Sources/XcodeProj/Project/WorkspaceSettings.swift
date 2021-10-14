@@ -68,7 +68,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
 
     /// Initializes the settings decoding the values from the plist representation.
     ///
-    /// - Parameter decoder: Propertly list decoder.
+    /// - Parameter decoder: Property list decoder.
     /// - Throws: An error if required attributes are missing or have a wrong type.
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
