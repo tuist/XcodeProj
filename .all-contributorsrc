@@ -130,6 +130,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "freddi-kit",
+      "name": "freddi(Yuki Aki)",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13707872?v=4",
+      "profile": "http://freddi.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
