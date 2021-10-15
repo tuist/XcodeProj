@@ -1,21 +1,27 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
 ## Next
-### 8.4.0
+
+## 8.5.0
+
 ### Added
 
-- Support customized DerrivedData path in `WorkspaceSettings` [#650](https://github.com/tuist/XcodeProj/pull/650) by [@freddi-kit](https://github.com/freddi-kit).
 - Add XCSchemeManagement struct https://github.com/tuist/XcodeProj/pull/565 by @pepibumur.
 
 ### Changed
 - Update the last-known and default constants to align with Xcode 13.
  
+## 8.4.0
+### Added
+
+- Support customized DerrivedData path in `WorkspaceSettings` [#650](https://github.com/tuist/XcodeProj/pull/650) by [@freddi-kit](https://github.com/freddi-kit).
+  
 ### 8.3.1
 ### Fixed
 
 - Fix Xcode 13 build [#648](https://github.com/tuist/XcodeProj/pull/648) by [@raptorxcz](https://github.com/raptorxcz)
 
-### 8.3.0 - Mojo
+## 8.3.0 - Mojo
 ### Added
 
 - `CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED` to default build setting [#641](https://github.com/tuist/XcodeProj/pull/641) by [@flowbe](https://github.com/flowbe)
@@ -24,7 +30,7 @@
 
 - Xcode 13 build issues [#646](https://github.com/tuist/XcodeProj/pull/646) by [@jsorge](https://github.com/jsorge)
 
-### 8.2.0 - Bubbles
+## 8.2.0 - Bubbles
 ### Added
 
 - Support obtaining the full path of a file element by passing the source root as a string [#624](https://github.com/tuist/XcodeProj/pull/624) by [@ileitch](https://github.com/ileitch).
