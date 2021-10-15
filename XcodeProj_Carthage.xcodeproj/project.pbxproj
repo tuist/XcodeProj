@@ -27,6 +27,7 @@
 		3A59F800668B0D6F550B9C09 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249AAF8AE1978D1546C0ADB5 /* PBXGroup.swift */; };
 		3D5DBC9A4315D97D1B39CF19 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A031713D5F31DDCC2D61EF /* PBXProjEncoder.swift */; };
 		3E2EE77196F6B2BECE8DF3DB /* BuildSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977C44246CCF9C13AB856C2 /* BuildSettingsProvider.swift */; };
+		468F48B3D19F3D1611181A2E /* XCSchemeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA327A9CAF3CCFF60AD469 /* XCSchemeManagement.swift */; };
 		46A5D9862729AC0C6D85D4FB /* XCScheme+BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525B9A065757F329F0E4002 /* XCScheme+BuildAction.swift */; };
 		4716E044E5786AC68205911A /* XCVersionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E419CA05304074ADCDACE8 /* XCVersionGroup.swift */; };
 		494EF8FD09FAEE56F6ACF3BE /* XCWorkspaceDataElementLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE25C88F5874509586B3AD4 /* XCWorkspaceDataElementLocationType.swift */; };
@@ -169,6 +170,7 @@
 		66F7E3085922F586144F562A /* XCScheme+ArchiveAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ArchiveAction.swift"; sourceTree = "<group>"; };
 		683F0C05F5FD6006924AA43C /* CommentedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedString.swift; sourceTree = "<group>"; };
 		694034B4B7C9DF231B007A84 /* XCScheme+SerialAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+SerialAction.swift"; sourceTree = "<group>"; };
+		69BA327A9CAF3CCFF60AD469 /* XCSchemeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCSchemeManagement.swift; sourceTree = "<group>"; };
 		6A113CBABFAE791D1B9C6BBE /* BuildSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSettings.swift; sourceTree = "<group>"; };
 		6B2C739F39DD3CC1B77E1075 /* PBXProj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProj.swift; sourceTree = "<group>"; };
 		72E6494F0E28769F9B11FD30 /* BuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildPhase.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				161E967D0979EF34C7DF6348 /* XCScheme+TestAction.swift */,
 				7DFDD2E86D3F0ADE3502A29A /* XCScheme+TestItem.swift */,
 				87331972540CB510D7E0C333 /* XCScheme+TestPlanReference.swift */,
+				69BA327A9CAF3CCFF60AD469 /* XCSchemeManagement.swift */,
 			);
 			path = Scheme;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				D5D82B59980521FBA427EED8 /* XCScheme+TestPlanReference.swift in Sources */,
 				0390AF375B465D1DC7AB6194 /* XCScheme+TestableReference.swift in Sources */,
 				E113D0F651A2213459C65387 /* XCScheme.swift in Sources */,
+				468F48B3D19F3D1611181A2E /* XCSchemeManagement.swift in Sources */,
 				3E2EE77196F6B2BECE8DF3DB /* BuildSettingsProvider.swift in Sources */,
 				4E9B74BA2A6381FEDEA26092 /* CommentedString.swift in Sources */,
 				BD7A3EBFD6C9D1AA78E6E822 /* Decoders.swift in Sources */,
@@ -741,6 +745,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -792,6 +797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
