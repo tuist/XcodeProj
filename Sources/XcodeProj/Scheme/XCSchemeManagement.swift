@@ -169,7 +169,8 @@ public struct XCSchemeManagement: Codable {
         }
         
         if let schemeUserState = schemeUserState {
-            let encodableSchemeUserState = schemeUserState.reduce(into: [String: XCSchemeManagement.UserStateScheme]()) { $0[$1.key] = $1 }
+            let encodableSchemeUserState = schemeUserState
+                .reduce(into: [String: XCSchemeManagement.UserStateScheme]()) { $0[$1.key] = $1 }
             try container.encode(encodableSchemeUserState, forKey: .schemeUserState)
         }
     }

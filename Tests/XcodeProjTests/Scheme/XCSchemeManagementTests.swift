@@ -51,6 +51,7 @@ final class XCSchemeManagementTests: XCTestCase {
             try subject.write(path: plistPath)
 
             let got = try checkedOutput("git", ["status"])
+            print(got)
             XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
     }
