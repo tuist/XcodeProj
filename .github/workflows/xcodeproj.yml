@@ -52,6 +52,7 @@ jobs:
         run: |
           git config --global user.email "xcodeproj@tuist.io"
           git config --global user.name "xcodeproj"
+          git config --global init.defaultBranch main
       - name: Build and run tests
         run: swift test --enable-test-discovery
   swiftlint:
