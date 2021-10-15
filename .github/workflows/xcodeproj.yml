@@ -48,6 +48,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set Git config
+        run: |
+          git config --global user.email "xcodeproj@tuist.io"
+          git config --global user.name "xcodeproj"
+          git config --global init.defaultBranch main
       - name: Build and run tests
         run: swift test --enable-test-discovery
   swiftlint:
