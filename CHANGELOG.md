@@ -7,6 +7,9 @@
 - Support customized DerrivedData path in `WorkspaceSettings` [#650](https://github.com/tuist/XcodeProj/pull/650) by [@freddi-kit](https://github.com/freddi-kit).
 - Add XCSchemeManagement struct https://github.com/tuist/XcodeProj/pull/565 by @pepibumur.
 
+### Changed
+- Update the last-known and default constants to align with Xcode 13.
+ 
 ### 8.3.1
 ### Fixed
 
