@@ -135,6 +135,7 @@ public struct XCSchemeManagement: Codable {
     /// - Throws: An error if the write fails.
     public func write(path: Path) throws {
         let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
         try encoder.encode(self).write(to: path.url)
     }
     // MARK: - Codable
