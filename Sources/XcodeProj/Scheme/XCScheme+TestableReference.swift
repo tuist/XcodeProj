@@ -10,6 +10,7 @@ extension XCScheme {
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
+        public var locationScenarioReference: LocationScenarioReference?
         public var skippedTests: [TestItem]
         public var selectedTests: [TestItem]
 
@@ -19,6 +20,7 @@ extension XCScheme {
                     parallelizable: Bool = false,
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
+                    locationScenarioReference: LocationScenarioReference? = nil,
                     skippedTests: [TestItem] = [],
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
@@ -26,6 +28,7 @@ extension XCScheme {
             self.parallelizable = parallelizable
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
+            self.locationScenarioReference = locationScenarioReference
             self.useTestSelectionWhitelist = useTestSelectionWhitelist
             self.selectedTests = selectedTests
             self.skippedTests = skippedTests
@@ -37,6 +40,12 @@ extension XCScheme {
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
+            
+            if element["LocationScenarioReference"].all?.first != nil {
+                locationScenarioReference = try LocationScenarioReference(element: element["LocationScenarioReference"])
+            } else {
+                locationScenarioReference = nil
+            }
 
             if let selectedTests = element["SelectedTests"]["Test"].all {
                 self.selectedTests = try selectedTests.map(TestItem.init)
@@ -64,6 +73,10 @@ extension XCScheme {
                                        attributes: attributes)
             element.addChild(buildableReference.xmlElement())
 
+            if let locationScenarioReference = locationScenarioReference {
+                element.addChild(locationScenarioReference.xmlElement())
+            }
+            
             if useTestSelectionWhitelist == true {
                 if !selectedTests.isEmpty {
                     let selectedTestsElement = element.addChild(name: "SelectedTests")
@@ -89,6 +102,7 @@ extension XCScheme {
                 lhs.parallelizable == rhs.parallelizable &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&
+                lhs.locationScenarioReference == rhs.locationScenarioReference &&
                 lhs.useTestSelectionWhitelist == rhs.useTestSelectionWhitelist &&
                 lhs.skippedTests == rhs.skippedTests &&
                 lhs.selectedTests == rhs.selectedTests

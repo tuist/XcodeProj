@@ -1,6 +1,9 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
 ## Next
+### Added
+
+- Support for location added to test targets (`TestableReference`) [#654](https://github.com/tuist/XcodeProj/pull/654) by [@KrisRJack](https://github.com/KrisRJack)
 
 ## 8.5.0
 
