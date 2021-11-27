@@ -4,7 +4,7 @@ import PathKit
 
 // MARK: - Path extras.
 
-#if os(macOS)
+#if os(macOS) || targetEnvironment(macCatalyst)
 let systemGlob = Darwin.glob
 #else
 let systemGlob = Glibc.glob
