@@ -532,7 +532,6 @@
 			buildPhases = (
 				65398CA885D62783C577D0FA /* Sources */,
 				987C550AD2D049BE77E633BD /* Resources */,
-				2C9C6B5EADA641EDF5BC523E /* Embed Precompiled Frameworks */,
 				7FAD067EE084B2EF5EFE4BFF /* Embed Frameworks */,
 				ECC1E0A3315EECC3AF534E1B /* Frameworks */,
 			);
@@ -555,7 +554,7 @@
 				};
 			};
 			buildConfigurationList = 477F800A701B31C60A80EACC /* Build configuration list for PBXProject "XcodeProj_Carthage" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -581,23 +580,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2C9C6B5EADA641EDF5BC523E /* Embed Precompiled Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Precompiled Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Skipping, nothing to be embedded.\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		65398CA885D62783C577D0FA /* Sources */ = {
@@ -735,7 +717,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.4.2;
+				SWIFT_VERSION = 5.5.1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -880,7 +862,7 @@
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.4.2;
+				SWIFT_VERSION = 5.5.1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
