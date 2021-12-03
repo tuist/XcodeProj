@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -173,6 +173,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://freddi.dev"><img src="https://avatars.githubusercontent.com/u/13707872?v=4?s=100" width="100px;" alt=""/><br /><sub><b>freddi(Yuki Aki)</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=freddi-kit" title="Code">💻</a></td>
+    <td align="center"><a href="http://KrisRJack.com"><img src="https://avatars.githubusercontent.com/u/35638500?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kristopher Jackson</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=KrisRJack" title="Code">💻</a></td>
   </tr>
 </table>
 

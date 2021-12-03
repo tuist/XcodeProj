@@ -139,6 +139,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "KrisRJack",
+      "name": "Kristopher Jackson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35638500?v=4",
+      "profile": "http://KrisRJack.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
