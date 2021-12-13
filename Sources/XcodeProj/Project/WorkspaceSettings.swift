@@ -15,29 +15,29 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         /// New build system
         case new
     }
-    
+
     public enum DerivedDataLocationStyle: String {
         /// Default derived data
         case `default` = "Default"
 
         /// Absolute path
         case absolutePath = "AbsolutePath"
-        
+
         /// Relative paht
         case workspaceRelativePath = "WorkspaceRelativePath"
     }
 
     /// Workspace build system.
     public var buildSystem: BuildSystem
-    
+
     /// Workspace DerivedData directory.
     public var derivedDataLocationStyle: DerivedDataLocationStyle?
-    
+
     /// Path to workspace DerivedData directory.
     public var derivedDataCustomLocation: String?
 
     /// When true, Xcode auto-creates schemes in the project.
-    public var autoCreateSchemes: Bool?
+    public var autoCreateSchemes: Bool
 
     /// Decodable coding keys.
     ///
@@ -56,10 +56,11 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///   - derivedDataLocationStyle: Workspace DerivedData directory.
     ///   - derivedDataCustomLocation: Path to workspace DerivedData directory.
     ///   - autoCreateSchemes: When true, Xcode auto-creates schemes in the project.
-    init(buildSystem: BuildSystem = .new,
-         derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
-         derivedDataCustomLocation: String? = nil,
-         autoCreateSchemes: Bool? = nil) {
+    public init(buildSystem: BuildSystem = .new,
+                derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
+                derivedDataCustomLocation: String? = nil,
+                autoCreateSchemes: Bool = true)
+    {
         self.buildSystem = buildSystem
         self.derivedDataLocationStyle = derivedDataLocationStyle
         self.derivedDataCustomLocation = derivedDataCustomLocation
@@ -73,19 +74,21 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let buildSystemString: String = try container.decodeIfPresent(.buildSystem),
-            let buildSystem = BuildSystem(rawValue: buildSystemString) {
+           let buildSystem = BuildSystem(rawValue: buildSystemString)
+        {
             self.buildSystem = buildSystem
         } else {
             buildSystem = .new
         }
         if let derivedDataLocationStyleString: String = try container.decodeIfPresent(.derivedDataLocationStyle),
-            let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString) {
+           let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString)
+        {
             self.derivedDataLocationStyle = derivedDataLocationStyle
         } else {
             derivedDataLocationStyle = .default
         }
         derivedDataCustomLocation = try container.decodeIfPresent(.derivedDataCustomLocation)
-        autoCreateSchemes = try container.decodeIfPresent(.autoCreateSchemes)
+        autoCreateSchemes = try container.decode(.autoCreateSchemes)
     }
 
     /// Encodes the settings into the given encoder.
@@ -103,9 +106,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         if let derivedDataCustomLocation = derivedDataCustomLocation {
             try container.encode(derivedDataCustomLocation, forKey: .derivedDataCustomLocation)
         }
-        if let autoCreateSchemes = autoCreateSchemes {
-            try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
-        }
+        try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
     }
 
     /// Initializes the settings reading the values from the WorkspaceSettings.xcsettings file.

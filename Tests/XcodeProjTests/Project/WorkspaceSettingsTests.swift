@@ -29,7 +29,7 @@ final class WorkspaceSettingsTests: XCTestCase {
         XCTAssertTrue(got.derivedDataCustomLocation == "CustomizedDerivedData")
         XCTAssertTrue(got.derivedDataLocationStyle == .workspaceRelativePath)
     }
-    
+
     func test_init_when_absolute_derivedData_is_enabled() throws {
         let path = fixturesPath() + "WorkspaceSettings/OriginalAbsoluteDerivedData.xcsettings"
         let got = try WorkspaceSettings.at(path: path)
@@ -38,8 +38,8 @@ final class WorkspaceSettingsTests: XCTestCase {
     }
 
     func test_equals() {
-        let lhs = WorkspaceSettings(buildSystem: .new)
-        let rhs = WorkspaceSettings(buildSystem: .original)
+        let lhs = WorkspaceSettings(buildSystem: .new, autoCreateSchemes: true)
+        let rhs = WorkspaceSettings(buildSystem: .original, autoCreateSchemes: true)
         XCTAssertNotEqual(lhs, rhs)
     }
 
