@@ -124,6 +124,7 @@ public struct Xcode {
         "defs": "sourcecode.mig",
         "dext": "wrapper.driver-extension",
         "dict": "text.plist",
+        "docc": "folder.documentationcatalog",
         "dsym": "wrapper.dsym",
         "dtd": "text.xml",
         "dylan": "sourcecode.dylan",
