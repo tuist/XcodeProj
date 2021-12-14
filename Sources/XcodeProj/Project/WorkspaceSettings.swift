@@ -106,7 +106,9 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         if let derivedDataCustomLocation = derivedDataCustomLocation {
             try container.encode(derivedDataCustomLocation, forKey: .derivedDataCustomLocation)
         }
-        try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
+        if let autoCreateSchemes = autoCreateSchemes {
+            try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
+        }
     }
 
     /// Initializes the settings reading the values from the WorkspaceSettings.xcsettings file.
