@@ -37,7 +37,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public var derivedDataCustomLocation: String?
 
     /// When true, Xcode auto-creates schemes in the project.
-    public var autoCreateSchemes: Bool
+    public var autoCreateSchemes: Bool?
 
     /// Decodable coding keys.
     ///
@@ -59,7 +59,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public init(buildSystem: BuildSystem = .new,
                 derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
                 derivedDataCustomLocation: String? = nil,
-                autoCreateSchemes: Bool = true)
+                autoCreateSchemes: Bool? = nil)
     {
         self.buildSystem = buildSystem
         self.derivedDataLocationStyle = derivedDataLocationStyle
@@ -88,7 +88,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
             derivedDataLocationStyle = .default
         }
         derivedDataCustomLocation = try container.decodeIfPresent(.derivedDataCustomLocation)
-        autoCreateSchemes = try container.decode(.autoCreateSchemes)
+        autoCreateSchemes = try container.decodeIfPresent(.autoCreateSchemes)
     }
 
     /// Encodes the settings into the given encoder.

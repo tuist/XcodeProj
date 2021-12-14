@@ -8,7 +8,5 @@
     <string>CustomizedDerivedData</string>
     <key>DerivedDataLocationStyle</key>
     <string>WorkspaceRelativePath</string>
-    <key>IDEWorkspaceSharedSettings_AutocreateContextsIfNeeded</key>
-    <false/>
 </dict>
 </plist>

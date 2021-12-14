@@ -8,7 +8,5 @@
     <string>/User/xcodeproj/DerivedData</string>
     <key>DerivedDataLocationStyle</key>
     <string>AbsolutePath</string>
-    <key>IDEWorkspaceSharedSettings_AutocreateContextsIfNeeded</key>
-    <false/>
 </dict>
 </plist>
