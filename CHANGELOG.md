@@ -3,7 +3,7 @@
 ## Next
 ### Added
 
-- Add DocC Xcode File Type (`.docc`) []() by [@Jake-Prickett](https://github.com/Jake-Prickett)
+- Add DocC Xcode File Type (`.docc`) [#660](https://github.com/tuist/XcodeProj/pull/660) by [@Jake-Prickett](https://github.com/Jake-Prickett)
 
 ## 8.6.0
 ### Added
