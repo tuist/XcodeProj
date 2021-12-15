@@ -145,6 +145,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     /// - Throws: writing error if something goes wrong.
     public func write(path: Path, override: Bool) throws {
         let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
         let data = try encoder.encode(self)
         if override, path.exists {
             try path.delete()
