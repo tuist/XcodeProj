@@ -2,6 +2,11 @@
 
 ## Next
 
+## 8.7.1
+
+### Changed
+- Make WorkspaceSettings initializer public [#658](https://github.com/tuist/XcodeProj/pull/658) by [@jakeatoms](https://github.com/jakeatoms)
+
 ## 8.7.0
 ### Added
 
