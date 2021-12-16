@@ -1,6 +1,9 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
 ## Next
+### Added
+
+- Add DocC Xcode File Type (`.docc`) [#660](https://github.com/tuist/XcodeProj/pull/660) by [@Jake-Prickett](https://github.com/Jake-Prickett)
 
 ## 8.6.0
 ### Added
