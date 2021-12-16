@@ -15,24 +15,24 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         /// New build system
         case new
     }
-    
+
     public enum DerivedDataLocationStyle: String {
         /// Default derived data
         case `default` = "Default"
 
         /// Absolute path
         case absolutePath = "AbsolutePath"
-        
+
         /// Relative paht
         case workspaceRelativePath = "WorkspaceRelativePath"
     }
 
     /// Workspace build system.
     public var buildSystem: BuildSystem
-    
+
     /// Workspace DerivedData directory.
     public var derivedDataLocationStyle: DerivedDataLocationStyle?
-    
+
     /// Path to workspace DerivedData directory.
     public var derivedDataCustomLocation: String?
 
@@ -56,10 +56,11 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     ///   - derivedDataLocationStyle: Workspace DerivedData directory.
     ///   - derivedDataCustomLocation: Path to workspace DerivedData directory.
     ///   - autoCreateSchemes: When true, Xcode auto-creates schemes in the project.
-    init(buildSystem: BuildSystem = .new,
-         derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
-         derivedDataCustomLocation: String? = nil,
-         autoCreateSchemes: Bool? = nil) {
+    public init(buildSystem: BuildSystem = .new,
+                derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
+                derivedDataCustomLocation: String? = nil,
+                autoCreateSchemes: Bool? = nil)
+    {
         self.buildSystem = buildSystem
         self.derivedDataLocationStyle = derivedDataLocationStyle
         self.derivedDataCustomLocation = derivedDataCustomLocation
@@ -73,13 +74,15 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let buildSystemString: String = try container.decodeIfPresent(.buildSystem),
-            let buildSystem = BuildSystem(rawValue: buildSystemString) {
+           let buildSystem = BuildSystem(rawValue: buildSystemString)
+        {
             self.buildSystem = buildSystem
         } else {
             buildSystem = .new
         }
         if let derivedDataLocationStyleString: String = try container.decodeIfPresent(.derivedDataLocationStyle),
-            let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString) {
+           let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString)
+        {
             self.derivedDataLocationStyle = derivedDataLocationStyle
         } else {
             derivedDataLocationStyle = .default
@@ -142,6 +145,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     /// - Throws: writing error if something goes wrong.
     public func write(path: Path, override: Bool) throws {
         let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
         let data = try encoder.encode(self)
         if override, path.exists {
             try path.delete()
