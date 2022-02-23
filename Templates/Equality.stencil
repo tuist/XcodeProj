@@ -6,7 +6,7 @@ extension {{ type.name }} {
     func isEqual(to rhs: {{ type.name }}) -> Bool {
         {% for variable in type.storedVariables %}
         {% if variable.typeName.dictionary %}
-        if !NSDictionary(dictionary: {{ variable.name}}{% if variable.typeName.isOptional %} ?? [:]{% endif %}).isEqual(to: rhs.{{ variable.name }}{% if variable.typeName.isOptional %} ?? [:]{% endif %}) { return false }
+        if !NSDictionary(dictionary: {{ variable.name}}{% if variable.typeName.isOptional %} ?? [:]{% endif %}).isEqual(NSDictionary(dictionary: rhs.{{ variable.name }}{% if variable.typeName.isOptional %} ?? [:]{% endif %})) { return false }
         {% elif variable|!annotated:"skipEquality" %}
         if {{ variable.name }} != rhs.{{ variable.name }} { return false }
         {% endif %}
