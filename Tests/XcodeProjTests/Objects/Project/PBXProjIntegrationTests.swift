@@ -14,6 +14,28 @@ final class PBXProjIntegrationTests: XCTestCase {
         }
     }
 
+    func test_uuids_after_adding_to_build_phase() throws {
+        let fixturePath = self.fixturePath().parent().parent()
+        print(fixturePath)
+        let xcp = try XcodeProj(path: self.fixturePath().parent())
+        let project = xcp.pbxproj.projects.first(where: { $0.name == "Project" })!
+        let iosGroup = project.mainGroup.children.first(where: { $0.path == "iOS" }) as! PBXGroup
+        let appTarget = xcp.pbxproj.nativeTargets.first(where: { $0.name == "iOS" })!
+        let sourcesPhase = appTarget.buildPhases.first(where: { $0.buildPhase == .sources }) as! PBXSourcesBuildPhase
+
+        for filename in ["FileNotInProject.swift"] {
+            let newFilePath = Path(components: fixturePath.components + ["iOS", filename])
+            let file = try iosGroup.addFile(at: newFilePath, sourceRoot: fixturePath)
+            let buildFile = PBXBuildFile(file: file, product: nil, settings: [:])
+            sourcesPhase.files?.append(buildFile)
+        }
+
+        try xcp.write(path: Path(components: fixturePath.components + ["Out.xcodeproj"]))
+        let encoder = PBXProjEncoder(outputSettings: PBXOutputSettings())
+        let output: String = try encoder.encode(proj: xcp.pbxproj)
+        XCTAssert(!output.contains("TEMP"))
+    }
+
     func test_write() {
         testWrite(from: fixturePath(),
                   initModel: { path -> PBXProj? in
