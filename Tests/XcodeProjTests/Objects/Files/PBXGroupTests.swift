@@ -199,6 +199,40 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertEqual(file!.sourceTree, .developerDir)
     }
 
+    func test_whenSearchingForFiles_thenTheAbsolutePathIsUsedForUniqueness() throws {
+        let project = makeEmptyPBXProj()
+        let group = PBXGroup(children: [],
+                             sourceTree: .absolute,
+                             name: "group")
+        project.add(object: group)
+
+        let rootPath = try Path.uniqueTemporary()
+        let subdir = rootPath + "subdir"
+        try subdir.mkdir()
+
+        let file1 = rootPath + "file"
+        let file2 = rootPath + "subdir/file"
+
+        let filesToRefs = try [file1, file2].reduce([Path: PBXFileReference]()) {
+            try Data().write(to: $1.url)
+            let file = try group.addFile(at: $1, sourceTree: .absolute, sourceRoot: rootPath)
+            return $0.merging([$1: file]) { _, new in new }
+        }
+
+        XCTAssertEqual(
+            group.file(with: "file", relativeTo: rootPath),
+            try XCTUnwrap(filesToRefs[file1])
+        )
+        XCTAssertEqual(
+            group.file(with: "file", relativeTo: rootPath + "subdir"),
+            try XCTUnwrap(filesToRefs[file2])
+        )
+        XCTAssertEqual(
+            group.file(with: "subdir/file", relativeTo: rootPath),
+            try XCTUnwrap(filesToRefs[file2])
+        )
+    }
+
     private func makeEmptyPBXProj() -> PBXProj {
         PBXProj(
             rootObject: nil,

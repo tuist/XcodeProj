@@ -120,10 +120,24 @@ public extension PBXGroup {
     ///
     /// - Parameter name: file name.
     /// - Returns: file with the given name contained in the given parent group.
+    @available(*, deprecated, message: "Please use file(with:relativeTo:). This method assumes all names in the group are unique")
     func file(named name: String) -> PBXFileReference? {
         childrenReferences
             .objects()
             .first(where: { $0.name == name })
+    }
+
+    /// Returns the file in the group with the given path, relative to a base path.
+    /// Will use the root path to generate normalized absolute paths for the search path
+    /// and also the file paths in the group.
+    ///
+    /// - Parameter path: a file path.
+    /// - Parameter basePath: a base path to search from.
+    /// - Returns: file with the given absolute path contained in the given parent group.
+    func file(with path: Path, relativeTo basePath: Path) -> PBXFileReference? {
+        let normalized = path.normalized(relativeTo: basePath)
+        return children
+            .first { $0.normalizedPath(relativeTo: basePath) == normalized } as? PBXFileReference
     }
 
     /// Creates a group with the given name and returns it.
@@ -231,5 +245,17 @@ public extension PBXGroup {
             childrenReferences.append(fileReference.reference)
         }
         return fileReference
+    }
+}
+
+private extension PBXFileElement {
+    func normalizedPath(relativeTo sourceRoot: Path) -> Path? {
+        path.map { Path($0).normalized(relativeTo: sourceRoot) }
+    }
+}
+
+private extension Path {
+    func normalized(relativeTo path: Path) -> Path {
+        (path + self).normalize()
     }
 }
