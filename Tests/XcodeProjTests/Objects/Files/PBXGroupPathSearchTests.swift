@@ -16,6 +16,7 @@ final class PBXGroupPathSearchTests: XCTestCase {
     let groupPathComponentsCount = 2
 
     let sourceRootName = "src"
+    let groupDirName = "theGroup"
     let subDirName = "subDir"
     let fileName = "theFile"
 
@@ -35,7 +36,7 @@ final class PBXGroupPathSearchTests: XCTestCase {
             objects: []
         )
         projectDir = try Path.uniqueTemporary()
-        try (projectDir + sourceRootName + subDirName).mkpath()
+//        try (projectDir + sourceRootName + groupDirName + subDirName).mkpath()
         try createGroup()
         files = Files(
             fileName: fileName,
@@ -59,8 +60,18 @@ final class PBXGroupPathSearchTests: XCTestCase {
 private extension PBXGroupPathSearchTests {
 
     func createGroup() throws {
-        let group = PBXGroup(children: [], sourceTree: .group, name: "group", path: sourceRootName)
-        let parent = PBXGroup(children: [group], sourceTree: .absolute, name: "parent", path: projectDir.string)
+        let group = PBXGroup(
+            children: [],
+            sourceTree: .group,
+            name: "group",
+            path: Path(components: [sourceRootName, groupDirName]).string
+        )
+        let parent = PBXGroup(
+            children: [group],
+            sourceTree: .absolute,
+            name: "parent",
+            path: projectDir.string
+        )
         project.add(object: parent)
         project.add(object: group)
         self.group = group
@@ -69,20 +80,20 @@ private extension PBXGroupPathSearchTests {
     func addToGroup(testFiles: Files, sourceTree: PBXSourceTree) throws -> PathToFileReferenceMap {
         try [testFiles.file1Path, testFiles.file2Path]
             .reduce([Path: PBXFileReference]()) { map, filePath in
-                let absolutePath = sourceRoot + filePath
-                try Data().write(to: absolutePath.url)
+//                let absolutePath = sourceRoot + filePath
+//                try Data().write(to: absolutePath.url)
                 let file = try group.addFile(
-                    at: absolutePath,
+                    at: filePath,
                     sourceTree: sourceTree,
                     sourceRoot: sourceRoot,
-                    validatePresence: true
+                    validatePresence: false
                 )
                 return map.merging([filePath: file]) { _, new in new }
             }
     }
 
-    func checkAssertions(for sourceTree: PBXSourceTree, line: UInt = #line) throws {
-        func assert(filePath: Path, hasReference: PBXFileReference?) {
+    func checkAssertions(for sourceTree: PBXSourceTree) throws {
+        func assert(filePath: Path, hasReference: PBXFileReference?, line: UInt = #line) {
             let actual = group.file(with: filePath, sourceRoot: sourceRoot)
             if let expected = hasReference {
                 XCTAssertEqual(actual, expected, file: #file, line: line)
