@@ -19,7 +19,7 @@ final class XCWorkspaceIntegrationTests: XCTestCase {
 
     func test_init_returnsAWorkspaceWithTheCorrectReference() {
         XCTAssertEqual(XCWorkspace().data.children.count, 1)
-        XCTAssertEqual(XCWorkspace().data.children.first, .file(.init(location: .self(""))))
+        XCTAssertEqual(XCWorkspace().data.children.first, .file(.init(location: ._self(""))))
     }
 
     func test_equatable_emptyWorkspacesAreEqual() {
