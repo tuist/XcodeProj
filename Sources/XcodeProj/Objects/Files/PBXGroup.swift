@@ -135,10 +135,11 @@ public extension PBXGroup {
     ///
     /// - Parameters:
     ///   - path: a file path to search for.
+    ///   - sourceRoot: path to project's source root.
     /// - Returns: an existing reference to that file, or `nil` if not found
-    func file(with path: Path) -> PBXFileReference? {
+    func file(with path: Path, sourceRoot: Path) -> PBXFileReference? {
         func absolutePath(for fileRef: PBXFileElement) -> Path? {
-            try? fileRef.fullPath(sourceRoot: ".")
+            try? fileRef.fullPath(sourceRoot: sourceRoot)
         }
         
         guard let groupAbsPath = absolutePath(for: self) else { return nil }
