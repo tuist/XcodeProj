@@ -15,17 +15,20 @@ final class PBXGroupPathSearchTests: XCTestCase {
 
     let groupPathComponentsCount = 2
 
-    let sourceRootName = "src"
-    let groupDirName = "theGroup"
-    let subDirName = "subDir"
-    let fileName = "theFile"
+    enum Names {
+        static let fileName = "theFile"
+        static let sourceRoot = "src"
+        static let group = "theGroup"
+        static let subDir = "subDir"
+    }
 
-    var projectDir: Path!
-    var sourceRoot: Path { projectDir + sourceRootName }
+    var projectPath: Path!
+    var sourceRoot: Path { projectPath + Names.sourceRoot }
+    var groupPath: Path { sourceRoot + Names.group }
+    var subDirPath: Path { groupPath + Names.subDir }
+
     var project: PBXProj!
     var group: PBXGroup!
-
-    var files: Files!
 
     override func setUpWithError() throws {
         project = PBXProj(
@@ -35,25 +38,38 @@ final class PBXGroupPathSearchTests: XCTestCase {
             classes: [:],
             objects: []
         )
-        projectDir = try Path.uniqueTemporary()
-//        try (projectDir + sourceRootName + groupDirName + subDirName).mkpath()
+        projectPath = try Path.uniqueTemporary()
+        try (projectPath + Names.sourceRoot + Names.group + Names.subDir).mkpath()
         try createGroup()
-        files = Files(
-            fileName: fileName,
-            file1Path: Path(fileName),
-            file2Path: Path(components: [subDirName, fileName])
-        )
     }
 
-    func test_whenFilesHaveAbsoluteSourceTree_thenCanBeFoundByPath() throws {
-        try checkAssertions(for: .absolute)
+    func test_whenFilesHaveAbsoluteSourceTree_thenCanBeFound() throws {
+        try checkAssertions(for: .absolute) {
+            Files(
+                fileName: Names.fileName,
+                file1Path: groupPath + Names.fileName,
+                file2Path: subDirPath + Names.fileName
+            )
+        }
     }
 
-    func test_whenFilesHaveGroupSourceTree_thenCanBeFoundByPath() throws {
-        try checkAssertions(for: .group)
+    func test_whenFilesHaveGroupSourceTree_thenCanBeFound() throws {
+        try checkAssertions(for: .group) {
+            Files(
+                fileName: Names.fileName,
+                file1Path: Path(Names.fileName),
+                file2Path: Path(components: [Names.subDir, Names.fileName])
+            )
+        }
     }
-    func test_whenFilesHaveSourceRootSourceTree_thenCanBeFoundByPath() throws {
-        try checkAssertions(for: .sourceRoot)
+    func test_whenFilesHaveSourceRootSourceTree_thenCanBeFound() throws {
+        try checkAssertions(for: .sourceRoot) {
+            Files(
+                fileName: Names.fileName,
+                file1Path: Path(components: [Names.sourceRoot, Names.fileName]),
+                file2Path: Path(components: [Names.sourceRoot, Names.subDir, Names.fileName])
+            )
+        }
     }
 }
 
@@ -64,24 +80,24 @@ private extension PBXGroupPathSearchTests {
             children: [],
             sourceTree: .group,
             name: "group",
-            path: Path(components: [sourceRootName, groupDirName]).string
+            path: Path(components: [Names.sourceRoot, Names.group]).string
         )
         let parent = PBXGroup(
             children: [group],
             sourceTree: .absolute,
             name: "parent",
-            path: projectDir.string
+            path: projectPath.string
         )
         project.add(object: parent)
         project.add(object: group)
         self.group = group
     }
 
-    func addToGroup(testFiles: Files, sourceTree: PBXSourceTree) throws -> PathToFileReferenceMap {
+    func addToGroup(
+        testFiles: Files, sourceTree: PBXSourceTree, sourceRoot: Path
+    ) throws -> PathToFileReferenceMap {
         try [testFiles.file1Path, testFiles.file2Path]
             .reduce([Path: PBXFileReference]()) { map, filePath in
-//                let absolutePath = sourceRoot + filePath
-//                try Data().write(to: absolutePath.url)
                 let file = try group.addFile(
                     at: filePath,
                     sourceTree: sourceTree,
@@ -92,7 +108,7 @@ private extension PBXGroupPathSearchTests {
             }
     }
 
-    func checkAssertions(for sourceTree: PBXSourceTree) throws {
+    func checkAssertions(for sourceTree: PBXSourceTree, with files: () -> Files) throws {
         func assert(filePath: Path, hasReference: PBXFileReference?, line: UInt = #line) {
             let actual = group.file(with: filePath, sourceRoot: sourceRoot)
             if let expected = hasReference {
@@ -102,9 +118,11 @@ private extension PBXGroupPathSearchTests {
             }
         }
 
+        let files = files()
         let fileReferenceFor = try addToGroup(
             testFiles: files,
-            sourceTree: sourceTree
+            sourceTree: sourceTree,
+            sourceRoot: projectPath
         )
 
         assert(
@@ -116,11 +134,11 @@ private extension PBXGroupPathSearchTests {
             hasReference: fileReferenceFor[files.file2Path]
         )
         assert(
-            filePath: files.file2Path + "../.." + fileName,
+            filePath: files.file2Path + "../.." + Names.fileName,
             hasReference: fileReferenceFor[files.file1Path]
         )
         assert(
-            filePath: files.file1Path + "../foo/.." + subDirName + fileName,
+            filePath: files.file1Path + "../foo/.." + Names.subDir + Names.fileName,
             hasReference: fileReferenceFor[files.file2Path]
         )
         assert(
