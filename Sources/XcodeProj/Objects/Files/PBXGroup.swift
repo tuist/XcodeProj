@@ -138,16 +138,7 @@ public extension PBXGroup {
     ///   - sourceRoot: path to project's source root.
     /// - Returns: an existing reference to that file, or `nil` if not found
     func file(with path: Path, sourceRoot: Path) -> PBXFileReference? {
-        func absolutePath(for fileRef: PBXFileElement) -> Path? {
-            try? fileRef.fullPath(sourceRoot: sourceRoot)
-        }
-        
-        guard let groupAbsPath = absolutePath(for: self) else { return nil }
-        let fileNormalizedAbsolutePath = (groupAbsPath + path).normalize()
-        return children.first {
-            guard let candidateAbsPath = absolutePath(for: $0) else { return false }
-            return candidateAbsPath.normalize() == fileNormalizedAbsolutePath
-        } as? PBXFileReference
+        try? existingFileReference(with: path, sourceRoot: sourceRoot)?.value
     }
 
     /// Creates a group with the given name and returns it.
@@ -211,17 +202,11 @@ public extension PBXGroup {
         }
         let groupPath = try fullPath(sourceRoot: sourceRoot)
 
-        if override, let existingFileReference = try projectObjects.fileReferences.first(where: {
-            // Optimization: compare lastComponent before fullPath compare
-            guard let fileRefPath = $0.value.path else {
-                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
-            }
-            let fileRefLastPathComponent = fileRefPath.split(separator: "/").last!
-            if filePath.lastComponent == fileRefLastPathComponent {
-                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
-            }
-            return false
-        }) {
+        if override, let existingFileReference = try self.existingFileReference(
+            from: projectObjects,
+            with: filePath,
+            sourceRoot: sourceRoot
+        ) {
             if !childrenReferences.contains(existingFileReference.key) {
                 existingFileReference.value.path = groupPath.flatMap { filePath.relative(to: $0) }?.string
                 childrenReferences.append(existingFileReference.key)
@@ -255,5 +240,26 @@ public extension PBXGroup {
             childrenReferences.append(fileReference.reference)
         }
         return fileReference
+    }
+}
+
+private extension PBXGroup {
+
+    func existingFileReference(
+        from objects: PBXObjects? = nil,
+        with filePath: Path,
+        sourceRoot: Path
+    ) throws -> (key: PBXObjectReference, value: PBXFileReference)? {
+        try (objects ?? self.objects()).fileReferences.first(where: {
+            // Optimization: compare lastComponent before fullPath compare
+            guard let fileRefPath = $0.value.path else {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            let fileRefLastPathComponent = fileRefPath.split(separator: "/").last!
+            if filePath.lastComponent == fileRefLastPathComponent {
+                return try filePath == $0.value.fullPath(sourceRoot: sourceRoot)
+            }
+            return false
+        })
     }
 }
