@@ -128,20 +128,25 @@ public extension PBXGroup {
             .first(where: { $0.name == name })
     }
 
-    /// Returns the file in the group with the given path, relative to a common base path.
-    /// - Note: Unlike the `file(named:)` API, considers the files's actual location on disk; therefore
-    /// can handle groups/projects that contain files with duplicated names.
-    /// `basePath` is likely to be the project's `$(SRCROOT)`, but can be any common root
-    /// between all files. Both arguments support traversal; i.e. `../`
+    /// Returns the file in the group with the given path, based on locations on-disk.
+    /// - Note: Paths function as-in Xcode; with respect to the group's `PBXSourceTree`.
+    /// Internally, identity is calculated based on normalized absolute paths for all files involved; i.e. actual
+    /// location in the file system.
     ///
     /// - Parameters:
     ///   - path: a file path to search for.
-    ///   - basePath: a base path to search from.
-    /// - Returns: file with the given absolute path contained in the given parent group.
-    func file(with path: Path, relativeTo basePath: Path) -> PBXFileReference? {
-        let normalized = path.normalized(relativeTo: basePath)
-        return children
-            .first { $0.normalizedPath(relativeTo: basePath) == normalized } as? PBXFileReference
+    /// - Returns: an existing reference to that file, or `nil` if not found
+    func file(with path: Path) -> PBXFileReference? {
+        func absolutePath(for fileRef: PBXFileElement) -> Path? {
+            try? fileRef.fullPath(sourceRoot: ".")
+        }
+        
+        guard let groupAbsPath = absolutePath(for: self) else { return nil }
+        let fileNormalizedAbsolutePath = (groupAbsPath + path).normalize()
+        return children.first {
+            guard let candidateAbsPath = absolutePath(for: $0) else { return false }
+            return candidateAbsPath.normalize() == fileNormalizedAbsolutePath
+        } as? PBXFileReference
     }
 
     /// Creates a group with the given name and returns it.
@@ -249,17 +254,5 @@ public extension PBXGroup {
             childrenReferences.append(fileReference.reference)
         }
         return fileReference
-    }
-}
-
-private extension PBXFileElement {
-    func normalizedPath(relativeTo sourceRoot: Path) -> Path? {
-        path.map { Path($0).normalized(relativeTo: sourceRoot) }
-    }
-}
-
-private extension Path {
-    func normalized(relativeTo path: Path) -> Path {
-        (path + self).normalize()
     }
 }

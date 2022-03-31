@@ -199,37 +199,74 @@ final class PBXGroupTests: XCTestCase {
         XCTAssertEqual(file!.sourceTree, .developerDir)
     }
 
-    func test_whenSearchingForFiles_thenTheAbsolutePathIsUsedForUniqueness() throws {
+    func test_whenSearchingForFilesByPath_thenNormalizedAbsolutePathsAreUsedInternallyForUniqueness() throws {
         let project = makeEmptyPBXProj()
-        let group = PBXGroup(children: [],
-                             sourceTree: .absolute,
-                             name: "group")
-        project.add(object: group)
+        let subDirectoryName = UUID().uuidString
 
-        let rootPath = try Path.uniqueTemporary()
-        let subdir = rootPath + "subdir"
-        try subdir.mkdir()
+        func prepareDirectories() throws -> (projectDir: Path, groupDir: Path, group: PBXGroup) {
+            let absolutePath = try Path.uniqueTemporary()
+            let splitSize = 2
+            let projectDir = Path(components: absolutePath.components[0..<absolutePath.components.count-splitSize])
+            let groupDir = Path(components: absolutePath.components.reversed()[0..<splitSize].reversed())
+            XCTAssertEqual(projectDir + groupDir, absolutePath)
 
-        let file1 = rootPath + "file"
-        let file2 = rootPath + "subdir/file"
+            let subDir = absolutePath + subDirectoryName
+            try subDir.mkdir()
 
-        let filesToRefs = try [file1, file2].reduce([Path: PBXFileReference]()) {
-            try Data().write(to: $1.url)
-            let file = try group.addFile(at: $1, sourceTree: .absolute, sourceRoot: rootPath)
-            return $0.merging([$1: file]) { _, new in new }
+            let group = PBXGroup(children: [], sourceTree: .group, name: "group", path: ".")
+            let parent = PBXGroup(children: [group], sourceTree: .absolute, name: "parent", path: projectDir.string)
+            project.add(object: parent)
+            project.add(object: group)
+
+            return (projectDir, groupDir, group)
         }
 
-        XCTAssertEqual(
-            group.file(with: "file", relativeTo: rootPath),
-            try XCTUnwrap(filesToRefs[file1])
+        let (projectDir, groupDir, theGroup) = try prepareDirectories()
+
+        let fileName = UUID().uuidString
+        let file1Path = groupDir + fileName
+        let file2Path = groupDir + subDirectoryName + fileName
+
+        let fileReferenceFor = try [file1Path, file2Path]
+            .reduce([Path: PBXFileReference]()) { map, filePath in
+                let absolutePath = projectDir + filePath
+                try Data().write(to: absolutePath.url)
+                let file = try theGroup.addFile(
+                    at: absolutePath,
+                    sourceTree: .group,
+                    sourceRoot: projectDir)
+
+                return map.merging([filePath: file]) { _, new in new }
+            }
+
+        func assert(filePath: Path, hasReference: PBXFileReference?, line: UInt = #line) {
+            let actual = theGroup.file(with: filePath)
+            if let expected = hasReference {
+                XCTAssertEqual(actual, expected, file: #file, line: line)
+            } else {
+                XCTAssertNil(actual, file: #file, line: line)
+            }
+        }
+
+        assert(
+            filePath: file1Path,
+            hasReference: fileReferenceFor[file1Path]
         )
-        XCTAssertEqual(
-            group.file(with: "file", relativeTo: rootPath + "subdir"),
-            try XCTUnwrap(filesToRefs[file2])
+        assert(
+            filePath: file2Path,
+            hasReference: fileReferenceFor[file2Path]
         )
-        XCTAssertEqual(
-            group.file(with: "subdir/file", relativeTo: rootPath),
-            try XCTUnwrap(filesToRefs[file2])
+        assert(
+            filePath: groupDir + subDirectoryName + ".." + fileName,
+            hasReference: fileReferenceFor[file1Path]
+        )
+        assert(
+            filePath: groupDir + "foo/.." + subDirectoryName + fileName,
+            hasReference: fileReferenceFor[file2Path]
+        )
+        assert(
+            filePath: Path(UUID().uuidString),
+            hasReference: nil
         )
     }
 
