@@ -28,7 +28,7 @@ public final class XCWorkspace: Writable, Equatable {
 
     /// Initializes a default workspace with a single reference that points to self:
     public convenience init() {
-        let data = XCWorkspaceData(children: [.file(.init(location: ._self("")))])
+        let data = XCWorkspaceData(children: [.file(.init(location: .current("")))])
         self.init(data: data)
     }
 

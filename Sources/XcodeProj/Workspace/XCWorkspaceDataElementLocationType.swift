@@ -9,7 +9,7 @@ public enum XCWorkspaceDataElementLocationType {
     case container(String) // "Relative to container"
     case developer(String) // "Relative to Developer Directory"
     case group(String) // "Relative to group"
-    case _self(String) // Single project workspace in xcodeproj directory
+    case current(String) // Single project workspace in xcodeproj directory
     case other(String, String)
 
     public var schema: String {
@@ -22,7 +22,7 @@ public enum XCWorkspaceDataElementLocationType {
             return "developer"
         case .group:
             return "group"
-        case ._self:
+        case .current:
             return "self"
         case let .other(schema, _):
             return schema
@@ -39,7 +39,7 @@ public enum XCWorkspaceDataElementLocationType {
             return path
         case let .group(path):
             return path
-        case let ._self(path):
+        case let .current(path):
             return path
         case let .other(_, path):
             return path
@@ -62,7 +62,7 @@ public enum XCWorkspaceDataElementLocationType {
         case "group":
             self = .group(path)
         case "self":
-            self = ._self(path)
+            self = .current(path)
         default:
             self = .other(schema, path)
         }
@@ -86,7 +86,7 @@ extension XCWorkspaceDataElementLocationType: Equatable {
             return lhs == rhs
         case let (.group(lhs), .group(rhs)):
             return lhs == rhs
-        case let (._self(lhs), ._self(rhs)):
+        case let (.current(lhs), .current(rhs)):
             return lhs == rhs
         case let (.other(lhs0, lhs1), .other(rhs0, rhs1)):
             return lhs0 == rhs0 && lhs1 == rhs1

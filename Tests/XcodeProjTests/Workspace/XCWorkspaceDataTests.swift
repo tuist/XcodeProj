@@ -10,7 +10,7 @@ final class XCWorkspaceDataTests: XCTestCase {
     override func setUp() {
         super.setUp()
         fileRef = XCWorkspaceDataFileRef(
-            location: ._self("path")
+            location: .current("path")
         )
         subject = XCWorkspaceData(children: [])
     }
@@ -26,7 +26,7 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
         let path = fixturePath()
         let got = try XCWorkspaceData(path: path)
         if case let XCWorkspaceDataElement.file(location: fileRef) = got.children.first! {
-            XCTAssertEqual(fileRef.location, ._self(""))
+            XCTAssertEqual(fileRef.location, .current(""))
         } else {
             XCTAssertTrue(false, "Expected file reference")
         }
@@ -45,7 +45,7 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
             initModel: { try? XCWorkspaceData(path: $0) },
             modify: {
                 $0.children.append(
-                    .group(.init(location: ._self("shakira"),
+                    .group(.init(location: .current("shakira"),
                                  name: "shakira",
                                  children: []))
                 )
