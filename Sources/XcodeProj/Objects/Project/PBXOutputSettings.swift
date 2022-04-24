@@ -81,7 +81,7 @@ public enum PBXNavigatorFileOrder {
     /// Leave the files unsorted.
     case unsorted
 
-    /// Sort the file by their file name. This is a case sensitive sort with uppercase name preceeding lowercase names.
+    /// Sort the file by their file name. This is a case sensitive sort with uppercase name preceding lowercase names.
     case byFilename
 
     /// Sorts the files by their file names with all groups appear at the top of the list.
