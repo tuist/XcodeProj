@@ -68,7 +68,7 @@ We the project already in memory, we are going to output all the targets that ar
 
 ```swift
 let pbxproj = xcodeproj.pbxproj // Returns a PBXProj
-pbxproj.nativeTargets.each { target in
+pbxproj.nativeTargets.forEach { target in
   print(target.name)
 }
 ```
