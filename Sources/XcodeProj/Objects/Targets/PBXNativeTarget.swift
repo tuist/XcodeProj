@@ -9,7 +9,7 @@ public final class PBXNativeTarget: PBXTarget {
     ///
     /// - Parameters:
     ///   - name: target name.
-    ///   - buildConfigurationList: build configuratino list.
+    ///   - buildConfigurationList: build configuration list.
     ///   - buildPhases: build phases.
     ///   - buildRules: build rules.
     ///   - dependencies: dependencies.
