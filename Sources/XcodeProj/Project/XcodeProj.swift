@@ -8,7 +8,7 @@ public final class XcodeProj: Equatable {
     /// Project workspace
     public var workspace: XCWorkspace
 
-    /// .pbxproj representatino
+    /// .pbxproj representation
     public var pbxproj: PBXProj
 
     /// Shared data.
