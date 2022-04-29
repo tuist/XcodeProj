@@ -109,7 +109,7 @@ public final class PBXProj: Decodable {
         return pbxproj
     }
 
-    internal static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
+    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
         let plistXML = try Data(contentsOf: path.url)
         var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
         let serialized = try PropertyListSerialization.propertyList(
