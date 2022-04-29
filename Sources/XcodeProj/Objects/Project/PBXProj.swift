@@ -92,6 +92,35 @@ public final class PBXProj: Decodable {
 
         try rootGroup()?.assignParentToChildren()
     }
+
+    // MARK: Static Methods
+
+    public static func createPBXProj(path: Path) throws -> PBXProj {
+        let (pbxProjData, pbxProjDictionary) = try PBXProj.readPBXProj(path: path)
+        let context = ProjectDecodingContext(
+            pbxProjValueReader: { key in
+                pbxProjDictionary[key]
+            }
+        )
+
+        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
+        let pbxproj: PBXProj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
+        try pbxproj.updateProjectName(path: path)
+        return pbxproj
+    }
+
+    internal static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
+        let plistXML = try Data(contentsOf: path.url)
+        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
+        let serialized = try PropertyListSerialization.propertyList(
+            from: plistXML,
+            options: .mutableContainersAndLeaves,
+            format: &propertyListFormat
+        )
+        // swiftlint:disable:next force_cast
+        let pbxProjDictionary = serialized as! [String: Any]
+        return (plistXML, pbxProjDictionary)
+    }
 }
 
 // MARK: - Public helpers
@@ -198,7 +227,7 @@ public extension PBXProj {
 extension PBXProj {
     /// Infers project name from Path and sets it as project name
     ///
-    /// Project name is needed for certain comments when serialising PBXProj
+    /// Project name is needed for certain comments when serializing PBXProj
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
