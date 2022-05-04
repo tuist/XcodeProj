@@ -52,6 +52,24 @@ public final class PBXProj: Decodable {
         }
     }
 
+    /// Initializes the project with a path to the pbxproj file.
+    ///
+    /// - Parameters:
+    ///   - path: Path to a pbxproj file.
+    public convenience init(path: Path) throws {
+        let pbxproject: PBXProj = try PBXProj.createPBXProj(path: path)
+        var objects: [PBXObject] = []
+        pbxproject.objects.forEach { object in
+            objects.append(object)
+        }
+        self.init(
+            rootObject: pbxproject.rootObject,
+            objectVersion: pbxproject.objectVersion,
+            archiveVersion: pbxproject.archiveVersion,
+            classes: pbxproject.classes,
+            objects: objects)
+    }
+
     // MARK: - Decodable
 
     fileprivate enum CodingKeys: String, CodingKey {
@@ -95,7 +113,7 @@ public final class PBXProj: Decodable {
 
     // MARK: Static Methods
 
-    public static func createPBXProj(path: Path) throws -> PBXProj {
+    private static func createPBXProj(path: Path) throws -> PBXProj {
         let (pbxProjData, pbxProjDictionary) = try PBXProj.readPBXProj(path: path)
         let context = ProjectDecodingContext(
             pbxProjValueReader: { key in

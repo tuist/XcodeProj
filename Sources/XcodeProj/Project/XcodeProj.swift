@@ -25,7 +25,7 @@ public final class XcodeProj: Equatable {
         guard let pbxprojPath = path.glob("*.pbxproj").first else {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        pbxproj = try PBXProj.createPBXProj(path: pbxprojPath)
+        pbxproj = try PBXProj(path: pbxprojPath)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.isEmpty {
             workspace = XCWorkspace()
