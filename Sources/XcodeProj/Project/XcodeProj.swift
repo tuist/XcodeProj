@@ -25,16 +25,7 @@ public final class XcodeProj: Equatable {
         guard let pbxprojPath = path.glob("*.pbxproj").first else {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        let (pbxProjData, pbxProjDictionary) = try XcodeProj.readPBXProj(path: pbxprojPath)
-        let context = ProjectDecodingContext(
-            pbxProjValueReader: { key in
-                pbxProjDictionary[key]
-            }
-        )
-
-        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
-        pbxproj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
-        try pbxproj.updateProjectName(path: pbxprojPath)
+        pbxproj = try PBXProj(path: pbxprojPath)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.isEmpty {
             workspace = XCWorkspace()
@@ -71,21 +62,6 @@ public final class XcodeProj: Equatable {
             lhs.pbxproj == rhs.pbxproj &&
             lhs.sharedData == rhs.sharedData
     }
-
-    // MARK: - Private
-
-    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
-        let plistXML = try Data(contentsOf: path.url)
-        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
-        let serialized = try PropertyListSerialization.propertyList(
-            from: plistXML,
-            options: .mutableContainersAndLeaves,
-            format: &propertyListFormat
-        )
-        // swiftlint:disable:next force_cast
-        let pbxProjDictionary = serialized as! [String: Any]
-        return (plistXML, pbxProjDictionary)
-    }
 }
 
 // MARK: - <Writable>
@@ -117,7 +93,7 @@ extension XcodeProj: Writable {
     /// Returns workspace file path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
-    /// - Returns: worspace file path relative to the given path.
+    /// - Returns: workspace file path relative to the given path.
     public static func workspacePath(_ path: Path) -> Path {
         path + "project.xcworkspace"
     }
