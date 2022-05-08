@@ -57,17 +57,28 @@ public final class PBXProj: Decodable {
     /// - Parameters:
     ///   - path: Path to a pbxproj file.
     public convenience init(path: Path) throws {
-        let pbxproject: PBXProj = try PBXProj.createPBXProj(path: path)
-        var objects: [PBXObject] = []
-        pbxproject.objects.forEach { object in
-            objects.append(object)
-        }
+        let pbxproj: PBXProj = try PBXProj.createPBXProj(path: path)
         self.init(
-            rootObject: pbxproject.rootObject,
-            objectVersion: pbxproject.objectVersion,
-            archiveVersion: pbxproject.archiveVersion,
-            classes: pbxproject.classes,
-            objects: objects)
+            rootObject: pbxproj.rootObject,
+            objectVersion: pbxproj.objectVersion,
+            archiveVersion: pbxproj.archiveVersion,
+            classes: pbxproj.classes,
+            objects: pbxproj.objects
+        )
+    }
+
+    private init(
+        rootObject: PBXProject? = nil,
+        objectVersion: UInt = Xcode.LastKnown.objectVersion,
+        archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
+        classes: [String: Any] = [:],
+        objects: PBXObjects
+    ) {
+        self.archiveVersion = archiveVersion
+        self.objectVersion = objectVersion
+        self.classes = classes
+        rootObjectReference = rootObject?.reference
+        self.objects = objects
     }
 
     // MARK: - Decodable
