@@ -9,9 +9,15 @@ import Foundation
 // Also note that we use the .fileName() function to retrieve the name as both .path and .name properties can be nil.
 
 private func sortUsingNames(_ lhs: PBXBuildFile, _ rhs: PBXBuildFile) -> Bool {
-    // If the filename is the same, the PBXFileElement UUIDs will match. Compare PBXBuildFile's UUIDs instead.
-    if let lhsFilename = lhs.file?.fileName(), let rhsFilename = rhs.file?.fileName(), lhsFilename != rhsFilename {
+    guard let lhsFile = lhs.file, let rhsFile = rhs.file else {
+        return lhs.uuid < rhs.uuid
+    }
+    // If the filename is the same, the PBXFileElement UUIDs may or may not match.
+    if let lhsFilename = lhsFile.fileName(), let rhsFilename = rhsFile.fileName(), lhsFilename != rhsFilename {
         return lhsFilename < rhsFilename
+    }
+    if lhsFile.uuid != rhsFile.uuid {
+        return lhsFile.uuid < rhsFile.uuid
     }
     return lhs.uuid < rhs.uuid
 }
