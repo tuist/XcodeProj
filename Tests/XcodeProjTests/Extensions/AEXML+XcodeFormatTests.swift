@@ -10,7 +10,7 @@ extension String {
 }
 
 class AEXML_XcodeFormatTests: XCTestCase {
-    private let expectedXml =
+    private let expecteBuildActionXml =
         """
         <?xml version="1.0" encoding="UTF-8"?>
         <BuildAction
@@ -20,27 +20,80 @@ class AEXML_XcodeFormatTests: XCTestCase {
         </BuildAction>
         """
 
+    private let expectedLaunchActionXml =
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <LaunchAction
+           buildConfiguration = "Debug"
+           selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+           customLLDBInitFile = "$(BAZEL_LLDB_INIT)"
+           launchStyle = "0"
+           allowLocationSimulation = "YES">
+        </LaunchAction>
+        """
+
     func test_BuildAction_attributes_sorted_when_original_sorted() {
-        validateAttributes(attributes: [
-            "parallelizeBuildables": "YES",
-            "runPostActionsOnFailure": "YES",
-            "buildImplicitDependencies": "NO",
-        ])
+        validateAttributes(
+            expectedXML: expecteBuildActionXml.cleaned,
+            childName: "BuildAction",
+            attributes: [
+                "parallelizeBuildables": "YES",
+                "runPostActionsOnFailure": "YES",
+                "buildImplicitDependencies": "NO",
+            ]
+        )
     }
 
     func test_BuildAction_attributes_sorted_when_original_unsorted() {
-        validateAttributes(attributes: [
-            "buildImplicitDependencies": "NO",
-            "parallelizeBuildables": "YES",
-            "runPostActionsOnFailure": "YES",
-        ])
+        validateAttributes(
+            expectedXML: expecteBuildActionXml.cleaned,
+            childName: "BuildAction",
+            attributes: [
+                "buildImplicitDependencies": "NO",
+                "parallelizeBuildables": "YES",
+                "runPostActionsOnFailure": "YES",
+            ]
+        )
     }
 
-    func validateAttributes(attributes: [String: String], line: UInt = #line) {
+    func test_LaunchAction_attributes_sorted_when_original_sorted() {
+        validateAttributes(
+            expectedXML: expectedLaunchActionXml.cleaned,
+            childName: "LaunchAction",
+            attributes: [
+                "buildConfiguration": "Debug",
+                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
+                "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
+                "launchStyle": "0",
+                "allowLocationSimulation": "YES"
+            ]
+        )
+    }
+
+    func test_LaunchAction_attributes_sorted_when_original_unsorted() {
+        validateAttributes(
+            expectedXML: expectedLaunchActionXml.cleaned,
+            childName: "LaunchAction",
+            attributes: [
+                "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
+                "allowLocationSimulation": "YES",
+                "buildConfiguration": "Debug",
+                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
+                "launchStyle": "0",
+            ]
+        )
+    }
+
+    func validateAttributes(
+        expectedXML: String,
+        childName: String,
+        attributes: [String: String],
+        line: UInt = #line
+    ) {
         let document = AEXMLDocument()
-        let child = document.addChild(name: "BuildAction")
+        let child = document.addChild(name: childName)
         child.attributes = attributes
         let result = document.xmlXcodeFormat
-        XCTAssertEqual(expectedXml.cleaned, result.cleaned, line: line)
+        XCTAssertEqual(expectedXML, result.cleaned, line: line)
     }
 }
