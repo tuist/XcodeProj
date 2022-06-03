@@ -10,7 +10,7 @@ extension String {
 }
 
 class AEXML_XcodeFormatTests: XCTestCase {
-    private let expecteBuildActionXml =
+    private let expectedBuildActionXml =
         """
         <?xml version="1.0" encoding="UTF-8"?>
         <BuildAction
@@ -34,7 +34,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
 
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(
-            expectedXML: expecteBuildActionXml.cleaned,
+            expectedXML: expectedBuildActionXml.cleaned,
             childName: "BuildAction",
             attributes: [
                 "parallelizeBuildables": "YES",
@@ -46,7 +46,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
 
     func test_BuildAction_attributes_sorted_when_original_unsorted() {
         validateAttributes(
-            expectedXML: expecteBuildActionXml.cleaned,
+            expectedXML: expectedBuildActionXml.cleaned,
             childName: "BuildAction",
             attributes: [
                 "buildImplicitDependencies": "NO",
