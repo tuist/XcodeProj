@@ -6,18 +6,22 @@ class PBXOutputSettingsTests: XCTestCase {
     var proj: PBXProj!
     var buildFileAssets: PBXBuildFile!
     var buildFileMain: PBXBuildFile!
+    var buildFileSameName: [PBXBuildFile]!
 
     var objectBuildFileAssets: (PBXObjectReference, PBXBuildFile)!
     var objectBuildFileMain: (PBXObjectReference, PBXBuildFile)!
+    var objectBuildFileSameName: [(PBXObjectReference, PBXBuildFile)]!
 
     var objectBuildPhaseFileAssets: (PBXObjectReference, PBXBuildPhaseFile)!
     var objectBuildPhaseFileMain: (PBXObjectReference, PBXBuildPhaseFile)!
 
     var fileReferenceAssets: PBXFileReference!
     var fileReferenceCoreData: PBXFileReference!
+    var fileReferenceSameName: [PBXFileReference]!
 
     var objectFileReferenceAssets: (PBXObjectReference, PBXFileReference)!
     var objectFileReferenceCoreData: (PBXObjectReference, PBXFileReference)!
+    var objectFileReferenceSameName: [(PBXObjectReference, PBXFileReference)]!
 
     var groupFrameworks: PBXGroup!
     var groupProducts: PBXGroup!
@@ -35,21 +39,25 @@ class PBXOutputSettingsTests: XCTestCase {
             XCTFail("Failed to load project from file: \(error)")
         }
 
-//        proj.buildFiles.forEach { print("\(type(of: $0.file!)) \($0.file!.fileName()!)") }
+//        proj.buildFiles.forEach { print("\(type(of: $0.file)) \($0.file?.fileName())") }
         buildFileAssets = proj.buildFiles.first { $0.file?.fileName() == "Assets.xcassets" }!
         buildFileMain = proj.buildFiles.first { $0.file?.fileName() == "Main.storyboard" }!
+        buildFileSameName = proj.buildFiles.filter { $0.file?.fileName() == "SameName.h" }
 
         objectBuildFileAssets = (buildFileAssets.reference, buildFileAssets)
         objectBuildFileMain = (buildFileMain.reference, buildFileMain)
+        objectBuildFileSameName = proj.buildFiles.map { ($0.reference, $0) }
 
         objectBuildPhaseFileAssets = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Assets.xcassets" }!
         objectBuildPhaseFileMain = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Main.storyboard" }!
 
         fileReferenceAssets = proj.fileReferences.first { $0.fileName() == "Assets.xcassets" }!
         fileReferenceCoreData = proj.fileReferences.first { $0.fileName() == "CoreData.framework" }!
+        fileReferenceSameName = proj.fileReferences.filter { $0.fileName() == "SameName.framework" }
 
         objectFileReferenceAssets = (buildFileAssets.reference, fileReferenceAssets)
         objectFileReferenceCoreData = (buildFileMain.reference, fileReferenceCoreData)
+        objectFileReferenceSameName = fileReferenceSameName.map { ($0.reference, $0) }
 
         groupFrameworks = proj.groups.first { $0.fileName() == "Frameworks" }!
         groupProducts = proj.groups.first { $0.fileName() == "Products" }!
@@ -70,6 +78,9 @@ class PBXOutputSettingsTests: XCTestCase {
     func test_PBXFileOrder_PBXBuildFile_by_filename() {
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectBuildFileAssets, rhs: objectBuildFileMain))
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectBuildFileMain, rhs: objectBuildFileAssets))
+        
+        let sameNameByFilename = objectBuildFileSameName.sorted(by: PBXFileOrder.byFilename.sort)
+        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)
     }
 
     func test_PBXFileOrder_PBXBuildFile_by_filename_when_nil_name_and_path() {
@@ -112,6 +123,8 @@ class PBXOutputSettingsTests: XCTestCase {
     func test_PBXFileOrder_PBXFileReference_by_filename() {
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceAssets, rhs: objectFileReferenceCoreData))
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceCoreData, rhs: objectFileReferenceAssets))
+        let sameNameByFilename = objectFileReferenceSameName.sorted(by: PBXFileOrder.byFilename.sort)
+        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)
     }
 
     func test_PBXFileOrder_PBXFileReference_by_filename_when_nil_name_and_path() {
