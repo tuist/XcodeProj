@@ -94,6 +94,6 @@ class AEXML_XcodeFormatTests: XCTestCase {
         let child = document.addChild(name: childName)
         child.attributes = attributes
         let result = document.xmlXcodeFormat
-        XCTAssertEqual(expectedXML, result.cleaned, line: line)
+        XCTAssertEqual(result.cleaned, expectedXML, line: line)
     }
 }
