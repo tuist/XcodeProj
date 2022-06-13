@@ -32,6 +32,17 @@ class AEXML_XcodeFormatTests: XCTestCase {
         </LaunchAction>
         """
 
+    private let expectedTestActionXml =
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <TestAction
+           buildConfiguration = "Debug"
+           selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+           customLLDBInitFile = "$(BAZEL_LLDB_INIT)"
+           shouldUseLaunchSchemeArgsEnv = "YES">
+        </TestAction>
+        """
+
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(
             expectedXML: expectedBuildActionXml.cleaned,
@@ -80,6 +91,32 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
                 "launchStyle": "0",
+            ]
+        )
+    }
+
+    func test_TestAction_attributes_sorted_when_original_sorted() {
+        validateAttributes(
+            expectedXML: expectedTestActionXml.cleaned,
+            childName: "TestAction",
+            attributes: [
+                "buildConfiguration": "Debug",
+                "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
+                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
+                "shouldUseLaunchSchemeArgsEnv": "YES"
+            ]
+        )
+    }
+
+    func test_TestAction_attributes_sorted_when_original_unsorted() {
+        validateAttributes(
+            expectedXML: expectedTestActionXml.cleaned,
+            childName: "TestAction",
+            attributes: [
+                "shouldUseLaunchSchemeArgsEnv": "YES",
+                "buildConfiguration": "Debug",
+                "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
+                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB"
             ]
         )
     }
