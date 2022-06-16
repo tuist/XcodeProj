@@ -33,6 +33,7 @@ let attributesOrder: [String: [String]] = [
         "buildConfiguration",
         "selectedDebuggerIdentifier",
         "selectedLauncherIdentifier",
+        "customLLDBInitFile",
         "language",
         "region",
         "codeCoverageEnabled",
