@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -176,6 +176,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://KrisRJack.com"><img src="https://avatars.githubusercontent.com/u/35638500?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kristopher Jackson</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=KrisRJack" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Jake-Prickett"><img src="https://avatars.githubusercontent.com/u/26095410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jake Prickett</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Jake-Prickett" title="Code">💻</a></td>
     <td align="center"><a href="http://www.jakeadams.co"><img src="https://avatars.githubusercontent.com/u/3605966?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jake Adams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=jakeatoms" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mtj0928"><img src="https://avatars.githubusercontent.com/u/12427733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matsuji</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mtj0928" title="Code">💻</a></td>
   </tr>
 </table>
 
