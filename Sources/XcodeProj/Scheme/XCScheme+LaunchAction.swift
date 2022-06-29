@@ -57,6 +57,7 @@ extension XCScheme {
         public var enableUBSanitizer: Bool
         public var stopOnEveryUBSanitizerIssue: Bool
         public var disableMainThreadChecker: Bool
+        public var disablePerformanceAntipatternChecker: Bool
         public var stopOnEveryMainThreadCheckerIssue: Bool
         public var additionalOptions: [AdditionalOption]
         public var commandlineArguments: CommandLineArguments?
@@ -96,6 +97,7 @@ extension XCScheme {
                     enableUBSanitizer: Bool = false,
                     stopOnEveryUBSanitizerIssue: Bool = false,
                     disableMainThreadChecker: Bool = false,
+                    disablePerformanceAntipatternChecker: Bool = false,
                     stopOnEveryMainThreadCheckerIssue: Bool = false,
                     additionalOptions: [AdditionalOption] = [],
                     commandlineArguments: CommandLineArguments? = nil,
@@ -129,6 +131,7 @@ extension XCScheme {
             self.enableUBSanitizer = enableUBSanitizer
             self.stopOnEveryUBSanitizerIssue = stopOnEveryUBSanitizerIssue
             self.disableMainThreadChecker = disableMainThreadChecker
+            self.disablePerformanceAntipatternChecker = disablePerformanceAntipatternChecker
             self.stopOnEveryMainThreadCheckerIssue = stopOnEveryMainThreadCheckerIssue
             self.additionalOptions = additionalOptions
             self.commandlineArguments = commandlineArguments
@@ -191,6 +194,7 @@ extension XCScheme {
             enableUBSanitizer = element.attributes["enableUBSanitizer"] == "YES"
             stopOnEveryUBSanitizerIssue = element.attributes["stopOnEveryUBSanitizerIssue"] == "YES"
             disableMainThreadChecker = element.attributes["disableMainThreadChecker"] == "YES"
+            disablePerformanceAntipatternChecker = element.attributes["disablePerformanceAntipatternChecker"] == "YES"
             stopOnEveryMainThreadCheckerIssue = element.attributes["stopOnEveryMainThreadCheckerIssue"] == "YES"
 
             additionalOptions = try element["AdditionalOptions"]["AdditionalOption"]
@@ -266,6 +270,9 @@ extension XCScheme {
             }
             if disableMainThreadChecker {
                 attributes["disableMainThreadChecker"] = disableMainThreadChecker.xmlString
+            }
+            if disablePerformanceAntipatternChecker {
+                attributes["disablePerformanceAntipatternChecker"] = disablePerformanceAntipatternChecker.xmlString
             }
             if stopOnEveryMainThreadCheckerIssue {
                 attributes["stopOnEveryMainThreadCheckerIssue"] = stopOnEveryMainThreadCheckerIssue.xmlString
@@ -365,6 +372,7 @@ extension XCScheme {
                 enableUBSanitizer == rhs.enableUBSanitizer &&
                 stopOnEveryUBSanitizerIssue == rhs.stopOnEveryUBSanitizerIssue &&
                 disableMainThreadChecker == rhs.disableMainThreadChecker &&
+                disablePerformanceAntipatternChecker == rhs.disablePerformanceAntipatternChecker &&
                 stopOnEveryMainThreadCheckerIssue == rhs.stopOnEveryMainThreadCheckerIssue &&
                 additionalOptions == rhs.additionalOptions &&
                 commandlineArguments == rhs.commandlineArguments &&
