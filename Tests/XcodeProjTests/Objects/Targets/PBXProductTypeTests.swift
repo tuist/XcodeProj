@@ -39,6 +39,10 @@ final class PBXProductTypeTests: XCTestCase {
         XCTAssertEqual(PBXProductType.appExtension.rawValue, "com.apple.product-type.app-extension")
     }
 
+    func test_extensionKitExtension_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.extensionKitExtension.rawValue, "com.apple.product-type.extensionkit-extension")
+    }
+
     func test_commandLineTool_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.commandLineTool.rawValue, "com.apple.product-type.tool")
     }
