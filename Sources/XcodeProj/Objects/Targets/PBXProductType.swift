@@ -48,7 +48,8 @@ public enum PBXProductType: String, Decodable {
             return "bundle"
         case .unitTestBundle, .uiTestBundle:
             return "xctest"
-        case .appExtension, .extensionKitExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension, .intentsServiceExtension:
+        case .appExtension, .extensionKitExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension,
+                .intentsServiceExtension:
             return "appex"
         case .commandLineTool:
             return nil
