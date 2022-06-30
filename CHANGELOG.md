@@ -2,6 +2,10 @@
 
 ## Next
 
+### Added
+
+- Added `disablePerformanceAntipatternChecker` to `XCScheme` [#693](https://github.com/tuist/XcodeProj/pull/603) by [@Bogdan-Belogurov](https://github.com/Bogdan-Belogurov)
+
 ## 8.7.1
 
 ### Changed

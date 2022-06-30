@@ -460,6 +460,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.enableUBSanitizer, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryUBSanitizerIssue, false)
         XCTAssertEqual(scheme.launchAction?.disableMainThreadChecker, false)
+        XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
 
@@ -544,6 +545,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.enableUBSanitizer, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryUBSanitizerIssue, false)
         XCTAssertEqual(scheme.launchAction?.disableMainThreadChecker, false)
+        XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
         XCTAssertNil(scheme.launchAction?.storeKitConfigurationFileReference)
@@ -636,6 +638,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.enableUBSanitizer, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryUBSanitizerIssue, false)
         XCTAssertEqual(scheme.launchAction?.disableMainThreadChecker, false)
+        XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
         XCTAssertNil(scheme.launchAction?.storeKitConfigurationFileReference)
