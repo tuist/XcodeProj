@@ -245,6 +245,12 @@ public class BuildSettingsProvider {
             return [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
+        case ([.iOS, .watchOS, .tvOS], .bundle):
+            // Assumption here is `.bundle` is used on those platforms for resource bundle targets,
+            // where code signing is not required.
+            return [
+                "CODE_SIGNING_ALLOWED": "NO",
+            ]
         case (.macOS, .framework):
             return [
                 "COMBINE_HIDPI_IMAGES": "YES",

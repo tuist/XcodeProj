@@ -236,6 +236,25 @@ class BuildSettingProviderTests: XCTestCase {
         ])
     }
 
+    func test_targetSettings_iOSResourceBundle() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(
+            variant: .debug,
+            platform: .iOS,
+            product: .bundle
+        )
+
+        // Then
+        assertEqualSettings(results, [
+            "CODE_SIGNING_ALLOWED": "NO",
+            "CODE_SIGN_IDENTITY": "iPhone Developer",
+            "SDKROOT": "iphoneos",
+            "SKIP_INSTALL": "YES",
+            "TARGETED_DEVICE_FAMILY": "1,2",
+            "WRAPPER_EXTENSION": "bundle",
+        ])
+    }
+
     // MARK: - Helpers
 
     func assertEqualSettings(_ lhs: BuildSettings, _ rhs: BuildSettings, file: StaticString = #file, line: UInt = #line) {
