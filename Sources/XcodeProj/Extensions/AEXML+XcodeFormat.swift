@@ -92,6 +92,11 @@ let attributesOrder: [String: [String]] = [
         "symbolName",
         "moduleName",
     ],
+    "Scheme": [
+        "LastUpgradeVersion",
+        "wasCreatedForAppExtension",
+        "version"
+    ]
 ]
 
 extension AEXMLElement {
