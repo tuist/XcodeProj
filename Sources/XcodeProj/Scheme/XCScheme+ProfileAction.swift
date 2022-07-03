@@ -40,7 +40,7 @@ extension XCScheme {
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
                     enableTestabilityWhenProfilingTests: Bool = true,
-                    launchAutomaticallySubstyle: String?) {
+                    launchAutomaticallySubstyle: String? = nil) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
