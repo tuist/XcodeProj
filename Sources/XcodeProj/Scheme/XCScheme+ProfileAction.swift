@@ -22,6 +22,7 @@ extension XCScheme {
         public var environmentVariables: [EnvironmentVariable]?
         public var macroExpansion: BuildableReference?
         public var enableTestabilityWhenProfilingTests: Bool
+        public var launchAutomaticallySubstyle: String?
 
         // MARK: - Init
 
@@ -38,7 +39,8 @@ extension XCScheme {
                     askForAppToLaunch: Bool? = nil,
                     commandlineArguments: CommandLineArguments? = nil,
                     environmentVariables: [EnvironmentVariable]? = nil,
-                    enableTestabilityWhenProfilingTests: Bool = true) {
+                    enableTestabilityWhenProfilingTests: Bool = true,
+                    launchAutomaticallySubstyle: String?) {
             self.buildableProductRunnable = buildableProductRunnable
             self.buildConfiguration = buildConfiguration
             self.macroExpansion = macroExpansion
@@ -51,6 +53,7 @@ extension XCScheme {
             self.environmentVariables = environmentVariables
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
             self.enableTestabilityWhenProfilingTests = enableTestabilityWhenProfilingTests
+            self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
             super.init(preActions, postActions)
         }
 
@@ -80,6 +83,7 @@ extension XCScheme {
                 self.environmentVariables = try EnvironmentVariable.parseVariables(from: environmentVariables)
             }
             enableTestabilityWhenProfilingTests = element.attributes["enableTestabilityWhenProfilingTests"].map { $0 != "No" } ?? true
+            launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
             try super.init(element: element)
         }
 
@@ -111,6 +115,9 @@ extension XCScheme {
             if let environmentVariables = environmentVariables {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
+            if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
+                element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
+            }
 
             if let macroExpansion = macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
@@ -136,7 +143,8 @@ extension XCScheme {
                 commandlineArguments == rhs.commandlineArguments &&
                 environmentVariables == rhs.environmentVariables &&
                 macroExpansion == rhs.macroExpansion &&
-                enableTestabilityWhenProfilingTests == rhs.enableTestabilityWhenProfilingTests
+                enableTestabilityWhenProfilingTests == rhs.enableTestabilityWhenProfilingTests &&
+                launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle
         }
     }
 }
