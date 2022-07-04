@@ -27,6 +27,8 @@ class AEXML_XcodeFormatTests: XCTestCase {
            buildConfiguration = "Debug"
            selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
            customLLDBInitFile = "$(BAZEL_LLDB_INIT)"
+           disableMainThreadChecker = "YES"
+           disablePerformanceAntipatternChecker = "YES"
            launchStyle = "0"
            askForAppToLaunch = "YES"
            allowLocationSimulation = "YES">
@@ -40,7 +42,8 @@ class AEXML_XcodeFormatTests: XCTestCase {
            buildConfiguration = "Debug"
            selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
            customLLDBInitFile = "$(BAZEL_LLDB_INIT)"
-           shouldUseLaunchSchemeArgsEnv = "YES">
+           shouldUseLaunchSchemeArgsEnv = "YES"
+           disableMainThreadChecker = "YES">
         </TestAction>
         """
 
@@ -98,7 +101,9 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "launchStyle": "0",
                 "askForAppToLaunch": "YES",
-                "allowLocationSimulation": "YES"
+                "allowLocationSimulation": "YES",
+                "disableMainThreadChecker": "YES",
+                "disablePerformanceAntipatternChecker": "YES",
             ]
         )
     }
@@ -108,6 +113,8 @@ class AEXML_XcodeFormatTests: XCTestCase {
             expectedXML: expectedLaunchActionXml.cleaned,
             childName: "LaunchAction",
             attributes: [
+                "disableMainThreadChecker": "YES",
+                "disablePerformanceAntipatternChecker": "YES",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "allowLocationSimulation": "YES",
                 "buildConfiguration": "Debug",
@@ -126,7 +133,8 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
-                "shouldUseLaunchSchemeArgsEnv": "YES"
+                "shouldUseLaunchSchemeArgsEnv": "YES",
+                "disableMainThreadChecker": "YES",
             ]
         )
     }
@@ -136,6 +144,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
             expectedXML: expectedTestActionXml.cleaned,
             childName: "TestAction",
             attributes: [
+                "disableMainThreadChecker": "YES",
                 "shouldUseLaunchSchemeArgsEnv": "YES",
                 "buildConfiguration": "Debug",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
