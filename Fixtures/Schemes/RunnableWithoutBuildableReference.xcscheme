@@ -72,6 +72,7 @@
       </MacroExpansion>
    </LaunchAction>
    <ProfileAction
+      askForAppToLaunch = "YES"
       buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""

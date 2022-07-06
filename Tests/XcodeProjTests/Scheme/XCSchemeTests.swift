@@ -568,7 +568,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.profileAction?.savedToolIdentifier, "")
         XCTAssertTrue(scheme.profileAction?.useCustomWorkingDirectory == false)
         XCTAssertTrue(scheme.profileAction?.debugDocumentVersioning == true)
-        XCTAssertNil(scheme.profileAction?.askForAppToLaunch)
+        XCTAssertTrue(scheme.profileAction?.askForAppToLaunch == true)
         XCTAssertNil(scheme.profileAction?.commandlineArguments)
         XCTAssertNil(scheme.profileAction?.environmentVariables)
 
