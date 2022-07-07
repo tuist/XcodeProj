@@ -43,6 +43,16 @@ class AEXML_XcodeFormatTests: XCTestCase {
         </TestAction>
         """
 
+    private let expectedRemoteRunnableXml =
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RemoteRunnable
+           runnableDebuggingMode = "2"
+           BundleIdentifier = "BundleID"
+           RemotePath = "REMOTE_PATH">
+        </RemoteRunnable>
+        """
+
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(
             expectedXML: expectedBuildActionXml.cleaned,
@@ -117,6 +127,18 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB"
+            ]
+        )
+    }
+
+    func test_RemoteRunnable() {
+        validateAttributes(
+            expectedXML: expectedRemoteRunnableXml.cleaned,
+            childName: "RemoteRunnable",
+            attributes: [
+                "BundleIdentifier": "BundleID",
+                "RemotePath": "REMOTE_PATH",
+                "runnableDebuggingMode": "2"
             ]
         )
     }
