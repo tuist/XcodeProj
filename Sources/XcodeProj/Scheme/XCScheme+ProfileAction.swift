@@ -96,6 +96,9 @@ extension XCScheme {
                                            "debugDocumentVersioning": debugDocumentVersioning.xmlString,
                                        ])
             super.writeXML(parent: element)
+            if let askForAppToLaunch = askForAppToLaunch {
+                element.attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
+            }
             if ignoresPersistentStateOnLaunch {
                 element.attributes["ignoresPersistentStateOnLaunch"] = ignoresPersistentStateOnLaunch.xmlString
             }
