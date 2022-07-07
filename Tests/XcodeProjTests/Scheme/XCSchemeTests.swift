@@ -571,6 +571,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertTrue(scheme.profileAction?.askForAppToLaunch == true)
         XCTAssertNil(scheme.profileAction?.commandlineArguments)
         XCTAssertNil(scheme.profileAction?.environmentVariables)
+        XCTAssertEqual(scheme.profileAction?.launchAutomaticallySubstyle, "2")
 
         // Analyze action
         XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
