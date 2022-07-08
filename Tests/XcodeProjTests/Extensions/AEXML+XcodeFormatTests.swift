@@ -53,6 +53,16 @@ class AEXML_XcodeFormatTests: XCTestCase {
         </Scheme>
         """
 
+    private let expectedRemoteRunnableXml =
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <RemoteRunnable
+           runnableDebuggingMode = "2"
+           BundleIdentifier = "BundleID"
+           RemotePath = "REMOTE_PATH">
+        </RemoteRunnable>
+        """
+
     func test_BuildAction_attributes_sorted_when_original_sorted() {
         validateAttributes(
             expectedXML: expectedBuildActionXml.cleaned,
@@ -151,6 +161,16 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "wasCreatedForAppExtension": "YES",
                 "LastUpgradeVersion": "1320",
                 "version": "1.7"
+    }
+
+    func test_RemoteRunnable() {
+        validateAttributes(
+            expectedXML: expectedRemoteRunnableXml.cleaned,
+            childName: "RemoteRunnable",
+            attributes: [
+                "BundleIdentifier": "BundleID",
+                "RemotePath": "REMOTE_PATH",
+                "runnableDebuggingMode": "2"
             ]
         )
     }

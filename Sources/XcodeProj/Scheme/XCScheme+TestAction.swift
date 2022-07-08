@@ -194,13 +194,14 @@ extension XCScheme {
                 }
             }
 
-            let testablesElement = element.addChild(name: "Testables")
-            testables.forEach { testable in
-                testablesElement.addChild(testable.xmlElement())
-            }
             if let macroExpansion = macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
+            }
+
+            let testablesElement = element.addChild(name: "Testables")
+            testables.forEach { testable in
+                testablesElement.addChild(testable.xmlElement())
             }
 
             if let commandlineArguments = commandlineArguments {
