@@ -161,6 +161,8 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "wasCreatedForAppExtension": "YES",
                 "LastUpgradeVersion": "1320",
                 "version": "1.7"
+            ]
+        )
     }
 
     func test_RemoteRunnable() {
