@@ -11,6 +11,10 @@ extension XCScheme {
         // MARK: - Attributes
 
         public var runnable: Runnable?
+        public var buildableProductRunnable: BuildableProductRunnable? {
+            // For backwards compatibility - can be removed in the next major version
+            runnable as? BuildableProductRunnable
+        }
         public var buildConfiguration: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var savedToolIdentifier: String
