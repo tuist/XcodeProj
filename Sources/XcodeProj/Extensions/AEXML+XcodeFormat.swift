@@ -48,6 +48,7 @@ let attributesOrder: [String: [String]] = [
         "language",
         "region",
         "launchStyle",
+        "askForAppToLaunch",
         "useCustomWorkingDirectory",
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",

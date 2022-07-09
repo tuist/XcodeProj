@@ -28,6 +28,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
            selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
            customLLDBInitFile = "$(BAZEL_LLDB_INIT)"
            launchStyle = "0"
+           askForAppToLaunch = "YES"
            allowLocationSimulation = "YES">
         </LaunchAction>
         """
@@ -86,6 +87,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "launchStyle": "0",
+                "askForAppToLaunch": "YES",
                 "allowLocationSimulation": "YES"
             ]
         )
@@ -101,6 +103,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
                 "launchStyle": "0",
+                "askForAppToLaunch": "YES"
             ]
         )
     }
