@@ -57,6 +57,41 @@ extension XCScheme {
             super.init(preActions, postActions)
         }
 
+        public convenience init(
+            buildableProductRunnable: Runnable?,
+            buildConfiguration: String,
+            preActions: [ExecutionAction] = [],
+            postActions: [ExecutionAction] = [],
+            macroExpansion: BuildableReference? = nil,
+            shouldUseLaunchSchemeArgsEnv: Bool = true,
+            savedToolIdentifier: String = "",
+            ignoresPersistentStateOnLaunch: Bool = false,
+            useCustomWorkingDirectory: Bool = false,
+            debugDocumentVersioning: Bool = true,
+            askForAppToLaunch: Bool? = nil,
+            commandlineArguments: CommandLineArguments? = nil,
+            environmentVariables: [EnvironmentVariable]? = nil,
+            enableTestabilityWhenProfilingTests: Bool = true,
+            launchAutomaticallySubstyle: String? = nil)
+        {
+            self.init(
+                runnable: buildableProductRunnable,
+                buildConfiguration: buildConfiguration,
+                preActions: preActions,
+                postActions: postActions,
+                macroExpansion: macroExpansion,
+                shouldUseLaunchSchemeArgsEnv: shouldUseLaunchSchemeArgsEnv,
+                savedToolIdentifier: savedToolIdentifier,
+                ignoresPersistentStateOnLaunch: ignoresPersistentStateOnLaunch,
+                useCustomWorkingDirectory: useCustomWorkingDirectory,
+                debugDocumentVersioning: debugDocumentVersioning,
+                askForAppToLaunch: askForAppToLaunch,
+                commandlineArguments: commandlineArguments,
+                environmentVariables: environmentVariables,
+                enableTestabilityWhenProfilingTests: enableTestabilityWhenProfilingTests,
+                launchAutomaticallySubstyle: launchAutomaticallySubstyle)
+        }
+
         override init(element: AEXMLElement) throws {
             buildConfiguration = element.attributes["buildConfiguration"] ?? ProfileAction.defaultBuildConfiguration
             shouldUseLaunchSchemeArgsEnv = element.attributes["shouldUseLaunchSchemeArgsEnv"].map { $0 == "YES" } ?? true
