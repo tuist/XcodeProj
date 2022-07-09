@@ -96,6 +96,11 @@ let attributesOrder: [String: [String]] = [
         "runnableDebuggingMode",
         "BundleIdentifier",
         "RemotePath"
+    ],
+    "Scheme": [
+        "LastUpgradeVersion",
+        "wasCreatedForAppExtension",
+        "version"
     ]
 ]
 

@@ -43,6 +43,16 @@ class AEXML_XcodeFormatTests: XCTestCase {
         </TestAction>
         """
 
+    private let expectedSchemeXml =
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Scheme
+           LastUpgradeVersion = "1320"
+           wasCreatedForAppExtension = "YES"
+           version = "1.7">
+        </Scheme>
+        """
+
     private let expectedRemoteRunnableXml =
         """
         <?xml version="1.0" encoding="UTF-8"?>
@@ -127,6 +137,30 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB"
+            ]
+        )
+    }
+
+    func test_Scheme_attributes_sorted_when_original_sorted() {
+        validateAttributes(
+            expectedXML: expectedSchemeXml.cleaned,
+            childName: "Scheme",
+            attributes: [
+                "LastUpgradeVersion": "1320",
+                "wasCreatedForAppExtension": "YES",
+                "version": "1.7"
+            ]
+        )
+    }
+
+    func test_Scheme_attributes_sorted_when_original_unsorted() {
+        validateAttributes(
+            expectedXML: expectedSchemeXml.cleaned,
+            childName: "Scheme",
+            attributes: [
+                "wasCreatedForAppExtension": "YES",
+                "LastUpgradeVersion": "1320",
+                "version": "1.7"
             ]
         )
     }
