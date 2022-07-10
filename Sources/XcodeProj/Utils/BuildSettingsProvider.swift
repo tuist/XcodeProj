@@ -128,6 +128,7 @@ public class BuildSettingsProvider {
             "CLANG_WARN_UNGUARDED_AVAILABILITY": "YES_AGGRESSIVE",
             "CLANG_WARN_UNREACHABLE_CODE": "YES",
             "COPY_PHASE_STRIP": "NO",
+            "DEAD_CODE_STRIPPING": "YES",
             "ENABLE_STRICT_OBJC_MSGSEND": "YES",
             "GCC_C_LANGUAGE_STANDARD": "gnu11",
             "GCC_NO_COMMON_BLOCKS": "YES",
