@@ -2,9 +2,37 @@
 
 ## Next
 
+## 8.8.0
+
+### Fixed
+
+- Fix equality checking of dictionaries [#667](https://github.com/tuist/XcodeProj/pull/667) by [@brentleyjones](https://github.com/brentleyjones)
+- Quiet new warnings from Xcode 13.3 [#673](https://github.com/tuist/XcodeProj/pull/673) by [@hisaac](https://github.com/hisaac)
+- Fix typo in PBXOutputSettings.swift [#678](https://github.com/tuist/XcodeProj/pull/678) by [@eltociear](https://github.com/eltociear)
+- Fix syntax error in docs [#679](https://github.com/tuist/XcodeProj/pull/679) by [@maxwellE](https://github.com/maxwellE)
+- Misspelling in comment [#680](https://github.com/tuist/XcodeProj/pull/680) by [@maxwellE](https://github.com/maxwellE)
+- Misspelling in comment [#681](https://github.com/tuist/XcodeProj/pull/681) by [@maxwellE](https://github.com/maxwellE)
+- Ensure correct `LaunchAction`  scheme order [#686](https://github.com/tuist/XcodeProj/pull/686) by [@maxwellE](https://github.com/maxwellE)
+- Fix TestAction scheme attribute ordering [#689](https://github.com/tuist/XcodeProj/pull/689) by [@maxwellE](https://github.com/maxwellE)
+- Fix `Testables` element ordering [#702](https://github.com/tuist/XcodeProj/pull/702) by [@maxwellE](https://github.com/maxwellE)
+- Fix `RemoteRunnable` scheme attr order [#701](https://github.com/tuist/XcodeProj/pull/701) by [@maxwellE](https://github.com/maxwellE)
+- Fix ordering of Scheme toplevel attrs [#698](https://github.com/tuist/XcodeProj/pull/698) by [@maxwellE](https://github.com/maxwellE)
+- Fix order for `askForAppToLaunch` attr [#705](https://github.com/tuist/XcodeProj/pull/705) by [@maxwellE](https://github.com/maxwellE)
+- Fix ordering of diagnostics scheme options [#704](https://github.com/tuist/XcodeProj/pull/704) by [@kwridan](https://github.com/kwridan)
+
 ### Added
 
+- Add `addDependency()` helper method to `PBXAggregateTarget` [#677](https://github.com/tuist/XcodeProj/pull/677) by [@brentleyjones](https://github.com/brentleyjones)
+- Allow for initializing a PBXProj via a direct path [#682](https://github.com/tuist/XcodeProj/pull/682) by [@maxwellE](https://github.com/maxwellE)
+- Add `.extensionKitExtension` as the new `PBXProductType` [#691](https://github.com/tuist/XcodeProj/pull/691) by [@mtj0928](https://github.com/mtj0928)
 - Added `disablePerformanceAntipatternChecker` to `XCScheme` [#693](https://github.com/tuist/XcodeProj/pull/603) by [@Bogdan-Belogurov](https://github.com/Bogdan-Belogurov)
+- Added missing `askForAppToLaunch` in `ProfileAction` [#700](https://github.com/tuist/XcodeProj/pull/700) by [@maxwellE](https://github.com/maxwellE)
+- Add `launchAutomaticallySubstyle`->`ProfileAction` [#699](https://github.com/tuist/XcodeProj/pull/699) by [@maxwellE](https://github.com/maxwellE)
+- Add `DEAD_CODE_STRIPPING` default project setting [#706](https://github.com/tuist/XcodeProj/pull/706) by [@kwridan](https://github.com/kwridan)
+
+### Changed
+
+- Use `Runnable` in `ProfileAction` [#703](https://github.com/tuist/XcodeProj/pull/703) by [@maxwellE](https://github.com/maxwellE)
 
 ## 8.7.1
 
