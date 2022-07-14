@@ -7,8 +7,8 @@ In this document you'll find all the necessary steps to release a new version of
 3. Add the version section to the `CHANGELOG.md`, update the versions in the `README.md` and the `xcodeproj.podspec` file.
 4. Commit the changes and tag them `git commit -m "Version x.y.z"` & `git tag x.y.z`.
 5. Push the changes `git commit push origin main --tags`
-6. Generate the project by running `tuist generate`.
-7. Update Carthage dependencies by running `bundle exec rake carthage_update_dependencies`.
+6. Update Carthage dependencies by running `bundle exec rake carthage_update_dependencies`.
+7. Generate the project by running `tuist generate`.
 8. Run the release checks by running `bundle exec rake release_check`.
 9. Publish a new version of the Pod by running `bundle exec pod trunk push --allow-warnings --verbose`.
 10. Archive the Carthage binary by running `bundle exec rake archive_carthage`.
