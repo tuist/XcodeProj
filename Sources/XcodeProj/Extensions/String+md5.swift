@@ -61,6 +61,8 @@ private extension DataProtocol {
             }
         }
 
+        ptr[Int(offset * 2)] = 0 // Null terminator
+
         return String(cString: ptr)
     }
 
