@@ -50,6 +50,7 @@ private extension DataProtocol {
     var hexString: String {
         let hexLen = self.count * 2
         let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: hexLen)
+        ptr.assign(repeating: 0, count: hexLen)
         defer { ptr.deallocate() }
         var offset = 0
 
@@ -60,8 +61,6 @@ private extension DataProtocol {
                 offset += 1
             }
         }
-
-        ptr[Int(offset * 2)] = 0 // Null terminator
 
         return String(cString: ptr)
     }
