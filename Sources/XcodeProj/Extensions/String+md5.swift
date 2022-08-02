@@ -50,6 +50,8 @@ private extension DataProtocol {
     var hexString: String {
         let hexLen = self.count * 2
         let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: hexLen)
+        ptr.assign(repeating: 0, count: hexLen)
+        defer { ptr.deallocate() }
         var offset = 0
 
         self.regions.forEach { (_) in
@@ -60,7 +62,7 @@ private extension DataProtocol {
             }
         }
 
-        return String(bytesNoCopy: ptr, length: hexLen, encoding: .utf8, freeWhenDone: true)!
+        return String(cString: ptr)
     }
 
     func itoh(_ value: UInt8) -> UInt8 {
