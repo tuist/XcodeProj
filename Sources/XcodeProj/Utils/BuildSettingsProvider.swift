@@ -241,6 +241,7 @@ public class BuildSettingsProvider {
         case (.watchOS, .application):
             return [
                 "SKIP_INSTALL": "YES",
+                "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
         case (.iOS, .framework):
             return [
