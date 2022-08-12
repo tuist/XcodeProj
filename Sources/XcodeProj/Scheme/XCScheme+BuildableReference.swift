@@ -2,7 +2,7 @@ import AEXML
 import Foundation
 
 extension XCScheme {
-    public final class BuildableReference: Equatable {
+    public final class BuildableReference: Equatable, Hashable {
         // MARK: - Attributes
 
         public var referencedContainer: String
@@ -104,6 +104,15 @@ extension XCScheme {
                 lhs.buildableName == rhs.buildableName &&
                 lhs.blueprint == rhs.blueprint &&
                 lhs.blueprintName == rhs.blueprintName
+        }
+
+        // MARK: - Hashable
+
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(referencedContainer)
+            hasher.combine(blueprintIdentifier)
+            hasher.combine(buildableName)
+            hasher.combine(blueprintName)
         }
     }
 }
