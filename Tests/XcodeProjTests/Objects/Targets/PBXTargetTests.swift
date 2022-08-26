@@ -85,4 +85,48 @@ final class PBXTargetTests: XCTestCase {
         XCTAssertTrue(embedFrameworkBuildPhases.contains(embedFrameworkBuildPhase1))
         XCTAssertTrue(embedFrameworkBuildPhases.contains(embedFrameworkBuildPhase2))
     }
+
+    func test_runScriptBuildPhases_returnsEmptyIfNoRunScriptBuildPhases() {
+        let notShellScriptBuildPhase1 = PBXFrameworksBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let notShellScriptBuildPhase2 = PBXCopyFilesBuildPhase(
+            dstPath: nil,
+            dstSubfolderSpec: .resources,
+            name: "Embed Frameworks",
+            buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            files: [],
+            runOnlyForDeploymentPostprocessing: true
+        )
+
+        subject.buildPhases.append(notShellScriptBuildPhase1)
+        subject.buildPhases.append(notShellScriptBuildPhase2)
+
+        let runScriptBuildPhases = subject.runScriptBuildPhases()
+        XCTAssertTrue(runScriptBuildPhases.isEmpty)
+    }
+
+    func test_runScriptBuildPhases_returnsRunScriptBuildPhasesIfPresent() {
+        let otherScriptBuildPhase1 = PBXFrameworksBuildPhase()
+        let runScriptBuildPhase1 = PBXShellScriptBuildPhase(
+            name: "Run Script 1"
+        )
+        let runScriptBuildPhase2 = PBXShellScriptBuildPhase(
+            name: "Run Script 2"
+        )
+        let otherScriptBuildPhase2 = PBXCopyFilesBuildPhase()
+
+        subject.buildPhases.append(otherScriptBuildPhase1)
+        subject.buildPhases.append(runScriptBuildPhase1)
+        subject.buildPhases.append(runScriptBuildPhase2)
+        subject.buildPhases.append(otherScriptBuildPhase2)
+
+        let runScriptBuildPhases = subject.runScriptBuildPhases()
+        XCTAssertEqual(runScriptBuildPhases.count, 2)
+        XCTAssertTrue(runScriptBuildPhases.contains(runScriptBuildPhase1))
+        XCTAssertTrue(runScriptBuildPhases.contains(runScriptBuildPhase2))
+    }
 }

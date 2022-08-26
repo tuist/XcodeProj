@@ -282,4 +282,13 @@ public extension PBXTarget {
             .compactMap { $0 as? PBXCopyFilesBuildPhase }
             .filter { $0.dstSubfolderSpec == .frameworks }
     }
+
+    /// Returns the run script build phases.
+    ///
+    /// - Returns: Run script build phases.
+    func runScriptBuildPhases() -> [PBXShellScriptBuildPhase] {
+        buildPhases
+            .filter { $0.buildPhase == .runScript }
+            .compactMap { $0 as? PBXShellScriptBuildPhase }
+    }
 }
