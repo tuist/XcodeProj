@@ -138,8 +138,7 @@ Want to start using XcodeProj? Start by digging into our [documentation](/Docume
 ## Contributing
 
 1. Git clone the repository `git@github.com:tuist/xcodeproj.git`.
-2. Generate xcodeproj with `swift package generate-xcodeproj`.
-3. Open `XcodeProj.xcodeproj`.
+2. Open `Package.swift` with Xcode.
 
 ## License
 
