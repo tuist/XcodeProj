@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -179,6 +179,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mtj0928"><img src="https://avatars.githubusercontent.com/u/12427733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matsuji</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mtj0928" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Bogdan-Belogurov"><img src="https://avatars.githubusercontent.com/u/39379705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bogdan Belogurov</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Bogdan-Belogurov" title="Code">💻</a></td>
     <td align="center"><a href="https://chuckgrindel.com/"><img src="https://avatars.githubusercontent.com/u/159968?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chuck Grindel</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=cgrindel" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://twitter.com/MonocularVision"><img src="https://avatars.githubusercontent.com/u/429790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McGuire</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=michaelmcguire" title="Code">💻</a></td>
   </tr>
 </table>
 
