@@ -284,7 +284,6 @@ extension XCScheme {
                 attributes["stopOnEveryMainThreadCheckerIssue"] = stopOnEveryMainThreadCheckerIssue.xmlString
             }
             if let customWorkingDirectory = customWorkingDirectory {
-                print(customWorkingDirectory)
                 attributes["customWorkingDirectory"] = customWorkingDirectory.string
             }
 
