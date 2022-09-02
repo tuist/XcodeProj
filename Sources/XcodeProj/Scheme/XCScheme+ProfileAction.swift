@@ -19,6 +19,7 @@ extension XCScheme {
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var savedToolIdentifier: String
         public var ignoresPersistentStateOnLaunch: Bool
+        public var customWorkingDirectory: Path?
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
         public var askForAppToLaunch: Bool?
@@ -38,6 +39,7 @@ extension XCScheme {
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     savedToolIdentifier: String = "",
                     ignoresPersistentStateOnLaunch: Bool = false,
+                    customWorkingDirectory: Path? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     debugDocumentVersioning: Bool = true,
                     askForAppToLaunch: Bool? = nil,
@@ -50,6 +52,7 @@ extension XCScheme {
             self.macroExpansion = macroExpansion
             self.shouldUseLaunchSchemeArgsEnv = shouldUseLaunchSchemeArgsEnv
             self.savedToolIdentifier = savedToolIdentifier
+            self.customWorkingDirectory = customWorkingDirectory
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.debugDocumentVersioning = debugDocumentVersioning
             self.askForAppToLaunch = askForAppToLaunch
@@ -70,6 +73,7 @@ extension XCScheme {
             shouldUseLaunchSchemeArgsEnv: Bool = true,
             savedToolIdentifier: String = "",
             ignoresPersistentStateOnLaunch: Bool = false,
+            customWorkingDirectory: Path? = nil,
             useCustomWorkingDirectory: Bool = false,
             debugDocumentVersioning: Bool = true,
             askForAppToLaunch: Bool? = nil,
@@ -87,6 +91,7 @@ extension XCScheme {
                 shouldUseLaunchSchemeArgsEnv: shouldUseLaunchSchemeArgsEnv,
                 savedToolIdentifier: savedToolIdentifier,
                 ignoresPersistentStateOnLaunch: ignoresPersistentStateOnLaunch,
+                customWorkingDirectory: customWorkingDirectory,
                 useCustomWorkingDirectory: useCustomWorkingDirectory,
                 debugDocumentVersioning: debugDocumentVersioning,
                 askForAppToLaunch: askForAppToLaunch,
@@ -128,6 +133,9 @@ extension XCScheme {
             }
             enableTestabilityWhenProfilingTests = element.attributes["enableTestabilityWhenProfilingTests"].map { $0 != "No" } ?? true
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
+            if let elementCustomWorkingDirectory: String = element.attributes["customWorkingDirectory"] {
+                customWorkingDirectory = .init(elementCustomWorkingDirectory)
+            }
             try super.init(element: element)
         }
 
@@ -165,6 +173,9 @@ extension XCScheme {
             if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
+            if let customWorkingDirectory = customWorkingDirectory {
+                element.attributes["customWorkingDirectory"] = customWorkingDirectory.string
+            }
 
             if let macroExpansion = macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
@@ -184,6 +195,7 @@ extension XCScheme {
                 shouldUseLaunchSchemeArgsEnv == rhs.shouldUseLaunchSchemeArgsEnv &&
                 savedToolIdentifier == rhs.savedToolIdentifier &&
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
+                customWorkingDirectory == rhs.customWorkingDirectory &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 debugDocumentVersioning == rhs.debugDocumentVersioning &&
                 askForAppToLaunch == rhs.askForAppToLaunch &&
