@@ -42,7 +42,7 @@ extension XCScheme {
         public var launchStyle: Style
         public var askForAppToLaunch: Bool?
         public var pathRunnable: PathRunnable?
-        public var customWorkingDirectory: Path?
+        public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
         public var debugDocumentVersioning: Bool
@@ -83,7 +83,7 @@ extension XCScheme {
                     launchStyle: Style = .auto,
                     askForAppToLaunch: Bool? = nil,
                     pathRunnable: PathRunnable? = nil,
-                    customWorkingDirectory: Path? = nil,
+                    customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
                     debugDocumentVersioning: Bool = true,
@@ -226,7 +226,7 @@ extension XCScheme {
             customLaunchCommand = element.attributes["customLaunchCommand"]
             customLLDBInitFile = element.attributes["customLLDBInitFile"]
             if let elementCustomWorkingDirectory: String = element.attributes["customWorkingDirectory"] {
-                customWorkingDirectory = .init(elementCustomWorkingDirectory)
+                customWorkingDirectory = elementCustomWorkingDirectory
             }
 
             try super.init(element: element)
@@ -284,7 +284,7 @@ extension XCScheme {
                 attributes["stopOnEveryMainThreadCheckerIssue"] = stopOnEveryMainThreadCheckerIssue.xmlString
             }
             if let customWorkingDirectory = customWorkingDirectory {
-                attributes["customWorkingDirectory"] = customWorkingDirectory.string
+                attributes["customWorkingDirectory"] = customWorkingDirectory
             }
 
             return attributes

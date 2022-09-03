@@ -533,7 +533,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Staging")
         XCTAssertEqual(scheme.launchAction?.launchStyle, XCScheme.LaunchAction.Style.auto)
         XCTAssertTrue(scheme.launchAction?.askForAppToLaunch == true)
-        XCTAssertNil(scheme.launchAction?.customWorkingDirectory)
+        XCTAssertEqual(scheme.launchAction?.customWorkingDirectory, "/customWorkingDirectory")
         XCTAssertTrue(scheme.launchAction?.useCustomWorkingDirectory == false)
         XCTAssertTrue(scheme.launchAction?.ignoresPersistentStateOnLaunch == false)
         XCTAssertTrue(scheme.launchAction?.debugDocumentVersioning == true)

@@ -19,7 +19,7 @@ extension XCScheme {
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var savedToolIdentifier: String
         public var ignoresPersistentStateOnLaunch: Bool
-        public var customWorkingDirectory: Path?
+        public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var debugDocumentVersioning: Bool
         public var askForAppToLaunch: Bool?
@@ -39,7 +39,7 @@ extension XCScheme {
                     shouldUseLaunchSchemeArgsEnv: Bool = true,
                     savedToolIdentifier: String = "",
                     ignoresPersistentStateOnLaunch: Bool = false,
-                    customWorkingDirectory: Path? = nil,
+                    customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     debugDocumentVersioning: Bool = true,
                     askForAppToLaunch: Bool? = nil,
@@ -73,7 +73,7 @@ extension XCScheme {
             shouldUseLaunchSchemeArgsEnv: Bool = true,
             savedToolIdentifier: String = "",
             ignoresPersistentStateOnLaunch: Bool = false,
-            customWorkingDirectory: Path? = nil,
+            customWorkingDirectory: String? = nil,
             useCustomWorkingDirectory: Bool = false,
             debugDocumentVersioning: Bool = true,
             askForAppToLaunch: Bool? = nil,
@@ -134,7 +134,7 @@ extension XCScheme {
             enableTestabilityWhenProfilingTests = element.attributes["enableTestabilityWhenProfilingTests"].map { $0 != "No" } ?? true
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
             if let elementCustomWorkingDirectory: String = element.attributes["customWorkingDirectory"] {
-                customWorkingDirectory = .init(elementCustomWorkingDirectory)
+                customWorkingDirectory = elementCustomWorkingDirectory
             }
             try super.init(element: element)
         }
@@ -174,7 +174,7 @@ extension XCScheme {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
             if let customWorkingDirectory = customWorkingDirectory {
-                element.attributes["customWorkingDirectory"] = customWorkingDirectory.string
+                element.attributes["customWorkingDirectory"] = customWorkingDirectory
             }
 
             if let macroExpansion = macroExpansion {
