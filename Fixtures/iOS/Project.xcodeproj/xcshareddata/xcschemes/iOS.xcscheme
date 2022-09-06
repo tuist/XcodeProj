@@ -19,7 +19,8 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Build Post-action"
-               scriptText = "echo postbuild">
+               scriptText = "echo postbuild"
+               shellToInvoke = "/bin/sh">
             </ActionContent>
          </ExecutionAction>
       </PostActions>

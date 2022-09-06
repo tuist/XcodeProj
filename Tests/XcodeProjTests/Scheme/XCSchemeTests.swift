@@ -329,8 +329,10 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.buildAction?.preActions.first?.title, "Build Pre-action")
         XCTAssertEqual(scheme.buildAction?.preActions.first?.scriptText, "echo prebuild")
+        XCTAssertNil(scheme.buildAction?.preActions.first?.shellToInvoke)
         XCTAssertEqual(scheme.buildAction?.postActions.first?.title, "Build Post-action")
         XCTAssertEqual(scheme.buildAction?.postActions.first?.scriptText, "echo postbuild")
+        XCTAssertEqual(scheme.buildAction?.postActions.first?.shellToInvoke, "/bin/sh")
         // Test action
         XCTAssertEqual(scheme.testAction?.buildConfiguration, "Debug")
         XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
