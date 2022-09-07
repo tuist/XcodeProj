@@ -138,6 +138,7 @@ class BuildSettingProviderTests: XCTestCase {
             "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
             "ENABLE_PREVIEWS": "YES",
+            "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             "SDKROOT": "watchos",
             "SKIP_INSTALL": "YES",
             "SWIFT_COMPILATION_MODE": "wholemodule",
