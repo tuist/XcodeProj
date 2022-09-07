@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -182,6 +182,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://twitter.com/MonocularVision"><img src="https://avatars.githubusercontent.com/u/429790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McGuire</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=michaelmcguire" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/CrazyFanFan"><img src="https://avatars.githubusercontent.com/u/15794964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C-凡</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=CrazyFanFan" title="Code">💻</a></td>
+    <td align="center"><a href="https://brentleyjones.com"><img src="https://avatars.githubusercontent.com/u/158658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brentley Jones</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=brentleyjones" title="Code">💻</a></td>
   </tr>
 </table>
 
