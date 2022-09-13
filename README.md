@@ -182,6 +182,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://twitter.com/MonocularVision"><img src="https://avatars.githubusercontent.com/u/429790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McGuire</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=michaelmcguire" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/CrazyFanFan"><img src="https://avatars.githubusercontent.com/u/15794964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C-凡</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=CrazyFanFan" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.tinder.com"><img src="https://avatars.githubusercontent.com/u/566328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxwell Elliott</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=maxwellE" title="Code">💻</a></td>
     <td align="center"><a href="https://brentleyjones.com"><img src="https://avatars.githubusercontent.com/u/158658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brentley Jones</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=brentleyjones" title="Code">💻</a></td>
   </tr>
 </table>
