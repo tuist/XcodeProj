@@ -17,13 +17,17 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
             packageReference = newValue?.reference
         }
     }
+    
+    let plugin: Bool
 
     // MARK: - Init
 
     public init(productName: String,
-                package: XCRemoteSwiftPackageReference? = nil) {
-        self.productName = productName
+                package: XCRemoteSwiftPackageReference? = nil,
+                plugin: Bool = false) {
+        self.productName =  "\(plugin ? "plugin:" : "")\(productName)"
         packageReference = package?.reference
+        self.plugin = plugin
         super.init()
     }
 
@@ -37,6 +41,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         } else {
             packageReference = nil
         }
+        plugin = try container.decode(Bool.self, forKey: .plugin)
         try super.init(from: decoder)
     }
 
@@ -57,6 +62,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     fileprivate enum CodingKeys: String, CodingKey {
         case productName
         case package
+        case plugin
     }
 
     override func isEqual(to object: Any?) -> Bool {
