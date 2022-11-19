@@ -41,7 +41,11 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         } else {
             packageReference = nil
         }
-        plugin = try container.decode(Bool.self, forKey: .plugin)
+        if let plugin = try container.decodeIfPresent(Bool.self, forKey: .plugin) {
+            self.plugin = plugin
+        } else {
+            plugin = false
+        }
         try super.init(from: decoder)
     }
 

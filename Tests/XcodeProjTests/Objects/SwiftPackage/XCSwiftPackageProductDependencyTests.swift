@@ -26,7 +26,8 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         let proj = PBXProj()
         let package = XCRemoteSwiftPackageReference(repositoryURL: "repository")
         let subject = XCSwiftPackageProductDependency(productName: "product",
-                                                      package: package)
+                                                      package: package,
+                                                      plugin: false)
 
         // When
         let got = try subject.plistKeyAndValue(proj: proj, reference: "reference")
@@ -43,9 +44,11 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         // Given
         let package = XCRemoteSwiftPackageReference(repositoryURL: "repository")
         let first = XCSwiftPackageProductDependency(productName: "product",
-                                                    package: package)
+                                                    package: package,
+                                                    plugin: false)
         let second = XCSwiftPackageProductDependency(productName: "product",
-                                                     package: package)
+                                                     package: package,
+                                                     plugin: false)
 
         // Then
         XCTAssertEqual(first, second)
