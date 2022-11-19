@@ -177,6 +177,7 @@ public final class PBXProject: PBXObject {
     public func addSwiftPackage(repositoryURL: String,
                                 productName: String,
                                 versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement,
+                                plugin: Bool = false,
                                 targetName: String) throws -> XCRemoteSwiftPackageReference {
         let objects = try self.objects()
 
@@ -190,6 +191,7 @@ public final class PBXProject: PBXObject {
         // Product
         let productDependency = try addSwiftPackageProduct(reference: reference,
                                                            productName: productName,
+                                                           plugin: plugin,
                                                            target: target)
 
         // Build file
@@ -212,6 +214,7 @@ public final class PBXProject: PBXObject {
     ///   - addFileReference: Include a file reference to the package (defaults to main group)
     public func addLocalSwiftPackage(path: Path,
                                      productName: String,
+                                     plugin: Bool = false,
                                      targetName: String,
                                      addFileReference: Bool = true) throws -> XCSwiftPackageProductDependency {
         guard path.isRelative else { throw PBXProjError.pathIsAbsolute(path) }
@@ -223,6 +226,7 @@ public final class PBXProject: PBXObject {
         // Product
         let productDependency = try addLocalSwiftPackageProduct(path: path,
                                                                 productName: productName,
+                                                                plugin: plugin,
                                                                 target: target)
 
         // Build file
@@ -402,6 +406,7 @@ extension PBXProject {
     /// Adds package product for remote Swift package
     private func addSwiftPackageProduct(reference: XCRemoteSwiftPackageReference,
                                         productName: String,
+                                        plugin: Bool,
                                         target: PBXTarget) throws -> XCSwiftPackageProductDependency {
         let objects = try self.objects()
 
@@ -410,7 +415,9 @@ extension PBXProject {
         if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference })?.value {
             productDependency = product
         } else {
-            productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
+            productDependency = XCSwiftPackageProductDependency(productName: productName,
+                                                                package: reference,
+                                                                plugin: plugin)
             objects.add(object: productDependency)
         }
         target.packageProductDependencies.append(productDependency)
@@ -421,6 +428,7 @@ extension PBXProject {
     /// Adds package product for local Swift package
     private func addLocalSwiftPackageProduct(path: Path,
                                              productName: String,
+                                             plugin: Bool,
                                              target: PBXTarget) throws -> XCSwiftPackageProductDependency {
         let objects = try self.objects()
 
@@ -432,7 +440,7 @@ extension PBXProject {
             }
             productDependency = product.value
         } else {
-            productDependency = XCSwiftPackageProductDependency(productName: productName)
+            productDependency = XCSwiftPackageProductDependency(productName: productName, plugin: plugin)
             objects.add(object: productDependency)
         }
         target.packageProductDependencies.append(productDependency)

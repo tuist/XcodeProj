@@ -24,7 +24,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
 
     public init(productName: String,
                 package: XCRemoteSwiftPackageReference? = nil,
-                plugin: Bool = false) {
+                plugin: Bool) {
         self.productName =  "\(plugin ? "plugin:" : "")\(productName)"
         packageReference = package?.reference
         self.plugin = plugin
