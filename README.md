@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -154,39 +154,42 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://joecolicch.io"><img src="https://avatars3.githubusercontent.com/u/2837288?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Joseph Colicchio</b></sub></a><br /><a href="#ideas-jcolicchio" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/deatondg"><img src="https://avatars0.githubusercontent.com/u/3221590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>deatondg</b></sub></a><br /><a href="#ideas-deatondg" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/dflems"><img src="https://avatars3.githubusercontent.com/u/925850?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Fleming</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=dflems" title="Code">💻</a></td>
-    <td align="center"><a href="https://twitter.com/_SaschaS"><img src="https://avatars3.githubusercontent.com/u/895505?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sascha Schwabbauer</b></sub></a><br /><a href="#ideas-sascha" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/marciniwanicki"><img src="https://avatars3.githubusercontent.com/u/946649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcin Iwanicki</b></sub></a><br /><a href="#maintenance-marciniwanicki" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/adamkhazi"><img src="https://avatars2.githubusercontent.com/u/9820670?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adam Khazi</b></sub></a><br /><a href="#maintenance-adamkhazi" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/elliottwilliams"><img src="https://avatars3.githubusercontent.com/u/910198?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Elliott Williams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=elliottwilliams" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://muukii.app"><img src="https://avatars.githubusercontent.com/u/1888355?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Muukii</b></sub></a><br /><a href="#content-muukii" title="Content">🖋</a></td>
-    <td align="center"><a href="https://nnsnodnb.github.io"><img src="https://avatars.githubusercontent.com/u/9856514?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuya Oka</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=nnsnodnb" title="Code">💻</a></td>
-    <td align="center"><a href="https://smileykeith.com"><img src="https://avatars.githubusercontent.com/u/283886?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Keith Smiley</b></sub></a><br /><a href="#content-keith" title="Content">🖋</a></td>
-    <td align="center"><a href="https://github.com/ileitch"><img src="https://avatars.githubusercontent.com/u/48235?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ian Leitch</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ileitch" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/subdan"><img src="https://avatars.githubusercontent.com/u/410293?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniil Subbotin</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=subdan" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.florentin.tech"><img src="https://avatars.githubusercontent.com/u/8288625?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Florentin Bekier</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=flowbe" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/CognitiveDisson"><img src="https://avatars.githubusercontent.com/u/10621118?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vadim Smal</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/issues?q=author%3ACognitiveDisson" title="Bug reports">🐛</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://freddi.dev"><img src="https://avatars.githubusercontent.com/u/13707872?v=4?s=100" width="100px;" alt=""/><br /><sub><b>freddi(Yuki Aki)</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=freddi-kit" title="Code">💻</a></td>
-    <td align="center"><a href="http://KrisRJack.com"><img src="https://avatars.githubusercontent.com/u/35638500?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kristopher Jackson</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=KrisRJack" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Jake-Prickett"><img src="https://avatars.githubusercontent.com/u/26095410?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jake Prickett</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Jake-Prickett" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.jakeadams.co"><img src="https://avatars.githubusercontent.com/u/3605966?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jake Adams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=jakeatoms" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/mtj0928"><img src="https://avatars.githubusercontent.com/u/12427733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matsuji</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mtj0928" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Bogdan-Belogurov"><img src="https://avatars.githubusercontent.com/u/39379705?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bogdan Belogurov</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Bogdan-Belogurov" title="Code">💻</a></td>
-    <td align="center"><a href="https://chuckgrindel.com/"><img src="https://avatars.githubusercontent.com/u/159968?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chuck Grindel</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=cgrindel" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://twitter.com/MonocularVision"><img src="https://avatars.githubusercontent.com/u/429790?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McGuire</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=michaelmcguire" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/CrazyFanFan"><img src="https://avatars.githubusercontent.com/u/15794964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C-凡</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=CrazyFanFan" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.tinder.com"><img src="https://avatars.githubusercontent.com/u/566328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxwell Elliott</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=maxwellE" title="Code">💻</a></td>
-    <td align="center"><a href="https://brentleyjones.com"><img src="https://avatars.githubusercontent.com/u/158658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brentley Jones</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=brentleyjones" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://joecolicch.io"><img src="https://avatars3.githubusercontent.com/u/2837288?v=4?s=100" width="100px;" alt="Joseph Colicchio"/><br /><sub><b>Joseph Colicchio</b></sub></a><br /><a href="#ideas-jcolicchio" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/deatondg"><img src="https://avatars0.githubusercontent.com/u/3221590?v=4?s=100" width="100px;" alt="deatondg"/><br /><sub><b>deatondg</b></sub></a><br /><a href="#ideas-deatondg" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/dflems"><img src="https://avatars3.githubusercontent.com/u/925850?v=4?s=100" width="100px;" alt="Dan Fleming"/><br /><sub><b>Dan Fleming</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=dflems" title="Code">💻</a></td>
+      <td align="center"><a href="https://twitter.com/_SaschaS"><img src="https://avatars3.githubusercontent.com/u/895505?v=4?s=100" width="100px;" alt="Sascha Schwabbauer"/><br /><sub><b>Sascha Schwabbauer</b></sub></a><br /><a href="#ideas-sascha" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center"><a href="https://github.com/marciniwanicki"><img src="https://avatars3.githubusercontent.com/u/946649?v=4?s=100" width="100px;" alt="Marcin Iwanicki"/><br /><sub><b>Marcin Iwanicki</b></sub></a><br /><a href="#maintenance-marciniwanicki" title="Maintenance">🚧</a></td>
+      <td align="center"><a href="https://github.com/adamkhazi"><img src="https://avatars2.githubusercontent.com/u/9820670?v=4?s=100" width="100px;" alt="Adam Khazi"/><br /><sub><b>Adam Khazi</b></sub></a><br /><a href="#maintenance-adamkhazi" title="Maintenance">🚧</a></td>
+      <td align="center"><a href="https://github.com/elliottwilliams"><img src="https://avatars3.githubusercontent.com/u/910198?v=4?s=100" width="100px;" alt="Elliott Williams"/><br /><sub><b>Elliott Williams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=elliottwilliams" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="http://muukii.app"><img src="https://avatars.githubusercontent.com/u/1888355?v=4?s=100" width="100px;" alt="Muukii"/><br /><sub><b>Muukii</b></sub></a><br /><a href="#content-muukii" title="Content">🖋</a></td>
+      <td align="center"><a href="https://nnsnodnb.github.io"><img src="https://avatars.githubusercontent.com/u/9856514?v=4?s=100" width="100px;" alt="Yuya Oka"/><br /><sub><b>Yuya Oka</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=nnsnodnb" title="Code">💻</a></td>
+      <td align="center"><a href="https://smileykeith.com"><img src="https://avatars.githubusercontent.com/u/283886?v=4?s=100" width="100px;" alt="Keith Smiley"/><br /><sub><b>Keith Smiley</b></sub></a><br /><a href="#content-keith" title="Content">🖋</a></td>
+      <td align="center"><a href="https://github.com/ileitch"><img src="https://avatars.githubusercontent.com/u/48235?v=4?s=100" width="100px;" alt="Ian Leitch"/><br /><sub><b>Ian Leitch</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ileitch" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/subdan"><img src="https://avatars.githubusercontent.com/u/410293?v=4?s=100" width="100px;" alt="Daniil Subbotin"/><br /><sub><b>Daniil Subbotin</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=subdan" title="Code">💻</a></td>
+      <td align="center"><a href="https://www.florentin.tech"><img src="https://avatars.githubusercontent.com/u/8288625?v=4?s=100" width="100px;" alt="Florentin Bekier"/><br /><sub><b>Florentin Bekier</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=flowbe" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/CognitiveDisson"><img src="https://avatars.githubusercontent.com/u/10621118?v=4?s=100" width="100px;" alt="Vadim Smal"/><br /><sub><b>Vadim Smal</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/issues?q=author%3ACognitiveDisson" title="Bug reports">🐛</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="http://freddi.dev"><img src="https://avatars.githubusercontent.com/u/13707872?v=4?s=100" width="100px;" alt="freddi(Yuki Aki)"/><br /><sub><b>freddi(Yuki Aki)</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=freddi-kit" title="Code">💻</a></td>
+      <td align="center"><a href="http://KrisRJack.com"><img src="https://avatars.githubusercontent.com/u/35638500?v=4?s=100" width="100px;" alt="Kristopher Jackson"/><br /><sub><b>Kristopher Jackson</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=KrisRJack" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/Jake-Prickett"><img src="https://avatars.githubusercontent.com/u/26095410?v=4?s=100" width="100px;" alt="Jake Prickett"/><br /><sub><b>Jake Prickett</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Jake-Prickett" title="Code">💻</a></td>
+      <td align="center"><a href="http://www.jakeadams.co"><img src="https://avatars.githubusercontent.com/u/3605966?v=4?s=100" width="100px;" alt="Jake Adams"/><br /><sub><b>Jake Adams</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=jakeatoms" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/mtj0928"><img src="https://avatars.githubusercontent.com/u/12427733?v=4?s=100" width="100px;" alt="matsuji"/><br /><sub><b>matsuji</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mtj0928" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/Bogdan-Belogurov"><img src="https://avatars.githubusercontent.com/u/39379705?v=4?s=100" width="100px;" alt="Bogdan Belogurov"/><br /><sub><b>Bogdan Belogurov</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Bogdan-Belogurov" title="Code">💻</a></td>
+      <td align="center"><a href="https://chuckgrindel.com/"><img src="https://avatars.githubusercontent.com/u/159968?v=4?s=100" width="100px;" alt="Chuck Grindel"/><br /><sub><b>Chuck Grindel</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=cgrindel" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://twitter.com/MonocularVision"><img src="https://avatars.githubusercontent.com/u/429790?v=4?s=100" width="100px;" alt="Michael McGuire"/><br /><sub><b>Michael McGuire</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=michaelmcguire" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/CrazyFanFan"><img src="https://avatars.githubusercontent.com/u/15794964?v=4?s=100" width="100px;" alt="C-凡"/><br /><sub><b>C-凡</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=CrazyFanFan" title="Code">💻</a></td>
+      <td align="center"><a href="http://www.tinder.com"><img src="https://avatars.githubusercontent.com/u/566328?v=4?s=100" width="100px;" alt="Maxwell Elliott"/><br /><sub><b>Maxwell Elliott</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=maxwellE" title="Code">💻</a></td>
+      <td align="center"><a href="https://brentleyjones.com"><img src="https://avatars.githubusercontent.com/u/158658?v=4?s=100" width="100px;" alt="Brentley Jones"/><br /><sub><b>Brentley Jones</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=brentleyjones" title="Code">💻</a></td>
+      <td align="center"><a href="https://technocidal.com"><img src="https://avatars.githubusercontent.com/u/14994778?v=4?s=100" width="100px;" alt="Johannes Ebeling"/><br /><sub><b>Johannes Ebeling</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=technocidal" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
