@@ -50,10 +50,12 @@ public final class PBXBuildFile: PBXObject {
     ///   - settings: build file settings.
     public init(file: PBXFileElement? = nil,
                 product: XCSwiftPackageProductDependency? = nil,
-                settings: [String: Any]? = nil) {
+                settings: [String: Any]? = nil,
+                platformFilter: String? = nil) {
         fileReference = file?.reference
         productReference = product?.reference
         self.settings = settings
+        self.platformFilter = platformFilter
         super.init()
     }
 
