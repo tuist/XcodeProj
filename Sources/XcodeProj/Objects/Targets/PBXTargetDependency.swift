@@ -60,20 +60,21 @@ public final class PBXTargetDependency: PBXObject {
     /// - Parameters:
     ///   - name: Dependency name.
     ///   - platformFilter: Platform filter.
+    ///   - platformFilters: Platform filters.
     ///   - target: Target.
     ///   - targetProxy: Target proxy.
     public init(name: String? = nil,
                 platformFilter: String? = nil,
+                platformFilters: [String]? = nil,
                 target: PBXTarget? = nil,
                 targetProxy: PBXContainerItemProxy? = nil,
-                product: XCSwiftPackageProductDependency? = nil,
-                platformFilters: [String]? = nil) {
+                product: XCSwiftPackageProductDependency? = nil) {
         self.name = name
         self.platformFilter = platformFilter
+        self.platformFilters = platformFilters
         targetReference = target?.reference
         targetProxyReference = targetProxy?.reference
         productReference = product?.reference
-        self.platformFilters = platformFilters
         super.init()
     }
 
@@ -82,10 +83,10 @@ public final class PBXTargetDependency: PBXObject {
     fileprivate enum CodingKeys: String, CodingKey {
         case name
         case platformFilter
+        case platformFilters
         case target
         case targetProxy
         case productRef
-        case platformFilters
     }
 
     public required init(from decoder: Decoder) throws {
