@@ -126,7 +126,7 @@ extension PBXTargetDependency: PlistSerializable {
             dictionary["platformFilter"] = .string(CommentedString(platformFilter))
         }
         if let platformFilters = platformFilters {
-            dictionary["platformFilters"] = .string(CommentedString(platformFilters.joined(separator: ",")))
+            dictionary["platformFilters"] = .array(platformFilters.map { .string(.init($0)) })
         }
         if let targetReference = targetReference {
             let targetObject: PBXTarget? = targetReference.getObject()

@@ -184,7 +184,7 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
             dictionary["platformFilter"] = .string(.init(platformFilter))
         }
         if let platformFilters = buildFile.platformFilters {
-            dictionary["platformFilters"] = .string(.init(platformFilters.joined(separator: ",")))
+            dictionary["platformFilters"] = .array(platformFilters.map { .string(.init($0)) })
         }
         let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),
