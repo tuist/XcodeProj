@@ -50,6 +50,9 @@ public final class PBXTargetDependency: PBXObject {
     /// Introduced in: Xcode 11
     public var platformFilter: String?
 
+    /// Platform filters attribute.
+    public var platformFilters: [String]?
+
     // MARK: - Init
 
     /// Initializes the target dependency with dependencies as objects.
@@ -63,12 +66,14 @@ public final class PBXTargetDependency: PBXObject {
                 platformFilter: String? = nil,
                 target: PBXTarget? = nil,
                 targetProxy: PBXContainerItemProxy? = nil,
-                product: XCSwiftPackageProductDependency? = nil) {
+                product: XCSwiftPackageProductDependency? = nil,
+                platformFilters: [String]? = nil) {
         self.name = name
         self.platformFilter = platformFilter
         targetReference = target?.reference
         targetProxyReference = targetProxy?.reference
         productReference = product?.reference
+        self.platformFilters = platformFilters
         super.init()
     }
 
@@ -80,6 +85,7 @@ public final class PBXTargetDependency: PBXObject {
         case target
         case targetProxy
         case productRef
+        case platformFilters
     }
 
     public required init(from decoder: Decoder) throws {
@@ -88,6 +94,7 @@ public final class PBXTargetDependency: PBXObject {
         let objects = decoder.context.objects
         name = try container.decodeIfPresent(.name)
         platformFilter = try container.decodeIfPresent(.platformFilter)
+        platformFilters = try container.decodeIfPresent([String].self, forKey: .platformFilters)
         if let targetReference: String = try container.decodeIfPresent(.target) {
             self.targetReference = referenceRepository.getOrCreate(reference: targetReference, objects: objects)
         }
@@ -117,6 +124,9 @@ extension PBXTargetDependency: PlistSerializable {
         }
         if let platformFilter = platformFilter {
             dictionary["platformFilter"] = .string(CommentedString(platformFilter))
+        }
+        if let platformFilters = platformFilters {
+            dictionary["platformFilters"] = .string(CommentedString(platformFilters.joined(separator: ",")))
         }
         if let targetReference = targetReference {
             let targetObject: PBXTarget? = targetReference.getObject()
