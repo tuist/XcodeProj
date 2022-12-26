@@ -14,12 +14,16 @@ public final class XcodeProj: Equatable {
     /// Shared data.
     public var sharedData: XCSharedData?
 
+    /// User data.
+    public var userData: [XCUserData]
+
     // MARK: - Init
 
     public init(path: Path) throws {
         var pbxproj: PBXProj!
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
+        var userData: [XCUserData]
 
         if !path.exists { throw XCodeProjError.notFound(path: path) }
         guard let pbxprojPath = path.glob("*.pbxproj").first else {
@@ -35,9 +39,13 @@ public final class XcodeProj: Equatable {
         let sharedDataPath = path + "xcshareddata"
         sharedData = try? XCSharedData(path: sharedDataPath)
 
+        userData = path.glob("xcuserdata/*.xcuserdatad")
+            .compactMap { try? XCUserData(path: $0) }
+
         self.pbxproj = pbxproj
         self.workspace = workspace
         self.sharedData = sharedData
+        self.userData = userData
     }
 
     public convenience init(pathString: String) throws {
@@ -49,10 +57,16 @@ public final class XcodeProj: Equatable {
     /// - Parameters:
     ///   - workspace: project internal workspace.
     ///   - pbxproj: project .pbxproj.
-    public init(workspace: XCWorkspace, pbxproj: PBXProj, sharedData: XCSharedData? = nil) {
+    ///   - sharedData: shared data
+    ///   - userData: user data
+    public init(workspace: XCWorkspace,
+                pbxproj: PBXProj,
+                sharedData: XCSharedData? = nil,
+                userData: [XCUserData] = []) {
         self.workspace = workspace
         self.pbxproj = pbxproj
         self.sharedData = sharedData
+        self.userData = userData
     }
 
     // MARK: - Equatable
@@ -60,7 +74,8 @@ public final class XcodeProj: Equatable {
     public static func == (lhs: XcodeProj, rhs: XcodeProj) -> Bool {
         lhs.workspace == rhs.workspace &&
             lhs.pbxproj == rhs.pbxproj &&
-            lhs.sharedData == rhs.sharedData
+            lhs.sharedData == rhs.sharedData &&
+            lhs.userData == rhs.userData
     }
 }
 
@@ -86,8 +101,8 @@ extension XcodeProj: Writable {
         try path.mkpath()
         try writeWorkspace(path: path, override: override)
         try writePBXProj(path: path, override: override, outputSettings: outputSettings)
-        try writeSchemes(path: path, override: override)
-        try writeBreakPoints(path: path, override: override)
+        try writeSharedData(path: path, override: override)
+        try writeUserData(path: path, override: override)
     }
 
     /// Returns workspace file path relative to the given path.
@@ -133,74 +148,122 @@ extension XcodeProj: Writable {
         path + "xcshareddata"
     }
 
-    /// Returns schemes folder path relative to the given path.
+    /// Writes shared data to the given path.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if shared data should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls the writing of various files.
+    ///   If false will throw error if shared data already exists at the given path.
+    public func writeSharedData(path: Path, override: Bool = true) throws {
+        try sharedData?.write(path: XcodeProj.sharedDataPath(path), override: override)
+    }
+
+    /// Returns user data path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: user data path relative to the given path.
+    public static func userDataPath(_ path: Path) -> Path {
+        path + "xcuserdata"
+    }
+
+    /// Returns user data path for a specific user relative to the given path.
+    ///
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: user data path relative to the given path.
+    public static func userDataPath(_ path: Path, userName: String) -> Path {
+        XcodeProj.userDataPath(path) + "\(userName).xcuserdatad"
+    }
+
+    /// Writes user data to the given path.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if user data should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls the writing of various files.
+    ///   If false will throw error if user data already exists at the given path.
+    public func writeUserData(path: Path, override: Bool = true) throws {
+        let userDataPath = XcodeProj.userDataPath(path)
+        if override, userDataPath.exists {
+            try userDataPath.delete()
+        }
+
+        try userDataPath.mkpath()
+        for userData in userData {
+            try userData.write(path: XcodeProj.userDataPath(path, userName: userData.userName), override: true)
+        }
+    }
+
+    /// Returns schemes folder path relative to the given path.
+    ///
+    /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Returns: schemes folder path relative to the given path.
     public static func schemesPath(_ path: Path) -> Path {
-        XcodeProj.sharedDataPath(path) + "xcschemes"
+        path + "xcschemes"
     }
 
     /// Returns scheme file path relative to the given path.
     ///
-    /// - Parameter path: `.xcodeproj` file path
+    /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
     public static func schemePath(_ path: Path, schemeName: String) -> Path {
         XcodeProj.schemesPath(path) + "\(schemeName).xcscheme"
     }
 
-    /// Writes all project schemes to the given path.
+    /// Returns scheme management file path relative to the given path.
     ///
-    /// - Parameter path: path to `.xcodeproj` file.
-    /// - Parameter override: if project should be overridden. Default is true.
-    ///   If true will remove all existing schemes before writing.
-    ///   If false will throw error if scheme already exists at the given path.
-    public func writeSchemes(path: Path, override: Bool = true) throws {
-        guard let sharedData = sharedData else { return }
-
-        let schemesPath = XcodeProj.schemesPath(path)
-        if override, schemesPath.exists {
-            try schemesPath.delete()
-        }
-        try schemesPath.mkpath()
-        for scheme in sharedData.schemes {
-            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
-        }
+    /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
+    /// - Returns: scheme management plist path relative to the given path.
+    public static func schemeManagementPath(_ path: Path) -> Path {
+        XcodeProj.schemesPath(path) + "xcschememanagement.plist"
     }
 
     /// Returns debugger folder path relative to the given path.
     ///
-    /// - Parameter path: `.xcodeproj` file path
-    /// - Parameter schemeName: scheme name
+    /// - Parameter path: parent folder of debugger folder (xcshareddata or xcuserdata)
     /// - Returns: debugger folder path relative to the given path.
     public static func debuggerPath(_ path: Path) -> Path {
-        XcodeProj.sharedDataPath(path) + "xcdebugger"
+        path + "xcdebugger"
     }
 
     /// Returns breakpoints plist path relative to the given path.
     ///
-    /// - Parameter path: `.xcodeproj` file path
-    /// - Parameter schemeName: scheme name
+    /// - Parameter path: parent folder of debugger folder (xcshareddata or xcuserdata)
     /// - Returns: breakpoints plist path relative to the given path.
     public static func breakPointsPath(_ path: Path) -> Path {
         XcodeProj.debuggerPath(path) + "Breakpoints_v2.xcbkptlist"
     }
 
-    /// Writes all project breakpoints to the given path.
+    /// Writes all schemes to the given path.
     ///
-    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
+    /// - Parameter override: if schemes should be overridden. Default is true.
+    ///   If true will remove all existing schemes before writing.
+    ///   If false will throw error if scheme already exists at the given path.
+    public static func writeSchemes(schemes: [XCScheme], path: Path, override: Bool = true) throws {
+        let schemesPath = XcodeProj.schemesPath(path)
+        if override, schemesPath.exists {
+            try schemesPath.delete()
+        }
+
+        try schemesPath.mkpath()
+        for scheme in schemes {
+            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+        }
+    }
+
+    /// Writes breakpoints to the given path.
+    ///
+    /// - Parameter path: parent folder of debugger folder (xcshareddata or xcuserdata)
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
-    public func writeBreakPoints(path: Path, override: Bool = true) throws {
-        guard let sharedData = sharedData else { return }
-
+    public static func writeBreakPoints(breakpoints: XCBreakpointList?, path: Path, override: Bool = true) throws {
         let debuggerPath = XcodeProj.debuggerPath(path)
         if override, debuggerPath.exists {
             try debuggerPath.delete()
         }
+
         try debuggerPath.mkpath()
-        try sharedData.breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
+        try breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
     }
 }

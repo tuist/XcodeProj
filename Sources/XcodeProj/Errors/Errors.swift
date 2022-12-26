@@ -41,6 +41,22 @@ public enum XCSharedDataError: Error, CustomStringConvertible {
     }
 }
 
+// MARK: - XCUserUserData
+
+/// XCUserData errors.
+///
+/// - notFound: the user data hasn't been found.
+public enum XCUserDataError: Error, CustomStringConvertible {
+    case notFound(path: Path)
+
+    public var description: String {
+        switch self {
+        case let .notFound(path):
+            return "xcuserdata not found at path \(path.string)"
+        }
+    }
+}
+
 // MARK: - XCWorkspace
 
 /// XCWorkspace Errors

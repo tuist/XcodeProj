@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public final class XCSharedData: Equatable {
+public final class XCSharedData: Equatable, Writable {
     // MARK: - Attributes
 
     /// Shared data schemes.
@@ -38,7 +38,7 @@ public final class XCSharedData: Equatable {
         }
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
+        breakpoints = try? XCBreakpointList(path: XcodeProj.breakPointsPath(path))
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {
@@ -54,5 +54,12 @@ public final class XCSharedData: Equatable {
         lhs.schemes == rhs.schemes &&
             lhs.breakpoints == rhs.breakpoints &&
             lhs.workspaceSettings == rhs.workspaceSettings
+    }
+
+    // MARK: - Writable
+
+    public func write(path: Path, override: Bool) throws {
+        try XcodeProj.writeSchemes(schemes: schemes, path: path, override: override)
+        try XcodeProj.writeBreakPoints(breakpoints: breakpoints, path: path, override: override)
     }
 }
