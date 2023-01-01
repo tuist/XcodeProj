@@ -129,11 +129,11 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
     
     /// Converts the object into a property list and writes it at the given path.
     /// - Parameter path: Path to the file where it should be written.
-    /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter override: if project should be overridden. Default is false.
     ///   If true will remove all existing data before writing.
     ///   If false will throw error iff file exists at the given path.
     /// - Throws: An error if the write fails.
-    public func write(path: Path, override: Bool) throws {
+    public func write(path: Path, override: Bool = false) throws {
         if override, path.exists {
             try path.delete()
         }

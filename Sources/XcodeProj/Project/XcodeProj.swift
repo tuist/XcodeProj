@@ -181,12 +181,7 @@ extension XcodeProj: Writable {
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if user data already exists at the given path.
     public func writeUserData(path: Path, override: Bool = true) throws {
-        let userDataPath = XcodeProj.userDataPath(path)
-        if override, userDataPath.exists {
-            try userDataPath.delete()
-        }
-
-        try userDataPath.mkpath()
+        try XcodeProj.userDataPath(path).mkpath()
         for userData in userData {
             try userData.write(path: XcodeProj.userDataPath(path, userName: userData.userName), override: true)
         }
@@ -209,6 +204,22 @@ extension XcodeProj: Writable {
         XcodeProj.schemesPath(path) + "\(schemeName).xcscheme"
     }
 
+    /// Writes all project schemes to the given path.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if project should be overridden. Default is true.
+    ///   If true will remove all existing schemes before writing.
+    ///   If false will throw error if scheme already exists at the given path.
+    public func writeSchemes(path: Path, override: Bool = true) throws {
+        let sharedDataPath = XcodeProj.sharedDataPath(path)
+        try sharedData?.writeSchemes(path: sharedDataPath, override: override)
+
+        for userData in userData {
+            let userDataPath = XcodeProj.userDataPath(path, userName: userData.userName)
+            try userData.writeSchemes(path: userDataPath, override: override)
+        }
+    }
+
     /// Returns scheme management file path relative to the given path.
     ///
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
@@ -229,41 +240,23 @@ extension XcodeProj: Writable {
     ///
     /// - Parameter path: parent folder of debugger folder (xcshareddata or xcuserdata)
     /// - Returns: breakpoints plist path relative to the given path.
-    public static func breakPointsPath(_ path: Path) -> Path {
+    public static func breakpointsPath(_ path: Path) -> Path {
         XcodeProj.debuggerPath(path) + "Breakpoints_v2.xcbkptlist"
     }
 
-    /// Writes all schemes to the given path.
+    /// Writes all project breakpoints to the given path.
     ///
-    /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
-    /// - Parameter override: if schemes should be overridden. Default is true.
-    ///   If true will remove all existing schemes before writing.
-    ///   If false will throw error if scheme already exists at the given path.
-    public static func writeSchemes(schemes: [XCScheme], path: Path, override: Bool = true) throws {
-        let schemesPath = XcodeProj.schemesPath(path)
-        if override, schemesPath.exists {
-            try schemesPath.delete()
-        }
-
-        try schemesPath.mkpath()
-        for scheme in schemes {
-            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
-        }
-    }
-
-    /// Writes breakpoints to the given path.
-    ///
-    /// - Parameter path: parent folder of debugger folder (xcshareddata or xcuserdata)
+    /// - Parameter path: path to `.xcodeproj` file.
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
-    public static func writeBreakPoints(breakpoints: XCBreakpointList?, path: Path, override: Bool = true) throws {
-        let debuggerPath = XcodeProj.debuggerPath(path)
-        if override, debuggerPath.exists {
-            try debuggerPath.delete()
-        }
+    public func writeBreakPoints(path: Path, override: Bool = true) throws {
+        let sharedDataPath = XcodeProj.sharedDataPath(path)
+        try sharedData?.writeBreakpoints(path: sharedDataPath, override: override)
 
-        try debuggerPath.mkpath()
-        try breakpoints?.write(path: XcodeProj.breakPointsPath(path), override: override)
+        for userData in userData {
+            let userDataPath = XcodeProj.userDataPath(path, userName: userData.userName)
+            try userData.writeBreakpoints(path: userDataPath, override: override)
+        }
     }
 }

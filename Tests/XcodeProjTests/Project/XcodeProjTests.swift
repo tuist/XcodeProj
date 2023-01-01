@@ -12,7 +12,11 @@ final class XcodeProjIntegrationTests: XCTestCase {
     func test_write_iosXcodeProj() {
         testWrite(from: iosProjectPath,
                   initModel: { try? XcodeProj(path: $0) },
-                  modify: { $0 },
+                  modify: { project in
+                      // XCUserData that is already in place (the removed element) should not be removed by a write
+                      _ = project.userData.removeLast()
+                      return project
+                  },
                   assertion: { assert(project: $1) })
     }
 
@@ -37,17 +41,17 @@ final class XcodeProjIntegrationTests: XCTestCase {
         XCTAssertNil(project.sharedData?.workspaceSettings)
 
         // User Data
-        XCTAssertEqual(project.userData.count, 2)
+        XCTAssertEqual(project.userData.count, 3)
 
-        XCTAssertEqual(project.userData.first?.userName, "username1")
-        XCTAssertEqual(project.userData.first?.schemes.count, 2)
-        XCTAssertEqual(project.userData.first?.breakpoints?.breakpoints.count, 2)
-        XCTAssertNotNil(project.userData.first?.schemeManagement)
+        XCTAssertEqual(project.userData[0].userName, "username1")
+        XCTAssertEqual(project.userData[0].schemes.count, 3)
+        XCTAssertEqual(project.userData[0].breakpoints?.breakpoints.count, 2)
+        XCTAssertNotNil(project.userData[0].schemeManagement)
 
-        XCTAssertEqual(project.userData.last?.userName, "username2")
-        XCTAssertEqual(project.userData.last?.schemes.count, 1)
-        XCTAssertNil(project.userData.last?.breakpoints?.breakpoints)
-        XCTAssertNil(project.userData.last?.schemeManagement)
+        XCTAssertEqual(project.userData[1].userName, "username2")
+        XCTAssertEqual(project.userData[1].schemes.count, 1)
+        XCTAssertNil(project.userData[1].breakpoints?.breakpoints)
+        XCTAssertNil(project.userData[1].schemeManagement)
     }
 
     private var iosProjectPath: Path {

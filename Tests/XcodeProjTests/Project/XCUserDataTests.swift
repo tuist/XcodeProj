@@ -12,7 +12,11 @@ final class XCUserDataTests: XCTestCase {
     func test_write_userData() {
         testWrite(from: userDataPath,
                   initModel: { try? XCUserData(path: $0) },
-                  modify: { $0 },
+                  modify: { userData in
+                      // XCScheme's that are already in place (the removed element) should not be removed by a write
+                      userData.schemes = userData.schemes.filter { $0.name != "iOS-other"}
+                      return userData
+                  },
                   assertion: {
                     assert(userData: $1, userName: "copy")
                   })
@@ -27,7 +31,7 @@ final class XCUserDataTests: XCTestCase {
 
     private func assert(userData: XCUserData, userName: String) {
         XCTAssertEqual(userData.userName, userName)
-        XCTAssertEqual(userData.schemes.count, 2)
+        XCTAssertEqual(userData.schemes.count, 3)
         XCTAssertEqual(userData.breakpoints?.breakpoints.count, 2)
         XCTAssertEqual(userData.schemeManagement?.schemeUserState?.count, 6)
     }

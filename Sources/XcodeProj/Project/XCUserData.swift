@@ -45,7 +45,7 @@ public final class XCUserData: Equatable, Writable {
         userName = path.lastComponentWithoutExtension
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: XcodeProj.breakPointsPath(path))
+        breakpoints = try? XCBreakpointList(path: XcodeProj.breakpointsPath(path))
         schemeManagement = try? XCSchemeManagement(path: XcodeProj.schemeManagementPath(path))
     }
 
@@ -61,22 +61,43 @@ public final class XCUserData: Equatable, Writable {
     // MARK: - Writable
 
     public func write(path: Path, override: Bool) throws {
-        if override, path.exists {
-            try path.delete()
-        }
-
-        try XcodeProj.writeSchemes(schemes: schemes, path: path, override: override)
-        try XcodeProj.writeBreakPoints(breakpoints: breakpoints, path: path, override: override)
+        try writeSchemes(path: path, override: override)
+        try writeBreakpoints(path: path, override: override)
         try writeSchemeManagement(path: path, override: override)
     }
 
-    /// Writes all project breakpoints to the given path.
+    /// Writes all user schemes to the given path.
+    ///
+    /// - Parameter path: xcuserdata folder
+    /// - Parameter override: if project should be overridden.
+    ///   If true will overrwrite a specific scheme
+    ///   If false will throw error if scheme already exists at the given path.
+    ///   Note that this will preserve any existing schemes that are already present in the user schemes folder
+    func writeSchemes(path: Path, override: Bool) throws {
+        try XcodeProj.schemesPath(path).mkpath()
+        for scheme in schemes {
+            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+        }
+    }
+
+    /// Writes all user breakpoints to the given path.
     ///
     /// - Parameter path: path to xcuserdata folder
-    /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter override: if project should be overridden..
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
-    public func writeSchemeManagement(path: Path, override: Bool) throws {
+    func writeBreakpoints(path: Path, override: Bool) throws {
+        try XcodeProj.debuggerPath(path).mkpath()
+        try breakpoints?.write(path: XcodeProj.breakpointsPath(path), override: override)
+    }
+
+    /// Writes scheme management to the given path.
+    ///
+    /// - Parameter path: path to xcuserdata folder
+    /// - Parameter override: if data should be overridden..
+    ///   If true will remove all existing scheme management data before writing.
+    ///   If false will throw error if  scheme management file exists at the given path.
+    func writeSchemeManagement(path: Path, override: Bool) throws {
         let schemeManagementPath = XcodeProj.schemeManagementPath(path)
         try path.mkpath()
         try schemeManagement?.write(path: schemeManagementPath, override: override)

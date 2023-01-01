@@ -38,7 +38,7 @@ public final class XCSharedData: Equatable, Writable {
         }
         schemes = path.glob("xcschemes/*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: XcodeProj.breakPointsPath(path))
+        breakpoints = try? XCBreakpointList(path: XcodeProj.breakpointsPath(path))
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {
@@ -59,7 +59,41 @@ public final class XCSharedData: Equatable, Writable {
     // MARK: - Writable
 
     public func write(path: Path, override: Bool) throws {
-        try XcodeProj.writeSchemes(schemes: schemes, path: path, override: override)
-        try XcodeProj.writeBreakPoints(breakpoints: breakpoints, path: path, override: override)
+        try writeSchemes(path: path, override: override)
+        try writeBreakpoints(path: path, override: override)
+    }
+
+    /// Writes all shared schemes to the given path.
+    ///
+    /// - Parameter path: xcshareddata folder
+    /// - Parameter override: if project should be overridden. Default is true.
+    ///   If true will remove all existing schemes before writing.
+    ///   If false will throw error if scheme already exists at the given path.
+    func writeSchemes(path: Path, override: Bool) throws {
+        let schemesPath = XcodeProj.schemesPath(path)
+        if override, schemesPath.exists {
+            try schemesPath.delete()
+        }
+
+        try schemesPath.mkpath()
+        for scheme in schemes {
+            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+        }
+    }
+
+    /// Writes all project breakpoints to the given path.
+    ///
+    /// - Parameter path: xcshareddata folder
+    /// - Parameter override: if project should be overridden. Default is true.
+    ///   If true will remove all existing debugger data before writing.
+    ///   If false will throw error if breakpoints file exists at the given path.
+    func writeBreakpoints(path: Path, override: Bool) throws {
+        let debuggerPath = XcodeProj.debuggerPath(path)
+        if override, debuggerPath.exists {
+            try debuggerPath.delete()
+        }
+
+        try debuggerPath.mkpath()
+        try breakpoints?.write(path: XcodeProj.breakpointsPath(path), override: override)
     }
 }
