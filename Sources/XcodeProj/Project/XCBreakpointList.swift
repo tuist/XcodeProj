@@ -426,3 +426,13 @@ public final class XCBreakpointList: Equatable, Writable {
             lhs.version == rhs.version
     }
 }
+
+extension XCBreakpointList {
+    /// Returns  breakpoints plist path relative to the given path.
+    ///
+    /// - Parameter path: debugger folder
+    /// - Returns: breakpoints plist path relative to the given path.
+    public static func path(_ path: Path) -> Path {
+        path + "Breakpoints_v2.xcbkptlist"
+    }
+}

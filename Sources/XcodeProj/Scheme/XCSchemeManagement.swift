@@ -181,3 +181,13 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
         }
     }
 }
+
+extension XCSchemeManagement {
+    /// Returns scheme management file path relative to the given path.
+    ///
+    /// - Parameter path: schemes folder
+    /// - Returns: scheme management plist path relative to the given path.
+    static func path(_ path: Path) -> Path {
+        path + "xcschememanagement.plist"
+    }
+}

@@ -43,10 +43,14 @@ public final class XCUserData: Equatable, Writable {
             throw XCUserDataError.notFound(path: path)
         }
         userName = path.lastComponentWithoutExtension
-        schemes = path.glob("xcschemes/*.xcscheme")
+
+        let schemesPath = XCScheme.schemesPath(path)
+        schemes = schemesPath
+            .glob("*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: XcodeProj.breakpointsPath(path))
-        schemeManagement = try? XCSchemeManagement(path: XcodeProj.schemeManagementPath(path))
+        schemeManagement = try? XCSchemeManagement(path: XCSchemeManagement.path(schemesPath))
+
+        breakpoints = try? XCBreakpointList(path: XCBreakpointList.path(XCDebugger.path(path)))
     }
 
     // MARK: - Equatable
@@ -76,10 +80,25 @@ public final class XCUserData: Equatable, Writable {
     func writeSchemes(path: Path, override: Bool) throws {
         guard !schemes.isEmpty else { return }
 
-        try XcodeProj.schemesPath(path).mkpath()
+        try XCScheme.schemesPath(path).mkpath()
         for scheme in schemes {
-            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+            let schemePath = XCScheme.path(path, schemeName: scheme.name)
+            try scheme.write(path: schemePath, override: override)
         }
+    }
+
+    /// Writes user scheme management to the given path.
+    ///
+    /// - Parameter path: path to xcuserdata folder
+    /// - Parameter override: if data should be overridden..
+    ///   If true will remove all existing scheme management data before writing.
+    ///   If false will throw error if  scheme management file exists at the given path.
+    func writeSchemeManagement(path: Path, override: Bool) throws {
+        guard let schemeManagement = schemeManagement else { return }
+
+        let schemesPath = XCScheme.schemesPath(path)
+        try schemesPath.mkpath()
+        try schemeManagement.write(path: XCSchemeManagement.path(schemesPath), override: override)
     }
 
     /// Writes all user breakpoints to the given path.
@@ -91,20 +110,26 @@ public final class XCUserData: Equatable, Writable {
     func writeBreakpoints(path: Path, override: Bool) throws {
         guard let breakpoints = breakpoints else { return }
 
-        try XcodeProj.debuggerPath(path).mkpath()
-        try breakpoints.write(path: XcodeProj.breakpointsPath(path), override: override)
+        let debuggerPath = XCDebugger.path(path)
+        try debuggerPath.mkpath()
+        try breakpoints.write(path: XCBreakpointList.path(debuggerPath), override: override)
+    }
+}
+
+extension XCUserData {
+    /// Returns user data path relative to the given path.
+    ///
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: user data path relative to the given path.
+    public static func path(_ path: Path) -> Path {
+        path + "xcuserdata"
     }
 
-    /// Writes scheme management to the given path.
+    /// Returns user data path for a specific user relative to the given path.
     ///
-    /// - Parameter path: path to xcuserdata folder
-    /// - Parameter override: if data should be overridden..
-    ///   If true will remove all existing scheme management data before writing.
-    ///   If false will throw error if  scheme management file exists at the given path.
-    func writeSchemeManagement(path: Path, override: Bool) throws {
-        guard let schemeManagement = schemeManagement else { return }
-
-        try XcodeProj.schemesPath(path).mkpath()
-        try schemeManagement.write(path: XcodeProj.schemeManagementPath(path), override: override)
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: user data path relative to the given path.
+    public static func path(_ path: Path, userName: String) -> Path {
+        XCUserData.path(path) + "\(userName).xcuserdatad"
     }
 }

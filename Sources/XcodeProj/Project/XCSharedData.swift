@@ -36,9 +36,11 @@ public final class XCSharedData: Equatable, Writable {
         if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
-        schemes = path.glob("xcschemes/*.xcscheme")
+        schemes = XCScheme.schemesPath(path)
+            .glob("*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: XcodeProj.breakpointsPath(path))
+
+        breakpoints = try? XCBreakpointList(path: XCBreakpointList.path(XCDebugger.path(path)))
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {
@@ -70,7 +72,7 @@ public final class XCSharedData: Equatable, Writable {
     ///   If true will remove all existing schemes before writing.
     ///   If false will throw error if scheme already exists at the given path.
     func writeSchemes(path: Path, override: Bool) throws {
-        let schemesPath = XcodeProj.schemesPath(path)
+        let schemesPath = XCScheme.schemesPath(path)
         if override, schemesPath.exists {
             try schemesPath.delete()
         }
@@ -79,18 +81,19 @@ public final class XCSharedData: Equatable, Writable {
 
         try schemesPath.mkpath()
         for scheme in schemes {
-            try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
+            let schemePath = XCScheme.path(path, schemeName: scheme.name)
+            try scheme.write(path: schemePath, override: override)
         }
     }
 
-    /// Writes all project breakpoints to the given path.
+    /// Writes all shared breakpoints to the given path.
     ///
     /// - Parameter path: xcshareddata folder
     /// - Parameter override: if project should be overridden. Default is true.
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
     func writeBreakpoints(path: Path, override: Bool) throws {
-        let debuggerPath = XcodeProj.debuggerPath(path)
+        let debuggerPath = XCDebugger.path(path)
         if override, debuggerPath.exists {
             try debuggerPath.delete()
         }
@@ -98,6 +101,16 @@ public final class XCSharedData: Equatable, Writable {
         guard let breakpoints = breakpoints else { return }
 
         try debuggerPath.mkpath()
-        try breakpoints.write(path: XcodeProj.breakpointsPath(path), override: override)
+        try breakpoints.write(path: XCBreakpointList.path(debuggerPath), override: override)
+    }
+}
+
+extension XCSharedData {
+    /// Returns shared data path relative to the given path.
+    ///
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: shared data path relative to the given path.
+    public static func path(_ path: Path) -> Path {
+        path + "xcshareddata"
     }
 }
