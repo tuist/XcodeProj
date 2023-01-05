@@ -183,7 +183,7 @@ extension XcodeProj: Writable {
     public func writeUserData(path: Path, override: Bool = true) throws {
         try XcodeProj.userDataPath(path).mkpath()
         for userData in userData {
-            try userData.write(path: XcodeProj.userDataPath(path, userName: userData.userName), override: true)
+            try userData.write(path: XcodeProj.userDataPath(path, userName: userData.userName), override: override)
         }
     }
 
