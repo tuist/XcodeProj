@@ -74,6 +74,8 @@ public final class XCUserData: Equatable, Writable {
     ///   If false will throw error if scheme already exists at the given path.
     ///   Note that this will preserve any existing schemes that are already present in the user schemes folder
     func writeSchemes(path: Path, override: Bool) throws {
+        guard !schemes.isEmpty else { return }
+
         try XcodeProj.schemesPath(path).mkpath()
         for scheme in schemes {
             try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
@@ -87,8 +89,10 @@ public final class XCUserData: Equatable, Writable {
     ///   If true will remove all existing debugger data before writing.
     ///   If false will throw error if breakpoints file exists at the given path.
     func writeBreakpoints(path: Path, override: Bool) throws {
+        guard let breakpoints = breakpoints else { return }
+
         try XcodeProj.debuggerPath(path).mkpath()
-        try breakpoints?.write(path: XcodeProj.breakpointsPath(path), override: override)
+        try breakpoints.write(path: XcodeProj.breakpointsPath(path), override: override)
     }
 
     /// Writes scheme management to the given path.
@@ -98,8 +102,9 @@ public final class XCUserData: Equatable, Writable {
     ///   If true will remove all existing scheme management data before writing.
     ///   If false will throw error if  scheme management file exists at the given path.
     func writeSchemeManagement(path: Path, override: Bool) throws {
-        let schemeManagementPath = XcodeProj.schemeManagementPath(path)
-        try path.mkpath()
-        try schemeManagement?.write(path: schemeManagementPath, override: override)
+        guard let schemeManagement = schemeManagement else { return }
+
+        try XcodeProj.schemesPath(path).mkpath()
+        try schemeManagement.write(path: XcodeProj.schemeManagementPath(path), override: override)
     }
 }

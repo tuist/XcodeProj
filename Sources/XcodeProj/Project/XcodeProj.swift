@@ -181,7 +181,6 @@ extension XcodeProj: Writable {
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if user data already exists at the given path.
     public func writeUserData(path: Path, override: Bool = true) throws {
-        try XcodeProj.userDataPath(path).mkpath()
         for userData in userData {
             try userData.write(path: XcodeProj.userDataPath(path, userName: userData.userName), override: override)
         }

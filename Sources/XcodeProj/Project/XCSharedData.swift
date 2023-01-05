@@ -75,6 +75,8 @@ public final class XCSharedData: Equatable, Writable {
             try schemesPath.delete()
         }
 
+        guard !schemes.isEmpty else { return }
+
         try schemesPath.mkpath()
         for scheme in schemes {
             try scheme.write(path: XcodeProj.schemePath(path, schemeName: scheme.name), override: override)
@@ -93,7 +95,9 @@ public final class XCSharedData: Equatable, Writable {
             try debuggerPath.delete()
         }
 
+        guard let breakpoints = breakpoints else { return }
+
         try debuggerPath.mkpath()
-        try breakpoints?.write(path: XcodeProj.breakpointsPath(path), override: override)
+        try breakpoints.write(path: XcodeProj.breakpointsPath(path), override: override)
     }
 }
