@@ -39,7 +39,8 @@ public final class XcodeProj: Equatable {
         let sharedDataPath = path + "xcshareddata"
         sharedData = try? XCSharedData(path: sharedDataPath)
 
-        userData = path.glob("xcuserdata/*.xcuserdatad")
+        userData = XCUserData.path(path)
+            .glob("*.xcuserdatad")
             .compactMap { try? XCUserData(path: $0) }
 
         self.pbxproj = pbxproj
@@ -174,7 +175,7 @@ extension XcodeProj: Writable {
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: schemes folder path relative to the given path.
-    @available(*, deprecated, message: "use XcodeProjPaths.sharedSchemesPath(path:)")
+    @available(*, deprecated, message: "use XCScheme.schemesPath(path:)")
     public static func schemesPath(_ path: Path) -> Path {
         XCScheme.schemesPath(sharedDataPath(path))
     }
@@ -184,7 +185,7 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
-    @available(*, deprecated, message: "use XcodeProjPaths.sharedSchemePath(path:schemeName)")
+    @available(*, deprecated, message: "use XCScheme.path(path:schemeName)")
     public static func schemePath(_ path: Path, schemeName: String) -> Path {
         XCScheme.path(schemesPath(path), schemeName: schemeName)
     }
@@ -209,7 +210,7 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: debugger folder path relative to the given path.
-    @available(*, deprecated, message: "use XcodeProjPaths.sharedDebuggerPath(path:)")
+    @available(*, deprecated, message: "use XCDebugger.path(path:)")
     public static func debuggerPath(_ path: Path) -> Path {
         XCDebugger.path(XCSharedData.path(path))
     }
@@ -219,7 +220,7 @@ extension XcodeProj: Writable {
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
     /// - Returns: breakpoints plist path relative to the given path.
-    @available(*, deprecated, message: "use XcodeProjPaths.sharedBreakPointsPath(path:)")
+    @available(*, deprecated, message: "use XCBreakpointList.path(path:)")
     public static func breakPointsPath(_ path: Path) -> Path {
         XCBreakpointList.path(debuggerPath(path))
     }

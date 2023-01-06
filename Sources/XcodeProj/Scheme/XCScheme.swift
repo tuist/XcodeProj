@@ -146,6 +146,6 @@ extension XCScheme {
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
     static func path(_ path: Path, schemeName: String) -> Path {
-        schemesPath(path) + "\(schemeName).xcscheme"
+        XCScheme.schemesPath(path) + "\(schemeName).xcscheme"
     }
 }

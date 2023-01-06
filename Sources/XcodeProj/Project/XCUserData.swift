@@ -22,6 +22,7 @@ public final class XCUserData: Equatable, Writable {
     /// Initializes the shared data with its properties.
     ///
     /// - Parameters:
+    ///   - userName: User name
     ///   - schemes: User data schemes.
     ///   - breakpoints: User data breakpoints.
     ///   - schemeManagement: Metdata for schemes

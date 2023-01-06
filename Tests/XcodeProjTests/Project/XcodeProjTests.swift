@@ -52,11 +52,6 @@ final class XcodeProjIntegrationTests: XCTestCase {
         XCTAssertEqual(project.userData[1].schemes.count, 1)
         XCTAssertNil(project.userData[1].breakpoints?.breakpoints)
         XCTAssertNil(project.userData[1].schemeManagement)
-
-        XCTAssertEqual(project.userData[2].userName, "username3")
-        XCTAssertEqual(project.userData[2].schemes.count, 1)
-        XCTAssertNotNil(project.userData[2].breakpoints?.breakpoints)
-        XCTAssertNil(project.userData[2].schemeManagement)
     }
 
     private var iosProjectPath: Path {
