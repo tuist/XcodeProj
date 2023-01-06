@@ -45,13 +45,21 @@ final class XcodeProjIntegrationTests: XCTestCase {
 
         XCTAssertEqual(project.userData[0].userName, "username1")
         XCTAssertEqual(project.userData[0].schemes.count, 3)
+        XCTAssertEqual(project.userData[0].schemes.map(\.name), ["iOS-debug", "iOS-other", "iOS-release"])
         XCTAssertEqual(project.userData[0].breakpoints?.breakpoints.count, 2)
         XCTAssertNotNil(project.userData[0].schemeManagement)
 
         XCTAssertEqual(project.userData[1].userName, "username2")
         XCTAssertEqual(project.userData[1].schemes.count, 1)
+        XCTAssertEqual(project.userData[1].schemes.map(\.name), ["iOSTests"])
         XCTAssertNil(project.userData[1].breakpoints?.breakpoints)
         XCTAssertNil(project.userData[1].schemeManagement)
+
+        XCTAssertEqual(project.userData[2].userName, "username3")
+        XCTAssertEqual(project.userData[2].schemes.count, 1)
+        XCTAssertEqual(project.userData[2].schemes.map(\.name), ["custom-scheme"])
+        XCTAssertNotNil(project.userData[2].breakpoints?.breakpoints)
+        XCTAssertNil(project.userData[2].schemeManagement)
     }
 
     private var iosProjectPath: Path {
