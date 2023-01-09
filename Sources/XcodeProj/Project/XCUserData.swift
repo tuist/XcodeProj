@@ -71,13 +71,6 @@ public final class XCUserData: Equatable, Writable {
         try writeSchemeManagement(path: path, override: override)
     }
 
-    /// Writes all user schemes to the given path.
-    ///
-    /// - Parameter path: xcuserdata folder
-    /// - Parameter override: if project should be overridden.
-    ///   If true will overrwrite a specific scheme
-    ///   If false will throw error if scheme already exists at the given path.
-    ///   Note that this will preserve any existing schemes that are already present in the user schemes folder
     func writeSchemes(path: Path, override: Bool) throws {
         guard !schemes.isEmpty else { return }
 
@@ -88,12 +81,6 @@ public final class XCUserData: Equatable, Writable {
         }
     }
 
-    /// Writes user scheme management to the given path.
-    ///
-    /// - Parameter path: path to xcuserdata folder
-    /// - Parameter override: if data should be overridden..
-    ///   If true will remove all existing scheme management data before writing.
-    ///   If false will throw error if  scheme management file exists at the given path.
     func writeSchemeManagement(path: Path, override: Bool) throws {
         guard let schemeManagement = schemeManagement else { return }
 
@@ -102,12 +89,6 @@ public final class XCUserData: Equatable, Writable {
         try schemeManagement.write(path: XCSchemeManagement.path(schemesPath), override: override)
     }
 
-    /// Writes all user breakpoints to the given path.
-    ///
-    /// - Parameter path: path to xcuserdata folder
-    /// - Parameter override: if project should be overridden..
-    ///   If true will remove all existing debugger data before writing.
-    ///   If false will throw error if breakpoints file exists at the given path.
     func writeBreakpoints(path: Path, override: Bool) throws {
         guard let breakpoints = breakpoints else { return }
 

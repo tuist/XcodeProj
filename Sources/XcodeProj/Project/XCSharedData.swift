@@ -65,12 +65,6 @@ public final class XCSharedData: Equatable, Writable {
         try writeBreakpoints(path: path, override: override)
     }
 
-    /// Writes all shared schemes to the given path.
-    ///
-    /// - Parameter path: xcshareddata folder
-    /// - Parameter override: if project should be overridden.
-    ///   If true will remove all existing schemes before writing.
-    ///   If false will throw error if scheme already exists at the given path.
     func writeSchemes(path: Path, override: Bool) throws {
         let schemesPath = XCScheme.schemesPath(path)
         if override, schemesPath.exists {
@@ -86,12 +80,6 @@ public final class XCSharedData: Equatable, Writable {
         }
     }
 
-    /// Writes all shared breakpoints to the given path.
-    ///
-    /// - Parameter path: xcshareddata folder
-    /// - Parameter override: if project should be overridden.
-    ///   If true will remove all existing debugger data before writing.
-    ///   If false will throw error if breakpoints file exists at the given path.
     func writeBreakpoints(path: Path, override: Bool) throws {
         let debuggerPath = XCDebugger.path(path)
         if override, debuggerPath.exists {
