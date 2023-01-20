@@ -37,6 +37,9 @@ public final class PBXBuildFile: PBXObject {
     /// Introduced in: Xcode 11
     public var platformFilter: String?
 
+    /// Platform filters attribute.
+    public var platformFilters: [String]?
+
     /// The cached build phase this build file belongs to
     weak var buildPhase: PBXBuildPhase?
 
@@ -51,11 +54,13 @@ public final class PBXBuildFile: PBXObject {
     public init(file: PBXFileElement? = nil,
                 product: XCSwiftPackageProductDependency? = nil,
                 settings: [String: Any]? = nil,
-                platformFilter: String? = nil) {
+                platformFilter: String? = nil,
+                platformFilters: [String]? = nil) {
         fileReference = file?.reference
         productReference = product?.reference
         self.settings = settings
         self.platformFilter = platformFilter
+        self.platformFilters = platformFilters
         super.init()
     }
 
@@ -66,6 +71,7 @@ public final class PBXBuildFile: PBXObject {
         case settings
         case productRef
         case platformFilter
+        case platformFilters
     }
 
     public required init(from decoder: Decoder) throws {
@@ -80,6 +86,7 @@ public final class PBXBuildFile: PBXObject {
         }
         settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
         platformFilter = try container.decodeIfPresent(.platformFilter)
+        platformFilters = try container.decodeIfPresent([String].self, forKey: .platformFilters)
         try super.init(from: decoder)
     }
 
@@ -175,6 +182,9 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         }
         if let platformFilter = buildFile.platformFilter {
             dictionary["platformFilter"] = .string(.init(platformFilter))
+        }
+        if let platformFilters = buildFile.platformFilters {
+            dictionary["platformFilters"] = .array(platformFilters.map { .string(.init($0)) })
         }
         let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),
