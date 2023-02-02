@@ -180,7 +180,7 @@ extension XcodeProj: Writable {
         XCScheme.schemesPath(sharedDataPath(path))
     }
 
-    /// Returns shared  scheme file path relative to the given path.
+    /// Returns shared scheme file path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Parameter schemeName: scheme name
