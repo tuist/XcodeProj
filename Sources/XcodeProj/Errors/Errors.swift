@@ -41,7 +41,7 @@ public enum XCSharedDataError: Error, CustomStringConvertible {
     }
 }
 
-// MARK: - XCUserUserData
+// MARK: - XCUserData
 
 /// XCUserData errors.
 ///
