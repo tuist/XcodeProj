@@ -7,7 +7,7 @@ import PathKit
 final class XCSchemeManagementTests: XCTestCase {
     func test_init_from_path() throws {
         // Given
-        let path = fixturesPath() + "Schemes/xcschememanagement.plist"
+        let path = xcschememanagementPath
         
         // When
         let got = try XCSchemeManagement.init(path: path)
@@ -28,7 +28,12 @@ final class XCSchemeManagementTests: XCTestCase {
         XCTAssertNil(xcodeprojScheme.isShown)
         XCTAssertEqual(xcodeprojScheme.orderHint, 1)
     }
-    
+
+    func test_read_write_produces_no_diff() throws {
+        try testReadWriteProducesNoDiff(from: xcschememanagementPath,
+                                        initModel: XCSchemeManagement.init(path:))
+    }
+
     func test_write_produces_no_diff() throws {
         let tmpDir = try Path.uniqueTemporary()
         defer {
@@ -40,7 +45,7 @@ final class XCSchemeManagementTests: XCTestCase {
             let plistPath = tmpDir + "xcschememanagement.plist"
             let subject = XCSchemeManagement(schemeUserState: [.init(name: "Test.xcscheme", shared: true, orderHint: 0, isShown: true)],
                                              suppressBuildableAutocreation: ["E525238B16245A900012E2BA": .init(primary: true)])
-            try subject.write(path: plistPath)
+            try subject.write(path: plistPath, override: true)
             
             // Create a commit
             try checkedOutput("git", ["init"])
@@ -48,10 +53,14 @@ final class XCSchemeManagementTests: XCTestCase {
             try checkedOutput("git", ["commit", "-m", "test"])
             
             // Write again
-            try subject.write(path: plistPath)
+            try subject.write(path: plistPath, override: true)
 
             let got = try checkedOutput("git", ["status"])
             XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
+    }
+
+    private var xcschememanagementPath: Path {
+        fixturesPath() + "Schemes/xcschememanagement.plist"
     }
 }

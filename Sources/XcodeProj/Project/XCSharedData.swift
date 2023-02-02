@@ -1,7 +1,7 @@
 import Foundation
 import PathKit
 
-public final class XCSharedData: Equatable {
+public final class XCSharedData: Equatable, Writable {
     // MARK: - Attributes
 
     /// Shared data schemes.
@@ -36,9 +36,11 @@ public final class XCSharedData: Equatable {
         if !path.exists {
             throw XCSharedDataError.notFound(path: path)
         }
-        schemes = path.glob("xcschemes/*.xcscheme")
+        schemes = XCScheme.schemesPath(path)
+            .glob("*.xcscheme")
             .compactMap { try? XCScheme(path: $0) }
-        breakpoints = try? XCBreakpointList(path: path + "xcdebugger/Breakpoints_v2.xcbkptlist")
+
+        breakpoints = try? XCBreakpointList(path: XCBreakpointList.path(XCDebugger.path(path)))
 
         let workspaceSettingsPath = path + "WorkspaceSettings.xcsettings"
         if workspaceSettingsPath.exists {
@@ -54,5 +56,49 @@ public final class XCSharedData: Equatable {
         lhs.schemes == rhs.schemes &&
             lhs.breakpoints == rhs.breakpoints &&
             lhs.workspaceSettings == rhs.workspaceSettings
+    }
+
+    // MARK: - Writable
+
+    public func write(path: Path, override: Bool) throws {
+        try writeSchemes(path: path, override: override)
+        try writeBreakpoints(path: path, override: override)
+    }
+
+    func writeSchemes(path: Path, override: Bool) throws {
+        let schemesPath = XCScheme.schemesPath(path)
+        if override, schemesPath.exists {
+            try schemesPath.delete()
+        }
+
+        guard !schemes.isEmpty else { return }
+
+        try schemesPath.mkpath()
+        for scheme in schemes {
+            let schemePath = XCScheme.path(path, schemeName: scheme.name)
+            try scheme.write(path: schemePath, override: override)
+        }
+    }
+
+    func writeBreakpoints(path: Path, override: Bool) throws {
+        let debuggerPath = XCDebugger.path(path)
+        if override, debuggerPath.exists {
+            try debuggerPath.delete()
+        }
+
+        guard let breakpoints = breakpoints else { return }
+
+        try debuggerPath.mkpath()
+        try breakpoints.write(path: XCBreakpointList.path(debuggerPath), override: override)
+    }
+}
+
+extension XCSharedData {
+    /// Returns shared data path relative to the given path.
+    ///
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: shared data path relative to the given path.
+    public static func path(_ path: Path) -> Path {
+        path + "xcshareddata"
     }
 }

@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add XCUserData [#739](https://github.com/tuist/XcodeProj/pull/739) by [@teameh](https://github.com/teameh)
+
 ## 8.8.0
 
 ### Fixed

@@ -16,6 +16,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
                   assertion: { assert(scheme: $1) })
     }
 
+    func test_read_write_produces_no_diff() throws {
+        try testReadWriteProducesNoDiff(from: iosSchemePath,
+                                        initModel: XCScheme.init(path:))
+    }
+
     func test_read_runnableWithoutBuildableReferenceScheme() {
         let subject = try? XCScheme(path: runnableWithoutBuildableReferenceSchemePath)
 

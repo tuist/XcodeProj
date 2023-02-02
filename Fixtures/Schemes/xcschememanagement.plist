@@ -6,10 +6,10 @@
 	<dict>
 		<key>Tuist.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
-      <key>isShown</key>
-			<true/>
 		</dict>
 		<key>XcodeProj.xcscheme</key>
 		<dict>

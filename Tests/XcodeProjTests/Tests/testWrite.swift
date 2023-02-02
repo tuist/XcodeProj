@@ -37,3 +37,33 @@ func testWrite<T: Writable>(file: StaticString = #file,
     }
     try? copyPath.delete()
 }
+
+func testReadWriteProducesNoDiff<T: Writable>(file: StaticString = #file,
+                                              line: UInt = #line,
+                                              from path: Path,
+                                              initModel: (Path) throws -> T) throws {
+    let tmpDir = try Path.uniqueTemporary()
+    defer {
+        try? tmpDir.delete()
+    }
+
+    let fileName = path.lastComponent
+    let tmpPath = tmpDir + fileName
+    try path.copy(tmpPath)
+
+    try tmpDir.chdir {
+        // Create a commit
+        try checkedOutput("git", ["init"])
+        try checkedOutput("git", ["add", "."])
+        try checkedOutput("git", [
+            "-c", "user.email=test@example.com", "-c", "user.name=Test User",
+            "commit", "-m", "test"
+        ])
+
+        let object = try initModel(tmpPath)
+        try object.write(path: tmpPath, override: true)
+
+        let diff = try XCTUnwrap(try checkedOutput("git", ["diff"]))
+        XCTAssertEqual(diff, "")
+    }
+}
