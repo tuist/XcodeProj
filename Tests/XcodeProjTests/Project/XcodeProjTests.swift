@@ -24,6 +24,25 @@ final class XcodeProjIntegrationTests: XCTestCase {
         try testReadWriteProducesNoDiff(from: iosProjectPath,
                                         initModel: XcodeProj.init(path:))
     }
+    
+    func test_write_includes_workspace_settings() throws {
+        // Define workspace settings that should be written
+        let workspaceSettings = WorkspaceSettings(buildSystem: .new, derivedDataLocationStyle: .default, autoCreateSchemes: false)
+
+        testWrite(from: iosProjectPath,
+                  initModel: { try? XcodeProj(path: $0) },
+                  modify: { project in
+                      project.sharedData?.workspaceSettings = workspaceSettings
+                      return project
+                  },
+                  assertion: {
+                      /**
+                       * Expect that the workspace settings read from file are equal to the
+                       * workspace settings we expected to write.
+                       */
+                      XCTAssertEqual($1.sharedData?.workspaceSettings, workspaceSettings)
+                  })
+    }
 
     // MARK: - Private
 
