@@ -30,8 +30,7 @@ final class XCSchemeManagementTests: XCTestCase {
     }
 
     func test_read_write_produces_no_diff() throws {
-        try testReadWriteProducesNoDiff(from: xcschememanagementPath,
-                                        initModel: XCSchemeManagement.init(path:))
+        try testReadWriteProducesNoDiff(from: xcschememanagementPath, initModel: XCSchemeManagement.init(path:))
     }
 
     func test_write_produces_no_diff() throws {

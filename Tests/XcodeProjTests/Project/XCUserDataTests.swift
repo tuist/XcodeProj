@@ -23,8 +23,7 @@ final class XCUserDataTests: XCTestCase {
     }
 
     func test_read_write_produces_no_diff() throws {
-        try testReadWriteProducesNoDiff(from: userDataPath,
-                                        initModel: XCUserData.init(path:))
+        try testReadWriteProducesNoDiff(from: userDataPath, initModel: XCUserData.init(path:))
     }
 
     // MARK: - Private

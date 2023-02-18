@@ -25,6 +25,7 @@
 		33C049021FCA541192F40AD1 /* XCWorkspaceDataFileRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92DC66EE80F3D7611319ACC /* XCWorkspaceDataFileRef.swift */; };
 		364C132E6ABF980BF9E84649 /* XCScheme+ProfileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E17A977543393ED7B848A9 /* XCScheme+ProfileAction.swift */; };
 		3A59F800668B0D6F550B9C09 /* PBXGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249AAF8AE1978D1546C0ADB5 /* PBXGroup.swift */; };
+		3AF2A0A0965EB5EC74923244 /* XCDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A96BC0C027BB173BC23C8D /* XCDebugger.swift */; };
 		3D5DBC9A4315D97D1B39CF19 /* PBXProjEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A031713D5F31DDCC2D61EF /* PBXProjEncoder.swift */; };
 		3E2EE77196F6B2BECE8DF3DB /* BuildSettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977C44246CCF9C13AB856C2 /* BuildSettingsProvider.swift */; };
 		468F48B3D19F3D1611181A2E /* XCSchemeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA327A9CAF3CCFF60AD469 /* XCSchemeManagement.swift */; };
@@ -61,6 +62,7 @@
 		84C672F79741BBA0937580EA /* Sourcery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33AF969BDFF0250420A5E8 /* Sourcery.swift */; };
 		8EE72814658F0A23A01AD1E6 /* XCBreakpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BF3D061052148207584A5 /* XCBreakpointList.swift */; };
 		903A9EC1B895A4920A322898 /* XCScheme+ArchiveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F7E3085922F586144F562A /* XCScheme+ArchiveAction.swift */; };
+		9D3FF6643048C116F1881471 /* XCUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D25A0190B14740F9DDDB98B /* XCUserData.swift */; };
 		9D897705DD334A50C4431887 /* PBXBuildRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50CD65FDAA9B3F4269F4AAF /* PBXBuildRule.swift */; };
 		9DBF777FEB60396E520D2595 /* KeyedDecodingContainer+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABCF05523B52C542BC48C31 /* KeyedDecodingContainer+Additions.swift */; };
 		9F27802B144AFC7C1A739492 /* PBXObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CC513CEDABAA9712FB4DC6 /* PBXObjects.swift */; };
@@ -137,6 +139,7 @@
 		20B1225FED6E1D49EE385AA0 /* XCScheme+EnvironmentVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+EnvironmentVariable.swift"; sourceTree = "<group>"; };
 		2370B4E19828CEFC032511A1 /* PBXContainerItemProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxy.swift; sourceTree = "<group>"; };
 		249AAF8AE1978D1546C0ADB5 /* PBXGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXGroup.swift; sourceTree = "<group>"; };
+		26A96BC0C027BB173BC23C8D /* XCDebugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCDebugger.swift; sourceTree = "<group>"; };
 		26EF076F4983A1ABBD3CC81B /* XCScheme+PathRunnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+PathRunnable.swift"; sourceTree = "<group>"; };
 		2B928006AD1C96D4D8072BD9 /* XCConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfig.swift; sourceTree = "<group>"; };
 		2BD1A6E5AC6502EDE59541C8 /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 		59F2F50C66ADD5D0C12F3B70 /* XCWorkspaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCWorkspaceData.swift; sourceTree = "<group>"; };
 		5A4A785AD26E7657312118B9 /* Writable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Writable.swift; sourceTree = "<group>"; };
 		5D13E332186D46FFA83BBD50 /* XCScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCScheme.swift; sourceTree = "<group>"; };
+		5D25A0190B14740F9DDDB98B /* XCUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUserData.swift; sourceTree = "<group>"; };
 		6023B10EB151C2FF48E53395 /* Array+Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extras.swift"; sourceTree = "<group>"; };
 		60E927F019715C98BA849930 /* PBXBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildPhase.swift; sourceTree = "<group>"; };
 		66F7E3085922F586144F562A /* XCScheme+ArchiveAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCScheme+ArchiveAction.swift"; sourceTree = "<group>"; };
@@ -454,9 +458,11 @@
 			children = (
 				3353E37D0FBA49BA04C82476 /* WorkspaceSettings.swift */,
 				CC0BF3D061052148207584A5 /* XCBreakpointList.swift */,
+				26A96BC0C027BB173BC23C8D /* XCDebugger.swift */,
 				A7DAFF5CC89FBB59D02F72B9 /* Xcode.swift */,
 				F8B667CA83B0BB0285F470F1 /* XcodeProj.swift */,
 				AF73D1E4C0B20C16D61865F6 /* XCSharedData.swift */,
+				5D25A0190B14740F9DDDB98B /* XCUserData.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -640,7 +646,9 @@
 				D5DB78ED46F818640BC41A9D /* PBXTargetDependency.swift in Sources */,
 				ED4BFA372B68053D67F0E379 /* WorkspaceSettings.swift in Sources */,
 				8EE72814658F0A23A01AD1E6 /* XCBreakpointList.swift in Sources */,
+				3AF2A0A0965EB5EC74923244 /* XCDebugger.swift in Sources */,
 				BEBC1583A85423F1F1BF3E30 /* XCSharedData.swift in Sources */,
+				9D3FF6643048C116F1881471 /* XCUserData.swift in Sources */,
 				CE58E51C93B8A19FA4F79E22 /* Xcode.swift in Sources */,
 				E82A4CE0E0E385A2DED27887 /* XcodeProj.swift in Sources */,
 				C333BEA47F06D2357DE8B1EA /* Writable.swift in Sources */,
@@ -716,7 +724,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.6.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -757,6 +765,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -809,6 +818,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -860,7 +870,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.6.1;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
