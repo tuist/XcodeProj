@@ -1,8 +1,15 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
-## Next
+## 8.9.0
 
-- Add XCUserData [#739](https://github.com/tuist/XcodeProj/pull/739) by [@teameh](https://github.com/teameh)
+### Added
+
+- Update watchOS application default settings for Xcode 14 [#711](https://github.com/tuist/XcodeProj/pull/711) by [@kwridan](https://github.com/kwridan)
+- Implement `Hashable` for `XCScheme.BuildableReference` [#712](https://github.com/tuist/XcodeProj/pull/712) by [@cgrindel](https://github.com/cgrindel)
+- Sets customWorkingDirectory for schemes [#720](https://github.com/tuist/XcodeProj/pull/720) by [@maxwellE](https://github.com/maxwellE)
+- Add `XCScheme.ExecutionAction.shellToInvoke` [#721](https://github.com/tuist/XcodeProj/pull/721) by [@CrazyFanFan](https://github.com/CrazyFanFan)
+- Add `platformFilters` attribute to `PBXBuildFile` and `PBXTargetDependency` [#737](https://github.com/tuist/XcodeProj/pull/737) by [@maxwellE](https://github.com/maxwellE)
+- Add suppot for `XCUserData` [#739](https://github.com/tuist/XcodeProj/pull/739) by [@teameh](https://github.com/teameh)
 
 ## 8.8.0
 
