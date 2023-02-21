@@ -247,6 +247,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "AlexKobachiJP",
+      "name": "Alex Kovács",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103150233?v=4",
+      "profile": "https://kobachi.jp",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
