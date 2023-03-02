@@ -81,7 +81,7 @@ public class BuildSettingsProvider {
 
     /// Returns default build settings that Xcode sets in new projects.
     ///
-    /// - Parameters: variant: build settings variant.
+    /// - Parameters variant: build settings variant.
     /// - Returns: build settings.
     public static func projectDefault(variant: Variant) -> BuildSettings {
         switch variant {
