@@ -29,8 +29,10 @@ public class BuildSettingsProvider {
     /// - dynamicLibrary: dynamic library.
     /// - application: application.
     /// - bundle: bundle.
-    /// - appExtension: application extension
-    /// - watchExtension: watch extension
+    /// - appExtension: application extension.
+    /// - watchExtension: watch extension.
+    /// - unitTests: unit tests.
+    /// - uiTests: ui tests.
     public enum Product {
         case framework, staticLibrary, dynamicLibrary, application, bundle, appExtension, watchExtension, unitTests, uiTests
     }
@@ -79,6 +81,7 @@ public class BuildSettingsProvider {
 
     /// Returns default build settings that Xcode sets in new projects.
     ///
+    /// - Parameters: variant: build settings variant.
     /// - Returns: build settings.
     public static func projectDefault(variant: Variant) -> BuildSettings {
         switch variant {
