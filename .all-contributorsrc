@@ -247,6 +247,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "baekteun",
+      "name": "baegteun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74440939?v=4",
+      "profile": "https://baegteun.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
