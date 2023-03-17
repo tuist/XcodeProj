@@ -63,6 +63,7 @@ public final class XCSharedData: Equatable, Writable {
     public func write(path: Path, override: Bool) throws {
         try writeSchemes(path: path, override: override)
         try writeBreakpoints(path: path, override: override)
+        try writeWorkspaceSettings(path: path, override: override)
     }
 
     func writeSchemes(path: Path, override: Bool) throws {
@@ -90,6 +91,20 @@ public final class XCSharedData: Equatable, Writable {
 
         try debuggerPath.mkpath()
         try breakpoints.write(path: XCBreakpointList.path(debuggerPath), override: override)
+    }
+    
+    func writeWorkspaceSettings(path: Path, override: Bool) throws {
+        /**
+         * We don't want to delete this path when `override` is `true` because
+         * that will delete everything in the folder, including schemes and breakpoints.
+         * Instead, just create the path if it doesn't exist and let the `write` method
+         * in `WorkspaceSettings` handle the override.
+         */
+        if !path.exists {
+            try path.mkpath()
+        }
+ 
+        try workspaceSettings?.write(path: WorkspaceSettings.path(path), override: override)
     }
 }
 

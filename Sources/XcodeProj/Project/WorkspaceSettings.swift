@@ -153,3 +153,9 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         try path.write(data)
     }
 }
+
+extension WorkspaceSettings {
+    static func path(_ path: Path) -> Path {
+        path + "WorkspaceSettings.xcsettings"
+    }
+}
