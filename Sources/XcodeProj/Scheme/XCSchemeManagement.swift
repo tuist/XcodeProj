@@ -26,16 +26,7 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
     }
     
     /// Scheme configuration object.
-    public struct UserStateScheme: Equatable, Codable {
-        
-        /// Coding keys
-        public enum CodingKeys: String, CodingKey {
-            case shared
-            case orderHint
-            case isShown
-            case name
-        }
-
+    public struct UserStateScheme: Hashable {
         /// Name of the scheme (with the .xcscheme extension)
         public var name: String
         
@@ -47,15 +38,6 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
         
         /// True if the scheme should be shown in the list of schemes.
         public var isShown: Bool?
-        
-        /// The key that should be used when encoding the scheme configuration.
-        var key: String {
-               var key = name
-               if shared {
-                   key.append("_^#shared#^_")
-               }
-               return key
-           }
            
         /// It initializes the scheme configuration with its attributes.
         /// - Parameters:
@@ -72,25 +54,12 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
             self.orderHint = orderHint
             self.isShown = isShown
         }
-        
-        // MARK: - Codable
-        
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.orderHint = try container.decodeIfPresent(.orderHint)
-            self.isShown = try container.decodeIfPresent(.isShown)
-            self.shared = try container.decodeIfPresent(.shared) ?? false
-            self.name = try container.decode(.name)
-        }
-        
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            if let orderHint = orderHint {
-                try container.encode(orderHint, forKey: .orderHint)
-            }
-            if let isShown = isShown {
-                try container.encode(isShown, forKey: .isShown)
-            }
+
+        fileprivate var plistRepresentation: [String: PropertyListRepresentation] {
+            let key = shared ? name + "_^#shared#^_" : name
+            let value = PropertyListRepresentation(orderHint: orderHint, isShown: isShown)
+
+            return [key: value]
         }
     }
 
@@ -101,7 +70,7 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
     }
     
     /// An array that contains the configuration of the schemes.
-    public var schemeUserState: [XCSchemeManagement.UserStateScheme]?
+    public var schemeUserState: Set<XCSchemeManagement.UserStateScheme>?
     
     /// A dictionary where the key is the object reference of the target, and the value the configuration for auto-creating schemes.
     public var suppressBuildableAutocreation: [String: XCSchemeManagement.AutocreationBuildable]?
@@ -110,7 +79,7 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
     /// - Parameters:
     ///   - schemeUserState: An array that contains the configuration of the schemes.
     ///   - suppressBuildableAutocreation: A dictionary where the key is the object reference of the target, and the value the configuration for auto-creating schemes.
-    public init(schemeUserState: [XCSchemeManagement.UserStateScheme]? = nil,
+    public init(schemeUserState: Set<XCSchemeManagement.UserStateScheme>? = nil,
                 suppressBuildableAutocreation: [String: XCSchemeManagement.AutocreationBuildable]? = nil) {
         self.schemeUserState = schemeUserState
         self.suppressBuildableAutocreation = suppressBuildableAutocreation
@@ -146,24 +115,24 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
     // MARK: - Codable
 
     public init(from decoder: Decoder) throws {
-        let plistDecoder = XcodeprojPropertyListDecoder()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.suppressBuildableAutocreation = try container.decodeIfPresent(.suppressBuildableAutocreation)
-        if let schemeUserStateDictionary = try container.decodeIfPresent([String: Any].self, forKey: .schemeUserState) {
-            self.schemeUserState = try schemeUserStateDictionary.compactMap({ (key, value) -> XCSchemeManagement.UserStateScheme? in
-                var name = key
-                guard var valueDictionary = value as? [String: Any] else { return nil }
-                if key.contains("_^#shared#^_") {
-                    valueDictionary["shared"] = true
-                    name = key.replacingOccurrences(of: "_^#shared#^_", with: "")
+        if let plistRepresentations = try container.decodeIfPresent([String: UserStateScheme.PropertyListRepresentation].self, forKey: .schemeUserState) {
+            self.schemeUserState = plistRepresentations.reduce(into: []) { (schemeUserState, plistRepresentation) in
+                var name = plistRepresentation.key
+                var shared = false
+                if name.contains("_^#shared#^_") {
+                    shared = true
+                    name = name.replacingOccurrences(of: "_^#shared#^_", with: "")
                 }
-                valueDictionary["name"] = name
-                
-                let data = try PropertyListSerialization.data(fromPropertyList: valueDictionary, format: .xml, options: 0)
-                return try plistDecoder.decode(XCSchemeManagement.UserStateScheme.self, from: data)
-            })
+
+                schemeUserState?.insert(.init(name: name,
+                                              shared: shared,
+                                              orderHint: plistRepresentation.value.orderHint,
+                                              isShown: plistRepresentation.value.isShown))
+            }
         } else {
-            self.suppressBuildableAutocreation = nil
+            self.schemeUserState = nil
         }
     }
     
@@ -175,9 +144,10 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
         }
         
         if let schemeUserState = schemeUserState {
-            let encodableSchemeUserState = schemeUserState
-                .reduce(into: [String: XCSchemeManagement.UserStateScheme]()) { $0[$1.key] = $1 }
-            try container.encode(encodableSchemeUserState, forKey: .schemeUserState)
+            let plistRepresentation = schemeUserState.reduce(into: [String: UserStateScheme.PropertyListRepresentation]()) {
+                $0.merge($1.plistRepresentation, uniquingKeysWith: { $1 })
+            }
+            try container.encode(plistRepresentation, forKey: .schemeUserState)
         }
     }
 }
@@ -189,5 +159,12 @@ extension XCSchemeManagement {
     /// - Returns: scheme management plist path relative to the given path.
     static func path(_ path: Path) -> Path {
         path + "xcschememanagement.plist"
+    }
+}
+
+private extension XCSchemeManagement.UserStateScheme {
+    struct PropertyListRepresentation: Codable {
+        var orderHint: Int?
+        var isShown: Bool?
     }
 }
