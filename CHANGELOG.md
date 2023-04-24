@@ -2,9 +2,19 @@
 
 ## 8.10.0
 
+### Added
+
+- Add try-catch to getting started documentation [#745](https://github.com/tuist/XcodeProj/pull/745) by [@AlexKobachiJP](https://github.com/AlexKobachiJP)
+- Add missing Build Settings Provider documentation [#747](https://github.com/tuist/XcodeProj/pull/747) by [@baekteun](https://github.com/baekteun)
+
 ### Fixed
 
 - Fix unstable reads for `XCSchemeManagement` [#758](https://github.com/tuist/XcodeProj/pull/758) by [@kwridan](https://github.com/kwridan)
+- Fix typos in `Writable.swift` [#755](https://github.com/tuist/XcodeProj/pull/755) by [@jpsim](https://github.com/jpsim)
+
+### Changed
+
+- Update `XCSharedData` Writable conformance to include `WorkspaceSettings` [#743](https://github.com/tuist/XcodeProj/pull/743) by [@dayton-bobbitt](https://github.com/dayton-bobbitt)
 
 ## 8.9.0
 
