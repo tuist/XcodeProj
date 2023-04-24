@@ -150,7 +150,9 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.suppressBuildableAutocreation = try container.decodeIfPresent(.suppressBuildableAutocreation)
         if let schemeUserStateDictionary = try container.decodeIfPresent([String: Any].self, forKey: .schemeUserState) {
-            self.schemeUserState = try schemeUserStateDictionary.compactMap({ (key, value) -> XCSchemeManagement.UserStateScheme? in
+            self.schemeUserState = try schemeUserStateDictionary
+                .sorted(by: { $0.key < $1.key })
+                .compactMap({ (key, value) -> XCSchemeManagement.UserStateScheme? in
                 var name = key
                 guard var valueDictionary = value as? [String: Any] else { return nil }
                 if key.contains("_^#shared#^_") {
