@@ -1,5 +1,11 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
+## 8.10.0
+
+### Fixed
+
+- Fix unstable reads for `XCSchemeManagement` [#758](https://github.com/tuist/XcodeProj/pull/758) by [@kwridan](https://github.com/kwridan)
+
 ## 8.9.0
 
 ### Added
