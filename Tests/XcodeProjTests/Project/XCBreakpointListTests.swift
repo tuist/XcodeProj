@@ -104,6 +104,17 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
         let ideTestFailureAppleScriptAction = ideTestFailureContent.actions[0]
         XCTAssertEqual(ideTestFailureAppleScriptAction.actionExtensionID, .appleScript)
         XCTAssertNotNil(ideTestFailureAppleScriptAction.actionContent)
+
+        // Runtime exception failure
+        let runtimeException = breakpointList.breakpoints[6]
+        XCTAssertEqual(runtimeException.breakpointExtensionID, .runTimeException)
+        let runtimeExceptionContent = runtimeException.breakpointContent
+        XCTAssertEqual(runtimeExceptionContent.enabled, true)
+        XCTAssertEqual(runtimeExceptionContent.ignoreCount, "0")
+        XCTAssertEqual(runtimeExceptionContent.continueAfterRunningActions, false)
+        let runtimeExceptionAppleScriptAction = runtimeExceptionContent.actions[0]
+        XCTAssertEqual(runtimeExceptionAppleScriptAction.actionExtensionID, .appleScript)
+        XCTAssertNotNil(runtimeExceptionAppleScriptAction.actionContent)
     }
 
     private func fixturePath() -> Path {
