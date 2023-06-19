@@ -107,7 +107,7 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
 
         // Runtime exception failure
         let runtimeException = breakpointList.breakpoints[6]
-        XCTAssertEqual(runtimeException.breakpointExtensionID, .runTimeException)
+        XCTAssertEqual(runtimeException.breakpointExtensionID, .runtimeException)
         let runtimeExceptionContent = runtimeException.breakpointContent
         XCTAssertEqual(runtimeExceptionContent.enabled, true)
         XCTAssertEqual(runtimeExceptionContent.ignoreCount, "0")
