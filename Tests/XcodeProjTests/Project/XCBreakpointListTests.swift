@@ -106,13 +106,13 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
         XCTAssertNotNil(ideTestFailureAppleScriptAction.actionContent)
 
         // Runtime exception failure
-        let runtimeException = breakpointList.breakpoints[6]
-        XCTAssertEqual(runtimeException.breakpointExtensionID, .runtimeException)
-        let runtimeExceptionContent = runtimeException.breakpointContent
-        XCTAssertEqual(runtimeExceptionContent.enabled, true)
-        XCTAssertEqual(runtimeExceptionContent.ignoreCount, "0")
-        XCTAssertEqual(runtimeExceptionContent.continueAfterRunningActions, false)
-        let runtimeExceptionAppleScriptAction = runtimeExceptionContent.actions[0]
+        let runtimeIssue = breakpointList.breakpoints[6]
+        XCTAssertEqual(runtimeIssue.breakpointExtensionID, .runtimeIssue)
+        let runtimeIssueContent = runtimeIssue.breakpointContent
+        XCTAssertEqual(runtimeIssueContent.enabled, true)
+        XCTAssertEqual(runtimeIssueContent.ignoreCount, "0")
+        XCTAssertEqual(runtimeIssueContent.continueAfterRunningActions, false)
+        let runtimeExceptionAppleScriptAction = runtimeIssueContent.actions[0]
         XCTAssertEqual(runtimeExceptionAppleScriptAction.actionExtensionID, .appleScript)
         XCTAssertNotNil(runtimeExceptionAppleScriptAction.actionContent)
     }

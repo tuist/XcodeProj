@@ -316,7 +316,7 @@ public final class XCBreakpointList: Equatable, Writable {
             case symbolic = "Xcode.Breakpoint.SymbolicBreakpoint"
             case ideConstraintError = "Xcode.Breakpoint.IDEConstraintErrorBreakpoint"
             case ideTestFailure = "Xcode.Breakpoint.IDETestFailureBreakpoint"
-            case runtimeException = "Xcode.Breakpoint.RuntimeIssueBreakpoint"
+            case runtimeIssue = "Xcode.Breakpoint.RuntimeIssueBreakpoint"
         }
 
         // MARK: - Attributes
