@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -190,7 +190,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/tiemevanveen"><img src="https://avatars.githubusercontent.com/u/1330668?v=4?s=100" width="100px;" alt="Teameh"/><br /><sub><b>Teameh</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=teameh" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://technocidal.com"><img src="https://avatars.githubusercontent.com/u/14994778?v=4?s=100" width="100px;" alt="Johannes Ebeling"/><br /><sub><b>Johannes Ebeling</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=technocidal" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://baegteun.com"><img src="https://avatars.githubusercontent.com/u/74440939?v=4?s=100" width="100px;" alt="baegteun"/><br /><sub><b>baegteun</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=baekteun" title="Documentation">📖</a></td>
+    </tr>
+    <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://kobachi.jp"><img src="https://avatars.githubusercontent.com/u/103150233?v=4?s=100" width="100px;" alt="Alex Kovács"/><br /><sub><b>Alex Kovács</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=AlexKobachiJP" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://zenangst.com"><img src="https://avatars.githubusercontent.com/u/57446?v=4?s=100" width="100px;" alt="Christoffer Winterkvist"/><br /><sub><b>Christoffer Winterkvist</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=zenangst" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
