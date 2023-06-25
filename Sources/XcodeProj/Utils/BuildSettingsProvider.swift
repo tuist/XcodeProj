@@ -19,7 +19,7 @@ public class BuildSettingsProvider {
     /// - tvOS: tvOS.
     /// - watchOS: watchOS.
     public enum Platform {
-        case iOS, macOS, tvOS, watchOS
+        case iOS, macOS, tvOS, watchOS, visionOS
     }
 
     /// Target product type.
@@ -188,6 +188,11 @@ public class BuildSettingsProvider {
             return [
                 "SDKROOT": "watchos",
                 "TARGETED_DEVICE_FAMILY": "4",
+            ]
+        case .visionOS:
+            return [
+                "SDKROOT": "xros",
+                "TARGETED_DEVICE_FAMILY": "1,2,7",
             ]
         }
     }
