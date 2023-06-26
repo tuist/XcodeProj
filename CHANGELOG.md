@@ -1,5 +1,22 @@
 🚀 Check out the guidelines [here](https://tuist.io/docs/contribution/changelog-guidelines/)
 
+## Unreleased
+
+## 8.11.0
+
+### Added
+
+- Support for Xcode runtime issue breakpoints [#761](https://github.com/tuist/XcodeProj/pull/761) by [@zenangst](https://github.com/zenangst)
+- `Platform.visionOS` case and updated `BuildSettingsProvider` to return the default build settings for visionOS projects [#765](https://github.com/tuist/XcodeProj/pull/765) by [@Mstrodl](https://github.com/Mstrodl).
+
+### Changed
+
+- [PathKit](https://github.com/kylef/PathKit) version to [1.0.1](https://github.com/kylef/PathKit/blob/HEAD/CHANGELOG.md#%E2%80%8B101-2021-09-22)
+
+### Fixed
+
+- Ensured UUIDs are considered when sorting by filename to ensure information is not lost when filenames are equal [#769](https://github.com/tuist/XcodeProj/pull/769) by [@timothycosta](https://github.com/timothycosta).
+
 ## 8.10.0
 
 ### Added
