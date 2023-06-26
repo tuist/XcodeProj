@@ -14,16 +14,6 @@ pod 'xcodeproj'
 
 After that, you can run `pod install` *(or `bundle install` if you are using Bundler for managing your gems)* and you should get the latest version of xcodeproj integrated into your project.
 
-### Carthage
-
-If you are using Carthage instead, you can add the following file to the project `Cartfile`:
-
-```bash
-github "tuist/xcodeproj"
-```
-
-Then run `carthage update`. It'll pull the latest version available and compile a dynamic framework that you can link from your apps.
-
 ### Swift Package Manager
 
 If you are developing a package instead *(with the SwiftPM)* you can integrate xcodeproj by adding the following line to the dependencies list of your `Package.swift`:

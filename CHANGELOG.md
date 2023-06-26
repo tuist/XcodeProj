@@ -6,12 +6,16 @@
 
 ### Added
 
-- Support for Xcode runtime issue breakpoints [#761](https://github.com/tuist/XcodeProj/pull/761) by [@zenangst](https://github.com/zenangst)
+- Support for Xcode runtime issue breakpoints [#761](https://github.com/tuist/XcodeProj/pull/761) by [@zenangst](https://github.com/zenangst).
 - `Platform.visionOS` case and updated `BuildSettingsProvider` to return the default build settings for visionOS projects [#765](https://github.com/tuist/XcodeProj/pull/765) by [@Mstrodl](https://github.com/Mstrodl).
 
 ### Changed
 
-- [PathKit](https://github.com/kylef/PathKit) version to [1.0.1](https://github.com/kylef/PathKit/blob/HEAD/CHANGELOG.md#%E2%80%8B101-2021-09-22)
+- [PathKit](https://github.com/kylef/PathKit) version to [1.0.1](https://github.com/kylef/PathKit/blob/HEAD/CHANGELOG.md#%E2%80%8B101-2021-09-22).
+
+### Removed
+
+- [Carthage](https://github.com/Carthage/Carthage) support.
 
 ### Fixed
 
