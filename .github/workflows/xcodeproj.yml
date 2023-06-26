@@ -27,7 +27,7 @@ jobs:
         run: swift build -c release
   test:
     name: Test (macOS / Xcode)
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: maxim-lobanov/setup-xcode@v1
