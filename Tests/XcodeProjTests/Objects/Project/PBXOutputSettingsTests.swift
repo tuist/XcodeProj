@@ -6,21 +6,28 @@ class PBXOutputSettingsTests: XCTestCase {
    
     // MARK: - PBXFileOrder - PBXBuldFile
 
-    func test_PBXFileOrder_PBXBuildFile_by_uuid() {
+    func test_PBXFileOrder_PBXBuildFile_by_uuid_when_iosProject() {
         let iosProject = self.iosProject()
         
         XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildFileAssets, rhs: iosProject.objectBuildFileMain))
         XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
 
-    func test_PBXFileOrder_PBXBuildFile_by_filename() {
+    func test_PBXFileOrder_PBXBuildFile_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileAssets, rhs: iosProject.objectBuildFileMain))
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
+    
+    func test_PBXFileOrder_PBXBuildFile_by_filename_when_fileSharedAcrossTargetsProject() {
+        let fileSharedAcrossTargetsProject = self.fileSharedAcrossTargetsProject()
 
-    func test_PBXFileOrder_PBXBuildFile_by_filename_when_nil_name_and_path() {
+        let sameNameByFilename = fileSharedAcrossTargetsProject.objectBuildFileSameName.sorted(by: PBXFileOrder.byFilename.sort)
+        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)        
+    }
+
+    func test_PBXFileOrder_PBXBuildFile_by_filename_when_nil_name_and_path_when_iosProject() {
         let iosProject = self.iosProject()
 
         iosProject.buildFileAssets.file?.name = nil
@@ -31,7 +38,7 @@ class PBXOutputSettingsTests: XCTestCase {
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
 
-    func test_PBXFileOrder_PBXBuildFile_by_filename_when_no_file() {
+    func test_PBXFileOrder_PBXBuildFile_by_filename_when_no_file_when_iosProject() {
         let iosProject = self.iosProject()
 
         let ref1 = iosProject.buildFileAssets.reference
@@ -44,14 +51,14 @@ class PBXOutputSettingsTests: XCTestCase {
 
     // MARK: - PBXFileOrder - PBXBuildPhaseFile
 
-    func test_PBXFileOrder_PBXBuildPhaseFile_by_uuid() {
+    func test_PBXFileOrder_PBXBuildPhaseFile_by_uuid_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildPhaseFileAssets, rhs: iosProject.objectBuildPhaseFileMain))
         XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildPhaseFileMain, rhs: iosProject.objectBuildPhaseFileAssets))
     }
 
-    func test_PBXFileOrder_PBXBuildPhaseFile_by_filename() {
+    func test_PBXFileOrder_PBXBuildPhaseFile_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildPhaseFileAssets, rhs: iosProject.objectBuildPhaseFileMain))
@@ -60,21 +67,28 @@ class PBXOutputSettingsTests: XCTestCase {
 
     // MARK: - PBXFileOrder - PBXFileReference
 
-    func test_PBXFileOrder_PBXFileReference_by_uuid() {
+    func test_PBXFileOrder_PBXFileReference_by_uuid_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectFileReferenceAssets, rhs: iosProject.objectFileReferenceCoreData))
         XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectFileReferenceCoreData, rhs: iosProject.objectFileReferenceAssets))
     }
 
-    func test_PBXFileOrder_PBXFileReference_by_filename() {
+    func test_PBXFileOrder_PBXFileReference_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceAssets, rhs: iosProject.objectFileReferenceCoreData))
         XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceCoreData, rhs: iosProject.objectFileReferenceAssets))
     }
+    
+    func test_PBXFileOrder_PBXFileReference_by_filename_when_fileSharedAcrossTargetsProject() {
+        let fileSharedAcrossTargetsProject = self.fileSharedAcrossTargetsProject()
 
-    func test_PBXFileOrder_PBXFileReference_by_filename_when_nil_name_and_path() {
+        let sameNameByFilename = fileSharedAcrossTargetsProject.objectFileReferenceSameName.sorted(by: PBXFileOrder.byFilename.sort)
+        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)
+    }
+
+    func test_PBXFileOrder_PBXFileReference_by_filename_when_nil_name_and_path_when_iosProject() {
         let iosProject = self.iosProject()
 
         iosProject.fileReferenceAssets.name = nil
@@ -87,14 +101,14 @@ class PBXOutputSettingsTests: XCTestCase {
 
     // MARK: - PBXFileOrder - Other
 
-    func test_PBXFileOrder_Other_by_uuid() {
+    func test_PBXFileOrder_Other_by_uuid_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectGroupFrameworks, rhs: iosProject.objectGroupProducts))
         XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectGroupProducts, rhs: iosProject.objectGroupFrameworks))
     }
 
-    func test_PBXFileOrder_Other_by_filename() {
+    func test_PBXFileOrder_Other_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectGroupFrameworks, rhs: iosProject.objectGroupProducts))
@@ -103,11 +117,11 @@ class PBXOutputSettingsTests: XCTestCase {
 
     // MARK: - PBXNavigatorFileOrder
 
-    func test_PBXNavigatorFileOrder_unsorted() {
+    func test_PBXNavigatorFileOrder_unsorted_when_iosProject() {
         XCTAssertNil(PBXNavigatorFileOrder.unsorted.sort)
     }
 
-    func test_PBXNavigatorFileOrder_by_filename() {
+    func test_PBXNavigatorFileOrder_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         let sort: (PBXFileElement, PBXFileElement) -> Bool = PBXNavigatorFileOrder.byFilename.sort!
@@ -127,7 +141,7 @@ class PBXOutputSettingsTests: XCTestCase {
         ], sorted)
     }
 
-    func test_PBXNavigatorFileOrder_by_filename_groups_first() {
+    func test_PBXNavigatorFileOrder_by_filename_groups_first_when_iosProject() {
         let iosProject = self.iosProject()
 
         let sort: (PBXFileElement, PBXFileElement) -> Bool = PBXNavigatorFileOrder.byFilenameGroupsFirst.sort!
@@ -153,7 +167,7 @@ class PBXOutputSettingsTests: XCTestCase {
         XCTAssertNil(PBXBuildPhaseFileOrder.unsorted.sort)
     }
 
-    func test_PBXBuildPhaseFileOrder_by_filename() {
+    func test_PBXBuildPhaseFileOrder_by_filename_when_iosProject() {
         let iosProject = self.iosProject()
 
         XCTAssertTrue(PBXBuildPhaseFileOrder.byFilename.sort!(iosProject.buildFileAssets, iosProject.buildFileMain))
@@ -233,6 +247,32 @@ class PBXOutputSettingsTests: XCTestCase {
             objectGroupFrameworks: objectGroupFrameworks,
             objectGroupProducts: objectGroupProducts,
             navigatorFileGroup: navigatorFileGroup
+        )
+    }
+    
+    struct FileSharedAcrossTargetsProject {
+        var proj: PBXProj!
+        var buildFileSameName: [PBXBuildFile]!
+        var objectBuildFileSameName: [(PBXObjectReference, PBXBuildFile)]!
+        var fileReferenceSameName: [PBXFileReference]!
+        var objectFileReferenceSameName: [(PBXObjectReference, PBXFileReference)]!
+    }
+    
+    func fileSharedAcrossTargetsProject() -> FileSharedAcrossTargetsProject {
+        let dic = fileSharedAcrossTargetsDictionary()
+        let proj = try! PBXProj(jsonDictionary: dic.1)
+        
+        let buildFileSameName = proj.buildFiles.filter { $0.file?.fileName() == "SameName.h" }
+        let objectBuildFileSameName = proj.buildFiles.map { ($0.reference, $0) }
+        let fileReferenceSameName = proj.fileReferences.filter { $0.fileName() == "SameName.framework" }
+        let objectFileReferenceSameName = fileReferenceSameName.map { ($0.reference, $0) }
+    
+        return FileSharedAcrossTargetsProject(
+            proj: proj,
+            buildFileSameName: buildFileSameName,
+            objectBuildFileSameName: objectBuildFileSameName,
+            fileReferenceSameName: fileReferenceSameName,
+            objectFileReferenceSameName: objectFileReferenceSameName
         )
     }
 }
