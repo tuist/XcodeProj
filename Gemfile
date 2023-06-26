@@ -1,5 +1,5 @@
 source "https://rubygems.org"
 
 gem "rake"
-gem "colorize", "~> 0.8.1"
+gem "colorize", "~> 1.1.0"
 gem "redcarpet", "~> 3.5.1"
