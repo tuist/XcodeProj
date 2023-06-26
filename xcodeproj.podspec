@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.authors = 'Tuist'
   s.swift_version = '5.1'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.13'
 
   s.source_files = 'Sources/**/*.{swift}'
 

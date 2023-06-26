@@ -12,6 +12,7 @@
 ### Changed
 
 - [PathKit](https://github.com/kylef/PathKit) version to [1.0.1](https://github.com/kylef/PathKit/blob/HEAD/CHANGELOG.md#%E2%80%8B101-2021-09-22).
+- Bump `xcodeproj.podspec` macOS deployment target to 10.13.
 
 ### Removed
 
