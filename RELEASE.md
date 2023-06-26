@@ -8,5 +8,4 @@ In this document you'll find all the necessary steps to release a new version of
 4. Commit the changes and tag them `git commit -m "Version x.y.z"` & `git tag x.y.z`.
 5. Push the changes `git push origin main --tags`
 6. Run the release checks by running `bundle exec rake release_check`.
-7. Publish a new version of the Pod by running `bundle exec pod trunk push --allow-warnings --verbose`.
 8. Create the release on GitHub including the release notes from the `CHANGELOG.md`.

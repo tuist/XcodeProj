@@ -16,7 +16,8 @@
 
 ### Removed
 
-- [Carthage](https://github.com/Carthage/Carthage) support.
+- **Breaking** [Carthage](https://github.com/Carthage/Carthage) support: Since the tool is not actively maintained.
+- **Breaking** CocoaPods support: With the Apple ecosystem moving to Swift Package Manager we'd like to support the transition by dropping support for CocoaPods. The drop will simplify our release process.
 
 ### Fixed
 

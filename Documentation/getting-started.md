@@ -4,16 +4,6 @@ If you want to use xcodeproj in your projects, you need to add the library as a 
 
 ## 1. Adding the dependency/package
 
-### CocoaPods
-
-If you would like to integrate xcodeproj into your project using CocoaPods, you only need to add the following line to your `Podfile`:
-
-```ruby
-pod 'xcodeproj'
-```
-
-After that, you can run `pod install` *(or `bundle install` if you are using Bundler for managing your gems)* and you should get the latest version of xcodeproj integrated into your project.
-
 ### Swift Package Manager
 
 If you are developing a package instead *(with the SwiftPM)* you can integrate xcodeproj by adding the following line to the dependencies list of your `Package.swift`:

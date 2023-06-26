@@ -17,7 +17,6 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
   - [Projects Using XcodeProj](#projects-using-xcodeproj)
   - [Installation](#installation)
     - [Swift Package Manager](#swift-package-manager)
-    - [CocoaPods](#cocoapods)
     - [Scripting](#scripting)
   - [Documentation 📝](#documentation-)
   - [References 📚](#references-)
@@ -57,12 +56,6 @@ let package = Package(
             dependencies: ["XcodeProj"]),
         ]
 )
-```
-
-### CocoaPods
-
-```ruby
-pod 'xcodeproj', '~> 8.8.0
 ```
 
 ### Scripting
