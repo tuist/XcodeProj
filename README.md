@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-31-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -195,6 +195,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://kobachi.jp"><img src="https://avatars.githubusercontent.com/u/103150233?v=4?s=100" width="100px;" alt="Alex Kovács"/><br /><sub><b>Alex Kovács</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=AlexKobachiJP" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://zenangst.com"><img src="https://avatars.githubusercontent.com/u/57446?v=4?s=100" width="100px;" alt="Christoffer Winterkvist"/><br /><sub><b>Christoffer Winterkvist</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=zenangst" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.timothycosta.com"><img src="https://avatars.githubusercontent.com/u/948806?v=4?s=100" width="100px;" alt="Timothy Costa"/><br /><sub><b>Timothy Costa</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=timothycosta" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://coolmathgames.tech"><img src="https://avatars.githubusercontent.com/u/6877780?v=4?s=100" width="100px;" alt="Mary "/><br /><sub><b>Mary </b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Mstrodl" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
