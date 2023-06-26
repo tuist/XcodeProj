@@ -5,19 +5,26 @@ import Foundation
 // MARK: - Core sort functions
 
 // Because of the number of optional data items in PBXBuildFiles, we've externalised the core code in these two functions.
-// Note, PBXBuildFile's contains PBXFileElements so this first function is an optional handling wrapper driving the second.
+// Note, the first function should be preferred as it considers more context when filenames are equal.
 // Also note that we use the .fileName() function to retrieve the name as both .path and .name properties can be nil.
 
-private func sortUsingNames(_ lhs: PBXBuildFile, _ rhs: PBXBuildFile) -> Bool {
-    if let lhsFile = lhs.file, let rhsFile = rhs.file {
-        return sortUsingNames(lhsFile, rhsFile)
+private func sortBuildFilesByName(_ lhs: PBXBuildFile, _ rhs: PBXBuildFile) -> Bool {
+    guard let lhsFile = lhs.file, let rhsFile = rhs.file else {
+        return lhs.uuid < rhs.uuid
+    }
+    // If the filename is the same, the PBXFileElement UUIDs may or may not match.
+    if let lhsFilename = lhsFile.fileName(), let rhsFilename = rhsFile.fileName(), lhsFilename != rhsFilename {
+        return lhsFilename < rhsFilename
+    }
+    if lhsFile.uuid != rhsFile.uuid {
+        return lhsFile.uuid < rhsFile.uuid
     }
     return lhs.uuid < rhs.uuid
 }
 
-private func sortUsingNames(_ lhs: PBXFileElement, _ rhs: PBXFileElement) -> Bool {
-    if let lhsFilename = lhs.fileName(), let rhsFilename = rhs.fileName() {
-        return lhsFilename == rhsFilename ? lhs.uuid < rhs.uuid : lhsFilename < rhsFilename
+private func sortFileElementsByName(_ lhs: PBXFileElement, _ rhs: PBXFileElement) -> Bool {
+    if let lhsFilename = lhs.fileName(), let rhsFilename = rhs.fileName(), lhsFilename != rhsFilename {
+        return lhsFilename < rhsFilename
     }
     return lhs.uuid < rhs.uuid
 }
@@ -40,7 +47,7 @@ public enum PBXFileOrder {
     internal func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
         switch self {
         case .byFilename:
-            return sortUsingNames(lhs.1, rhs.1)
+            return sortBuildFilesByName(lhs.1, rhs.1)
         default:
             return lhs.0 < rhs.0
         }
@@ -49,7 +56,7 @@ public enum PBXFileOrder {
     internal func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
         switch self {
         case .byFilename:
-            return sortUsingNames(lhs.1.buildFile, rhs.1.buildFile)
+            return sortBuildFilesByName(lhs.1.buildFile, rhs.1.buildFile)
         default:
             return lhs.0 < rhs.0
         }
@@ -58,7 +65,7 @@ public enum PBXFileOrder {
     internal func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
         switch self {
         case .byFilename:
-            return sortUsingNames(lhs.1, rhs.1)
+            return sortFileElementsByName(lhs.1, rhs.1)
 
         default:
             return lhs.0 < rhs.0
@@ -90,7 +97,7 @@ public enum PBXNavigatorFileOrder {
     internal var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
         switch self {
         case .byFilename:
-            return { sortUsingNames($0, $1) }
+            return { sortFileElementsByName($0, $1) }
 
         case .byFilenameGroupsFirst:
             return { lhs, rhs in
@@ -98,7 +105,7 @@ public enum PBXNavigatorFileOrder {
                 if lhsIsGroup != rhs.isGroup {
                     return lhsIsGroup
                 }
-                return sortUsingNames(lhs, rhs)
+                return sortFileElementsByName(lhs, rhs)
             }
 
         default:
@@ -119,7 +126,7 @@ public enum PBXBuildPhaseFileOrder {
         switch self {
         case .byFilename:
             return { lhs, rhs in
-                sortUsingNames(lhs, rhs)
+                sortBuildFilesByName(lhs, rhs)
             }
 
         default:
