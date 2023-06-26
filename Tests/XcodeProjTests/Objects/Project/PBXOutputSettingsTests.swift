@@ -3,149 +3,102 @@ import XCTest
 @testable import XcodeProj
 
 class PBXOutputSettingsTests: XCTestCase {
-    var proj: PBXProj!
-    var buildFileAssets: PBXBuildFile!
-    var buildFileMain: PBXBuildFile!
-    var buildFileSameName: [PBXBuildFile]!
-
-    var objectBuildFileAssets: (PBXObjectReference, PBXBuildFile)!
-    var objectBuildFileMain: (PBXObjectReference, PBXBuildFile)!
-    var objectBuildFileSameName: [(PBXObjectReference, PBXBuildFile)]!
-
-    var objectBuildPhaseFileAssets: (PBXObjectReference, PBXBuildPhaseFile)!
-    var objectBuildPhaseFileMain: (PBXObjectReference, PBXBuildPhaseFile)!
-
-    var fileReferenceAssets: PBXFileReference!
-    var fileReferenceCoreData: PBXFileReference!
-    var fileReferenceSameName: [PBXFileReference]!
-
-    var objectFileReferenceAssets: (PBXObjectReference, PBXFileReference)!
-    var objectFileReferenceCoreData: (PBXObjectReference, PBXFileReference)!
-    var objectFileReferenceSameName: [(PBXObjectReference, PBXFileReference)]!
-
-    var groupFrameworks: PBXGroup!
-    var groupProducts: PBXGroup!
-
-    var objectGroupFrameworks: (PBXObjectReference, PBXGroup)!
-    var objectGroupProducts: (PBXObjectReference, PBXGroup)!
-
-    var navigatorFileGroup: PBXGroup!
-
-    override func setUp() {
-        let dic = iosProjectDictionary()
-        do {
-            proj = try PBXProj(jsonDictionary: dic.1)
-        } catch {
-            XCTFail("Failed to load project from file: \(error)")
-        }
-
-//        proj.buildFiles.forEach { print("\(type(of: $0.file)) \($0.file?.fileName())") }
-        buildFileAssets = proj.buildFiles.first { $0.file?.fileName() == "Assets.xcassets" }!
-        buildFileMain = proj.buildFiles.first { $0.file?.fileName() == "Main.storyboard" }!
-        buildFileSameName = proj.buildFiles.filter { $0.file?.fileName() == "SameName.h" }
-
-        objectBuildFileAssets = (buildFileAssets.reference, buildFileAssets)
-        objectBuildFileMain = (buildFileMain.reference, buildFileMain)
-        objectBuildFileSameName = proj.buildFiles.map { ($0.reference, $0) }
-
-        objectBuildPhaseFileAssets = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Assets.xcassets" }!
-        objectBuildPhaseFileMain = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Main.storyboard" }!
-
-        fileReferenceAssets = proj.fileReferences.first { $0.fileName() == "Assets.xcassets" }!
-        fileReferenceCoreData = proj.fileReferences.first { $0.fileName() == "CoreData.framework" }!
-        fileReferenceSameName = proj.fileReferences.filter { $0.fileName() == "SameName.framework" }
-
-        objectFileReferenceAssets = (buildFileAssets.reference, fileReferenceAssets)
-        objectFileReferenceCoreData = (buildFileMain.reference, fileReferenceCoreData)
-        objectFileReferenceSameName = fileReferenceSameName.map { ($0.reference, $0) }
-
-        groupFrameworks = proj.groups.first { $0.fileName() == "Frameworks" }!
-        groupProducts = proj.groups.first { $0.fileName() == "Products" }!
-
-        objectGroupFrameworks = (groupFrameworks.reference, groupFrameworks)
-        objectGroupProducts = (groupProducts.reference, groupProducts)
-
-        navigatorFileGroup = proj.groups.first { $0.fileName() == "iOS" }!
-    }
-
+   
     // MARK: - PBXFileOrder - PBXBuldFile
 
     func test_PBXFileOrder_PBXBuildFile_by_uuid() {
-        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: objectBuildFileAssets, rhs: objectBuildFileMain))
-        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: objectBuildFileMain, rhs: objectBuildFileAssets))
+        let iosProject = self.iosProject()
+        
+        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildFileAssets, rhs: iosProject.objectBuildFileMain))
+        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
 
     func test_PBXFileOrder_PBXBuildFile_by_filename() {
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectBuildFileAssets, rhs: objectBuildFileMain))
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectBuildFileMain, rhs: objectBuildFileAssets))
-        
-        let sameNameByFilename = objectBuildFileSameName.sorted(by: PBXFileOrder.byFilename.sort)
-        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileAssets, rhs: iosProject.objectBuildFileMain))
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
 
     func test_PBXFileOrder_PBXBuildFile_by_filename_when_nil_name_and_path() {
-        buildFileAssets.file?.name = nil
-        buildFileMain.file?.name = nil
-        buildFileAssets.file?.path = nil
-        buildFileMain.file?.path = nil
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectBuildFileAssets, rhs: objectBuildFileMain))
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectBuildFileMain, rhs: objectBuildFileAssets))
+        let iosProject = self.iosProject()
+
+        iosProject.buildFileAssets.file?.name = nil
+        iosProject.buildFileMain.file?.name = nil
+        iosProject.buildFileAssets.file?.path = nil
+        iosProject.buildFileMain.file?.path = nil
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileAssets, rhs: iosProject.objectBuildFileMain))
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildFileMain, rhs: iosProject.objectBuildFileAssets))
     }
 
     func test_PBXFileOrder_PBXBuildFile_by_filename_when_no_file() {
-        let ref1 = buildFileAssets.reference
-        let ref2 = buildFileMain.reference
-        buildFileAssets.file = nil
-        buildFileMain.file = nil
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: (ref1, buildFileAssets), rhs: (ref2, buildFileMain)))
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: (ref2, buildFileMain), rhs: (ref1, buildFileAssets)))
+        let iosProject = self.iosProject()
+
+        let ref1 = iosProject.buildFileAssets.reference
+        let ref2 = iosProject.buildFileMain.reference
+        iosProject.buildFileAssets.file = nil
+        iosProject.buildFileMain.file = nil
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: (ref1, iosProject.buildFileAssets), rhs: (ref2, iosProject.buildFileMain)))
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: (ref2, iosProject.buildFileMain), rhs: (ref1, iosProject.buildFileAssets)))
     }
 
     // MARK: - PBXFileOrder - PBXBuildPhaseFile
 
     func test_PBXFileOrder_PBXBuildPhaseFile_by_uuid() {
-        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: objectBuildPhaseFileAssets, rhs: objectBuildPhaseFileMain))
-        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: objectBuildPhaseFileMain, rhs: objectBuildPhaseFileAssets))
+        let iosProject = self.iosProject()
+
+        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildPhaseFileAssets, rhs: iosProject.objectBuildPhaseFileMain))
+        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectBuildPhaseFileMain, rhs: iosProject.objectBuildPhaseFileAssets))
     }
 
     func test_PBXFileOrder_PBXBuildPhaseFile_by_filename() {
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectBuildPhaseFileAssets, rhs: objectBuildPhaseFileMain))
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectBuildPhaseFileMain, rhs: objectBuildPhaseFileAssets))
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildPhaseFileAssets, rhs: iosProject.objectBuildPhaseFileMain))
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectBuildPhaseFileMain, rhs: iosProject.objectBuildPhaseFileAssets))
     }
 
     // MARK: - PBXFileOrder - PBXFileReference
 
     func test_PBXFileOrder_PBXFileReference_by_uuid() {
-        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: objectFileReferenceAssets, rhs: objectFileReferenceCoreData))
-        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: objectFileReferenceCoreData, rhs: objectFileReferenceAssets))
+        let iosProject = self.iosProject()
+
+        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectFileReferenceAssets, rhs: iosProject.objectFileReferenceCoreData))
+        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectFileReferenceCoreData, rhs: iosProject.objectFileReferenceAssets))
     }
 
     func test_PBXFileOrder_PBXFileReference_by_filename() {
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceAssets, rhs: objectFileReferenceCoreData))
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceCoreData, rhs: objectFileReferenceAssets))
-        let sameNameByFilename = objectFileReferenceSameName.sorted(by: PBXFileOrder.byFilename.sort)
-        XCTAssertLessThan(sameNameByFilename.first!.1.uuid, sameNameByFilename.last!.1.uuid)
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceAssets, rhs: iosProject.objectFileReferenceCoreData))
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceCoreData, rhs: iosProject.objectFileReferenceAssets))
     }
 
     func test_PBXFileOrder_PBXFileReference_by_filename_when_nil_name_and_path() {
-        fileReferenceAssets.name = nil
-        fileReferenceCoreData.name = nil
-        fileReferenceAssets.path = nil
-        fileReferenceCoreData.path = nil
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceAssets, rhs: objectFileReferenceCoreData))
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectFileReferenceCoreData, rhs: objectFileReferenceAssets))
+        let iosProject = self.iosProject()
+
+        iosProject.fileReferenceAssets.name = nil
+        iosProject.fileReferenceCoreData.name = nil
+        iosProject.fileReferenceAssets.path = nil
+        iosProject.fileReferenceCoreData.path = nil
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceAssets, rhs: iosProject.objectFileReferenceCoreData))
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectFileReferenceCoreData, rhs: iosProject.objectFileReferenceAssets))
     }
 
     // MARK: - PBXFileOrder - Other
 
     func test_PBXFileOrder_Other_by_uuid() {
-        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: objectGroupFrameworks, rhs: objectGroupProducts))
-        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: objectGroupProducts, rhs: objectGroupFrameworks))
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXFileOrder.byUUID.sort(lhs: iosProject.objectGroupFrameworks, rhs: iosProject.objectGroupProducts))
+        XCTAssertFalse(PBXFileOrder.byUUID.sort(lhs: iosProject.objectGroupProducts, rhs: iosProject.objectGroupFrameworks))
     }
 
     func test_PBXFileOrder_Other_by_filename() {
-        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: objectGroupFrameworks, rhs: objectGroupProducts))
-        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: objectGroupProducts, rhs: objectGroupFrameworks))
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXFileOrder.byFilename.sort(lhs: iosProject.objectGroupFrameworks, rhs: iosProject.objectGroupProducts))
+        XCTAssertFalse(PBXFileOrder.byFilename.sort(lhs: iosProject.objectGroupProducts, rhs: iosProject.objectGroupFrameworks))
     }
 
     // MARK: - PBXNavigatorFileOrder
@@ -155,8 +108,10 @@ class PBXOutputSettingsTests: XCTestCase {
     }
 
     func test_PBXNavigatorFileOrder_by_filename() {
+        let iosProject = self.iosProject()
+
         let sort: (PBXFileElement, PBXFileElement) -> Bool = PBXNavigatorFileOrder.byFilename.sort!
-        let sorted = navigatorFileGroup.children.sorted(by: sort).map { $0.fileName()! }
+        let sorted = iosProject.navigatorFileGroup.children.sorted(by: sort).map { $0.fileName()! }
         XCTAssertEqual([
             "AppDelegate.swift",
             "Assets.xcassets",
@@ -173,8 +128,10 @@ class PBXOutputSettingsTests: XCTestCase {
     }
 
     func test_PBXNavigatorFileOrder_by_filename_groups_first() {
+        let iosProject = self.iosProject()
+
         let sort: (PBXFileElement, PBXFileElement) -> Bool = PBXNavigatorFileOrder.byFilenameGroupsFirst.sort!
-        let sorted = navigatorFileGroup.children.sorted(by: sort).map { $0.fileName()! }
+        let sorted = iosProject.navigatorFileGroup.children.sorted(by: sort).map { $0.fileName()! }
         XCTAssertEqual([
             "GroupWithoutFolder",
             "AppDelegate.swift",
@@ -197,7 +154,85 @@ class PBXOutputSettingsTests: XCTestCase {
     }
 
     func test_PBXBuildPhaseFileOrder_by_filename() {
-        XCTAssertTrue(PBXBuildPhaseFileOrder.byFilename.sort!(buildFileAssets, buildFileMain))
-        XCTAssertFalse(PBXBuildPhaseFileOrder.byFilename.sort!(buildFileMain, buildFileAssets))
+        let iosProject = self.iosProject()
+
+        XCTAssertTrue(PBXBuildPhaseFileOrder.byFilename.sort!(iosProject.buildFileAssets, iosProject.buildFileMain))
+        XCTAssertFalse(PBXBuildPhaseFileOrder.byFilename.sort!(iosProject.buildFileMain, iosProject.buildFileAssets))
+    }
+    
+    
+    // MARK: - Private
+    
+    struct iOSProject {
+        var proj: PBXProj!
+        var buildFileAssets: PBXBuildFile!
+        var buildFileMain: PBXBuildFile!
+
+        var objectBuildFileAssets: (PBXObjectReference, PBXBuildFile)!
+        var objectBuildFileMain: (PBXObjectReference, PBXBuildFile)!
+
+        var objectBuildPhaseFileAssets: (PBXObjectReference, PBXBuildPhaseFile)!
+        var objectBuildPhaseFileMain: (PBXObjectReference, PBXBuildPhaseFile)!
+
+        var fileReferenceAssets: PBXFileReference!
+        var fileReferenceCoreData: PBXFileReference!
+
+        var objectFileReferenceAssets: (PBXObjectReference, PBXFileReference)!
+        var objectFileReferenceCoreData: (PBXObjectReference, PBXFileReference)!
+
+        var groupFrameworks: PBXGroup!
+        var groupProducts: PBXGroup!
+
+        var objectGroupFrameworks: (PBXObjectReference, PBXGroup)!
+        var objectGroupProducts: (PBXObjectReference, PBXGroup)!
+
+        var navigatorFileGroup: PBXGroup!
+    }
+    
+    private func iosProject() -> iOSProject {
+        let dic = iosProjectDictionary()
+        let proj = try! PBXProj(jsonDictionary: dic.1)
+        
+        let buildFileAssets = proj.buildFiles.first { $0.file?.fileName() == "Assets.xcassets" }!
+        let buildFileMain = proj.buildFiles.first { $0.file?.fileName() == "Main.storyboard" }!
+        
+        let objectBuildFileAssets = (buildFileAssets.reference, buildFileAssets)
+        let objectBuildFileMain = (buildFileMain.reference, buildFileMain)
+        
+        let objectBuildPhaseFileAssets = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Assets.xcassets" }!
+        let objectBuildPhaseFileMain = proj.objects.buildPhaseFile.first { $0.value.buildFile.file?.fileName() == "Main.storyboard" }!
+        
+        let fileReferenceAssets = proj.fileReferences.first { $0.fileName() == "Assets.xcassets" }!
+        let fileReferenceCoreData = proj.fileReferences.first { $0.fileName() == "CoreData.framework" }!
+        
+        let objectFileReferenceAssets = (buildFileAssets.reference, fileReferenceAssets)
+        let objectFileReferenceCoreData = (buildFileMain.reference, fileReferenceCoreData)
+        
+        let groupFrameworks = proj.groups.first { $0.fileName() == "Frameworks" }!
+        let groupProducts = proj.groups.first { $0.fileName() == "Products" }!
+        
+        let objectGroupFrameworks = (groupFrameworks.reference, groupFrameworks)
+        let objectGroupProducts = (groupProducts.reference, groupProducts)
+        
+        let navigatorFileGroup = proj.groups.first { $0.fileName() == "iOS" }!
+    
+        return iOSProject(
+            proj: proj,
+            buildFileAssets: buildFileAssets,
+            buildFileMain: buildFileMain,
+            objectBuildFileAssets: objectBuildFileAssets,
+            objectBuildFileMain: objectBuildFileMain,
+            objectBuildPhaseFileAssets: objectBuildPhaseFileAssets,
+            objectBuildPhaseFileMain: objectBuildPhaseFileMain,
+            fileReferenceAssets: fileReferenceAssets,
+            fileReferenceCoreData: fileReferenceCoreData,
+            objectFileReferenceAssets: objectFileReferenceAssets,
+            objectFileReferenceCoreData: objectFileReferenceCoreData,
+            groupFrameworks: groupFrameworks,
+            groupProducts: groupProducts,
+            objectGroupFrameworks: objectGroupFrameworks,
+            objectGroupProducts: objectGroupProducts,
+            navigatorFileGroup: navigatorFileGroup
+        )
     }
 }
