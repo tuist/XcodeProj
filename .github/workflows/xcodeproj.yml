@@ -33,10 +33,8 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
-      - name: Generate project
-        run: swift package generate-xcodeproj
       - name: Run tests
-        run: xcodebuild test -project XcodeProj.xcodeproj -scheme XcodeProj-Package -enableCodeCoverage YES
+        run: swift test --enable-code-coverage
       - name: Send test coverage report
         run: bash <(curl -s https://codecov.io/bash)
   test-linux:
