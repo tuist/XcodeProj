@@ -9,14 +9,14 @@ concurrency:
 
 jobs:
   build:
-    name: Build (macOS / Xcode ${{ matrix.xcode }})
+    name: Build (macOS)
     runs-on: macos-latest
     strategy:
       matrix:
-        xcode: ["14.3.1", "15.0"]
+        xcode: ["14.3.1"]
     steps:
       - uses: actions/checkout@v1
-      - name: Select Xcode ${{ matrix.xcode }}
+      - name: Sele
         run: sudo xcode-select -switch /Applications/Xcode_${{ matrix.xcode }}.app
       - name: Build
         run: swift build -c release
@@ -28,11 +28,11 @@ jobs:
       - name: Build
         run: swift build -c release
   test:
-    name: Test (macOS / Xcode ${{ matrix.xcode }})
+    name: Test (macOS / Xcode)
     runs-on: macos-11
     strategy:
       matrix:
-        xcode: ["14.3.1", "15.0"]
+        xcode: ["14.3.1"]
     steps:
       - uses: actions/checkout@v1
       - name: Select Xcode ${{ matrix.xcode }}
