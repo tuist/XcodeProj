@@ -185,3 +185,4 @@ XcodeProj.xcodeproj
 tmp/
 XcodeProj.framework.zip
 
+.direnv/
