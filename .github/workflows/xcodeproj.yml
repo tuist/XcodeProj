@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build (macOS)
+    name: Build (macOS / Xcode ${{ matrix.xcode }})
     runs-on: macos-latest
     strategy:
       matrix:
@@ -28,11 +28,11 @@ jobs:
       - name: Build
         run: swift build -c release
   test:
-    name: Test (macOS)
+    name: Test (macOS / Xcode ${{ matrix.xcode }})
     runs-on: macos-11
     strategy:
       matrix:
-        xcode: ["12.4", "12.5", "13.0"]
+        xcode: ["14.3.1", "15.0"]
     steps:
       - uses: actions/checkout@v1
       - name: Select Xcode ${{ matrix.xcode }}
