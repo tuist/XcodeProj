@@ -29,6 +29,7 @@
 		6C103C022A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FileSharedAcrossTargetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C103C072A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSharedAcrossTargetsTests.swift; sourceTree = "<group>"; };
 		6C103C122A49CC7300D7EFE4 /* SharedHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedHeader.h; sourceTree = "<group>"; };
+		6CB965012A49DC1F009186C6 /* FileSharedAcrossTargetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSharedAcrossTargetsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 		6C103C062A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests */ = {
 			isa = PBXGroup;
 			children = (
+				6CB965012A49DC1F009186C6 /* FileSharedAcrossTargetsTests.swift */,
 				6C103C072A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.swift */,
 			);
 			path = FileSharedAcrossTargetsTests;

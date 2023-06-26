@@ -264,7 +264,7 @@ class PBXOutputSettingsTests: XCTestCase {
         
         let buildFileSameName = proj.buildFiles.filter { $0.file?.fileName() == "SameName.h" }
         let objectBuildFileSameName = proj.buildFiles.map { ($0.reference, $0) }
-        let fileReferenceSameName = proj.fileReferences.filter { $0.fileName() == "SameName.framework" }
+        let fileReferenceSameName = proj.fileReferences.filter { $0.fileName() == "FileSharedAcrossTargetsTests.swift" }
         let objectFileReferenceSameName = fileReferenceSameName.map { ($0.reference, $0) }
     
         return FileSharedAcrossTargetsProject(
