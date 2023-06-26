@@ -6,19 +6,11 @@ import XCTest
 class PBXProjEncoderTests: XCTestCase {
     var proj: PBXProj!
 
-    override func setUp() {
-        super.setUp()
-        let dic = iosProjectDictionary()
-        do {
-            proj = try PBXProj(jsonDictionary: dic.1)
-        } catch {
-            XCTFail("Failed to load project from file \(error)")
-        }
-    }
-
     // MARK: - Header
 
-    func test_writeHeaders() throws {
+    func test_writeHeaders_when_iOSProject() throws {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         XCTAssertEqual(583, lines.count)
         XCTAssertEqual("// !$*UTF8*$!", lines[0])
@@ -26,7 +18,9 @@ class PBXProjEncoderTests: XCTestCase {
 
     // MARK: - Internal file lists
 
-    func test_buildFiles_in_default_uuid_order() {
+    func test_buildFiles_in_default_uuid_order_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         var line = lines.validate(line: "/* Begin PBXBuildFile section */")
         line = lines.validate(lineContaining: "04D5C09F1F153824008A2F98 /* CoreData.framework in Frameworks */", onLineAfter: line)
@@ -45,7 +39,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "/* End PBXBuildFile section */", onLineAfter: line)
     }
 
-    func test_buildFiles_in_filename_order() {
+    func test_buildFiles_in_filename_order_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projFileListOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         var line = lines.validate(line: "/* Begin PBXBuildFile section */")
@@ -65,7 +61,24 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "/* End PBXBuildFile section */", onLineAfter: line)
     }
 
-    func test_file_references_in_default_uuid_order() {
+    func test_buildFiles_in_filename_order_when_fileSharedAcrossTargetsProject() {
+        loadFileSharedAcrossTargetsProject()
+
+        let settings = PBXOutputSettings(projFileListOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        var line = lines.validate(line: "/* Begin PBXBuildFile section */")
+
+        line = lines.validate(lineContaining: "6C103C032A49CC5400D7EFE4 /* FileSharedAcrossTargets.framework in Frameworks */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C092A49CC5400D7EFE4 /* FileSharedAcrossTargets.h in Headers */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C082A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.swift in Sources */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C132A49CC7300D7EFE4 /* SharedHeader.h in Headers */", onLineAfter: line)
+
+        lines.validate(line: "/* End PBXBuildFile section */", onLineAfter: line)
+    }
+
+    func test_file_references_in_default_uuid_order_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         var line = lines.validate(line: "/* Begin PBXFileReference section */")
         line = lines.validate(lineContaining: "04D5C09E1F153824008A2F98 /* CoreData.framework */", onLineAfter: line)
@@ -89,7 +102,24 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
     }
 
-    func test_file_references_in_filename_order() {
+    func test_file_references_in_default_uuid_order_when_fileSharedAcrossTargetsProject() {
+        loadFileSharedAcrossTargetsProject()
+
+        let lines = self.lines(fromFile: encodeProject())
+        var line = lines.validate(line: "/* Begin PBXFileReference section */")
+        line = lines.validate(lineContaining: "6C103BFA2A49CC5300D7EFE4 /* FileSharedAcrossTargets.framework */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103BFD2A49CC5300D7EFE4 /* FileSharedAcrossTargets.h */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C022A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.xctest */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C072A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.swift */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C122A49CC7300D7EFE4 /* SharedHeader.h */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6CB965012A49DC1F009186C6 /* FileSharedAcrossTargetsTests.swift */", onLineAfter: line)
+
+        lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
+    }
+
+    func test_file_references_in_filename_order_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projFileListOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         var line = lines.validate(line: "/* Begin PBXFileReference section */")
@@ -110,12 +140,29 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(lineContaining: "23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C2A1EAA3484007A9026 /* iOSTests.swift */", onLineAfter: line)
         line = lines.validate(lineContaining: "23766C261EAA3484007A9026 /* iOSTests.xctest */", onLineAfter: line)
+        lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
+    }
+
+    func test_file_references_in_filename_order_when_fileSharedAcrossTargetsProject() {
+        loadFileSharedAcrossTargetsProject()
+
+        let settings = PBXOutputSettings(projFileListOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        var line = lines.validate(line: "/* Begin PBXFileReference section */")
+        line = lines.validate(lineContaining: "6C103BFA2A49CC5300D7EFE4 /* FileSharedAcrossTargets.framework */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103BFD2A49CC5300D7EFE4 /* FileSharedAcrossTargets.h */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C072A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.swift */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6CB965012A49DC1F009186C6 /* FileSharedAcrossTargetsTests.swift */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C022A49CC5400D7EFE4 /* FileSharedAcrossTargetsTests.xctest */", onLineAfter: line)
+        line = lines.validate(lineContaining: "6C103C122A49CC7300D7EFE4 /* SharedHeader.h */", onLineAfter: line)
         lines.validate(line: "/* End PBXFileReference section */", onLineAfter: line)
     }
 
     // MARK: - Navigator
 
-    func test_navigator_groups_in_default_order() {
+    func test_navigator_groups_in_default_order_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
 
         let beginGroup = lines.findLine("/* Begin PBXGroup section */")
@@ -156,7 +203,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "23766C2C1EAA3484007A9026 /* Info.plist */,", betweenLine: iosTestsChildrenStart, andLine: iosTestsChildrenEnd)
     }
 
-    func test_navigator_groups_in_filename_order() {
+    func test_navigator_groups_in_filename_order_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
 
@@ -195,7 +244,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: ");", after: line)
     }
 
-    func test_navigator_groups_in_filename_groups_first_order() {
+    func test_navigator_groups_in_filename_groups_first_order_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
 
@@ -236,7 +287,9 @@ class PBXProjEncoderTests: XCTestCase {
 
     // MARK: - Build phases
 
-    func test_build_phase_sources_unsorted() {
+    func test_build_phase_sources_unsorted_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         let beginGroup = lines.findLine("/* Begin PBXSourcesBuildPhase section */")
         let files = lines.findLine("files = (", after: beginGroup)
@@ -246,7 +299,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "3CD1EADD205763E400DAEECB /* Model.xcdatamodeld in Sources */,", betweenLine: files, andLine: endGroup)
     }
 
-    func test_build_phase_sources_sorted() {
+    func test_build_phase_sources_sorted_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         let beginGroup = lines.findLine("/* Begin PBXSourcesBuildPhase section */")
@@ -257,7 +312,9 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "/* End PBXSourcesBuildPhase section */", after: line)
     }
 
-    func test_build_phase_headers_unsorted() {
+    func test_build_phase_headers_unsorted_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         let beginGroup = lines.findLine("/* Begin PBXHeadersBuildPhase section */")
         let files = lines.findLine("files = (", after: beginGroup)
@@ -267,7 +324,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "04D5C0A31F153924008A2F98 /* Public.h in Headers */,", betweenLine: files, andLine: endGroup)
     }
 
-    func test_build_phase_headers_sorted() {
+    func test_build_phase_headers_sorted_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         let beginGroup = lines.findLine("/* Begin PBXHeadersBuildPhase section */")
@@ -278,7 +337,9 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "/* End PBXHeadersBuildPhase section */", after: line)
     }
 
-    func test_build_phase_resources_unsorted() {
+    func test_build_phase_resources_unsorted_when_iOSProject() {
+        loadiOSProject()
+
         let lines = self.lines(fromFile: encodeProject())
         let beginGroup = lines.findLine("/* Begin PBXResourcesBuildPhase section */")
         let files = lines.findLine("files = (", after: beginGroup)
@@ -288,7 +349,9 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: "23766C201EAA3484007A9026 /* LaunchScreen.storyboard in Resources */,", betweenLine: files, andLine: endGroup)
     }
 
-    func test_build_phase_resources_sorted() {
+    func test_build_phase_resources_sorted_when_iOSProject() {
+        loadiOSProject()
+
         let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         let beginGroup = lines.findLine("/* Begin PBXResourcesBuildPhase section */")
@@ -323,6 +386,14 @@ class PBXProjEncoderTests: XCTestCase {
 
     private func lines(fromFile file: String) -> [String] {
         file.replacingOccurrences(of: "\t", with: "").components(separatedBy: "\n")
+    }
+
+    private func loadiOSProject() {
+        proj = try! PBXProj(jsonDictionary: iosProjectDictionary().1)
+    }
+
+    private func loadFileSharedAcrossTargetsProject() {
+        proj = try! PBXProj(jsonDictionary: fileSharedAcrossTargetsDictionary().1)
     }
 }
 
@@ -395,7 +466,7 @@ private extension Array where Element == String {
     }
 
     func log() {
-        var line: Int = 0
+        var line = 0
         forEach {
             let lineStr = "\(line)"
             let lineNo = lineStr + String(repeating: " ", count: 5 - lineStr.count)
