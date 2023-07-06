@@ -26,7 +26,7 @@ public struct Xcode {
         public static let swiftVersion = "5.4.2"
 
         /// Last known object version for Xcodeproj.
-        public static let objectVersion: UInt = 56
+        public static let objectVersion: UInt = 55
 
         /// Last known upgrade check.
         public static let upgradeCheck = "1240"
@@ -38,13 +38,22 @@ public struct Xcode {
     /// Default values.
     public struct Default {
         /// The default object version for Xcodeproj.
-        public static let objectVersion: UInt = 56
+        public static let objectVersion: UInt = 46
 
         /// Default compatibility version.
         public static let compatibilityVersion: String = "Xcode 14.0"
 
         /// Default development region.
         public static let developmentRegion: String = "en"
+        
+        /// Default XCScheme format version
+        public static let xcschemeFormatVersion: String = "1.3"
+        
+        /// The last Swift upgrade check version
+        public static let lastSwiftUpgradeCheck: String = "1300"
+        
+        /// The last known Xcode upgrade check version.
+        public static let lastUpgradeCheck: String = "1300"
     }
 
     /// Inherited keywords used in build settings.
