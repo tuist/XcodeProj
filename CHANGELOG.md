@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 8.12.0
+
 ### Added
 
 - `PBXBuildRule.dependencyFile` attribute [#781](https://github.com/tuist/XcodeProj/pull/781) by [@pepicrft](https://github.com/pepicrft).
