@@ -7,5 +7,4 @@ In this document you'll find all the necessary steps to release a new version of
 3. Add the version section to the `CHANGELOG.md`, update the versions in the `README.md`.
 4. Commit the changes and tag them `git commit -m "Version x.y.z"` & `git tag x.y.z`.
 5. Push the changes `git push origin main --tags`
-6. Run the release checks by running `bundle exec rake release_check`.
-8. Create the release on GitHub including the release notes from the `CHANGELOG.md`.
+6. Create the release on GitHub including the release notes from the `CHANGELOG.md`.
