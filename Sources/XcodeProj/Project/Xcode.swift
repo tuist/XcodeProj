@@ -29,10 +29,10 @@ public struct Xcode {
         public static let objectVersion: UInt = 55
 
         /// Last known upgrade check.
-        public static let upgradeCheck = "1240"
+        public static let upgradeCheck = "1250"
 
         /// Last known Swift upgrade check.
-        public static let swiftUpgradeCheck = "1240"
+        public static let swiftUpgradeCheck = "1250"
     }
 
     /// Default values.
