@@ -38,10 +38,10 @@ public struct Xcode {
     /// Default values.
     public struct Default {
         /// The default object version for Xcodeproj.
-        public static let objectVersion: UInt = 46
+        public static let objectVersion: UInt = 56
 
         /// Default compatibility version.
-        public static let compatibilityVersion: String = "Xcode 13.0"
+        public static let compatibilityVersion: String = "Xcode 14.0"
 
         /// Default development region.
         public static let developmentRegion: String = "en"
