@@ -18,6 +18,9 @@ public final class PBXBuildRule: PBXObject {
 
     /// Element name.
     public var name: String?
+    
+    /// The discovered dependency file to use
+    public var dependencyFile: String?
 
     /// Element output files.
     public var outputFiles: [String]
@@ -41,6 +44,7 @@ public final class PBXBuildRule: PBXObject {
                 isEditable: Bool = true,
                 filePatterns: String? = nil,
                 name: String? = nil,
+                dependencyFile: String? = nil,
                 outputFiles: [String] = [],
                 inputFiles: [String]? = nil,
                 outputFilesCompilerFlags: [String]? = nil,
@@ -51,6 +55,7 @@ public final class PBXBuildRule: PBXObject {
         self.fileType = fileType
         self.isEditable = isEditable
         self.name = name
+        self.dependencyFile = dependencyFile
         self.outputFiles = outputFiles
         self.inputFiles = inputFiles
         self.outputFilesCompilerFlags = outputFilesCompilerFlags
@@ -67,6 +72,7 @@ public final class PBXBuildRule: PBXObject {
         case fileType
         case isEditable
         case name
+        case dependencyFile
         case outputFiles
         case inputFiles
         case outputFilesCompilerFlags
@@ -81,6 +87,7 @@ public final class PBXBuildRule: PBXObject {
         fileType = try container.decodeIfPresent(.fileType) ?? ""
         isEditable = try container.decodeIntBool(.isEditable)
         name = try container.decodeIfPresent(.name)
+        dependencyFile = try container.decodeIfPresent(.dependencyFile)
         outputFiles = try container.decodeIfPresent(.outputFiles) ?? []
         inputFiles = try container.decodeIfPresent(.inputFiles)
         outputFilesCompilerFlags = try container.decodeIfPresent(.outputFilesCompilerFlags)
@@ -104,6 +111,9 @@ extension PBXBuildRule: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildRule.isa))
         dictionary["compilerSpec"] = .string(CommentedString(compilerSpec))
+        if let dependencyFile = dependencyFile {
+            dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))
+        }
         if let filePatterns = filePatterns {
             dictionary["filePatterns"] = .string(CommentedString(filePatterns))
         }

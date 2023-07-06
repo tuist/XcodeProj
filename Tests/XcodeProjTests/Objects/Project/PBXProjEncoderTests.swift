@@ -361,6 +361,26 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "23766C1B1EAA3484007A9026 /* Main.storyboard in Resources */,", after: line)
         line = lines.validate(line: "/* End PBXResourcesBuildPhase section */", after: line)
     }
+    
+    func test_build_rules_when_targetWithCustomBuildRulesProject() {
+        loadTargetWithCustomBuildRulesProject()
+
+        let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        let beginGroup = lines.findLine("6CAD68202A56E31400662D8A /* PBXBuildRule */ = {")
+        var line = lines.findLine("isa = PBXBuildRule;", after: beginGroup)
+        line = lines.findLine("compilerSpec = com.apple.compilers.proxy.script;", after: beginGroup)
+        line = lines.findLine("dependencyFile = \"$(DERIVED_FILES_DIR)/$(INPUT_FILE_PATH).d\";", after: beginGroup)
+        line = lines.findLine("fileType = pattern.proxy;", after: beginGroup)
+        line = lines.findLine("inputFiles = (", after: beginGroup)
+        line = lines.findLine(");", after: beginGroup)
+        line = lines.findLine("isEditable = 1;", after: beginGroup)
+        line = lines.findLine("name = \"Custom 2 with dependency file\";", after: beginGroup)
+        line = lines.findLine("outputFiles = (", after: beginGroup)
+        line = lines.findLine(");", after: beginGroup)
+        line = lines.findLine("script = \"# Type a script or drag a script file from your workspace to insert its path.\\n\";", after: beginGroup)
+        line = lines.findLine("};", after: beginGroup)
+    }
 
     // MARK: - Test internals
 
@@ -394,6 +414,10 @@ class PBXProjEncoderTests: XCTestCase {
 
     private func loadFileSharedAcrossTargetsProject() {
         proj = try! PBXProj(jsonDictionary: fileSharedAcrossTargetsDictionary().1)
+    }
+    
+    private func loadTargetWithCustomBuildRulesProject() {
+        proj = try! PBXProj(jsonDictionary: targetWithCustomBuildRulesDictionary().1)
     }
 }
 

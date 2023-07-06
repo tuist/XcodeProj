@@ -29,10 +29,10 @@ public struct Xcode {
         public static let objectVersion: UInt = 55
 
         /// Last known upgrade check.
-        public static let upgradeCheck = "1240"
+        public static let upgradeCheck = "1250"
 
         /// Last known Swift upgrade check.
-        public static let swiftUpgradeCheck = "1240"
+        public static let swiftUpgradeCheck = "1250"
     }
 
     /// Default values.
@@ -41,10 +41,19 @@ public struct Xcode {
         public static let objectVersion: UInt = 46
 
         /// Default compatibility version.
-        public static let compatibilityVersion: String = "Xcode 13.0"
+        public static let compatibilityVersion: String = "Xcode 14.0"
 
         /// Default development region.
         public static let developmentRegion: String = "en"
+        
+        /// Default XCScheme format version
+        public static let xcschemeFormatVersion: String = "1.3"
+        
+        /// The last Swift upgrade check version
+        public static let lastSwiftUpgradeCheck: String = "1300"
+        
+        /// The last known Xcode upgrade check version.
+        public static let lastUpgradeCheck: String = "1300"
     }
 
     /// Inherited keywords used in build settings.

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+
+- `PBXBuildRule.dependencyFile` attribute [#781](https://github.com/tuist/XcodeProj/pull/781) by [@pepicrft](https://github.com/pepicrft).
+- Update last known `upgradeCheck` and `swiftUpgradeCheck` constants [#781](https://github.com/tuist/XcodeProj/pull/781) by [@pepicrft](https://github.com/pepicrft).
+- Add the defaults `xcschemeFormatVersion`, `lastSwiftUpgradeCheck`, and `lastUpgradeCheck` [#781](https://github.com/tuist/XcodeProj/pull/781) by [@pepicrft](https://github.com/pepicrft).
+
 ## 8.11.0
 
 ### Added
