@@ -28,13 +28,17 @@ extension XCWorkspaceData: Writable {
             throw XCWorkspaceDataError.notFound(path: path)
         }
 
-        let xml = try AEXMLDocument(xml: path.read())
-        let children = try xml
-            .root
-            .children
-            .compactMap(XCWorkspaceDataElement.init(element:))
+        do {
+            let xml = try AEXMLDocument(xml: path.read())
+            let children = try xml
+                .root
+                .children
+                .compactMap(XCWorkspaceDataElement.init(element:))
 
-        self.init(children: children)
+            self.init(children: children)
+        } catch AEXMLError.parsingFailed {
+            fatalError("We could not parse the file \(path.lastComponent). Make sure it's a valid XML/Plist/JSON file and try again")
+        }
     }
     
     func rawContents() -> String {
