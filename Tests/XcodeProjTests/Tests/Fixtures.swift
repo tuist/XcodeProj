@@ -16,6 +16,9 @@ func fileSharedAcrossTargetsDictionary() -> (Path, [String: Any]) {
     return (fileSharedAcrossTargetsProject, loadPlist(path: fileSharedAcrossTargetsProject.string)!)
 }
 
+func withCorruptWorkspaceDataPath() -> Path {
+    fixturesPath() + "WithCorruptWorkspace/WithCorruptWorkspace.xcodeproj/project.xcworkspace/contents.xcworkspacedata"
+}
 
 func targetWithCustomBuildRulesDictionary() -> (Path, [String: Any]) {
     let targetWithCustomBuildRulesProject = fixturesPath() + "TargetWithCustomBuildRules/TargetWithCustomBuildRules.xcodeproj/project.pbxproj"

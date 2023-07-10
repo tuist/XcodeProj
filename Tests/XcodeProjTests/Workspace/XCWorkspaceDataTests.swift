@@ -39,6 +39,17 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
         } catch {}
     }
 
+    func test_init_throwsIfWorkSpaceDataIsCorrupted() {
+        let path = withCorruptWorkspaceDataPath()
+        do {
+            let _ = try XCWorkspaceData(path: path)
+            XCTAssertTrue(false, "Expected to throw an error but it didn't")
+        } catch {
+            let expectedError = XCWorkspaceDataError.parseError(path: path)
+            XCTAssertEqual((error as? XCWorkspaceDataError)?.description, expectedError.description)
+        }
+    }
+
     func test_write() {
         testWrite(
             from: fixturePath(),
