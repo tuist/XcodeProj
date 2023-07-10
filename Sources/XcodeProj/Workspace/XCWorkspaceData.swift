@@ -37,7 +37,7 @@ extension XCWorkspaceData: Writable {
 
             self.init(children: children)
         } catch AEXMLError.parsingFailed {
-            fatalError("We could not parse the file \(path.lastComponent). Make sure it's a valid XML/Plist/JSON file and try again")
+            throw XCWorkspaceDataError.parseError(path: path)
         }
     }
     

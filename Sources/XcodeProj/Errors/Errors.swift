@@ -70,6 +70,7 @@ public enum XCWorkspaceError: Error, CustomStringConvertible {
         case let .notFound(path):
             return "The project cannot be found at \(path.string)"
         }
+
     }
 }
 
@@ -80,11 +81,14 @@ public enum XCWorkspaceError: Error, CustomStringConvertible {
 /// - notFound: returned when the .xcworkspacedata cannot be found.
 public enum XCWorkspaceDataError: Error, CustomStringConvertible {
     case notFound(path: Path)
+    case parseError(path: Path)
 
     public var description: String {
         switch self {
         case let .notFound(path):
             return "Workspace not found at \(path.string)"
+        case let .parseError(path):
+            return "We could not parse the file \(path.lastComponent). Make sure it's a valid XML/Plist/JSON file and try again"
         }
     }
 }
