@@ -18,6 +18,11 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         }
     }
 
+    /// Is it a Plugin.
+    var isPlugin: Bool {
+        productName.hasPrefix("plugin:")
+    }
+
     // MARK: - Init
 
     public init(productName: String,

@@ -50,4 +50,20 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         // Then
         XCTAssertEqual(first, second)
     }
+
+    func test_isPlugin() {
+        // Given
+        let plugin = XCSwiftPackageProductDependency(productName: "plugin:product")
+
+        // Then
+        XCTAssertTrue(plugin.isPlugin)
+    }
+
+    func test_isNotPlugin() {
+        // Given
+        let plugin = XCSwiftPackageProductDependency(productName: "product")
+
+        // Then
+        XCTAssertFalse(plugin.isPlugin)
+    }
 }

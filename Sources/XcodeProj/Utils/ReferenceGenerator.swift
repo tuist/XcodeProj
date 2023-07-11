@@ -99,6 +99,15 @@ final class ReferenceGenerator: ReferenceGenerating {
                 fixReference(for: $0, identifiers: identifiers)
             }
 
+            // Build Tool Plug-ins
+            target.dependencies.forEach {
+                guard let product = $0.product, product.isPlugin else { return }
+
+                var identifiers = identifiers
+                identifiers.append(product.productName)
+                fixReference(for: product, identifiers: identifiers)
+            }
+
             fixReference(for: target, identifiers: identifiers)
         }
     }

@@ -11,9 +11,13 @@ class ReferenceGeneratorTests: XCTestCase {
         let containerItemProxy = project.makeContainerItemProxy(fileReference: remoteProjectFileReference)
         let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
         let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
+        let pluginDependency = project.makePluginDependency()
+        let (target, _) = project.makeTarget(productReferenceProxy: productReferenceProxy)
+        target.dependencies.append(pluginDependency)
 
         pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference,
                                              "ProjectRef": remoteProjectFileReference.reference])
+        pbxProject.targets.append(target)
 
         let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
         try referenceGenerator.generateReferences(proj: project)
@@ -22,6 +26,7 @@ class ReferenceGeneratorTests: XCTestCase {
         XCTAssert(!containerItemProxy.reference.temporary)
         XCTAssert(!productReferenceProxy.reference.temporary)
         XCTAssert(!remoteProjectFileReference.reference.temporary)
+        XCTAssert(!pluginDependency.productReference!.temporary)
     }
 
     func test_projectReferencingRemoteXcodeprojBundle_generatesDeterministicIdentifiers() throws {
@@ -32,7 +37,9 @@ class ReferenceGeneratorTests: XCTestCase {
             let containerItemProxy = project.makeContainerItemProxy(fileReference: remoteProjectFileReference)
             let productReferenceProxy = project.makeReferenceProxy(containerItemProxy: containerItemProxy)
             let productsGroup = project.makeProductsGroup(children: [productReferenceProxy])
+            let pluginDependency = project.makePluginDependency()
             let (target, buildFile) = project.makeTarget(productReferenceProxy: productReferenceProxy)
+            target.dependencies.append(pluginDependency)
 
             pbxProject.projectReferences.append(["ProductGroup": productsGroup.reference,
                                                  "ProjectRef": remoteProjectFileReference.reference])
@@ -41,7 +48,7 @@ class ReferenceGeneratorTests: XCTestCase {
             let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
             try referenceGenerator.generateReferences(proj: project)
 
-            return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile]
+            return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile, pluginDependency.productReference!.getObject()!]
                 .map { $0.reference.value }
         }
 
@@ -130,6 +137,15 @@ private extension PBXProj {
                                      name: "Products")
         add(object: productsGroup)
         return productsGroup
+    }
+
+    func makePluginDependency() -> PBXTargetDependency {
+        let packageReference = XCRemoteSwiftPackageReference(repositoryURL: "repository")
+        let packageDependency = XCSwiftPackageProductDependency(productName: "plugin:product", package: packageReference)
+        let targetDependency = PBXTargetDependency(product: packageDependency)
+        add(object: targetDependency.productReference!.getObject()!)
+
+        return targetDependency
     }
 
     func makeTarget(productReferenceProxy: PBXReferenceProxy) -> (target: PBXTarget, buildFile: PBXBuildFile) {
