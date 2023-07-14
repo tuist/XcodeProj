@@ -37,8 +37,14 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         let repository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let rawProductName = try container.decode(String.self, forKey: .productName)
-        productName = rawProductName.replacingOccurrences(of: "plugin:", with: "")
-        isPlugin = productName != rawProductName
+        let pluginPrefix = "plugin:"
+        if rawProductName.hasPrefix(pluginPrefix) {
+            productName = String(rawProductName.dropFirst(pluginPrefix.count))
+            isPlugin = true
+        } else {
+            productName = rawProductName
+            isPlugin = false
+        }
 
         if let packageString: String = try container.decodeIfPresent(.package) {
             packageReference = repository.getOrCreate(reference: packageString, objects: objects)
