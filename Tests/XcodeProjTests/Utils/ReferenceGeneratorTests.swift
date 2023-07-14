@@ -141,7 +141,7 @@ private extension PBXProj {
 
     func makePluginDependency() -> PBXTargetDependency {
         let packageReference = XCRemoteSwiftPackageReference(repositoryURL: "repository")
-        let packageDependency = XCSwiftPackageProductDependency(productName: "plugin:product", package: packageReference)
+        let packageDependency = XCSwiftPackageProductDependency(productName: "product", package: packageReference, isPlugin: true)
         let targetDependency = PBXTargetDependency(product: packageDependency)
         add(object: targetDependency.productReference!.getObject()!)
 

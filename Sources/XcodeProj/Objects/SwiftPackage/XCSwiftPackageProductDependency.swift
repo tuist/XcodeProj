@@ -19,16 +19,16 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     }
 
     /// Is it a Plugin.
-    var isPlugin: Bool {
-        productName.hasPrefix("plugin:")
-    }
+    var isPlugin: Bool
 
     // MARK: - Init
 
     public init(productName: String,
-                package: XCRemoteSwiftPackageReference? = nil) {
+                package: XCRemoteSwiftPackageReference? = nil,
+                isPlugin: Bool = false) {
         self.productName = productName
         packageReference = package?.reference
+        self.isPlugin = isPlugin
         super.init()
     }
 
@@ -36,7 +36,10 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         let objects = decoder.context.objects
         let repository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        productName = try container.decode(String.self, forKey: .productName)
+        let rawProductName = try container.decode(String.self, forKey: .productName)
+        productName = rawProductName.replacingOccurrences(of: "plugin:", with: "")
+        isPlugin = productName != rawProductName
+
         if let packageString: String = try container.decodeIfPresent(.package) {
             packageReference = repository.getOrCreate(reference: packageString, objects: objects)
         } else {
@@ -51,7 +54,11 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
         if let package = package {
             dictionary["package"] = .string(.init(package.reference.value, comment: "XCRemoteSwiftPackageReference \"\(package.name ?? "")\""))
         }
-        dictionary["productName"] = .string(.init(productName))
+        if isPlugin {
+            dictionary["productName"] = .string(.init("plugin:" + productName))
+        } else {
+            dictionary["productName"] = .string(.init(productName))
+        }
 
         return (key: CommentedString(reference, comment: productName),
                 value: .dictionary(dictionary))
