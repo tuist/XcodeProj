@@ -288,7 +288,7 @@ extension PBXProj: Writable {
         try write(path: path, override: override, outputSettings: PBXOutputSettings())
     }
 
-    public func getStringRepresentation(outputSettings: PBXOutputSettings) throws -> String {
+    public func getStringRepresentation(outputSettings: PBXOutputSettings = PBXOutputSettings()) throws -> String {
         let encoder = PBXProjEncoder(outputSettings: outputSettings)
         return try encoder.encode(proj: self)
     }
