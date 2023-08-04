@@ -234,6 +234,7 @@ public struct Xcode {
         "nib~": "wrapper.nib",
         "nqc": "sourcecode.nqc",
         "o": "compiled.mach-o.objfile",
+        "otf": "file",
         "octest": "wrapper.cfbundle",
         "p": "sourcecode.pascal",
         "pas": "sourcecode.pascal",
