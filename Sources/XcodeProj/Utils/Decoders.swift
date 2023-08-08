@@ -25,7 +25,7 @@ class PBXObjectReferenceRepository {
 }
 
 /// Context used when the project is being decoded.
-public class ProjectDecodingContext {
+class ProjectDecodingContext {
     /// Object reference repository.
     let objectReferenceRepository: PBXObjectReferenceRepository
 
@@ -33,7 +33,7 @@ public class ProjectDecodingContext {
     let objects: PBXObjects
     let pbxProjValueReader: ((String) -> Any?)?
 
-    public init(pbxProjValueReader: ((String) -> Any?)? = nil) {
+    init(pbxProjValueReader: ((String) -> Any?)? = nil) {
         objectReferenceRepository = PBXObjectReferenceRepository()
         objects = PBXObjects(objects: [])
         self.pbxProjValueReader = pbxProjValueReader
@@ -57,9 +57,9 @@ class XcodeprojJSONDecoder: JSONDecoder {
 }
 
 /// Xcodeproj property list decoder.
-public class XcodeprojPropertyListDecoder: PropertyListDecoder {
+class XcodeprojPropertyListDecoder: PropertyListDecoder {
     /// Default init.
-    public init(context: ProjectDecodingContext = ProjectDecodingContext()) {
+    init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()
         userInfo = [.context: context]
     }
