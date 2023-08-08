@@ -25,7 +25,7 @@ class PBXObjectReferenceRepository {
 }
 
 /// Context used when the project is being decoded.
-class ProjectDecodingContext {
+public class ProjectDecodingContext {
     /// Object reference repository.
     let objectReferenceRepository: PBXObjectReferenceRepository
 
