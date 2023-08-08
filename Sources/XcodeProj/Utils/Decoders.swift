@@ -25,7 +25,7 @@ class PBXObjectReferenceRepository {
 }
 
 /// Context used when the project is being decoded.
-class ProjectDecodingContext {
+public class ProjectDecodingContext {
     /// Object reference repository.
     let objectReferenceRepository: PBXObjectReferenceRepository
 
@@ -57,7 +57,7 @@ class XcodeprojJSONDecoder: JSONDecoder {
 }
 
 /// Xcodeproj property list decoder.
-class XcodeprojPropertyListDecoder: PropertyListDecoder {
+public class XcodeprojPropertyListDecoder: PropertyListDecoder {
     /// Default init.
     init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()
