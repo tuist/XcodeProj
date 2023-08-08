@@ -66,6 +66,34 @@ public final class PBXProj: Decodable {
             objects: pbxproj.objects
         )
     }
+    
+    public convenience init(pbxProjData: Data) throws {
+        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
+        let serialized = try PropertyListSerialization.propertyList(
+            from: pbxProjData,
+            options: .mutableContainersAndLeaves,
+            format: &propertyListFormat
+        )
+        // swiftlint:disable:next force_cast
+        let pbxProjDictionary = serialized as! [String: Any]
+        
+        let context = ProjectDecodingContext(
+            pbxProjValueReader: { key in
+                pbxProjDictionary[key]
+            }
+        )
+
+        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
+        let pbxproj: PBXProj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
+
+        self.init(
+            rootObject: pbxproj.rootObject,
+            objectVersion: pbxproj.objectVersion,
+            archiveVersion: pbxproj.archiveVersion,
+            classes: pbxproj.classes,
+            objects: pbxproj.objects
+        )
+    }
 
     private init(
         rootObject: PBXProject? = nil,
