@@ -1,7 +1,7 @@
 import Foundation
 
 /// Project object reference repository.
-class PBXObjectReferenceRepository {
+public class PBXObjectReferenceRepository {
     /// References.
     var references: [String: PBXObjectReference] = [:]
     let lock = NSRecursiveLock()
