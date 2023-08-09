@@ -143,14 +143,23 @@ extension XCConfig {
 
 extension XCConfig: Writable {
     public func write(path: Path, override: Bool) throws {
-        var content = ""
-        content.append(writeIncludes())
-        content.append("\n")
-        content.append(writeBuildSettings())
+        let content = getContent()
         if override, path.exists {
             try path.delete()
         }
         try path.write(content)
+    }
+    
+    public func dataRepresentation() throws -> Data? {
+        getContent().data(using: .utf8)
+    }
+    
+    private func getContent() -> String {
+        var content = ""
+        content.append(writeIncludes())
+        content.append("\n")
+        content.append(writeBuildSettings())
+        return content
     }
 
     private func writeIncludes() -> String {

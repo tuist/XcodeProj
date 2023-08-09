@@ -138,9 +138,21 @@ public struct XCSchemeManagement: Codable, Equatable, Writable {
             try path.delete()
         }
 
+        let encoder = getEncoder()
+        try encoder.encode(self).write(to: path.url)
+    }
+    
+    /// Gets the data representation of the property list representation of the object.
+    ///
+    /// - Throws: Error if encoding fails.
+    public func dataRepresentation() throws -> Data? {
+        return try getEncoder().encode(self)
+    }
+
+    private func getEncoder() -> PropertyListEncoder {
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml
-        try encoder.encode(self).write(to: path.url)
+        return encoder
     }
 
     // MARK: - Codable

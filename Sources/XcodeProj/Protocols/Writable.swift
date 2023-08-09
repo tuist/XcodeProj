@@ -16,6 +16,11 @@ public protocol Writable {
     /// - Parameter override: True if the content should be overridden if it already exists.
     /// - Throws: writing error if something goes wrong.
     func write(pathString: String, override: Bool) throws
+
+    /// Gets the data representation of the object that conforms to the protocol.
+    ///
+    /// - Throws: error if encoding to Data fails.
+    func dataRepresentation() throws -> Data?
 }
 
 extension Writable {
@@ -23,4 +28,6 @@ extension Writable {
         let path = Path(pathString)
         try write(path: path, override: override)
     }
+
+    public func dataRepresentation() throws -> Data? { nil }
 }
