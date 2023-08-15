@@ -285,7 +285,7 @@ extension PBXProj: Equatable {
 
 extension PBXProj: Writable {
     public func dataRepresentation(outputSettings: PBXOutputSettings) throws -> Data? {
-        let encoder = PBXProjEncoder(outputSettings: PBXOutputSettings())
+        let encoder = PBXProjEncoder(outputSettings: outputSettings)
         return try encoder.encode(proj: self).data(using: .utf8)
     }
 
