@@ -2,7 +2,13 @@
 
 ## Unreleased
 
+## 8.14.0
+
 ## 8.13.0
+
+## Added
+
+- Added `Build Tool Plug-ins` support [#784](https://github.com/tuist/XcodeProj/pull/784) by [@BarredEwe](https://github.com/BarredEwe)
 
 ## 8.12.0
 
