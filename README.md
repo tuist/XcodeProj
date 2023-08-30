@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -181,6 +181,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://zenangst.com"><img src="https://avatars.githubusercontent.com/u/57446?v=4?s=100" width="100px;" alt="Christoffer Winterkvist"/><br /><sub><b>Christoffer Winterkvist</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=zenangst" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.timothycosta.com"><img src="https://avatars.githubusercontent.com/u/948806?v=4?s=100" width="100px;" alt="Timothy Costa"/><br /><sub><b>Timothy Costa</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=timothycosta" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://coolmathgames.tech"><img src="https://avatars.githubusercontent.com/u/6877780?v=4?s=100" width="100px;" alt="Mary "/><br /><sub><b>Mary </b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Mstrodl" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ibrahimhass"><img src="https://avatars.githubusercontent.com/u/16992520?v=4?s=100" width="100px;" alt="Md. Ibrahim Hassan"/><br /><sub><b>Md. Ibrahim Hassan</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Ibrahimhass" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
