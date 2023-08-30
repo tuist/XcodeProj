@@ -67,6 +67,10 @@ public final class XCWorkspace: Writable, Equatable {
         try dataPath.mkpath()
         try data.write(path: dataPath)
     }
+    
+    public func dataRepresentation() throws -> Data? {
+        self.data.rawContents().data(using: .utf8)
+    }
 
     // MARK: - Equatable
 
