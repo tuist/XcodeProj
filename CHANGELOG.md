@@ -4,6 +4,11 @@
 
 ## 8.14.0
 
+## Added
+
+- Add otf font files to known file types [#788](https://github.com/tuist/XcodeProj/pull/788) by[@kwridan](https://github.com/kwridan)
+- Get Data representation for `Writable` [#787](https://github.com/tuist/XcodeProj/pull/787) by [@Ibrahimhass](https://github.com/Ibrahimhass)
+
 ## 8.13.0
 
 ## Added
