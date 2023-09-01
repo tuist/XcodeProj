@@ -55,6 +55,10 @@ extension XCWorkspaceData: Writable {
         }
         try path.write(rawXml)
     }
+    
+    public func dataRepresentation() throws -> Data? {
+        rawContents().data(using: .utf8)
+    }
 }
 
 // MARK: - XCWorkspaceDataElement AEXMLElement decoding and encoding

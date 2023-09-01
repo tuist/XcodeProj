@@ -144,13 +144,23 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     /// - Parameter override: True if the content should be overriden if it already exists.
     /// - Throws: writing error if something goes wrong.
     public func write(path: Path, override: Bool) throws {
-        let encoder = PropertyListEncoder()
-        encoder.outputFormat = .xml
-        let data = try encoder.encode(self)
+        guard let data = try dataRepresentation() else {
+            return
+        }
         if override, path.exists {
             try path.delete()
         }
         try path.write(data)
+    }
+    
+    /// Get the workspace settings.
+    ///
+    /// - Throws: reading error if something goes wrong.
+    public func dataRepresentation() throws -> Data? {
+        let encoder = PropertyListEncoder()
+        encoder.outputFormat = .xml
+        let data = try encoder.encode(self)
+        return data
     }
 }
 

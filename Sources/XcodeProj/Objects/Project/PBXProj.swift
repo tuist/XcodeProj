@@ -312,20 +312,27 @@ extension PBXProj: Equatable {
 // MARK: - Writable
 
 extension PBXProj: Writable {
+    public func dataRepresentation(outputSettings: PBXOutputSettings) throws -> Data? {
+        let encoder = PBXProjEncoder(outputSettings: outputSettings)
+        return try encoder.encode(proj: self).data(using: .utf8)
+    }
+
+    public func dataRepresentation() throws -> Data? {
+        let encoder = PBXProjEncoder(outputSettings: PBXOutputSettings())
+        return try encoder.encode(proj: self).data(using: .utf8)
+    }
+    
     public func write(path: Path, override: Bool) throws {
         try write(path: path, override: override, outputSettings: PBXOutputSettings())
     }
 
     public func write(path: Path, override: Bool, outputSettings: PBXOutputSettings) throws {
-        let output = try encodeAsString(outputSettings: outputSettings)
+        guard let output = try dataRepresentation(outputSettings: outputSettings) else {
+            return
+        }
         if override, path.exists {
             try path.delete()
         }
         try path.write(output)
-    }
-    
-    public func encodeAsString(outputSettings: PBXOutputSettings) throws -> String {
-        let encoder = PBXProjEncoder(outputSettings: outputSettings)
-        return try encoder.encode(proj: self)
     }
 }
