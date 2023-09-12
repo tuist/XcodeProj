@@ -101,7 +101,6 @@ public final class PBXProj: Decodable {
         )
     }
 
-
     private init(
         rootObject: PBXProject? = nil,
         objectVersion: UInt = Xcode.LastKnown.objectVersion,
