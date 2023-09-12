@@ -7,6 +7,10 @@ extension XCScheme {
         public enum AttachmentLifetime: String {
             case keepAlways, keepNever
         }
+        
+        public enum ScreenCaptureFormat: String {
+            case screenshots, screenRecording
+        }
 
         // MARK: - Static
 
@@ -35,6 +39,7 @@ extension XCScheme {
         public var language: String?
         public var region: String?
         public var systemAttachmentLifetime: AttachmentLifetime?
+        public var preferredScreenCaptureFormat: ScreenCaptureFormat?
         public var userAttachmentLifetime: AttachmentLifetime?
         public var customLLDBInitFile: String?
 
@@ -63,6 +68,7 @@ extension XCScheme {
                     language: String? = nil,
                     region: String? = nil,
                     systemAttachmentLifetime: AttachmentLifetime? = nil,
+                    preferredScreenCaptureFormat: ScreenCaptureFormat? = nil,
                     userAttachmentLifetime: AttachmentLifetime? = nil,
                     customLLDBInitFile: String? = nil) {
             self.buildConfiguration = buildConfiguration
@@ -86,6 +92,7 @@ extension XCScheme {
             self.language = language
             self.region = region
             self.systemAttachmentLifetime = systemAttachmentLifetime
+            self.preferredScreenCaptureFormat = preferredScreenCaptureFormat
             self.userAttachmentLifetime = userAttachmentLifetime
             self.customLLDBInitFile = customLLDBInitFile
             super.init(preActions, postActions)
@@ -137,6 +144,8 @@ extension XCScheme {
 
             systemAttachmentLifetime = element.attributes["systemAttachmentLifetime"]
                 .flatMap(AttachmentLifetime.init(rawValue:))
+            preferredScreenCaptureFormat = element.attributes["preferredScreenCaptureFormat"]
+                .flatMap(ScreenCaptureFormat.init(rawValue:))
             userAttachmentLifetime = element.attributes["userAttachmentLifetime"]
                 .flatMap(AttachmentLifetime.init(rawValue:))
             customLLDBInitFile = element.attributes["customLLDBInitFile"]
@@ -177,6 +186,14 @@ extension XCScheme {
                 attributes["disableMainThreadChecker"] = disableMainThreadChecker.xmlString
             }
             attributes["systemAttachmentLifetime"] = systemAttachmentLifetime?.rawValue
+            
+            switch preferredScreenCaptureFormat {
+            case .screenshots:
+                attributes["preferredScreenCaptureFormat"] = preferredScreenCaptureFormat?.rawValue
+            case .none, .screenRecording:
+                break
+            }
+            
             if case .keepAlways? = userAttachmentLifetime {
                 attributes["userAttachmentLifetime"] = userAttachmentLifetime?.rawValue
             }
@@ -253,6 +270,7 @@ extension XCScheme {
                 language == rhs.language &&
                 region == rhs.region &&
                 systemAttachmentLifetime == rhs.systemAttachmentLifetime &&
+                preferredScreenCaptureFormat == rhs.preferredScreenCaptureFormat &&
                 userAttachmentLifetime == rhs.userAttachmentLifetime &&
                 codeCoverageTargets == rhs.codeCoverageTargets &&
                 customLLDBInitFile == rhs.customLLDBInitFile

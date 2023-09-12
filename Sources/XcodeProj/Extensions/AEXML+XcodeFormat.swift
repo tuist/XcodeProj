@@ -38,6 +38,7 @@ let attributesOrder: [String: [String]] = [
         "shouldUseLaunchSchemeArgsEnv",
         "disableMainThreadChecker",
         "region",
+        "preferredScreenCaptureFormat",
         "codeCoverageEnabled",
         "onlyGenerateCoverageForSpecifiedTargets",
     ],
