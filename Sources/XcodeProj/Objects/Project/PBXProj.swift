@@ -80,9 +80,10 @@ public final class PBXProj: Decodable {
             format: &propertyListFormat
         )
 
-        // swiftlint:disable:next force_cast
-        let pbxProjDictionary = serialized as! [String: Any]
-            
+        guard let pbxProjDictionary = serialized as? [String: Any] else {
+            throw PBXProjError.malformed
+        }
+
         let context = ProjectDecodingContext(
             pbxProjValueReader: { key in
                 pbxProjDictionary[key]
@@ -180,8 +181,11 @@ public final class PBXProj: Decodable {
             options: .mutableContainersAndLeaves,
             format: &propertyListFormat
         )
-        // swiftlint:disable:next force_cast
-        let pbxProjDictionary = serialized as! [String: Any]
+
+        guard let pbxProjDictionary = serialized as? [String: Any] else {
+            throw PBXProjError.malformed
+        }
+
         return (plistXML, pbxProjDictionary)
     }
 }

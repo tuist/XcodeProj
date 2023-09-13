@@ -183,6 +183,7 @@ enum PBXProjError: Error, CustomStringConvertible, Equatable {
     case pathIsAbsolute(Path)
     case multipleLocalPackages(productName: String)
     case multipleRemotePackages(productName: String)
+    case malformed
     var description: String {
         switch self {
         case let .notFound(path):
@@ -201,6 +202,8 @@ enum PBXProjError: Error, CustomStringConvertible, Equatable {
             return "Found multiple top-level packages named \(productName)"
         case let .multipleRemotePackages(productName: productName):
             return "Can not resolve dependency \(productName) - conflicting version requirements"
+        case .malformed:
+            return "The .pbxproj is malformed."
         }
     }
 }
