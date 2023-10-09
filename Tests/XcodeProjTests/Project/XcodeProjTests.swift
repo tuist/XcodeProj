@@ -25,17 +25,18 @@ final class XcodeProjIntegrationTests: XCTestCase {
                                         initModel: XcodeProj.init(path:))
     }
     
-    func test_initialize_PBXProj_with_data() {
-        let pbxprojPath = iosProjectPath.url.appendingPathComponent("project.pbxproj")
-        
-        if let pbxprojStringRepresentation = try? String(contentsOf: pbxprojPath) {
-            let pbxprojData = Data(pbxprojStringRepresentation.utf8)
-            
-            XCTAssertNotNil(try? PBXProj(data: pbxprojData))
-            return
-        }
+    func test_initialize_PBXProj_with_data() throws {
+        // Given
+        let pbxprojPath = iosProjectPath + "project.pbxproj"
+        let pbxprojFromDisk = try PBXProj(path: pbxprojPath)
+        let pbxprojData = try Data(contentsOf: pbxprojPath.url)
 
-        XCTFail()
+        // When
+        let pbxprojFromData = try PBXProj(data: pbxprojData)
+        try pbxprojFromData.updateProjectName(path: pbxprojPath)
+
+        // Then
+        XCTAssertEqual(pbxprojFromData, pbxprojFromDisk)
     }
     
     func test_write_includes_workspace_settings() throws {
