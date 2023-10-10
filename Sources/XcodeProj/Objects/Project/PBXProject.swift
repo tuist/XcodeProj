@@ -125,16 +125,29 @@ public final class PBXProject: PBXObject {
         }
     }
 
-    /// Package references.
+    /// Remote package references.
     var packageReferences: [PBXObjectReference]?
 
-    /// Swift packages.
+    /// Remote Swift packages.
     public var packages: [XCRemoteSwiftPackageReference] {
         set {
             packageReferences = newValue.references()
         }
         get {
             packageReferences?.objects() ?? []
+        }
+    }
+
+    /// Local package references.
+    var localPackageReferences: [PBXObjectReference]?
+
+    /// Local Swift packages.
+    public var localPackages: [XCLocalSwiftPackageReference] {
+        set {
+            localPackageReferences = newValue.references()
+        }
+        get {
+            localPackageReferences?.objects() ?? []
         }
     }
 

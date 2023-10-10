@@ -16,13 +16,13 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
 
         // Then
         XCTAssertEqual(got.reference.value, "ref")
-        XCTAssertEqual(got.repositoryPath, "path")
+        XCTAssertEqual(got.relativePath, "path")
     }
 
     func test_plistValues() throws {
         // When
         let proj = PBXProj()
-        let subject = XCLocalSwiftPackageReference(repositoryPath: "repository")
+        let subject = XCLocalSwiftPackageReference(relativePath: "repository")
 
         // Given
         let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
@@ -30,14 +30,14 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(got.value, .dictionary([
             "isa": "XCLocalSwiftPackageReference",
-            "repositoryPath": "repository"
+            "relativePath": "repository"
         ]))
     }
 
     func test_equal() {
         // When
-        let first = XCLocalSwiftPackageReference(repositoryPath: "repository")
-        let second = XCLocalSwiftPackageReference(repositoryPath: "repository")
+        let first = XCLocalSwiftPackageReference(relativePath: "repository")
+        let second = XCLocalSwiftPackageReference(relativePath: "repository")
 
         // Then
         XCTAssertEqual(first, second)
@@ -45,7 +45,7 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
 
     func test_name() {
         // When
-        let subject = XCLocalSwiftPackageReference(repositoryPath: "tuist/xcodeproj")
+        let subject = XCLocalSwiftPackageReference(relativePath: "tuist/xcodeproj")
 
         // Then
         XCTAssertEqual(subject.name, "xcodeproj")

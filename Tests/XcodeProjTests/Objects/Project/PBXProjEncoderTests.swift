@@ -388,11 +388,11 @@ class PBXProjEncoderTests: XCTestCase {
         let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
         let lines = self.lines(fromFile: encodeProject(settings: settings))
         let beginGroup = lines.findLine("/* Begin XCLocalSwiftPackageReference section */")
-        var line = lines.findLine("C9FDF5C52AD604310096A37A /* XCLocalSwiftPackageReference \"MyLocalPackage\" */ = {", after: beginGroup)
-        line = lines.findLine("isa = XCLocalSwiftPackageReference", after: beginGroup)
-        line = lines.findLine("relativePath = MyLocalPackage;", after: beginGroup)
-        line = lines.findLine("};", after: beginGroup)
-        line = lines.findLine("/* End XCLocalSwiftPackageReference section */", after: beginGroup)
+        var line = lines.validate(line: "C9FDF5C52AD604310096A37A /* XCLocalSwiftPackageReference \"MyLocalPackage\" */ = {", after: beginGroup)
+        line = lines.validate(line: "isa = XCLocalSwiftPackageReference;", after: line)
+        line = lines.validate(line: "relativePath = MyLocalPackage;", after: line)
+        line = lines.validate(line: "};", after: line)
+        line = lines.validate(line: "/* End XCLocalSwiftPackageReference section */", after: line)
     }
 
     // MARK: - Test internals
