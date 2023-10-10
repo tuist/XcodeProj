@@ -21,3 +21,8 @@ func targetWithCustomBuildRulesDictionary() -> (Path, [String: Any]) {
     let targetWithCustomBuildRulesProject = fixturesPath() + "TargetWithCustomBuildRules/TargetWithCustomBuildRules.xcodeproj/project.pbxproj"
     return (targetWithCustomBuildRulesProject, loadPlist(path: targetWithCustomBuildRulesProject.string)!)
 }
+
+func iosProjectWithXCLocalSwiftPackageReference() -> (Path, [String: Any]) {
+    let iosProjectWithXCLocalSwiftPackageReference = fixturesPath() + "iOS/ProjectWithXCLocalSwiftPackageReference.xcodeproj/project.pbxproj"
+    return (iosProjectWithXCLocalSwiftPackageReference, loadPlist(path: iosProjectWithXCLocalSwiftPackageReference.string)!)
+}

@@ -382,6 +382,19 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.findLine("};", after: beginGroup)
     }
 
+    func test_build_rules_when_projectWithXCLocalSwiftPackageReference() {
+        loadProjectWithXCLocalSwiftPackageReference()
+
+        let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        let beginGroup = lines.findLine("/* Begin XCLocalSwiftPackageReference section */")
+        var line = lines.findLine("C9FDF5C52AD604310096A37A /* XCLocalSwiftPackageReference \"MyLocalPackage\" */ = {", after: beginGroup)
+        line = lines.findLine("isa = XCLocalSwiftPackageReference", after: beginGroup)
+        line = lines.findLine("relativePath = MyLocalPackage;", after: beginGroup)
+        line = lines.findLine("};", after: beginGroup)
+        line = lines.findLine("/* End XCLocalSwiftPackageReference section */", after: beginGroup)
+    }
+
     // MARK: - Test internals
 
     private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
@@ -418,6 +431,10 @@ class PBXProjEncoderTests: XCTestCase {
     
     private func loadTargetWithCustomBuildRulesProject() {
         proj = try! PBXProj(jsonDictionary: targetWithCustomBuildRulesDictionary().1)
+    }
+
+    private func loadProjectWithXCLocalSwiftPackageReference() {
+        proj = try! PBXProj(jsonDictionary: iosProjectWithXCLocalSwiftPackageReference().1)
     }
 }
 
