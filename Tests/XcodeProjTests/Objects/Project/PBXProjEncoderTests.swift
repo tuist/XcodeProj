@@ -382,7 +382,7 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.findLine("};", after: beginGroup)
     }
 
-    func test_build_rules_when_projectWithXCLocalSwiftPackageReference() {
+    func test_package_section_when_projectWithXCLocalSwiftPackageReference() {
         loadProjectWithXCLocalSwiftPackageReference()
 
         let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
@@ -393,6 +393,17 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "relativePath = MyLocalPackage;", after: line)
         line = lines.validate(line: "};", after: line)
         line = lines.validate(line: "/* End XCLocalSwiftPackageReference section */", after: line)
+    }
+
+    func test_package_references_when_projectWithXCLocalSwiftPackageReference() {
+        loadProjectWithXCLocalSwiftPackageReference()
+
+        let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        let beginGroup = lines.findLine("packageReferences = (")
+        var line = lines.validate(line: "42AA19FF22AAF0D600428760 /* XCRemoteSwiftPackageReference \"RxSwift\" */,", after: beginGroup)
+        line = lines.validate(line: "C9FDF5C52AD604310096A37A /* XCLocalSwiftPackageReference \"MyLocalPackage\" */,", after: line)
+        line = lines.validate(line: ");", after: line)
     }
 
     // MARK: - Test internals

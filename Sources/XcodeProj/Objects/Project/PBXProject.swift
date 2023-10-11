@@ -125,29 +125,40 @@ public final class PBXProject: PBXObject {
         }
     }
 
-    /// Remote package references.
+    /// Remote (`XCRemoteSwiftPackageReference`) and Local (`XCLocalSwiftPackageReference`) Package references.
     var packageReferences: [PBXObjectReference]?
 
     /// Remote Swift packages.
-    public var packages: [XCRemoteSwiftPackageReference] {
+    public var remotePackages: [XCRemoteSwiftPackageReference] {
         set {
-            packageReferences = newValue.references()
+            var finalReferences: [PBXObjectReference] = packageReferences ?? []
+            let newReferences = newValue.references()
+            for reference in newReferences {
+                if !finalReferences.contains(reference) {
+                    finalReferences.append(reference)
+                }
+            }
+            packageReferences = finalReferences
         }
         get {
             packageReferences?.objects() ?? []
         }
     }
 
-    /// Local package references.
-    var localPackageReferences: [PBXObjectReference]?
-
     /// Local Swift packages.
     public var localPackages: [XCLocalSwiftPackageReference] {
         set {
-            localPackageReferences = newValue.references()
+            var finalReferences: [PBXObjectReference] = packageReferences ?? []
+            let newReferences = newValue.references()
+            for reference in newReferences {
+                if !finalReferences.contains(reference) {
+                    finalReferences.append(reference)
+                }
+            }
+            packageReferences = finalReferences
         }
         get {
-            localPackageReferences?.objects() ?? []
+            packageReferences?.objects() ?? []
         }
     }
 
@@ -281,6 +292,9 @@ public final class PBXProject: PBXObject {
     ///   - projects: projects.
     ///   - projectRoots: project roots.
     ///   - targets: project targets.
+    ///   - packages: project's remote packages.
+    ///   - attributes: project's attributes.
+    ///   - targetAttributes: project target's attributes.
     public init(name: String,
                 buildConfigurationList: XCConfigurationList,
                 compatibilityVersion: String,
@@ -398,7 +412,7 @@ extension PBXProject {
                                           productName: String,
                                           versionRequirement: XCRemoteSwiftPackageReference.VersionRequirement) throws -> XCRemoteSwiftPackageReference {
         let reference: XCRemoteSwiftPackageReference
-        if let package = packages.first(where: { $0.repositoryURL == repositoryURL }) {
+        if let package = remotePackages.first(where: { $0.repositoryURL == repositoryURL }) {
             guard package.versionRequirement == versionRequirement else {
                 throw PBXProjError.multipleRemotePackages(productName: productName)
             }
@@ -406,7 +420,7 @@ extension PBXProject {
         } else {
             reference = XCRemoteSwiftPackageReference(repositoryURL: repositoryURL, versionRequirement: versionRequirement)
             try objects().add(object: reference)
-            packages.append(reference)
+            remotePackages.append(reference)
         }
 
         return reference
@@ -497,10 +511,16 @@ extension PBXProject: PlistSerializable {
                 return .string(CommentedString(targetReference.value, comment: target?.name))
             })
 
-        if !packages.isEmpty {
-            dictionary["packageReferences"] = PlistValue.array(packages.map {
-                .string(CommentedString($0.reference.value, comment: "XCRemoteSwiftPackageReference \"\($0.name ?? "")\""))
-            })
+        if !remotePackages.isEmpty || !localPackages.isEmpty {
+            let remotePackageReferences = remotePackages.map {
+                PlistValue.string(CommentedString($0.reference.value, comment: "XCRemoteSwiftPackageReference \"\($0.name ?? "")\""))
+            }
+            let localPackageReferences = localPackages.map {
+                PlistValue.string(CommentedString($0.reference.value, comment: "XCLocalSwiftPackageReference \"\($0.name ?? "")\""))
+            }
+            var finalPackageReferences = remotePackageReferences
+            finalPackageReferences.append(contentsOf: localPackageReferences)
+            dictionary["packageReferences"] = PlistValue.array(finalPackageReferences)
         }
 
         var plistAttributes: [String: Any] = attributes
