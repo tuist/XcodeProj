@@ -25,6 +25,20 @@ final class XcodeProjIntegrationTests: XCTestCase {
                                         initModel: XcodeProj.init(path:))
     }
     
+    func test_initialize_PBXProj_with_data() throws {
+        // Given
+        let pbxprojPath = iosProjectPath + "project.pbxproj"
+        let pbxprojFromDisk = try PBXProj(path: pbxprojPath)
+        let pbxprojData = try Data(contentsOf: pbxprojPath.url)
+
+        // When
+        let pbxprojFromData = try PBXProj(data: pbxprojData)
+        try pbxprojFromData.updateProjectName(path: pbxprojPath)
+
+        // Then
+        XCTAssertEqual(pbxprojFromData, pbxprojFromDisk)
+    }
+    
     func test_write_includes_workspace_settings() throws {
         // Define workspace settings that should be written
         let workspaceSettings = WorkspaceSettings(buildSystem: .new, derivedDataLocationStyle: .default, autoCreateSchemes: false)
