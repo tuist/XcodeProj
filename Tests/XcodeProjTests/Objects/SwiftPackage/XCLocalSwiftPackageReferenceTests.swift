@@ -48,6 +48,6 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         let subject = XCLocalSwiftPackageReference(relativePath: "tuist/xcodeproj")
 
         // Then
-        XCTAssertEqual(subject.name, "xcodeproj")
+        XCTAssertEqual(subject.name, "tuist/xcodeproj")
     }
 }

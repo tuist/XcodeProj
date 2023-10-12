@@ -88,7 +88,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Packages
         project.localPackages.forEach {
             var identifiers = identifiers
-            identifiers.append($0.relativePath ?? $0.name ?? "")
+            identifiers.append($0.relativePath)
             fixReference(for: $0, identifiers: identifiers)
         }
 
