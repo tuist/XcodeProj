@@ -406,6 +406,27 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: ");", after: line)
     }
 
+    func test_package_references_when_projectWithRelativePathForXCLocalSwiftPackageReference() throws {
+        try loadProjectWithRelativeXCLocalSwiftPackageReference()
+
+        let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        let beginGroup = lines.findLine("packageReferences = (")
+        var line = lines.validate(line: "C9FDF5C82AD8AE400096A37A /* XCLocalSwiftPackageReference \"../MyLocalPackage\" */,", after: beginGroup)
+        line = lines.validate(line: ");", after: line)
+    }
+
+    func test_package_references_when_projectWithXCLocalSwiftPackageReferences() throws {
+        try loadProjectWithXCLocalSwiftPackageReferences()
+
+        let settings = PBXOutputSettings(projBuildPhaseFileOrder: .byFilename)
+        let lines = self.lines(fromFile: encodeProject(settings: settings))
+        let beginGroup = lines.findLine("packageReferences = (")
+        var line = lines.validate(line: "C9FDF5C52AD604310096A37A /* XCLocalSwiftPackageReference \"MyLocalPackage\" */,", after: beginGroup)
+        line = lines.validate(line: "C9FDF5CB2AD8B3B50096A37A /* XCLocalSwiftPackageReference \"MyOtherLocalPackage/MyOtherLocalPackage\" */,", after: line)
+        line = lines.validate(line: ");", after: line)
+    }
+
     // MARK: - Test internals
 
     private func encodeProject(settings: PBXOutputSettings = PBXOutputSettings(), line: UInt = #line) -> String {
