@@ -129,6 +129,12 @@ public final class PBXProject: PBXObject {
     var packageReferences: [PBXObjectReference]?
 
     /// Remote Swift packages.
+    @available(*, deprecated, message: "use remotePackages or localPackages.")
+    public var packages: [XCRemoteSwiftPackageReference] {
+        remotePackages
+    }
+
+    /// Remote Swift packages.
     public var remotePackages: [XCRemoteSwiftPackageReference] {
         set {
             var finalReferences: [PBXObjectReference] = packageReferences ?? []
