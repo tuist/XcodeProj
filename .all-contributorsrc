@@ -310,6 +310,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "art-divin",
+      "name": "Ruslan Alikhamov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1614869?v=4",
+      "profile": "https://github.com/art-divin",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
