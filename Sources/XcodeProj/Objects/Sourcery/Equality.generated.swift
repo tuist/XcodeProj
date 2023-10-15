@@ -169,6 +169,8 @@ extension PBXProject {
         if !NSDictionary(dictionary: attributes).isEqual(NSDictionary(dictionary: rhs.attributes)) { return false }
         if !NSDictionary(dictionary: targetAttributeReferences).isEqual(NSDictionary(dictionary: rhs.targetAttributeReferences)) { return false }
         if packageReferences != rhs.packageReferences { return false }
+        if remotePackages != rhs.remotePackages { return false }
+        if localPackages != rhs.localPackages { return false }
         return super.isEqual(to: rhs)
     }
 }

@@ -79,9 +79,16 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: project, identifiers: identifiers)
 
         // Packages
-        project.packages.forEach {
+        project.remotePackages.forEach {
             var identifiers = identifiers
             identifiers.append($0.repositoryURL ?? $0.name ?? "")
+            fixReference(for: $0, identifiers: identifiers)
+        }
+
+        // Packages
+        project.localPackages.forEach {
+            var identifiers = identifiers
+            identifiers.append($0.relativePath)
             fixReference(for: $0, identifiers: identifiers)
         }
 

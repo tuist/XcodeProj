@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 8.15.1
+
+### Added
+
+- Added XCLocalSwiftPackageReference Support (#799)[https://github.com/tuist/XcodeProj/pull/799] by [@art-divin](https://github.com/art-divin).
+
 ## 8.15.0
 
 ### Added

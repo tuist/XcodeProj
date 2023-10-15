@@ -125,6 +125,11 @@ class PBXObjects: Equatable {
         lock.whileLocked { _remoteSwiftPackageReferences }
     }
 
+    private var _localSwiftPackageReferences: [PBXObjectReference: XCLocalSwiftPackageReference] = [:]
+    var localSwiftPackageReferences: [PBXObjectReference: XCLocalSwiftPackageReference] {
+        lock.whileLocked { _localSwiftPackageReferences }
+    }
+
     private var _swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] = [:]
     var swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] {
         lock.whileLocked { _swiftPackageProductDependencies }
@@ -212,6 +217,7 @@ class PBXObjects: Equatable {
         case let object as PBXRezBuildPhase: _carbonResourcesBuildPhases[objectReference] = object
         case let object as PBXBuildRule: _buildRules[objectReference] = object
         case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
+        case let object as XCLocalSwiftPackageReference: _localSwiftPackageReferences[objectReference] = object
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
 
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
