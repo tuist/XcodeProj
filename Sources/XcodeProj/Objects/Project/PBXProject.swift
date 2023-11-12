@@ -440,7 +440,7 @@ extension PBXProject {
 
         let productDependency: XCSwiftPackageProductDependency
         // Avoid duplication
-        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference })?.value {
+        if let product = objects.swiftPackageProductDependencies.first(where: { $0.value.package == reference && $0.value.productName == productName })?.value {
             productDependency = product
         } else {
             productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)

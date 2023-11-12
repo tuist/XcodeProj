@@ -192,13 +192,16 @@ final class PBXProjectTests: XCTestCase {
                                                                productName: "Product",
                                                                versionRequirement: .branch("main"),
                                                                targetName: secondTarget.name)
-
+        _ = try project.addSwiftPackage(repositoryURL: "url",
+                                        productName: "Product2",
+                                        versionRequirement: .branch("main"),
+                                        targetName: target.name)
         // Then
         XCTAssertEqual(packageProduct, secondPackageProduct)
         XCTAssertEqual(project.remotePackages.count, 1)
-        XCTAssertEqual(target.packageProductDependencies, secondTarget.packageProductDependencies)
+        XCTAssert(target.packageProductDependencies.contains(secondTarget.packageProductDependencies))
         XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
-        XCTAssertEqual(objects.swiftPackageProductDependencies.count, 1)
+        XCTAssertEqual(objects.swiftPackageProductDependencies.count, 2)
 
         XCTAssertThrowsSpecificError(try project.addSwiftPackage(repositoryURL: "url",
                                                                  productName: "Product",
