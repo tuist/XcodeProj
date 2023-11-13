@@ -102,6 +102,46 @@ final class PBXProjectTests: XCTestCase {
                                      PBXProjError.frameworksBuildPhaseNotFound(targetName: target.name))
     }
 
+    func test_removeRemotePackage() throws {
+        // Given
+        let objects = PBXObjects(objects: [])
+
+        let buildPhase = PBXFrameworksBuildPhase(
+            files: [],
+            inputFileListPaths: nil,
+            outputFileListPaths: nil, buildActionMask: PBXBuildPhase.defaultBuildActionMask,
+            runOnlyForDeploymentPostprocessing: true
+        )
+        let target = PBXNativeTarget(name: "Target",
+                                     buildConfigurationList: nil,
+                                     buildPhases: [buildPhase])
+        objects.add(object: target)
+
+        let configurationList = XCConfigurationList.fixture()
+        let mainGroup = PBXGroup.fixture()
+        objects.add(object: configurationList)
+        objects.add(object: mainGroup)
+
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: configurationList,
+                                 compatibilityVersion: "0",
+                                 mainGroup: mainGroup,
+                                 targets: [target])
+
+        objects.add(object: project)
+
+        let _ = try project.addSwiftPackage(repositoryURL: "url",
+                                            productName: "Product",
+                                            versionRequirement: .branch("main"),
+                                            targetName: "Target")
+
+        // When
+        project.remotePackages.removeFirst()
+
+        // Then
+        XCTAssert(project.remotePackages.isEmpty)
+    }
+
     func test_addSwiftPackage() throws {
         // Given
         let objects = PBXObjects(objects: [])
