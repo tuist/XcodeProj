@@ -154,8 +154,8 @@ public final class PBXProject: PBXObject {
         }
     }
 
-    private func setPackageReferences<T: PBXContainerItem>(_ references: [T]) {
-        let newReferences = references.references()
+    private func setPackageReferences<T: PBXContainerItem>(_ packages: [T]) {
+        let newReferences = packages.references()
         var finalReferences: [PBXObjectReference] = packageReferences?.filter { !($0.getObject() is T) } ?? []
         for reference in newReferences {
             if !finalReferences.contains(reference) {
