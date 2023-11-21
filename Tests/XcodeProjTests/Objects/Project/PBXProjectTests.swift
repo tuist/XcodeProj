@@ -192,19 +192,30 @@ final class PBXProjectTests: XCTestCase {
                                                                productName: "Product",
                                                                versionRequirement: .branch("main"),
                                                                targetName: secondTarget.name)
-
+        let thirdPackageProduct = try project.addSwiftPackage(repositoryURL: "url",
+                                                              productName: "Product2",
+                                                              versionRequirement: .branch("main"),
+                                                              targetName: target.name)
         // Then
         XCTAssertEqual(packageProduct, secondPackageProduct)
+        XCTAssertEqual(packageProduct, thirdPackageProduct)
         XCTAssertEqual(project.remotePackages.count, 1)
-        XCTAssertEqual(target.packageProductDependencies, secondTarget.packageProductDependencies)
+        XCTAssertEqual(target.packageProductDependencies.count, 2)
+        XCTAssertEqual(secondTarget.packageProductDependencies.count, 1)
         XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
-        XCTAssertEqual(objects.swiftPackageProductDependencies.count, 1)
+        XCTAssertEqual(objects.swiftPackageProductDependencies.count, 2)
 
         XCTAssertThrowsSpecificError(try project.addSwiftPackage(repositoryURL: "url",
                                                                  productName: "Product",
                                                                  versionRequirement: .branch("second-main"),
                                                                  targetName: secondTarget.name),
                                      PBXProjError.multipleRemotePackages(productName: "Product"))
+
+        XCTAssertThrowsSpecificError(try project.addSwiftPackage(repositoryURL: "url",
+                                                                 productName: "Product2",
+                                                                 versionRequirement: .branch("second-main"),
+                                                                 targetName: target.name),
+                                     PBXProjError.multipleRemotePackages(productName: "Product2"))
     }
 
     func test_addLocalSwiftPackage_duplication() throws {
