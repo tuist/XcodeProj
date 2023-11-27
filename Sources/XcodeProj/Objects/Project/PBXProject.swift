@@ -137,14 +137,7 @@ public final class PBXProject: PBXObject {
     /// Remote Swift packages.
     public var remotePackages: [XCRemoteSwiftPackageReference] {
         set {
-            var finalReferences: [PBXObjectReference] = packageReferences ?? []
-            let newReferences = newValue.references()
-            for reference in newReferences {
-                if !finalReferences.contains(reference) {
-                    finalReferences.append(reference)
-                }
-            }
-            packageReferences = finalReferences
+            setPackageReferences(newValue)
         }
         get {
             packageReferences?.objects() ?? []
@@ -154,18 +147,22 @@ public final class PBXProject: PBXObject {
     /// Local Swift packages.
     public var localPackages: [XCLocalSwiftPackageReference] {
         set {
-            var finalReferences: [PBXObjectReference] = packageReferences ?? []
-            let newReferences = newValue.references()
-            for reference in newReferences {
-                if !finalReferences.contains(reference) {
-                    finalReferences.append(reference)
-                }
-            }
-            packageReferences = finalReferences
+            setPackageReferences(newValue)
         }
         get {
             packageReferences?.objects() ?? []
         }
+    }
+
+    private func setPackageReferences<T: PBXContainerItem>(_ packages: [T]) {
+        let newReferences = packages.references()
+        var finalReferences: [PBXObjectReference] = packageReferences?.filter { !($0.getObject() is T) } ?? []
+        for reference in newReferences {
+            if !finalReferences.contains(reference) {
+                finalReferences.append(reference)
+            }
+        }
+        packageReferences = finalReferences
     }
 
     /// Sets the attributes for the given target.
