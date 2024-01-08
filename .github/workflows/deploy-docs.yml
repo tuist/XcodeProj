@@ -29,8 +29,6 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_$(cat .xcode-version).app
       - name: Build documentation
         run: swift package --allow-writing-to-directory ./docs generate-documentation --target XcodeProj --output-path ./docs --transform-for-static-hosting --hosting-base-path / --disable-indexing
-      - name: Fix permissions
-        run: 'sudo chown -R $USER .build/documentation'
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
