@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-36-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -184,6 +184,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ibrahimhass"><img src="https://avatars.githubusercontent.com/u/16992520?v=4?s=100" width="100px;" alt="Md. Ibrahim Hassan"/><br /><sub><b>Md. Ibrahim Hassan</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Ibrahimhass" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tatagrigory"><img src="https://avatars.githubusercontent.com/u/5187973?v=4?s=100" width="100px;" alt="tatagrigory"/><br /><sub><b>tatagrigory</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=tatagrigory" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/art-divin"><img src="https://avatars.githubusercontent.com/u/1614869?v=4?s=100" width="100px;" alt="Ruslan Alikhamov"/><br /><sub><b>Ruslan Alikhamov</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=art-divin" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://ladislas.detoldi.me"><img src="https://avatars.githubusercontent.com/u/2206544?v=4?s=100" width="100px;" alt="Ladislas de Toldi"/><br /><sub><b>Ladislas de Toldi</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ladislas" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
