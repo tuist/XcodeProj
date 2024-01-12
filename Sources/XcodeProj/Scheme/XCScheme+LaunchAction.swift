@@ -65,6 +65,7 @@ extension XCScheme {
         public var environmentVariables: [EnvironmentVariable]?
         public var language: String?
         public var region: String?
+        public var showNonLocalizedStrings: Bool
         public var launchAutomaticallySubstyle: String?
         public var storeKitConfigurationFileReference: StoreKitConfigurationFileReference?
         // To enable the option in Xcode: defaults write com.apple.dt.Xcode IDEDebuggerFeatureSetting 12
@@ -106,6 +107,7 @@ extension XCScheme {
                     environmentVariables: [EnvironmentVariable]? = nil,
                     language: String? = nil,
                     region: String? = nil,
+                    showNonLocalizedStrings: Bool = false,
                     launchAutomaticallySubstyle: String? = nil,
                     storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
                     customLaunchCommand: String? = nil,
@@ -141,6 +143,7 @@ extension XCScheme {
             self.environmentVariables = environmentVariables
             self.language = language
             self.region = region
+            self.showNonLocalizedStrings = showNonLocalizedStrings
             self.launchAutomaticallySubstyle = launchAutomaticallySubstyle
             self.storeKitConfigurationFileReference = storeKitConfigurationFileReference
             self.customLaunchCommand = customLaunchCommand
@@ -216,6 +219,7 @@ extension XCScheme {
 
             language = element.attributes["language"]
             region = element.attributes["region"]
+            showNonLocalizedStrings = element.attributes["showNonLocalizedStrings"] == "YES"
             launchAutomaticallySubstyle = element.attributes["launchAutomaticallySubstyle"]
 
             if element["StoreKitConfigurationFileReference"].all?.first != nil {
@@ -327,6 +331,11 @@ extension XCScheme {
             if let region = region {
                 element.attributes["region"] = region
             }
+
+            if showNonLocalizedStrings {
+                element.attributes["showNonLocalizedStrings"] = showNonLocalizedStrings.xmlString
+            }
+
             if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
