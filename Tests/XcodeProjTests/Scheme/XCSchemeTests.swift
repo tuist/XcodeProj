@@ -236,6 +236,25 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(reconstructedSubject, subject)
     }
 
+    func test_launchAction_remoteRunnable_showNonLocalizedStrings() throws {
+        // Given
+        let buildableReference = try buildableReferenceWithStringBluePrint()
+        let remoteRunnable = XCScheme.RemoteRunnable(buildableReference: buildableReference,
+                                                     bundleIdentifier: "io.tuist",
+                                                     remotePath: "/Some/Path")
+        let subject = XCScheme.LaunchAction(runnable: remoteRunnable,
+                                            buildConfiguration: "Debug",
+                                            showNonLocalizedStrings: true)
+
+        // When
+        let element = subject.xmlElement()
+        let reconstructedSubject = try XCScheme.LaunchAction(element: element)
+
+        // Then
+        XCTAssertEqual(reconstructedSubject, subject)
+        XCTAssertEqual(reconstructedSubject.showNonLocalizedStrings, true)
+    }
+
     func test_runnable_equtable() throws {
         // Given
         let buildableReferenceA = try buildableReferenceWithStringBluePrint(name: "A")
