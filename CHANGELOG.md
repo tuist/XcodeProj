@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 8.17.0
+
+### Added
+
+* Fix issue that it is not possible to remove a remote package by @kevin-kp in https://github.com/tuist/XcodeProj/pull/803
+
 ## 8.16.0
 
 ### Added
