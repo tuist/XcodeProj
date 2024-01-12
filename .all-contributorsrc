@@ -319,6 +319,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ladislas",
+      "name": "Ladislas de Toldi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2206544?v=4",
+      "profile": "https://ladislas.detoldi.me",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
