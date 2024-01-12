@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 8.16.0
+
+### Added
+
+* Create `PBXProj` class from the Data reprentation of a `pbxproj` file by @Ibrahimhass in https://github.com/tuist/XcodeProj/pull/798
+* Add XCLocalSwiftPackageReference Support by @art-divin in https://github.com/tuist/XcodeProj/pull/799
+
+### Fixed
+
+* Fix issue that multiple products of the same package cannot be added by @kevin-kp in https://github.com/tuist/XcodeProj/pull/801
+
 ## 8.15.1
 
 ### Added
