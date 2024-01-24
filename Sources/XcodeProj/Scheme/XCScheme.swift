@@ -80,6 +80,10 @@ public final class XCScheme: Writable, Equatable {
         self.wasCreatedForAppExtension = wasCreatedForAppExtension
     }
 
+    public convenience init(pathString: String) throws {
+        try self.init(path: Path(pathString))
+    }
+
     // MARK: - Writable
 
     public func write(path: Path, override: Bool) throws {
