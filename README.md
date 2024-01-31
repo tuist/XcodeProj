@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-36-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-37-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -187,6 +187,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://ladislas.detoldi.me"><img src="https://avatars.githubusercontent.com/u/2206544?v=4?s=100" width="100px;" alt="Ladislas de Toldi"/><br /><sub><b>Ladislas de Toldi</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ladislas" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.massicotte.org"><img src="https://avatars.githubusercontent.com/u/85322?v=4?s=100" width="100px;" alt="Matt Massicotte"/><br /><sub><b>Matt Massicotte</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mattmassicotte" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
