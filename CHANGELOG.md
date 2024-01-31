@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 8.18.0
+
+## Added
+* Add `showNonLocalizedStrings` option to XCScheme+LaunchAction by @ladislas in https://github.com/tuist/XcodeProj/pull/806
+* Fix issue that it is not possible to remove a remote package by @kevin-kp in https://github.com/tuist/XcodeProj/pull/803
+* XCScheme string initializer by @mattmassicotte in https://github.com/tuist/XcodeProj/pull/809
+
+## Changed
+* Inherit values in the default `SWIFT_ACTIVE_COMPILATION_CONDITIONS` value by @pepicrft in https://github.com/tuist/XcodeProj/pull/811
+
 ## 8.17.0
 
 ### Added
