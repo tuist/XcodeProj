@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 8.19.0
+
+## Added
+
+* Add precompiled header extension to headersExtensions for adding .pch… by @VorkhlikArtem in https://github.com/tuist/XcodeProj/pull/812
+
 ## 8.18.0
 
 ## Added
