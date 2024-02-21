@@ -337,6 +337,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "VorkhlikArtem",
+      "name": "Артем Ворхлик",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115653999?v=4",
+      "profile": "https://github.com/VorkhlikArtem",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
