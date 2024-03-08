@@ -49,18 +49,18 @@ private let char0 = UInt8(UnicodeScalar("0").value)
 private extension DataProtocol {
     var hexString: String {
         let hexLen = self.count * 2
-        let ptr = UnsafeMutablePointer<UInt8>.allocate(capacity: hexLen)
+        var hexChars = [UInt8](repeating: 0, count: hexLen)
         var offset = 0
 
         self.regions.forEach { (_) in
             for i in self {
-                ptr[Int(offset * 2)] = itoh((i >> 4) & 0xF)
-                ptr[Int(offset * 2 + 1)] = itoh(i & 0xF)
+                hexChars[Int(offset * 2)] = itoh((i >> 4) & 0xF)
+                hexChars[Int(offset * 2 + 1)] = itoh(i & 0xF)
                 offset += 1
             }
         }
 
-        return String(bytesNoCopy: ptr, length: hexLen, encoding: .utf8, freeWhenDone: true)!
+        return String(bytes: hexChars, encoding: .utf8)!
     }
 
     func itoh(_ value: UInt8) -> UInt8 {
