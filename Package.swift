@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .target(name: "XcodeProj",
                 dependencies: [
-                    "PathKit",
-                    "AEXML",
+                    .product(name: "PathKit", package: "pathkit"),
+                    .product(name: "AEXML", package: "aexml")
                 ]),
         .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj"]),
     ]
