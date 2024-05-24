@@ -17,6 +17,9 @@ let package = Package(
                 dependencies: [
                     .product(name: "PathKit", package: "PathKit"),
                     .product(name: "AEXML", package: "AEXML"),
+                ],
+                swiftSettings: [
+                  .enableExperimentalFeature("StrictConcurrency")
                 ]),
         .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj"]),
     ]
