@@ -37,6 +37,7 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
 | Tuist           | [github.com/tuist/tuist](https://github.com/tuist/tuist)                                     |
 | XcodeGen        | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)                       |
 | xspm            | [gitlab.com/Pyroh/xspm](https://gitlab.com/Pyroh/xspm)                                       |
+| Privacy Manifest| [github.com/stelabouras/privacy-manifest](https://github.com/stelabouras/privacy-manifest)   |
 
 If you are also leveraging XcodeProj in your project, feel free to open a PR to include it in the list above.
 
