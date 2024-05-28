@@ -5,11 +5,11 @@ import PathKit
 extension XCScheme {
     public final class BuildAction: SerialAction {
         public final class Entry: Equatable {
-            public enum BuildFor {
+            public enum BuildFor: Sendable {
                 case running, testing, profiling, archiving, analyzing
-                public static var `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
-                public static var indexing: [BuildFor] = [.testing, .analyzing, .archiving]
-                public static var testOnly: [BuildFor] = [.testing, .analyzing]
+                public static let `default`: [BuildFor] = [.running, .testing, .archiving, .analyzing]
+                public static let indexing: [BuildFor] = [.testing, .analyzing, .archiving]
+                public static let testOnly: [BuildFor] = [.testing, .analyzing]
             }
 
             // MARK: - Attributes

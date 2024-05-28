@@ -1,7 +1,7 @@
 import Foundation
-import PathKit
+@preconcurrency import PathKit
 
-public enum XCSchemeManagementError: Error, Equatable, LocalizedError, CustomStringConvertible {
+public enum XCSchemeManagementError: Error, Equatable, LocalizedError, CustomStringConvertible, Sendable {
     /// Thrown when the user tries to initialize a XCSchemeManagement instace passing a path to a file that doesn't exist.
     case notFound(path: Path)
     

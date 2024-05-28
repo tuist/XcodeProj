@@ -90,7 +90,7 @@ public class PBXGroup: PBXFileElement {
 // MARK: - Helpers
 
 /// Options passed when adding new groups.
-public struct GroupAddingOptions: OptionSet {
+public struct GroupAddingOptions: OptionSet, Sendable {
     /// Raw value.
     public let rawValue: Int
 
