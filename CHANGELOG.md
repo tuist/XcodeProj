@@ -2,20 +2,37 @@
 
 ## Unreleased
 
+## 8.21.0
+
+### Fixed
+* Fix package manifest by @0111b in https://github.com/tuist/XcodeProj/pull/816
+
+### Added
+* Add Privacy Manifest in 'Projects Using' README table by @stelabouras in https://github.com/tuist/XcodeProj/pull/819
+
+### Changed
+* Adopt Strict Concurrency checking by @waltflanagan in https://github.com/tuist/XcodeProj/pull/821
+* Set minimum swift version to 5.8 by @waltflanagan in https://github.com/tuist/XcodeProj/pull/822
+
+## 8.20.0
+
+### Fixed
+* Fix deprecation warning when targeting macOS 13 by @jszumski in https://github.com/tuist/XcodeProj/pull/814
+
 ## 8.19.0
 
-## Added
+### Added
 
 * Add precompiled header extension to headersExtensions for adding .pch… by @VorkhlikArtem in https://github.com/tuist/XcodeProj/pull/812
 
 ## 8.18.0
 
-## Added
+### Added
 * Add `showNonLocalizedStrings` option to XCScheme+LaunchAction by @ladislas in https://github.com/tuist/XcodeProj/pull/806
 * Fix issue that it is not possible to remove a remote package by @kevin-kp in https://github.com/tuist/XcodeProj/pull/803
 * XCScheme string initializer by @mattmassicotte in https://github.com/tuist/XcodeProj/pull/809
 
-## Changed
+### Changed
 * Inherit values in the default `SWIFT_ACTIVE_COMPILATION_CONDITIONS` value by @pepicrft in https://github.com/tuist/XcodeProj/pull/811
 
 ## 8.17.0
