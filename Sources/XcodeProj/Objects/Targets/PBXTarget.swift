@@ -63,8 +63,6 @@ public class PBXTarget: PBXContainerItem {
     public var productName: String?
 
     /// Target product reference.
-    ///
-    /// This property's value may differ from the value displayed in Xcode if the product name is specified through build settings.
     var productReference: PBXObjectReference?
 
     /// Target product.
