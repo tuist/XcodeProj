@@ -58,6 +58,8 @@ public class PBXTarget: PBXContainerItem {
     public var name: String
 
     /// Target product name.
+    ///
+    /// This property's value may differ from the value displayed in Xcode if the product name is specified through build settings.
     public var productName: String?
 
     /// Target product reference.
@@ -218,6 +220,8 @@ public class PBXTarget: PBXContainerItem {
 
 public extension PBXTarget {
     /// Returns the product name with the extension joined with a period.
+    ///
+    /// This property's value may differ from the value displayed in Xcode if the product name is specified through build settings.
     ///
     /// - Returns: product name with extension.
     func productNameWithExtension() -> String? {
