@@ -72,7 +72,7 @@ extension XCScheme {
 
         public enum Architecture {
             /// A default value.
-            case matchRunDestination // (Apple recommended: default)
+            case matchRunDestination
             case universal
             case useTargetSettings
 
