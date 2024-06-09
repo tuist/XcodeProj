@@ -70,7 +70,7 @@ extension XCScheme {
             }
         }
 
-        public enum Architecture {
+        public enum Architectures {
             case matchRunDestination
             case universal
             case useTargetSettings
@@ -107,7 +107,7 @@ extension XCScheme {
         public var parallelizeBuild: Bool
         public var buildImplicitDependencies: Bool
         public var runPostActionsOnFailure: Bool?
-        public var buildArchitectures: Architecture
+        public var buildArchitectures: Architectures
 
         // MARK: - Init
 
@@ -117,7 +117,7 @@ extension XCScheme {
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false,
                     runPostActionsOnFailure: Bool? = nil,
-                    buildArchitectures: Architecture = .matchRunDestination) {
+                    buildArchitectures: Architectures = .matchRunDestination) {
             self.buildActionEntries = buildActionEntries
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
@@ -133,7 +133,7 @@ extension XCScheme {
             buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
-            buildArchitectures = element.attributes["buildArchitectures"].map { Architecture($0) } ?? .useTargetSettings
+            buildArchitectures = element.attributes["buildArchitectures"].map { Architectures($0) } ?? .useTargetSettings
             try super.init(element: element)
         }
 
