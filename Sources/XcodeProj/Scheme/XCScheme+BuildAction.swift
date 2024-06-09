@@ -71,7 +71,6 @@ extension XCScheme {
         }
 
         public enum Architecture {
-            /// A default value.
             case matchRunDestination
             case universal
             case useTargetSettings
