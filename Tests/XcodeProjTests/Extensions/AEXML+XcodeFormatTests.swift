@@ -16,6 +16,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
         <BuildAction
            parallelizeBuildables = "YES"
            buildImplicitDependencies = "NO"
+           buildArchitectures = "Automatic"
            runPostActionsOnFailure = "YES">
         </BuildAction>
         """
@@ -73,8 +74,9 @@ class AEXML_XcodeFormatTests: XCTestCase {
             childName: "BuildAction",
             attributes: [
                 "parallelizeBuildables": "YES",
-                "runPostActionsOnFailure": "YES",
                 "buildImplicitDependencies": "NO",
+                "buildArchitectures": "Automatic",
+                "runPostActionsOnFailure": "YES",
             ]
         )
     }
@@ -87,6 +89,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildImplicitDependencies": "NO",
                 "parallelizeBuildables": "YES",
                 "runPostActionsOnFailure": "YES",
+                "buildArchitectures": "Automatic",
             ]
         )
     }
