@@ -88,7 +88,7 @@ extension XCScheme {
 
             /// Creates a new instance from the given xml string.
             ///
-            /// For undefined value, initialized as `matchRunDestination`.
+            /// For undefined value, initialized as `useTargetSettings` since the XML element is removed.
             fileprivate init(_ xmlString: String) {
                 switch xmlString {
                 case "Automatic":
@@ -96,7 +96,7 @@ extension XCScheme {
                 case "All":
                     self = .universal
                 default:
-                    self = .matchRunDestination
+                    self = .useTargetSettings
                 }
             }
         }
@@ -117,7 +117,7 @@ extension XCScheme {
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false,
                     runPostActionsOnFailure: Bool? = nil,
-                    buildArchitectures: Architectures = .matchRunDestination) {
+                    buildArchitectures: Architectures = .useTargetSettings) {
             self.buildActionEntries = buildActionEntries
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
