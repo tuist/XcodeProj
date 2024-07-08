@@ -355,6 +355,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mikeger",
+      "name": "Mike Gerasymenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/715129?v=4",
+      "profile": "https://gera.cx",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
