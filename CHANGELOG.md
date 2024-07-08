@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 8.22.0
+
+### Added
+* Add `buildArchitectures` to XCScheme+BuildAction by @woin2ee in https://github.com/tuist/XcodeProj/pull/824
+
+### Changed
+* Update comment to reflect productNameWithExtension() and others by @mikeger in https://github.com/tuist/XcodeProj/pull/823
+
 ## 8.21.0
 
 ### Fixed
