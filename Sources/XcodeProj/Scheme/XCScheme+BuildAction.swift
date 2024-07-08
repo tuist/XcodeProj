@@ -70,12 +70,44 @@ extension XCScheme {
             }
         }
 
+        public enum Architectures {
+            case matchRunDestination
+            case universal
+            case useTargetSettings
+
+            fileprivate var xmlString: String? {
+                switch self {
+                case .matchRunDestination:
+                    "Automatic"
+                case .universal:
+                    "All"
+                case .useTargetSettings:
+                    nil
+                }
+            }
+
+            /// Creates a new instance from the given xml string.
+            ///
+            /// For undefined value, initialized as `useTargetSettings` since the XML element is removed.
+            fileprivate init(_ xmlString: String) {
+                switch xmlString {
+                case "Automatic":
+                    self = .matchRunDestination
+                case "All":
+                    self = .universal
+                default:
+                    self = .useTargetSettings
+                }
+            }
+        }
+
         // MARK: - Attributes
 
         public var buildActionEntries: [Entry]
         public var parallelizeBuild: Bool
         public var buildImplicitDependencies: Bool
         public var runPostActionsOnFailure: Bool?
+        public var buildArchitectures: Architectures
 
         // MARK: - Init
 
@@ -84,11 +116,13 @@ extension XCScheme {
                     postActions: [ExecutionAction] = [],
                     parallelizeBuild: Bool = false,
                     buildImplicitDependencies: Bool = false,
-                    runPostActionsOnFailure: Bool? = nil) {
+                    runPostActionsOnFailure: Bool? = nil,
+                    buildArchitectures: Architectures = .useTargetSettings) {
             self.buildActionEntries = buildActionEntries
             self.parallelizeBuild = parallelizeBuild
             self.buildImplicitDependencies = buildImplicitDependencies
             self.runPostActionsOnFailure = runPostActionsOnFailure
+            self.buildArchitectures = buildArchitectures
             super.init(preActions, postActions)
         }
 
@@ -99,6 +133,7 @@ extension XCScheme {
             buildActionEntries = try element["BuildActionEntries"]["BuildActionEntry"]
                 .all?
                 .map(Entry.init) ?? []
+            buildArchitectures = element.attributes["buildArchitectures"].map { Architectures($0) } ?? .useTargetSettings
             try super.init(element: element)
         }
 
@@ -118,6 +153,10 @@ extension XCScheme {
                 "parallelizeBuildables": parallelizeBuild.xmlString,
                 "buildImplicitDependencies": buildImplicitDependencies.xmlString,
             ]
+
+            if let buildArchitecturesXMLString = buildArchitectures.xmlString {
+                attributes["buildArchitectures"] = buildArchitecturesXMLString
+            }
 
             if let runPostActionsOnFailure = runPostActionsOnFailure {
                 attributes["runPostActionsOnFailure"] = runPostActionsOnFailure.xmlString
@@ -142,7 +181,8 @@ extension XCScheme {
                 buildActionEntries == rhs.buildActionEntries &&
                 parallelizeBuild == rhs.parallelizeBuild &&
                 buildImplicitDependencies == rhs.buildImplicitDependencies &&
-                runPostActionsOnFailure == rhs.runPostActionsOnFailure
+                runPostActionsOnFailure == rhs.runPostActionsOnFailure &&
+                buildArchitectures == rhs.buildArchitectures
         }
     }
 }
