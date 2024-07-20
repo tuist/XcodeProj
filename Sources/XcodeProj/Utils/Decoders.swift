@@ -13,7 +13,7 @@ class PBXObjectReferenceRepository {
     ///   - objects: objects.
     /// - Returns: object reference.
     func getOrCreate(reference: String, objects: PBXObjects) -> PBXObjectReference {
-        lock.whileLocked {
+        lock.withLock {
             if let objectReference = references[reference] {
                 return objectReference
             }
