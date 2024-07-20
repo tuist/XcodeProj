@@ -43,26 +43,26 @@ public final class XCBuildConfiguration: PBXObject {
     }
 
     // MARK: - Decodable
-
-    fileprivate enum CodingKeys: String, CodingKey {
-        case baseConfigurationReference
-        case buildSettings
-        case name
+  
+  fileprivate enum CodingKeys: String, CodingKey {
+    case baseConfigurationReference
+    case buildSettings
+    case name
+  }
+  
+  public required init(from decoder: Decoder) throws {
+    let objects = decoder.context.objects
+    let objectReferenceRepository = decoder.context.objectReferenceRepository
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+      self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
+    } else {
+      baseConfigurationReference = nil
     }
-
-    public required init(from decoder: Decoder) throws {
-        let objects = decoder.context.objects
-        let objectReferenceRepository = decoder.context.objectReferenceRepository
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
-            self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
-        } else {
-            baseConfigurationReference = nil
-        }
-        buildSettings = try container.decode([String: Any].self, forKey: .buildSettings)
-        name = try container.decode(.name)
-        try super.init(from: decoder)
-    }
+    buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
+    name = try container.decode(.name)
+    try super.init(from: decoder)
+  }
 
     // MARK: - Public
 
@@ -75,16 +75,16 @@ public final class XCBuildConfiguration: PBXObject {
     public func append(setting name: String, value: String) {
         guard !value.isEmpty else { return }
 
-        let existing: Any = buildSettings[name] ?? "$(inherited)"
+        let existing: BuildSetting = buildSettings[name] ?? "$(inherited)"
 
         switch existing {
-        case let string as String where string != value:
+        case let .string(string) where string != value:
             let newValue = [string, value].joined(separator: " ")
-            buildSettings[name] = newValue
-        case let array as [String]:
+            buildSettings[name] = .string(newValue)
+        case let .array(array):
             var newValue = array
             newValue.append(value)
-            buildSettings[name] = newValue.uniqued()
+            buildSettings[name] = .array(newValue.uniqued())
         default:
             break
         }
