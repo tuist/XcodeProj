@@ -318,6 +318,8 @@ extension PBXFileSystemSynchronizedBuildFileExceptionSet {
     func isEqual(to rhs: PBXFileSystemSynchronizedBuildFileExceptionSet) -> Bool {
         if membershipExceptions != rhs.membershipExceptions { return false }
         if targetReference != rhs.targetReference { return false }
+        if publicHeaders != rhs.publicHeaders { return false }
+        if privateHeaders != rhs.privateHeaders { return false }
         return super.isEqual(to: rhs)
     }
 }

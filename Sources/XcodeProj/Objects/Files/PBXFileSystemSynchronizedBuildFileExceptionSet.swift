@@ -9,6 +9,14 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
     /// A list of relative paths to children subfolders for which exceptions are applied.
     public var membershipExceptions: [String]?
     
+    /// Changes the default header visibility (project) to public for the following headers.
+    /// Every item in the list is the relative path inside the root synchronized group.
+    public var publicHeaders: [String]?
+    
+    /// Changes the default header visibility (project) to private for the following headers.
+    /// Every item in the list is the relative path inside the root synchronized group.
+    public var privateHeaders: [String]?
+    
     var targetReference: PBXObjectReference
     
     public var target: PBXTarget! {
@@ -22,9 +30,11 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
     
     // MARK: - Init
     
-    public init(target: PBXTarget, membershipExceptions: [String]) {
+    public init(target: PBXTarget, membershipExceptions: [String]?, publicHeaders: [String]?, privateHeaders: [String]?) {
         self.targetReference = target.reference
         self.membershipExceptions = membershipExceptions
+        self.publicHeaders = publicHeaders
+        self.privateHeaders = privateHeaders
         super.init()
     }
     
@@ -33,6 +43,8 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
     fileprivate enum CodingKeys: String, CodingKey {
         case target
         case membershipExceptions
+        case publicHeaders
+        case privateHeaders
     }
 
     public required init(from decoder: Decoder) throws {
@@ -42,6 +54,8 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
         let targetReference: String = try container.decode(.target)
         self.targetReference = referenceRepository.getOrCreate(reference: targetReference, objects: objects)
         self.membershipExceptions = try container.decodeIfPresent(.membershipExceptions)
+        self.publicHeaders = try container.decodeIfPresent(.publicHeaders)
+        self.privateHeaders = try container.decodeIfPresent(.privateHeaders)
         try super.init(from: decoder)
     }
     
