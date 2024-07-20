@@ -302,7 +302,6 @@ extension XCVersionGroup {
     }
 }
 
-
 extension PBXFileSystemSynchronizedRootGroup {
     /// :nodoc:
     func isEqual(to rhs: PBXFileSystemSynchronizedRootGroup) -> Bool {

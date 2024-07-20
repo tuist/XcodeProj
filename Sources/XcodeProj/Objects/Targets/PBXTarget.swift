@@ -124,8 +124,7 @@ public class PBXTarget: PBXContainerItem {
                 productName: String? = nil,
                 product: PBXFileReference? = nil,
                 productType: PBXProductType? = nil,
-                fileSystemSynchronizedGroups: [PBXFileSystemSynchronizedRootGroup]? = nil)
-    {
+                fileSystemSynchronizedGroups: [PBXFileSystemSynchronizedRootGroup]? = nil) {
         buildConfigurationListReference = buildConfigurationList?.reference
         buildPhaseReferences = buildPhases.references()
         buildRuleReferences = buildRules.references()
@@ -183,7 +182,9 @@ public class PBXTarget: PBXContainerItem {
         }
         let fileSystemSynchronizedGroupsReferences: [String]? = try container.decodeIfPresent(.fileSystemSynchronizedGroups)
         if let fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences {
-            self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
+            self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map {
+              objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
+            }
         }
         productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)

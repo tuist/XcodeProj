@@ -68,7 +68,11 @@ enum XCConfigParser {
                     do {
                         // first try to load the included xcconfig relative to the current xcconfig
                         config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
+<<<<<<< HEAD
                     } catch XCConfigError.notFound(_) where projectPath != nil {
+=======
+                    } catch XCConfigError.notFound(_)where projectPath != nil {
+>>>>>>> be7969e7 (Fix some linting issues)
                         // if that fails, try to load the included xcconfig relative to the project
                         config = try? XCConfig(path: projectPath!.parent() + includePath, projectPath: projectPath)
                     } catch {

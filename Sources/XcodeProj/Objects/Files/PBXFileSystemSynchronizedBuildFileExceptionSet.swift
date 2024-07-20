@@ -1,6 +1,5 @@
 import Foundation
 
-
 /// Class representing an element that may contain other elements.
 public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
     

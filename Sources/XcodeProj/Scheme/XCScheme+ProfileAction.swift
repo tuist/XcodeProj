@@ -81,8 +81,12 @@ public extension XCScheme {
             commandlineArguments: CommandLineArguments? = nil,
             environmentVariables: [EnvironmentVariable]? = nil,
             enableTestabilityWhenProfilingTests: Bool = true,
+<<<<<<< HEAD
             launchAutomaticallySubstyle: String? = nil
         ) {
+=======
+            launchAutomaticallySubstyle: String? = nil) {
+>>>>>>> be7969e7 (Fix some linting issues)
             self.init(
                 runnable: buildableProductRunnable,
                 buildConfiguration: buildConfiguration,

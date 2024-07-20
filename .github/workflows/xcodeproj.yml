@@ -8,7 +8,11 @@ concurrency:
   cancel-in-progress: true
 
 env:
+<<<<<<< HEAD
   MISE_EXPERIMENTAL: 1
+=======
+  MISE_EXPERIMENTAL: "1"
+>>>>>>> be7969e7 (Fix some linting issues)
 
 jobs:
   build:
@@ -52,9 +56,15 @@ jobs:
           git config --global init.defaultBranch main
       - name: Build and run tests
         run: swift test --enable-test-discovery
+<<<<<<< HEAD
   lint:
     name: Lint
     runs-on: macos-latest
+=======
+  swiftlint:
+    name: Lint
+    runs-on: ubuntu-latest
+>>>>>>> be7969e7 (Fix some linting issues)
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
