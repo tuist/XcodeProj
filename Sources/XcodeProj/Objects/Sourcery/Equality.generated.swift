@@ -301,3 +301,23 @@ extension XCVersionGroup {
         return super.isEqual(to: rhs)
     }
 }
+
+
+extension PBXFileSystemSynchronizedRootGroup {
+    /// :nodoc:
+    func isEqual(to rhs: PBXFileSystemSynchronizedRootGroup) -> Bool {
+        if explicitFileTypes != rhs.explicitFileTypes { return false }
+        if exceptionsReferences != rhs.exceptionsReferences { return false }
+        if explicitFolders != rhs.explicitFolders { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
+extension PBXFileSystemSynchronizedBuildFileExceptionSet {
+    /// :nodoc:
+    func isEqual(to rhs: PBXFileSystemSynchronizedBuildFileExceptionSet) -> Bool {
+        if membershipExceptions != rhs.membershipExceptions { return false }
+        if targetReference != rhs.targetReference { return false }
+        return super.isEqual(to: rhs)
+    }
+}
