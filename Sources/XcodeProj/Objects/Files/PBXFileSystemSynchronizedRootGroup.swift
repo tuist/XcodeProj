@@ -100,7 +100,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     }
 
     override func isEqual(to object: Any?) -> Bool {
-        guard let rhs = object as? PBXFrameworksBuildPhase else { return false }
+        guard let rhs = object as? PBXFileSystemSynchronizedRootGroup else { return false }
         return isEqual(to: rhs)
     }
 }

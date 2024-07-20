@@ -62,7 +62,7 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject {
     // MARK: - Equatable
 
     override func isEqual(to object: Any?) -> Bool {
-        guard let rhs = object as? PBXFrameworksBuildPhase else { return false }
+        guard let rhs = object as? PBXFileSystemSynchronizedBuildFileExceptionSet else { return false }
         return isEqual(to: rhs)
     }
     

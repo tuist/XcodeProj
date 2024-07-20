@@ -181,9 +181,10 @@ public class PBXTarget: PBXContainerItem {
         packageProductDependencyReferences = packageProductDependencyReferenceStrings.map {
             objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
         }
-        let fileSystemSynchronizedGroupsReferences: [String] = try container.decodeIfPresent(.fileSystemSynchronizedGroups) ?? []
-        self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
-
+        let fileSystemSynchronizedGroupsReferences: [String]? = try container.decodeIfPresent(.fileSystemSynchronizedGroups)
+        if let fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences {
+            self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
+        }
         productType = try container.decodeIfPresent(.productType)
         try super.init(from: decoder)
     }
