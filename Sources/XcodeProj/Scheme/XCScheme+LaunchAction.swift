@@ -18,11 +18,13 @@ extension XCScheme {
             case disabled = "3"
         }
 
-        public enum GPUValidationMode: String {
-            case enabled = "0"
-            case disabled = "1"
-            case extended = "2"
-        }
+        // The value used to disable 'API Validation'. 
+        // If this feature is not being disabled, this value will not be present.
+        public let gpuValidationModeDisableValue = "1"
+
+        // The value used to enable 'Shader Validation'.
+        // If this feature is not being enabled, this value will not be present.
+        public let gpuShaderValidationModeEnableValue = "2"
 
         // MARK: - Static
 
@@ -30,7 +32,6 @@ extension XCScheme {
         public static let defaultDebugServiceExtension = "internal"
         private static let defaultLaunchStyle = Style.auto
         public static let defaultGPUFrameCaptureMode = GPUFrameCaptureMode.autoEnabled
-        public static let defaultGPUValidationMode = GPUValidationMode.enabled
 
         // MARK: - Attributes
 
@@ -50,7 +51,10 @@ extension XCScheme {
         public var allowLocationSimulation: Bool
         public var locationScenarioReference: LocationScenarioReference?
         public var enableGPUFrameCaptureMode: GPUFrameCaptureMode
-        public var enableGPUValidationMode: GPUValidationMode
+        public var disableGPUValidationMode: Bool
+        public var enableGPUShaderValidationMode: Bool
+        public var showGraphicsOverview: Bool
+        public var logGraphicsOverview: Bool
         public var enableAddressSanitizer: Bool
         public var enableASanStackUseAfterReturn: Bool
         public var enableThreadSanitizer: Bool
@@ -92,7 +96,10 @@ extension XCScheme {
                     allowLocationSimulation: Bool = true,
                     locationScenarioReference: LocationScenarioReference? = nil,
                     enableGPUFrameCaptureMode: GPUFrameCaptureMode = LaunchAction.defaultGPUFrameCaptureMode,
-                    enableGPUValidationMode: GPUValidationMode = LaunchAction.defaultGPUValidationMode,
+                    disableGPUValidationMode: Bool = false,
+                    enableGPUShaderValidationMode: Bool = false,
+                    showGraphicsOverview: Bool = false,
+                    logGraphicsOverview: Bool = false,
                     enableAddressSanitizer: Bool = false,
                     enableASanStackUseAfterReturn: Bool = false,
                     enableThreadSanitizer: Bool = false,
@@ -128,7 +135,10 @@ extension XCScheme {
             self.allowLocationSimulation = allowLocationSimulation
             self.locationScenarioReference = locationScenarioReference
             self.enableGPUFrameCaptureMode = enableGPUFrameCaptureMode
-            self.enableGPUValidationMode = enableGPUValidationMode
+            self.disableGPUValidationMode = disableGPUValidationMode
+            self.enableGPUShaderValidationMode = enableGPUShaderValidationMode
+            self.showGraphicsOverview = showGraphicsOverview
+            self.logGraphicsOverview = logGraphicsOverview
             self.enableAddressSanitizer = enableAddressSanitizer
             self.enableASanStackUseAfterReturn = enableASanStackUseAfterReturn
             self.enableThreadSanitizer = enableThreadSanitizer
@@ -191,8 +201,10 @@ extension XCScheme {
 
             enableGPUFrameCaptureMode = element.attributes["enableGPUFrameCaptureMode"]
                 .flatMap { GPUFrameCaptureMode(rawValue: $0) } ?? LaunchAction.defaultGPUFrameCaptureMode
-            enableGPUValidationMode = element.attributes["enableGPUValidationMode"]
-                .flatMap { GPUValidationMode(rawValue: $0) } ?? LaunchAction.defaultGPUValidationMode
+            disableGPUValidationMode = element.attributes["enableGPUValidationMode"] == gpuValidationModeDisableValue
+            enableGPUShaderValidationMode = element.attributes["enableGPUShaderValidationMode"] == gpuShaderValidationModeEnableValue
+            showGraphicsOverview = element.attributes["showGraphicsOverview"] == "Yes"
+            logGraphicsOverview = element.attributes["logGraphicsOverview"] == "Yes"
             enableAddressSanitizer = element.attributes["enableAddressSanitizer"] == "YES"
             enableASanStackUseAfterReturn = element.attributes["enableASanStackUseAfterReturn"] == "YES"
             enableThreadSanitizer = element.attributes["enableThreadSanitizer"] == "YES"
@@ -257,8 +269,17 @@ extension XCScheme {
             if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {
                 attributes["enableGPUFrameCaptureMode"] = enableGPUFrameCaptureMode.rawValue
             }
-            if enableGPUValidationMode != LaunchAction.defaultGPUValidationMode {
-                attributes["enableGPUValidationMode"] = enableGPUValidationMode.rawValue
+            if disableGPUValidationMode {
+                attributes["enableGPUValidationMode"] = gpuValidationModeDisableValue
+            }
+            if enableGPUShaderValidationMode {
+                attributes["enableGPUShaderValidationMode"] = gpuShaderValidationModeEnableValue
+            }
+            if showGraphicsOverview {
+                attributes["showGraphicsOverview"] = showGraphicsOverview.xmlString
+            }
+            if logGraphicsOverview {
+                attributes["logGraphicsOverview"] = showGraphicsOverview.xmlString
             }
             if enableAddressSanitizer {
                 attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
@@ -383,7 +404,10 @@ extension XCScheme {
                 allowLocationSimulation == rhs.allowLocationSimulation &&
                 locationScenarioReference == rhs.locationScenarioReference &&
                 enableGPUFrameCaptureMode == rhs.enableGPUFrameCaptureMode &&
-                enableGPUValidationMode == rhs.enableGPUValidationMode &&
+                disableGPUValidationMode == rhs.disableGPUValidationMode &&
+                enableGPUShaderValidationMode == rhs.enableGPUShaderValidationMode &&
+                showGraphicsOverview == rhs.showGraphicsOverview &&
+                logGraphicsOverview == rhs.logGraphicsOverview &&
                 enableAddressSanitizer == rhs.enableAddressSanitizer &&
                 enableASanStackUseAfterReturn == rhs.enableASanStackUseAfterReturn &&
                 enableThreadSanitizer == rhs.enableThreadSanitizer &&
