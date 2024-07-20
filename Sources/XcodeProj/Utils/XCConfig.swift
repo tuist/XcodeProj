@@ -35,10 +35,10 @@ public final class XCConfig {
         let fileLines = try path.read().components(separatedBy: "\n")
         includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
-        var buildSettings: [String: String] = [:]
+        var buildSettings: BuildSettings = [:]
         fileLines
             .compactMap(XCConfigParser.settingFrom)
-            .forEach { buildSettings[$0.key] = $0.value }
+            .forEach { buildSettings[$0.key] = .string($0.value) }
         self.buildSettings = buildSettings
     }
 }

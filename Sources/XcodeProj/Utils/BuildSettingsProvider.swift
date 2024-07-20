@@ -46,7 +46,7 @@ public class BuildSettingsProvider {
     ///   - swift: true if the target contains Swift code.
     /// - Returns: build settings.
     public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
-        var buildSettings: [String: Any] = [:]
+        var buildSettings: BuildSettings = [:]
 
         if let platform {
             buildSettings.merge(targetSettings(platform: platform), uniquingKeysWith: { $1 })
