@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-38-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -37,6 +37,7 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
 | Tuist           | [github.com/tuist/tuist](https://github.com/tuist/tuist)                                     |
 | XcodeGen        | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)                       |
 | xspm            | [gitlab.com/Pyroh/xspm](https://gitlab.com/Pyroh/xspm)                                       |
+| Privacy Manifest| [github.com/stelabouras/privacy-manifest](https://github.com/stelabouras/privacy-manifest)   |
 
 If you are also leveraging XcodeProj in your project, feel free to open a PR to include it in the list above.
 
@@ -189,6 +190,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://ladislas.detoldi.me"><img src="https://avatars.githubusercontent.com/u/2206544?v=4?s=100" width="100px;" alt="Ladislas de Toldi"/><br /><sub><b>Ladislas de Toldi</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=ladislas" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.massicotte.org"><img src="https://avatars.githubusercontent.com/u/85322?v=4?s=100" width="100px;" alt="Matt Massicotte"/><br /><sub><b>Matt Massicotte</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mattmassicotte" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/VorkhlikArtem"><img src="https://avatars.githubusercontent.com/u/115653999?v=4?s=100" width="100px;" alt="Артем Ворхлик"/><br /><sub><b>Артем Ворхлик</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=VorkhlikArtem" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/woin2ee"><img src="https://avatars.githubusercontent.com/u/81426024?v=4?s=100" width="100px;" alt="Jaewon-Yun"/><br /><sub><b>Jaewon-Yun</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=woin2ee" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://gera.cx"><img src="https://avatars.githubusercontent.com/u/715129?v=4?s=100" width="100px;" alt="Mike Gerasymenko"/><br /><sub><b>Mike Gerasymenko</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mikeger" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/filipracki"><img src="https://avatars.githubusercontent.com/u/27164368?v=4?s=100" width="100px;" alt="Filip Racki"/><br /><sub><b>Filip Racki</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=filipracki" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

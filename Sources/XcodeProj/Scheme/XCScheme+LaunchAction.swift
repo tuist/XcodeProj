@@ -5,13 +5,13 @@ import PathKit
 extension XCScheme {
     // swiftlint:disable:next type_body_length
     public final class LaunchAction: SerialAction {
-        public enum Style: String {
+        public enum Style: String, Sendable {
             case auto = "0"
             case wait = "1"
             case custom = "2"
         }
 
-        public enum GPUFrameCaptureMode: String {
+        public enum GPUFrameCaptureMode: String, Sendable {
             case autoEnabled = "0"
             case metal = "1"
             case openGL = "2"

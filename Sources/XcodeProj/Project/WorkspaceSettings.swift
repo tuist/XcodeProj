@@ -1,7 +1,7 @@
 import Foundation
-import PathKit
+@preconcurrency import PathKit
 
-public enum WorkspaceSettingsError: Error {
+public enum WorkspaceSettingsError: Error, Sendable {
     /// thrown when the settings file was not found.
     case notFound(path: Path)
 }

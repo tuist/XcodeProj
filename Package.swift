@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -15,8 +15,11 @@ let package = Package(
     targets: [
         .target(name: "XcodeProj",
                 dependencies: [
-                    "PathKit",
-                    "AEXML",
+                    .product(name: "PathKit", package: "PathKit"),
+                    .product(name: "AEXML", package: "AEXML"),
+                ],
+                swiftSettings: [
+                  .enableExperimentalFeature("StrictConcurrency")
                 ]),
         .testTarget(name: "XcodeProjTests", dependencies: ["XcodeProj"]),
     ]

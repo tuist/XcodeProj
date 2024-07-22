@@ -346,6 +346,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "woin2ee",
+      "name": "Jaewon-Yun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/81426024?v=4",
+      "profile": "https://github.com/woin2ee",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mikeger",
+      "name": "Mike Gerasymenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/715129?v=4",
+      "profile": "https://gera.cx",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "filipracki",
+      "name": "Filip Racki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27164368?v=4",
+      "profile": "https://github.com/filipracki",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -13,7 +13,7 @@ concurrency:
 jobs:
   deploy:
     name: Deploy Documentation
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Start deployment
         uses: bobheadxi/deployments@v1

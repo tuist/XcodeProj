@@ -19,7 +19,7 @@ struct CommentedString {
     }
 
     /// Set of characters that are invalid.
-    private static var invalidCharacters: CharacterSet = {
+    private static let invalidCharacters: CharacterSet = {
         var invalidSet = CharacterSet(charactersIn: "_$")
         invalidSet.insert(charactersIn: UnicodeScalar(".") ... UnicodeScalar("9"))
         invalidSet.insert(charactersIn: UnicodeScalar("A") ... UnicodeScalar("Z"))
@@ -29,7 +29,7 @@ struct CommentedString {
     }()
 
     /// Set of characters that are invalid.
-    private static var specialCheckCharacters = CharacterSet(charactersIn: "_/")
+    private static let specialCheckCharacters = CharacterSet(charactersIn: "_/")
 
     /// Returns a valid string for Xcode projects.
     var validString: String {
