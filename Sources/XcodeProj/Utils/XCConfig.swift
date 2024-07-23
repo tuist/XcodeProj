@@ -124,8 +124,8 @@ extension XCConfig {
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
-    public func flattenedBuildSettings() -> [String: Any] {
-        var content: [String: Any] = buildSettings
+    public func flattenedBuildSettings() -> [String: BuildSetting] {
+        var content: [String: BuildSetting] = buildSettings
         includes
             .map { $0.1 }
             .flattened()
