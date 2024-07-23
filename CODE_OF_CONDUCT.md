@@ -1,1 +1,3 @@
-Check out the organization [CODE OF CONDUCT](https://github.com/tuist/tuist/blob/main/docs/contribution/code-of-conduct.md)
+# Code of conduct
+
+The code of conduct is available in [Tuist's handbook](https://handbook.tuist.io/people/code-of-conduct.html).
