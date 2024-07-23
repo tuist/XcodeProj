@@ -18,7 +18,10 @@ final class BuildSettingTests: XCTestCase {
       "two": .array(["two", "two"])
     ]
     
-    let result = try JSONEncoder().encode(settings)
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = .sortedKeys
+    
+    let result = try encoder.encode(settings)
     
     XCTAssertEqual(result, expectedJSON.data(using: .utf8))
   }
