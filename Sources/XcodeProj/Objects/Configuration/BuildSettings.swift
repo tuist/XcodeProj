@@ -6,6 +6,15 @@ public typealias BuildSettings = [String: BuildSetting]
 public enum BuildSetting: Sendable, Equatable {
     case string(String)
     case array([String])
+    
+    var valueForWriting: String {
+        switch self {
+        case .string(let string):
+            return string
+        case .array(let array):
+            return array.joined(separator: " ")
+        }
+    }
 }
 
 extension BuildSetting: Codable {
