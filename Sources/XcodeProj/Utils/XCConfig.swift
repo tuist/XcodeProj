@@ -114,7 +114,7 @@ extension XCConfig: Equatable {
                 return false
             }
         }
-        return NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
+        return lhs.buildSettings == rhs.buildSettings
     }
 }
 
@@ -174,7 +174,7 @@ extension XCConfig: Writable {
     private func writeBuildSettings() -> String {
         var content = ""
         buildSettings.forEach { key, value in
-            content.append("\(key) = \(value)\n")
+            content.append("\(key) = \(value.valueForWriting)\n")
         }
         content.append("\n")
         return content
