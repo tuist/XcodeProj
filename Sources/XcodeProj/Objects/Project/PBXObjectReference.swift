@@ -9,13 +9,13 @@ class PBXObjectReference: NSObject, Comparable, NSCopying, @unchecked Sendable {
     var temporary: Bool {
         lock.withLock { _temporary }
     }
-    private(set) var _temporary: Bool
+    private var _temporary: Bool
 
     /// String reference.
     var value: String {
         lock.withLock { _value }
     }
-    private(set) var _value: String
+    private var _value: String
     
 
     /// Weak reference to the objects instance that contains the project objects.
@@ -29,7 +29,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying, @unchecked Sendable {
             }
         }
     }
-    weak var _objects: PBXObjects?
+    private weak var _objects: PBXObjects?
 
     // QUESTION: this is exposed to the project but so is `getThrowingObject` and `getObject`.  What access patterns do we want to support?
     /// A weak reference to the object
