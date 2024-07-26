@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 #!/bin/bash
 # mise description="Lint the workspace"
 set -euo pipefail
 
 swiftformat $MISE_PROJECT_ROOT --lint
 swiftlint lint --quiet --config $MISE_PROJECT_ROOT/.swiftlint.yml $MISE_PROJECT_ROOT/Sources
-=======
-#!/usr/bin/env bash
-# mise description="Lints the project"
-
-swiftlint $MISE_PROJECT_ROOT
->>>>>>> be7969e7 (Fix some linting issues)

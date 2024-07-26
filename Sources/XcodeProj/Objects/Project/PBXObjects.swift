@@ -135,6 +135,16 @@ class PBXObjects: Equatable {
         lock.whileLocked { _swiftPackageProductDependencies }
     }
 
+    private var _fileSystemSynchronizedRootGroups: [PBXObjectReference: PBXFileSystemSynchronizedRootGroup] = [:]
+    var fileSystemSynchronizedRootGroups: [PBXObjectReference: PBXFileSystemSynchronizedRootGroup] {
+        lock.whileLocked { _fileSystemSynchronizedRootGroups }
+    }
+
+    private var _fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] = [:]
+    var fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] {
+        lock.whileLocked { _fileSystemSynchronizedBuildFileExceptionSets }
+    }
+
     // XCSwiftPackageProductDependency
 
     /// Initializes the project objects container
@@ -218,6 +228,8 @@ class PBXObjects: Equatable {
         case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
         case let object as XCLocalSwiftPackageReference: _localSwiftPackageReferences[objectReference] = object
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
+        case let object as PBXFileSystemSynchronizedRootGroup: _fileSystemSynchronizedRootGroups[objectReference] = object
+        case let object as PBXFileSystemSynchronizedBuildFileExceptionSet: _fileSystemSynchronizedBuildFileExceptionSets[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }

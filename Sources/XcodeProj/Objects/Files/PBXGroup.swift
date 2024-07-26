@@ -115,7 +115,7 @@ public extension PBXGroup {
             .objects()
             .first(where: { $0.name == name })
     }
-    
+
     /// Returns the synchronized root group with the given name contained in the given parent group.
     ///
     /// - Parameter groupName: group name.

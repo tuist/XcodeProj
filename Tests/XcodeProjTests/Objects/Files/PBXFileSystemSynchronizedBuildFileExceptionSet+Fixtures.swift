@@ -5,9 +5,9 @@ extension PBXFileSystemSynchronizedBuildFileExceptionSet {
                         membershipExceptions: [String]? = [],
                         publicHeaders: [String]? = [],
                         privateHeaders: [String]? = []) -> PBXFileSystemSynchronizedBuildFileExceptionSet {
-        return PBXFileSystemSynchronizedBuildFileExceptionSet(target: target,
-                                                              membershipExceptions: membershipExceptions,
-                                                              publicHeaders: publicHeaders,
-                                                              privateHeaders: privateHeaders)
+        PBXFileSystemSynchronizedBuildFileExceptionSet(target: target,
+                                                       membershipExceptions: membershipExceptions,
+                                                       publicHeaders: publicHeaders,
+                                                       privateHeaders: privateHeaders)
     }
 }

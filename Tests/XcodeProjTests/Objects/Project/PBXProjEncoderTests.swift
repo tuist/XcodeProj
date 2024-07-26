@@ -285,6 +285,38 @@ class PBXProjEncoderTests: XCTestCase {
         lines.validate(line: ");", after: line)
     }
 
+    // MARK: - File system synchronized root groups
+
+    func test_fileSystemSynchronizedRootGroups_when_projectWithFileSystemSynchronizedRootGroups() throws {
+        // Given
+        try loadSynchronizedRootGroups()
+        let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
+        let lines = lines(fromFile: encodeProject(settings: settings))
+
+        let beginGroup = lines.findLine("/* Begin PBXFileSystemSynchronizedRootGroup section */")
+        var line = lines.validate(line: "6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SynchronizedRootGroups; sourceTree = \"<group>\"; };", after: beginGroup)
+        line = lines.validate(line: "/* End PBXFileSystemSynchronizedRootGroup section */", after: line)
+    }
+
+    // MARK: - File system synchronized build file exception set
+
+    func test_fileSystemSynchronizedBuildFileExceptionSets_when_projectWithFileSystemSynchronizedRootGroups() throws {
+        // Given
+        try loadSynchronizedRootGroups()
+        let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
+        let lines = lines(fromFile: encodeProject(settings: settings))
+
+        let beginGroup = lines.findLine("/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */")
+        var line = lines.validate(line: "6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {", after: beginGroup)
+        line = lines.validate(line: "isa = PBXFileSystemSynchronizedBuildFileExceptionSet;", after: line)
+        line = lines.validate(line: "membershipExceptions = (", after: line)
+        line = lines.validate(line: "Exception/Exception.swift,", after: line)
+        line = lines.validate(line: ");", after: line)
+        line = lines.validate(line: "target = 6CF05B8B2C53F5F200EF267F /* SynchronizedRootGroups */;", after: line)
+        line = lines.validate(line: "};", after: line)
+        line = lines.validate(line: "/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */", after: line)
+    }
+
     // MARK: - Build phases
 
     func test_build_phase_sources_unsorted_when_iOSProject() throws {
@@ -455,6 +487,10 @@ class PBXProjEncoderTests: XCTestCase {
 
     private func loadiOSProject() throws {
         proj = try PBXProj(jsonDictionary: iosProjectDictionary().1)
+    }
+
+    private func loadSynchronizedRootGroups() throws {
+        proj = try PBXProj(jsonDictionary: synchronizedRootGroupsFixture().1)
     }
 
     private func loadFileSharedAcrossTargetsProject() throws {

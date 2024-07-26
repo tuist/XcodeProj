@@ -181,9 +181,9 @@ public class PBXTarget: PBXContainerItem {
             objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
         }
         let fileSystemSynchronizedGroupsReferences: [String]? = try container.decodeIfPresent(.fileSystemSynchronizedGroups)
-        if let fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences {
+        if let fileSystemSynchronizedGroupsReferences {
             self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map {
-              objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
+                objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
             }
         }
         productType = try container.decodeIfPresent(.productType)
