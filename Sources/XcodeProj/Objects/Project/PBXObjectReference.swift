@@ -31,13 +31,32 @@ class PBXObjectReference: NSObject, Comparable, NSCopying, @unchecked Sendable {
     }
     private weak var _objects: PBXObjects?
 
-    // QUESTION: this is exposed to the project but so is `getThrowingObject` and `getObject`.  What access patterns do we want to support?
-    /// A weak reference to the object
-    var object: PBXObject? {
-        get {
-            lock.withLock { _object }
+    
+    /// The object referenced by this instance.
+    ///
+    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
+    func object<T: PBXObject>() -> T? {
+        lock.withLock {
+            if let object = _object as? T {
+                return object
+            }
+            
+            guard let object = objects?.get(reference: self) else { return nil }
+            _object = object
+            
+            return object as? T
+            
         }
     }
+    
+    
+    /// Typed object referenced by this instance.
+    /// - Parameter as: Type to cast to
+    /// - Returns: returns casted object if successful
+    func object<T: PBXObject>(as: T.Type) -> T? {
+        lock.withLock { _object } as? T
+    }
+    
     private weak var _object: PBXObject?
 
     /// Initializes a non-temporary reference.
@@ -147,33 +166,6 @@ class PBXObjectReference: NSObject, Comparable, NSCopying, @unchecked Sendable {
         }
     }
 
-    /// Returns the object the reference is referfing to.
-    ///
-    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
-    func getObject<T: PBXObject>() -> T? {
-        try? getThrowingObject()
-    }
-
-    /// Returns the object the reference is referfing to.
-    ///
-    /// - Returns: object the reference is referring to.
-    /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func getThrowingObject<T: PBXObject>() throws -> T {
-        if let object = object as? T {
-            return object
-        }
-        return try lock.withLock {
-            guard let objects = objects else {
-                throw PBXObjectError.objectsReleased
-            }
-            guard let object = objects.get(reference: self) as? T else {
-                throw PBXObjectError.objectNotFound(value)
-            }
-            _object = object
-            return object
-        }
-  
-    }
 }
 
 extension Array where Element: PBXObject {
@@ -184,6 +176,6 @@ extension Array where Element: PBXObject {
 
 extension Array where Element: PBXObjectReference {
     func objects<T: PBXObject>() -> [T] {
-        compactMap { $0.getObject() }
+        compactMap { $0.object() }
     }
 }

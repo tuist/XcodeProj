@@ -16,7 +16,7 @@ public final class PBXProject: PBXObject {
             buildConfigurationListReference = newValue.reference
         }
         get {
-            buildConfigurationListReference.getObject()
+            buildConfigurationListReference.object()
         }
     }
 
@@ -41,7 +41,7 @@ public final class PBXProject: PBXObject {
             mainGroupReference = newValue.reference
         }
         get {
-            mainGroupReference.getObject()
+            mainGroupReference.object()
         }
     }
 
@@ -54,7 +54,7 @@ public final class PBXProject: PBXObject {
             productsGroupReference = newValue?.reference
         }
         get {
-            productsGroupReference?.getObject()
+            productsGroupReference?.object()
         }
     }
 
@@ -77,7 +77,7 @@ public final class PBXProject: PBXObject {
         }
         get {
             projectReferences.map { project in
-                project.mapValues { $0.getObject()! }
+                project.mapValues { $0.object()! }
             }
         }
     }
@@ -117,7 +117,7 @@ public final class PBXProject: PBXObject {
         } get {
             var attributes: [PBXTarget: [String: Any]] = [:]
             targetAttributeReferences.forEach {
-                if let object: PBXTarget = $0.key.getObject() {
+                if let object: PBXTarget = $0.key.object() {
                     attributes[object] = $0.value
                 }
             }
@@ -156,7 +156,7 @@ public final class PBXProject: PBXObject {
 
     private func setPackageReferences<T: PBXContainerItem>(_ packages: [T]) {
         let newReferences = packages.references()
-        var finalReferences: [PBXObjectReference] = packageReferences?.filter { !($0.getObject() is T) } ?? []
+        var finalReferences: [PBXObjectReference] = packageReferences?.filter { !($0.object() is T) } ?? []
         for reference in newReferences {
             if !finalReferences.contains(reference) {
                 finalReferences.append(reference)
@@ -224,7 +224,7 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
+        guard let frameworksBuildPhase = target.frameworksBuildPhase() else { throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName) }
         frameworksBuildPhase.files?.append(buildFile)
 
         return reference
@@ -257,7 +257,7 @@ public final class PBXProject: PBXObject {
         objects.add(object: buildFile)
 
         // Link the product
-        guard let frameworksBuildPhase = try target.frameworksBuildPhase() else {
+        guard let frameworksBuildPhase = target.frameworksBuildPhase() else {
             throw PBXProjError.frameworksBuildPhaseNotFound(targetName: targetName)
         }
 
@@ -492,10 +492,10 @@ extension PBXProject: PlistSerializable {
             dictionary["knownRegions"] = PlistValue.array(knownRegions
                 .map { .string(CommentedString("\($0)")) })
         }
-        let mainGroupObject: PBXGroup? = mainGroupReference.getObject()
+        let mainGroupObject: PBXGroup? = mainGroupReference.object()
         dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject?.fileName()))
         if let productsGroupReference = productsGroupReference {
-            let productRefGroupObject: PBXGroup? = productsGroupReference.getObject()
+            let productRefGroupObject: PBXGroup? = productsGroupReference.object()
             dictionary["productRefGroup"] = .string(CommentedString(productsGroupReference.value,
                                                                     comment: productRefGroupObject?.fileName()))
         }
@@ -510,7 +510,7 @@ extension PBXProject: PlistSerializable {
         }
         dictionary["targets"] = PlistValue.array(targetReferences
             .map { targetReference in
-                let target: PBXTarget? = targetReference.getObject()
+                let target: PBXTarget? = targetReference.object()
                 return .string(CommentedString(targetReference.value, comment: target?.name))
             })
 
@@ -553,9 +553,9 @@ extension PBXProject: PlistSerializable {
                 let projectRef = reference[Xcode.ProjectReference.projectReferenceKey] else {
                 return nil
             }
-            let producGroup: PBXGroup? = productGroupReference.getObject()
+            let producGroup: PBXGroup? = productGroupReference.object()
             let groupName = producGroup?.fileName()
-            let project: PBXFileElement? = projectRef.getObject()
+            let project: PBXFileElement? = projectRef.object()
             let fileRefName = project?.fileName()
 
             return [

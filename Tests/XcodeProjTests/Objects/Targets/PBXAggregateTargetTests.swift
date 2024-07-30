@@ -47,11 +47,11 @@ final class PBXAggregateTargetTests: XCTestCase {
         objects.add(object: target)
         objects.add(object: dependency)
         _ = try target.addDependency(target: dependency)
-        let targetDependency: PBXTargetDependency? = target.dependencyReferences.first?.getObject()
+        let targetDependency: PBXTargetDependency? = target.dependencyReferences.first?.object()
 
         XCTAssertEqual(targetDependency?.name, "Dependency")
         XCTAssertEqual(targetDependency?.targetReference, dependency.reference)
-        let containerItemProxy: PBXContainerItemProxy? = targetDependency?.targetProxyReference?.getObject()
+        let containerItemProxy: PBXContainerItemProxy? = targetDependency?.targetProxyReference?.object()
         XCTAssertEqual(containerItemProxy?.containerPortalReference, project.reference)
         XCTAssertEqual(containerItemProxy?.remoteGlobalID?.uuid, dependency.reference.value)
         XCTAssertEqual(containerItemProxy?.proxyType, .nativeTarget)

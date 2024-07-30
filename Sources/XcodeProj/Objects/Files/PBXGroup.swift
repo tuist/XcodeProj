@@ -72,7 +72,7 @@ public class PBXGroup: PBXFileElement {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
         dictionary["children"] = .array(childrenReferences.map { (fileReference) -> PlistValue in
-            let fileElement: PBXFileElement? = fileReference.getObject()
+            let fileElement: PBXFileElement? = fileReference.object()
             return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         })
 

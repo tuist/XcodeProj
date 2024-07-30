@@ -8,7 +8,7 @@ public class PBXTarget: PBXContainerItem {
     /// Build configuration list.
     public var buildConfigurationList: XCConfigurationList? {
         get {
-            buildConfigurationListReference?.getObject()
+            buildConfigurationListReference?.object()
         }
         set {
             buildConfigurationListReference = newValue?.reference
@@ -68,7 +68,7 @@ public class PBXTarget: PBXContainerItem {
     /// Target product.
     public var product: PBXFileReference? {
         get {
-            productReference?.getObject()
+            productReference?.object()
         }
         set {
             productReference = newValue?.reference
@@ -180,7 +180,7 @@ public class PBXTarget: PBXContainerItem {
         }
         dictionary["buildPhases"] = .array(buildPhaseReferences
             .map { (buildPhaseReference: PBXObjectReference) in
-                let buildPhase: PBXBuildPhase? = buildPhaseReference.getObject()
+                let buildPhase: PBXBuildPhase? = buildPhaseReference.object()
                 return .string(CommentedString(buildPhaseReference.value, comment: buildPhase?.name()))
             })
 
@@ -198,7 +198,7 @@ public class PBXTarget: PBXContainerItem {
             dictionary["productType"] = .string(CommentedString(productType.rawValue))
         }
         if let productReference = productReference {
-            let fileElement: PBXFileElement? = productReference.getObject()
+            let fileElement: PBXFileElement? = productReference.object()
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
         if !packageProductDependencies.isEmpty {
@@ -234,9 +234,9 @@ public extension PBXTarget {
     ///
     /// - Returns: frameworks build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    func frameworksBuildPhase() throws -> PBXFrameworksBuildPhase? {
-        try buildPhaseReferences
-            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+    func frameworksBuildPhase()  -> PBXFrameworksBuildPhase? {
+        buildPhaseReferences
+            .compactMap { $0.object(as: PBXBuildPhase.self) }
             .filter { $0.buildPhase == .frameworks }
             .compactMap { $0 as? PBXFrameworksBuildPhase }
             .first
@@ -246,9 +246,9 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    func sourcesBuildPhase() throws -> PBXSourcesBuildPhase? {
-        try buildPhaseReferences
-            .compactMap { try $0.getThrowingObject() as? PBXBuildPhase }
+    func sourcesBuildPhase() -> PBXSourcesBuildPhase? {
+        buildPhaseReferences
+            .compactMap { $0.object(as: PBXBuildPhase.self) }
             .filter { $0.buildPhase == .sources }
             .compactMap { $0 as? PBXSourcesBuildPhase }
             .first
@@ -258,22 +258,22 @@ public extension PBXTarget {
     ///
     /// - Returns: sources build phase.
     /// - Throws: an error if the build phase cannot be obtained.
-    func resourcesBuildPhase() throws -> PBXResourcesBuildPhase? {
-        try buildPhaseReferences
-            .compactMap { try $0.getThrowingObject() as? PBXResourcesBuildPhase }
+    func resourcesBuildPhase() -> PBXResourcesBuildPhase? {
+        buildPhaseReferences
+            .compactMap { $0.object(as: PBXResourcesBuildPhase.self) }
             .filter { $0.buildPhase == .resources }
             .first
     }
-
+    
     /// Returns the target source files.
     ///
     /// - Returns: source files.
     /// - Throws: an error if something goes wrong.
-    func sourceFiles() throws -> [PBXFileElement] {
-        try sourcesBuildPhase()?.fileReferences?
-            .compactMap { try $0.getThrowingObject() as? PBXBuildFile }
+    func sourceFiles() -> [PBXFileElement] {
+        sourcesBuildPhase()?.fileReferences?
+            .compactMap { $0.object(as: PBXBuildFile.self) }
             .filter { $0.fileReference != nil }
-            .compactMap { try $0.fileReference!.getThrowingObject() as? PBXFileElement }
+            .compactMap { $0.fileReference!.object(as: PBXFileElement.self) }
             ?? []
     }
 
