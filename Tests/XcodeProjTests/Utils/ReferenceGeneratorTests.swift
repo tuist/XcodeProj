@@ -48,7 +48,7 @@ class ReferenceGeneratorTests: XCTestCase {
             let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
             try referenceGenerator.generateReferences(proj: project)
 
-            return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile, pluginDependency.productReference!.getObject()!]
+            return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile, pluginDependency.productReference!.object()!]
                 .map(\.reference.value)
         }
 
@@ -143,7 +143,7 @@ private extension PBXProj {
         let packageReference = XCRemoteSwiftPackageReference(repositoryURL: "repository")
         let packageDependency = XCSwiftPackageProductDependency(productName: "product", package: packageReference, isPlugin: true)
         let targetDependency = PBXTargetDependency(product: packageDependency)
-        add(object: targetDependency.productReference!.getObject()!)
+        add(object: targetDependency.productReference!.object()!)
 
         return targetDependency
     }

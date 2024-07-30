@@ -116,7 +116,7 @@ extension XCConfigurationList: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(XCConfigurationList.isa))
         dictionary["buildConfigurations"] = .array(buildConfigurationReferences
             .map { configReference in
-                let config: XCBuildConfiguration? = configReference.getObject()
+                let config: XCBuildConfiguration? = configReference.object()
                 return .string(CommentedString(configReference.value, comment: config?.name))
             })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))

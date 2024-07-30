@@ -25,7 +25,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     ///
     /// - Parameter proj: project whose objects references will be generated.
     func generateReferences(proj: PBXProj) throws {
-        guard let project: PBXProject = try proj.rootObjectReference?.getThrowingObject() else {
+        guard let project: PBXProject = proj.rootObjectReference?.object() else {
             return
         }
 
@@ -53,8 +53,8 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Project references
         try project.projectReferences.forEach { objectReferenceDict in
-            guard let projectReference = objectReferenceDict[Xcode.ProjectReference.projectReferenceKey]?.getObject() as? PBXFileReference,
-                  let productsGroup = objectReferenceDict[Xcode.ProjectReference.productGroupKey]?.getObject() as? PBXGroup else { return }
+            guard let projectReference: PBXFileReference = objectReferenceDict[Xcode.ProjectReference.projectReferenceKey]?.object(),
+                  let productsGroup: PBXGroup = objectReferenceDict[Xcode.ProjectReference.productGroupKey]?.object() else { return }
             try generateFileReference(projectReference, identifiers: identifiers)
             try generateGroupReferences(productsGroup, identifiers: identifiers + [projectReference.name ?? projectReference.path ?? ""])
         }
@@ -64,7 +64,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
 
         /// Configuration list
-        if let configurationList: XCConfigurationList = project.buildConfigurationListReference.getObject() {
+        if let configurationList: XCConfigurationList = project.buildConfigurationListReference.object() {
             try generateConfigurationListReferences(configurationList, identifiers: identifiers)
         }
     }
@@ -136,7 +136,7 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Children
         try group.childrenReferences.forEach { child in
-            guard let childFileElement: PBXFileElement = child.getObject() else { return }
+            guard let childFileElement: PBXFileElement = child.object() else { return }
             if let childGroup = childFileElement as? PBXGroup {
                 try generateGroupReferences(childGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
@@ -297,12 +297,12 @@ final class ReferenceGenerator: ReferenceGenerating {
         buildPhase.fileReferences?.forEach { buildFileReference in
             if !buildFileReference.temporary { return }
 
-            guard let buildFile: PBXBuildFile = buildFileReference.getObject() else { return }
+            guard let buildFile: PBXBuildFile = buildFileReference.object() else { return }
 
             var identifiers = identifiers
 
             if let fileReference = buildFile.fileReference,
-               let fileReferenceObject: PBXObject = fileReference.getObject() {
+                let fileReferenceObject: PBXObject = fileReference.object() {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 

@@ -11,7 +11,7 @@ public class XCSwiftPackageProductDependency: PBXContainerItem, PlistSerializabl
     /// Package the product dependency refers to.
     public var package: XCRemoteSwiftPackageReference? {
         get {
-            packageReference?.getObject()
+            packageReference?.object()
         }
         set {
             packageReference = newValue?.reference

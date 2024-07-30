@@ -199,10 +199,10 @@ public extension PBXFileElement {
     /// - Returns: path to the variant group base file.
     /// - Throws: an error if the path cannot be obtained.
     private func baseVariantGroupPath() throws -> String? {
-        guard let variantGroup: PBXVariantGroup = reference.getObject() else { return nil }
-        guard let baseReference = try variantGroup
+        guard let variantGroup: PBXVariantGroup = reference.object() else { return nil }
+        guard let baseReference = variantGroup
             .childrenReferences
-            .compactMap({ try $0.getThrowingObject() as PBXFileElement })
+            .compactMap({ $0.object(as: PBXFileElement.self) })
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
     }

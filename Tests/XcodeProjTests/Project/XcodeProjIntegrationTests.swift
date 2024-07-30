@@ -38,7 +38,7 @@ final class XcodeProjIntegrationTests: XCTestCase {
 
         // When
         let pbxprojFromData = try PBXProj(data: pbxprojData)
-        try pbxprojFromData.updateProjectName(path: pbxprojPath)
+        pbxprojFromData.updateProjectName(path: pbxprojPath)
 
         // Then
         XCTAssertEqual(pbxprojFromData, pbxprojFromDisk)
