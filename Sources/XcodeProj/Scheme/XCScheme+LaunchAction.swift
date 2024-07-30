@@ -276,10 +276,10 @@ extension XCScheme {
                 attributes["enableGPUShaderValidationMode"] = gpuShaderValidationModeEnableValue
             }
             if showGraphicsOverview {
-                attributes["showGraphicsOverview"] = showGraphicsOverview.xmlString
+                attributes["showGraphicsOverview"] = "Yes"
             }
             if logGraphicsOverview {
-                attributes["logGraphicsOverview"] = showGraphicsOverview.xmlString
+                attributes["logGraphicsOverview"] = "Yes"
             }
             if enableAddressSanitizer {
                 attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
