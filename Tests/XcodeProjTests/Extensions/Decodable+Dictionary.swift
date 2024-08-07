@@ -6,8 +6,8 @@ extension Decodable {
     ///
     /// - Parameter jsonDictionary: json dictionary.
     /// - Throws: throws an error if the initialization fails.
-    init(jsonDictionary: [String: Any]) throws {
-        let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: [])
+    init(jsonDictionary: [String: PlistObject]) throws {
+        let data = try JSONEncoder().encode(jsonDictionary)
         let decoder = XcodeprojJSONDecoder(
             context: ProjectDecodingContext(pbxProjValueReader: { key in
                 jsonDictionary[key]

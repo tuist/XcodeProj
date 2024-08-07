@@ -1,9 +1,9 @@
 import Foundation
 
-extension Dictionary {
+extension Dictionary where Key == String, Value == PlistObject{
     func enumerateKeysAndObjects(
         options opts: NSEnumerationOptions = [],
-        using block: (Any, Any, UnsafeMutablePointer<ObjCBool>) throws -> Void
+        using block: (String, PlistObject, UnsafeMutablePointer<ObjCBool>) throws -> Void
     ) throws {
         var blockError: Error?
         // For performance it is very important to create a separate dictionary instance.
@@ -11,7 +11,7 @@ extension Dictionary {
         let dictionary = NSDictionary(dictionary: self)
         dictionary.enumerateKeysAndObjects(options: opts) { key, obj, stops in
             do {
-                try block(key, obj, stops)
+                try block(key as! String, obj as! PlistObject, stops)
             } catch {
                 blockError = error
                 stops.pointee = true
