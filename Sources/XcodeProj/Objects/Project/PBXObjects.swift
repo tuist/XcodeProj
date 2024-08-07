@@ -8,131 +8,131 @@ class PBXObjects: Equatable {
 
     private var _projects: [PBXObjectReference: PBXProject] = [:]
     var projects: [PBXObjectReference: PBXProject] {
-        lock.whileLocked { _projects }
+        lock.withLock { _projects }
     }
 
     private var _referenceProxies: [PBXObjectReference: PBXReferenceProxy] = [:]
     var referenceProxies: [PBXObjectReference: PBXReferenceProxy] {
-        lock.whileLocked { _referenceProxies }
+        lock.withLock { _referenceProxies }
     }
 
     // File elements
     private var _fileReferences: [PBXObjectReference: PBXFileReference] = [:]
     var fileReferences: [PBXObjectReference: PBXFileReference] {
-        lock.whileLocked { _fileReferences }
+        lock.withLock { _fileReferences }
     }
 
     private var _versionGroups: [PBXObjectReference: XCVersionGroup] = [:]
     var versionGroups: [PBXObjectReference: XCVersionGroup] {
-        lock.whileLocked { _versionGroups }
+        lock.withLock { _versionGroups }
     }
 
     private var _variantGroups: [PBXObjectReference: PBXVariantGroup] = [:]
     var variantGroups: [PBXObjectReference: PBXVariantGroup] {
-        lock.whileLocked { _variantGroups }
+        lock.withLock { _variantGroups }
     }
 
     private var _groups: [PBXObjectReference: PBXGroup] = [:]
     var groups: [PBXObjectReference: PBXGroup] {
-        lock.whileLocked { _groups }
+        lock.withLock { _groups }
     }
 
     // Configuration
     private var _buildConfigurations: [PBXObjectReference: XCBuildConfiguration] = [:]
     var buildConfigurations: [PBXObjectReference: XCBuildConfiguration] {
-        lock.whileLocked { _buildConfigurations }
+        lock.withLock { _buildConfigurations }
     }
 
     private var _configurationLists: [PBXObjectReference: XCConfigurationList] = [:]
     var configurationLists: [PBXObjectReference: XCConfigurationList] {
-        lock.whileLocked { _configurationLists }
+        lock.withLock { _configurationLists }
     }
 
     // Targets
     private var _legacyTargets: [PBXObjectReference: PBXLegacyTarget] = [:]
     var legacyTargets: [PBXObjectReference: PBXLegacyTarget] {
-        lock.whileLocked { _legacyTargets }
+        lock.withLock { _legacyTargets }
     }
 
     private var _aggregateTargets: [PBXObjectReference: PBXAggregateTarget] = [:]
     var aggregateTargets: [PBXObjectReference: PBXAggregateTarget] {
-        lock.whileLocked { _aggregateTargets }
+        lock.withLock { _aggregateTargets }
     }
 
     private var _nativeTargets: [PBXObjectReference: PBXNativeTarget] = [:]
     var nativeTargets: [PBXObjectReference: PBXNativeTarget] {
-        lock.whileLocked { _nativeTargets }
+        lock.withLock { _nativeTargets }
     }
 
     private var _targetDependencies: [PBXObjectReference: PBXTargetDependency] = [:]
     var targetDependencies: [PBXObjectReference: PBXTargetDependency] {
-        lock.whileLocked { _targetDependencies }
+        lock.withLock { _targetDependencies }
     }
 
     private var _containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] = [:]
     var containerItemProxies: [PBXObjectReference: PBXContainerItemProxy] {
-        lock.whileLocked { _containerItemProxies }
+        lock.withLock { _containerItemProxies }
     }
 
     private var _buildRules: [PBXObjectReference: PBXBuildRule] = [:]
     var buildRules: [PBXObjectReference: PBXBuildRule] {
-        lock.whileLocked { _buildRules }
+        lock.withLock { _buildRules }
     }
 
     // Build Phases
     private var _buildFiles: [PBXObjectReference: PBXBuildFile] = [:]
     var buildFiles: [PBXObjectReference: PBXBuildFile] {
-        lock.whileLocked { _buildFiles }
+        lock.withLock { _buildFiles }
     }
 
     private var _copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] = [:]
     var copyFilesBuildPhases: [PBXObjectReference: PBXCopyFilesBuildPhase] {
-        lock.whileLocked { _copyFilesBuildPhases }
+        lock.withLock { _copyFilesBuildPhases }
     }
 
     private var _shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] = [:]
     var shellScriptBuildPhases: [PBXObjectReference: PBXShellScriptBuildPhase] {
-        lock.whileLocked { _shellScriptBuildPhases }
+        lock.withLock { _shellScriptBuildPhases }
     }
 
     private var _resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] = [:]
     var resourcesBuildPhases: [PBXObjectReference: PBXResourcesBuildPhase] {
-        lock.whileLocked { _resourcesBuildPhases }
+        lock.withLock { _resourcesBuildPhases }
     }
 
     private var _frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] = [:]
     var frameworksBuildPhases: [PBXObjectReference: PBXFrameworksBuildPhase] {
-        lock.whileLocked { _frameworksBuildPhases }
+        lock.withLock { _frameworksBuildPhases }
     }
 
     private var _headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] = [:]
     var headersBuildPhases: [PBXObjectReference: PBXHeadersBuildPhase] {
-        lock.whileLocked { _headersBuildPhases }
+        lock.withLock { _headersBuildPhases }
     }
 
     private var _sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] = [:]
     var sourcesBuildPhases: [PBXObjectReference: PBXSourcesBuildPhase] {
-        lock.whileLocked { _sourcesBuildPhases }
+        lock.withLock { _sourcesBuildPhases }
     }
 
     private var _carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] = [:]
     var carbonResourcesBuildPhases: [PBXObjectReference: PBXRezBuildPhase] {
-        lock.whileLocked { _carbonResourcesBuildPhases }
+        lock.withLock { _carbonResourcesBuildPhases }
     }
 
     private var _remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] = [:]
     var remoteSwiftPackageReferences: [PBXObjectReference: XCRemoteSwiftPackageReference] {
-        lock.whileLocked { _remoteSwiftPackageReferences }
+        lock.withLock { _remoteSwiftPackageReferences }
     }
 
     private var _localSwiftPackageReferences: [PBXObjectReference: XCLocalSwiftPackageReference] = [:]
     var localSwiftPackageReferences: [PBXObjectReference: XCLocalSwiftPackageReference] {
-        lock.whileLocked { _localSwiftPackageReferences }
+        lock.withLock { _localSwiftPackageReferences }
     }
 
     private var _swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] = [:]
     var swiftPackageProductDependencies: [PBXObjectReference: XCSwiftPackageProductDependency] {
-        lock.whileLocked { _swiftPackageProductDependencies }
+        lock.withLock { _swiftPackageProductDependencies }
     }
 
     // XCSwiftPackageProductDependency

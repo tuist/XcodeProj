@@ -25,7 +25,7 @@ public final class PBXProj: Decodable {
             rootObjectReference = newValue?.reference
         }
         get {
-            rootObjectReference?.getObject()
+            rootObjectReference?.object()
         }
     }
 
@@ -47,7 +47,7 @@ public final class PBXProj: Decodable {
         self.classes = classes
         rootObjectReference = rootObject?.reference
         self.objects = PBXObjects(objects: objects)
-        if let rootGroup = try? rootGroup() {
+        if let rootGroup = rootGroup() {
             rootGroup.assignParentToChildren()
         }
     }
@@ -154,7 +154,7 @@ public final class PBXProj: Decodable {
         }
         self.objects = objects
 
-        try rootGroup()?.assignParentToChildren()
+        rootGroup()?.assignParentToChildren()
     }
 
     // MARK: Static Methods
@@ -169,7 +169,7 @@ public final class PBXProj: Decodable {
 
         let plistDecoder = XcodeprojPropertyListDecoder(context: context)
         let pbxproj: PBXProj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
-        try pbxproj.updateProjectName(path: path)
+        pbxproj.updateProjectName(path: path)
         return pbxproj
     }
 
@@ -228,14 +228,14 @@ public extension PBXProj {
     var buildPhases: [PBXBuildPhase] { Array(objects.buildPhases.values) }
 
     /// Returns root project.
-    func rootProject() throws -> PBXProject? {
-        try rootObjectReference?.getThrowingObject()
+    func rootProject() -> PBXProject? {
+        rootObjectReference?.object()
     }
 
     /// Returns root project's root group.
-    func rootGroup() throws -> PBXGroup? {
-        let project = try rootProject()
-        return try project?.mainGroupReference.getThrowingObject()
+    func rootGroup() -> PBXGroup? {
+        let project = rootProject()
+        return project?.mainGroupReference.object()
     }
 
     /// Adds a new object to the project.
@@ -298,12 +298,12 @@ extension PBXProj {
     ///
     /// - Parameters:
     ///   - path: path to .xcodeproj directory.
-    func updateProjectName(path: Path) throws {
+    func updateProjectName(path: Path) {
         guard path.parent().extension == "xcodeproj" else {
             return
         }
         let projectName = path.parent().lastComponent.split(separator: ".").first
-        try rootProject()?.name = projectName.map(String.init) ?? ""
+        rootProject()?.name = projectName.map(String.init) ?? ""
     }
 }
 

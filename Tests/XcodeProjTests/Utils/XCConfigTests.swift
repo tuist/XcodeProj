@@ -14,7 +14,7 @@ final class XCConfigTests: XCTestCase {
             (Path("testB"), configB),
         ],
                               buildSettings: ["a": "b"])
-        XCTAssertEqual(config.buildSettings as! [String: String], ["a": "b"])
+        XCTAssertEqual(config.buildSettings, ["a": "b"])
         XCTAssertEqual(config.includes[0].config, configA)
         XCTAssertEqual(config.includes[1].config, configB)
     }
@@ -28,8 +28,8 @@ final class XCConfigTests: XCTestCase {
         ],
                               buildSettings: ["b": "3"])
         let buildSettings = config.flattenedBuildSettings()
-        XCTAssertEqual(buildSettings["a"] as? String, "2")
-        XCTAssertEqual(buildSettings["b"] as? String, "3")
+        XCTAssertEqual(buildSettings["a"], "2")
+        XCTAssertEqual(buildSettings["b"], "3")
     }
 
     func test_xcconfig_settingRegex() {
@@ -101,16 +101,16 @@ final class XCConfigIntegrationTests: XCTestCase {
     }
 
     private func assert(config: XCConfig) {
-        XCTAssertEqual(config.buildSettings["CONFIGURATION_BUILD_DIR"] as? String, "Test/")
-        XCTAssertEqual(config.flattenedBuildSettings()["CONFIGURATION_BUILD_DIR"] as? String, "Test/")
-        XCTAssertEqual(config.buildSettings["GCC_PREPROCESSOR_DEFINITIONS"] as? String, "$(inherited)")
-        XCTAssertEqual(config.flattenedBuildSettings()["GCC_PREPROCESSOR_DEFINITIONS"] as? String, "$(inherited)")
-        XCTAssertEqual(config.buildSettings["WARNING_CFLAGS"] as? String, "-Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded")
-        XCTAssertEqual(config.flattenedBuildSettings()["WARNING_CFLAGS"] as? String, "-Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded")
+        XCTAssertEqual(config.buildSettings["CONFIGURATION_BUILD_DIR"], "Test/")
+        XCTAssertEqual(config.flattenedBuildSettings()["CONFIGURATION_BUILD_DIR"], "Test/")
+        XCTAssertEqual(config.buildSettings["GCC_PREPROCESSOR_DEFINITIONS"], "$(inherited)")
+        XCTAssertEqual(config.flattenedBuildSettings()["GCC_PREPROCESSOR_DEFINITIONS"], "$(inherited)")
+        XCTAssertEqual(config.buildSettings["WARNING_CFLAGS"], "-Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded")
+        XCTAssertEqual(config.flattenedBuildSettings()["WARNING_CFLAGS"], "-Wall -Wno-direct-ivar-access -Wno-objc-missing-property-synthesis -Wno-readonly-iboutlet-property -Wno-switch-enum -Wno-padded")
         XCTAssertEqual(config.includes.count, 1)
-        XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0821"] as? String, "$(inherited)")
-        XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0830"] as? String, "$(inherited) -enable-bridging-pch")
-        XCTAssertEqual(config.flattenedBuildSettings()["PRODUCT_NAME"] as? String, "$(TARGET_NAME)")
-        XCTAssertEqual(config.flattenedBuildSettings()["SWIFT_OPTIMIZATION_LEVEL"] as? String, "-Onone")
+        XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0821"], "$(inherited)")
+        XCTAssertEqual(config.flattenedBuildSettings()["OTHER_SWIFT_FLAGS_XCODE_0830"], "$(inherited) -enable-bridging-pch")
+        XCTAssertEqual(config.flattenedBuildSettings()["PRODUCT_NAME"], "$(TARGET_NAME)")
+        XCTAssertEqual(config.flattenedBuildSettings()["SWIFT_OPTIMIZATION_LEVEL"], "-Onone")
     }
 }

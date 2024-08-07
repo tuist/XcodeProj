@@ -350,7 +350,7 @@ final class PBXProjEncoder {
             var array = [String]()
             var tmpStateHolder = stateHolder.copy()
             write(dictionaryKey: element.key, dictionaryValue: element.value, multiline: element.multiline, stateHolder: &tmpStateHolder, to: &array)
-            lock.whileLocked {
+            lock.withLock {
                 resultArray[index] = array
             }
         }

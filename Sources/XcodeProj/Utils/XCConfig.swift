@@ -35,10 +35,10 @@ public final class XCConfig {
         let fileLines = try path.read().components(separatedBy: "\n")
         includes = fileLines
             .compactMap(XCConfigParser.configFrom(path: path, projectPath: projectPath))
-        var buildSettings: [String: String] = [:]
+        var buildSettings: BuildSettings = [:]
         fileLines
             .compactMap(XCConfigParser.settingFrom)
-            .forEach { buildSettings[$0.key] = $0.value }
+            .forEach { buildSettings[$0.key] = .string($0.value) }
         self.buildSettings = buildSettings
     }
 }
@@ -114,7 +114,7 @@ extension XCConfig: Equatable {
                 return false
             }
         }
-        return NSDictionary(dictionary: lhs.buildSettings).isEqual(to: rhs.buildSettings)
+        return lhs.buildSettings == rhs.buildSettings
     }
 }
 
@@ -124,8 +124,8 @@ extension XCConfig {
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
-    public func flattenedBuildSettings() -> [String: Any] {
-        var content: [String: Any] = buildSettings
+    public func flattenedBuildSettings() -> [String: BuildSetting] {
+        var content: [String: BuildSetting] = buildSettings
         includes
             .map { $0.1 }
             .flattened()
@@ -174,7 +174,7 @@ extension XCConfig: Writable {
     private func writeBuildSettings() -> String {
         var content = ""
         buildSettings.forEach { key, value in
-            content.append("\(key) = \(value)\n")
+            content.append("\(key) = \(value.valueForWriting)\n")
         }
         content.append("\n")
         return content

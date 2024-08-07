@@ -1,72 +1,121 @@
 import Foundation
 
 /// Object used as a reference to PBXObjects from PBXObjects.
-class PBXObjectReference: NSObject, Comparable, NSCopying {
+class PBXObjectReference: NSObject, Comparable, NSCopying, @unchecked Sendable {
+    private let lock = NSRecursiveLock()
+    
     /// Boolean that indicates whether the id is temporary and needs
     /// to be regenerated when saving it to disk.
-    private(set) var temporary: Bool
+    var temporary: Bool {
+        lock.withLock { _temporary }
+    }
+    private var _temporary: Bool
 
     /// String reference.
-    private(set) var value: String
+    var value: String {
+        lock.withLock { _value }
+    }
+    private var _value: String
+    
 
     /// Weak reference to the objects instance that contains the project objects.
-    weak var objects: PBXObjects?
+    var objects: PBXObjects? {
+        get {
+            lock.withLock { _objects }
+        }
+        set {
+            lock.withLock {
+                _objects = newValue
+            }
+        }
+    }
+    private weak var _objects: PBXObjects?
 
-    /// A weak reference to the object
-    private weak var object: PBXObject?
+    
+    /// The object referenced by this instance.
+    ///
+    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
+    func object<T: PBXObject>() -> T? {
+        lock.withLock {
+            if let object = _object as? T {
+                return object
+            }
+            
+            guard let object = objects?.get(reference: self) else { return nil }
+            _object = object
+            
+            return object as? T
+            
+        }
+    }
+    
+    
+    /// Typed object referenced by this instance.
+    /// - Parameter as: Type to cast to
+    /// - Returns: returns casted object if successful
+    func object<T: PBXObject>(as: T.Type) -> T? {
+        lock.withLock { _object } as? T
+    }
+    
+    private weak var _object: PBXObject?
 
     /// Initializes a non-temporary reference.
     ///
     /// - Parameter reference: reference.
     init(_ reference: String, objects: PBXObjects) {
-        value = reference
-        temporary = false
-        self.objects = objects
+        _value = reference
+        _temporary = false
+        _objects = objects
     }
 
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
-        value = "TEMP_\(UUID().uuidString)"
-        temporary = true
-        self.objects = objects
+        _value = "TEMP_\(UUID().uuidString)"
+        _temporary = true
+        _objects = objects
     }
 
     /// Initializes the reference without objects.
     ///
     /// - Parameter reference: reference.
     init(_ reference: String) {
-        value = reference
-        temporary = false
+        _value = reference
+        _temporary = false
     }
 
     /// Initializes the object reference with another object reference, copying its values.
     ///
     /// - Parameter objectReference: object reference to be initialized from.
     required init(_ objectReference: PBXObjectReference) {
-        value = objectReference.value
-        temporary = objectReference.temporary
+        _value = objectReference.value
+        _temporary = objectReference.temporary
     }
 
     /// Fixes its value making it permanent.
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
-        let object = objects?.delete(reference: self)
-        self.value = value
-        temporary = false
-        if let object = object {
-            objects?.add(object: object)
+        lock.withLock {
+            let object = objects?.delete(reference: self)
+            _value = value
+            _temporary = false
+            if let object = object {
+                objects?.add(object: object)
+            }
         }
     }
 
     /// Invalidates the reference making it temporary.
     func invalidate() {
-        let object = objects?.delete(reference: self)
-        value = "TEMP_\(UUID().uuidString)"
-        temporary = true
-        if let object = object {
-            objects?.add(object: object)
+        lock.withLock {
+            let object = _objects?.delete(reference: self)
+            _value = "TEMP_\(UUID().uuidString)"
+            _temporary = true
+            if let object = object {
+                _objects?.add(object: object)
+            }
         }
+        
     }
 
     /// Hash value.
@@ -112,33 +161,11 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Parameter object: The object
     func setObject(_ object: PBXObject) {
-        self.object = object
+        lock.withLock {
+            _object = object
+        }
     }
 
-    /// Returns the object the reference is referfing to.
-    ///
-    /// - Returns: object the reference is referring to. Returns nil if the objects property has been released or the reference doesn't exist
-    func getObject<T: PBXObject>() -> T? {
-        try? getThrowingObject()
-    }
-
-    /// Returns the object the reference is referfing to.
-    ///
-    /// - Returns: object the reference is referring to.
-    /// - Throws: an errof it the objects property has been released or the reference doesn't exist.
-    func getThrowingObject<T: PBXObject>() throws -> T {
-        if let object = object as? T {
-            return object
-        }
-        guard let objects = objects else {
-            throw PBXObjectError.objectsReleased
-        }
-        guard let object = objects.get(reference: self) as? T else {
-            throw PBXObjectError.objectNotFound(value)
-        }
-        self.object = object
-        return object
-    }
 }
 
 extension Array where Element: PBXObject {
@@ -149,6 +176,6 @@ extension Array where Element: PBXObject {
 
 extension Array where Element: PBXObjectReference {
     func objects<T: PBXObject>() -> [T] {
-        compactMap { $0.getObject() }
+        compactMap { $0.object() }
     }
 }

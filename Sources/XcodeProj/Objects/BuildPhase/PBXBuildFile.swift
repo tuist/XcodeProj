@@ -10,7 +10,7 @@ public final class PBXBuildFile: PBXObject {
     /// Returns the file the build file refers to.
     public var file: PBXFileElement? {
         get {
-            fileReference?.getObject()
+            fileReference?.object()
         }
         set {
             fileReference = newValue?.reference
@@ -23,7 +23,7 @@ public final class PBXBuildFile: PBXObject {
     /// Product.
     public var product: XCSwiftPackageProductDependency? {
         get {
-            productReference?.getObject()
+            productReference?.object()
         }
         set {
             productReference = newValue?.reference
@@ -104,8 +104,8 @@ extension PBXBuildFile {
     /// - Returns: file name.
     /// - Throws: an error if the name cannot be obtained.
     func fileName() throws -> String? {
-        if let fileElement: PBXFileElement = fileReference?.getObject(), let name = fileElement.fileName() { return name }
-        if let product: XCSwiftPackageProductDependency = productReference?.getObject() { return product.productName }
+        if let fileElement: PBXFileElement = fileReference?.object(), let name = fileElement.fileName() { return name }
+        if let product: XCSwiftPackageProductDependency = productReference?.object() { return product.productName }
         return nil
     }
 
@@ -171,7 +171,7 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = buildFile.fileReference {
-            let fileElement: PBXFileElement? = fileReference.getObject()
+            let fileElement: PBXFileElement? = fileReference.object()
             dictionary["fileRef"] = .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         }
         if let product = buildFile.product {
