@@ -135,16 +135,18 @@ public final class PBXProj: Decodable {
         objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
-        let objectsDictionary: [String: Any] = try container.decodeIfPresent([String: Any].self, forKey: .objects) ?? [:]
-        let objectsDictionaries: [String: [String: Any]] = (objectsDictionary as? [String: [String: Any]]) ?? [:]
+        let objectsDictionary: [String: PlistObject] = try container.decodeIfPresent([String: PlistObject].self, forKey: .objects) ?? [:]
+//        let objectsDictionaries: [String: [String: PlistObject]] = (objectsDictionary as? [String: [String: PlistObject]]) ?? [:]
 
         let parser = PBXObjectParser(
             userInfo: decoder.userInfo
         )
-        try objectsDictionaries.enumerateKeysAndObjects(options: .concurrent) { key, obj, _ in
+
+        try objectsDictionary.enumerateKeysAndObjects(options: .concurrent) { key, obj, _ in
+            guard case let .dictionary(dictionary) = obj else { return }
             // swiftlint:disable force_cast
-            let reference = key as! String
-            let dictionary = obj as! [String: Any]
+            let reference = key
+//            let dictionary = obj as! [String: PlistObject]
             // swiftlint:enable force_cast
             let object = try parser.parse(
                 reference: reference,
