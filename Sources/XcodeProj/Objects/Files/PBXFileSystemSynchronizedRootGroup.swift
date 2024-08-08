@@ -8,16 +8,16 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     public var explicitFileTypes: [String: String]
 
     /// Returns the references of the exceptions.
-    var exceptionsReferences: [PBXObjectReference]
+    var exceptionsReferences: [PBXObjectReference]?
 
     /// It returns a list of exception objects that override the configuration for some children
     /// in the synchronized root group.
-    public var exceptions: [PBXFileSystemSynchronizedBuildFileExceptionSet] {
+    public var exceptions: [PBXFileSystemSynchronizedBuildFileExceptionSet]? {
         set {
-            exceptionsReferences = newValue.references()
+            exceptionsReferences = newValue?.references()
         }
         get {
-            exceptionsReferences.objects()
+            exceptionsReferences?.objects()
         }
     }
 
@@ -88,13 +88,15 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["exceptions"] = .array(exceptionsReferences.map { exceptionReference in
-            .string(CommentedString(exceptionReference.value, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"))
-        })
-        dictionary["explicitFileTypes"] = .dictionary(Dictionary(uniqueKeysWithValues: explicitFileTypes.map { relativePath, fileType in
-            (CommentedString(relativePath), .string(CommentedString(fileType)))
-        }))
-        dictionary["explicitFolders"] = .array(explicitFolders.map { .string(CommentedString($0)) })
+        if let exceptionsReferences = self.exceptionsReferences {
+            dictionary["exceptions"] = .array(exceptionsReferences.map({ exceptionReference in
+                return .string(CommentedString(exceptionReference.value, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"))
+            }))
+        }
+        dictionary["explicitFileTypes"] = .dictionary(Dictionary(uniqueKeysWithValues: self.explicitFileTypes.map({ (relativePath, fileType) in
+            return (CommentedString(relativePath), .string(CommentedString(fileType)))
+        })))
+        dictionary["explicitFolders"] = .array(explicitFolders.map({ .string(CommentedString($0)) }))
         return (key: CommentedString(reference,
                                      comment: name ?? path),
                 value: .dictionary(dictionary))
