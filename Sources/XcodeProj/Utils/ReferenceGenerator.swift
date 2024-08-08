@@ -31,7 +31,8 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // cache current reference values
         var references: Set<String> = []
-        for object in proj.objects {
+        // swiftformat:disable:next preferForLoop
+        proj.objects.forEach { object in
             if !object.reference.temporary {
                 references.insert(object.reference.value)
             }
