@@ -36,7 +36,7 @@ extension XCWorkspaceData: Writable {
 
         self.init(children: children)
     }
-    
+
     func rawContents() -> String {
         let document = AEXMLDocument()
         let workspace = document.addChild(name: "Workspace", value: nil, attributes: ["version": "1.0"])
@@ -47,7 +47,7 @@ extension XCWorkspaceData: Writable {
     }
 
     // MARK: - <Writable>
-    
+
     public func write(path: Path, override: Bool = true) throws {
         let rawXml = rawContents()
         if override, path.exists {
@@ -55,7 +55,7 @@ extension XCWorkspaceData: Writable {
         }
         try path.write(rawXml)
     }
-    
+
     public func dataRepresentation() throws -> Data? {
         rawContents().data(using: .utf8)
     }
@@ -134,7 +134,7 @@ private extension XCWorkspaceDataFileRef {
         guard let location = element.attributes["location"] else {
             throw Error.missingLocationAttribute
         }
-        self.init(location: try XCWorkspaceDataElementLocationType(string: location))
+        try self.init(location: XCWorkspaceDataElementLocationType(string: location))
     }
 
     func xmlElement() -> AEXMLElement {

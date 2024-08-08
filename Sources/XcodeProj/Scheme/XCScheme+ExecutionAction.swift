@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class ExecutionAction: Equatable {
+public extension XCScheme {
+    final class ExecutionAction: Equatable {
         private static let ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction"
 
         // MARK: - Attributes
@@ -45,14 +45,14 @@ extension XCScheme {
                 "title": title,
                 "scriptText": scriptText,
             ]
-            if let shellToInvoke = shellToInvoke {
+            if let shellToInvoke {
                 attributes["shellToInvoke"] = shellToInvoke
             }
             let content = AEXMLElement(name: "ActionContent",
                                        value: nil,
                                        attributes: attributes)
             element.addChild(content)
-            if let environmentBuildable = environmentBuildable {
+            if let environmentBuildable {
                 let environment = content.addChild(name: "EnvironmentBuildable")
                 environment.addChild(environmentBuildable.xmlElement())
             }

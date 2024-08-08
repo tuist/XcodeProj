@@ -1,17 +1,17 @@
-import Foundation
-import XCTest
 import AEXML
+import Foundation
 import PathKit
+import XCTest
 @testable import XcodeProj
 
 final class XCSchemeManagementTests: XCTestCase {
     func test_init_from_path() throws {
         // Given
         let path = xcschememanagementPath
-        
+
         // When
-        let got = try XCSchemeManagement.init(path: path)
-        
+        let got = try XCSchemeManagement(path: path)
+
         // Then
         XCTAssertEqual(got.suppressBuildableAutocreation, [
             "E525238B16245A900012E2BA": .init(primary: true),
@@ -35,7 +35,7 @@ final class XCSchemeManagementTests: XCTestCase {
         let path = xcschememanagementPath
 
         // When
-        let reads = try (0..<10).map { _ in
+        let reads = try (0 ..< 10).map { _ in
             try XCSchemeManagement(path: path)
         }
 
@@ -65,12 +65,12 @@ final class XCSchemeManagementTests: XCTestCase {
                 ]
             )
             try subject.write(path: plistPath, override: true)
-            
+
             // Create a commit
             try checkedOutput("git", ["init"])
             try checkedOutput("git", ["add", "."])
             try checkedOutput("git", ["commit", "-m", "test"])
-            
+
             // Write again
             try subject.write(path: plistPath, override: true)
 

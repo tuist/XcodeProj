@@ -66,7 +66,7 @@ public final class PBXProj: Decodable {
             objects: pbxproj.objects
         )
     }
-    
+
     /// Initializes the project with the data representation of pbxproj file.
     ///
     /// - Parameters:
@@ -331,7 +331,7 @@ extension PBXProj: Writable {
         let encoder = PBXProjEncoder(outputSettings: PBXOutputSettings())
         return try encoder.encode(proj: self).data(using: .utf8)
     }
-    
+
     public func write(path: Path, override: Bool) throws {
         try write(path: path, override: override, outputSettings: PBXOutputSettings())
     }

@@ -131,10 +131,10 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(XCRemoteSwiftPackageReference.isa))
-        if let repositoryURL = repositoryURL {
+        if let repositoryURL {
             dictionary["repositoryURL"] = .string(.init(repositoryURL))
         }
-        if let versionRequirement = versionRequirement {
+        if let versionRequirement {
             dictionary["requirement"] = PlistValue.dictionary(versionRequirement.plistValues())
         }
         return (key: CommentedString(reference, comment: "XCRemoteSwiftPackageReference \"\(name ?? "")\""),

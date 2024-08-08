@@ -31,6 +31,7 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // cache current reference values
         var references: Set<String> = []
+        // swiftformat:disable:next preferForLoop
         proj.objects.forEach { object in
             if !object.reference.temporary {
                 references.insert(object.reference.value)
@@ -53,7 +54,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Project references
         try project.projectReferences.forEach { objectReferenceDict in
             guard let projectReference = objectReferenceDict[Xcode.ProjectReference.projectReferenceKey]?.getObject() as? PBXFileReference,
-                let productsGroup = objectReferenceDict[Xcode.ProjectReference.productGroupKey]?.getObject() as? PBXGroup else { return }
+                  let productsGroup = objectReferenceDict[Xcode.ProjectReference.productGroupKey]?.getObject() as? PBXGroup else { return }
             try generateFileReference(projectReference, identifiers: identifiers)
             try generateGroupReferences(productsGroup, identifiers: identifiers + [projectReference.name ?? projectReference.path ?? ""])
         }
@@ -79,31 +80,30 @@ final class ReferenceGenerator: ReferenceGenerating {
         fixReference(for: project, identifiers: identifiers)
 
         // Packages
-        project.remotePackages.forEach {
+        for remotePackage in project.remotePackages {
             var identifiers = identifiers
-            identifiers.append($0.repositoryURL ?? $0.name ?? "")
-            fixReference(for: $0, identifiers: identifiers)
+            identifiers.append(remotePackage.repositoryURL ?? remotePackage.name ?? "")
+            fixReference(for: remotePackage, identifiers: identifiers)
         }
 
         // Packages
-        project.localPackages.forEach {
+        for localPackage in project.localPackages {
             var identifiers = identifiers
-            identifiers.append($0.relativePath)
-            fixReference(for: $0, identifiers: identifiers)
+            identifiers.append(localPackage.relativePath)
+            fixReference(for: localPackage, identifiers: identifiers)
         }
 
         // Targets
         let targets: [PBXTarget] = project.targetReferences.objects()
-        targets.forEach { target in
-
+        for target in targets {
             var identifiers = identifiers
             identifiers.append(target.name)
 
             // Packages
-            target.packageProductDependencies.forEach {
+            for packageProductDependency in target.packageProductDependencies {
                 var identifiers = identifiers
-                identifiers.append($0.productName)
-                fixReference(for: $0, identifiers: identifiers)
+                identifiers.append(packageProductDependency.productName)
+                fixReference(for: packageProductDependency, identifiers: identifiers)
             }
 
             // Build Tool Plug-ins
@@ -223,9 +223,9 @@ final class ReferenceGenerator: ReferenceGenerating {
 
         // Target proxy
         if let targetProxyReference = targetDependency.targetProxyReference,
-            targetProxyReference.temporary,
-            let targetProxy = targetDependency.targetProxy,
-            let remoteGlobalIDString = targetProxy.remoteGlobalID?.uuid {
+           targetProxyReference.temporary,
+           let targetProxy = targetDependency.targetProxy,
+           let remoteGlobalIDString = targetProxy.remoteGlobalID?.uuid {
             var identifiers = identifiers
             identifiers.append(remoteGlobalIDString)
             fixReference(for: targetProxy, identifiers: identifiers)
@@ -302,7 +302,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             var identifiers = identifiers
 
             if let fileReference = buildFile.fileReference,
-                let fileReferenceObject: PBXObject = fileReference.getObject() {
+               let fileReferenceObject: PBXObject = fileReference.getObject() {
                 identifiers.append(fileReferenceObject.reference.value)
             }
 
@@ -333,8 +333,8 @@ extension ReferenceGenerator {
     /// - Parameters:
     ///   - object: The object to generate a reference for
     ///   - identifiers: list of identifiers used to generate the reference of the object.
-    func fixReference<T: PBXObject>(for object: T,
-                                    identifiers: [String]) {
+    func fixReference(for object: some PBXObject,
+                      identifiers: [String]) {
         if object.reference.temporary {
             var identifiers = identifiers
             if let context = object.context {

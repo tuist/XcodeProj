@@ -12,7 +12,7 @@ public final class PBXAggregateTarget: PBXTarget {
 
 extension PBXAggregateTarget: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXAggregateTarget.isa, reference: reference)
+        try plistValues(proj: proj, isa: PBXAggregateTarget.isa, reference: reference)
     }
 }
 

@@ -13,7 +13,7 @@ final class XCConfigTests: XCTestCase {
             (Path("testA"), configA),
             (Path("testB"), configB),
         ],
-                              buildSettings: ["a": "b"])
+        buildSettings: ["a": "b"])
         XCTAssertEqual(config.buildSettings as! [String: String], ["a": "b"])
         XCTAssertEqual(config.includes[0].config, configA)
         XCTAssertEqual(config.includes[1].config, configB)
@@ -26,7 +26,7 @@ final class XCConfigTests: XCTestCase {
             (Path("testA"), configA),
             (Path("testB"), configB),
         ],
-                              buildSettings: ["b": "3"])
+        buildSettings: ["b": "3"])
         let buildSettings = config.flattenedBuildSettings()
         XCTAssertEqual(buildSettings["a"] as? String, "2")
         XCTAssertEqual(buildSettings["b"] as? String, "3")
@@ -81,7 +81,7 @@ final class XCConfigIntegrationTests: XCTestCase {
     func test_init_initializesXCConfigWithTheRightProperties() {
         let subject = try? XCConfig(path: childrenPath())
         XCTAssertNotNil(subject)
-        if let subject = subject {
+        if let subject {
             assert(config: subject)
         }
     }

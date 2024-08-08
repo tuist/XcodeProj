@@ -1,6 +1,6 @@
+import AEXML
 import Foundation
 import PathKit
-import AEXML
 
 public final class XCUserData: Equatable, Writable {
     // MARK: - Attributes
@@ -82,7 +82,7 @@ public final class XCUserData: Equatable, Writable {
     }
 
     func writeSchemeManagement(path: Path, override: Bool) throws {
-        guard let schemeManagement = schemeManagement else { return }
+        guard let schemeManagement else { return }
 
         let schemesPath = XCScheme.schemesPath(path)
         try schemesPath.mkpath()
@@ -90,7 +90,7 @@ public final class XCUserData: Equatable, Writable {
     }
 
     func writeBreakpoints(path: Path, override: Bool) throws {
-        guard let breakpoints = breakpoints else { return }
+        guard let breakpoints else { return }
 
         let debuggerPath = XCDebugger.path(path)
         try debuggerPath.mkpath()
@@ -98,12 +98,12 @@ public final class XCUserData: Equatable, Writable {
     }
 }
 
-extension XCUserData {
+public extension XCUserData {
     /// Returns user data path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: user data path relative to the given path.
-    public static func path(_ path: Path) -> Path {
+    static func path(_ path: Path) -> Path {
         path + "xcuserdata"
     }
 
@@ -111,7 +111,7 @@ extension XCUserData {
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: user data path relative to the given path.
-    public static func path(_ path: Path, userName: String) -> Path {
+    static func path(_ path: Path, userName: String) -> Path {
         XCUserData.path(path) + "\(userName).xcuserdatad"
     }
 }

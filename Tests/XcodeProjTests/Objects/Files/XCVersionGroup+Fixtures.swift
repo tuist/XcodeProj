@@ -8,14 +8,15 @@ extension XCVersionGroup {
                         name: String? = "name",
                         sourceTree: PBXSourceTree = .group,
                         versionGroupType: String = "versionGroupType",
-                        children: [PBXFileReference] = [PBXFileReference(name: "currentVersion")]) -> XCVersionGroup {
+                        children: [PBXFileReference] = [PBXFileReference(name: "currentVersion")]) -> XCVersionGroup
+    {
         let group = XCVersionGroup(currentVersion: currentVersion,
                                    path: path,
                                    name: name,
                                    sourceTree: sourceTree,
                                    versionGroupType: versionGroupType,
                                    children: children)
-        if let currentVersion = currentVersion {
+        if let currentVersion {
             objects.add(object: currentVersion)
         }
         children.forEach { objects.add(object: $0) }

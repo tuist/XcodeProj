@@ -30,7 +30,7 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(got.value, .dictionary([
             "isa": "XCLocalSwiftPackageReference",
-            "relativePath": "repository"
+            "relativePath": "repository",
         ]))
     }
 

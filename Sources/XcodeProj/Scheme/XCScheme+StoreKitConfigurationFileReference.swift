@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class StoreKitConfigurationFileReference: Equatable {
+public extension XCScheme {
+    final class StoreKitConfigurationFileReference: Equatable {
         // MARK: - Attributes
 
         public var identifier: String

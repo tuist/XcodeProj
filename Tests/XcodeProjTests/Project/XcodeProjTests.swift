@@ -24,7 +24,7 @@ final class XcodeProjIntegrationTests: XCTestCase {
         try testReadWriteProducesNoDiff(from: iosProjectPath,
                                         initModel: XcodeProj.init(path:))
     }
-    
+
     func test_initialize_PBXProj_with_data() throws {
         // Given
         let pbxprojPath = iosProjectPath + "project.pbxproj"
@@ -38,7 +38,7 @@ final class XcodeProjIntegrationTests: XCTestCase {
         // Then
         XCTAssertEqual(pbxprojFromData, pbxprojFromDisk)
     }
-    
+
     func test_write_includes_workspace_settings() throws {
         // Define workspace settings that should be written
         let workspaceSettings = WorkspaceSettings(buildSystem: .new, derivedDataLocationStyle: .default, autoCreateSchemes: false)

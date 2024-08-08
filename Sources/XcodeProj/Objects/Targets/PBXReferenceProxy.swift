@@ -64,10 +64,10 @@ public final class PBXReferenceProxy: PBXFileElement {
             fatalError("super implementation changed and we didn’t realise!")
         }
         dictionary["isa"] = .string(CommentedString(PBXReferenceProxy.isa))
-        if let fileType = fileType {
+        if let fileType {
             dictionary["fileType"] = .string(CommentedString(fileType))
         }
-        if let remoteReference = remoteReference {
+        if let remoteReference {
             dictionary["remoteRef"] = .string(CommentedString(remoteReference.value, comment: "PBXContainerItemProxy"))
         }
         return (key: CommentedString(reference, comment: path),

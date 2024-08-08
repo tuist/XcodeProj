@@ -87,10 +87,10 @@ public final class XCVersionGroup: PBXGroup {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(XCVersionGroup.isa))
-        if let versionGroupType = versionGroupType {
+        if let versionGroupType {
             dictionary["versionGroupType"] = .string(CommentedString(versionGroupType))
         }
-        if let currentVersionReference = currentVersionReference {
+        if let currentVersionReference {
             let fileElement: PBXFileElement? = currentVersionReference.getObject()
             dictionary["currentVersion"] = .string(CommentedString(currentVersionReference.value, comment: fileElement?.fileName()))
         }

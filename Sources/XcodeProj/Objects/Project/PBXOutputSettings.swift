@@ -39,12 +39,12 @@ public enum PBXFileOrder {
     /// Sort files by their file name. This is a case sensistive sort with lower case names coming after uppercase names.
     case byFilename
 
-    internal func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool
+    func sort<Object>(lhs: (PBXObjectReference, Object), rhs: (PBXObjectReference, Object)) -> Bool
         where Object: PlistSerializable & Equatable {
         lhs.0 < rhs.0
     }
 
-    internal func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
+    func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
         switch self {
         case .byFilename:
             return sortBuildFilesByName(lhs.1, rhs.1)
@@ -53,7 +53,7 @@ public enum PBXFileOrder {
         }
     }
 
-    internal func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
+    func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
         switch self {
         case .byFilename:
             return sortBuildFilesByName(lhs.1.buildFile, rhs.1.buildFile)
@@ -62,7 +62,7 @@ public enum PBXFileOrder {
         }
     }
 
-    internal func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
+    func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
         switch self {
         case .byFilename:
             return sortFileElementsByName(lhs.1, rhs.1)
@@ -94,7 +94,7 @@ public enum PBXNavigatorFileOrder {
     /// Sorts the files by their file names with all groups appear at the top of the list.
     case byFilenameGroupsFirst
 
-    internal var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
+    var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
         switch self {
         case .byFilename:
             return { sortFileElementsByName($0, $1) }
@@ -122,7 +122,7 @@ public enum PBXBuildPhaseFileOrder {
     /// Sort the files by their file name. This is a case sensitive sort with uppercase names appearing before lowercase names.
     case byFilename
 
-    internal var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
+    var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
         switch self {
         case .byFilename:
             return { lhs, rhs in

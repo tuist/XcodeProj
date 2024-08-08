@@ -70,7 +70,7 @@ public final class XCBreakpointList: Equatable, Writable {
                         attributes["conveyanceType"] = conveyanceType
                         attributes["command"] = command
                         attributes["arguments"] = arguments
-                        if let waitUntilDone = waitUntilDone {
+                        if let waitUntilDone {
                             attributes["waitUntilDone"] = waitUntilDone ? "YES" : "NO"
                         }
                         attributes["script"] = script
@@ -123,7 +123,8 @@ public final class XCBreakpointList: Equatable, Writable {
 
                 init(element: AEXMLElement) throws {
                     guard let actionExtensionIDString = element.attributes["ActionExtensionID"],
-                        let actionExtensionID = ActionExtensionID(rawValue: actionExtensionIDString) else {
+                          let actionExtensionID = ActionExtensionID(rawValue: actionExtensionIDString)
+                    else {
                         throw XCBreakpointListError.missing(property: "ActionExtensionID")
                     }
                     self.actionExtensionID = actionExtensionID
@@ -334,7 +335,8 @@ public final class XCBreakpointList: Equatable, Writable {
 
         init(element: AEXMLElement) throws {
             guard let breakpointExtensionIDString = element.attributes["BreakpointExtensionID"],
-                let breakpointExtensionID = BreakpointExtensionID(rawValue: breakpointExtensionIDString) else {
+                  let breakpointExtensionID = BreakpointExtensionID(rawValue: breakpointExtensionIDString)
+            else {
                 throw XCBreakpointListError.missing(property: "BreakpointExtensionID")
             }
             self.breakpointExtensionID = breakpointExtensionID
@@ -375,7 +377,7 @@ public final class XCBreakpointList: Equatable, Writable {
         if !path.exists {
             throw XCBreakpointListError.notFound(path: path)
         }
-        let document = try AEXMLDocument(xml: try path.read())
+        let document = try AEXMLDocument(xml: path.read())
         let bucket = document["Bucket"]
         type = bucket.attributes["type"]
         version = bucket.attributes["version"]
@@ -395,7 +397,7 @@ public final class XCBreakpointList: Equatable, Writable {
     // MARK: - Helpers
 
     public func add(breakpointProxy: BreakpointProxy) -> XCBreakpointList {
-        var breakpoints = self.breakpoints
+        var breakpoints = breakpoints
         breakpoints.append(breakpointProxy)
         return XCBreakpointList(type: type, version: version, breakpoints: breakpoints)
     }
@@ -404,7 +406,7 @@ public final class XCBreakpointList: Equatable, Writable {
 
     public func write(path: Path, override: Bool) throws {
         let document = getAEXMLDocument()
-        
+
         if override, path.exists {
             try path.delete()
         }
@@ -437,12 +439,12 @@ public final class XCBreakpointList: Equatable, Writable {
     }
 }
 
-extension XCBreakpointList {
+public extension XCBreakpointList {
     /// Returns  breakpoints plist path relative to the given path.
     ///
     /// - Parameter path: debugger folder
     /// - Returns: breakpoints plist path relative to the given path.
-    public static func path(_ path: Path) -> Path {
+    static func path(_ path: Path) -> Path {
         path + "Breakpoints_v2.xcbkptlist"
     }
 }

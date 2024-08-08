@@ -54,7 +54,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         let object = objects?.delete(reference: self)
         self.value = value
         temporary = false
-        if let object = object {
+        if let object {
             objects?.add(object: object)
         }
     }
@@ -64,7 +64,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         let object = objects?.delete(reference: self)
         value = "TEMP_\(UUID().uuidString)"
         temporary = true
-        if let object = object {
+        if let object {
             objects?.add(object: object)
         }
     }
@@ -130,7 +130,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
         if let object = object as? T {
             return object
         }
-        guard let objects = objects else {
+        guard let objects else {
             throw PBXObjectError.objectsReleased
         }
         guard let object = objects.get(reference: self) as? T else {
@@ -143,7 +143,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
 extension Array where Element: PBXObject {
     func references() -> [PBXObjectReference] {
-        map { $0.reference }
+        map(\.reference)
     }
 }
 

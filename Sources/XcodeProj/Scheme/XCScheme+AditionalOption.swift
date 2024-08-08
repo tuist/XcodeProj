@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class AdditionalOption: Equatable {
+public extension XCScheme {
+    final class AdditionalOption: Equatable {
         // MARK: - Attributes
 
         public var key: String

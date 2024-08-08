@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class LocationScenarioReference: Equatable {
+public extension XCScheme {
+    final class LocationScenarioReference: Equatable {
         // MARK: - Attributes
 
         public var identifier: String

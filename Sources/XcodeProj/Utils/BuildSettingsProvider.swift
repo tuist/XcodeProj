@@ -48,31 +48,31 @@ public class BuildSettingsProvider {
     public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
         var buildSettings: [String: Any] = [:]
 
-        if let platform = platform {
+        if let platform {
             buildSettings.merge(targetSettings(platform: platform), uniquingKeysWith: { $1 })
         }
 
-        if let product = product {
+        if let product {
             buildSettings.merge(targetSettings(product: product), uniquingKeysWith: { $1 })
         }
 
-        if let platform = platform, let product = product {
+        if let platform, let product {
             buildSettings.merge(targetSettings(platform: platform, product: product), uniquingKeysWith: { $1 })
         }
 
-        if let platform = platform, let variant = variant {
+        if let platform, let variant {
             buildSettings.merge(targetSettings(variant: variant, platform: platform), uniquingKeysWith: { $1 })
         }
 
-        if let variant = variant, let swift = swift, swift == true {
+        if let variant, let swift, swift == true {
             buildSettings.merge(targetSwiftSettings(variant: variant), uniquingKeysWith: { $1 })
         }
 
-        if let product = product, let swift = swift, swift == true {
+        if let product, let swift, swift == true {
             buildSettings.merge(targetSwiftSettings(product: product), uniquingKeysWith: { $1 })
         }
 
-        if let platform = platform, let product = product, let swift = swift, swift == true {
+        if let platform, let product, let swift, swift == true {
             buildSettings.merge(targetSwiftSettings(platform: platform, product: product), uniquingKeysWith: { $1 })
         }
 

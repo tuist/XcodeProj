@@ -87,12 +87,12 @@ public final class XCSharedData: Equatable, Writable {
             try debuggerPath.delete()
         }
 
-        guard let breakpoints = breakpoints else { return }
+        guard let breakpoints else { return }
 
         try debuggerPath.mkpath()
         try breakpoints.write(path: XCBreakpointList.path(debuggerPath), override: override)
     }
-    
+
     func writeWorkspaceSettings(path: Path, override: Bool) throws {
         /**
          * We don't want to delete this path when `override` is `true` because
@@ -103,17 +103,17 @@ public final class XCSharedData: Equatable, Writable {
         if !path.exists {
             try path.mkpath()
         }
- 
+
         try workspaceSettings?.write(path: WorkspaceSettings.path(path), override: override)
     }
 }
 
-extension XCSharedData {
+public extension XCSharedData {
     /// Returns shared data path relative to the given path.
     ///
     /// - Parameter path: `.xcodeproj` file path
     /// - Returns: shared data path relative to the given path.
-    public static func path(_ path: Path) -> Path {
+    static func path(_ path: Path) -> Path {
         path + "xcshareddata"
     }
 }

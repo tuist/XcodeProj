@@ -4,22 +4,22 @@ import Foundation
     import SwiftGlibc
 
     public func arc4random_uniform(_ max: UInt32) -> Int32 {
-        (SwiftGlibc.rand() % Int32(max - 1))
+        SwiftGlibc.rand() % Int32(max - 1)
     }
 #endif
 
-extension String {
-    public var quoted: String {
+public extension String {
+    var quoted: String {
         "\"\(self)\""
     }
 
-    public var isQuoted: Bool {
+    var isQuoted: Bool {
         hasPrefix("\"") && hasSuffix("\"")
     }
 
-    public static func random(length: Int = 20) -> String {
+    static func random(length: Int = 20) -> String {
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var randomString: String = ""
+        var randomString = ""
 
         for _ in 0 ..< length {
             let randomValue = arc4random_uniform(UInt32(base.count))

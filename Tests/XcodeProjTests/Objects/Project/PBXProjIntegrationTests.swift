@@ -9,7 +9,7 @@ final class PBXProjIntegrationTests: XCTestCase {
         let decoder = XcodeprojPropertyListDecoder()
         let proj = try? decoder.decode(PBXProj.self, from: data)
         XCTAssertNotNil(proj)
-        if let proj = proj {
+        if let proj {
             assert(proj: proj)
         }
     }
@@ -30,7 +30,7 @@ final class PBXProjIntegrationTests: XCTestCase {
             try? tmpDir.delete()
         }
 
-        let fixturePath = self.fixturePath().parent()
+        let fixturePath = fixturePath().parent()
         let xcodeprojPath = tmpDir + "Project.xcodeproj"
         try fixturePath.copy(xcodeprojPath)
 
@@ -40,7 +40,7 @@ final class PBXProjIntegrationTests: XCTestCase {
             try checkedOutput("git", ["add", "."])
             try checkedOutput("git", [
                 "-c", "user.email=test@example.com", "-c", "user.name=Test User",
-                "commit", "-m", "test"
+                "commit", "-m", "test",
             ])
 
             // Read/write the project

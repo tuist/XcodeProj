@@ -6,7 +6,7 @@ import Foundation
 extension PBXAggregateTarget {
     /// :nodoc:
     func isEqual(to rhs: PBXAggregateTarget) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
@@ -113,7 +113,7 @@ extension PBXFileReference {
 extension PBXFrameworksBuildPhase {
     /// :nodoc:
     func isEqual(to rhs: PBXFrameworksBuildPhase) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
@@ -128,7 +128,7 @@ extension PBXGroup {
 extension PBXHeadersBuildPhase {
     /// :nodoc:
     func isEqual(to rhs: PBXHeadersBuildPhase) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
@@ -187,14 +187,14 @@ extension PBXReferenceProxy {
 extension PBXResourcesBuildPhase {
     /// :nodoc:
     func isEqual(to rhs: PBXResourcesBuildPhase) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
 extension PBXRezBuildPhase {
     /// :nodoc:
     func isEqual(to rhs: PBXRezBuildPhase) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
@@ -216,7 +216,7 @@ extension PBXShellScriptBuildPhase {
 extension PBXSourcesBuildPhase {
     /// :nodoc:
     func isEqual(to rhs: PBXSourcesBuildPhase) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 
@@ -251,7 +251,7 @@ extension PBXTargetDependency {
 extension PBXVariantGroup {
     /// :nodoc:
     func isEqual(to rhs: PBXVariantGroup) -> Bool {
-        return super.isEqual(to: rhs)
+        super.isEqual(to: rhs)
     }
 }
 

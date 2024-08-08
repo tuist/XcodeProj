@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public struct EnvironmentVariable: Equatable {
+public extension XCScheme {
+    struct EnvironmentVariable: Equatable {
         // MARK: - Attributes
 
         public let variable: String
@@ -44,7 +44,7 @@ extension XCScheme {
         static func xmlElement(from variables: [EnvironmentVariable]) -> AEXMLElement {
             let element = AEXMLElement(name: "EnvironmentVariables",
                                        value: nil)
-            variables.forEach { arg in
+            for arg in variables {
                 element.addChild(arg.xmlElement())
             }
 

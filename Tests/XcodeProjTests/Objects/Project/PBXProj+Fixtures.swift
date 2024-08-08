@@ -6,7 +6,8 @@ extension PBXProj {
                         objectVersion: UInt = Xcode.LastKnown.objectVersion,
                         archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
                         classes: [String: Any] = [:],
-                        objects: [PBXObject] = []) -> PBXProj {
+                        objects: [PBXObject] = []) -> PBXProj
+    {
         PBXProj(rootObject: rootObject,
                 objectVersion: objectVersion,
                 archiveVersion: archiveVersion,

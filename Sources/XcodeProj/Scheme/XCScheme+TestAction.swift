@@ -2,12 +2,12 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class TestAction: SerialAction {
+public extension XCScheme {
+    final class TestAction: SerialAction {
         public enum AttachmentLifetime: String {
             case keepAlways, keepNever
         }
-        
+
         public enum ScreenCaptureFormat: String {
             case screenshots, screenRecording
         }
@@ -159,7 +159,7 @@ extension XCScheme {
             attributes["buildConfiguration"] = buildConfiguration
             attributes["selectedDebuggerIdentifier"] = selectedDebuggerIdentifier
             attributes["selectedLauncherIdentifier"] = selectedLauncherIdentifier
-            if let language = language {
+            if let language {
                 attributes["language"] = language
             }
             attributes["region"] = region
@@ -167,7 +167,7 @@ extension XCScheme {
             if codeCoverageEnabled {
                 attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
             }
-            if let onlyGenerateCoverageForSpecifiedTargets = onlyGenerateCoverageForSpecifiedTargets {
+            if let onlyGenerateCoverageForSpecifiedTargets {
                 attributes["onlyGenerateCoverageForSpecifiedTargets"] = onlyGenerateCoverageForSpecifiedTargets.xmlString
             }
             if enableAddressSanitizer {
@@ -186,59 +186,59 @@ extension XCScheme {
                 attributes["disableMainThreadChecker"] = disableMainThreadChecker.xmlString
             }
             attributes["systemAttachmentLifetime"] = systemAttachmentLifetime?.rawValue
-            
+
             switch preferredScreenCaptureFormat {
             case .screenshots:
                 attributes["preferredScreenCaptureFormat"] = preferredScreenCaptureFormat?.rawValue
             case .none, .screenRecording:
                 break
             }
-            
+
             if case .keepAlways? = userAttachmentLifetime {
                 attributes["userAttachmentLifetime"] = userAttachmentLifetime?.rawValue
             }
-            if let customLLDBInitFile = customLLDBInitFile {
+            if let customLLDBInitFile {
                 attributes["customLLDBInitFile"] = customLLDBInitFile
             }
 
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             super.writeXML(parent: element)
 
-            if let testPlans = testPlans {
+            if let testPlans {
                 let testPlansElement = element.addChild(name: "TestPlans")
-                testPlans.forEach { testPlan in
+                for testPlan in testPlans {
                     testPlansElement.addChild(testPlan.xmlElement())
                 }
             }
 
-            if let macroExpansion = macroExpansion {
+            if let macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
             }
 
             let testablesElement = element.addChild(name: "Testables")
-            testables.forEach { testable in
+            for testable in testables {
                 testablesElement.addChild(testable.xmlElement())
             }
 
-            if let commandlineArguments = commandlineArguments {
+            if let commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
 
-            if let environmentVariables = environmentVariables {
+            if let environmentVariables {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
             if !additionalOptions.isEmpty {
                 let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
-                additionalOptions.forEach { additionalOption in
+                for additionalOption in additionalOptions {
                     additionalOptionsElement.addChild(additionalOption.xmlElement())
                 }
             }
 
             if !codeCoverageTargets.isEmpty {
                 let codeCoverageTargetsElement = element.addChild(AEXMLElement(name: "CodeCoverageTargets"))
-                codeCoverageTargets.forEach { target in
+                for target in codeCoverageTargets {
                     codeCoverageTargetsElement.addChild(target.xmlElement())
                 }
             }

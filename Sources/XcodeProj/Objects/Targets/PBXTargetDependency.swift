@@ -120,23 +120,23 @@ extension PBXTargetDependency: PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXTargetDependency.isa))
-        if let name = name {
+        if let name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let platformFilter = platformFilter {
+        if let platformFilter {
             dictionary["platformFilter"] = .string(CommentedString(platformFilter))
         }
-        if let platformFilters = platformFilters {
+        if let platformFilters {
             dictionary["platformFilters"] = .array(platformFilters.map { .string(.init($0)) })
         }
-        if let targetReference = targetReference {
+        if let targetReference {
             let targetObject: PBXTarget? = targetReference.getObject()
             dictionary["target"] = .string(CommentedString(targetReference.value, comment: targetObject?.name))
         }
-        if let targetProxyReference = targetProxyReference {
+        if let targetProxyReference {
             dictionary["targetProxy"] = .string(CommentedString(targetProxyReference.value, comment: "PBXContainerItemProxy"))
         }
-        if let productReference = productReference {
+        if let productReference {
             dictionary["productRef"] = .string(CommentedString(productReference.value, comment: product?.productName))
         }
         return (key: CommentedString(reference,

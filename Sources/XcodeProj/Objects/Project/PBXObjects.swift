@@ -142,8 +142,8 @@ class PBXObjects: Equatable {
     /// - Parameters:
     ///   - objects: project objects
     init(objects: [PBXObject] = []) {
-        objects.forEach {
-            self.add(object: $0)
+        for item in objects {
+            add(object: item)
         }
     }
 
@@ -194,7 +194,6 @@ class PBXObjects: Equatable {
         // subclasses of PBXGroup; must be tested before PBXGroup
         case let object as PBXVariantGroup: _variantGroups[objectReference] = object
         case let object as XCVersionGroup: _versionGroups[objectReference] = object
-
         // everything else
         case let object as PBXBuildFile: _buildFiles[objectReference] = object
         case let object as PBXAggregateTarget: _aggregateTargets[objectReference] = object
@@ -219,7 +218,6 @@ class PBXObjects: Equatable {
         case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
         case let object as XCLocalSwiftPackageReference: _localSwiftPackageReferences[objectReference] = object
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
-
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }

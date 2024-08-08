@@ -49,7 +49,7 @@ public enum PBXProductType: String, Decodable {
         case .unitTestBundle, .uiTestBundle:
             return "xctest"
         case .appExtension, .extensionKitExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension,
-                .intentsServiceExtension:
+             .intentsServiceExtension:
             return "appex"
         case .commandLineTool:
             return nil

@@ -54,7 +54,7 @@ public final class PBXNativeTarget: PBXTarget {
         guard case var PlistValue.dictionary(dict) = value else {
             throw XcodeprojWritingError.invalidType(class: String(describing: type(of: self)), expected: "Dictionary")
         }
-        if let productInstallPath = productInstallPath {
+        if let productInstallPath {
             dict["productInstallPath"] = .string(CommentedString(productInstallPath))
         }
         return (key: key, value: .dictionary(dict))
@@ -70,7 +70,7 @@ public final class PBXNativeTarget: PBXTarget {
 
 extension PBXNativeTarget: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
+        try plistValues(proj: proj, isa: PBXNativeTarget.isa, reference: reference)
     }
 }
 

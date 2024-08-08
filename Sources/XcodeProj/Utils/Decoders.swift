@@ -44,7 +44,7 @@ class ProjectDecodingContext {
 
 extension CodingUserInfoKey {
     /// Context user info key.
-    static let context: CodingUserInfoKey = CodingUserInfoKey(rawValue: "context")!
+    static let context: CodingUserInfoKey = .init(rawValue: "context")!
 }
 
 /// Xcodeproj JSON decoder.

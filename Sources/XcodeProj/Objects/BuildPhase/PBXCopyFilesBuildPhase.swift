@@ -84,13 +84,13 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXCopyFilesBuildPhase.isa))
-        if let dstPath = dstPath {
+        if let dstPath {
             dictionary["dstPath"] = .string(CommentedString(dstPath))
         }
-        if let name = name {
+        if let name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let dstSubfolderSpec = dstSubfolderSpec {
+        if let dstSubfolderSpec {
             dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
         }
         return (key: CommentedString(reference, comment: name ?? "CopyFiles"), value: .dictionary(dictionary))

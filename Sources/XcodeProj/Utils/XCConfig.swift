@@ -43,7 +43,7 @@ public final class XCConfig {
     }
 }
 
-final class XCConfigParser {
+enum XCConfigParser {
     /// Given the path the line is being parsed from, it returns a function that parses a line,
     /// and returns the include path and the config that the include is pointing to.
     ///
@@ -56,19 +56,19 @@ final class XCConfigParser {
                                  options: [],
                                  range: NSRange(location: 0,
                                                 length: line.count))
-                .compactMap { (match) -> String? in
+                .compactMap { match -> String? in
                     if match.numberOfRanges == 2 {
                         return NSString(string: line).substring(with: match.range(at: 1))
                     }
                     return nil
                 }
                 .compactMap { pathString in
-                    let includePath: Path = Path(pathString)
+                    let includePath: Path = .init(pathString)
                     var config: XCConfig?
                     do {
                         // first try to load the included xcconfig relative to the current xcconfig
                         config = try XCConfig(path: path.parent() + includePath, projectPath: projectPath)
-                    } catch (XCConfigError.notFound(_)) where projectPath != nil {
+                    } catch XCConfigError.notFound(_) where projectPath != nil {
                         // if that fails, try to load the included xcconfig relative to the project
                         config = try? XCConfig(path: projectPath!.parent() + includePath, projectPath: projectPath)
                     } catch {
@@ -85,7 +85,7 @@ final class XCConfigParser {
                              options: [],
                              range: NSRange(location: 0,
                                             length: line.count))
-            .compactMap { (match) -> (key: String, value: String)? in
+            .compactMap { match -> (key: String, value: String)? in
                 if match.numberOfRanges == 3 {
                     let key: String = NSString(string: line).substring(with: match.range(at: 1))
                     let value: String = NSString(string: line).substring(with: match.range(at: 2))
@@ -120,18 +120,18 @@ extension XCConfig: Equatable {
 
 // MARK: - XCConfig Extension (Helpers)
 
-extension XCConfig {
+public extension XCConfig {
     /// It returns the build settings after flattening all the includes.
     ///
     /// - Returns: build settings flattening all the includes.
-    public func flattenedBuildSettings() -> [String: Any] {
+    func flattenedBuildSettings() -> [String: Any] {
         var content: [String: Any] = buildSettings
         includes
-            .map { $0.1 }
+            .map(\.1)
             .flattened()
-            .map { $0.buildSettings }
+            .map(\.buildSettings)
             .forEach { configDictionary in
-                configDictionary.forEach { key, value in
+                for (key, value) in configDictionary {
                     if content[key] == nil { content[key] = value }
                 }
             }
@@ -149,11 +149,11 @@ extension XCConfig: Writable {
         }
         try path.write(content)
     }
-    
+
     public func dataRepresentation() throws -> Data? {
         getContent().data(using: .utf8)
     }
-    
+
     private func getContent() -> String {
         var content = ""
         content.append(writeIncludes())
@@ -164,7 +164,7 @@ extension XCConfig: Writable {
 
     private func writeIncludes() -> String {
         var content = ""
-        includes.forEach { include in
+        for include in includes {
             content.append("#include \"\(include.0.string)\"\n")
         }
         content.append("\n")
@@ -173,7 +173,7 @@ extension XCConfig: Writable {
 
     private func writeBuildSettings() -> String {
         var content = ""
-        buildSettings.forEach { key, value in
+        for (key, value) in buildSettings {
             content.append("\(key) = \(value)\n")
         }
         content.append("\n")
@@ -183,15 +183,15 @@ extension XCConfig: Writable {
 
 // MARK: - Array Extension (XCConfig)
 
-extension Array where Element == XCConfig {
+extension [XCConfig] {
     /// It returns an array with the XCConfig reversely flattened. It's useful for resolving the build settings.
     ///
     /// - Returns: flattened configurations array.
     func flattened() -> [XCConfig] {
-        let reversed = self.reversed()
-            .flatMap { (config) -> [XCConfig] in
+        let reversed = reversed()
+            .flatMap { config -> [XCConfig] in
                 var configs = [XCConfig(includes: [], buildSettings: config.buildSettings)]
-                configs.append(contentsOf: config.includes.map { $0.1 }.flattened())
+                configs.append(contentsOf: config.includes.map(\.1).flattened())
                 return configs
             }
         return reversed

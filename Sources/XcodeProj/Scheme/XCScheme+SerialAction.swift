@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public class SerialAction: Equatable {
+public extension XCScheme {
+    class SerialAction: Equatable {
         // MARK: - Attributes
 
         public var preActions: [ExecutionAction]
@@ -25,13 +25,13 @@ extension XCScheme {
         func writeXML(parent element: AEXMLElement) {
             if !preActions.isEmpty {
                 let preActions = element.addChild(name: "PreActions")
-                self.preActions.forEach { preAction in
+                for preAction in self.preActions {
                     preActions.addChild(preAction.xmlElement())
                 }
             }
             if !postActions.isEmpty {
                 let postActions = element.addChild(name: "PostActions")
-                self.postActions.forEach { postAction in
+                for postAction in self.postActions {
                     postActions.addChild(postAction.xmlElement())
                 }
             }

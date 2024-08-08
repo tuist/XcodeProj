@@ -103,13 +103,13 @@ let attributesOrder: [String: [String]] = [
     "RemoteRunnable": [
         "runnableDebuggingMode",
         "BundleIdentifier",
-        "RemotePath"
+        "RemotePath",
     ],
     "Scheme": [
         "LastUpgradeVersion",
         "wasCreatedForAppExtension",
-        "version"
-    ]
+        "version",
+    ],
 ]
 
 extension AEXMLElement {
@@ -128,7 +128,7 @@ extension AEXMLElement {
 
         if !attributes.isEmpty {
             // insert known attributes in the specified order.
-            var attributes = self.attributes
+            var attributes = attributes
             for key in attributesOrder[name] ?? [] {
                 if let value = attributes.removeValue(forKey: key) {
                     print(key: key, value: value)

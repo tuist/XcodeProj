@@ -61,7 +61,7 @@ public class PBXGroup: PBXFileElement {
         let objects = decoder.context.objects
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let childrenReferences: [String] = (try container.decodeIfPresent(.children)) ?? []
+        let childrenReferences: [String] = try (container.decodeIfPresent(.children)) ?? []
         self.childrenReferences = childrenReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
         try super.init(from: decoder)
     }
@@ -71,7 +71,7 @@ public class PBXGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        dictionary["children"] = .array(childrenReferences.map { (fileReference) -> PlistValue in
+        dictionary["children"] = .array(childrenReferences.map { fileReference -> PlistValue in
             let fileElement: PBXFileElement? = fileReference.getObject()
             return .string(CommentedString(fileReference.value, comment: fileElement?.fileName()))
         })
@@ -134,7 +134,7 @@ public extension PBXGroup {
     /// - Returns: created groups.
     @discardableResult
     func addGroup(named groupName: String, options: GroupAddingOptions = []) throws -> [PBXGroup] {
-        let objects = try self.objects()
+        let objects = try objects()
         return groupName.components(separatedBy: "/").reduce(into: [PBXGroup]()) { groups, name in
             let group = groups.last ?? self
             let newGroup = PBXGroup(children: [], sourceTree: .group, name: name, path: options.contains(.withoutFolder) ? nil : name)
@@ -152,7 +152,7 @@ public extension PBXGroup {
     /// - Returns: created groups.
     @discardableResult
     func addVariantGroup(named groupName: String) throws -> [PBXVariantGroup] {
-        let objects = try self.objects()
+        let objects = try objects()
 
         return groupName.components(separatedBy: "/").reduce(into: [PBXVariantGroup]()) { groups, name in
             let group = groups.last ?? self
