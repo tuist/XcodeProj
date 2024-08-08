@@ -7,6 +7,9 @@ concurrency:
   group: xcodeproj-${{ github.head_ref }}
   cancel-in-progress: true
 
+env:
+  MISE_EXPERIMENTAL: 1
+
 jobs:
   build:
     name: Build (macOS)
@@ -49,12 +52,10 @@ jobs:
           git config --global init.defaultBranch main
       - name: Build and run tests
         run: swift test --enable-test-discovery
-  swiftlint:
-    name: Swiftlint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: GitHub Action for SwiftLint
-        uses: norio-nomura/action-swiftlint@3.2.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: jdx/mise-action@v2
+      - run: mise run lint
