@@ -190,3 +190,6 @@ XcodeProj.framework.zip
 Derived/
 *.xcworkspace/
 *.xcodeproj/
+
+!Fixtures/**/*.xcodeproj/
+

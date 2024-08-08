@@ -116,6 +116,16 @@ public extension PBXGroup {
             .first(where: { $0.name == name })
     }
 
+    /// Returns the synchronized root group with the given name contained in the given parent group.
+    ///
+    /// - Parameter groupName: group name.
+    /// - Returns: the synchronized root group with the given name contained in the given parent group.
+    func synchronizedRootGroup(named name: String) -> PBXFileSystemSynchronizedRootGroup? {
+        childrenReferences
+            .objects()
+            .first(where: { $0.name == name })
+    }
+
     /// Returns the file in the group with the given name.
     ///
     /// - Parameter name: file name.

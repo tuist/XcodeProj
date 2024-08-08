@@ -1,7 +1,11 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idname
 name: XcodeProj
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
 
 concurrency:
   group: xcodeproj-${{ github.head_ref }}
@@ -52,6 +56,7 @@ jobs:
           git config --global init.defaultBranch main
       - name: Build and run tests
         run: swift test --enable-test-discovery
+
   lint:
     name: Lint
     runs-on: macos-latest

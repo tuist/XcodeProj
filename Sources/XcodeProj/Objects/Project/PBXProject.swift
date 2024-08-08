@@ -443,7 +443,7 @@ extension PBXProject {
             productDependency = XCSwiftPackageProductDependency(productName: productName, package: reference)
             objects.add(object: productDependency)
         }
-        target.packageProductDependencies.append(productDependency)
+        target.packageProductDependencies?.append(productDependency)
 
         return productDependency
     }
@@ -465,7 +465,7 @@ extension PBXProject {
             productDependency = XCSwiftPackageProductDependency(productName: productName)
             objects.add(object: productDependency)
         }
-        target.packageProductDependencies.append(productDependency)
+        target.packageProductDependencies?.append(productDependency)
 
         return productDependency
     }

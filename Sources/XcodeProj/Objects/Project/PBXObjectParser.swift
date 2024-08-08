@@ -68,6 +68,10 @@ final class PBXObjectParser {
             return try decoder.decode(XCLocalSwiftPackageReference.self, from: data)
         case XCSwiftPackageProductDependency.isa:
             return try decoder.decode(XCSwiftPackageProductDependency.self, from: data)
+        case PBXFileSystemSynchronizedRootGroup.isa:
+            return try decoder.decode(PBXFileSystemSynchronizedRootGroup.self, from: data)
+        case PBXFileSystemSynchronizedBuildFileExceptionSet.isa:
+            return try decoder.decode(PBXFileSystemSynchronizedBuildFileExceptionSet.self, from: data)
         default:
             throw PBXObjectError.unknownElement(isa)
         }
