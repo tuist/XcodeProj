@@ -5,6 +5,8 @@
 
 # format options
 
+--disable wrapMultilineStatementBraces
+--disable braces
 --allman false
 --binarygrouping 4,8
 --commas always

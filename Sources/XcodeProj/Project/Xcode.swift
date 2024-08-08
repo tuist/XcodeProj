@@ -1,11 +1,11 @@
 import Foundation
 
 /// Class that contains Xcode constants.
-public struct Xcode {
+public enum Xcode {
     /// Last known constants.
-    public struct LastKnown {
+    public enum LastKnown {
         /// Last known SDKs.
-        public struct SDK {
+        public enum SDK {
             /// Last known SDK for iOS.
             public static let ios: String = "14.0"
 
@@ -36,7 +36,7 @@ public struct Xcode {
     }
 
     /// Default values.
-    public struct Default {
+    public enum Default {
         /// The default object version for Xcodeproj.
         public static let objectVersion: UInt = 46
 
@@ -45,13 +45,13 @@ public struct Xcode {
 
         /// Default development region.
         public static let developmentRegion: String = "en"
-        
+
         /// Default XCScheme format version
         public static let xcschemeFormatVersion: String = "1.3"
-        
+
         /// The last Swift upgrade check version
         public static let lastSwiftUpgradeCheck: String = "1300"
-        
+
         /// The last known Xcode upgrade check version.
         public static let lastUpgradeCheck: String = "1300"
     }
@@ -63,7 +63,7 @@ public struct Xcode {
     public static let headersExtensions = [".h", ".hh", ".hpp", ".ipp", ".tpp", ".hxx", ".def", ".inl", ".inc", ".pch"]
 
     /// Supported values.
-    public struct Supported {
+    public enum Supported {
         /// The version of `.xcscheme` files supported by Xcodeproj
         public static let xcschemeFormatVersion = "1.3"
     }
@@ -350,7 +350,7 @@ public struct Xcode {
     ]
 
     /// Remote project reference dictionary keys.
-    public struct ProjectReference {
+    public enum ProjectReference {
         public static let projectReferenceKey = "ProjectRef"
         public static let productGroupKey = "ProductGroup"
     }

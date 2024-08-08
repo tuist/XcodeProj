@@ -156,13 +156,13 @@ extension PBXContainerItemProxy: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXContainerItemProxy.isa))
         dictionary["containerPortal"] = .string(CommentedString(containerPortalReference.value, comment: containerPortal.comment))
-        if let proxyType = proxyType {
+        if let proxyType {
             dictionary["proxyType"] = .string(CommentedString("\(proxyType.rawValue)"))
         }
-        if let remoteGlobalID = remoteGlobalID {
+        if let remoteGlobalID {
             dictionary["remoteGlobalIDString"] = .string(CommentedString(remoteGlobalID.uuid))
         }
-        if let remoteInfo = remoteInfo {
+        if let remoteInfo {
             dictionary["remoteInfo"] = .string(CommentedString(remoteInfo))
         }
         return (key: CommentedString(reference,

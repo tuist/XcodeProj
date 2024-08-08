@@ -43,7 +43,7 @@ struct CommentedString {
         if string.rangeOfCharacter(from: CommentedString.invalidCharacters) == nil {
             if string.rangeOfCharacter(from: CommentedString.specialCheckCharacters) == nil {
                 return string
-            } else if !string.contains("//") && !string.contains("___") {
+            } else if !string.contains("//"), !string.contains("___") {
                 return string
             }
         }

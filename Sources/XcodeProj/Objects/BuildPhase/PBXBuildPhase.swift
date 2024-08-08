@@ -86,7 +86,7 @@ public class PBXBuildPhase: PBXContainerItem {
     override func plistValues(proj: PBXProj, reference: String) throws -> [CommentedString: PlistValue] {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["buildActionMask"] = .string(CommentedString("\(buildActionMask)"))
-        if let fileReferences = fileReferences {
+        if let fileReferences {
             let files: PlistValue = .array(fileReferences.map { fileReference in
                 let buildFile: PBXBuildFile? = fileReference.getObject()
                 let name = buildFile.flatMap { try? $0.fileName() } ?? nil
@@ -97,10 +97,10 @@ public class PBXBuildPhase: PBXContainerItem {
             })
             dictionary["files"] = files
         }
-        if let inputFileListPaths = inputFileListPaths {
+        if let inputFileListPaths {
             dictionary["inputFileListPaths"] = .array(inputFileListPaths.map { .string(CommentedString($0)) })
         }
-        if let outputFileListPaths = outputFileListPaths {
+        if let outputFileListPaths {
             dictionary["outputFileListPaths"] = .array(outputFileListPaths.map { .string(CommentedString($0)) })
         }
         dictionary["runOnlyForDeploymentPostprocessing"] = .string(CommentedString("\(runOnlyForDeploymentPostprocessing.int)"))

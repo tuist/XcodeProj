@@ -123,7 +123,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "buildConfiguration": "Debug",
                 "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
                 "launchStyle": "0",
-                "askForAppToLaunch": "YES"
+                "askForAppToLaunch": "YES",
             ]
         )
     }
@@ -151,7 +151,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
                 "shouldUseLaunchSchemeArgsEnv": "YES",
                 "buildConfiguration": "Debug",
                 "customLLDBInitFile": "$(BAZEL_LLDB_INIT)",
-                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB"
+                "selectedLauncherIdentifier": "Xcode.DebuggerFoundation.Launcher.LLDB",
             ]
         )
     }
@@ -163,7 +163,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
             attributes: [
                 "LastUpgradeVersion": "1320",
                 "wasCreatedForAppExtension": "YES",
-                "version": "1.7"
+                "version": "1.7",
             ]
         )
     }
@@ -175,7 +175,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
             attributes: [
                 "wasCreatedForAppExtension": "YES",
                 "LastUpgradeVersion": "1320",
-                "version": "1.7"
+                "version": "1.7",
             ]
         )
     }
@@ -187,7 +187,7 @@ class AEXML_XcodeFormatTests: XCTestCase {
             attributes: [
                 "BundleIdentifier": "BundleID",
                 "RemotePath": "REMOTE_PATH",
-                "runnableDebuggingMode": "2"
+                "runnableDebuggingMode": "2",
             ]
         )
     }

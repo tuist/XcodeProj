@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 
 extension XCTestCase {
-    typealias EquatableError = Error & Equatable
+    typealias EquatableError = Equatable & Error
 
     func XCTAssertNotNilAndUnwrap<T>(_ obj: T?, message: String = "") -> T {
         guard let unwrappedObj = obj else {
@@ -12,7 +12,7 @@ extension XCTestCase {
         return unwrappedObj
     }
 
-    func XCTAssertThrowsSpecificError<T, E: EquatableError>(_ expression: @autoclosure () throws -> T, _ error: E, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
+    func XCTAssertThrowsSpecificError<E: EquatableError>(_ expression: @autoclosure () throws -> some Any, _ error: E, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
         XCTAssertThrowsError(try expression(), message(), file: file, line: line) { actualError in
             let message = "Expected \(error) got \(actualError)"
 

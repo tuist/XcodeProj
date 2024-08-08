@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class BuildableReference: Equatable, Hashable {
+public extension XCScheme {
+    final class BuildableReference: Equatable, Hashable {
         // MARK: - Attributes
 
         public var referencedContainer: String
@@ -52,7 +52,7 @@ extension XCScheme {
                     blueprintName: String,
                     buildableIdentifier: String = "primary") {
             self.referencedContainer = referencedContainer
-            self.blueprint = blueprintIdentifier.map(Blueprint.string)
+            blueprint = blueprintIdentifier.map(Blueprint.string)
             self.buildableName = buildableName
             self.buildableIdentifier = buildableIdentifier
             self.blueprintName = blueprintName
@@ -75,7 +75,7 @@ extension XCScheme {
             }
             self.buildableIdentifier = buildableIdentifier
             let blueprintIdentifier = element.attributes["BlueprintIdentifier"]
-            self.blueprint = blueprintIdentifier.map(Blueprint.string)
+            blueprint = blueprintIdentifier.map(Blueprint.string)
             self.buildableName = buildableName
             self.blueprintName = blueprintName
             self.referencedContainer = referencedContainer

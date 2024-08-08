@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class CommandLineArguments: Equatable {
+public extension XCScheme {
+    final class CommandLineArguments: Equatable {
         // MARK: - Attributes
 
         public let arguments: [CommandLineArgument]
@@ -30,7 +30,7 @@ extension XCScheme {
         func xmlElement() -> AEXMLElement {
             let element = AEXMLElement(name: "CommandLineArguments",
                                        value: nil)
-            arguments.forEach { arg in
+            for arg in arguments {
                 element.addChild(arg.xmlElement())
             }
             return element
@@ -44,8 +44,8 @@ extension XCScheme {
     }
 }
 
-extension XCScheme.CommandLineArguments {
-    public struct CommandLineArgument: Equatable {
+public extension XCScheme.CommandLineArguments {
+    struct CommandLineArgument: Equatable {
         // MARK: - Attributes
 
         public let name: String

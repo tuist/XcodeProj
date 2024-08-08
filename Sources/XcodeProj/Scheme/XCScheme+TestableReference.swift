@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class TestableReference: Equatable {
+public extension XCScheme {
+    final class TestableReference: Equatable {
         // MARK: - Attributes
 
         public var skipped: Bool
@@ -40,7 +40,7 @@ extension XCScheme {
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
-            
+
             if element["LocationScenarioReference"].all?.first != nil {
                 locationScenarioReference = try LocationScenarioReference(element: element["LocationScenarioReference"])
             } else {
@@ -64,7 +64,7 @@ extension XCScheme {
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
             attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
-            if let useTestSelectionWhitelist = useTestSelectionWhitelist {
+            if let useTestSelectionWhitelist {
                 attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
             }
             attributes["testExecutionOrdering"] = randomExecutionOrdering ? "random" : nil
@@ -73,21 +73,21 @@ extension XCScheme {
                                        attributes: attributes)
             element.addChild(buildableReference.xmlElement())
 
-            if let locationScenarioReference = locationScenarioReference {
+            if let locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
-            
+
             if useTestSelectionWhitelist == true {
                 if !selectedTests.isEmpty {
                     let selectedTestsElement = element.addChild(name: "SelectedTests")
-                    selectedTests.forEach { selectedTest in
+                    for selectedTest in selectedTests {
                         selectedTestsElement.addChild(selectedTest.xmlElement())
                     }
                 }
             } else {
                 if !skippedTests.isEmpty {
                     let skippedTestsElement = element.addChild(name: "SkippedTests")
-                    skippedTests.forEach { skippedTest in
+                    for skippedTest in skippedTests {
                         skippedTestsElement.addChild(skippedTest.xmlElement())
                     }
                 }

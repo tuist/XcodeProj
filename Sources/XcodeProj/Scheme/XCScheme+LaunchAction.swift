@@ -2,9 +2,9 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
+public extension XCScheme {
     // swiftlint:disable:next type_body_length
-    public final class LaunchAction: SerialAction {
+    final class LaunchAction: SerialAction {
         public enum Style: String, Sendable {
             case auto = "0"
             case wait = "1"
@@ -18,7 +18,7 @@ extension XCScheme {
             case disabled = "3"
         }
 
-        // The value used to disable 'API Validation'. 
+        // The value used to disable 'API Validation'.
         // If this feature is not being disabled, this value will not be present.
         public let gpuValidationModeDisableValue = "1"
 
@@ -263,7 +263,7 @@ extension XCScheme {
                 "allowLocationSimulation": allowLocationSimulation.xmlString,
             ]
 
-            if let askForAppToLaunch = askForAppToLaunch {
+            if let askForAppToLaunch {
                 attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
             }
             if enableGPUFrameCaptureMode != LaunchAction.defaultGPUFrameCaptureMode {
@@ -308,7 +308,7 @@ extension XCScheme {
             if stopOnEveryMainThreadCheckerIssue {
                 attributes["stopOnEveryMainThreadCheckerIssue"] = stopOnEveryMainThreadCheckerIssue.xmlString
             }
-            if let customWorkingDirectory = customWorkingDirectory {
+            if let customWorkingDirectory {
                 attributes["customWorkingDirectory"] = customWorkingDirectory
             }
 
@@ -320,36 +320,36 @@ extension XCScheme {
                                        value: nil,
                                        attributes: xmlAttributes)
             super.writeXML(parent: element)
-            if let runnable = runnable {
+            if let runnable {
                 element.addChild(runnable.xmlElement())
             }
 
-            if let pathRunnable = pathRunnable {
+            if let pathRunnable {
                 element.addChild(pathRunnable.xmlElement())
             }
 
-            if let locationScenarioReference = locationScenarioReference {
+            if let locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
 
-            if let macroExpansion = macroExpansion {
+            if let macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
             }
 
-            if let commandlineArguments = commandlineArguments {
+            if let commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
 
-            if let environmentVariables = environmentVariables {
+            if let environmentVariables {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
-            if let language = language {
+            if let language {
                 element.attributes["language"] = language
             }
 
-            if let region = region {
+            if let region {
                 element.attributes["region"] = region
             }
 
@@ -357,25 +357,25 @@ extension XCScheme {
                 element.attributes["showNonLocalizedStrings"] = showNonLocalizedStrings.xmlString
             }
 
-            if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
+            if let launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
 
-            if let storeKitConfigurationFileReference = storeKitConfigurationFileReference {
+            if let storeKitConfigurationFileReference {
                 element.addChild(storeKitConfigurationFileReference.xmlElement())
             }
 
-            if let customLaunchCommand = customLaunchCommand {
+            if let customLaunchCommand {
                 element.attributes["customLaunchCommand"] = customLaunchCommand
             }
 
-            if let customLLDBInitFile = customLLDBInitFile {
+            if let customLLDBInitFile {
                 element.attributes["customLLDBInitFile"] = customLLDBInitFile
             }
 
             if !additionalOptions.isEmpty {
                 let additionalOptionsElement = element.addChild(AEXMLElement(name: "AdditionalOptions"))
-                additionalOptions.forEach { additionalOption in
+                for additionalOption in additionalOptions {
                     additionalOptionsElement.addChild(additionalOption.xmlElement())
                 }
             }

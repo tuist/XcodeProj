@@ -71,7 +71,7 @@ final class PBXGroupTests: XCTestCase {
 
         XCTAssertEqual(childVariantGroups.count, expectedGroupNames.count)
 
-        childVariantGroups.enumerated().forEach { index, variantGroup in
+        for (index, variantGroup) in childVariantGroups.enumerated() {
             let parentGroup = (index == 0) ? group : childVariantGroups[index - 1]
 
             if index == childVariantGroups.count - 1 {

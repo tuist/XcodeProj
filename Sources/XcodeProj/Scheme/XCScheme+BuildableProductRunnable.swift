@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class BuildableProductRunnable: Runnable {
+public extension XCScheme {
+    final class BuildableProductRunnable: Runnable {
         // MARK: - XML
 
         override func xmlElement() -> AEXMLElement {

@@ -79,16 +79,16 @@ public final class PBXLegacyTarget: PBXTarget {
         switch value {
         case let .dictionary(dictValue):
             dict = dictValue
-            if let buildToolPath = buildToolPath {
+            if let buildToolPath {
                 dict["buildToolPath"] = PlistValue.string(CommentedString(buildToolPath))
             }
-            if let buildArgumentsString = buildArgumentsString {
+            if let buildArgumentsString {
                 dict["buildArgumentsString"] =
                     PlistValue.string(CommentedString(buildArgumentsString))
             }
             dict["passBuildSettingsInEnvironment"] =
                 PlistValue.string(CommentedString(passBuildSettingsInEnvironment.int.description))
-            if let buildWorkingDirectory = buildWorkingDirectory {
+            if let buildWorkingDirectory {
                 dict["buildWorkingDirectory"] =
                     PlistValue.string(CommentedString(buildWorkingDirectory))
             }
@@ -108,6 +108,6 @@ public final class PBXLegacyTarget: PBXTarget {
 
 extension PBXLegacyTarget: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        return try plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
+        try plistValues(proj: proj, isa: PBXLegacyTarget.isa, reference: reference)
     }
 }

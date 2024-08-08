@@ -23,11 +23,11 @@ public protocol Writable {
     func dataRepresentation() throws -> Data?
 }
 
-extension Writable {
-    public func write(pathString: String, override: Bool) throws {
+public extension Writable {
+    func write(pathString: String, override: Bool) throws {
         let path = Path(pathString)
         try write(path: path, override: override)
     }
 
-    public func dataRepresentation() throws -> Data? { nil }
+    func dataRepresentation() throws -> Data? { nil }
 }

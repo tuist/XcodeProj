@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class ProfileAction: SerialAction {
+public extension XCScheme {
+    final class ProfileAction: SerialAction {
         // MARK: - Static
 
         private static let defaultBuildConfiguration = "Release"
@@ -15,6 +15,7 @@ extension XCScheme {
             // For backwards compatibility - can be removed in the next major version
             runnable as? BuildableProductRunnable
         }
+
         public var buildConfiguration: String
         public var shouldUseLaunchSchemeArgsEnv: Bool
         public var savedToolIdentifier: String
@@ -80,8 +81,8 @@ extension XCScheme {
             commandlineArguments: CommandLineArguments? = nil,
             environmentVariables: [EnvironmentVariable]? = nil,
             enableTestabilityWhenProfilingTests: Bool = true,
-            launchAutomaticallySubstyle: String? = nil)
-        {
+            launchAutomaticallySubstyle: String? = nil
+        ) {
             self.init(
                 runnable: buildableProductRunnable,
                 buildConfiguration: buildConfiguration,
@@ -98,7 +99,8 @@ extension XCScheme {
                 commandlineArguments: commandlineArguments,
                 environmentVariables: environmentVariables,
                 enableTestabilityWhenProfilingTests: enableTestabilityWhenProfilingTests,
-                launchAutomaticallySubstyle: launchAutomaticallySubstyle)
+                launchAutomaticallySubstyle: launchAutomaticallySubstyle
+            )
         }
 
         override init(element: AEXMLElement) throws {
@@ -152,10 +154,10 @@ extension XCScheme {
                                            "debugDocumentVersioning": debugDocumentVersioning.xmlString,
                                        ])
             super.writeXML(parent: element)
-            if let runnable = runnable {
+            if let runnable {
                 element.addChild(runnable.xmlElement())
             }
-            if let askForAppToLaunch = askForAppToLaunch {
+            if let askForAppToLaunch {
                 element.attributes["askForAppToLaunch"] = askForAppToLaunch.xmlString
             }
             if ignoresPersistentStateOnLaunch {
@@ -164,20 +166,20 @@ extension XCScheme {
             if !enableTestabilityWhenProfilingTests {
                 element.attributes["enableTestabilityWhenProfilingTests"] = "No"
             }
-            if let commandlineArguments = commandlineArguments {
+            if let commandlineArguments {
                 element.addChild(commandlineArguments.xmlElement())
             }
-            if let environmentVariables = environmentVariables {
+            if let environmentVariables {
                 element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
-            if let launchAutomaticallySubstyle = launchAutomaticallySubstyle {
+            if let launchAutomaticallySubstyle {
                 element.attributes["launchAutomaticallySubstyle"] = launchAutomaticallySubstyle
             }
-            if let customWorkingDirectory = customWorkingDirectory {
+            if let customWorkingDirectory {
                 element.attributes["customWorkingDirectory"] = customWorkingDirectory
             }
 
-            if let macroExpansion = macroExpansion {
+            if let macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
             }

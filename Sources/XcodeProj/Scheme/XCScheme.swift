@@ -42,7 +42,7 @@ public final class XCScheme: Writable, Equatable {
             throw XCSchemeError.notFound(path: path)
         }
         name = path.lastComponentWithoutExtension
-        let document = try AEXMLDocument(xml: try path.read())
+        let document = try AEXMLDocument(xml: path.read())
         let scheme = document["Scheme"]
         lastUpgradeVersion = scheme.attributes["LastUpgradeVersion"]
         version = scheme.attributes["version"]
@@ -93,36 +93,36 @@ public final class XCScheme: Writable, Equatable {
         }
         try path.write(document.xmlXcodeFormat)
     }
-    
+
     public func dataRepresentation() throws -> Data? {
         getAEXMLDocument().xmlXcodeFormat.data(using: .utf8)
     }
-    
+
     private func getAEXMLDocument() -> AEXMLDocument {
         let document = AEXMLDocument()
         var schemeAttributes: [String: String] = [:]
         schemeAttributes["LastUpgradeVersion"] = lastUpgradeVersion
         schemeAttributes["version"] = version
         let scheme = document.addChild(name: "Scheme", value: nil, attributes: schemeAttributes)
-        if let buildAction = buildAction {
+        if let buildAction {
             scheme.addChild(buildAction.xmlElement())
         }
-        if let testAction = testAction {
+        if let testAction {
             scheme.addChild(testAction.xmlElement())
         }
-        if let launchAction = launchAction {
+        if let launchAction {
             scheme.addChild(launchAction.xmlElement())
         }
-        if let profileAction = profileAction {
+        if let profileAction {
             scheme.addChild(profileAction.xmlElement())
         }
-        if let analyzeAction = analyzeAction {
+        if let analyzeAction {
             scheme.addChild(analyzeAction.xmlElement())
         }
-        if let archiveAction = archiveAction {
+        if let archiveAction {
             scheme.addChild(archiveAction.xmlElement())
         }
-        if let wasCreatedForAppExtension = wasCreatedForAppExtension {
+        if let wasCreatedForAppExtension {
             scheme.attributes["wasCreatedForAppExtension"] = wasCreatedForAppExtension.xmlString
         }
         return document

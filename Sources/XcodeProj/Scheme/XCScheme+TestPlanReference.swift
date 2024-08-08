@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class TestPlanReference: Equatable {
+public extension XCScheme {
+    final class TestPlanReference: Equatable {
         // MARK: - Attributes
 
         public var reference: String

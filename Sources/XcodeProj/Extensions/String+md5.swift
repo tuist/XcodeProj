@@ -1,6 +1,6 @@
 // swiftlint:disable all
 //
-//  String+MD5.swift
+//  String+md5.swift
 //  Kingfisher
 //
 // To date, adding CommonCrypto to a Swift framework is problematic. See:
@@ -22,7 +22,7 @@
 
 import Foundation
 #if canImport(CryptoKit)
-import CryptoKit
+    import CryptoKit
 #endif
 
 extension String {
@@ -31,14 +31,14 @@ extension String {
             return self
         }
         #if canImport(CryptoKit)
-        if #available(OSX 10.15, *) {
-            return Insecure.MD5.hash(data: data)
-                .withUnsafeBytes { Array($0) }.hexString
-        } else {
-            return data.slowMD5
-        }
+            if #available(OSX 10.15, *) {
+                return Insecure.MD5.hash(data: data)
+                    .withUnsafeBytes { Array($0) }.hexString
+            } else {
+                return data.slowMD5
+            }
         #else
-        return data.slowMD5
+            return data.slowMD5
         #endif
     }
 }
@@ -48,11 +48,11 @@ private let char0 = UInt8(UnicodeScalar("0").value)
 
 private extension DataProtocol {
     var hexString: String {
-        let hexLen = self.count * 2
+        let hexLen = count * 2
         var hexChars = [UInt8](repeating: 0, count: hexLen)
         var offset = 0
 
-        self.regions.forEach { (_) in
+        for _ in regions {
             for i in self {
                 hexChars[Int(offset * 2)] = itoh((i >> 4) & 0xF)
                 hexChars[Int(offset * 2 + 1)] = itoh(i & 0xF)
@@ -64,7 +64,7 @@ private extension DataProtocol {
     }
 
     func itoh(_ value: UInt8) -> UInt8 {
-        return (value > 9) ? (charA + value - 10) : (char0 + value)
+        (value > 9) ? (charA + value - 10) : (char0 + value)
     }
 }
 
@@ -91,7 +91,7 @@ func arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
     let valuePointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
     valuePointer.pointee = value
 
-    let bytes = valuePointer.withMemoryRebound(to: UInt8.self, capacity: totalBytes) { (bytesPointer) -> [UInt8] in
+    let bytes = valuePointer.withMemoryRebound(to: UInt8.self, capacity: totalBytes) { bytesPointer -> [UInt8] in
         var bytes = [UInt8](repeating: 0, count: totalBytes)
         for j in 0 ..< min(MemoryLayout<T>.size, totalBytes) {
             bytes[totalBytes - 1 - j] = (bytesPointer + j).pointee
@@ -282,7 +282,7 @@ class MD5: HashProtocol {
                     F = B ^ C ^ D
                     g = (3 * j + 5) % 16
                 case 48 ... 63:
-                    F = C ^ (B | (~D))
+                    F = C ^ (B | ~D)
                     g = (7 * j) % 16
                 default:
                     break
@@ -303,8 +303,8 @@ class MD5: HashProtocol {
         var result = [UInt8]()
         result.reserveCapacity(hh.count / 4)
 
-        hh.forEach {
-            let itemLE = $0.littleEndian
+        for item in hh {
+            let itemLE = item.littleEndian
             let r1 = UInt8(itemLE & 0xFF)
             let r2 = UInt8((itemLE >> 8) & 0xFF)
             let r3 = UInt8((itemLE >> 16) & 0xFF)

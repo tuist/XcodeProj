@@ -174,7 +174,7 @@ public class PBXTarget: PBXContainerItem {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(isa))
         let buildConfigurationListComment = "Build configuration list for \(isa) \"\(name)\""
-        if let buildConfigurationListReference = buildConfigurationListReference {
+        if let buildConfigurationListReference {
             dictionary["buildConfigurationList"] = .string(CommentedString(buildConfigurationListReference.value,
                                                                            comment: buildConfigurationListComment))
         }
@@ -191,13 +191,13 @@ public class PBXTarget: PBXContainerItem {
 
         dictionary["dependencies"] = .array(dependencyReferences.map { .string(CommentedString($0.value, comment: PBXTargetDependency.isa)) })
         dictionary["name"] = .string(CommentedString(name))
-        if let productName = productName {
+        if let productName {
             dictionary["productName"] = .string(CommentedString(productName))
         }
-        if let productType = productType {
+        if let productType {
             dictionary["productType"] = .string(CommentedString(productType.rawValue))
         }
-        if let productReference = productReference {
+        if let productReference {
             let fileElement: PBXFileElement? = productReference.getObject()
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
@@ -225,7 +225,7 @@ public extension PBXTarget {
     ///
     /// - Returns: product name with extension.
     func productNameWithExtension() -> String? {
-        guard let productName = self.productName else { return nil }
+        guard let productName else { return nil }
         guard let fileExtension = productType?.fileExtension else { return nil }
         return "\(productName).\(fileExtension)"
     }

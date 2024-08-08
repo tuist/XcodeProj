@@ -91,8 +91,8 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decodeIfPresent(.name)
-        inputPaths = (try container.decodeIfPresent(.inputPaths)) ?? []
-        outputPaths = (try container.decodeIfPresent(.outputPaths)) ?? []
+        inputPaths = try (container.decodeIfPresent(.inputPaths)) ?? []
+        outputPaths = try (container.decodeIfPresent(.outputPaths)) ?? []
         shellPath = try container.decodeIfPresent(.shellPath)
         shellScript = try container.decodeIfPresent(.shellScript)
         showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
@@ -113,18 +113,18 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(PBXShellScriptBuildPhase.isa))
-        if let shellPath = shellPath {
+        if let shellPath {
             dictionary["shellPath"] = .string(CommentedString(shellPath))
         }
         dictionary["inputPaths"] = .array(inputPaths.map { .string(CommentedString($0)) })
-        if let name = name {
+        if let name {
             dictionary["name"] = .string(CommentedString(name))
         }
         dictionary["outputPaths"] = .array(outputPaths.map { .string(CommentedString($0)) })
-        if let shellScript = shellScript {
+        if let shellScript {
             dictionary["shellScript"] = .string(CommentedString(shellScript))
         }
-        if let dependencyFile = dependencyFile {
+        if let dependencyFile {
             dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))
         }
         if !showEnvVarsInLog {

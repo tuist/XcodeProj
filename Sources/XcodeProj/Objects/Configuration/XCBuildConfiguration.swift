@@ -13,7 +13,7 @@ public final class XCBuildConfiguration: PBXObject {
             baseConfigurationReference?.getObject()
         }
         set {
-            if let newValue = newValue {
+            if let newValue {
                 baseConfigurationReference = newValue.reference
             }
         }
@@ -104,7 +104,7 @@ extension XCBuildConfiguration: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["buildSettings"] = buildSettings.plist()
-        if let baseConfigurationReference = baseConfigurationReference {
+        if let baseConfigurationReference {
             let fileElement: PBXFileElement? = baseConfigurationReference.getObject()
             dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference.value, comment: fileElement?.fileName()))
         }

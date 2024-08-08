@@ -25,7 +25,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let subject = try? XCScheme(path: runnableWithoutBuildableReferenceSchemePath)
 
         XCTAssertNotNil(subject)
-        if let subject = subject {
+        if let subject {
             assert(runnableWithoutBuildableReferenceScheme: subject)
         }
     }
@@ -53,7 +53,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let subject = try? XCScheme(path: minimalSchemePath)
 
         XCTAssertNotNil(subject)
-        if let subject = subject {
+        if let subject {
             assert(minimalScheme: subject)
         }
     }
@@ -331,7 +331,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Then
         XCTAssertEqual(reconstructedSubject, subject)
     }
-    
+
     func test_buildAction_buildArchitectures() throws {
         // Given / When
         let subject = try XCScheme(path: buildArchitecturesSchemePath)
@@ -340,7 +340,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let buildAction = try XCTUnwrap(subject.buildAction)
         XCTAssertTrue(buildAction.buildArchitectures == .matchRunDestination)
     }
-    
+
     func test_buildAction_buildArchitectures_whenXMLElementDoesNotExist() throws {
         // Given / When
         let subject = try XCScheme(path: minimalSchemePath)
@@ -349,7 +349,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         let buildAction = try XCTUnwrap(subject.buildAction)
         XCTAssertTrue(buildAction.buildArchitectures == .useTargetSettings)
     }
-    
+
     func test_buildAction_buildArchitectures_serializingAndDeserializing() throws {
         // Given
         let scheme = try XCScheme(path: buildArchitecturesSchemePath)
@@ -774,7 +774,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // A scheme with the `runPostActionsOnFailure` enabled
         fixturesPath() + "Schemes/RunPostActionsOnFailure.xcscheme"
     }
-    
+
     /// A scheme that `buildArchitectures` is specified "Automatic".
     private var buildArchitecturesSchemePath: Path {
         fixturesPath() + "Schemes/BuildArchitectures.xcscheme"

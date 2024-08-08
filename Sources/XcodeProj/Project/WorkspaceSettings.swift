@@ -59,8 +59,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public init(buildSystem: BuildSystem = .new,
                 derivedDataLocationStyle: DerivedDataLocationStyle? = nil,
                 derivedDataCustomLocation: String? = nil,
-                autoCreateSchemes: Bool? = nil)
-    {
+                autoCreateSchemes: Bool? = nil) {
         self.buildSystem = buildSystem
         self.derivedDataLocationStyle = derivedDataLocationStyle
         self.derivedDataCustomLocation = derivedDataCustomLocation
@@ -74,15 +73,13 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let buildSystemString: String = try container.decodeIfPresent(.buildSystem),
-           let buildSystem = BuildSystem(rawValue: buildSystemString)
-        {
+           let buildSystem = BuildSystem(rawValue: buildSystemString) {
             self.buildSystem = buildSystem
         } else {
             buildSystem = .new
         }
         if let derivedDataLocationStyleString: String = try container.decodeIfPresent(.derivedDataLocationStyle),
-           let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString)
-        {
+           let derivedDataLocationStyle = DerivedDataLocationStyle(rawValue: derivedDataLocationStyleString) {
             self.derivedDataLocationStyle = derivedDataLocationStyle
         } else {
             derivedDataLocationStyle = .default
@@ -100,13 +97,13 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         if buildSystem == .original {
             try container.encode(buildSystem.rawValue, forKey: .buildSystem)
         }
-        if let derivedDataLocationStyle = derivedDataLocationStyle {
+        if let derivedDataLocationStyle {
             try container.encode(derivedDataLocationStyle.rawValue, forKey: .derivedDataLocationStyle)
         }
-        if let derivedDataCustomLocation = derivedDataCustomLocation {
+        if let derivedDataCustomLocation {
             try container.encode(derivedDataCustomLocation, forKey: .derivedDataCustomLocation)
         }
-        if let autoCreateSchemes = autoCreateSchemes {
+        if let autoCreateSchemes {
             try container.encode(autoCreateSchemes, forKey: .autoCreateSchemes)
         }
     }
@@ -152,7 +149,7 @@ public class WorkspaceSettings: Codable, Equatable, Writable {
         }
         try path.write(data)
     }
-    
+
     /// Get the workspace settings.
     ///
     /// - Throws: reading error if something goes wrong.

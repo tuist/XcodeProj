@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public final class RemoteRunnable: Runnable {
+public extension XCScheme {
+    final class RemoteRunnable: Runnable {
         // MARK: - Attributes
 
         public var bundleIdentifier: String

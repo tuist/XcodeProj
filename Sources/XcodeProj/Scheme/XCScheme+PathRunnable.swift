@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public class PathRunnable: Equatable {
+public extension XCScheme {
+    class PathRunnable: Equatable {
         // MARK: - Attributes
 
         public var runnableDebuggingMode: String

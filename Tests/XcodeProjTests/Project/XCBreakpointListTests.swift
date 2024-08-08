@@ -12,7 +12,7 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
 
     func test_init_initializesTheBreakpointListCorrectly() {
         XCTAssertNotNil(subject)
-        if let subject = subject {
+        if let subject {
             assert(breakpointList: subject)
         }
     }

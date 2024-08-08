@@ -1,8 +1,8 @@
 import AEXML
 import Foundation
 
-extension XCScheme {
-    public class Runnable: Equatable {
+public extension XCScheme {
+    class Runnable: Equatable {
         // MARK: - Attributes
 
         public var runnableDebuggingMode: String
@@ -27,7 +27,7 @@ extension XCScheme {
             let element = AEXMLElement(name: "Runnable",
                                        value: nil,
                                        attributes: ["runnableDebuggingMode": runnableDebuggingMode])
-            if let buildableReference = buildableReference {
+            if let buildableReference {
                 element.addChild(buildableReference.xmlElement())
             }
             return element

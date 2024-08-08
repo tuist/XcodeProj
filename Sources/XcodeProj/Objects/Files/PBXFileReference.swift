@@ -110,25 +110,25 @@ public final class PBXFileReference: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(PBXFileReference.isa))
-        if let lastKnownFileType = lastKnownFileType {
+        if let lastKnownFileType {
             dictionary["lastKnownFileType"] = .string(CommentedString(lastKnownFileType))
         }
-        if let fileEncoding = fileEncoding {
+        if let fileEncoding {
             dictionary["fileEncoding"] = .string(CommentedString("\(fileEncoding)"))
         }
-        if let explicitFileType = self.explicitFileType {
+        if let explicitFileType {
             dictionary["explicitFileType"] = .string(CommentedString(explicitFileType))
         }
-        if let lineEnding = lineEnding {
+        if let lineEnding {
             dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
         }
-        if let languageSpecificationIdentifier = languageSpecificationIdentifier {
+        if let languageSpecificationIdentifier {
             dictionary["languageSpecificationIdentifier"] = .string(CommentedString(languageSpecificationIdentifier))
         }
-        if let xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier {
+        if let xcLanguageSpecificationIdentifier {
             dictionary["xcLanguageSpecificationIdentifier"] = .string(CommentedString(xcLanguageSpecificationIdentifier))
         }
-        if let plistStructureDefinitionIdentifier = plistStructureDefinitionIdentifier {
+        if let plistStructureDefinitionIdentifier {
             dictionary["plistStructureDefinitionIdentifier"] = .string(CommentedString(plistStructureDefinitionIdentifier))
         }
         return (key: CommentedString(reference, comment: name ?? path),

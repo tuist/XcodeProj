@@ -49,7 +49,7 @@ class ReferenceGeneratorTests: XCTestCase {
             try referenceGenerator.generateReferences(proj: project)
 
             return [remoteProjectFileReference, containerItemProxy, productReferenceProxy, productsGroup, buildFile, pluginDependency.productReference!.getObject()!]
-                .map { $0.reference.value }
+                .map(\.reference.value)
         }
 
         let firstUUIDs = try generateProject()

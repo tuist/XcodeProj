@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class AnalyzeAction: Equatable {
+public extension XCScheme {
+    final class AnalyzeAction: Equatable {
         // MARK: - Static
 
         // Xcode disables PreActions and PostActions for Analyze actions, so this Action

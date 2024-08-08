@@ -14,11 +14,11 @@ final class XCUserDataTests: XCTestCase {
                   initModel: { try? XCUserData(path: $0) },
                   modify: { userData in
                       // XCScheme's that are already in place (the removed element) should not be removed by a write
-                      userData.schemes = userData.schemes.filter { $0.name != "iOS-other"}
+                      userData.schemes = userData.schemes.filter { $0.name != "iOS-other" }
                       return userData
                   },
                   assertion: {
-                    assert(userData: $1, userName: "copy")
+                      assert(userData: $1, userName: "copy")
                   })
     }
 

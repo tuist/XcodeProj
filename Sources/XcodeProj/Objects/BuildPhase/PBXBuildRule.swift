@@ -18,7 +18,7 @@ public final class PBXBuildRule: PBXObject {
 
     /// Element name.
     public var name: String?
-    
+
     /// The discovered dependency file to use
     public var dependencyFile: String?
 
@@ -111,28 +111,28 @@ extension PBXBuildRule: PlistSerializable {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXBuildRule.isa))
         dictionary["compilerSpec"] = .string(CommentedString(compilerSpec))
-        if let dependencyFile = dependencyFile {
+        if let dependencyFile {
             dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))
         }
-        if let filePatterns = filePatterns {
+        if let filePatterns {
             dictionary["filePatterns"] = .string(CommentedString(filePatterns))
         }
         dictionary["fileType"] = .string(CommentedString(fileType))
         dictionary["isEditable"] = .string(CommentedString("\(isEditable.int)"))
-        if let name = name {
+        if let name {
             dictionary["name"] = .string(CommentedString(name))
         }
         dictionary["outputFiles"] = .array(outputFiles.map { .string(CommentedString($0)) })
-        if let inputFiles = inputFiles {
+        if let inputFiles {
             dictionary["inputFiles"] = .array(inputFiles.map { .string(CommentedString($0)) })
         }
-        if let outputFilesCompilerFlags = outputFilesCompilerFlags {
+        if let outputFilesCompilerFlags {
             dictionary["outputFilesCompilerFlags"] = .array(outputFilesCompilerFlags.map { PlistValue.string(CommentedString($0)) })
         }
-        if let script = script {
+        if let script {
             dictionary["script"] = .string(CommentedString(script))
         }
-        if let runOncePerArchitecture = runOncePerArchitecture {
+        if let runOncePerArchitecture {
             dictionary["runOncePerArchitecture"] = .string(CommentedString("\(runOncePerArchitecture.int)"))
         }
         return (key: CommentedString(reference, comment: PBXBuildRule.isa),

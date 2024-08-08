@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class BuildAction: SerialAction {
+public extension XCScheme {
+    final class BuildAction: SerialAction {
         public final class Entry: Equatable {
             public enum BuildFor: Sendable {
                 case running, testing, profiling, archiving, analyzing
@@ -140,7 +140,7 @@ extension XCScheme {
         // MARK: - Helpers
 
         public func add(buildActionEntry: Entry) -> BuildAction {
-            var buildActionEntries = self.buildActionEntries
+            var buildActionEntries = buildActionEntries
             buildActionEntries.append(buildActionEntry)
             return BuildAction(buildActionEntries: buildActionEntries,
                                parallelizeBuild: parallelizeBuild)
@@ -158,7 +158,7 @@ extension XCScheme {
                 attributes["buildArchitectures"] = buildArchitecturesXMLString
             }
 
-            if let runPostActionsOnFailure = runPostActionsOnFailure {
+            if let runPostActionsOnFailure {
                 attributes["runPostActionsOnFailure"] = runPostActionsOnFailure.xmlString
             }
 
@@ -167,7 +167,7 @@ extension XCScheme {
                                        attributes: attributes)
             super.writeXML(parent: element)
             let entries = element.addChild(name: "BuildActionEntries")
-            buildActionEntries.forEach { entry in
+            for entry in buildActionEntries {
                 entries.addChild(entry.xmlElement())
             }
             return element

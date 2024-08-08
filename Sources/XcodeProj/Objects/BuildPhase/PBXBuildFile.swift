@@ -114,28 +114,28 @@ extension PBXBuildFile {
     /// - Returns: build phase type.
     /// - Throws: an error if this method is called before the build file is added to any project.
     func getBuildPhase() throws -> PBXBuildPhase? {
-        if let buildPhase = buildPhase {
+        if let buildPhase {
             return buildPhase
         }
         let projectObjects = try objects()
         if let buildPhase = projectObjects.sourcesBuildPhases.values
-            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.frameworksBuildPhases
-            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .values.first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects
             .resourcesBuildPhases.values
-            .first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.copyFilesBuildPhases
-            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .values.first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.headersBuildPhases
-            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .values.first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         } else if let buildPhase = projectObjects.carbonResourcesBuildPhases
-            .values.first(where: { $0.fileReferences?.map { $0.value }.contains(reference.value) == true }) {
+            .values.first(where: { $0.fileReferences?.map(\.value).contains(reference.value) == true }) {
             return buildPhase
         }
         return nil
@@ -186,7 +186,7 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         if let platformFilters = buildFile.platformFilters {
             dictionary["platformFilters"] = .array(platformFilters.map { .string(.init($0)) })
         }
-        let comment = try buildPhase.name().flatMap { "\(try buildFile.fileName() ?? "(null)") in \($0)" }
+        let comment = try buildPhase.name().flatMap { try "\(buildFile.fileName() ?? "(null)") in \($0)" }
         return (key: CommentedString(reference, comment: comment),
                 value: .dictionary(dictionary))
     }

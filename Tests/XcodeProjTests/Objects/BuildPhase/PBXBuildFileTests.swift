@@ -8,7 +8,7 @@ final class PBXBuildFileTests: XCTestCase {
     }
 
     func test_platformFilterIsSet() {
-        let pbxBuildFile: PBXBuildFile = PBXBuildFile(
+        let pbxBuildFile = PBXBuildFile(
             platformFilter: "platformFilter"
         )
         XCTAssertEqual(pbxBuildFile.platformFilter, "platformFilter")

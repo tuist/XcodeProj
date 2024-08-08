@@ -68,19 +68,19 @@ public final class XCConfigurationList: PBXObject {
 
 // MARK: - Helpers
 
-extension XCConfigurationList {
+public extension XCConfigurationList {
     /// Returns the build configuration with the given name (if it exists)
     ///
     /// - Parameter name: configuration name.
     /// - Returns: build configuration if it exists.
-    public func configuration(name: String) -> XCBuildConfiguration? {
+    func configuration(name: String) -> XCBuildConfiguration? {
         buildConfigurations.first(where: { $0.name == name })
     }
 
     /// Adds the default configurations, debug and release
     ///
     /// - Returns: the created configurations.
-    public func addDefaultConfigurations() throws -> [XCBuildConfiguration] {
+    func addDefaultConfigurations() throws -> [XCBuildConfiguration] {
         var configurations: [XCBuildConfiguration] = []
 
         let debug = XCBuildConfiguration(name: "Debug")
@@ -99,7 +99,7 @@ extension XCConfigurationList {
     ///
     /// - Parameter reference: configuration list reference.
     /// - Returns: target or project with the given configuration list.
-    public func objectWithConfigurationList() throws -> PBXObject? {
+    func objectWithConfigurationList() throws -> PBXObject? {
         let projectObjects = try objects()
         return projectObjects.projects.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
             projectObjects.nativeTargets.first(where: { $0.value.buildConfigurationListReference == reference })?.value ??
@@ -120,11 +120,11 @@ extension XCConfigurationList: PlistSerializable {
                 return .string(CommentedString(configReference.value, comment: config?.name))
             })
         dictionary["defaultConfigurationIsVisible"] = .string(CommentedString("\(defaultConfigurationIsVisible.int)"))
-        if let defaultConfigurationName = defaultConfigurationName {
+        if let defaultConfigurationName {
             dictionary["defaultConfigurationName"] = .string(CommentedString(defaultConfigurationName))
         }
-        return (key: CommentedString(reference, comment: try plistComment()),
-                value: .dictionary(dictionary))
+        return try (key: CommentedString(reference, comment: plistComment()),
+                    value: .dictionary(dictionary))
     }
 
     private func plistComment() throws -> String? {

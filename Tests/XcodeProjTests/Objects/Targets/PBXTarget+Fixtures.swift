@@ -10,7 +10,8 @@ extension PBXTarget {
                         dependencies: [PBXTargetDependency] = [],
                         productName: String? = "Test",
                         product: PBXFileReference = PBXFileReference.fixture(name: "Test.app"),
-                        productType: PBXProductType = PBXProductType.application) -> PBXTarget {
+                        productType: PBXProductType = PBXProductType.application) -> PBXTarget
+    {
         PBXTarget(name: name,
                   buildConfigurationList: buildConfigurationList,
                   buildPhases: buildPhases,

@@ -26,7 +26,7 @@ public class PBXContainerItem: PBXObject {
 
     func plistValues(proj _: PBXProj, reference _: String) throws -> [CommentedString: PlistValue] {
         var dictionary = [CommentedString: PlistValue]()
-        if let comments = comments {
+        if let comments {
             dictionary["comments"] = .string(CommentedString(comments))
         }
         return dictionary

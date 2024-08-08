@@ -16,7 +16,8 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
         let (_, doNotShowPlistValue) = try doNotShow.plistKeyAndValue(proj: proj, reference: "ref")
 
         if case let PlistValue.dictionary(showDictionary) = showPlistValue,
-            case let PlistValue.dictionary(doNotShowDictionary) = doNotShowPlistValue {
+           case let PlistValue.dictionary(doNotShowDictionary) = doNotShowPlistValue
+        {
             XCTAssertNil(showDictionary["showEnvVarsInLog"])
             XCTAssertEqual(doNotShowDictionary["showEnvVarsInLog"]?.string, "0")
         } else {
@@ -35,7 +36,8 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
         guard
             case let .dictionary(valuesWhenNotPresent) = try alwaysOutOfDateNotPresent.plistKeyAndValue(proj: proj, reference: "ref").value,
             case let .dictionary(valuesWhenFalse) = try alwaysOutOfDateFalse.plistKeyAndValue(proj: proj, reference: "ref").value,
-            case let .dictionary(valuesWhenTrue) = try alwaysOutOfDateTrue.plistKeyAndValue(proj: proj, reference: "ref").value else {
+            case let .dictionary(valuesWhenTrue) = try alwaysOutOfDateTrue.plistKeyAndValue(proj: proj, reference: "ref").value
+        else {
             XCTFail("Plist should contain dictionary")
             return
         }
@@ -45,7 +47,7 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
         XCTAssertFalse(valuesWhenFalse.keys.contains("alwaysOutOfDate"))
         XCTAssertEqual(valuesWhenTrue["alwaysOutOfDate"], "1")
     }
-  
+
     func test_write_dependencyFile() throws {
         let discoveryPath = "$(DERIVED_FILE_DIR)/target.d"
         let discovery = PBXShellScriptBuildPhase(dependencyFile: discoveryPath)

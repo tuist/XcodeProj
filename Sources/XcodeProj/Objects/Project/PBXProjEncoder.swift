@@ -238,7 +238,7 @@ final class PBXProjEncoder {
                       rootObject.value,
                       comment: "Project object"
                   )
-        ), stateHolder: &stateHolder, to: &output)
+              ), stateHolder: &stateHolder, to: &output)
         writeDictionaryEnd(stateHolder: &stateHolder, to: &output)
         writeNewLine(stateHolder: &stateHolder, to: &output)
 
@@ -287,12 +287,12 @@ final class PBXProjEncoder {
         output.append("/* \(comment) */")
     }
 
-    private func write<T>(section: String,
-                          proj: PBXProj,
-                          objects: [PBXObjectReference: T],
-                          outputSettings: PBXOutputSettings,
-                          stateHolder: inout StateHolder,
-                          to output: inout [String]) throws where T: PlistSerializable & Equatable {
+    private func write(section: String,
+                       proj: PBXProj,
+                       objects: [PBXObjectReference: some PlistSerializable & Equatable],
+                       outputSettings: PBXOutputSettings,
+                       stateHolder: inout StateHolder,
+                       to output: inout [String]) throws {
         try write(section: section, proj: proj, objects: objects, sort: outputSettings.projFileListOrder.sort, stateHolder: &stateHolder, to: &output)
     }
 
@@ -367,7 +367,7 @@ final class PBXProjEncoder {
                        stateHolder: inout StateHolder,
                        to output: inout [String]) {
         writeDictionaryStart(stateHolder: &stateHolder, to: &output)
-        let sorted = dictionary.sorted(by: { (left, right) -> Bool in
+        let sorted = dictionary.sorted(by: { left, right -> Bool in
             if left.key == "isa" {
                 return true
             } else if right.key == "isa" {
@@ -376,9 +376,9 @@ final class PBXProjEncoder {
                 return left.key.string < right.key.string
             }
         })
-        sorted.forEach {
-            write(dictionaryKey: $0.key,
-                  dictionaryValue: $0.value,
+        for item in sorted {
+            write(dictionaryKey: item.key,
+                  dictionaryValue: item.value,
                   multiline: stateHolder.multiline,
                   stateHolder: &stateHolder,
                   to: &output)

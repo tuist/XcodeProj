@@ -1,5 +1,5 @@
-@testable import XcodeProj
 import XCTest
+@testable import XcodeProj
 
 final class XCSchemeBuildableReferenceTests: XCTestCase {
     func test_hash() throws {

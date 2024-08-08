@@ -2,8 +2,8 @@ import AEXML
 import Foundation
 import PathKit
 
-extension XCScheme {
-    public final class ArchiveAction: SerialAction {
+public extension XCScheme {
+    final class ArchiveAction: SerialAction {
         // MARK: - Static
 
         private static let defaultBuildConfiguration = "Release"

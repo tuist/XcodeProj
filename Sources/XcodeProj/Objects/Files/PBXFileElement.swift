@@ -98,29 +98,29 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileElement.isa))
-        if let name = name {
+        if let name {
             dictionary["name"] = .string(CommentedString(name))
         }
-        if let path = path {
+        if let path {
             dictionary["path"] = .string(CommentedString(path))
         }
-        if let sourceTree = sourceTree {
+        if let sourceTree {
             dictionary["sourceTree"] = sourceTree.plist()
         }
 
-        if let includeInIndex = includeInIndex {
+        if let includeInIndex {
             dictionary["includeInIndex"] = .string(CommentedString("\(includeInIndex.int)"))
         }
-        if let usesTabs = usesTabs {
+        if let usesTabs {
             dictionary["usesTabs"] = .string(CommentedString("\(usesTabs.int)"))
         }
-        if let indentWidth = indentWidth {
+        if let indentWidth {
             dictionary["indentWidth"] = .string(CommentedString("\(indentWidth)"))
         }
-        if let tabWidth = tabWidth {
+        if let tabWidth {
             dictionary["tabWidth"] = .string(CommentedString("\(tabWidth)"))
         }
-        if let wrapsLines = wrapsLines {
+        if let wrapsLines {
             dictionary["wrapsLines"] = .string(CommentedString("\(wrapsLines.int)"))
         }
         return (key: CommentedString(reference,
@@ -173,7 +173,7 @@ public extension PBXFileElement {
                 let projectObjects = try objects()
                 let isThisElementRoot = projectObjects.projects.values.first(where: { $0.mainGroup == self }) != nil
                 if isThisElementRoot {
-                    if let path = path {
+                    if let path {
                         return sourceRoot + Path(path)
                     }
                     return sourceRoot
