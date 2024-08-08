@@ -183,7 +183,9 @@ class PBXObjects: Equatable {
             lhs.carbonResourcesBuildPhases == rhs.carbonResourcesBuildPhases &&
             lhs.buildRules == rhs.buildRules &&
             lhs.swiftPackageProductDependencies == rhs._swiftPackageProductDependencies &&
-            lhs.remoteSwiftPackageReferences == rhs.remoteSwiftPackageReferences
+            lhs.remoteSwiftPackageReferences == rhs.remoteSwiftPackageReferences &&
+            lhs.fileSystemSynchronizedRootGroups == rhs.fileSystemSynchronizedRootGroups &&
+            lhs.fileSystemSynchronizedBuildFileExceptionSets == rhs.fileSystemSynchronizedBuildFileExceptionSets
     }
 
     // MARK: - Helpers
@@ -290,7 +292,12 @@ class PBXObjects: Equatable {
             return _remoteSwiftPackageReferences.remove(at: index).value
         } else if let index = swiftPackageProductDependencies.index(forKey: reference) {
             return _swiftPackageProductDependencies.remove(at: index).value
+        } else if let index = fileSystemSynchronizedRootGroups.index(forKey: reference) {
+            return _fileSystemSynchronizedRootGroups.remove(at: index).value
+        } else if let index = fileSystemSynchronizedBuildFileExceptionSets.index(forKey: reference) {
+            return _fileSystemSynchronizedBuildFileExceptionSets.remove(at: index).value
         }
+
         return nil
     }
 
@@ -351,6 +358,10 @@ class PBXObjects: Equatable {
         } else if let object = remoteSwiftPackageReferences[reference] {
             return object
         } else if let object = swiftPackageProductDependencies[reference] {
+            return object
+        } else if let object = fileSystemSynchronizedRootGroups[reference] {
+            return object
+        } else if let object = fileSystemSynchronizedBuildFileExceptionSets[reference] {
             return object
         } else {
             return nil
@@ -443,5 +454,7 @@ extension PBXObjects {
         carbonResourcesBuildPhases.values.forEach(closure)
         remoteSwiftPackageReferences.values.forEach(closure)
         swiftPackageProductDependencies.values.forEach(closure)
+        fileSystemSynchronizedRootGroups.values.forEach(closure)
+        fileSystemSynchronizedBuildFileExceptionSets.values.forEach(closure)
     }
 }

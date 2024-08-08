@@ -76,15 +76,15 @@ public class PBXTarget: PBXContainerItem {
     }
 
     /// Swift package product references.
-    var packageProductDependencyReferences: [PBXObjectReference]
+    var packageProductDependencyReferences: [PBXObjectReference]?
 
     /// Swift packages products.
-    public var packageProductDependencies: [XCSwiftPackageProductDependency] {
+    public var packageProductDependencies: [XCSwiftPackageProductDependency]? {
         set {
-            packageProductDependencyReferences = newValue.references()
+            packageProductDependencyReferences = newValue?.references()
         }
         get {
-            packageProductDependencyReferences.objects()
+            packageProductDependencyReferences?.objects()
         }
     }
 
@@ -176,10 +176,15 @@ public class PBXTarget: PBXContainerItem {
         } else {
             productReference = nil
         }
-        let packageProductDependencyReferenceStrings: [String] = try container.decodeIfPresent(.packageProductDependencies) ?? []
-        packageProductDependencyReferences = packageProductDependencyReferenceStrings.map {
-            objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
+        let packageProductDependencyReferenceStrings: [String]? = try container.decodeIfPresent(.packageProductDependencies)
+        if let packageProductDependencyReferenceStrings {
+            packageProductDependencyReferences = packageProductDependencyReferenceStrings.map {
+                objectReferenceRepository.getOrCreate(reference: $0, objects: objects)
+            }
+        } else {
+            packageProductDependencyReferences = nil
         }
+
         let fileSystemSynchronizedGroupsReferences: [String]? = try container.decodeIfPresent(.fileSystemSynchronizedGroups)
         if let fileSystemSynchronizedGroupsReferences {
             self.fileSystemSynchronizedGroupsReferences = fileSystemSynchronizedGroupsReferences.map {
@@ -213,7 +218,7 @@ public class PBXTarget: PBXContainerItem {
         if let fileSystemSynchronizedGroupsReferences {
             dictionary["fileSystemSynchronizedGroups"] = .array(fileSystemSynchronizedGroupsReferences.map { fileSystemSynchronizedGroupReference in
                 let fileSystemSynchronizedGroup: PBXFileSystemSynchronizedRootGroup? = fileSystemSynchronizedGroupReference.getObject()
-                return .string(CommentedString(fileSystemSynchronizedGroupReference.value, comment: fileSystemSynchronizedGroup?.name))
+                return .string(CommentedString(fileSystemSynchronizedGroupReference.value, comment: fileSystemSynchronizedGroup?.path))
             })
         }
 
@@ -228,11 +233,12 @@ public class PBXTarget: PBXContainerItem {
             let fileElement: PBXFileElement? = productReference.getObject()
             dictionary["productReference"] = .string(CommentedString(productReference.value, comment: fileElement?.fileName()))
         }
-        if !packageProductDependencies.isEmpty {
+        if let packageProductDependencies {
             dictionary["packageProductDependencies"] = .array(packageProductDependencies.map {
                 PlistValue.string(.init($0.reference.value, comment: $0.productName))
             })
         }
+
         return (key: CommentedString(reference, comment: name),
                 value: .dictionary(dictionary))
     }
