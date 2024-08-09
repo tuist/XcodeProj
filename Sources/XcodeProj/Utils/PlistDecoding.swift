@@ -1,6 +1,6 @@
 import Foundation
 
-public indirect enum PlistObject: Sendable, Equatable {
+indirect enum PlistObject: Sendable, Equatable {
     case string(String)
     case array([String])
     case dictionary([String: PlistObject])
