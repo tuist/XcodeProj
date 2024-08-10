@@ -19,12 +19,6 @@ struct JSONCodingKeys: CodingKey {
 
 extension KeyedDecodingContainer {
     func decode(_ type: [String: Any].Type, forKey key: K) throws -> [String: Any] {
-        // Optimization for root dictionary decoding
-        if let decoder = try? superDecoder().context,
-            let pbxProjValueReader = decoder.pbxProjValueReader,
-            let result = pbxProjValueReader(key.stringValue) as? [String: Any] {
-            return result
-        }
         let container = try nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         return try container.decode(type)
     }

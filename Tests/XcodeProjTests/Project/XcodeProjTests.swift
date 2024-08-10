@@ -25,6 +25,25 @@ final class XcodeProjIntegrationTests: XCTestCase {
                                         initModel: XcodeProj.init(path:))
     }
     
+    
+    func test_initialize_PBXProj_with_performance() throws {
+        // Given
+        let pbxprojPath = fixturesPath() + "iOS/Etsy.xcodeproj" + "project.pbxproj"
+        measure {
+            do {
+                let pbxprojFromDisk = try PBXProj(path: pbxprojPath)
+                let pbxprojData = try Data(contentsOf: pbxprojPath.url)
+                
+                // When
+                let pbxprojFromData = try PBXProj(data: pbxprojData)
+                pbxprojFromData.updateProjectName(path: pbxprojPath)
+                XCTAssertEqual(pbxprojFromData, pbxprojFromDisk)
+            } catch {}
+        }
+        // Then
+
+    }
+    
     func test_initialize_PBXProj_with_data() throws {
         // Given
         let pbxprojPath = iosProjectPath + "project.pbxproj"

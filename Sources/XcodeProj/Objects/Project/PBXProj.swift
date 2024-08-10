@@ -72,25 +72,7 @@ public final class PBXProj: Decodable {
     /// - Parameters:
     ///   - data: data representation of pbxproj file.
     public convenience init(data: Data) throws {
-        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
-
-        let serialized = try PropertyListSerialization.propertyList(
-            from: data,
-            options: .mutableContainersAndLeaves,
-            format: &propertyListFormat
-        )
-
-        guard let pbxProjDictionary = serialized as? [String: Any] else {
-            throw PBXProjError.malformed
-        }
-
-        let context = ProjectDecodingContext(
-            pbxProjValueReader: { key in
-                pbxProjDictionary[key]
-            }
-        )
-
-        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
+        let plistDecoder = XcodeprojPropertyListDecoder(context: ProjectDecodingContext())
         let pbxproj: PBXProj = try plistDecoder.decode(PBXProj.self, from: data)
 
         self.init(
@@ -135,21 +117,12 @@ public final class PBXProj: Decodable {
         objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
         classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
-        let objectsDictionary: [String: PlistObject] = try container.decodeIfPresent([String: PlistObject].self, forKey: .objects) ?? [:]
+        let objectsDictionary: [String: PBXObjectDictionaryEntry] = try container.decodeIfPresent([String: PBXObjectDictionaryEntry].self, forKey: .objects) ?? [:]
 
-        let parser = PBXObjectParser(
-            userInfo: decoder.userInfo
-        )
-
-        try objectsDictionary.enumerateKeysAndObjects(options: .concurrent) { key, obj, _ in
-            guard case let .dictionary(dictionary) = obj else { return }
-            let reference = key
-            let object = try parser.parse(
-                reference: reference,
-                dictionary: dictionary
-            )
-            objects.add(object: object)
+        for entry in objectsDictionary {
+            objects.add(object: entry.value.object)
         }
+
         self.objects = objects
 
         rootGroup()?.assignParentToChildren()
@@ -158,33 +131,12 @@ public final class PBXProj: Decodable {
     // MARK: Static Methods
 
     private static func createPBXProj(path: Path) throws -> PBXProj {
-        let (pbxProjData, pbxProjDictionary) = try PBXProj.readPBXProj(path: path)
-        let context = ProjectDecodingContext(
-            pbxProjValueReader: { key in
-                pbxProjDictionary[key]
-            }
-        )
+        let pbxProjData = try Data(contentsOf: path.url)
 
-        let plistDecoder = XcodeprojPropertyListDecoder(context: context)
+        let plistDecoder = XcodeprojPropertyListDecoder(context: ProjectDecodingContext())
         let pbxproj: PBXProj = try plistDecoder.decode(PBXProj.self, from: pbxProjData)
         pbxproj.updateProjectName(path: path)
         return pbxproj
-    }
-
-    private static func readPBXProj(path: Path) throws -> (Data, [String: Any]) {
-        let plistXML = try Data(contentsOf: path.url)
-        var propertyListFormat = PropertyListSerialization.PropertyListFormat.xml
-        let serialized = try PropertyListSerialization.propertyList(
-            from: plistXML,
-            options: .mutableContainersAndLeaves,
-            format: &propertyListFormat
-        )
-
-        guard let pbxProjDictionary = serialized as? [String: Any] else {
-            throw PBXProjError.malformed
-        }
-
-        return (plistXML, pbxProjDictionary)
     }
 }
 

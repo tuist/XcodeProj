@@ -9,10 +9,7 @@ extension Decodable {
     init(jsonDictionary: [String: PlistObject]) throws {
         let data = try JSONEncoder().encode(jsonDictionary)
         let decoder = XcodeprojJSONDecoder(
-            context: ProjectDecodingContext(pbxProjValueReader: { key in
-                jsonDictionary[key]
-            })
-        )
+            context: ProjectDecodingContext())
         self = try decoder.decode(Self.self, from: data)
     }
 }
