@@ -38,7 +38,12 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
 
     // MARK: - Init
 
-    public init(target: PBXTarget, membershipExceptions: [String]?, publicHeaders: [String]?, privateHeaders: [String]?, additionalCompilerFlagsByRelativePath: [String: String]?, attributesByRelativePath: [String: [String]]?) {
+    public init(target: PBXTarget,
+                membershipExceptions: [String]?,
+                publicHeaders: [String]?,
+                privateHeaders: [String]?,
+                additionalCompilerFlagsByRelativePath: [String: String]?,
+                attributesByRelativePath: [String: [String]]?) {
         targetReference = target.reference
         self.membershipExceptions = membershipExceptions
         self.publicHeaders = publicHeaders
