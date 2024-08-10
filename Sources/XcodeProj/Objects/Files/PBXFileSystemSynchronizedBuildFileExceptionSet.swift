@@ -15,6 +15,16 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
     /// Every item in the list is the relative path inside the root synchronized group.
     public var privateHeaders: [String]?
 
+    /// Additional compiler flags by relative path.
+    /// Every item in the list is the relative path inside the root synchronized group.
+    /// The value is the additional compiler flags.
+    public var additionalCompilerFlagsByRelativePath: [String: String]?
+
+    /// Attributes by relative path.
+    /// Every item in the list is the relative path inside the root synchronized group.
+    /// This is used for example when linking frameworks to specify that they are optional with the attribute "Weak"
+    public var attributesByRelativePath: [String: [String]]?
+
     var targetReference: PBXObjectReference
 
     public var target: PBXTarget! {
@@ -28,11 +38,13 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
 
     // MARK: - Init
 
-    public init(target: PBXTarget, membershipExceptions: [String]?, publicHeaders: [String]?, privateHeaders: [String]?) {
+    public init(target: PBXTarget, membershipExceptions: [String]?, publicHeaders: [String]?, privateHeaders: [String]?, additionalCompilerFlagsByRelativePath: [String: String]?, attributesByRelativePath: [String: [String]]?) {
         targetReference = target.reference
         self.membershipExceptions = membershipExceptions
         self.publicHeaders = publicHeaders
         self.privateHeaders = privateHeaders
+        self.additionalCompilerFlagsByRelativePath = additionalCompilerFlagsByRelativePath
+        self.attributesByRelativePath = attributesByRelativePath
         super.init()
     }
 
@@ -43,6 +55,8 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
         case membershipExceptions
         case publicHeaders
         case privateHeaders
+        case additionalCompilerFlagsByRelativePath
+        case attributesByRelativePath
     }
 
     public required init(from decoder: Decoder) throws {
@@ -54,6 +68,8 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
         membershipExceptions = try container.decodeIfPresent(.membershipExceptions)
         publicHeaders = try container.decodeIfPresent(.publicHeaders)
         privateHeaders = try container.decodeIfPresent(.privateHeaders)
+        additionalCompilerFlagsByRelativePath = try container.decodeIfPresent(.additionalCompilerFlagsByRelativePath)
+        attributesByRelativePath = try container.decodeIfPresent(.attributesByRelativePath)
         try super.init(from: decoder)
     }
 
@@ -77,6 +93,16 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
         }
         if let privateHeaders {
             dictionary["privateHeaders"] = .array(privateHeaders.map { .string(CommentedString($0)) })
+        }
+        if let additionalCompilerFlagsByRelativePath {
+            dictionary["additionalCompilerFlagsByRelativePath"] = .dictionary(Dictionary(uniqueKeysWithValues: additionalCompilerFlagsByRelativePath.map { key, value in
+                (CommentedString(key), PlistValue.string(CommentedString(value)))
+            }))
+        }
+        if let attributesByRelativePath {
+            dictionary["attributesByRelativePath"] = .dictionary(Dictionary(uniqueKeysWithValues: attributesByRelativePath.map { key, value in
+                (CommentedString(key), .array(value.map { .string(CommentedString($0)) }))
+            }))
         }
         dictionary["target"] = .string(CommentedString(target.reference.value, comment: target.name))
         return (key: CommentedString(reference, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"), value: .dictionary(dictionary))

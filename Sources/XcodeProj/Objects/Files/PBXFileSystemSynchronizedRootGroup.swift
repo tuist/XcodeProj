@@ -88,7 +88,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        if let exceptionsReferences, !exceptionReferences.isEmpty {
+        if let exceptionsReferences, !exceptionsReferences.isEmpty {
             dictionary["exceptions"] = .array(exceptionsReferences.map { exceptionReference in
                 .string(CommentedString(exceptionReference.value, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"))
             })
