@@ -6,6 +6,11 @@ func fixturesPath() -> Path {
     Path(#file).parent().parent().parent().parent() + "Fixtures"
 }
 
+func synchronizedRootGroupsFixture() -> (Path, [String: Any]) {
+    let iosProject = fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj/project.pbxproj"
+    return (iosProject, loadPlist(path: iosProject.string)!)
+}
+
 func iosProjectDictionary() -> (Path, [String: Any]) {
     let iosProject = fixturesPath() + "iOS/Project.xcodeproj/project.pbxproj"
     return (iosProject, loadPlist(path: iosProject.string)!)

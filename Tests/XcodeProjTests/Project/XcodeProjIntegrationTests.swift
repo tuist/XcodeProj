@@ -25,6 +25,11 @@ final class XcodeProjIntegrationTests: XCTestCase {
                                         initModel: XcodeProj.init(path:))
     }
 
+    func test_read_write_produces_no_diff_when_synchronizedRootGroupsFixture() throws {
+        try testReadWriteProducesNoDiff(from: synchronizedRootGroupsFixturePath,
+                                        initModel: XcodeProj.init(path:))
+    }
+
     func test_initialize_PBXProj_with_data() throws {
         // Given
         let pbxprojPath = iosProjectPath + "project.pbxproj"
@@ -89,5 +94,9 @@ final class XcodeProjIntegrationTests: XCTestCase {
 
     private var iosProjectPath: Path {
         fixturesPath() + "iOS/Project.xcodeproj"
+    }
+
+    private var synchronizedRootGroupsFixturePath: Path {
+        fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj"
     }
 }

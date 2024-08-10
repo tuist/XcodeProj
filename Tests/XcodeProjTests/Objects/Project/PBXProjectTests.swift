@@ -67,7 +67,7 @@ final class PBXProjectTests: XCTestCase {
         // Then
         XCTAssertEqual(packageProduct, objects.buildFiles.first?.value.product)
         XCTAssertEqual(packageProduct, objects.swiftPackageProductDependencies.first?.value)
-        XCTAssertEqual(packageProduct, target.packageProductDependencies.first)
+        XCTAssertEqual(packageProduct, target.packageProductDependencies?.first)
 
         XCTAssertEqual(objects.fileReferences.first?.value.name, "Product")
 
@@ -240,8 +240,8 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(packageProduct, secondPackageProduct)
         XCTAssertEqual(packageProduct, thirdPackageProduct)
         XCTAssertEqual(project.remotePackages.count, 1)
-        XCTAssertEqual(target.packageProductDependencies.count, 2)
-        XCTAssertEqual(secondTarget.packageProductDependencies.count, 1)
+        XCTAssertEqual(target.packageProductDependencies?.count, 2)
+        XCTAssertEqual(secondTarget.packageProductDependencies?.count, 1)
         XCTAssertNotEqual(buildPhase.files?.first?.hashValue, secondBuildPhase.files?.first?.hashValue)
         XCTAssertEqual(objects.swiftPackageProductDependencies.count, 2)
 
