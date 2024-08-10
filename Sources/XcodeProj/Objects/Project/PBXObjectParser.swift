@@ -12,7 +12,6 @@ final class PBXObjectParser {
     public func parse(reference: String, dictionary: [String: PlistObject]) throws -> PBXObject {
         var mutableDictionary = dictionary
         mutableDictionary["reference"] = .string(reference)
-//        let data = try JSONSerialization.data(withJSONObject: mutableDictionary, options: [])
         let data = try JSONEncoder().encode(mutableDictionary)
         guard case let .string(isa) = dictionary["isa"] else { throw PBXObjectError.missingIsa }
 

@@ -11,7 +11,9 @@ extension Dictionary where Key == String, Value == PlistObject{
         let dictionary = NSDictionary(dictionary: self)
         dictionary.enumerateKeysAndObjects(options: opts) { key, obj, stops in
             do {
+                // swiftlint:disable force_cast
                 try block(key as! String, obj as! PlistObject, stops)
+                // swiftlint:enable force_cast
             } catch {
                 blockError = error
                 stops.pointee = true
