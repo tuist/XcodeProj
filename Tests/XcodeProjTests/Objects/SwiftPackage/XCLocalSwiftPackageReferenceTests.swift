@@ -7,12 +7,13 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
     func test_init() throws {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
-        let plist: [String: Any] = ["reference": "ref",
-                                    "relativePath": "path"]
+        let plist: [String: [String: Any]] = ["ref": ["relativePath": "path"]]
+        
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
 
         // When
-        let got = try decoder.decode(XCLocalSwiftPackageReference.self, from: data)
+        let decoded = try decoder.decode([String: XCLocalSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
 
         // Then
         XCTAssertEqual(got.reference.value, "ref")
