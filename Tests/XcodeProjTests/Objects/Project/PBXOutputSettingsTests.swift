@@ -202,8 +202,8 @@ class PBXOutputSettingsTests: XCTestCase {
     }
 
     private func iosProject() -> iOSProject {
-        let dic = iosProjectDictionary()
-        let proj = try! PBXProj(jsonDictionary: dic.1)
+        let dic = try! iosProjectDictionary()
+        let proj = try! PBXProj(data: dic)
 
         let buildFileAssets = proj.buildFiles.first { $0.file?.fileName() == "Assets.xcassets" }!
         let buildFileMain = proj.buildFiles.first { $0.file?.fileName() == "Main.storyboard" }!
@@ -257,8 +257,8 @@ class PBXOutputSettingsTests: XCTestCase {
     }
 
     func fileSharedAcrossTargetsProject() -> FileSharedAcrossTargetsProject {
-        let dic = fileSharedAcrossTargetsDictionary()
-        let proj = try! PBXProj(jsonDictionary: dic.1)
+        let dic = try! fileSharedAcrossTargetsDictionary()
+        let proj = try! PBXProj(data: dic)
 
         let buildFileSameName = proj.buildFiles.filter { $0.file?.fileName() == "SameName.h" }
         let objectBuildFileSameName = proj.buildFiles.map { ($0.reference, $0) }

@@ -7,16 +7,17 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
     func test_init() throws {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
-        let plist: [String: Any] = ["reference": "ref",
-                                    "repositoryURL": "url",
-                                    "requirement": [
-                                        "kind": "revision",
-                                        "revision": "abc",
-                                    ]]
+        let plist: [String: [String: Any]] = ["ref" : [
+            "repositoryURL": "url",
+            "requirement": [
+                "kind": "revision",
+                "revision": "abc",
+            ]]]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
 
         // When
-        let got = try decoder.decode(XCRemoteSwiftPackageReference.self, from: data)
+        let decoded = try decoder.decode([String: XCRemoteSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
 
         // Then
         XCTAssertEqual(got.reference.value, "ref")
