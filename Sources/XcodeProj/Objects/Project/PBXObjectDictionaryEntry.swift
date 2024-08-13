@@ -38,6 +38,8 @@ struct PBXObjectDictionaryEntry: Decodable {
         case XCRemoteSwiftPackageReference.isa: try XCRemoteSwiftPackageReference(from: decoder)
         case XCLocalSwiftPackageReference.isa: try XCLocalSwiftPackageReference(from: decoder)
         case XCSwiftPackageProductDependency.isa: try XCSwiftPackageProductDependency(from: decoder)
+        case PBXFileSystemSynchronizedRootGroup.isa: try PBXFileSystemSynchronizedRootGroup(from: decoder)
+        case PBXFileSystemSynchronizedBuildFileExceptionSet.isa: try PBXFileSystemSynchronizedBuildFileExceptionSet(from: decoder)
         default:
             throw PBXObjectError.unknownElement(isa)
         }

@@ -117,8 +117,8 @@ public final class PBXProject: PBXObject {
         } get {
             var attributes: [PBXTarget: [String: Any]] = [:]
             for targetAttributeReference in targetAttributeReferences {
-                if let object: PBXTarget = $0.key.object() {
-                    attributes[object] = $0.value
+                if let object: PBXTarget = targetAttributeReference.key.object() {
+                    attributes[object] = targetAttributeReference.value
                 }
             }
             return attributes

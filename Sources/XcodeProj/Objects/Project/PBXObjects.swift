@@ -137,12 +137,12 @@ class PBXObjects: Equatable {
 
     private var _fileSystemSynchronizedRootGroups: [PBXObjectReference: PBXFileSystemSynchronizedRootGroup] = [:]
     var fileSystemSynchronizedRootGroups: [PBXObjectReference: PBXFileSystemSynchronizedRootGroup] {
-        lock.whileLocked { _fileSystemSynchronizedRootGroups }
+        lock.withLock { _fileSystemSynchronizedRootGroups }
     }
 
     private var _fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] = [:]
     var fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] {
-        lock.whileLocked { _fileSystemSynchronizedBuildFileExceptionSets }
+        lock.withLock { _fileSystemSynchronizedBuildFileExceptionSets }
     }
 
     // XCSwiftPackageProductDependency

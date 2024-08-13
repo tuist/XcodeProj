@@ -217,7 +217,7 @@ public class PBXTarget: PBXContainerItem {
         dictionary["dependencies"] = .array(dependencyReferences.map { .string(CommentedString($0.value, comment: PBXTargetDependency.isa)) })
         if let fileSystemSynchronizedGroupsReferences {
             dictionary["fileSystemSynchronizedGroups"] = .array(fileSystemSynchronizedGroupsReferences.map { fileSystemSynchronizedGroupReference in
-                let fileSystemSynchronizedGroup: PBXFileSystemSynchronizedRootGroup? = fileSystemSynchronizedGroupReference.getObject()
+                let fileSystemSynchronizedGroup: PBXFileSystemSynchronizedRootGroup? = fileSystemSynchronizedGroupReference.object()
                 return .string(CommentedString(fileSystemSynchronizedGroupReference.value, comment: fileSystemSynchronizedGroup?.path))
             })
         }

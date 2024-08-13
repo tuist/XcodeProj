@@ -29,7 +29,7 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSer
 
     public var target: PBXTarget! {
         get {
-            targetReference.getObject() as? PBXTarget
+            targetReference.object() as? PBXTarget
         }
         set {
             targetReference = newValue.reference

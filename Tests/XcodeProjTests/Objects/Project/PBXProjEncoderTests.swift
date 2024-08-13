@@ -490,7 +490,7 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     private func loadSynchronizedRootGroups() throws {
-        proj = try PBXProj(jsonDictionary: synchronizedRootGroupsFixture().1)
+        proj = try PBXProj(data: synchronizedRootGroupsFixture())
     }
 
     private func loadFileSharedAcrossTargetsProject() throws {
