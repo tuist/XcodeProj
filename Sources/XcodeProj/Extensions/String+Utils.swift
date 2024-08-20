@@ -15,7 +15,7 @@ public extension String {
 
         for _ in 0 ..< length {
             let randomValue = Int.random(in: 0..<base.count)
-            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+            randomString += "\(base[base.index(base.startIndex, offsetBy: randomValue)])"
         }
         return randomString
     }
