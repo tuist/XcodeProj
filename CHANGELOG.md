@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.23.4] - 2024-08-29
+### Details
+#### Chore
+- Update dependency apple/swift-docc-plugin to from: "1.4.2" by @renovate[bot] in [#850](https://github.com/tuist/XcodeProj/pull/850)
+
 ## [8.23.3] - 2024-08-27
 ### Details
 #### Chore
@@ -34,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.23.4]: https://github.com/tuist/XcodeProj/compare/8.23.3..8.23.4
 [8.23.3]: https://github.com/tuist/XcodeProj/compare/8.23.2..8.23.3
 [8.23.2]: https://github.com/tuist/XcodeProj/compare/8.23.1..8.23.2
 [8.23.1]: https://github.com/tuist/XcodeProj/compare/8.23.0..8.23.1
