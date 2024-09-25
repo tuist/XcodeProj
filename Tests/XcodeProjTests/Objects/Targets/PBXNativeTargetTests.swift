@@ -40,6 +40,7 @@ final class PBXNativeTargetTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup)
 
         objects.add(object: project)

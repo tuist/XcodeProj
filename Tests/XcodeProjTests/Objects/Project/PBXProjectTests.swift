@@ -12,6 +12,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "",
                                  buildConfigurationList: XCConfigurationList(),
                                  compatibilityVersion: "",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: PBXGroup(),
                                  attributes: ["LastUpgradeCheck": "0940"],
                                  targetAttributes: [target: ["TestTargetID": "123"]])
@@ -54,6 +55,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -89,6 +91,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -125,6 +128,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -165,6 +169,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -218,6 +223,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target, secondTarget])
 
@@ -292,6 +298,7 @@ final class PBXProjectTests: XCTestCase {
         let project = PBXProject(name: "Project",
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup,
                                  targets: [target, secondTarget])
 

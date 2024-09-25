@@ -23,6 +23,9 @@ public final class PBXProject: PBXObject {
     /// A string representation of the XcodeCompatibilityVersion.
     public var compatibilityVersion: String?
 
+    /// An int representation of the PreferredProjectObjectVersion.
+    public var preferredProjectObjectVersion: Int?
+
     /// The region of development.
     public var developmentRegion: String?
 
@@ -286,6 +289,7 @@ public final class PBXProject: PBXObject {
     ///   - name: xcodeproj's name.
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
+    ///   - preferredProjectObjectVersion: preferred project object version
     ///   - mainGroup: project main group.
     ///   - developmentRegion: project has development region.
     ///   - hasScannedForEncodings: project has scanned for encodings.
@@ -301,6 +305,7 @@ public final class PBXProject: PBXObject {
     public init(name: String,
                 buildConfigurationList: XCConfigurationList,
                 compatibilityVersion: String?,
+                preferredProjectObjectVersion: Int?,
                 mainGroup: PBXGroup,
                 developmentRegion: String? = nil,
                 hasScannedForEncodings: Int = 0,
@@ -316,6 +321,7 @@ public final class PBXProject: PBXObject {
         self.name = name
         buildConfigurationListReference = buildConfigurationList.reference
         self.compatibilityVersion = compatibilityVersion
+        self.preferredProjectObjectVersion = preferredProjectObjectVersion
         mainGroupReference = mainGroup.reference
         self.developmentRegion = developmentRegion
         self.hasScannedForEncodings = hasScannedForEncodings
@@ -338,6 +344,7 @@ public final class PBXProject: PBXObject {
         case name
         case buildConfigurationList
         case compatibilityVersion
+        case preferredProjectObjectVersion
         case developmentRegion
         case hasScannedForEncodings
         case knownRegions
@@ -360,6 +367,7 @@ public final class PBXProject: PBXObject {
         let buildConfigurationListReference: String = try container.decode(.buildConfigurationList)
         self.buildConfigurationListReference = referenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
         compatibilityVersion = try container.decodeIfPresent(.compatibilityVersion)
+        preferredProjectObjectVersion = try container.decodeIfPresent(.preferredProjectObjectVersion)
         developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
         hasScannedForEncodings = hasScannedForEncodingsString.flatMap { Int($0) } ?? 0
@@ -496,6 +504,9 @@ extension PBXProject: PlistSerializable {
         }
         let mainGroupObject: PBXGroup? = mainGroupReference.getObject()
         dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject?.fileName()))
+        if let preferredProjectObjectVersion {
+            dictionary["preferredProjectObjectVersion"] = .string(CommentedString(preferredProjectObjectVersion.description))
+        }
         if let productsGroupReference {
             let productRefGroupObject: PBXGroup? = productsGroupReference.getObject()
             dictionary["productRefGroup"] = .string(CommentedString(productsGroupReference.value,

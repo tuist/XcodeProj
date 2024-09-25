@@ -54,6 +54,7 @@ final class PBXFileElementTests: XCTestCase {
         let project = PBXProject(name: "ProjectName",
                                  buildConfigurationList: XCConfigurationList(),
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup)
 
         let objects = PBXObjects(objects: [project, mainGroup, fileref, group])
@@ -109,6 +110,7 @@ final class PBXFileElementTests: XCTestCase {
         let project = PBXProject(name: "ProjectName",
                                  buildConfigurationList: XCConfigurationList(),
                                  compatibilityVersion: "0",
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: rootGroup)
 
         let objects = PBXObjects(objects: [fileref, nestedGroup, rootGroup, project])

@@ -10,6 +10,7 @@ extension PBXProject {
         PBXProject(name: name,
                    buildConfigurationList: buildConfigurationList,
                    compatibilityVersion: compatibilityVersion,
+                   preferredProjectObjectVersion: nil,
                    mainGroup: mainGroup)
     }
 }

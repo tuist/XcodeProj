@@ -18,6 +18,7 @@ final class PBXGroupTests: XCTestCase {
         let pbxProject = PBXProject(name: "ProjectName",
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
+                                    preferredProjectObjectVersion: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -139,6 +140,7 @@ final class PBXGroupTests: XCTestCase {
         let pbxProject = PBXProject(name: "ProjectName",
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
+                                    preferredProjectObjectVersion: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -163,6 +165,7 @@ final class PBXGroupTests: XCTestCase {
         let pbxProject = PBXProject(name: "ProjectName",
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
+                                    preferredProjectObjectVersion: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -186,6 +189,7 @@ final class PBXGroupTests: XCTestCase {
         let pbxProject = PBXProject(name: "ProjectName",
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
+                                    preferredProjectObjectVersion: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
