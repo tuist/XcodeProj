@@ -1,13 +1,5 @@
 import Foundation
 
-#if os(Linux)
-    import SwiftGlibc
-
-    public func arc4random_uniform(_ max: UInt32) -> Int32 {
-        SwiftGlibc.rand() % Int32(max - 1)
-    }
-#endif
-
 public extension String {
     var quoted: String {
         "\"\(self)\""
@@ -22,8 +14,8 @@ public extension String {
         var randomString = ""
 
         for _ in 0 ..< length {
-            let randomValue = arc4random_uniform(UInt32(base.count))
-            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+            let randomValue = Int.random(in: 0 ..< base.count)
+            randomString += "\(base[base.index(base.startIndex, offsetBy: randomValue)])"
         }
         return randomString
     }
