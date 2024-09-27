@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# mise description="Run tests on Linux"
+
+CONTAINER_RUNTIME=$(command -v podman || command -v docker)
+
+if [ -z "$CONTAINER_RUNTIME" ]; then
+  echo "Neither podman nor docker is available. Please install one to proceed."
+  exit 1
+fi
+
+$CONTAINER_RUNTIME run --rm --interactive --tty --volume "$(pwd):/package" --workdir "/package" swift:5.10.1 bash -c "
+  git config --global user.email 'xcodeproj@tuist.io' &&
+  git config --global user.name 'xcodeproj' &&
+  git config --global init.defaultBranch main &&
+  swift test
+"

@@ -215,15 +215,15 @@ final class PBXProjEncoder {
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)
-        try write(section: "XCRemoteSwiftPackageReference",
-                  proj: proj,
-                  objects: proj.objects.remoteSwiftPackageReferences,
-                  outputSettings: outputSettings,
-                  stateHolder: &stateHolder,
-                  to: &output)
         try write(section: "XCLocalSwiftPackageReference",
                   proj: proj,
                   objects: proj.objects.localSwiftPackageReferences,
+                  outputSettings: outputSettings,
+                  stateHolder: &stateHolder,
+                  to: &output)
+        try write(section: "XCRemoteSwiftPackageReference",
+                  proj: proj,
+                  objects: proj.objects.remoteSwiftPackageReferences,
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)

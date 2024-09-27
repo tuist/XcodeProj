@@ -2,4 +2,5 @@
 swiftformat = "0.54.3"
 tuist = "4.27.0"
 swiftlint = "0.55.1"
+swift="5.10.1"
 "git-cliff" = "2.4.0"
