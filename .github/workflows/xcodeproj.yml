@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: jdx/mise-action@v2
       - name: Build
         run: swift build -c release
   test:
@@ -54,6 +55,7 @@ jobs:
           git config --global user.email "xcodeproj@tuist.io"
           git config --global user.name "xcodeproj"
           git config --global init.defaultBranch main
+      - uses: jdx/mise-action@v2
       - name: Build and run tests
         run: swift test --enable-test-discovery
 
