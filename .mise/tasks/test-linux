@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# mise description="Run tests on Linux"
+
+podman run --rm --interactive --tty --volume "$(pwd):/package" --workdir "/package" swift:5.10.1 bash -c "swift test"
