@@ -16,5 +16,6 @@ jobs:
       - uses: CondeNast/conventional-pull-request-action@v0.2.0
         with:
           commitTitleMatch: false
+          commitlintRulesPath: ".github/.commitlint.rules.js"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
