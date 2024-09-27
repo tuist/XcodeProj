@@ -29,8 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up Podman
+        run: |
+          mise install podman
+          mise use -g podman@latest
+          podman machine start
       - name: Build
         run: mise run build-linux
   test:
@@ -48,8 +51,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up Podman
+        run: |
+          mise install podman
+          mise use -g podman@latest
+          podman machine start
       - name: Test
         run: mise run test-linux
 
