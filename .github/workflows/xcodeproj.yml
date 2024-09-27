@@ -25,16 +25,10 @@ jobs:
         run: mise run build
   build-linux:
     name: Build (Linux)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - name: Set up Podman
-        run: |
-          mise install podman
-          mise use -g podman@latest
-          podman machine init
-          podman machine start
       - name: Build
         run: mise run build-linux
   test:
@@ -48,16 +42,10 @@ jobs:
 
   test-linux:
     name: Test (Linux)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - name: Set up Podman
-        run: |
-          mise install podman
-          mise use -g podman@latest
-          podman machine init
-          podman machine start
       - name: Test
         run: mise run test-linux
 
