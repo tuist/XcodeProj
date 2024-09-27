@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.24.0] - 2024-09-27
+### Details
+#### Feat
+- Make `PBXProject.compatibilityVersion` optional and add `PBXProject.preferredProjectObjectVersion` to support Xcode 16 by @kimdv in [#854](https://github.com/tuist/XcodeProj/pull/854)
+
 ## [8.23.11] - 2024-09-27
 ### Details
 #### Chore
@@ -20,8 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fix
 - Order for `XCLocalSwiftPackageReference` and `XCRemoteSwiftPackageReference` by @kimdv in [#855](https://github.com/tuist/XcodeProj/pull/855)
 
-## New Contributors
-* @kimdv made their first contribution in [#855](https://github.com/tuist/XcodeProj/pull/855)
 ## [8.23.8] - 2024-09-26
 ### Details
 #### Fix
@@ -78,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.24.0]: https://github.com/tuist/XcodeProj/compare/8.23.11..8.24.0
 [8.23.11]: https://github.com/tuist/XcodeProj/compare/8.23.10..8.23.11
 [8.23.10]: https://github.com/tuist/XcodeProj/compare/8.23.9..8.23.10
 [8.23.9]: https://github.com/tuist/XcodeProj/compare/8.23.8..8.23.9
