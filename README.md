@@ -20,7 +20,6 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
   - [Installation](#installation)
     - [Swift Package Manager](#swift-package-manager)
     - [Scripting](#scripting)
-  - [Documentation 📝](#documentation-)
   - [References 📚](#references-)
   - [Contributing](#contributing)
   - [License](#license)
@@ -106,10 +105,6 @@ automatically. If so, we recommend using a library that provides a `Version`
 object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
-
-## Documentation 📝
-
-Want to start using XcodeProj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.
 
 ## References 📚
 
