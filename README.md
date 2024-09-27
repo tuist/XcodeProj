@@ -1,7 +1,5 @@
 # XcodeProj
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
-
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
