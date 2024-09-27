@@ -1,5 +1,5 @@
 module.exports = {
   rules: {
-    'header-max-length': [200]
+    'header-max-length': [2, 'always', 200],
   }
 }
