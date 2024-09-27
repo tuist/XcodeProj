@@ -29,6 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build
         run: mise run build-linux
   test:
@@ -46,6 +48,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Test
         run: mise run test-linux
 
