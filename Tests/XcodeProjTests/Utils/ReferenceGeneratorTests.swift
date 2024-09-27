@@ -94,6 +94,7 @@ private extension PBXProj {
         let project = PBXProject(name: "test",
                                  buildConfigurationList: XCConfigurationList.fixture(),
                                  compatibilityVersion: Xcode.Default.compatibilityVersion,
+                                 preferredProjectObjectVersion: nil,
                                  mainGroup: mainGroup)
 
         add(object: mainGroup)
