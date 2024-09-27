@@ -1,7 +1,5 @@
 # XcodeProj
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/005ef674-d103-4b05-a4d1-79413ce9d766/deploy-status)](https://app.netlify.com/sites/xcodeproj/deploys)
-
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -10,6 +8,7 @@
 [![Release](https://img.shields.io/github/release/tuist/xcodeproj.svg)](https://github.com/tuist/xcodeproj/releases)
 [![Code Coverage](https://codecov.io/gh/tuist/xcodeproj/branch/main/graph/badge.svg)](https://codecov.io/gh/tuist/xcodeproj)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/main/LICENSE.md)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftuist%2FXcodeProj%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tuist/XcodeProj)
 
 XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired by [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
@@ -20,7 +19,6 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
   - [Installation](#installation)
     - [Swift Package Manager](#swift-package-manager)
     - [Scripting](#scripting)
-  - [Documentation 📝](#documentation-)
   - [References 📚](#references-)
   - [Contributing](#contributing)
   - [License](#license)
@@ -106,10 +104,6 @@ automatically. If so, we recommend using a library that provides a `Version`
 object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
-
-## Documentation 📝
-
-Want to start using XcodeProj? Start by digging into our [documentation](/Documentation) which will help you get familiar with the API and get to know more about the Xcode projects structure.
 
 ## References 📚
 

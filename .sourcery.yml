@@ -1,6 +1,0 @@
-sources:
-  - Sources/
-templates:
-  - templates
-output:
-  Sources/XcodeProj/Objects/Sourcery
