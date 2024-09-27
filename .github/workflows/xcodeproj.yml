@@ -33,6 +33,7 @@ jobs:
         run: |
           mise install podman
           mise use -g podman@latest
+          podman machine init
           podman machine start
       - name: Build
         run: mise run build-linux
@@ -55,6 +56,7 @@ jobs:
         run: |
           mise install podman
           mise use -g podman@latest
+          podman machine init
           podman machine start
       - name: Test
         run: mise run test-linux
