@@ -8,6 +8,7 @@
 [![Release](https://img.shields.io/github/release/tuist/xcodeproj.svg)](https://github.com/tuist/xcodeproj/releases)
 [![Code Coverage](https://codecov.io/gh/tuist/xcodeproj/branch/main/graph/badge.svg)](https://codecov.io/gh/tuist/xcodeproj)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tuist/xcodeproj/blob/main/LICENSE.md)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftuist%2FXcodeProj%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tuist/XcodeProj)
 
 XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired by [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
