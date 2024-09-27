@@ -20,44 +20,34 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
+      - uses: jdx/mise-action@v2
       - name: Build
-        run: swift build -c release
+        run: mise run build
   build-linux:
     name: Build (Linux)
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
       - name: Build
-        run: swift build -c release
+        run: mise run build-linux
   test:
     name: Test (macOS / Xcode)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
+      - uses: jdx/mise-action@v2
       - name: Run tests
-        run: swift test --enable-code-coverage
-      - name: Send test coverage report
-        run: bash <(curl -s https://codecov.io/bash)
+        run: mise run test
+
   test-linux:
     name: Test (Linux)
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set Git config
-        run: |
-          git config --global user.email "xcodeproj@tuist.io"
-          git config --global user.name "xcodeproj"
-          git config --global init.defaultBranch main
       - uses: jdx/mise-action@v2
-      - name: Build and run tests
-        run: swift test --enable-test-discovery
+      - name: Test
+        run: mise run test-linux
 
   lint:
     name: Lint
