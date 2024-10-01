@@ -19,6 +19,7 @@ final class PBXGroupTests: XCTestCase {
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
                                     preferredProjectObjectVersion: nil,
+                                    minimizedProjectReferenceProxies: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -141,6 +142,7 @@ final class PBXGroupTests: XCTestCase {
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
                                     preferredProjectObjectVersion: nil,
+                                    minimizedProjectReferenceProxies: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -166,6 +168,7 @@ final class PBXGroupTests: XCTestCase {
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
                                     preferredProjectObjectVersion: nil,
+                                    minimizedProjectReferenceProxies: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 
@@ -190,6 +193,7 @@ final class PBXGroupTests: XCTestCase {
                                     buildConfigurationList: XCConfigurationList(),
                                     compatibilityVersion: "0",
                                     preferredProjectObjectVersion: nil,
+                                    minimizedProjectReferenceProxies: nil,
                                     mainGroup: group)
         project.add(object: pbxProject)
 

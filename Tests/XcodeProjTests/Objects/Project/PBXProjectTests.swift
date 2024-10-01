@@ -13,6 +13,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: XCConfigurationList(),
                                  compatibilityVersion: "",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: PBXGroup(),
                                  attributes: ["LastUpgradeCheck": "0940"],
                                  targetAttributes: [target: ["TestTargetID": "123"]])
@@ -56,6 +57,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -92,6 +94,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -129,6 +132,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -170,6 +174,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target])
 
@@ -224,6 +229,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target, secondTarget])
 
@@ -299,6 +305,7 @@ final class PBXProjectTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup,
                                  targets: [target, secondTarget])
 

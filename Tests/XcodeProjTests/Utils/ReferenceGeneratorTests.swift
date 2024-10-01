@@ -95,6 +95,7 @@ private extension PBXProj {
                                  buildConfigurationList: XCConfigurationList.fixture(),
                                  compatibilityVersion: Xcode.Default.compatibilityVersion,
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup)
 
         add(object: mainGroup)

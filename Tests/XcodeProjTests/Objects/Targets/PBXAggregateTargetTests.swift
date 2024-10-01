@@ -40,6 +40,7 @@ final class PBXAggregateTargetTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup)
 
         objects.add(object: project)
