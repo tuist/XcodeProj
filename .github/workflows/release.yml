@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'The version to release'
+        description: "The version to release"
         type: string
 
 permissions:
@@ -19,7 +19,7 @@ permissions:
 jobs:
   release:
     name: Release
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     timeout-minutes: 15
     if: "!startsWith(github.event.head_commit.message, '[Release]')"
     steps:
@@ -62,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "RELEASE_NOTES<<EOF" >> "$GITHUB_OUTPUT"
-          git cliff 8.22.0.. --unreleased >> "$GITHUB_OUTPUT"
+          git cliff 8.22.0.. --bump --unreleased >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
       - name: Update CHANGELOG.md
         if: env.should-release == 'true'
@@ -74,7 +74,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         if: env.should-release == 'true'
         with:
-          commit_options: '--allow-empty'
+          commit_options: "--allow-empty"
           tagging_message: ${{ steps.next-version.outputs.NEXT_VERSION }}
           skip_dirty_check: true
           commit_message: "[Release] XcodeProj ${{ steps.next-version.outputs.NEXT_VERSION }}"

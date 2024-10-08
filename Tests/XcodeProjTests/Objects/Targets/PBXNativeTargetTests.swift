@@ -41,6 +41,7 @@ final class PBXNativeTargetTests: XCTestCase {
                                  buildConfigurationList: configurationList,
                                  compatibilityVersion: "0",
                                  preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
                                  mainGroup: mainGroup)
 
         objects.add(object: project)

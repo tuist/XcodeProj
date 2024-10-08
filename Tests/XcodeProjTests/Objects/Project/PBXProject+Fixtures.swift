@@ -11,6 +11,7 @@ extension PBXProject {
                    buildConfigurationList: buildConfigurationList,
                    compatibilityVersion: compatibilityVersion,
                    preferredProjectObjectVersion: nil,
+                   minimizedProjectReferenceProxies: nil,
                    mainGroup: mainGroup)
     }
 }

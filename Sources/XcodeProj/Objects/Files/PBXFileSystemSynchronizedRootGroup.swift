@@ -5,7 +5,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     /// It maps relative paths inside the synchronized root group to a particular file type.
     /// If a path doesn't have a particular file type specified, Xcode defaults to the default file type
     /// based on the extension of the file.
-    public var explicitFileTypes: [String: String]
+    public var explicitFileTypes: [String: String]?
 
     /// Returns the references of the exceptions.
     var exceptionsReferences: [PBXObjectReference]?
@@ -22,7 +22,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
     }
 
     /// A list of relative paths to children folder whose configuration is overriden.
-    public var explicitFolders: [String]
+    public var explicitFolders: [String]?
 
     /// Initializes the file element with its properties.
     ///
@@ -74,16 +74,16 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
         let objects = decoder.context.objects
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        explicitFileTypes = try (container.decodeIfPresent(.explicitFileTypes)) ?? [:]
+        explicitFileTypes = try container.decodeIfPresent(.explicitFileTypes)
         let exceptionsReferences: [String] = try (container.decodeIfPresent(.exceptions)) ?? []
         self.exceptionsReferences = exceptionsReferences.map { objectReferenceRepository.getOrCreate(reference: $0, objects: objects) }
-        explicitFolders = try (container.decodeIfPresent(.explicitFolders)) ?? []
+        explicitFolders = try container.decodeIfPresent(.explicitFolders)
         try super.init(from: decoder)
     }
 
     // MARK: - PlistSerializable
 
-    override var multiline: Bool { false }
+    override var multiline: Bool { true }
 
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
@@ -93,10 +93,14 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
                 .string(CommentedString(exceptionReference.value, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"))
             })
         }
-        dictionary["explicitFileTypes"] = .dictionary(Dictionary(uniqueKeysWithValues: explicitFileTypes.map { relativePath, fileType in
-            (CommentedString(relativePath), .string(CommentedString(fileType)))
-        }))
-        dictionary["explicitFolders"] = .array(explicitFolders.map { .string(CommentedString($0)) })
+        if let explicitFileTypes {
+            dictionary["explicitFileTypes"] = .dictionary(Dictionary(uniqueKeysWithValues: explicitFileTypes.map { relativePath, fileType in
+                (CommentedString(relativePath), .string(CommentedString(fileType)))
+            }))
+        }
+        if let explicitFolders {
+            dictionary["explicitFolders"] = .array(explicitFolders.map { .string(CommentedString($0)) })
+        }
         return (key: CommentedString(reference,
                                      comment: name ?? path),
                 value: .dictionary(dictionary))

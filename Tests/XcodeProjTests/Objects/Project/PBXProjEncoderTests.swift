@@ -294,7 +294,18 @@ class PBXProjEncoderTests: XCTestCase {
         let lines = lines(fromFile: encodeProject(settings: settings))
 
         let beginGroup = lines.findLine("/* Begin PBXFileSystemSynchronizedRootGroup section */")
-        var line = lines.validate(line: "6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SynchronizedRootGroups; sourceTree = \"<group>\"; };", after: beginGroup)
+        var line = lines.validate(line: "6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {", after: beginGroup)
+        line = lines.validate(line: "isa = PBXFileSystemSynchronizedRootGroup;", after: line)
+        line = lines.validate(line: "exceptions = (", after: line)
+        line = lines.validate(line: "6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */,", after: line)
+        line = lines.validate(line: ");", after: line)
+        line = lines.validate(line: "explicitFileTypes = {", after: line)
+        line = lines.validate(line: "};", after: line)
+        line = lines.validate(line: "explicitFolders = (", after: line)
+        line = lines.validate(line: ");", after: line)
+        line = lines.validate(line: "path = SynchronizedRootGroups;", after: line)
+        line = lines.validate(line: "sourceTree = \"<group>\";", after: line)
+        line = lines.validate(line: "};", after: line)
         line = lines.validate(line: "/* End PBXFileSystemSynchronizedRootGroup section */", after: line)
     }
 

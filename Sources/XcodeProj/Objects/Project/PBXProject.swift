@@ -26,6 +26,9 @@ public final class PBXProject: PBXObject {
     /// An int representation of the PreferredProjectObjectVersion.
     public var preferredProjectObjectVersion: Int?
 
+    /// An int representation of the minimizedProjectReferenceProxies attribute
+    public var minimizedProjectReferenceProxies: Int?
+
     /// The region of development.
     public var developmentRegion: String?
 
@@ -290,6 +293,7 @@ public final class PBXProject: PBXObject {
     ///   - buildConfigurationList: project build configuration list.
     ///   - compatibilityVersion: project compatibility version.
     ///   - preferredProjectObjectVersion: preferred project object version
+    ///   - minimizedProjectReferenceProxies: minimized project reference proxies
     ///   - mainGroup: project main group.
     ///   - developmentRegion: project has development region.
     ///   - hasScannedForEncodings: project has scanned for encodings.
@@ -306,6 +310,7 @@ public final class PBXProject: PBXObject {
                 buildConfigurationList: XCConfigurationList,
                 compatibilityVersion: String?,
                 preferredProjectObjectVersion: Int?,
+                minimizedProjectReferenceProxies: Int?,
                 mainGroup: PBXGroup,
                 developmentRegion: String? = nil,
                 hasScannedForEncodings: Int = 0,
@@ -322,6 +327,7 @@ public final class PBXProject: PBXObject {
         buildConfigurationListReference = buildConfigurationList.reference
         self.compatibilityVersion = compatibilityVersion
         self.preferredProjectObjectVersion = preferredProjectObjectVersion
+        self.minimizedProjectReferenceProxies = minimizedProjectReferenceProxies
         mainGroupReference = mainGroup.reference
         self.developmentRegion = developmentRegion
         self.hasScannedForEncodings = hasScannedForEncodings
@@ -345,6 +351,7 @@ public final class PBXProject: PBXObject {
         case buildConfigurationList
         case compatibilityVersion
         case preferredProjectObjectVersion
+        case minimizedProjectReferenceProxies
         case developmentRegion
         case hasScannedForEncodings
         case knownRegions
@@ -367,7 +374,20 @@ public final class PBXProject: PBXObject {
         let buildConfigurationListReference: String = try container.decode(.buildConfigurationList)
         self.buildConfigurationListReference = referenceRepository.getOrCreate(reference: buildConfigurationListReference, objects: objects)
         compatibilityVersion = try container.decodeIfPresent(.compatibilityVersion)
-        preferredProjectObjectVersion = try container.decodeIfPresent(.preferredProjectObjectVersion)
+        preferredProjectObjectVersion = if let stringValue = try container.decodeIfPresent(String.self, forKey: .preferredProjectObjectVersion) {
+            Int(stringValue)
+        } else if let intValue = try container.decodeIfPresent(Int.self, forKey: .preferredProjectObjectVersion) {
+            intValue
+        } else {
+            nil
+        }
+        minimizedProjectReferenceProxies = if let stringValue = try container.decodeIfPresent(String.self, forKey: .minimizedProjectReferenceProxies) {
+            Int(stringValue)
+        } else if let intValue = try container.decodeIfPresent(Int.self, forKey: .minimizedProjectReferenceProxies) {
+            intValue
+        } else {
+            nil
+        }
         developmentRegion = try container.decodeIfPresent(.developmentRegion)
         let hasScannedForEncodingsString: String? = try container.decodeIfPresent(.hasScannedForEncodings)
         hasScannedForEncodings = hasScannedForEncodingsString.flatMap { Int($0) } ?? 0
@@ -506,6 +526,9 @@ extension PBXProject: PlistSerializable {
         dictionary["mainGroup"] = .string(CommentedString(mainGroupReference.value, comment: mainGroupObject?.fileName()))
         if let preferredProjectObjectVersion {
             dictionary["preferredProjectObjectVersion"] = .string(CommentedString(preferredProjectObjectVersion.description))
+        }
+        if let minimizedProjectReferenceProxies {
+            dictionary["minimizedProjectReferenceProxies"] = .string(CommentedString(minimizedProjectReferenceProxies.description))
         }
         if let productsGroupReference {
             let productRefGroupObject: PBXGroup? = productsGroupReference.getObject()
