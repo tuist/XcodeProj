@@ -4,12 +4,11 @@ import XCTest
 @testable import XcodeProj
 
 final class XcodeProjIntegrationTests: XCTestCase {
-  
     func test_write_xcode16Project() throws {
-      try testReadWriteProducesNoDiff(from: xcode16ProjectPath,
-                                      initModel: XcodeProj.init(path:))
+        try testReadWriteProducesNoDiff(from: xcode16ProjectPath,
+                                        initModel: XcodeProj.init(path:))
     }
-  
+
     func test_read_iosXcodeProj() throws {
         let subject = try XcodeProj(path: iosProjectPath)
         assert(project: subject)
@@ -101,10 +100,10 @@ final class XcodeProjIntegrationTests: XCTestCase {
     private var iosProjectPath: Path {
         fixturesPath() + "iOS/Project.xcodeproj"
     }
-  
-  private var xcode16ProjectPath: Path {
-      fixturesPath() + "Xcode16/Test.xcodeproj"
-  }
+
+    private var xcode16ProjectPath: Path {
+        fixturesPath() + "Xcode16/Test.xcodeproj"
+    }
 
     private var synchronizedRootGroupsFixturePath: Path {
         fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj"

@@ -20,7 +20,7 @@ final class PBXContainerItemProxyTests: XCTestCase {
 
     func test_maintains_remoteID() {
         let target = PBXNativeTarget(name: "")
-      let project = PBXProject(name: "", buildConfigurationList: XCConfigurationList(), compatibilityVersion: "", preferredProjectObjectVersion: nil, minimizedProjectReferenceProxies: nil, mainGroup: PBXGroup())
+        let project = PBXProject(name: "", buildConfigurationList: XCConfigurationList(), compatibilityVersion: "", preferredProjectObjectVersion: nil, minimizedProjectReferenceProxies: nil, mainGroup: PBXGroup())
         let containerProxy = PBXContainerItemProxy(containerPortal: .project(project), remoteGlobalID: .object(target))
 
         XCTAssertEqual(target.uuid, containerProxy.remoteGlobalID?.uuid)
