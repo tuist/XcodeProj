@@ -54,6 +54,7 @@ final class PBXProjEncoder {
         sort(buildPhases: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
         sort(buildPhases: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
         sort(navigatorGroups: proj.objects.groups, outputSettings: outputSettings)
+        sortProjectReferences(for: proj.projects, outputSettings: outputSettings)
 
         var output = [String]()
         var stateHolder = StateHolder()
@@ -474,4 +475,44 @@ final class PBXProjEncoder {
             navigatorGroups.values.forEach { $0.children = $0.children.sorted(by: sort) }
         }
     }
+
+    private func sortProjectReferences(for projects: [PBXProject], outputSettings: PBXOutputSettings) {
+        guard outputSettings.projReferenceFormat == .xcode else {
+            return
+        }
+
+        for project in projects {
+            do {
+                project.projectReferences = try project.projectReferences.sorted(by: { lhs, rhs in
+                    guard let lProjectRef = lhs["ProjectRef"] else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+                    guard let lFile: PBXFileElement = lProjectRef.getObject() else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+                    guard let rProjectRef = rhs["ProjectRef"] else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+                    guard let rFile: PBXFileElement = rProjectRef.getObject() else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+                    guard let lName = lFile.name else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+                    guard let rName = rFile.name else {
+                        throw Errors.unexpectedPbxProj()
+                    }
+
+                    return lName.compare(rName, options: .caseInsensitive) == .orderedAscending
+                })
+            } catch {
+                print("Unable to sort as Xcode 16 do: \(error)")
+                fatalError("\(error)")
+            }
+        }
+    }
+}
+
+private enum Errors: Error {
+    case unexpectedPbxProj(_ id: Int = #line)
 }
