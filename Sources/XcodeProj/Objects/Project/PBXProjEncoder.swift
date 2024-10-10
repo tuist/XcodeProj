@@ -507,7 +507,9 @@ final class PBXProjEncoder {
                 })
             } catch {
                 print("Unable to sort as Xcode 16 do: \(error)")
-                fatalError("\(error)")
+                // actually we could do even fatalError here
+                // but it could be too brave for common repository
+                // fatalError("\(error)")
             }
         }
     }
