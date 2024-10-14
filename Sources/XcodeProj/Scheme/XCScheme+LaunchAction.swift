@@ -20,7 +20,7 @@ public extension XCScheme {
 
         // The value used to disable 'API Validation'.
         // If this feature is not being disabled, this value will not be present.
-        public let gpuValidationModeDisableValue = "1"
+        public static let gpuValidationModeDisableValue = "1"
 
         // The value used to enable 'Shader Validation'.
         // If this feature is not being enabled, this value will not be present.
@@ -201,7 +201,7 @@ public extension XCScheme {
 
             enableGPUFrameCaptureMode = element.attributes["enableGPUFrameCaptureMode"]
                 .flatMap { GPUFrameCaptureMode(rawValue: $0) } ?? LaunchAction.defaultGPUFrameCaptureMode
-            disableGPUValidationMode = element.attributes["enableGPUValidationMode"] == gpuValidationModeDisableValue
+            disableGPUValidationMode = element.attributes["enableGPUValidationMode"] == LaunchAction.gpuValidationModeDisableValue
             enableGPUShaderValidationMode = element.attributes["enableGPUShaderValidationMode"] == gpuShaderValidationModeEnableValue
             showGraphicsOverview = element.attributes["showGraphicsOverview"] == "Yes"
             logGraphicsOverview = element.attributes["logGraphicsOverview"] == "Yes"
@@ -270,7 +270,7 @@ public extension XCScheme {
                 attributes["enableGPUFrameCaptureMode"] = enableGPUFrameCaptureMode.rawValue
             }
             if disableGPUValidationMode {
-                attributes["enableGPUValidationMode"] = gpuValidationModeDisableValue
+                attributes["enableGPUValidationMode"] = LaunchAction.gpuValidationModeDisableValue
             }
             if enableGPUShaderValidationMode {
                 attributes["enableGPUShaderValidationMode"] = gpuShaderValidationModeEnableValue
