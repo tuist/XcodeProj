@@ -37,12 +37,11 @@ public extension XCScheme {
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"
           
-              if let parallelizableValue = element.attributes["parallelizable"] {
-                parallelization = parallelizableValue == "YES" ? .all : .none
-              } else {
-                  parallelization = .swiftTestingOnly
-              }
-          
+            if let parallelizableValue = element.attributes["parallelizable"] {
+              parallelization = parallelizableValue == "YES" ? .all : .none
+            } else {
+                parallelization = .swiftTestingOnly
+            }
           
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
