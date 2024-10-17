@@ -6,7 +6,7 @@ public extension XCScheme {
         // MARK: - Attributes
 
         public var skipped: Bool
-        public var parallelizable: Bool
+        public var parallelization: Parallelization
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
@@ -17,7 +17,7 @@ public extension XCScheme {
         // MARK: - Init
 
         public init(skipped: Bool,
-                    parallelizable: Bool = false,
+                    parallelization: Parallelization = .none,
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
                     locationScenarioReference: LocationScenarioReference? = nil,
@@ -25,7 +25,7 @@ public extension XCScheme {
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
-            self.parallelizable = parallelizable
+            self.parallelization = parallelization
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
@@ -36,7 +36,14 @@ public extension XCScheme {
 
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"
-            parallelizable = element.attributes["parallelizable"] == "YES"
+          
+              if let parallelizableValue = element.attributes["parallelizable"] {
+                parallelization = parallelizableValue == "YES" ? .all : .none
+              } else {
+                  parallelization = .swiftTestingOnly
+              }
+          
+          
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
@@ -63,7 +70,16 @@ public extension XCScheme {
 
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
-            attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
+            
+            switch parallelization {
+            case .all:
+                attributes["parallelizable"] = "YES"
+            case .none:
+                attributes["parallelizable"] = "NO"
+            case .swiftTestingOnly:
+                break // SwiftTesting is inferred by the lack of a value
+            }
+          
             if let useTestSelectionWhitelist {
                 attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
             }
@@ -99,7 +115,7 @@ public extension XCScheme {
 
         public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
             lhs.skipped == rhs.skipped &&
-                lhs.parallelizable == rhs.parallelizable &&
+                lhs.parallelization == rhs.parallelization &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&
                 lhs.locationScenarioReference == rhs.locationScenarioReference &&
