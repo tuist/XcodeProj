@@ -108,14 +108,12 @@ object.
 ## References 📚
 
 - [Xcode Project File Format](http://www.monobjc.net/xcode-project-file-format.html)
-- [A brief look at the Xcode project format](http://danwright.info/blog/2010/10/xcode-pbxproject-files/)
 - [pbexplorer](https://github.com/mjmsmith/pbxplorer)
 - [pbxproj identifiers](https://pewpewthespells.com/blog/pbxproj_identifiers.html)
 - [mob-pbxproj](https://github.com/kronenthaler/mod-pbxproj)
 - [Xcodeproj](https://github.com/CocoaPods/Xcodeproj)
 - [Nanaimo](https://github.com/CocoaPods/Nanaimo)
 - [Facebook Buck](https://buckbuild.com/javadoc/com/facebook/buck/apple/xcode/xcodeproj/package-summary.html)
-- [Swift Package Manager - Xcodeproj](https://github.com/apple/swift-package-manager/tree/main/Sources/Xcodeproj)
 
 ## Contributing
 
