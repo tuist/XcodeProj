@@ -38,7 +38,7 @@ public extension XCScheme {
             skipped = element.attributes["skipped"] == "YES"
           
             if let parallelizableValue = element.attributes["parallelizable"] {
-              parallelization = parallelizableValue == "YES" ? .all : .none
+                parallelization = parallelizableValue == "YES" ? .all : .none
             } else {
                 parallelization = .swiftTestingOnly
             }
