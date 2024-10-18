@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Parallelization: String {
+public enum Parallelizable: String {
   case swiftTestingOnly
   case all
   case none

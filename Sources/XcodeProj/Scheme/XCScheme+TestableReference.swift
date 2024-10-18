@@ -6,7 +6,7 @@ public extension XCScheme {
         // MARK: - Attributes
 
         public var skipped: Bool
-        public var parallelization: Parallelization
+        public var parallelizable: Parallelizable
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
@@ -17,7 +17,7 @@ public extension XCScheme {
         // MARK: - Init
 
         public init(skipped: Bool,
-                    parallelization: Parallelization = .none,
+                    parallelizable: Parallelizable = .none,
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
                     locationScenarioReference: LocationScenarioReference? = nil,
@@ -25,7 +25,7 @@ public extension XCScheme {
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
-            self.parallelization = parallelization
+            self.parallelizable = parallelizable
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
@@ -38,9 +38,9 @@ public extension XCScheme {
             skipped = element.attributes["skipped"] == "YES"
           
             if let parallelizableValue = element.attributes["parallelizable"] {
-                parallelization = parallelizableValue == "YES" ? .all : .none
+                parallelizable = parallelizableValue == "YES" ? .all : .none
             } else {
-                parallelization = .swiftTestingOnly
+                parallelizable = .swiftTestingOnly
             }
           
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
@@ -70,7 +70,7 @@ public extension XCScheme {
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
             
-            switch parallelization {
+            switch parallelizable {
             case .all:
                 attributes["parallelizable"] = "YES"
             case .none:
@@ -114,7 +114,7 @@ public extension XCScheme {
 
         public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
             lhs.skipped == rhs.skipped &&
-                lhs.parallelization == rhs.parallelization &&
+                lhs.parallelizable == rhs.parallelizable &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&
                 lhs.locationScenarioReference == rhs.locationScenarioReference &&
