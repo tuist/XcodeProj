@@ -68,7 +68,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
     func test_write_testableReferenceDefaultAttributesValuesAreOmitted() {
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelization: .swiftTestingOnly,
+            parallelizable: .swiftTestingOnly,
             randomExecutionOrdering: false,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -88,7 +88,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
     func test_write_testableReferenceAttributesValues() {
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelization: .all,
+            parallelizable: .all,
             randomExecutionOrdering: true,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -110,7 +110,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
   func test_write_testableReferenceAttributesValuesForSwiftTesting() {
       let reference = XCScheme.TestableReference(
           skipped: false,
-          parallelization: .swiftTestingOnly,
+          parallelizable: .swiftTestingOnly,
           randomExecutionOrdering: true,
           buildableReference: XCScheme.BuildableReference(
               referencedContainer: "",
@@ -133,7 +133,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Given
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelization: .all,
+            parallelizable: .all,
             randomExecutionOrdering: true,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -419,7 +419,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.codeCoverageEnabled, true)
         XCTAssertEqual(scheme.testAction?.onlyGenerateCoverageForSpecifiedTargets, true)
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
-        XCTAssertEqual(scheme.testAction?.testables.first?.parallelization, .swiftTestingOnly)
+        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, .swiftTestingOnly)
         XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.useTestSelectionWhitelist, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
