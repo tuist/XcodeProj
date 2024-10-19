@@ -33,7 +33,8 @@ public extension XCScheme {
             self.selectedTests = selectedTests
             self.skippedTests = skippedTests
         }
-      
+
+        @available(*, deprecated, message: "Use init with parallelizable: Parallelizable type argument instead")
         public init(skipped: Bool,
                     parallelizable: Bool = false,
                     randomExecutionOrdering: Bool = false,
@@ -54,13 +55,13 @@ public extension XCScheme {
 
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"
-          
+
             if let parallelizableValue = element.attributes["parallelizable"] {
                 parallelizable = parallelizableValue == "YES" ? .all : .none
             } else {
                 parallelizable = .swiftTestingOnly
             }
-          
+
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
@@ -87,7 +88,7 @@ public extension XCScheme {
 
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
-            
+
             switch parallelizable {
             case .all:
                 attributes["parallelizable"] = "YES"
@@ -96,7 +97,7 @@ public extension XCScheme {
             case .swiftTestingOnly:
                 break // SwiftTesting is inferred by the lack of a value
             }
-          
+
             if let useTestSelectionWhitelist {
                 attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
             }
