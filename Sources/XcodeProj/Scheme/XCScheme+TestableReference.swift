@@ -33,6 +33,24 @@ public extension XCScheme {
             self.selectedTests = selectedTests
             self.skippedTests = skippedTests
         }
+      
+        public init(skipped: Bool,
+                    parallelizable: Bool = false,
+                    randomExecutionOrdering: Bool = false,
+                    buildableReference: BuildableReference,
+                    locationScenarioReference: LocationScenarioReference? = nil,
+                    skippedTests: [TestItem] = [],
+                    selectedTests: [TestItem] = [],
+                    useTestSelectionWhitelist: Bool? = nil) {
+            self.skipped = skipped
+            self.parallelizable = parallelizable ? .all : .none
+            self.randomExecutionOrdering = randomExecutionOrdering
+            self.buildableReference = buildableReference
+            self.locationScenarioReference = locationScenarioReference
+            self.useTestSelectionWhitelist = useTestSelectionWhitelist
+            self.selectedTests = selectedTests
+            self.skippedTests = skippedTests
+        }
 
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"

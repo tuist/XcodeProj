@@ -58,6 +58,12 @@ final class XCSchemeIntegrationTests: XCTestCase {
         }
     }
 
+    func test_read_iosScheme_noParallelizable_setsswiftTestingOnly() throws {
+        let scheme = try XCScheme(path: iosSchemePath)
+
+        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, .swiftTestingOnly)
+    }
+
     func test_write_minimalScheme() {
         testWrite(from: minimalSchemePath,
                   initModel: { try? XCScheme(path: $0) },
@@ -85,7 +91,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNil(subject.attributes["useTestSelectionWhitelist"])
     }
 
-    func test_write_testableReferenceAttributesValues() {
+    func test_write_testableReferenceAttributesValues_allParallelizable() {
         let reference = XCScheme.TestableReference(
             skipped: false,
             parallelizable: .all,
@@ -106,28 +112,72 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
-  
-  func test_write_testableReferenceAttributesValuesForSwiftTesting() {
-      let reference = XCScheme.TestableReference(
-          skipped: false,
-          parallelizable: .swiftTestingOnly,
-          randomExecutionOrdering: true,
-          buildableReference: XCScheme.BuildableReference(
-              referencedContainer: "",
-              blueprint: PBXObject(),
-              buildableName: "",
-              blueprintName: ""
-          ),
-          skippedTests: [],
-          selectedTests: [],
-          useTestSelectionWhitelist: true
-      )
-      let subject = reference.xmlElement()
-      XCTAssertEqual(subject.attributes["skipped"], "NO")
-      XCTAssertNil(subject.attributes["parallelizable"])
-      XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
-      XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
-  }
+
+    func test_write_testableReferenceAttributesValues_noneParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: .none,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "NO")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
+    func test_write_testableReferenceAttributesValues_trueParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: true,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "YES")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
+    func test_write_testableReferenceAttributesValues_falseParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: false,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "NO")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
 
     func test_write_testableReferenceSelectedTests() {
         // Given
