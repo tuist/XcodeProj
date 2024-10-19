@@ -68,7 +68,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
     func test_write_testableReferenceDefaultAttributesValuesAreOmitted() {
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelizable: false,
+            parallelizable: .swiftTestingOnly,
             randomExecutionOrdering: false,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -85,7 +85,51 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNil(subject.attributes["useTestSelectionWhitelist"])
     }
 
-    func test_write_testableReferenceAttributesValues() {
+    func test_write_testableReferenceAttributesValues_allParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: .all,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "YES")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
+    func test_write_testableReferenceAttributesValues_noneParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: .none,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "NO")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
+    func test_write_testableReferenceAttributesValues_trueParallelizable() {
         let reference = XCScheme.TestableReference(
             skipped: false,
             parallelizable: true,
@@ -107,11 +151,33 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
+    func test_write_testableReferenceAttributesValues_falseParallelizable() {
+        let reference = XCScheme.TestableReference(
+            skipped: false,
+            parallelizable: false,
+            randomExecutionOrdering: true,
+            buildableReference: XCScheme.BuildableReference(
+                referencedContainer: "",
+                blueprint: PBXObject(),
+                buildableName: "",
+                blueprintName: ""
+            ),
+            skippedTests: [],
+            selectedTests: [],
+            useTestSelectionWhitelist: true
+        )
+        let subject = reference.xmlElement()
+        XCTAssertEqual(subject.attributes["skipped"], "NO")
+        XCTAssertEqual(subject.attributes["parallelizable"], "NO")
+        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
+        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
+    }
+
     func test_write_testableReferenceSelectedTests() {
         // Given
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelizable: true,
+            parallelizable: .all,
             randomExecutionOrdering: true,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -397,7 +463,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.codeCoverageEnabled, true)
         XCTAssertEqual(scheme.testAction?.onlyGenerateCoverageForSpecifiedTargets, true)
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
-        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, false)
+        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, .swiftTestingOnly)
         XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.useTestSelectionWhitelist, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
