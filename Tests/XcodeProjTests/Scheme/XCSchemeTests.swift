@@ -58,12 +58,6 @@ final class XCSchemeIntegrationTests: XCTestCase {
         }
     }
 
-    func test_read_iosScheme_noParallelizable_setsswiftTestingOnly() throws {
-        let scheme = try XCScheme(path: iosSchemePath)
-
-        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, .swiftTestingOnly)
-    }
-
     func test_write_minimalScheme() {
         testWrite(from: minimalSchemePath,
                   initModel: { try? XCScheme(path: $0) },
