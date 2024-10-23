@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.24.6] - 2024-10-23
+### Details
+#### Chore
+- Update actions/checkout digest to 11bd719 by @renovate[bot] in [#873](https://github.com/tuist/XcodeProj/pull/873)
+
 ## [8.24.5] - 2024-10-23
 ### Details
 #### Chore
@@ -110,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.24.6]: https://github.com/tuist/XcodeProj/compare/8.24.5..8.24.6
 [8.24.5]: https://github.com/tuist/XcodeProj/compare/8.24.4..8.24.5
 [8.24.4]: https://github.com/tuist/XcodeProj/compare/8.24.3..8.24.4
 [8.24.3]: https://github.com/tuist/XcodeProj/compare/8.24.2..8.24.3
