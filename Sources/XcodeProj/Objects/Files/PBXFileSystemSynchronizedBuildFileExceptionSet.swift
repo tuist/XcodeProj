@@ -1,7 +1,7 @@
 import Foundation
 
 /// Class representing an element that may contain other elements.
-public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXObject, PlistSerializable {
+public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXFileSystemSynchronizedExceptionSet, PlistSerializable {
     // MARK: - Attributes
 
     /// A list of relative paths to children subfolders for which exceptions are applied.
