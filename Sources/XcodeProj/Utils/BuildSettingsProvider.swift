@@ -373,10 +373,6 @@ public class BuildSettingsProvider {
 
     private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
         switch (platform, product) {
-        case (.watchOS, .application):
-            return [
-                "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-            ]
         default:
             return [:]
         }
