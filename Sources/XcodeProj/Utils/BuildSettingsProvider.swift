@@ -72,10 +72,6 @@ public class BuildSettingsProvider {
             buildSettings.merge(targetSwiftSettings(product: product), uniquingKeysWith: { $1 })
         }
 
-        if let platform, let product, let swift, swift == true {
-            buildSettings.merge(targetSwiftSettings(platform: platform, product: product), uniquingKeysWith: { $1 })
-        }
-
         return buildSettings
     }
 
