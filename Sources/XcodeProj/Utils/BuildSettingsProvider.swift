@@ -370,13 +370,6 @@ public class BuildSettingsProvider {
             return [:]
         }
     }
-
-    private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
-        switch (platform, product) {
-        default:
-            return [:]
-        }
-    }
 }
 
 // Overloading `~=` enables customizing switch statement pattern matching
