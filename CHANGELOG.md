@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.24.10] - 2024-11-20
+### Details
+#### Refactor
+- Align ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES with the Xcode default by @yungu0010 in [#881](https://github.com/tuist/XcodeProj/pull/881)
+
+## New Contributors
+* @yungu0010 made their first contribution in [#881](https://github.com/tuist/XcodeProj/pull/881)
 ## [8.24.9] - 2024-11-07
 ### Details
 #### Chore
@@ -130,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.24.10]: https://github.com/tuist/XcodeProj/compare/8.24.9..8.24.10
 [8.24.9]: https://github.com/tuist/XcodeProj/compare/8.24.8..8.24.9
 [8.24.8]: https://github.com/tuist/XcodeProj/compare/8.24.7..8.24.8
 [8.24.7]: https://github.com/tuist/XcodeProj/compare/8.24.6..8.24.7
