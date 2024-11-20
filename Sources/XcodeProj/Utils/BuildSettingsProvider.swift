@@ -72,10 +72,6 @@ public class BuildSettingsProvider {
             buildSettings.merge(targetSwiftSettings(product: product), uniquingKeysWith: { $1 })
         }
 
-        if let platform, let product, let swift, swift == true {
-            buildSettings.merge(targetSwiftSettings(platform: platform, product: product), uniquingKeysWith: { $1 })
-        }
-
         return buildSettings
     }
 
@@ -365,17 +361,6 @@ public class BuildSettingsProvider {
         case .framework:
             return [
                 "DEFINES_MODULE": "YES",
-            ]
-        default:
-            return [:]
-        }
-    }
-
-    private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
-        switch (platform, product) {
-        case (.watchOS, .application):
-            return [
-                "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
             ]
         default:
             return [:]
