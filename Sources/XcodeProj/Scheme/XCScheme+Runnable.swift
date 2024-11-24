@@ -10,7 +10,7 @@ public extension XCScheme {
 
         // MARK: - Init
 
-        public init(buildableReference: BuildableReference,
+        public init(buildableReference: BuildableReference?,
                     runnableDebuggingMode: String = "0") {
             self.buildableReference = buildableReference
             self.runnableDebuggingMode = runnableDebuggingMode
