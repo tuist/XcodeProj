@@ -3,10 +3,9 @@ import Foundation
 import PathKit
 
 public extension XCScheme {
-    class PathRunnable: Equatable {
+    class PathRunnable: Runnable {
         // MARK: - Attributes
 
-        public var runnableDebuggingMode: String
         public var filePath: String
 
         // MARK: - Init
@@ -14,30 +13,37 @@ public extension XCScheme {
         public init(filePath: String,
                     runnableDebuggingMode: String = "0") {
             self.filePath = filePath
-            self.runnableDebuggingMode = runnableDebuggingMode
+            super.init(buildableReference: nil,
+                       runnableDebuggingMode: runnableDebuggingMode)
         }
 
-        init(element: AEXMLElement) throws {
-            runnableDebuggingMode = element.attributes["runnableDebuggingMode"] ?? "0"
+        override init(element: AEXMLElement) throws {
             filePath = element.attributes["FilePath"] ?? ""
+            try super.init(element: element)
         }
 
         // MARK: - XML
 
-        func xmlElement() -> AEXMLElement {
-            AEXMLElement(name: "PathRunnable",
-                         value: nil,
-                         attributes: [
-                             "runnableDebuggingMode": runnableDebuggingMode,
-                             "FilePath": filePath,
-                         ])
+        override func xmlElement() -> AEXMLElement {
+            let element = super.xmlElement()
+            element.name = "PathRunnable"
+            element.attributes["FilePath"] = filePath
+            return element
         }
 
         // MARK: - Equatable
 
+        override func isEqual(other: XCScheme.Runnable) -> Bool {
+            guard let other = other as? PathRunnable else {
+                return false
+            }
+
+            return super.isEqual(other: other) &&
+                filePath == other.filePath
+        }
+
         public static func == (lhs: PathRunnable, rhs: PathRunnable) -> Bool {
-            lhs.runnableDebuggingMode == rhs.runnableDebuggingMode &&
-                lhs.filePath == rhs.filePath
+            lhs.isEqual(other: rhs) && rhs.isEqual(other: lhs)
         }
     }
 }
