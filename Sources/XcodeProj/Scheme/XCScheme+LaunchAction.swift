@@ -42,7 +42,6 @@ public extension XCScheme {
         public var buildConfiguration: String
         public var launchStyle: Style
         public var askForAppToLaunch: Bool?
-        public var pathRunnable: PathRunnable?
         public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
@@ -87,7 +86,6 @@ public extension XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
                     askForAppToLaunch: Bool? = nil,
-                    pathRunnable: PathRunnable? = nil,
                     customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
@@ -126,7 +124,6 @@ public extension XCScheme {
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.askForAppToLaunch = askForAppToLaunch
-            self.pathRunnable = pathRunnable
             self.customWorkingDirectory = customWorkingDirectory
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
@@ -177,15 +174,13 @@ public extension XCScheme {
             // Runnable
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
             let remoteRunnableElement = element["RemoteRunnable"]
+            let pathRunnable = element["PathRunnable"]
             if buildableProductRunnableElement.error == nil {
                 runnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
-            }
-
-            let pathRunnable = element["PathRunnable"]
-            if pathRunnable.error == nil {
-                self.pathRunnable = try PathRunnable(element: pathRunnable)
+            } else if pathRunnable.error == nil {
+              runnable = try PathRunnable(element: pathRunnable)
             }
 
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
@@ -324,10 +319,6 @@ public extension XCScheme {
                 element.addChild(runnable.xmlElement())
             }
 
-            if let pathRunnable {
-                element.addChild(pathRunnable.xmlElement())
-            }
-
             if let locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
@@ -395,7 +386,6 @@ public extension XCScheme {
                 buildConfiguration == rhs.buildConfiguration &&
                 launchStyle == rhs.launchStyle &&
                 askForAppToLaunch == rhs.askForAppToLaunch &&
-                pathRunnable == rhs.pathRunnable &&
                 customWorkingDirectory == rhs.customWorkingDirectory &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&
