@@ -6,9 +6,12 @@ public extension XCScheme {
         // MARK: - Attributes
 
         public var skipped: Bool
-        @available(*, deprecated, message: "Please use TestParallelization property instead")
-        public var parallelizable: Bool
-        public var testParallelization: TestParallelization
+        @available(*, deprecated, message: "Please use parallelization property instead")
+        public var parallelizable: Bool {
+            get { parallelization == .swiftTestingOnly }
+            set { parallelization = newValue ? .swiftTestingOnly : .none }
+        }
+        public var parallelization: TestParallelization
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
         public var buildableReference: BuildableReference
@@ -19,7 +22,7 @@ public extension XCScheme {
         // MARK: - Init
 
         public init(skipped: Bool,
-                    testParallelization: TestParallelization = .none,
+                    parallelization: TestParallelization = .none,
                     randomExecutionOrdering: Bool = false,
                     buildableReference: BuildableReference,
                     locationScenarioReference: LocationScenarioReference? = nil,
@@ -27,8 +30,7 @@ public extension XCScheme {
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
-            self.parallelizable = testParallelization == .all ? true : false
-            self.testParallelization = testParallelization
+            self.parallelization = parallelization
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
@@ -37,7 +39,7 @@ public extension XCScheme {
             self.skippedTests = skippedTests
         }
 
-        @available(*, deprecated, message: "Use init with parallelizable: TestParallelization argument instead")
+        @available(*, deprecated, message: "Use init with Parallelization argument instead")
         public init(skipped: Bool,
                     parallelizable: Bool = false,
                     randomExecutionOrdering: Bool = false,
@@ -47,8 +49,7 @@ public extension XCScheme {
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
-            self.parallelizable = parallelizable
-            self.testParallelization = parallelizable ? .all : .none
+            self.parallelization = parallelizable ? .swiftTestingOnly : .none
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
@@ -61,11 +62,9 @@ public extension XCScheme {
             skipped = element.attributes["skipped"] == "YES"
             
             if let parallelizableValue = element.attributes["parallelizable"] {
-                testParallelization = parallelizableValue == "YES" ? .all : .none
-                parallelizable = parallelizableValue == "YES"
+                parallelization = parallelizableValue == "YES" ? .all : .none
             } else {
-                testParallelization = .swiftTestingOnly
-                parallelizable = false
+                parallelization = .swiftTestingOnly
             }
 
             useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
@@ -94,9 +93,8 @@ public extension XCScheme {
 
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
-            attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
           
-            switch testParallelization {
+            switch parallelization {
             case .all:
                 attributes["parallelizable"] = "YES"
             case .none:
