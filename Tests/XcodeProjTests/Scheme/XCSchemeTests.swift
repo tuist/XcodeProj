@@ -172,7 +172,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
-  
+
     func test_computed_parallelizable_testableReference_false() {
         let reference = XCScheme.TestableReference(
             skipped: false,
@@ -192,7 +192,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(reference.parallelizable, false)
         XCTAssertEqual(reference.parallelization, .none)
     }
-  
+
     func test_computed_parallelizable_testableReference_true() {
         let reference = XCScheme.TestableReference(
             skipped: false,
@@ -212,7 +212,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(reference.parallelizable, true)
         XCTAssertEqual(reference.parallelization, .swiftTestingOnly)
     }
-  
+
     func test_write_testableReferenceSelectedTests() {
         // Given
         let reference = XCScheme.TestableReference(

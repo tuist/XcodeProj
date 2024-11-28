@@ -11,6 +11,7 @@ public extension XCScheme {
             get { parallelization == .swiftTestingOnly }
             set { parallelization = newValue ? .swiftTestingOnly : .none }
         }
+
         public var parallelization: TestParallelization
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
@@ -60,7 +61,7 @@ public extension XCScheme {
 
         init(element: AEXMLElement) throws {
             skipped = element.attributes["skipped"] == "YES"
-            
+
             if let parallelizableValue = element.attributes["parallelizable"] {
                 parallelization = parallelizableValue == "YES" ? .all : .none
             } else {
@@ -93,7 +94,7 @@ public extension XCScheme {
 
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
-          
+
             switch parallelization {
             case .all:
                 attributes["parallelizable"] = "YES"
