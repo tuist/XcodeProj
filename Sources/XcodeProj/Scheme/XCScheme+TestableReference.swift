@@ -94,7 +94,8 @@ public extension XCScheme {
 
         func xmlElement() -> AEXMLElement {
             var attributes: [String: String] = ["skipped": skipped.xmlString]
-
+            attributes["parallelizable"] = parallelizable ? parallelizable.xmlString : nil
+          
             switch testParallelization {
             case .all:
                 attributes["parallelizable"] = "YES"
