@@ -42,6 +42,10 @@ public extension XCScheme {
         public var buildConfiguration: String
         public var launchStyle: Style
         public var askForAppToLaunch: Bool?
+        public var pathRunnable: PathRunnable? {
+          // For backwards compatibility
+          runnable as? PathRunnable
+        }
         public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
