@@ -43,7 +43,7 @@ public extension XCScheme {
         }
 
         public static func == (lhs: PathRunnable, rhs: PathRunnable) -> Bool {
-            lhs.isEqual(other: rhs) && rhs.isEqual(other: lhs)
+            lhs.isEqual(other: rhs)
         }
     }
 }
