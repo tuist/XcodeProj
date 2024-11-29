@@ -184,7 +184,7 @@ public extension XCScheme {
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
             } else if pathRunnable.error == nil {
-              runnable = try PathRunnable(element: pathRunnable)
+                runnable = try PathRunnable(element: pathRunnable)
             }
 
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
