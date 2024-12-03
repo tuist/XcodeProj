@@ -55,7 +55,7 @@ final class PBXProjectTests: XCTestCase {
         let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
 
         // Then
-        let attributes = plist.value.dictionary?["TargetAttributes"]?.dictionary
+        let attributes: [CommentedString: PlistValue]? = plist.value.dictionary?["TargetAttributes"]?.dictionary
         XCTAssertNil(attributes)
     }
 
