@@ -43,9 +43,15 @@ public extension XCScheme {
         public var launchStyle: Style
         public var askForAppToLaunch: Bool?
         public var pathRunnable: PathRunnable? {
-          // For backwards compatibility
-          runnable as? PathRunnable
+            // For backwards compatibility
+            get {
+                runnable as? PathRunnable
+            }
+            set {
+                self.pathRunnable = newValue
+            }
         }
+
         public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
@@ -81,6 +87,7 @@ public extension XCScheme {
 
         // MARK: - Init
 
+        @available(*, deprecated, message: "Use the init() that consolidates pathRunnable and runnable into a single parameter.")
         public init(runnable: Runnable?,
                     buildConfiguration: String,
                     preActions: [ExecutionAction] = [],
@@ -90,6 +97,7 @@ public extension XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
                     askForAppToLaunch: Bool? = nil,
+                    pathRunnable _: PathRunnable? = nil,
                     customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
@@ -163,7 +171,7 @@ public extension XCScheme {
         }
 
         public convenience init(
-            runnable: Runnable?,
+            pathRunnable: PathRunnable?,
             buildConfiguration: String,
             preActions: [ExecutionAction] = [],
             postActions: [ExecutionAction] = [],
@@ -172,7 +180,6 @@ public extension XCScheme {
             selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
             launchStyle: Style = .auto,
             askForAppToLaunch: Bool? = nil,
-            pathRunnable: PathRunnable? = nil,
             customWorkingDirectory: String? = nil,
             useCustomWorkingDirectory: Bool = false,
             ignoresPersistentStateOnLaunch: Bool = false,
@@ -206,7 +213,7 @@ public extension XCScheme {
             customLLDBInitFile: String? = nil
         ) {
             self.init(
-                runnable: pathRunnable ?? runnable,
+                runnable: pathRunnable,
                 buildConfiguration: buildConfiguration,
                 preActions: preActions,
                 postActions: postActions,
@@ -215,6 +222,7 @@ public extension XCScheme {
                 selectedLauncherIdentifier: selectedLauncherIdentifier,
                 launchStyle: launchStyle,
                 askForAppToLaunch: askForAppToLaunch,
+                pathRunnable: pathRunnable,
                 customWorkingDirectory: customWorkingDirectory,
                 useCustomWorkingDirectory: useCustomWorkingDirectory,
                 ignoresPersistentStateOnLaunch: ignoresPersistentStateOnLaunch,
