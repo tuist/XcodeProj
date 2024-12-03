@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # mise description="Run tests on Linux"
 
-CONTAINER_RUNTIME=$(command -v podman || command -v docker)
+CONTAINER_RUNTIME=docker
 
 if [ -z "$CONTAINER_RUNTIME" ]; then
   echo "Neither podman nor docker is available. Please install one to proceed."

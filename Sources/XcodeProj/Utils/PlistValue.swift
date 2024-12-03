@@ -12,22 +12,22 @@ indirect enum PlistValue {
 
     var string: CommentedString? {
         switch self {
-        case let .string(string): return string
-        default: return nil
+        case let .string(string): string
+        default: nil
         }
     }
 
     var array: [PlistValue]? {
         switch self {
-        case let .array(array): return array
-        default: return nil
+        case let .array(array): array
+        default: nil
         }
     }
 
     var dictionary: [CommentedString: PlistValue]? {
         switch self {
-        case let .dictionary(dictionary): return dictionary
-        default: return nil
+        case let .dictionary(dictionary): dictionary
+        default: nil
         }
     }
 }
@@ -72,13 +72,13 @@ extension PlistValue: Equatable {
     static func == (lhs: PlistValue, rhs: PlistValue) -> Bool {
         switch (lhs, rhs) {
         case let (.string(lhsString), .string(rhsString)):
-            return lhsString == rhsString
+            lhsString == rhsString
         case let (.array(lhsArray), .array(rhsArray)):
-            return lhsArray == rhsArray
+            lhsArray == rhsArray
         case let (.dictionary(lhsDictionary), .dictionary(rhsDictionary)):
-            return lhsDictionary == rhsDictionary
+            lhsDictionary == rhsDictionary
         default:
-            return false
+            false
         }
     }
 }

@@ -20,8 +20,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - name: Build
         run: mise run build
@@ -31,15 +29,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - uses: swift-actions/setup-swift@v2
       - name: Build
-        run: mise run build-linux
+        run: swift build --configuration release
   test:
     name: Test (macOS / Xcode)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - name: Run tests
         run: mise run test
@@ -50,15 +47,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - uses: swift-actions/setup-swift@v2
+      - run: |
+          git config --global user.email 'xcodeproj@tuist.dev'
+          git config --global user.name 'xcodeproj'
+          git config --global init.defaultBranch main
       - name: Test
-        run: mise run test-linux
+        run: swift test
 
   lint:
     name: Lint
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - run: mise run lint

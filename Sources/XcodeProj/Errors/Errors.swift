@@ -16,11 +16,11 @@ public enum XCodeProjError: Error, CustomStringConvertible, Sendable {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "The project cannot be found at \(path.string)"
+            "The project cannot be found at \(path.string)"
         case let .pbxprojNotFound(path):
-            return "The project doesn't contain a .pbxproj file at path: \(path.string)"
+            "The project doesn't contain a .pbxproj file at path: \(path.string)"
         case let .xcworkspaceNotFound(path):
-            return "The project doesn't contain a .xcworkspace at path: \(path.string)"
+            "The project doesn't contain a .xcworkspace at path: \(path.string)"
         }
     }
 }
@@ -36,7 +36,7 @@ public enum XCSharedDataError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "xcshareddata not found at path \(path.string)"
+            "xcshareddata not found at path \(path.string)"
         }
     }
 }
@@ -52,7 +52,7 @@ public enum XCUserDataError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "xcuserdata not found at path \(path.string)"
+            "xcuserdata not found at path \(path.string)"
         }
     }
 }
@@ -68,7 +68,7 @@ public enum XCWorkspaceError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "The project cannot be found at \(path.string)"
+            "The project cannot be found at \(path.string)"
         }
     }
 }
@@ -84,7 +84,7 @@ public enum XCWorkspaceDataError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "Workspace not found at \(path.string)"
+            "Workspace not found at \(path.string)"
         }
     }
 }
@@ -100,7 +100,7 @@ public enum XcodeprojEditingError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .unexistingFile(path):
-            return "The file at path \(path.string) doesn't exist"
+            "The file at path \(path.string) doesn't exist"
         }
     }
 }
@@ -116,7 +116,7 @@ public enum XcodeprojWritingError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .invalidType(classType, expected):
-            return "Invalid type for object \(classType) that expects a \(expected)"
+            "Invalid type for object \(classType) that expects a \(expected)"
         }
     }
 }
@@ -140,15 +140,15 @@ public enum PBXObjectError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case .missingIsa:
-            return "Isa property is missing."
+            "Isa property is missing."
         case let .unknownElement(element):
-            return "The element \(element) is not supported."
+            "The element \(element) is not supported."
         case .objectsReleased:
-            return "The PBXObjects instance has been released before saving."
+            "The PBXObjects instance has been released before saving."
         case let .objectNotFound(reference):
-            return "PBXObject with reference \"\(reference)\" not found."
+            "PBXObject with reference \"\(reference)\" not found."
         case let .orphaned(type, reference):
-            return "Trying to use object \(type) with reference '\(reference)' before being added to any project"
+            "Trying to use object \(type) with reference '\(reference)' before being added to any project"
         }
     }
 }
@@ -164,7 +164,7 @@ enum PBXProjEncoderError: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .emptyProjectReference:
-            return "PBXProj should contain a reference to the XcodeProj object that represents the project"
+            "PBXProj should contain a reference to the XcodeProj object that represents the project"
         }
     }
 }
@@ -187,23 +187,23 @@ enum PBXProjError: Error, CustomStringConvertible, Equatable {
     var description: String {
         switch self {
         case let .notFound(path):
-            return ".pbxproj not found at path \(path.string)"
+            ".pbxproj not found at path \(path.string)"
         case let .invalidGroupPath(sourceRoot, elementPath):
-            return "Cannot calculate full path for file element \"\(elementPath ?? "")\" in source root: \"\(sourceRoot)\""
+            "Cannot calculate full path for file element \"\(elementPath ?? "")\" in source root: \"\(sourceRoot)\""
         case let .targetNotFound(targetName):
-            return "Could not find target with \(targetName)"
+            "Could not find target with \(targetName)"
         case let .frameworksBuildPhaseNotFound(targetName):
-            return "Could not find frameworks build phase for target \(targetName)"
+            "Could not find frameworks build phase for target \(targetName)"
         case let .sourcesBuildPhaseNotFound(targetName):
-            return "Could not find sources build phase for target \(targetName)"
+            "Could not find sources build phase for target \(targetName)"
         case let .pathIsAbsolute(path):
-            return "Path must be relative, but path \(path.string) is absolute"
+            "Path must be relative, but path \(path.string) is absolute"
         case let .multipleLocalPackages(productName: productName):
-            return "Found multiple top-level packages named \(productName)"
+            "Found multiple top-level packages named \(productName)"
         case let .multipleRemotePackages(productName: productName):
-            return "Can not resolve dependency \(productName) - conflicting version requirements"
+            "Can not resolve dependency \(productName) - conflicting version requirements"
         case .malformed:
-            return "The .pbxproj is malformed."
+            "The .pbxproj is malformed."
         }
     }
 }
@@ -221,9 +221,9 @@ public enum XCBreakpointListError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.string)"
+            "Breakpoints_v2.xcbkptlist couldn't be found at path \(path.string)"
         case let .missing(property):
-            return "Property \(property) missing"
+            "Property \(property) missing"
         }
     }
 }
@@ -238,7 +238,7 @@ public enum XCConfigError: Error, CustomStringConvertible {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return ".xcconfig file not found at \(path.string)"
+            ".xcconfig file not found at \(path.string)"
         }
     }
 }

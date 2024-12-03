@@ -54,10 +54,10 @@ public enum PBXSourceTree: CustomStringConvertible, Equatable, Decodable {
              (.buildProductsDir, .buildProductsDir),
              (.sdkRoot, .sdkRoot),
              (.developerDir, .developerDir):
-            return true
+            true
 
         case let (.custom(lhsValue), .custom(rhsValue)):
-            return lhsValue == rhsValue
+            lhsValue == rhsValue
 
         case (.none, _),
              (.absolute, _),
@@ -67,28 +67,28 @@ public enum PBXSourceTree: CustomStringConvertible, Equatable, Decodable {
              (.sdkRoot, _),
              (.developerDir, _),
              (.custom, _):
-            return false
+            false
         }
     }
 
     public var description: String {
         switch self {
         case .none:
-            return PBXSourceTree.noneValue
+            PBXSourceTree.noneValue
         case .absolute:
-            return PBXSourceTree.absoluteValue
+            PBXSourceTree.absoluteValue
         case .group:
-            return PBXSourceTree.groupValue
+            PBXSourceTree.groupValue
         case .sourceRoot:
-            return PBXSourceTree.sourceRootValue
+            PBXSourceTree.sourceRootValue
         case .buildProductsDir:
-            return PBXSourceTree.buildProductsDirValue
+            PBXSourceTree.buildProductsDirValue
         case .sdkRoot:
-            return PBXSourceTree.sdkRootValue
+            PBXSourceTree.sdkRootValue
         case .developerDir:
-            return PBXSourceTree.developerDirValue
+            PBXSourceTree.developerDirValue
         case let .custom(value):
-            return value
+            value
         }
     }
 }

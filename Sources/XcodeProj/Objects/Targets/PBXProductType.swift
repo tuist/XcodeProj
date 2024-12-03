@@ -37,38 +37,38 @@ public enum PBXProductType: String, Decodable {
     public var fileExtension: String? {
         switch self {
         case .application, .watchApp, .watch2App, .watch2AppContainer, .messagesApplication, .onDemandInstallCapableApplication:
-            return "app"
+            "app"
         case .framework, .staticFramework:
-            return "framework"
+            "framework"
         case .dynamicLibrary:
-            return "dylib"
+            "dylib"
         case .staticLibrary:
-            return "a"
+            "a"
         case .bundle:
-            return "bundle"
+            "bundle"
         case .unitTestBundle, .uiTestBundle:
-            return "xctest"
+            "xctest"
         case .appExtension, .extensionKitExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension,
              .intentsServiceExtension:
-            return "appex"
+            "appex"
         case .commandLineTool:
-            return nil
+            nil
         case .xpcService:
-            return "xpc"
+            "xpc"
         case .ocUnitTestBundle:
-            return "octest"
+            "octest"
         case .instrumentsPackage:
-            return "instrpkg"
+            "instrpkg"
         case .xcFramework:
-            return "xcframework"
+            "xcframework"
         case .metalLibrary:
-            return "metallib"
+            "metallib"
         case .systemExtension:
-            return "systemextension"
+            "systemextension"
         case .driverExtension:
-            return "dext"
+            "dext"
         case .none:
-            return nil
+            nil
         }
     }
 }

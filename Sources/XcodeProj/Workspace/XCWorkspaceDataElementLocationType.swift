@@ -15,34 +15,34 @@ public enum XCWorkspaceDataElementLocationType {
     public var schema: String {
         switch self {
         case .absolute:
-            return "absolute"
+            "absolute"
         case .container:
-            return "container"
+            "container"
         case .developer:
-            return "developer"
+            "developer"
         case .group:
-            return "group"
+            "group"
         case .current:
-            return "self"
+            "self"
         case let .other(schema, _):
-            return schema
+            schema
         }
     }
 
     public var path: String {
         switch self {
         case let .absolute(path):
-            return path
+            path
         case let .container(path):
-            return path
+            path
         case let .developer(path):
-            return path
+            path
         case let .group(path):
-            return path
+            path
         case let .current(path):
-            return path
+            path
         case let .other(_, path):
-            return path
+            path
         }
     }
 
@@ -79,18 +79,18 @@ extension XCWorkspaceDataElementLocationType: Equatable {
     public static func == (lhs: XCWorkspaceDataElementLocationType, rhs: XCWorkspaceDataElementLocationType) -> Bool {
         switch (lhs, rhs) {
         case let (.absolute(lhs), .absolute(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.container(lhs), .container(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.developer(lhs), .developer(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.group(lhs), .group(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.current(lhs), .current(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.other(lhs0, lhs1), .other(rhs0, rhs1)):
-            return lhs0 == rhs0 && lhs1 == rhs1
-        default: return false
+            lhs0 == rhs0 && lhs1 == rhs1
+        default: false
         }
     }
 }

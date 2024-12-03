@@ -12,9 +12,9 @@ public enum XCWorkspaceDataElement: Equatable {
     public var location: XCWorkspaceDataElementLocationType {
         switch self {
         case let .file(ref):
-            return ref.location
+            ref.location
         case let .group(ref):
-            return ref.location
+            ref.location
         }
     }
 
@@ -23,11 +23,11 @@ public enum XCWorkspaceDataElement: Equatable {
     public static func == (lhs: XCWorkspaceDataElement, rhs: XCWorkspaceDataElement) -> Bool {
         switch (lhs, rhs) {
         case let (.file(lhs), .file(rhs)):
-            return lhs == rhs
+            lhs == rhs
         case let (.group(lhs), .group(rhs)):
-            return lhs == rhs
+            lhs == rhs
         default:
-            return false
+            false
         }
     }
 }

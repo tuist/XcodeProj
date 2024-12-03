@@ -82,11 +82,11 @@ public class BuildSettingsProvider {
     public static func projectDefault(variant: Variant) -> BuildSettings {
         switch variant {
         case .all:
-            return projectAll()
+            projectAll()
         case .debug:
-            return projectDebug()
+            projectDebug()
         case .release:
-            return projectRelease()
+            projectRelease()
         }
     }
 
@@ -165,28 +165,28 @@ public class BuildSettingsProvider {
     private static func targetSettings(platform: Platform) -> BuildSettings {
         switch platform {
         case .iOS:
-            return [
+            [
                 "SDKROOT": "iphoneos",
                 "CODE_SIGN_IDENTITY": "iPhone Developer",
                 "TARGETED_DEVICE_FAMILY": "1,2",
             ]
         case .macOS:
-            return [
+            [
                 "SDKROOT": "macosx",
                 "CODE_SIGN_IDENTITY": "-",
             ]
         case .tvOS:
-            return [
+            [
                 "SDKROOT": "appletvos",
                 "TARGETED_DEVICE_FAMILY": "3",
             ]
         case .watchOS:
-            return [
+            [
                 "SDKROOT": "watchos",
                 "TARGETED_DEVICE_FAMILY": "4",
             ]
         case .visionOS:
-            return [
+            [
                 "SDKROOT": "xros",
                 "TARGETED_DEVICE_FAMILY": "1,2,7",
             ]
@@ -196,12 +196,12 @@ public class BuildSettingsProvider {
     private static func targetSettings(product: Product) -> BuildSettings {
         switch product {
         case .application:
-            return [
+            [
                 "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
                 "ENABLE_PREVIEWS": "YES",
             ]
         case .framework:
-            return [
+            [
                 "CODE_SIGN_IDENTITY": "",
                 "CURRENT_PROJECT_VERSION": "1",
                 "DEFINES_MODULE": "YES",
@@ -215,12 +215,12 @@ public class BuildSettingsProvider {
                 "VERSIONING_SYSTEM": "apple-generic",
             ]
         case .bundle:
-            return [
+            [
                 "WRAPPER_EXTENSION": "bundle",
                 "SKIP_INSTALL": "YES",
             ]
         default:
-            return [:]
+            [:]
         }
     }
 
@@ -228,72 +228,72 @@ public class BuildSettingsProvider {
     private static func targetSettings(platform: Platform, product: Product) -> BuildSettings {
         switch (platform, product) {
         case (.iOS, .application):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
         case (.macOS, .application):
-            return [
+            [
                 "COMBINE_HIDPI_IMAGES": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/../Frameworks"],
             ]
         case (.tvOS, .application):
-            return [
+            [
                 "ASSETCATALOG_COMPILER_APPICON_NAME": "App Icon & Top Shelf Image",
                 "ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME": "LaunchImage",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
         case (.watchOS, .application):
-            return [
+            [
                 "SKIP_INSTALL": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
         case (.iOS, .framework):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
         case (.macOS, .framework):
-            return [
+            [
                 "COMBINE_HIDPI_IMAGES": "YES",
                 "FRAMEWORK_VERSION": "A",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"],
             ]
         case (.tvOS, .framework):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
         case (.watchOS, .framework):
-            return [
+            [
                 "APPLICATION_EXTENSION_API_ONLY": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
         case ([.iOS, .tvOS, .watchOS], .staticLibrary):
-            return [
+            [
                 "OTHER_LDFLAGS": "-ObjC",
                 "SKIP_INSTALL": "YES",
             ]
         case (.macOS, .staticLibrary):
-            return [
+            [
                 "EXECUTABLE_PREFIX": "lib",
                 "SKIP_INSTALL": "YES",
             ]
         case (.macOS, .dynamicLibrary):
-            return [
+            [
                 "DYLIB_COMPATIBILITY_VERSION": "1",
                 "DYLIB_CURRENT_VERSION": "1",
                 "EXECUTABLE_PREFIX": "lib",
                 "SKIP_INSTALL": "YES",
             ]
         case (.macOS, .bundle):
-            return [
+            [
                 "COMBINE_HIDPI_IMAGES": "YES",
                 "INSTALL_PATH": "$(LOCAL_LIBRARY_DIR)/Bundles",
             ]
         case ([.iOS, .tvOS], .appExtension):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks"],
             ]
         case (.macOS, .appExtension):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": [
                     "$(inherited)",
                     "@executable_path/../Frameworks",
@@ -301,7 +301,7 @@ public class BuildSettingsProvider {
                 ],
             ]
         case (.watchOS, .watchExtension):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": [
                     "$(inherited)",
                     "@executable_path/Frameworks",
@@ -309,7 +309,7 @@ public class BuildSettingsProvider {
                 ],
             ]
         case (.watchOS, .appExtension):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": [
                     "$(inherited)",
                     "@executable_path/Frameworks",
@@ -318,15 +318,15 @@ public class BuildSettingsProvider {
                 ],
             ]
         case ([.iOS, .tvOS], [.unitTests, .uiTests]):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
         case (.macOS, [.unitTests, .uiTests]):
-            return [
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks"],
             ]
         default:
-            return [:]
+            [:]
         }
     }
 
@@ -334,36 +334,47 @@ public class BuildSettingsProvider {
                                        platform: Platform) -> BuildSettings {
         switch (variant, platform) {
         default:
-            return [:]
+            [:]
         }
     }
 
     private static func targetSwiftSettings(variant: Variant) -> BuildSettings {
         switch variant {
         case .debug:
-            return [
+            [
                 "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
                 "SWIFT_ACTIVE_COMPILATION_CONDITIONS": ["$(inherited)", "DEBUG"],
                 "SWIFT_COMPILATION_MODE": "singlefile",
             ]
         case .release:
-            return [
+            [
                 "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
                 "SWIFT_COMPILATION_MODE": "wholemodule",
             ]
         default:
-            return [:]
+            [:]
         }
     }
 
     private static func targetSwiftSettings(product: Product) -> BuildSettings {
         switch product {
         case .framework:
-            return [
+            [
                 "DEFINES_MODULE": "YES",
             ]
         default:
-            return [:]
+            [:]
+        }
+    }
+
+    private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
+        switch (platform, product) {
+        case (.watchOS, .application):
+            [
+                "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
+            ]
+        default:
+            [:]
         }
     }
 }

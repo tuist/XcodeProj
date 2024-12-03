@@ -215,18 +215,17 @@ public extension PBXGroup {
             return existingFileReference.value
         }
 
-        let path: String?
-        switch sourceTree {
+        let path: String? = switch sourceTree {
         case .group:
-            path = groupPath.map { filePath.relative(to: $0) }?.string
+            groupPath.map { filePath.relative(to: $0) }?.string
         case .sourceRoot:
-            path = filePath.relative(to: sourceRoot).string
+            filePath.relative(to: sourceRoot).string
         case .absolute,
              .sdkRoot,
              .developerDir:
-            path = filePath.string
+            filePath.string
         default:
-            path = nil
+            nil
         }
         let fileReference = PBXFileReference(
             sourceTree: sourceTree,

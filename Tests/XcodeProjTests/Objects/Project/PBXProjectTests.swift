@@ -33,6 +33,31 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(attributes, expectedAttributes)
     }
 
+    func test_plistKeyAndValue_doesntReturnTargetAttributes_when_itsEmpty() throws {
+        // Given
+        let target = PBXTarget(name: "")
+        target.reference.fix("app")
+
+        let testTarget = PBXTarget(name: "")
+        testTarget.reference.fix("test")
+
+        let project = PBXProject(name: "Project",
+                                 buildConfigurationList: XCConfigurationList(),
+                                 compatibilityVersion: nil,
+                                 preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
+                                 mainGroup: PBXGroup())
+
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": testTarget], target: target)
+
+        // When
+        let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
+
+        // Then
+        let attributes: [CommentedString: PlistValue]? = plist.value.dictionary?["TargetAttributes"]?.dictionary
+        XCTAssertNil(attributes)
+    }
+
     func test_addLocalSwiftPackage() throws {
         // Given
         let objects = PBXObjects(objects: [])
