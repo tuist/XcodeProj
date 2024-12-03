@@ -373,6 +373,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "georgenavarro",
+      "name": "George Navarro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2748028?v=4",
+      "profile": "https://github.com/georgenavarro",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
