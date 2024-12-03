@@ -41,13 +41,12 @@ final class PBXProjectTests: XCTestCase {
         let testTarget = PBXTarget(name: "")
         testTarget.reference.fix("test")
 
-        let project = PBXProject(name: "",
-                                 buildConfigurationList: XCConfigurationList(),
-                                 compatibilityVersion: "",
-                                 preferredProjectObjectVersion: nil,
-                                 mainGroup: PBXGroup(),
-                                 attributes: ["LastUpgradeCheck": "0940"],
-                                 targetAttributes: [:])
+      let project = PBXProject.init(name: "Project",
+                                    buildConfigurationList: XCConfigurationList(),
+                                    compatibilityVersion: nil,
+                                    preferredProjectObjectVersion: nil,
+                                    minimizedProjectReferenceProxies: nil,
+                                    mainGroup: PBXGroup())
 
         project.setTargetAttributes(["custom": "abc", "TestTargetID": testTarget], target: target)
 
