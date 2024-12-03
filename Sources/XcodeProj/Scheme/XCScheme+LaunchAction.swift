@@ -42,7 +42,16 @@ public extension XCScheme {
         public var buildConfiguration: String
         public var launchStyle: Style
         public var askForAppToLaunch: Bool?
-        public var pathRunnable: PathRunnable?
+        public var pathRunnable: PathRunnable? {
+            // For backwards compatibility
+            get {
+                runnable as? PathRunnable
+            }
+            set {
+                self.pathRunnable = newValue
+            }
+        }
+
         public var customWorkingDirectory: String?
         public var useCustomWorkingDirectory: Bool
         public var ignoresPersistentStateOnLaunch: Bool
@@ -78,6 +87,7 @@ public extension XCScheme {
 
         // MARK: - Init
 
+        @available(*, deprecated, message: "Use the init() that consolidates pathRunnable and runnable into a single parameter.")
         public init(runnable: Runnable?,
                     buildConfiguration: String,
                     preActions: [ExecutionAction] = [],
@@ -87,7 +97,7 @@ public extension XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
                     askForAppToLaunch: Bool? = nil,
-                    pathRunnable: PathRunnable? = nil,
+                    pathRunnable _: PathRunnable? = nil,
                     customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
@@ -126,7 +136,6 @@ public extension XCScheme {
             self.selectedDebuggerIdentifier = selectedDebuggerIdentifier
             self.selectedLauncherIdentifier = selectedLauncherIdentifier
             self.askForAppToLaunch = askForAppToLaunch
-            self.pathRunnable = pathRunnable
             self.customWorkingDirectory = customWorkingDirectory
             self.useCustomWorkingDirectory = useCustomWorkingDirectory
             self.ignoresPersistentStateOnLaunch = ignoresPersistentStateOnLaunch
@@ -161,6 +170,93 @@ public extension XCScheme {
             super.init(preActions, postActions)
         }
 
+        public convenience init(
+            pathRunnable: PathRunnable?,
+            buildConfiguration: String,
+            preActions: [ExecutionAction] = [],
+            postActions: [ExecutionAction] = [],
+            macroExpansion: BuildableReference? = nil,
+            selectedDebuggerIdentifier: String = XCScheme.defaultDebugger,
+            selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
+            launchStyle: Style = .auto,
+            askForAppToLaunch: Bool? = nil,
+            customWorkingDirectory: String? = nil,
+            useCustomWorkingDirectory: Bool = false,
+            ignoresPersistentStateOnLaunch: Bool = false,
+            debugDocumentVersioning: Bool = true,
+            debugServiceExtension: String = LaunchAction.defaultDebugServiceExtension,
+            allowLocationSimulation: Bool = true,
+            locationScenarioReference: LocationScenarioReference? = nil,
+            enableGPUFrameCaptureMode: GPUFrameCaptureMode = LaunchAction.defaultGPUFrameCaptureMode,
+            disableGPUValidationMode: Bool = false,
+            enableGPUShaderValidationMode: Bool = false,
+            showGraphicsOverview: Bool = false,
+            logGraphicsOverview: Bool = false,
+            enableAddressSanitizer: Bool = false,
+            enableASanStackUseAfterReturn: Bool = false,
+            enableThreadSanitizer: Bool = false,
+            stopOnEveryThreadSanitizerIssue: Bool = false,
+            enableUBSanitizer: Bool = false,
+            stopOnEveryUBSanitizerIssue: Bool = false,
+            disableMainThreadChecker: Bool = false,
+            disablePerformanceAntipatternChecker: Bool = false,
+            stopOnEveryMainThreadCheckerIssue: Bool = false,
+            additionalOptions: [AdditionalOption] = [],
+            commandlineArguments: CommandLineArguments? = nil,
+            environmentVariables: [EnvironmentVariable]? = nil,
+            language: String? = nil,
+            region: String? = nil,
+            showNonLocalizedStrings: Bool = false,
+            launchAutomaticallySubstyle: String? = nil,
+            storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
+            customLaunchCommand: String? = nil,
+            customLLDBInitFile: String? = nil
+        ) {
+            self.init(
+                runnable: pathRunnable,
+                buildConfiguration: buildConfiguration,
+                preActions: preActions,
+                postActions: postActions,
+                macroExpansion: macroExpansion,
+                selectedDebuggerIdentifier: selectedDebuggerIdentifier,
+                selectedLauncherIdentifier: selectedLauncherIdentifier,
+                launchStyle: launchStyle,
+                askForAppToLaunch: askForAppToLaunch,
+                pathRunnable: pathRunnable,
+                customWorkingDirectory: customWorkingDirectory,
+                useCustomWorkingDirectory: useCustomWorkingDirectory,
+                ignoresPersistentStateOnLaunch: ignoresPersistentStateOnLaunch,
+                debugDocumentVersioning: debugDocumentVersioning,
+                debugServiceExtension: debugServiceExtension,
+                allowLocationSimulation: allowLocationSimulation,
+                locationScenarioReference: locationScenarioReference,
+                enableGPUFrameCaptureMode: enableGPUFrameCaptureMode,
+                disableGPUValidationMode: disableGPUValidationMode,
+                enableGPUShaderValidationMode: enableGPUShaderValidationMode,
+                showGraphicsOverview: showGraphicsOverview,
+                logGraphicsOverview: logGraphicsOverview,
+                enableAddressSanitizer: enableAddressSanitizer,
+                enableASanStackUseAfterReturn: enableASanStackUseAfterReturn,
+                enableThreadSanitizer: enableThreadSanitizer,
+                stopOnEveryThreadSanitizerIssue: stopOnEveryThreadSanitizerIssue,
+                enableUBSanitizer: enableUBSanitizer,
+                stopOnEveryUBSanitizerIssue: stopOnEveryUBSanitizerIssue,
+                disableMainThreadChecker: disableMainThreadChecker,
+                disablePerformanceAntipatternChecker: disablePerformanceAntipatternChecker,
+                stopOnEveryMainThreadCheckerIssue: stopOnEveryMainThreadCheckerIssue,
+                additionalOptions: additionalOptions,
+                commandlineArguments: commandlineArguments,
+                environmentVariables: environmentVariables,
+                language: language,
+                region: region,
+                showNonLocalizedStrings: showNonLocalizedStrings,
+                launchAutomaticallySubstyle: launchAutomaticallySubstyle,
+                storeKitConfigurationFileReference: storeKitConfigurationFileReference,
+                customLaunchCommand: customLaunchCommand,
+                customLLDBInitFile: customLLDBInitFile
+            )
+        }
+
         // swiftlint:disable:next function_body_length
         override init(element: AEXMLElement) throws {
             buildConfiguration = element.attributes["buildConfiguration"] ?? LaunchAction.defaultBuildConfiguration
@@ -177,15 +273,13 @@ public extension XCScheme {
             // Runnable
             let buildableProductRunnableElement = element["BuildableProductRunnable"]
             let remoteRunnableElement = element["RemoteRunnable"]
+            let pathRunnable = element["PathRunnable"]
             if buildableProductRunnableElement.error == nil {
                 runnable = try BuildableProductRunnable(element: buildableProductRunnableElement)
             } else if remoteRunnableElement.error == nil {
                 runnable = try RemoteRunnable(element: remoteRunnableElement)
-            }
-
-            let pathRunnable = element["PathRunnable"]
-            if pathRunnable.error == nil {
-                self.pathRunnable = try PathRunnable(element: pathRunnable)
+            } else if pathRunnable.error == nil {
+                runnable = try PathRunnable(element: pathRunnable)
             }
 
             let buildableReferenceElement = element["MacroExpansion"]["BuildableReference"]
@@ -324,10 +418,6 @@ public extension XCScheme {
                 element.addChild(runnable.xmlElement())
             }
 
-            if let pathRunnable {
-                element.addChild(pathRunnable.xmlElement())
-            }
-
             if let locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
@@ -395,7 +485,6 @@ public extension XCScheme {
                 buildConfiguration == rhs.buildConfiguration &&
                 launchStyle == rhs.launchStyle &&
                 askForAppToLaunch == rhs.askForAppToLaunch &&
-                pathRunnable == rhs.pathRunnable &&
                 customWorkingDirectory == rhs.customWorkingDirectory &&
                 useCustomWorkingDirectory == rhs.useCustomWorkingDirectory &&
                 ignoresPersistentStateOnLaunch == rhs.ignoresPersistentStateOnLaunch &&

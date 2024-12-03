@@ -159,7 +159,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         // Given
         let filePath = "/usr/bin/foo"
         let pathRunnable = XCScheme.PathRunnable(filePath: filePath, runnableDebuggingMode: "0")
-        let subject = XCScheme.LaunchAction(runnable: nil, buildConfiguration: "Debug", pathRunnable: pathRunnable)
+        let subject = XCScheme.LaunchAction(runnable: pathRunnable, buildConfiguration: "Debug")
 
         // When
         let element = subject.xmlElement()
