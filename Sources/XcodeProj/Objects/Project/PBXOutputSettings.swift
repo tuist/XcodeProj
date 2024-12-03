@@ -47,28 +47,28 @@ public enum PBXFileOrder {
     func sort(lhs: (PBXObjectReference, PBXBuildFile), rhs: (PBXObjectReference, PBXBuildFile)) -> Bool {
         switch self {
         case .byFilename:
-            return sortBuildFilesByName(lhs.1, rhs.1)
+            sortBuildFilesByName(lhs.1, rhs.1)
         default:
-            return lhs.0 < rhs.0
+            lhs.0 < rhs.0
         }
     }
 
     func sort(lhs: (PBXObjectReference, PBXBuildPhaseFile), rhs: (PBXObjectReference, PBXBuildPhaseFile)) -> Bool {
         switch self {
         case .byFilename:
-            return sortBuildFilesByName(lhs.1.buildFile, rhs.1.buildFile)
+            sortBuildFilesByName(lhs.1.buildFile, rhs.1.buildFile)
         default:
-            return lhs.0 < rhs.0
+            lhs.0 < rhs.0
         }
     }
 
     func sort(lhs: (PBXObjectReference, PBXFileReference), rhs: (PBXObjectReference, PBXFileReference)) -> Bool {
         switch self {
         case .byFilename:
-            return sortFileElementsByName(lhs.1, rhs.1)
+            sortFileElementsByName(lhs.1, rhs.1)
 
         default:
-            return lhs.0 < rhs.0
+            lhs.0 < rhs.0
         }
     }
 }
@@ -76,9 +76,9 @@ public enum PBXFileOrder {
 private extension PBXFileElement {
     var isGroup: Bool {
         switch self {
-        case is PBXVariantGroup, is XCVersionGroup: return false
-        case is PBXGroup: return true
-        default: return false
+        case is PBXVariantGroup, is XCVersionGroup: false
+        case is PBXGroup: true
+        default: false
         }
     }
 }
@@ -97,10 +97,10 @@ public enum PBXNavigatorFileOrder {
     var sort: ((PBXFileElement, PBXFileElement) -> Bool)? {
         switch self {
         case .byFilename:
-            return { sortFileElementsByName($0, $1) }
+            { sortFileElementsByName($0, $1) }
 
         case .byFilenameGroupsFirst:
-            return { lhs, rhs in
+            { lhs, rhs in
                 let lhsIsGroup = lhs.isGroup
                 if lhsIsGroup != rhs.isGroup {
                     return lhsIsGroup
@@ -109,7 +109,7 @@ public enum PBXNavigatorFileOrder {
             }
 
         default:
-            return nil // Don't sort.
+            nil // Don't sort.
         }
     }
 }
@@ -125,12 +125,12 @@ public enum PBXBuildPhaseFileOrder {
     var sort: ((PBXBuildFile, PBXBuildFile) -> Bool)? {
         switch self {
         case .byFilename:
-            return { lhs, rhs in
+            { lhs, rhs in
                 sortBuildFilesByName(lhs, rhs)
             }
 
         default:
-            return nil // Don't sort.
+            nil // Don't sort.
         }
     }
 }

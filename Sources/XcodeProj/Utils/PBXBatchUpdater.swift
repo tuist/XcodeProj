@@ -75,16 +75,15 @@ public final class PBXBatchUpdater {
             return existing
         }
 
-        let path: String?
-        switch sourceTree {
+        let path: String? = switch sourceTree {
         case .group:
-            path = filePath.relative(to: groupPath).string
+            filePath.relative(to: groupPath).string
         case .sourceRoot:
-            path = filePath.relative(to: sourceRoot).string
+            filePath.relative(to: sourceRoot).string
         case .absolute:
-            path = filePath.string
+            filePath.string
         default:
-            path = nil
+            nil
         }
         let fileReference = PBXFileReference(
             sourceTree: sourceTree,

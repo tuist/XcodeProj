@@ -9,9 +9,9 @@ public enum XCSchemeError: Error, CustomStringConvertible, Sendable {
     public var description: String {
         switch self {
         case let .notFound(path):
-            return ".xcscheme couldn't be found at path \(path.string)"
+            ".xcscheme couldn't be found at path \(path.string)"
         case let .missing(property):
-            return "Property \(property) missing"
+            "Property \(property) missing"
         }
     }
 }
