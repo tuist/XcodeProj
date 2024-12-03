@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.24.12] - 2024-12-03
+### Details
+#### Docs
+- Add kelvinharron as a contributor for code by @allcontributors[bot] in [#886](https://github.com/tuist/XcodeProj/pull/886)
+- Add georgenavarro as a contributor for code by @allcontributors[bot] in [#885](https://github.com/tuist/XcodeProj/pull/885)
+
+#### Fix
+- Inconsistent behaviour with Xcode 16 when `PBXProject.TargetAttributes` is empty by @Speakus in [#865](https://github.com/tuist/XcodeProj/pull/865)
+
+## New Contributors
+* @Speakus made their first contribution in [#865](https://github.com/tuist/XcodeProj/pull/865)
 ## [8.24.11] - 2024-11-27
 ### Details
 #### Chore
@@ -142,6 +153,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.24.12]: https://github.com/tuist/XcodeProj/compare/8.24.11..8.24.12
 [8.24.11]: https://github.com/tuist/XcodeProj/compare/8.24.10..8.24.11
 [8.24.10]: https://github.com/tuist/XcodeProj/compare/8.24.9..8.24.10
 [8.24.9]: https://github.com/tuist/XcodeProj/compare/8.24.8..8.24.9
