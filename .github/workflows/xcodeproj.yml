@@ -31,8 +31,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - uses: swift-actions/setup-swift@v2
       - name: Build
-        run: mise run build-linux
+        run: swift build --configuration release
   test:
     name: Test (macOS / Xcode)
     runs-on: macos-latest
@@ -50,8 +51,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
+      - uses: swift-actions/setup-swift@v2
       - name: Test
-        run: mise run test-linux
+        run: swift test
 
   lint:
     name: Lint
