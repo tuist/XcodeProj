@@ -36,6 +36,7 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
 | XcodeGen        | [github.com/yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)                       |
 | xspm            | [gitlab.com/Pyroh/xspm](https://gitlab.com/Pyroh/xspm)                                       |
 | Privacy Manifest| [github.com/stelabouras/privacy-manifest](https://github.com/stelabouras/privacy-manifest)   |
+| Function        | [github.com/fxnai/fxnios](https://github.com/fxnai/fxnios)                                   | 
 
 If you are also leveraging XcodeProj in your project, feel free to open a PR to include it in the list above.
 
