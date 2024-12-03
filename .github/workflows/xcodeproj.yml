@@ -20,8 +20,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - name: Build
         run: mise run build
@@ -39,8 +37,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - name: Run tests
         run: mise run test
@@ -60,7 +56,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Select Xcode 16
-        run: sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
       - uses: jdx/mise-action@v2
       - run: mise run lint
