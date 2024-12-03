@@ -50,7 +50,7 @@ public extension XCScheme {
                     selectedTests: [TestItem] = [],
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
-            self.parallelization = parallelizable ? .swiftTestingOnly : .none
+            parallelization = parallelizable ? .swiftTestingOnly : .none
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
