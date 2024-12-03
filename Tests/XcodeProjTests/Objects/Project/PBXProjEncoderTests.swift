@@ -328,6 +328,8 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */", after: line)
     }
 
+    // MARK: - Projects
+
     // MARK: - Build phases
 
     func test_build_phase_sources_unsorted_when_iOSProject() throws {
