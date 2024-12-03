@@ -482,39 +482,16 @@ final class PBXProjEncoder {
         }
 
         for project in projects {
-            do {
-                project.projectReferences = try project.projectReferences.sorted(by: { lhs, rhs in
-                    guard let lProjectRef = lhs["ProjectRef"] else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-                    guard let lFile: PBXFileElement = lProjectRef.getObject() else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-                    guard let rProjectRef = rhs["ProjectRef"] else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-                    guard let rFile: PBXFileElement = rProjectRef.getObject() else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-                    guard let lName = lFile.name else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-                    guard let rName = rFile.name else {
-                        throw Errors.unexpectedPbxProj()
-                    }
-
-                    return lName.compare(rName, options: .caseInsensitive) == .orderedAscending
-                })
-            } catch {
-                print("Unable to sort as Xcode 16 do: \(error)")
-                // actually we could do even fatalError here
-                // but it could be too brave for common repository
-                // fatalError("\(error)")
-            }
+            /// The project references are sorted alphabetically based on the name of the project it's being referenced.
+            project.projectReferences = project.projectReferences.sorted(by: { lhs, rhs in
+                let lProjectRef = lhs["ProjectRef"]!
+                let lFile: PBXFileElement = lProjectRef.getObject()!
+                let rProjectRef = rhs["ProjectRef"]!
+                let rFile: PBXFileElement = rProjectRef.getObject()!
+                let lName = lFile.name!
+                let rName = rFile.name!
+                return lName.compare(rName, options: .caseInsensitive) == .orderedAscending
+            })
         }
     }
-}
-
-private enum Errors: Error {
-    case unexpectedPbxProj(_ id: Int = #line)
 }
