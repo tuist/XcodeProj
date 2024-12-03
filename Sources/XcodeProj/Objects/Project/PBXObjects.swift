@@ -312,59 +312,59 @@ class PBXObjects: Equatable {
         //     Expression was too complex to be solved in reasonable time;
         //     consider breaking up the expression into distinct sub-expressions
         if let object = buildFiles[reference] {
-            return object
+            object
         } else if let object = aggregateTargets[reference] {
-            return object
+            object
         } else if let object = legacyTargets[reference] {
-            return object
+            object
         } else if let object = containerItemProxies[reference] {
-            return object
+            object
         } else if let object = groups[reference] {
-            return object
+            object
         } else if let object = configurationLists[reference] {
-            return object
+            object
         } else if let object = buildConfigurations[reference] {
-            return object
+            object
         } else if let object = variantGroups[reference] {
-            return object
+            object
         } else if let object = targetDependencies[reference] {
-            return object
+            object
         } else if let object = nativeTargets[reference] {
-            return object
+            object
         } else if let object = fileReferences[reference] {
-            return object
+            object
         } else if let object = projects[reference] {
-            return object
+            object
         } else if let object = versionGroups[reference] {
-            return object
+            object
         } else if let object = referenceProxies[reference] {
-            return object
+            object
         } else if let object = copyFilesBuildPhases[reference] {
-            return object
+            object
         } else if let object = shellScriptBuildPhases[reference] {
-            return object
+            object
         } else if let object = resourcesBuildPhases[reference] {
-            return object
+            object
         } else if let object = frameworksBuildPhases[reference] {
-            return object
+            object
         } else if let object = headersBuildPhases[reference] {
-            return object
+            object
         } else if let object = sourcesBuildPhases[reference] {
-            return object
+            object
         } else if let object = carbonResourcesBuildPhases[reference] {
-            return object
+            object
         } else if let object = buildRules[reference] {
-            return object
+            object
         } else if let object = remoteSwiftPackageReferences[reference] {
-            return object
+            object
         } else if let object = swiftPackageProductDependencies[reference] {
-            return object
+            object
         } else if let object = fileSystemSynchronizedRootGroups[reference] {
-            return object
+            object
         } else if let object = fileSystemSynchronizedBuildFileExceptionSets[reference] {
-            return object
+            object
         } else {
-            return nil
+            nil
         }
     }
 }

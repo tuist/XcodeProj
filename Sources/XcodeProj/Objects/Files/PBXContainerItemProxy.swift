@@ -20,8 +20,8 @@ public final class PBXContainerItemProxy: PBXObject {
 
         var uuid: String {
             switch self {
-            case let .reference(reference): return reference.value
-            case let .string(string): return string
+            case let .reference(reference): reference.value
+            case let .string(string): string
             }
         }
 
@@ -29,11 +29,11 @@ public final class PBXContainerItemProxy: PBXObject {
             switch self {
             case let .reference(reference):
                 if let object = reference.getObject() {
-                    return .object(object)
+                    .object(object)
                 } else {
-                    return .string(reference.value)
+                    .string(reference.value)
                 }
-            case let .string(string): return .string(string)
+            case let .string(string): .string(string)
             }
         }
     }
@@ -44,15 +44,15 @@ public final class PBXContainerItemProxy: PBXObject {
 
         var uuid: String {
             switch self {
-            case let .object(object): return object.uuid
-            case let .string(string): return string
+            case let .object(object): object.uuid
+            case let .string(string): string
             }
         }
 
         var reference: RemoteGlobalIDReference {
             switch self {
-            case let .object(object): return .reference(object.reference)
-            case let .string(string): return .string(string)
+            case let .object(object): .reference(object.reference)
+            case let .string(string): .string(string)
             }
         }
     }
@@ -185,11 +185,11 @@ private extension PBXContainerItemProxy.ContainerPortal {
     var reference: PBXObjectReference? {
         switch self {
         case let .project(project):
-            return project.reference
+            project.reference
         case let .fileReference(fileReference):
-            return fileReference.reference
+            fileReference.reference
         case .unknownObject:
-            return nil
+            nil
         }
     }
 

@@ -78,9 +78,9 @@ private extension XCWorkspaceDataElement {
     func xmlElement() -> AEXMLElement {
         switch self {
         case let .file(fileRef):
-            return fileRef.xmlElement()
+            fileRef.xmlElement()
         case let .group(group):
-            return group.xmlElement()
+            group.xmlElement()
         }
     }
 }

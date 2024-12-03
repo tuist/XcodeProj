@@ -13,8 +13,8 @@ public extension XCScheme {
 
             var string: String {
                 switch self {
-                case let .reference(object): return object.value
-                case let .string(string): return string
+                case let .reference(object): object.value
+                case let .string(string): string
                 }
             }
         }

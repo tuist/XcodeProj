@@ -8,7 +8,7 @@ public enum XCSchemeManagementError: Error, Equatable, LocalizedError, CustomStr
     public var description: String {
         switch self {
         case let .notFound(path):
-            return "Couldn't initialize XCSchemeManagement because the file at path \(path.string) was not found."
+            "Couldn't initialize XCSchemeManagement because the file at path \(path.string) was not found."
         }
     }
 

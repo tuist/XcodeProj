@@ -57,33 +57,33 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         func plistValues() -> [CommentedString: PlistValue] {
             switch self {
             case let .revision(revision):
-                return [
+                [
                     "kind": "revision",
                     "revision": .string(.init(revision)),
                 ]
             case let .branch(branch):
-                return [
+                [
                     "kind": "branch",
                     "branch": .string(.init(branch)),
                 ]
             case let .exact(version):
-                return [
+                [
                     "kind": "exactVersion",
                     "version": .string(.init(version)),
                 ]
             case let .range(from, to):
-                return [
+                [
                     "kind": "versionRange",
                     "minimumVersion": .string(.init(from)),
                     "maximumVersion": .string(.init(to)),
                 ]
             case let .upToNextMinorVersion(version):
-                return [
+                [
                     "kind": "upToNextMinorVersion",
                     "minimumVersion": .string(.init(version)),
                 ]
             case let .upToNextMajorVersion(version):
-                return [
+                [
                     "kind": "upToNextMajorVersion",
                     "minimumVersion": .string(.init(version)),
                 ]
