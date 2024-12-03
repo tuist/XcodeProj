@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-41-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-42-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -187,6 +187,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/woin2ee"><img src="https://avatars.githubusercontent.com/u/81426024?v=4?s=100" width="100px;" alt="Jaewon-Yun"/><br /><sub><b>Jaewon-Yun</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=woin2ee" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://gera.cx"><img src="https://avatars.githubusercontent.com/u/715129?v=4?s=100" width="100px;" alt="Mike Gerasymenko"/><br /><sub><b>Mike Gerasymenko</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=mikeger" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/filipracki"><img src="https://avatars.githubusercontent.com/u/27164368?v=4?s=100" width="100px;" alt="Filip Racki"/><br /><sub><b>Filip Racki</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=filipracki" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/georgenavarro"><img src="https://avatars.githubusercontent.com/u/2748028?v=4?s=100" width="100px;" alt="George Navarro"/><br /><sub><b>George Navarro</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=georgenavarro" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
