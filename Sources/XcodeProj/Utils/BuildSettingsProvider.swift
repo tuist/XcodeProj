@@ -45,11 +45,11 @@ public class BuildSettingsProvider {
     ///   - product: target product.
     ///   - swift: true if the target contains Swift code.
     /// - Returns: build settings.
-    public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
+    public static func targetDefault(variant: Variant? = nil, platform: Platform?, supportsCatalyst: Bool, product: Product?, swift: Bool? = nil) -> BuildSettings {
         var buildSettings: [String: Any] = [:]
 
         if let platform {
-            buildSettings.merge(targetSettings(platform: platform), uniquingKeysWith: { $1 })
+            buildSettings.merge(targetSettings(platform: platform, supportsCatalyst: supportsCatalyst), uniquingKeysWith: { $1 })
         }
 
         if let product {
@@ -166,14 +166,18 @@ public class BuildSettingsProvider {
         ]
     }
 
-    private static func targetSettings(platform: Platform) -> BuildSettings {
+    private static func targetSettings(platform: Platform, supportsCatalyst: Bool) -> BuildSettings {
         switch platform {
         case .iOS:
-            return [
+            var settings = [
                 "SDKROOT": "iphoneos",
                 "CODE_SIGN_IDENTITY": "iPhone Developer",
                 "TARGETED_DEVICE_FAMILY": "1,2",
             ]
+            if supportsCatalyst {
+                settings["CODE_SIGN_IDENTITY[sdk=macosx*]"] = "-"
+            }
+            return settings
         case .macOS:
             return [
                 "SDKROOT": "macosx",
