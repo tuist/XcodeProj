@@ -87,7 +87,6 @@ public extension XCScheme {
 
         // MARK: - Init
 
-        @available(*, deprecated, message: "Use the init() that consolidates pathRunnable and runnable into a single parameter.")
         public init(runnable: Runnable?,
                     buildConfiguration: String,
                     preActions: [ExecutionAction] = [],
@@ -170,6 +169,7 @@ public extension XCScheme {
             super.init(preActions, postActions)
         }
 
+        @available(*, deprecated, message: "Use the init() that consolidates pathRunnable and runnable into a single parameter.")
         public convenience init(
             pathRunnable: PathRunnable?,
             buildConfiguration: String,
