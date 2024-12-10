@@ -96,7 +96,6 @@ public extension XCScheme {
                     selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
                     launchStyle: Style = .auto,
                     askForAppToLaunch: Bool? = nil,
-                    pathRunnable _: PathRunnable? = nil,
                     customWorkingDirectory: String? = nil,
                     useCustomWorkingDirectory: Bool = false,
                     ignoresPersistentStateOnLaunch: Bool = false,
@@ -171,7 +170,7 @@ public extension XCScheme {
 
         @available(*, deprecated, message: "Use the init() that consolidates pathRunnable and runnable into a single parameter.")
         public convenience init(
-            pathRunnable: PathRunnable?,
+            runnable: Runnable?,
             buildConfiguration: String,
             preActions: [ExecutionAction] = [],
             postActions: [ExecutionAction] = [],
@@ -180,6 +179,7 @@ public extension XCScheme {
             selectedLauncherIdentifier: String = XCScheme.defaultLauncher,
             launchStyle: Style = .auto,
             askForAppToLaunch: Bool? = nil,
+            pathRunnable: PathRunnable?,
             customWorkingDirectory: String? = nil,
             useCustomWorkingDirectory: Bool = false,
             ignoresPersistentStateOnLaunch: Bool = false,
@@ -222,7 +222,6 @@ public extension XCScheme {
                 selectedLauncherIdentifier: selectedLauncherIdentifier,
                 launchStyle: launchStyle,
                 askForAppToLaunch: askForAppToLaunch,
-                pathRunnable: pathRunnable,
                 customWorkingDirectory: customWorkingDirectory,
                 useCustomWorkingDirectory: useCustomWorkingDirectory,
                 ignoresPersistentStateOnLaunch: ignoresPersistentStateOnLaunch,
