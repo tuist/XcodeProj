@@ -48,7 +48,7 @@ public extension XCScheme {
                 runnable as? PathRunnable
             }
             set {
-                self.runnable = newValue
+                runnable = newValue
             }
         }
 
