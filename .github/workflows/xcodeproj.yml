@@ -13,6 +13,7 @@ concurrency:
 
 env:
   MISE_EXPERIMENTAL: 1
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
