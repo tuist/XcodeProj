@@ -6,6 +6,9 @@ public final class XCWorkspace: Writable, Equatable {
     /// Workspace data
     public var data: XCWorkspaceData
 
+    /// The path to the `.xcworkspace` directory.
+    public let path: Path?
+
     // MARK: - Init
 
     /// Initializes the workspace with the path where the workspace is.
@@ -15,14 +18,14 @@ public final class XCWorkspace: Writable, Equatable {
     /// - Parameter path: .xcworkspace path.
     /// - Throws: throws an error if the workspace cannot be initialized.
     public convenience init(path: Path) throws {
-        if !path.exists {
+        guard path.exists else {
             throw XCWorkspaceError.notFound(path: path)
         }
         let xcworkspaceDataPaths = path.glob("*.xcworkspacedata")
-        if xcworkspaceDataPaths.isEmpty {
-            self.init()
+        if let xcworkspaceDataPath = xcworkspaceDataPaths.first {
+            try self.init(data: XCWorkspaceData(path: xcworkspaceDataPath), path: path)
         } else {
-            try self.init(data: XCWorkspaceData(path: xcworkspaceDataPaths.first!))
+            self.init()
         }
     }
 
@@ -44,8 +47,10 @@ public final class XCWorkspace: Writable, Equatable {
     ///
     /// - Parameters:
     ///   - data: workspace data.
-    public init(data: XCWorkspaceData) {
+    ///   - path: .xcworkspace path.
+    public init(data: XCWorkspaceData, path: Path? = nil) {
         self.data = data
+        self.path = path
     }
 
     // MARK: - Writable
@@ -75,6 +80,6 @@ public final class XCWorkspace: Writable, Equatable {
     // MARK: - Equatable
 
     public static func == (lhs: XCWorkspace, rhs: XCWorkspace) -> Bool {
-        lhs.data == rhs.data
+        lhs.data == rhs.data && lhs.path == rhs.path
     }
 }

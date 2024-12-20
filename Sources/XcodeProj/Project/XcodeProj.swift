@@ -8,8 +8,8 @@ public final class XcodeProj: Equatable {
     /// Project workspace
     public var workspace: XCWorkspace
 
-    /// The  path to the `.xcodeproj` directory.
-    private let projectPath: Path?
+    /// The path to the `.xcodeproj` directory.
+    public let path: Path?
 
     /// .pbxproj representation
     public var pbxproj: PBXProj
@@ -46,7 +46,7 @@ public final class XcodeProj: Equatable {
             .glob("*.xcuserdatad")
             .compactMap { try? XCUserData(path: $0) }
 
-        projectPath = path
+        self.path = path
         self.pbxproj = pbxproj
         self.workspace = workspace
         self.sharedData = sharedData
@@ -68,12 +68,12 @@ public final class XcodeProj: Equatable {
                 pbxproj: PBXProj,
                 sharedData: XCSharedData? = nil,
                 userData: [XCUserData] = [],
-                projectPath: Path? = nil) {
+                path: Path? = nil) {
         self.workspace = workspace
         self.pbxproj = pbxproj
         self.sharedData = sharedData
         self.userData = userData
-        self.projectPath = projectPath
+        self.path = path
     }
 
     // MARK: - Equatable
@@ -83,7 +83,7 @@ public final class XcodeProj: Equatable {
             lhs.pbxproj == rhs.pbxproj &&
             lhs.sharedData == rhs.sharedData &&
             lhs.userData == rhs.userData &&
-            lhs.projectPath == rhs.projectPath
+            lhs.path == rhs.path
     }
 }
 
