@@ -56,16 +56,27 @@ extension XCScheme {
           </LaunchAction>
         </Scheme>
         """
-            
-        // Create the full file path
-        let fileURL = url
-          .appending(.directory(".swiftpm"))
-          .appending(.directory("xcode"))
-          .appending(.directory("xcshareddata"))
-          .appending(.directory("xcschemes"))
-          .appending(.file("\(target).xcscheme"))
-            
-        // Write the content to file using FileManager
-        try content.write(to: fileURL, atomically: true, encoding: .utf8)
+        
+        var fileURL: URL? = nil
+      
+        if url.isPackageURL {
+            fileURL = url
+              .appending(.directory(".swiftpm"))
+              .appending(.directory("xcode"))
+              .appending(.directory("xcshareddata"))
+              .appending(.directory("xcschemes"))
+              .appending(.file("\(target).xcscheme"))
+        }
+        
+        if url.pathExtension == "xcodeproj" {
+            fileURL = url
+              .appending(.directory("xcshareddata"))
+              .appending(.directory("xcschemes"))
+              .appending(.file("\(target).xcscheme"))
+        }
+      
+        if let fileURL = fileURL {
+            try content.write(to: fileURL, atomically: true, encoding: .utf8)
+        }
     }
 }

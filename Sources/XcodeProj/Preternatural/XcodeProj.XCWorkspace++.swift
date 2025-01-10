@@ -2,8 +2,7 @@
 // Copyright (c) Vatsal Manot
 //
 
-import FoundationX
-import Swallow
+import Foundation
 import PathKit
 
 extension XCWorkspace {
@@ -29,11 +28,5 @@ extension XCWorkspace {
     
     public func write(pathString: String, override: Bool) throws {
         try write(path: Path(pathString), override: override)
-    }
-}
-
-private extension URL {
-    var isPackageURL: Bool {
-        return self.pathExtension == "" && self.appendingPathComponent("Package.swift")._isValidFileURLCheckingIfExistsIfNecessary()
     }
 }
