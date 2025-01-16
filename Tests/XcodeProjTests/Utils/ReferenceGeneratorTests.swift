@@ -83,6 +83,21 @@ class ReferenceGeneratorTests: XCTestCase {
 
         XCTAssertNotEqual(firstProductsGroupUUID, secondProductsGroupUUID)
     }
+
+    func test_projectWithFilesystemSynchronizedRootGroup_convertsReferencesToPermanent() throws {
+        let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
+        let pbxProject = project.makeProject()
+
+        let syncedGroup = project.makeSynchronizedRootGroup()
+        let target = project.makeTarget()
+        target.fileSystemSynchronizedGroups = [syncedGroup]
+        pbxProject.targets.append(target)
+
+        let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
+        try referenceGenerator.generateReferences(proj: project)
+
+        XCTAssert(!syncedGroup.reference.temporary)
+    }
 }
 
 private extension PBXProj {
@@ -167,5 +182,24 @@ private extension PBXProj {
         add(object: target)
 
         return (target, buildFile)
+    }
+
+    func makeTarget() -> PBXTarget {
+        let target = PBXNativeTarget(name: "MyApp",
+                                     productName: "MyApp.app",
+                                     productType: .application)
+        add(object: target)
+      return target
+    }
+
+    func makeSynchronizedRootGroup() -> PBXFileSystemSynchronizedRootGroup {
+        let syncedGroup = PBXFileSystemSynchronizedRootGroup(
+            sourceTree: .group,
+            path: "SyncedPath",
+            name: "SyncedGroup"
+        )
+        add(object: syncedGroup)
+        rootObject!.mainGroup.children.append(syncedGroup)
+        return syncedGroup
     }
 }
