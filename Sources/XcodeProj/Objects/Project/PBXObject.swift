@@ -27,7 +27,7 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
     // MARK: - Init
 
     init() {
-        reference = PBXObjectReference()
+        reference = PBXObjectReference(objects: nil)
         reference.setObject(self)
     }
 
