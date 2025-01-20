@@ -146,6 +146,60 @@ class BuildSettingProviderTests: XCTestCase {
         ])
     }
 
+    func test_targetSettings_visionOSAplication() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .release,
+                                                          platform: .visionOS,
+                                                          product: .application,
+                                                          swift: true)
+
+        // Then
+        assertEqualSettings(results, [
+            "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ENABLE_PREVIEWS": "YES",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+            ],
+            "SDKROOT": "xros",
+            "SWIFT_COMPILATION_MODE": "wholemodule",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+            "TARGETED_DEVICE_FAMILY": "1,2,7",
+        ])
+    }
+
+    func test_targetSettings_visionOSFramework() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .release,
+                                                          platform: .visionOS,
+                                                          product: .framework,
+                                                          swift: true)
+
+        // Then
+        assertEqualSettings(results, [
+            "CODE_SIGN_IDENTITY": "",
+            "CURRENT_PROJECT_VERSION": "1",
+            "DEFINES_MODULE": "YES",
+            "DYLIB_COMPATIBILITY_VERSION": "1",
+            "DYLIB_CURRENT_VERSION": "1",
+            "DYLIB_INSTALL_NAME_BASE": "@rpath",
+            "INSTALL_PATH": "$(LOCAL_LIBRARY_DIR)/Frameworks",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks",
+            ],
+            "PRODUCT_NAME": "$(TARGET_NAME:c99extidentifier)",
+            "SDKROOT": "xros",
+            "SKIP_INSTALL": "YES",
+            "SWIFT_COMPILATION_MODE": "wholemodule",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+            "TARGETED_DEVICE_FAMILY": "1,2,7",
+            "VERSIONING_SYSTEM": "apple-generic",
+            "VERSION_INFO_PREFIX": "",
+        ])
+    }
+
     func test_targetSettings_iOSUnitTests() {
         // Given / When
         let results = BuildSettingsProvider.targetDefault(variant: .debug,
@@ -233,6 +287,50 @@ class BuildSettingProviderTests: XCTestCase {
             "SWIFT_COMPILATION_MODE": "singlefile",
             "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
             "TARGETED_DEVICE_FAMILY": "3",
+        ])
+    }
+
+    func test_targetSettings_visionOSUnitTests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .visionOS,
+                                                          product: .unitTests,
+                                                          swift: true)
+
+        // Then
+        assertEqualSettings(results, [
+            "SDKROOT": "xros",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks",
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": ["$(inherited)", "DEBUG"],
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+            "TARGETED_DEVICE_FAMILY": "1,2,7",
+        ])
+    }
+
+    func test_targetSettings_visionOSUITests() {
+        // Given / When
+        let results = BuildSettingsProvider.targetDefault(variant: .debug,
+                                                          platform: .visionOS,
+                                                          product: .uiTests,
+                                                          swift: true)
+
+        // Then
+        assertEqualSettings(results, [
+            "SDKROOT": "xros",
+            "LD_RUNPATH_SEARCH_PATHS": [
+                "$(inherited)",
+                "@executable_path/Frameworks",
+                "@loader_path/Frameworks",
+            ],
+            "SWIFT_ACTIVE_COMPILATION_CONDITIONS": ["$(inherited)", "DEBUG"],
+            "SWIFT_COMPILATION_MODE": "singlefile",
+            "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
+            "TARGETED_DEVICE_FAMILY": "1,2,7",
         ])
     }
 
