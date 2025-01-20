@@ -247,6 +247,10 @@ public class BuildSettingsProvider {
                 "SKIP_INSTALL": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
+        case (.visionOS, .application):
+            [
+                "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
+            ]
         case (.iOS, .framework):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
@@ -264,6 +268,10 @@ public class BuildSettingsProvider {
         case (.watchOS, .framework):
             [
                 "APPLICATION_EXTENSION_API_ONLY": "YES",
+                "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
+            ]
+        case (.visionOS, .framework):
+            [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
         case ([.iOS, .tvOS, .watchOS], .staticLibrary):
@@ -317,7 +325,7 @@ public class BuildSettingsProvider {
                     "@executable_path/../../../../Frameworks",
                 ],
             ]
-        case ([.iOS, .tvOS], [.unitTests, .uiTests]):
+        case ([.iOS, .tvOS, .visionOS], [.unitTests, .uiTests]):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
