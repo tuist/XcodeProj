@@ -188,6 +188,7 @@ public class BuildSettingsProvider {
         case .visionOS:
             [
                 "SDKROOT": "xros",
+                "CODE_SIGN_IDENTITY": "iPhone Developer",
                 "TARGETED_DEVICE_FAMILY": "1,2,7",
             ]
         }
@@ -274,7 +275,7 @@ public class BuildSettingsProvider {
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
-        case ([.iOS, .tvOS, .watchOS], .staticLibrary):
+        case ([.iOS, .tvOS, .watchOS, .visionOS], .staticLibrary):
             [
                 "OTHER_LDFLAGS": "-ObjC",
                 "SKIP_INSTALL": "YES",
@@ -296,7 +297,7 @@ public class BuildSettingsProvider {
                 "COMBINE_HIDPI_IMAGES": "YES",
                 "INSTALL_PATH": "$(LOCAL_LIBRARY_DIR)/Bundles",
             ]
-        case ([.iOS, .tvOS], .appExtension):
+        case ([.iOS, .tvOS, .visionOS], .appExtension):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks"],
             ]
