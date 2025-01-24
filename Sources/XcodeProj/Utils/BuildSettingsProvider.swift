@@ -188,6 +188,7 @@ public class BuildSettingsProvider {
         case .visionOS:
             [
                 "SDKROOT": "xros",
+                "CODE_SIGN_IDENTITY": "iPhone Developer",
                 "TARGETED_DEVICE_FAMILY": "1,2,7",
             ]
         }
@@ -247,6 +248,10 @@ public class BuildSettingsProvider {
                 "SKIP_INSTALL": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             ]
+        case (.visionOS, .application):
+            [
+                "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
+            ]
         case (.iOS, .framework):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
@@ -266,7 +271,11 @@ public class BuildSettingsProvider {
                 "APPLICATION_EXTENSION_API_ONLY": "YES",
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
-        case ([.iOS, .tvOS, .watchOS], .staticLibrary):
+        case (.visionOS, .framework):
+            [
+                "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
+            ]
+        case ([.iOS, .tvOS, .watchOS, .visionOS], .staticLibrary):
             [
                 "OTHER_LDFLAGS": "-ObjC",
                 "SKIP_INSTALL": "YES",
@@ -288,7 +297,7 @@ public class BuildSettingsProvider {
                 "COMBINE_HIDPI_IMAGES": "YES",
                 "INSTALL_PATH": "$(LOCAL_LIBRARY_DIR)/Bundles",
             ]
-        case ([.iOS, .tvOS], .appExtension):
+        case ([.iOS, .tvOS, .visionOS], .appExtension):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks"],
             ]
@@ -317,7 +326,7 @@ public class BuildSettingsProvider {
                     "@executable_path/../../../../Frameworks",
                 ],
             ]
-        case ([.iOS, .tvOS], [.unitTests, .uiTests]):
+        case ([.iOS, .tvOS, .visionOS], [.unitTests, .uiTests]):
             [
                 "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"],
             ]
