@@ -189,7 +189,7 @@ private extension PBXProj {
                                      productName: "MyApp.app",
                                      productType: .application)
         add(object: target)
-      return target
+        return target
     }
 
     func makeSynchronizedRootGroup() -> PBXFileSystemSynchronizedRootGroup {
