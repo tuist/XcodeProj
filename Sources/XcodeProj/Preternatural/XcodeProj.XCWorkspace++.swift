@@ -15,7 +15,7 @@ extension XCWorkspace {
         }
         return allProjectURLs
     }
-
+    
     public func referencedProjects(at baseURL: URL) -> [URL] {
         var allProjectURLs: [URL] = []
         for child in data.children {
