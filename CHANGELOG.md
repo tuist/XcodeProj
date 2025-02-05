@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.26.6] - 2025-02-05
+### Details
+#### Chore
+- Update dependency tuist to v4.41.0 by @renovate[bot] in [#901](https://github.com/tuist/XcodeProj/pull/901)
+
 ## [8.26.5] - 2025-01-27
 ### Details
 #### Fix
@@ -212,6 +217,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.26.6]: https://github.com/tuist/XcodeProj/compare/8.26.5..8.26.6
 [8.26.5]: https://github.com/tuist/XcodeProj/compare/8.26.4..8.26.5
 [8.26.4]: https://github.com/tuist/XcodeProj/compare/8.26.3..8.26.4
 [8.26.3]: https://github.com/tuist/XcodeProj/compare/8.26.2..8.26.3
