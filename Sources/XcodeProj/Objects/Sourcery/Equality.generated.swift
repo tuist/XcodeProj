@@ -322,3 +322,12 @@ extension PBXFileSystemSynchronizedBuildFileExceptionSet {
         return super.isEqual(to: rhs)
     }
 }
+
+extension PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet {
+    /// :nodoc:
+    func isEqual(to rhs: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet) -> Bool {
+        if membershipExceptions != rhs.membershipExceptions { return false }
+        if buildPhaseReference != rhs.buildPhaseReference { return false }
+        return super.isEqual(to: rhs)
+    }
+}

@@ -144,6 +144,13 @@ class PBXObjects: Equatable {
     var fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] {
         lock.whileLocked { _fileSystemSynchronizedBuildFileExceptionSets }
     }
+  
+    private var _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXObjectReference: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] = [:]
+    var fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXObjectReference: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] {
+        lock.whileLocked { _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet }
+    }
+  
+  
 
     // XCSwiftPackageProductDependency
 
@@ -185,7 +192,8 @@ class PBXObjects: Equatable {
             lhs.swiftPackageProductDependencies == rhs._swiftPackageProductDependencies &&
             lhs.remoteSwiftPackageReferences == rhs.remoteSwiftPackageReferences &&
             lhs.fileSystemSynchronizedRootGroups == rhs.fileSystemSynchronizedRootGroups &&
-            lhs.fileSystemSynchronizedBuildFileExceptionSets == rhs.fileSystemSynchronizedBuildFileExceptionSets
+            lhs.fileSystemSynchronizedBuildFileExceptionSets == rhs.fileSystemSynchronizedBuildFileExceptionSets &&
+            lhs.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet == rhs.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet
     }
 
     // MARK: - Helpers
@@ -232,6 +240,7 @@ class PBXObjects: Equatable {
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
         case let object as PBXFileSystemSynchronizedRootGroup: _fileSystemSynchronizedRootGroups[objectReference] = object
         case let object as PBXFileSystemSynchronizedBuildFileExceptionSet: _fileSystemSynchronizedBuildFileExceptionSets[objectReference] = object
+        case let object as PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
@@ -296,6 +305,8 @@ class PBXObjects: Equatable {
             return _fileSystemSynchronizedRootGroups.remove(at: index).value
         } else if let index = fileSystemSynchronizedBuildFileExceptionSets.index(forKey: reference) {
             return _fileSystemSynchronizedBuildFileExceptionSets.remove(at: index).value
+        } else if let index = fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.index(forKey: reference) {
+            return _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.remove(at: index).value
         }
 
         return nil
@@ -362,6 +373,8 @@ class PBXObjects: Equatable {
         } else if let object = fileSystemSynchronizedRootGroups[reference] {
             object
         } else if let object = fileSystemSynchronizedBuildFileExceptionSets[reference] {
+            object
+        } else if let object = fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet[reference] {
             object
         } else {
             nil
@@ -456,5 +469,6 @@ extension PBXObjects {
         swiftPackageProductDependencies.values.forEach(closure)
         fileSystemSynchronizedRootGroups.values.forEach(closure)
         fileSystemSynchronizedBuildFileExceptionSets.values.forEach(closure)
+        fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.values.forEach(closure)
     }
 }

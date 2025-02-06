@@ -72,6 +72,8 @@ final class PBXObjectParser {
             return try decoder.decode(PBXFileSystemSynchronizedRootGroup.self, from: data)
         case PBXFileSystemSynchronizedBuildFileExceptionSet.isa:
             return try decoder.decode(PBXFileSystemSynchronizedBuildFileExceptionSet.self, from: data)
+        case PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.isa:
+            return try decoder.decode(PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.self, from: data)
         default:
             throw PBXObjectError.unknownElement(isa)
         }
