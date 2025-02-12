@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# mise description="Run tests in the host"
-
-swift test --package-path $MISE_PROJECT_ROOT
