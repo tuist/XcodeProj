@@ -6,13 +6,13 @@ public typealias BuildSettings = [String: BuildSetting]
 public enum BuildSetting: Sendable, Equatable {
     case string(String)
     case array([String])
-    
+
     var valueForWriting: String {
         switch self {
-        case .string(let string):
-            return string
-        case .array(let array):
-            return array.joined(separator: " ")
+        case let .string(string):
+            string
+        case let .array(array):
+            array.joined(separator: " ")
         }
     }
 }
@@ -20,7 +20,7 @@ public enum BuildSetting: Sendable, Equatable {
 extension BuildSetting: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        do  {
+        do {
             let string = try container.decode(String.self)
             self = .string(string)
         } catch {
@@ -28,13 +28,13 @@ extension BuildSetting: Codable {
             self = .array(array)
         }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .string(let string):
+        case let .string(string):
             try container.encode(string)
-        case .array(let array):
+        case let .array(array):
             try container.encode(array)
         }
     }

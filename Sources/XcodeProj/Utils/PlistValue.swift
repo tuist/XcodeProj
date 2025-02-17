@@ -85,15 +85,14 @@ extension PlistValue: Equatable {
 
 // MARK: - Dictionary Extension (PlistValue)
 
-
-extension Dictionary where Key == String, Value == BuildSetting {
+extension [String: BuildSetting] {
     func plist() -> PlistValue {
         var dictionary: [CommentedString: PlistValue] = [:]
         forEach { key, value in
             switch value {
-            case .string(let stringValue):
+            case let .string(stringValue):
                 dictionary[CommentedString(key)] = PlistValue.string(CommentedString(stringValue))
-            case .array(let arrayValue):
+            case let .array(arrayValue):
                 dictionary[CommentedString(key)] = arrayValue.plist()
             }
         }
