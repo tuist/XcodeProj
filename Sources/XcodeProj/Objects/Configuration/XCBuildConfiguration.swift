@@ -43,26 +43,26 @@ public final class XCBuildConfiguration: PBXObject {
     }
 
     // MARK: - Decodable
-  
-  fileprivate enum CodingKeys: String, CodingKey {
-    case baseConfigurationReference
-    case buildSettings
-    case name
-  }
-  
-  public required init(from decoder: Decoder) throws {
-    let objects = decoder.context.objects
-    let objectReferenceRepository = decoder.context.objectReferenceRepository
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
-      self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
-    } else {
-      baseConfigurationReference = nil
+
+    fileprivate enum CodingKeys: String, CodingKey {
+        case baseConfigurationReference
+        case buildSettings
+        case name
     }
-    buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
-    name = try container.decode(.name)
-    try super.init(from: decoder)
-  }
+
+    public required init(from decoder: Decoder) throws {
+        let objects = decoder.context.objects
+        let objectReferenceRepository = decoder.context.objectReferenceRepository
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+            self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
+        } else {
+            baseConfigurationReference = nil
+        }
+        buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
+        name = try container.decode(.name)
+        try super.init(from: decoder)
+    }
 
     // MARK: - Public
 
