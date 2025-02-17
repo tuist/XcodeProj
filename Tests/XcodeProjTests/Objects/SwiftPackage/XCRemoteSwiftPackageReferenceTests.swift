@@ -7,7 +7,7 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
     func test_init() throws {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
-        let plist: [String: [String: Any]] = ["ref" : [
+        let plist: [String: [String: Any]] = ["ref": [
             "repositoryURL": "url",
             "requirement": [
                 "kind": "revision",

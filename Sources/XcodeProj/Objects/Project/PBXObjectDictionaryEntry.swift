@@ -2,17 +2,17 @@ import Foundation
 
 struct PBXObjectDictionaryEntry: Decodable {
     let object: PBXObject
-    
+
     enum CodingKeys: CodingKey {
         case isa
     }
-    
+
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let isa = try container.decode(String.self, forKey: .isa)
-        
-        self.object = switch isa {
-        case PBXFileElement.isa: try PBXFileElement(from:decoder)
+
+        object = switch isa {
+        case PBXFileElement.isa: try PBXFileElement(from: decoder)
         case PBXBuildFile.isa: try PBXBuildFile(from: decoder)
         case PBXFileReference.isa: try PBXFileReference(from: decoder)
         case PBXLegacyTarget.isa: try PBXLegacyTarget(from: decoder)

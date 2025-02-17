@@ -9,9 +9,8 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         let decoder = XcodeprojPropertyListDecoder()
         let encoder = PropertyListEncoder()
         let plist = ["reference": [
-                     "productName": "xcodeproj",
-                     "package": "packageReference"]
-        ]
+            "productName": "xcodeproj",
+            "package": "packageReference"]]
         let data = try encoder.encode(plist)
 
         // When
@@ -29,8 +28,8 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         let decoder = XcodeprojPropertyListDecoder()
         let encoder = PropertyListEncoder()
         let plist = ["reference": [
-                     "productName": "plugin:xcodeproj",
-                     "package": "packageReference"]]
+            "productName": "plugin:xcodeproj",
+            "package": "packageReference"]]
         let data = try encoder.encode(plist)
 
         // When

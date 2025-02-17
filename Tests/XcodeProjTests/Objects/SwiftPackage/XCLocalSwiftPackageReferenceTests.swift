@@ -8,7 +8,7 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
         let plist: [String: [String: Any]] = ["ref": ["relativePath": "path"]]
-        
+
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
 
         // When

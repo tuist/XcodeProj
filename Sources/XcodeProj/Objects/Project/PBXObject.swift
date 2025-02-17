@@ -45,12 +45,12 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
         let referenceRepository = decoder.context.objectReferenceRepository
         let objects = decoder.context.objects
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         // The reference to an object in a pbxproj is the key of a dictionary, so read the value from the codingPath
         guard let reference = container.codingPath.last?.stringValue else {
             throw PBXObjectError.missingReference
         }
-        
+
         self.reference = referenceRepository.getOrCreate(reference: reference, objects: objects)
         self.reference.setObject(self)
     }

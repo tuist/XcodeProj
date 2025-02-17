@@ -9,7 +9,7 @@ indirect enum PlistObject: Sendable, Equatable {
 extension PlistObject: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        do  {
+        do {
             let string = try container.decode(String.self)
             self = .string(string)
         } catch {
@@ -22,15 +22,15 @@ extension PlistObject: Codable {
             }
         }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .string(let string):
+        case let .string(string):
             try container.encode(string)
-        case .array(let array):
+        case let .array(array):
             try container.encode(array)
-        case .dictionary(let dictionary):
+        case let .dictionary(dictionary):
             try container.encode(dictionary)
         }
     }

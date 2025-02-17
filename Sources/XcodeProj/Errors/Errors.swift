@@ -151,7 +151,7 @@ public enum PBXObjectError: Error, CustomStringConvertible {
         case let .orphaned(type, reference):
             "Trying to use object \(type) with reference '\(reference)' before being added to any project"
         case .missingReference:
-           "Missing reference value"
+            "Missing reference value"
         }
     }
 }
