@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.26.7] - 2025-02-13
+### Details
+#### Chore
+- Update dependency tuist to v4.42.0 by @renovate[bot] in [#902](https://github.com/tuist/XcodeProj/pull/902)
+
+## [8.26.6] - 2025-02-05
+### Details
+#### Chore
+- Update dependency tuist to v4.41.0 by @renovate[bot] in [#901](https://github.com/tuist/XcodeProj/pull/901)
+
+## [8.26.5] - 2025-01-27
+### Details
+#### Fix
+- Ensure that file references are fixed for filesystem synchronized root groups by @bryansum in [#897](https://github.com/tuist/XcodeProj/pull/897)
+
+## New Contributors
+* @bryansum made their first contribution in [#897](https://github.com/tuist/XcodeProj/pull/897)
+## [8.26.4] - 2025-01-24
+### Details
+#### Fix
+- Add missing BuildSettingsProvider for visionOS by @alexanderwe in [#898](https://github.com/tuist/XcodeProj/pull/898)
+
+## New Contributors
+* @alexanderwe made their first contribution in [#898](https://github.com/tuist/XcodeProj/pull/898)
+## [8.26.3] - 2025-01-22
+### Details
+#### Chore
+- Update dependency tuist to v4.40.0 by @renovate[bot] in [#900](https://github.com/tuist/XcodeProj/pull/900)
+
+## [8.26.2] - 2025-01-10
+### Details
+#### Chore
+- Update dependency tuist to v4.39.1 by @renovate[bot] in [#895](https://github.com/tuist/XcodeProj/pull/895)
+
 ## [8.26.1] - 2024-12-24
 ### Details
 #### Chore
@@ -188,6 +222,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.26.7]: https://github.com/tuist/XcodeProj/compare/8.26.6..8.26.7
+[8.26.6]: https://github.com/tuist/XcodeProj/compare/8.26.5..8.26.6
+[8.26.5]: https://github.com/tuist/XcodeProj/compare/8.26.4..8.26.5
+[8.26.4]: https://github.com/tuist/XcodeProj/compare/8.26.3..8.26.4
+[8.26.3]: https://github.com/tuist/XcodeProj/compare/8.26.2..8.26.3
+[8.26.2]: https://github.com/tuist/XcodeProj/compare/8.26.1..8.26.2
 [8.26.1]: https://github.com/tuist/XcodeProj/compare/8.26.0..8.26.1
 [8.26.0]: https://github.com/tuist/XcodeProj/compare/8.25.1..8.26.0
 [8.25.1]: https://github.com/tuist/XcodeProj/compare/8.25.0..8.25.1

@@ -139,6 +139,8 @@ final class ReferenceGenerator: ReferenceGenerating {
             guard let childFileElement: PBXFileElement = child.getObject() else { return }
             if let childGroup = childFileElement as? PBXGroup {
                 try generateGroupReferences(childGroup, identifiers: identifiers)
+            } else if let childSynchronizedRootGroup = childFileElement as? PBXFileSystemSynchronizedRootGroup {
+                try generateSynchronizedRootGroupReferences(childSynchronizedRootGroup, identifiers: identifiers)
             } else if let childFileReference = childFileElement as? PBXFileReference {
                 try generateFileReference(childFileReference, identifiers: identifiers)
             } else if let childReferenceProxy = childFileElement as? PBXReferenceProxy {
@@ -159,6 +161,21 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         fixReference(for: fileReference, identifiers: identifiers)
+    }
+
+    /// Generates the reference for a synchronized root group object.
+    ///
+    /// - Parameters:
+    ///   - synchronizedRootGroup: synchronized root group instance.
+    ///   - identifiers: list of identifiers.
+    private func generateSynchronizedRootGroupReferences(_ synchronizedRootGroup: PBXFileSystemSynchronizedRootGroup,
+                                                         identifiers: [String]) throws {
+        var identifiers = identifiers
+        if let groupName = synchronizedRootGroup.fileName() {
+            identifiers.append(groupName)
+        }
+
+        fixReference(for: synchronizedRootGroup, identifiers: identifiers)
     }
 
     /// Generates the reference for a configuration list object.
