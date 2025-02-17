@@ -375,17 +375,6 @@ public class BuildSettingsProvider {
             [:]
         }
     }
-
-    private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
-        switch (platform, product) {
-        case (.watchOS, .application):
-            [
-                "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-            ]
-        default:
-            [:]
-        }
-    }
 }
 
 // Overloading `~=` enables customizing switch statement pattern matching
