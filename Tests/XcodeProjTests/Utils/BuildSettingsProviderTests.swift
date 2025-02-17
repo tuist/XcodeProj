@@ -401,7 +401,7 @@ class BuildSettingProviderTests: XCTestCase {
                                                           swift: true)
 
         // Then
-        assertEqualSettings(results, [
+        let expected: BuildSettings = [
             "CODE_SIGN_IDENTITY": "iPhone Developer",
             "SDKROOT": "xros",
             "LD_RUNPATH_SEARCH_PATHS": [
@@ -413,7 +413,10 @@ class BuildSettingProviderTests: XCTestCase {
             "SWIFT_COMPILATION_MODE": "singlefile",
             "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
             "TARGETED_DEVICE_FAMILY": "1,2,7",
-        ])
+        ]
+        
+        XCTAssertEqual(results, expected)
+        
     }
 
     func test_targetSettings_visionOSUITests() {
@@ -424,7 +427,7 @@ class BuildSettingProviderTests: XCTestCase {
                                                           swift: true)
 
         // Then
-        assertEqualSettings(results, [
+        let expected: BuildSettings = [
             "CODE_SIGN_IDENTITY": "iPhone Developer",
             "SDKROOT": "xros",
             "LD_RUNPATH_SEARCH_PATHS": [
@@ -436,7 +439,10 @@ class BuildSettingProviderTests: XCTestCase {
             "SWIFT_COMPILATION_MODE": "singlefile",
             "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
             "TARGETED_DEVICE_FAMILY": "1,2,7",
-        ])
+        ]
+        
+        XCTAssertEqual(results, expected)
+
     }
 
     // MARK: - Helpers
