@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.26.8] - 2025-02-18
+### Details
+#### Refactor
+- Strongly type plist values to achieve full sendability by @waltflanagan in [#904](https://github.com/tuist/XcodeProj/pull/904)
+
 ## [8.26.7] - 2025-02-13
 ### Details
 #### Chore
@@ -222,6 +227,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.26.8]: https://github.com/tuist/XcodeProj/compare/8.26.7..8.26.8
 [8.26.7]: https://github.com/tuist/XcodeProj/compare/8.26.6..8.26.7
 [8.26.6]: https://github.com/tuist/XcodeProj/compare/8.26.5..8.26.6
 [8.26.5]: https://github.com/tuist/XcodeProj/compare/8.26.4..8.26.5
