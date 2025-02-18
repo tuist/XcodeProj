@@ -144,13 +144,11 @@ class PBXObjects: Equatable {
     var fileSystemSynchronizedBuildFileExceptionSets: [PBXObjectReference: PBXFileSystemSynchronizedBuildFileExceptionSet] {
         lock.whileLocked { _fileSystemSynchronizedBuildFileExceptionSets }
     }
-  
+
     private var _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXObjectReference: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] = [:]
     var fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXObjectReference: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] {
         lock.whileLocked { _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet }
     }
-  
-  
 
     // XCSwiftPackageProductDependency
 

@@ -1,12 +1,11 @@
 import Foundation
 
 public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBXFileSystemSynchronizedExceptionSet, PlistSerializable {
-    
     // MARK: - Attributes
 
     /// A list of relative paths to children subfolders for which exceptions are applied.
     public var membershipExceptions: [String]?
-  
+
     /// Build phase that this exception set applies to.
     public var buildPhase: PBXBuildPhase! {
         get {
@@ -21,11 +20,11 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
     /// Every item in the list is the relative path inside the root synchronized group.
     /// For example `RemoveHeadersOnCopy` and  `CodeSignOnCopy`.
     public var attributesByRelativePath: [String: [String]]?
-    
+
     var buildPhaseReference: PBXObjectReference
-  
+
     // MARK: - Init
-  
+
     public init(
         buildPhase: PBXBuildPhase,
         membershipExceptions: [String]?,
@@ -36,14 +35,15 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
         self.attributesByRelativePath = attributesByRelativePath
         super.init()
     }
-  
+
     // MARK: - Decodable
+
     fileprivate enum CodingKeys: String, CodingKey {
         case buildPhase
         case membershipExceptions
         case attributesByRelativePath
     }
-  
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let referenceRepository = decoder.context.objectReferenceRepository
@@ -54,7 +54,7 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
         attributesByRelativePath = try container.decodeIfPresent(.attributesByRelativePath)
         try super.init(from: decoder)
     }
-  
+
     // MARK: - Equatable
 
     override func isEqual(to object: Any?) -> Bool {
@@ -63,7 +63,7 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
         }
         return isEqual(to: rhs)
     }
-  
+
     // MARK: - PlistSerializable
 
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {

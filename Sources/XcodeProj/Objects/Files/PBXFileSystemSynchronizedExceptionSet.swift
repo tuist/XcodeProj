@@ -1,3 +1,3 @@
 import Foundation
 
-public class PBXFileSystemSynchronizedExceptionSet: PBXObject { }
+public class PBXFileSystemSynchronizedExceptionSet: PBXObject {}
