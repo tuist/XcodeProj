@@ -32,22 +32,22 @@ public final class PBXBuildFile: PBXObject {
 
     /// Element settings
     public var settings: [String: BuildFileSetting]?
-    
+
     /// Potentially present for `PBXHeadersBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
     public var attributes: [String]? {
         if case let .array(attributes) = settings?["ATTRIBUTES"] {
-            return attributes
+            attributes
         } else {
-            return nil
+            nil
         }
     }
 
     /// Potentially present for `PBXSourcesBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
     public var compilerFlags: String? {
         if case let .string(compilerFlags) = settings?["COMPILER_FLAGS"] {
-            return compilerFlags
+            compilerFlags
         } else {
-            return nil
+            nil
         }
     }
 
@@ -213,7 +213,6 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         lhs.buildFile == rhs.buildFile && lhs.buildPhase == rhs.buildPhase
     }
 }
-
 
 public enum BuildFileSetting: Sendable, Equatable {
     case string(String)

@@ -13,7 +13,7 @@ final class PBXBuildFileTests: XCTestCase {
         )
         XCTAssertEqual(pbxBuildFile.platformFilter, "platformFilter")
     }
-    
+
     func test_platformCompilerFlagsIsSet() {
         let expected = "flagValue"
         let pbxBuildFile = PBXBuildFile(
@@ -21,7 +21,7 @@ final class PBXBuildFileTests: XCTestCase {
         )
         XCTAssertEqual(pbxBuildFile.compilerFlags, expected)
     }
-    
+
     func test_platformAttributesIsSet() {
         let expected = ["Public"]
         let pbxBuildFile = PBXBuildFile(
@@ -29,6 +29,4 @@ final class PBXBuildFileTests: XCTestCase {
         )
         XCTAssertEqual(pbxBuildFile.attributes, expected)
     }
-    
-    
 }
