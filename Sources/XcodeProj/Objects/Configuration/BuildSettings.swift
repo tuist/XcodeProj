@@ -46,7 +46,7 @@ extension BuildSetting: ExpressibleByArrayLiteral {
     }
 }
 
-extension BuildSetting: ExpressibleByStringLiteral {
+extension BuildSetting: ExpressibleByStringInterpolation {
     public init(stringLiteral value: StringLiteralType) {
         self = .string(value)
     }
