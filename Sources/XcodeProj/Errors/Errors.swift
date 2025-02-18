@@ -132,6 +132,7 @@ public enum XcodeprojWritingError: Error, CustomStringConvertible {
 /// - orphaned: the object doesn't belong to any project.
 public enum PBXObjectError: Error, CustomStringConvertible {
     case missingIsa
+    case missingReference
     case unknownElement(String)
     case objectsReleased
     case objectNotFound(String)
@@ -149,6 +150,8 @@ public enum PBXObjectError: Error, CustomStringConvertible {
             "PBXObject with reference \"\(reference)\" not found."
         case let .orphaned(type, reference):
             "Trying to use object \(type) with reference '\(reference)' before being added to any project"
+        case .missingReference:
+            "Missing reference value"
         }
     }
 }

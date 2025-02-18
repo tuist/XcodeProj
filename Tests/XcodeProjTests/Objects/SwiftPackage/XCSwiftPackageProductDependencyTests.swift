@@ -8,13 +8,14 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
         let encoder = PropertyListEncoder()
-        let plist = ["reference": "reference",
-                     "productName": "xcodeproj",
-                     "package": "packageReference"]
+        let plist = ["reference": [
+            "productName": "xcodeproj",
+            "package": "packageReference"]]
         let data = try encoder.encode(plist)
 
         // When
-        let got = try decoder.decode(XCSwiftPackageProductDependency.self, from: data)
+        let decoded = try decoder.decode([String: XCSwiftPackageProductDependency].self, from: data)
+        let got = try XCTUnwrap(decoded["reference"])
 
         // Then
         XCTAssertEqual(got.productName, "xcodeproj")
@@ -26,13 +27,14 @@ final class XCSwiftPackageProductDependencyTests: XCTestCase {
         // Given
         let decoder = XcodeprojPropertyListDecoder()
         let encoder = PropertyListEncoder()
-        let plist = ["reference": "reference",
-                     "productName": "plugin:xcodeproj",
-                     "package": "packageReference"]
+        let plist = ["reference": [
+            "productName": "plugin:xcodeproj",
+            "package": "packageReference"]]
         let data = try encoder.encode(plist)
 
         // When
-        let got = try decoder.decode(XCSwiftPackageProductDependency.self, from: data)
+        let decoded = try decoder.decode([String: XCSwiftPackageProductDependency].self, from: data)
+        let got = try XCTUnwrap(decoded["reference"])
 
         // Then
         XCTAssertEqual(got.productName, "xcodeproj")

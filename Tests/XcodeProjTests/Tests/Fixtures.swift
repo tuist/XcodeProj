@@ -1,42 +1,42 @@
 import Foundation
 import PathKit
-import XcodeProj
+@testable import XcodeProj
 
 func fixturesPath() -> Path {
     Path(#file).parent().parent().parent().parent() + "Fixtures"
 }
 
-func synchronizedRootGroupsFixture() -> (Path, [String: Any]) {
-    let iosProject = fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj/project.pbxproj"
-    return (iosProject, loadPlist(path: iosProject.string)!)
+func synchronizedRootGroupsFixture() throws -> Data {
+    let synchronizedRootGroups = fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj/project.pbxproj"
+    return try Data(contentsOf: synchronizedRootGroups.url)
 }
 
-func iosProjectDictionary() -> (Path, [String: Any]) {
+func iosProjectData() throws -> Data {
     let iosProject = fixturesPath() + "iOS/Project.xcodeproj/project.pbxproj"
-    return (iosProject, loadPlist(path: iosProject.string)!)
+    return try Data(contentsOf: iosProject.url)
 }
 
-func fileSharedAcrossTargetsDictionary() -> (Path, [String: Any]) {
+func fileSharedAcrossTargetsData() throws -> Data {
     let fileSharedAcrossTargetsProject = fixturesPath() + "FileSharedAcrossTargets/FileSharedAcrossTargets.xcodeproj/project.pbxproj"
-    return (fileSharedAcrossTargetsProject, loadPlist(path: fileSharedAcrossTargetsProject.string)!)
+    return try Data(contentsOf: fileSharedAcrossTargetsProject.url)
 }
 
-func targetWithCustomBuildRulesDictionary() -> (Path, [String: Any]) {
+func targetWithCustomBuildRulesData() throws -> Data {
     let targetWithCustomBuildRulesProject = fixturesPath() + "TargetWithCustomBuildRules/TargetWithCustomBuildRules.xcodeproj/project.pbxproj"
-    return (targetWithCustomBuildRulesProject, loadPlist(path: targetWithCustomBuildRulesProject.string)!)
+    return try Data(contentsOf: targetWithCustomBuildRulesProject.url)
 }
 
-func iosProjectWithXCLocalSwiftPackageReference() -> (Path, [String: Any]) {
+func iosProjectWithXCLocalSwiftPackageReference() throws -> Data {
     let iosProjectWithXCLocalSwiftPackageReference = fixturesPath() + "iOS/ProjectWithXCLocalSwiftPackageReference.xcodeproj/project.pbxproj"
-    return (iosProjectWithXCLocalSwiftPackageReference, loadPlist(path: iosProjectWithXCLocalSwiftPackageReference.string)!)
+    return try Data(contentsOf: iosProjectWithXCLocalSwiftPackageReference.url)
 }
 
-func iosProjectWithRelativeXCLocalSwiftPackageReferences() -> (Path, [String: Any]) {
+func iosProjectWithRelativeXCLocalSwiftPackageReferences() throws -> Data {
     let iosProjectWithXCLocalSwiftPackageReference = fixturesPath() + "iOS/ProjectWithRelativeXCLocalSwiftPackageReference/ProjectWithRelativeXCLocalSwiftPackageReference.xcodeproj/project.pbxproj"
-    return (iosProjectWithXCLocalSwiftPackageReference, loadPlist(path: iosProjectWithXCLocalSwiftPackageReference.string)!)
+    return try Data(contentsOf: iosProjectWithXCLocalSwiftPackageReference.url)
 }
 
-func iosProjectWithXCLocalSwiftPackageReferences() -> (Path, [String: Any]) {
+func iosProjectWithXCLocalSwiftPackageReferences() throws -> Data {
     let iosProjectWithXCLocalSwiftPackageReference = fixturesPath() + "iOS/ProjectWithXCLocalSwiftPackageReferences.xcodeproj/project.pbxproj"
-    return (iosProjectWithXCLocalSwiftPackageReference, loadPlist(path: iosProjectWithXCLocalSwiftPackageReference.string)!)
+    return try Data(contentsOf: iosProjectWithXCLocalSwiftPackageReference.url)
 }

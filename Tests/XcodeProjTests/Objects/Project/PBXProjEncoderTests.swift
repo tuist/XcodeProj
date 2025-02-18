@@ -497,31 +497,31 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     private func loadiOSProject() throws {
-        proj = try PBXProj(jsonDictionary: iosProjectDictionary().1)
+        proj = try PBXProj(data: iosProjectData())
     }
 
     private func loadSynchronizedRootGroups() throws {
-        proj = try PBXProj(jsonDictionary: synchronizedRootGroupsFixture().1)
+        proj = try PBXProj(data: synchronizedRootGroupsFixture())
     }
 
     private func loadFileSharedAcrossTargetsProject() throws {
-        proj = try PBXProj(jsonDictionary: fileSharedAcrossTargetsDictionary().1)
+        proj = try PBXProj(data: fileSharedAcrossTargetsData())
     }
 
     private func loadTargetWithCustomBuildRulesProject() throws {
-        proj = try PBXProj(jsonDictionary: targetWithCustomBuildRulesDictionary().1)
+        proj = try PBXProj(data: targetWithCustomBuildRulesData())
     }
 
     private func loadProjectWithXCLocalSwiftPackageReference() throws {
-        proj = try PBXProj(jsonDictionary: iosProjectWithXCLocalSwiftPackageReference().1)
+        proj = try PBXProj(data: iosProjectWithXCLocalSwiftPackageReference())
     }
 
     private func loadProjectWithXCLocalSwiftPackageReferences() throws {
-        proj = try PBXProj(jsonDictionary: iosProjectWithXCLocalSwiftPackageReferences().1)
+        proj = try PBXProj(data: iosProjectWithXCLocalSwiftPackageReferences())
     }
 
     private func loadProjectWithRelativeXCLocalSwiftPackageReference() throws {
-        proj = try PBXProj(jsonDictionary: iosProjectWithRelativeXCLocalSwiftPackageReferences().1)
+        proj = try PBXProj(data: iosProjectWithRelativeXCLocalSwiftPackageReferences())
     }
 }
 
