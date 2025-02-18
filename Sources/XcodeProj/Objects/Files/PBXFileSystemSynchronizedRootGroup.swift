@@ -83,7 +83,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
 
     // MARK: - PlistSerializable
 
-    override var multiline: Bool { false }
+    override var multiline: Bool { (exceptions?.count ?? 0) < 2 }
 
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
