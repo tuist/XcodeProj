@@ -3,8 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F841A9CA2D63AFBB00059ED6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6CF05B8C2C53F5F200EF267F /* SynchronizedRootGroups.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SynchronizedRootGroups.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,19 +32,23 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
-			explicitFileTypes = {
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		F841A9D12D63B00A00059ED6 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				XPCService.xpc = (
+					RemoveHeadersOnCopy,
+				);
 			};
-			explicitFolders = (
+			buildPhase = F841A9CA2D63AFBB00059ED6 /* CopyFiles */;
+			membershipExceptions = (
+				XPCService.xpc,
 			);
-			path = SynchronizedRootGroups;
-			sourceTree = "<group>";
 		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, F841A9D12D63B00A00059ED6 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SynchronizedRootGroups; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +99,7 @@
 				6CF05B882C53F5F200EF267F /* Sources */,
 				6CF05B892C53F5F200EF267F /* Frameworks */,
 				6CF05B8A2C53F5F200EF267F /* Resources */,
+				F841A9CA2D63AFBB00059ED6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -114,7 +131,6 @@
 				};
 			};
 			buildConfigurationList = 6CF05B862C53F5F200EF267F /* Build configuration list for PBXProject "SynchronizedRootGroups" */;
-			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -122,6 +138,7 @@
 				Base,
 			);
 			mainGroup = 6CF05B822C53F5F200EF267F;
+			preferredProjectObjectVersion = 60;
 			productRefGroup = 6CF05B8D2C53F5F200EF267F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

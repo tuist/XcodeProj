@@ -12,7 +12,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
 
     /// It returns a list of exception objects that override the configuration for some children
     /// in the synchronized root group.
-    public var exceptions: [PBXFileSystemSynchronizedBuildFileExceptionSet]? {
+    public var exceptions: [PBXFileSystemSynchronizedExceptionSet]? {
         set {
             exceptionsReferences = newValue?.references()
         }
@@ -47,7 +47,7 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
                 tabWidth: UInt? = nil,
                 wrapsLines: Bool? = nil,
                 explicitFileTypes: [String: String] = [:],
-                exceptions: [PBXFileSystemSynchronizedBuildFileExceptionSet] = [],
+                exceptions: [PBXFileSystemSynchronizedExceptionSet] = [],
                 explicitFolders: [String] = []) {
         self.explicitFileTypes = explicitFileTypes
         exceptionsReferences = exceptions.references()
@@ -83,14 +83,14 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
 
     // MARK: - PlistSerializable
 
-    override var multiline: Bool { true }
+    override var multiline: Bool { (exceptions?.count ?? 0) < 2 }
 
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
-        if let exceptionsReferences, !exceptionsReferences.isEmpty {
-            dictionary["exceptions"] = .array(exceptionsReferences.map { exceptionReference in
-                .string(CommentedString(exceptionReference.value, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"))
+        if let exceptions, !exceptions.isEmpty {
+            dictionary["exceptions"] = .array(exceptions.map { exception in
+                .string(CommentedString(exception.reference.value, comment: type(of: exception).isa))
             })
         }
         if let explicitFileTypes {

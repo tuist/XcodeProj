@@ -294,18 +294,7 @@ class PBXProjEncoderTests: XCTestCase {
         let lines = lines(fromFile: encodeProject(settings: settings))
 
         let beginGroup = lines.findLine("/* Begin PBXFileSystemSynchronizedRootGroup section */")
-        var line = lines.validate(line: "6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {", after: beginGroup)
-        line = lines.validate(line: "isa = PBXFileSystemSynchronizedRootGroup;", after: line)
-        line = lines.validate(line: "exceptions = (", after: line)
-        line = lines.validate(line: "6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */,", after: line)
-        line = lines.validate(line: ");", after: line)
-        line = lines.validate(line: "explicitFileTypes = {", after: line)
-        line = lines.validate(line: "};", after: line)
-        line = lines.validate(line: "explicitFolders = (", after: line)
-        line = lines.validate(line: ");", after: line)
-        line = lines.validate(line: "path = SynchronizedRootGroups;", after: line)
-        line = lines.validate(line: "sourceTree = \"<group>\";", after: line)
-        line = lines.validate(line: "};", after: line)
+        var line = lines.validate(line: "6CF05B9D2C53F64800EF267F /* SynchronizedRootGroups */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6CF05BA32C53F97F00EF267F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, F841A9D12D63B00A00059ED6 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SynchronizedRootGroups; sourceTree = \"<group>\"; };", after: beginGroup)
         line = lines.validate(line: "/* End PBXFileSystemSynchronizedRootGroup section */", after: line)
     }
 
@@ -326,6 +315,30 @@ class PBXProjEncoderTests: XCTestCase {
         line = lines.validate(line: "target = 6CF05B8B2C53F5F200EF267F /* SynchronizedRootGroups */;", after: line)
         line = lines.validate(line: "};", after: line)
         line = lines.validate(line: "/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */", after: line)
+    }
+
+    // MARK: - File system synchronized group build phase membership exception set
+
+    func test_fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSets_when_projectWithFileSystemSynchronizedRootGroups() throws {
+        // Given
+        try loadSynchronizedRootGroups()
+        let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
+        let lines = lines(fromFile: encodeProject(settings: settings))
+
+        let beginGroup = lines.findLine("/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */")
+        var line = lines.validate(line: "F841A9D12D63B00A00059ED6 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {", after: beginGroup)
+        line = lines.validate(line: "isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;", after: line)
+        line = lines.validate(line: "attributesByRelativePath = {", after: line)
+        line = lines.validate(line: "XPCService.xpc = (", after: line)
+        line = lines.validate(line: "RemoveHeadersOnCopy,", after: line)
+        line = lines.validate(line: ");", after: line)
+        line = lines.validate(line: "};", after: line)
+        line = lines.validate(line: "buildPhase = F841A9CA2D63AFBB00059ED6 /* CopyFiles */;", after: line)
+        line = lines.validate(line: "membershipExceptions = (", after: line)
+        line = lines.validate(line: "XPCService.xpc,", after: line)
+        line = lines.validate(line: ");", after: line)
+        line = lines.validate(line: "};", after: line)
+        line = lines.validate(line: "/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */", after: line)
     }
 
     // MARK: - Build phases

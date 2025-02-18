@@ -119,6 +119,12 @@ final class PBXProjEncoder {
                   outputSettings: outputSettings,
                   stateHolder: &stateHolder,
                   to: &output)
+        try write(section: "PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet",
+                  proj: proj,
+                  objects: proj.objects.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet,
+                  outputSettings: outputSettings,
+                  stateHolder: &stateHolder,
+                  to: &output)
         try write(section: "PBXFileSystemSynchronizedRootGroup",
                   proj: proj,
                   objects: proj.objects.fileSystemSynchronizedRootGroups,
