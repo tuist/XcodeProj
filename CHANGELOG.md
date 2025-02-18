@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.27.0] - 2025-02-18
+### Details
+#### Feat
+- Support `PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet` by @adincebic in [#894](https://github.com/tuist/XcodeProj/pull/894)
+
+## New Contributors
+* @adincebic made their first contribution in [#894](https://github.com/tuist/XcodeProj/pull/894)
 ## [8.26.8] - 2025-02-18
 ### Details
 #### Refactor
@@ -227,6 +234,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Feat
 - Introduce the new Xcode 16 models `PBXFileSystemSynchronizedRootGroup` and `PBXFileSystemSynchronizedBuildFileExceptionSet` by @pepicrft in [#827](https://github.com/tuist/XcodeProj/pull/827)
 
+[8.27.0]: https://github.com/tuist/XcodeProj/compare/8.26.8..8.27.0
 [8.26.8]: https://github.com/tuist/XcodeProj/compare/8.26.7..8.26.8
 [8.26.7]: https://github.com/tuist/XcodeProj/compare/8.26.6..8.26.7
 [8.26.6]: https://github.com/tuist/XcodeProj/compare/8.26.5..8.26.6
