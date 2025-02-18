@@ -497,7 +497,7 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     private func loadiOSProject() throws {
-        proj = try PBXProj(data: iosProjectDictionary())
+        proj = try PBXProj(data: iosProjectData())
     }
 
     private func loadSynchronizedRootGroups() throws {
@@ -505,11 +505,11 @@ class PBXProjEncoderTests: XCTestCase {
     }
 
     private func loadFileSharedAcrossTargetsProject() throws {
-        proj = try PBXProj(data: fileSharedAcrossTargetsDictionary())
+        proj = try PBXProj(data: fileSharedAcrossTargetsData())
     }
 
     private func loadTargetWithCustomBuildRulesProject() throws {
-        proj = try PBXProj(data: targetWithCustomBuildRulesDictionary())
+        proj = try PBXProj(data: targetWithCustomBuildRulesData())
     }
 
     private func loadProjectWithXCLocalSwiftPackageReference() throws {

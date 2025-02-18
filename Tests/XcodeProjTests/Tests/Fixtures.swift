@@ -11,17 +11,17 @@ func synchronizedRootGroupsFixture() throws -> Data {
     return try Data(contentsOf: synchronizedRootGroups.url)
 }
 
-func iosProjectDictionary() throws -> Data {
+func iosProjectData() throws -> Data {
     let iosProject = fixturesPath() + "iOS/Project.xcodeproj/project.pbxproj"
     return try Data(contentsOf: iosProject.url)
 }
 
-func fileSharedAcrossTargetsDictionary() throws -> Data {
+func fileSharedAcrossTargetsData() throws -> Data {
     let fileSharedAcrossTargetsProject = fixturesPath() + "FileSharedAcrossTargets/FileSharedAcrossTargets.xcodeproj/project.pbxproj"
     return try Data(contentsOf: fileSharedAcrossTargetsProject.url)
 }
 
-func targetWithCustomBuildRulesDictionary() throws -> Data {
+func targetWithCustomBuildRulesData() throws -> Data {
     let targetWithCustomBuildRulesProject = fixturesPath() + "TargetWithCustomBuildRules/TargetWithCustomBuildRules.xcodeproj/project.pbxproj"
     return try Data(contentsOf: targetWithCustomBuildRulesProject.url)
 }
