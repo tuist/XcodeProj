@@ -31,7 +31,25 @@ public final class PBXBuildFile: PBXObject {
     }
 
     /// Element settings
-    public var settings: [String: Any]?
+    public var settings: [String: BuildFileSetting]?
+    
+    /// Potentially present for `PBXHeadersBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
+    public var attributes: [String]? {
+        if case let .array(attributes) = settings?["ATTRIBUTES"] {
+            return attributes
+        } else {
+            return nil
+        }
+    }
+
+    /// Potentially present for `PBXSourcesBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
+    public var compilerFlags: String? {
+        if case let .string(compilerFlags) = settings?["COMPILER_FLAGS"] {
+            return compilerFlags
+        } else {
+            return nil
+        }
+    }
 
     /// Platform filter attribute.
     /// Introduced in: Xcode 11
@@ -53,7 +71,7 @@ public final class PBXBuildFile: PBXObject {
     ///   - settings: build file settings.
     public init(file: PBXFileElement? = nil,
                 product: XCSwiftPackageProductDependency? = nil,
-                settings: [String: Any]? = nil,
+                settings: [String: BuildFileSetting]? = nil,
                 platformFilter: String? = nil,
                 platformFilters: [String]? = nil) {
         fileReference = file?.reference
@@ -84,7 +102,7 @@ public final class PBXBuildFile: PBXObject {
         if let productRefString: String = try container.decodeIfPresent(.productRef) {
             productReference = objectReferenceRepository.getOrCreate(reference: productRefString, objects: objects)
         }
-        settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
+        settings = try container.decodeIfPresent([String: BuildFileSetting].self, forKey: .settings)
         platformFilter = try container.decodeIfPresent(.platformFilter)
         platformFilters = try container.decodeIfPresent([String].self, forKey: .platformFilters)
         try super.init(from: decoder)
@@ -193,5 +211,34 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
 
     static func == (lhs: PBXBuildPhaseFile, rhs: PBXBuildPhaseFile) -> Bool {
         lhs.buildFile == rhs.buildFile && lhs.buildPhase == rhs.buildPhase
+    }
+}
+
+
+public enum BuildFileSetting: Sendable, Equatable {
+    case string(String)
+    case array([String])
+}
+
+extension BuildFileSetting: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        do {
+            let string = try container.decode(String.self)
+            self = .string(string)
+        } catch {
+            let array = try container.decode([String].self)
+            self = .array(array)
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .string(string):
+            try container.encode(string)
+        case let .array(array):
+            try container.encode(array)
+        }
     }
 }
