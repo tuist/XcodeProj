@@ -100,6 +100,21 @@ extension [String: BuildSetting] {
     }
 }
 
+extension [String: BuildFileSetting] {
+    func plist() -> PlistValue {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        forEach { key, value in
+            switch value {
+            case let .string(stringValue):
+                dictionary[CommentedString(key)] = PlistValue.string(CommentedString(stringValue))
+            case let .array(arrayValue):
+                dictionary[CommentedString(key)] = arrayValue.plist()
+            }
+        }
+        return .dictionary(dictionary)
+    }
+}
+
 extension Dictionary where Key == String {
     func plist() -> PlistValue {
         var dictionary: [CommentedString: PlistValue] = [:]
