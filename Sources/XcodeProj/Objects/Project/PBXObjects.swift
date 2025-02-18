@@ -238,7 +238,8 @@ class PBXObjects: Equatable {
         case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
         case let object as PBXFileSystemSynchronizedRootGroup: _fileSystemSynchronizedRootGroups[objectReference] = object
         case let object as PBXFileSystemSynchronizedBuildFileExceptionSet: _fileSystemSynchronizedBuildFileExceptionSets[objectReference] = object
-        case let object as PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet[objectReference] = object
+        case let object as PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet:
+            _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet[objectReference] = object
         default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
