@@ -15,7 +15,7 @@ extension PBXBuildFile {
     func isEqual(to rhs: PBXBuildFile) -> Bool {
         if fileReference != rhs.fileReference { return false }
         if productReference != rhs.productReference { return false }
-        if !NSDictionary(dictionary: settings ?? [:]).isEqual(NSDictionary(dictionary: rhs.settings ?? [:])) { return false }
+        if settings != rhs.settings { return false }
         if platformFilter != rhs.platformFilter { return false }
         if buildPhase != rhs.buildPhase { return false }
         return super.isEqual(to: rhs)
@@ -259,7 +259,7 @@ extension XCBuildConfiguration {
     /// :nodoc:
     func isEqual(to rhs: XCBuildConfiguration) -> Bool {
         if baseConfigurationReference != rhs.baseConfigurationReference { return false }
-        if !NSDictionary(dictionary: buildSettings).isEqual(NSDictionary(dictionary: rhs.buildSettings)) { return false }
+        if buildSettings != rhs.buildSettings { return false }
         if name != rhs.name { return false }
         return super.isEqual(to: rhs)
     }
