@@ -217,6 +217,22 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
 public enum BuildFileSetting: Sendable, Equatable {
     case string(String)
     case array([String])
+
+    public var stringValue: String? {
+        if case let .string(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
+
+    public var arrayValue: [String]? {
+        if case let .array(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
 }
 
 extension BuildFileSetting: Codable {
