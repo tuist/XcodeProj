@@ -571,8 +571,7 @@ extension PBXProject: PlistSerializable {
         for (reference, value) in targetAttributeReferences {
             plistTargetAttributes[reference.value] = value
         }
-        
-        
+
         if !plistTargetAttributes.isEmpty {
             plistAttributes[PBXProject.targetAttributesKey] = .attributeDictionary(plistTargetAttributes)
         }
@@ -607,12 +606,11 @@ extension PBXProject: PlistSerializable {
     }
 }
 
-
 public enum ProjectAttribute: Sendable, Equatable {
     case string(String)
     case array([String])
     case attributeDictionary([String: [String: ProjectAttribute]])
-    
+
     public var stringValue: String? {
         if case let .string(value) = self {
             value
@@ -620,7 +618,7 @@ public enum ProjectAttribute: Sendable, Equatable {
             nil
         }
     }
-    
+
     public var arrayValue: [String]? {
         if case let .array(value) = self {
             value
@@ -633,7 +631,7 @@ public enum ProjectAttribute: Sendable, Equatable {
 extension ProjectAttribute: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        
+
         if let string = try? container.decode(String.self) {
             self = .string(string)
         } else if let array = try? container.decode([String].self) {
@@ -668,4 +666,3 @@ extension ProjectAttribute: ExpressibleByStringInterpolation {
         self = .string(value)
     }
 }
-

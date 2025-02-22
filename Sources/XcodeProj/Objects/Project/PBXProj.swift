@@ -262,7 +262,7 @@ extension PBXProj {
 
 extension PBXProj: Equatable {
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
-        return lhs.archiveVersion == rhs.archiveVersion &&
+        lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
             lhs.classes == rhs.classes &&
             lhs.objects == rhs.objects

@@ -15,7 +15,7 @@ public enum BuildSetting: Sendable, Equatable {
             array.joined(separator: " ")
         }
     }
-    
+
     public var stringValue: String? {
         if case let .string(value) = self {
             value
@@ -23,7 +23,7 @@ public enum BuildSetting: Sendable, Equatable {
             nil
         }
     }
-    
+
     public var arrayValue: [String]? {
         if case let .array(value) = self {
             value
