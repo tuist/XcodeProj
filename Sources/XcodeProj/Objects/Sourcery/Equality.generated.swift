@@ -166,8 +166,8 @@ extension PBXProject {
         if projectReferences != rhs.projectReferences { return false }
         if projectRoots != rhs.projectRoots { return false }
         if targetReferences != rhs.targetReferences { return false }
-        if !NSDictionary(dictionary: attributes).isEqual(NSDictionary(dictionary: rhs.attributes)) { return false }
-        if !NSDictionary(dictionary: targetAttributeReferences).isEqual(NSDictionary(dictionary: rhs.targetAttributeReferences)) { return false }
+        if attributes != rhs.attributes { return false }
+        if targetAttributeReferences != rhs.targetAttributeReferences { return false }
         if packageReferences != rhs.packageReferences { return false }
         if remotePackages != rhs.remotePackages { return false }
         if localPackages != rhs.localPackages { return false }

@@ -18,7 +18,7 @@ final class PBXProjectTests: XCTestCase {
                                  attributes: ["LastUpgradeCheck": "0940"],
                                  targetAttributes: [target: ["TestTargetID": "123"]])
 
-        project.setTargetAttributes(["custom": "abc", "TestTargetID": testTarget], target: target)
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": .string(testTarget.reference.value)], target: target)
 
         let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
         let attributes = plist.value.dictionary?["attributes"]?.dictionary ?? [:]
@@ -48,7 +48,7 @@ final class PBXProjectTests: XCTestCase {
                                  minimizedProjectReferenceProxies: nil,
                                  mainGroup: PBXGroup())
 
-        project.setTargetAttributes(["custom": "abc", "TestTargetID": testTarget], target: target)
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": .string(testTarget.reference.value)], target: target)
 
         // When
         let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")

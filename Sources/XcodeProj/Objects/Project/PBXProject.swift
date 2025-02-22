@@ -108,20 +108,20 @@ public final class PBXProject: PBXObject {
 
     /// Project attributes.
     /// Target attributes will be merged into this
-    public var attributes: [String: Any]
+    public var attributes: [String: ProjectAttribute]
 
     /// Target attribute references.
-    var targetAttributeReferences: [PBXObjectReference: [String: Any]]
+    var targetAttributeReferences: [PBXObjectReference: [String: ProjectAttribute]]
 
     /// Target attributes.
-    public var targetAttributes: [PBXTarget: [String: Any]] {
+    public var targetAttributes: [PBXTarget: [String: ProjectAttribute]] {
         set {
             targetAttributeReferences = [:]
             for item in newValue {
                 targetAttributeReferences[item.key.reference] = item.value
             }
         } get {
-            var attributes: [PBXTarget: [String: Any]] = [:]
+            var attributes: [PBXTarget: [String: ProjectAttribute]] = [:]
             for targetAttributeReference in targetAttributeReferences {
                 if let object: PBXTarget = targetAttributeReference.key.getObject() {
                     attributes[object] = targetAttributeReference.value
@@ -176,7 +176,7 @@ public final class PBXProject: PBXObject {
     /// - Parameters:
     ///   - attributes: attributes that will be set.
     ///   - target: target.
-    public func setTargetAttributes(_ attributes: [String: Any], target: PBXTarget) {
+    public func setTargetAttributes(_ attributes: [String: ProjectAttribute], target: PBXTarget) {
         targetAttributeReferences[target.reference] = attributes
     }
 
@@ -321,8 +321,8 @@ public final class PBXProject: PBXObject {
                 projectRoots: [String] = [],
                 targets: [PBXTarget] = [],
                 packages: [XCRemoteSwiftPackageReference] = [],
-                attributes: [String: Any] = [:],
-                targetAttributes: [PBXTarget: [String: Any]] = [:]) {
+                attributes: [String: ProjectAttribute] = [:],
+                targetAttributes: [PBXTarget: [String: ProjectAttribute]] = [:]) {
         self.name = name
         buildConfigurationListReference = buildConfigurationList.reference
         self.compatibilityVersion = compatibilityVersion
@@ -417,10 +417,12 @@ public final class PBXProject: PBXObject {
         let packageRefeferenceStrings: [String] = try container.decodeIfPresent(.packageReferences) ?? []
         packageReferences = packageRefeferenceStrings.map { referenceRepository.getOrCreate(reference: $0, objects: objects) }
 
-        var attributes = try (container.decodeIfPresent([String: Any].self, forKey: .attributes) ?? [:])
-        var targetAttributeReferences: [PBXObjectReference: [String: Any]] = [:]
-        if let targetAttributes = attributes[PBXProject.targetAttributesKey] as? [String: [String: Any]] {
-            targetAttributes.forEach { targetAttributeReferences[referenceRepository.getOrCreate(reference: $0.key, objects: objects)] = $0.value }
+        var attributes = try (container.decodeIfPresent([String: ProjectAttribute].self, forKey: .attributes) ?? [:])
+        var targetAttributeReferences: [PBXObjectReference: [String: ProjectAttribute]] = [:]
+        if case let .attributeDictionary(targetAttributes) = attributes[PBXProject.targetAttributesKey] {
+            for targetAttribute in targetAttributes {
+                targetAttributeReferences[referenceRepository.getOrCreate(reference: targetAttribute.key, objects: objects)] = targetAttribute.value
+            }
             attributes[PBXProject.targetAttributesKey] = nil
         }
         self.attributes = attributes
@@ -562,16 +564,18 @@ extension PBXProject: PlistSerializable {
             dictionary["packageReferences"] = PlistValue.array(finalPackageReferences)
         }
 
-        var plistAttributes: [String: Any] = attributes
+        var plistAttributes: [String: ProjectAttribute] = attributes
 
         // merge target attributes
-        var plistTargetAttributes: [String: Any] = [:]
+        var plistTargetAttributes: [String: [String: ProjectAttribute]] = [:]
         for (reference, value) in targetAttributeReferences {
-            plistTargetAttributes[reference.value] = value.mapValues { value in
-                (value as? PBXObject)?.reference.value ?? value
-            }
+            plistTargetAttributes[reference.value] = value
         }
-        plistAttributes[PBXProject.targetAttributesKey] = plistTargetAttributes.isEmpty ? nil : plistTargetAttributes
+        
+        
+        if !plistTargetAttributes.isEmpty {
+            plistAttributes[PBXProject.targetAttributesKey] = .attributeDictionary(plistTargetAttributes)
+        }
 
         dictionary["attributes"] = plistAttributes.plist()
 
@@ -602,3 +606,66 @@ extension PBXProject: PlistSerializable {
         })
     }
 }
+
+
+public enum ProjectAttribute: Sendable, Equatable {
+    case string(String)
+    case array([String])
+    case attributeDictionary([String: [String: ProjectAttribute]])
+    
+    public var stringValue: String? {
+        if case let .string(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
+    
+    public var arrayValue: [String]? {
+        if case let .array(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
+}
+
+extension ProjectAttribute: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        if let string = try? container.decode(String.self) {
+            self = .string(string)
+        } else if let array = try? container.decode([String].self) {
+            self = .array(array)
+        } else {
+            let targetAttributes = try container.decode([String: [String: ProjectAttribute]].self)
+            self = .attributeDictionary(targetAttributes)
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case let .string(string):
+            try container.encode(string)
+        case let .array(array):
+            try container.encode(array)
+        case let .attributeDictionary(attributes):
+            try container.encode(attributes)
+        }
+    }
+}
+
+extension ProjectAttribute: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: String...) {
+        self = .array(elements)
+    }
+}
+
+extension ProjectAttribute: ExpressibleByStringInterpolation {
+    public init(stringLiteral value: StringLiteralType) {
+        self = .string(value)
+    }
+}
+

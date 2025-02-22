@@ -115,6 +115,23 @@ extension [String: BuildFileSetting] {
     }
 }
 
+extension [String: ProjectAttribute] {
+    func plist() -> PlistValue {
+        var dictionary: [CommentedString: PlistValue] = [:]
+        forEach { key, value in
+            switch value {
+            case let .string(stringValue):
+                dictionary[CommentedString(key)] = PlistValue.string(CommentedString(stringValue))
+            case let .array(arrayValue):
+                dictionary[CommentedString(key)] = arrayValue.plist()
+            case let .attributeDictionary(attributes):
+                dictionary[CommentedString(key)] = attributes.mapValues { $0.plist() }.plist()
+            }
+        }
+        return .dictionary(dictionary)
+    }
+}
+
 extension Dictionary where Key == String {
     func plist() -> PlistValue {
         var dictionary: [CommentedString: PlistValue] = [:]
@@ -125,6 +142,8 @@ extension Dictionary where Key == String {
                 dictionary[CommentedString(key)] = subDictionary.plist()
             } else if let string = value as? CustomStringConvertible {
                 dictionary[CommentedString(key)] = .string(CommentedString(string.description))
+            } else if let c = value as? PlistValue {
+                dictionary[CommentedString(key)] = c
             }
         }
         return .dictionary(dictionary)
