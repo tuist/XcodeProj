@@ -15,6 +15,22 @@ public enum BuildSetting: Sendable, Equatable {
             array.joined(separator: " ")
         }
     }
+    
+    public var stringValue: String? {
+        if case let .string(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
+    
+    public var arrayValue: [String]? {
+        if case let .array(value) = self {
+            value
+        } else {
+            nil
+        }
+    }
 }
 
 extension BuildSetting: Codable {
