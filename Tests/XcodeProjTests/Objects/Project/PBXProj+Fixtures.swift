@@ -5,7 +5,7 @@ extension PBXProj {
     static func fixture(rootObject: PBXProject? = PBXProject.fixture(),
                         objectVersion: UInt = Xcode.LastKnown.objectVersion,
                         archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
-                        classes: [String: Any] = [:],
+                        classes: [String: [String]] = [:],
                         objects: [PBXObject] = []) -> PBXProj
     {
         PBXProj(rootObject: rootObject,
