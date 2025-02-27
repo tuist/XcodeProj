@@ -6,16 +6,7 @@ public typealias BuildSettings = [String: BuildSetting]
 public enum BuildSetting: Sendable, Equatable {
     case string(String)
     case array([String])
-
-    var valueForWriting: String {
-        switch self {
-        case let .string(string):
-            string
-        case let .array(array):
-            array.joined(separator: " ")
-        }
-    }
-
+    
     public var stringValue: String? {
         if case let .string(value) = self {
             value
@@ -29,6 +20,17 @@ public enum BuildSetting: Sendable, Equatable {
             value
         } else {
             nil
+        }
+    }
+}
+
+extension BuildSetting: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case let .string(string):
+            string
+        case let .array(array):
+            array.joined(separator: " ")
         }
     }
 }

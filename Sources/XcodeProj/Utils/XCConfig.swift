@@ -174,7 +174,7 @@ extension XCConfig: Writable {
     private func writeBuildSettings() -> String {
         var content = ""
         for (key, value) in buildSettings {
-            content.append("\(key) = \(value.valueForWriting)\n")
+            content.append("\(key) = \(value)\n")
         }
         content.append("\n")
         return content
