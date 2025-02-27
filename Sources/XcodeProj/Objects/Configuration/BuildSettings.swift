@@ -3,6 +3,9 @@ import Foundation
 /// Build settings.
 public typealias BuildSettings = [String: BuildSetting]
 
+private let yes = "YES"
+private let no = "NO"
+
 public enum BuildSetting: Sendable, Equatable {
     case string(String)
     case array([String])
@@ -10,6 +13,18 @@ public enum BuildSetting: Sendable, Equatable {
     public var stringValue: String? {
         if case let .string(value) = self {
             value
+        } else {
+            nil
+        }
+    }
+
+    public var boolValue: Bool? {
+        if case let .string(value) = self {
+            switch value {
+            case yes: true
+            case no: false
+            default: nil
+            }
         } else {
             nil
         }
@@ -35,7 +50,7 @@ extension BuildSetting: CustomStringConvertible {
     }
 }
 
-extension BuildSetting: Codable {
+extension BuildSetting: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         do {
@@ -44,16 +59,6 @@ extension BuildSetting: Codable {
         } catch {
             let array = try container.decode([String].self)
             self = .array(array)
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case let .string(string):
-            try container.encode(string)
-        case let .array(array):
-            try container.encode(array)
         }
     }
 }
@@ -67,5 +72,11 @@ extension BuildSetting: ExpressibleByArrayLiteral {
 extension BuildSetting: ExpressibleByStringInterpolation {
     public init(stringLiteral value: StringLiteralType) {
         self = .string(value)
+    }
+}
+
+extension BuildSetting: ExpressibleByBooleanLiteral {
+    public init(booleanLiteral value: Bool) {
+        self = .string(value ? yes : no)
     }
 }
