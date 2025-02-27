@@ -62,7 +62,7 @@ enum XCConfigParser {
                     }
                     return nil
                 }
-                .compactMap { pathString in
+                .compactMap { pathString -> (include: Path, config: XCConfig)? in
                     let includePath: Path = .init(pathString)
                     var config: XCConfig?
                     do {

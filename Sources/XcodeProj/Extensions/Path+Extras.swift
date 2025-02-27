@@ -43,7 +43,7 @@ extension Path {
                 let matchc = gt.gl_pathc
             #endif
             return (0 ..< Int(matchc)).compactMap { index in
-                if let path = String(validatingUTF8: gt.gl_pathv[index]!) {
+                if let path = String(validatingCString: gt.gl_pathv[index]!) {
                     return Path(path)
                 }
                 return nil
