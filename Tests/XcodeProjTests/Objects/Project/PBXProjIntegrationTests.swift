@@ -4,8 +4,8 @@ import XCTest
 @testable import XcodeProj
 
 final class PBXProjIntegrationTests: XCTestCase {
-    func test_init_initializesTheProjCorrectly() {
-        let data = try! Data(contentsOf: fixturePath().url)
+    func test_init_initializesTheProjCorrectly() throws {
+        let data = try XCTUnwrap(Data(contentsOf: fixturePath().url))
         let decoder = XcodeprojPropertyListDecoder()
         let proj = try? decoder.decode(PBXProj.self, from: data)
         XCTAssertNotNil(proj)
@@ -14,10 +14,10 @@ final class PBXProjIntegrationTests: XCTestCase {
         }
     }
 
-    func test_write() {
-        testWrite(from: fixturePath(),
+    func test_write() throws {
+        try testWrite(from: fixturePath(),
                   initModel: { path -> PBXProj? in
-                      let data = try! Data(contentsOf: path.url)
+                      let data = try XCTUnwrap(Data(contentsOf: path.url))
                       let decoder = XcodeprojPropertyListDecoder()
                       return try? decoder.decode(PBXProj.self, from: data)
                   },
