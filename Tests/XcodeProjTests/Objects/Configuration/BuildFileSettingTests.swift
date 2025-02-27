@@ -1,9 +1,8 @@
-import Testing
 import Foundation
+import Testing
 @testable import XcodeProj
 
 struct BuildFileSettingTests {
-
     @Test func test_BuildSettings_encodes_to_JSON() async throws {
         let expectedJSON = #"{"one":"one","two":["two","two"]}"#
 
@@ -16,10 +15,10 @@ struct BuildFileSettingTests {
         encoder.outputFormatting = .sortedKeys
 
         let result = try encoder.encode(settings)
-        
+
         #expect(result == expectedJSON.data(using: .utf8))
     }
-    
+
     @Test func test_buildSettings_decodes_from_JSON() async throws {
         let json = #"{"one":"one","two":["two","two"]}"#
 
@@ -32,5 +31,4 @@ struct BuildFileSettingTests {
 
         #expect(result == expectedSettings)
     }
-
 }

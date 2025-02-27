@@ -111,16 +111,16 @@ public extension XCScheme {
         }
 
         // MARK: - Equatable
-        
+
         public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
             lhs.skipped == rhs.skipped &&
-            lhs.parallelization == rhs.parallelization &&
-            lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
-            lhs.buildableReference == rhs.buildableReference &&
-            lhs.locationScenarioReference == rhs.locationScenarioReference &&
-            lhs.useTestSelectionWhitelist == rhs.useTestSelectionWhitelist &&
-            lhs.skippedTests == rhs.skippedTests &&
-            lhs.selectedTests == rhs.selectedTests
+                lhs.parallelization == rhs.parallelization &&
+                lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
+                lhs.buildableReference == rhs.buildableReference &&
+                lhs.locationScenarioReference == rhs.locationScenarioReference &&
+                lhs.useTestSelectionWhitelist == rhs.useTestSelectionWhitelist &&
+                lhs.skippedTests == rhs.skippedTests &&
+                lhs.selectedTests == rhs.selectedTests
         }
     }
 }

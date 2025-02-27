@@ -605,4 +605,3 @@ extension PBXProject: PlistSerializable {
         })
     }
 }
-

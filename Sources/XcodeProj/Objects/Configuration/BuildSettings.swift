@@ -6,7 +6,7 @@ public typealias BuildSettings = [String: BuildSetting]
 public enum BuildSetting: Sendable, Equatable {
     case string(String)
     case array([String])
-    
+
     public var stringValue: String? {
         if case let .string(value) = self {
             value

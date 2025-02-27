@@ -213,4 +213,3 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
         lhs.buildFile == rhs.buildFile && lhs.buildPhase == rhs.buildPhase
     }
 }
-

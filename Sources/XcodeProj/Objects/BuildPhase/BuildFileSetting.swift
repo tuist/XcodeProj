@@ -1,4 +1,3 @@
-
 public enum BuildFileSetting: Sendable, Equatable {
     case string(String)
     case array([String])
