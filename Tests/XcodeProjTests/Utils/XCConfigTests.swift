@@ -86,10 +86,10 @@ final class XCConfigIntegrationTests: XCTestCase {
         }
     }
 
-    func test_write_writesTheContentProperly() {
-        testWrite(from: childrenPath(),
-                  initModel: { try? XCConfig(path: $0) },
-                  modify: { $0 })
+    func test_write_writesTheContentProperly() throws {
+        try testWrite(from: childrenPath(),
+                      initModel: { try? XCConfig(path: $0) },
+                      modify: { $0 })
     }
 
     private func childrenPath() -> Path {

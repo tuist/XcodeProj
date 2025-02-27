@@ -14,15 +14,15 @@ final class XcodeProjIntegrationTests: XCTestCase {
         assert(project: subject)
     }
 
-    func test_write_iosXcodeProj() {
-        testWrite(from: iosProjectPath,
-                  initModel: { try? XcodeProj(path: $0) },
-                  modify: { project in
-                      // XCUserData that is already in place (the removed element) should not be removed by a write
-                      _ = project.userData.removeLast()
-                      return project
-                  },
-                  assertion: { assert(project: $1) })
+    func test_write_iosXcodeProj() throws {
+        try testWrite(from: iosProjectPath,
+                      initModel: { try? XcodeProj(path: $0) },
+                      modify: { project in
+                          // XCUserData that is already in place (the removed element) should not be removed by a write
+                          _ = project.userData.removeLast()
+                          return project
+                      },
+                      assertion: { assert(project: $1) })
     }
 
     func test_read_write_produces_no_diff() throws {
@@ -53,19 +53,19 @@ final class XcodeProjIntegrationTests: XCTestCase {
         // Define workspace settings that should be written
         let workspaceSettings = WorkspaceSettings(buildSystem: .new, derivedDataLocationStyle: .default, autoCreateSchemes: false)
 
-        testWrite(from: iosProjectPath,
-                  initModel: { try? XcodeProj(path: $0) },
-                  modify: { project in
-                      project.sharedData?.workspaceSettings = workspaceSettings
-                      return project
-                  },
-                  assertion: {
-                      /**
-                       * Expect that the workspace settings read from file are equal to the
-                       * workspace settings we expected to write.
-                       */
-                      XCTAssertEqual($1.sharedData?.workspaceSettings, workspaceSettings)
-                  })
+        try testWrite(from: iosProjectPath,
+                      initModel: { try? XcodeProj(path: $0) },
+                      modify: { project in
+                          project.sharedData?.workspaceSettings = workspaceSettings
+                          return project
+                      },
+                      assertion: {
+                          /**
+                           * Expect that the workspace settings read from file are equal to the
+                           * workspace settings we expected to write.
+                           */
+                          XCTAssertEqual($1.sharedData?.workspaceSettings, workspaceSettings)
+                      })
     }
 
     // MARK: - Private
