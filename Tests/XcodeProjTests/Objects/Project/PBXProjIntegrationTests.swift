@@ -1,3 +1,4 @@
+#if os(macOS) || (os(Linux) && compiler(>=6.1))
 import Foundation
 import PathKit
 import XCTest
@@ -84,3 +85,5 @@ final class PBXProjIntegrationTests: XCTestCase {
         XCTAssertEqual(proj.objects.remoteSwiftPackageReferences.count, 1)
     }
 }
+
+#endif

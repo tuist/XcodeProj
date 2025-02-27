@@ -1,3 +1,4 @@
+#if os(macOS) || (os(Linux) && compiler(>=6.1))
 
 import XCTest
 @testable import XcodeProj
@@ -274,3 +275,4 @@ class PBXOutputSettingsTests: XCTestCase {
         )
     }
 }
+#endif

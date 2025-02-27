@@ -1,4 +1,4 @@
-
+#if os(macOS) || (os(Linux) && compiler(>=6.1))
 import Foundation
 import XCTest
 @testable import XcodeProj
@@ -616,3 +616,5 @@ private extension [String] {
         }
     }
 }
+
+#endif

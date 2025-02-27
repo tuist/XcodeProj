@@ -1,3 +1,4 @@
+#if os(macOS) || (os(Linux) && compiler(>=6.1))
 import Foundation
 import PathKit
 import XCTest
@@ -109,3 +110,5 @@ final class XcodeProjIntegrationTests: XCTestCase {
         fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj"
     }
 }
+
+#endif
