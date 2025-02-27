@@ -1,8 +1,10 @@
-import XCTest
+import Testing
+import Foundation
 @testable import XcodeProj
 
-final class BuildFileSettingTests: XCTestCase {
-    func test_BuildSettings_Encode_to_JSON() throws {
+struct BuildFileSettingTests {
+
+    @Test func test_BuildSettings_encodes_to_JSON() async throws {
         let expectedJSON = #"{"one":"one","two":["two","two"]}"#
 
         let settings: [String: BuildFileSetting] = [
@@ -14,11 +16,11 @@ final class BuildFileSettingTests: XCTestCase {
         encoder.outputFormatting = .sortedKeys
 
         let result = try encoder.encode(settings)
-
-        XCTAssertEqual(result, expectedJSON.data(using: .utf8))
+        
+        #expect(result == expectedJSON.data(using: .utf8))
     }
-
-    func test_buildSettings_decodes_from_JSON() throws {
+    
+    @Test func test_buildSettings_decodes_from_JSON() async throws {
         let json = #"{"one":"one","two":["two","two"]}"#
 
         let expectedSettings: [String: BuildFileSetting] = [
@@ -28,6 +30,7 @@ final class BuildFileSettingTests: XCTestCase {
 
         let result = try JSONDecoder().decode([String: BuildFileSetting].self, from: json.data(using: .utf8)!)
 
-        XCTAssertEqual(result, expectedSettings)
+        #expect(result == expectedSettings)
     }
+
 }
