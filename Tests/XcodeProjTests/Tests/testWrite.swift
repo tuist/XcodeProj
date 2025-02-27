@@ -12,7 +12,7 @@ func testWrite<T: Writable & Equatable>(file _: StaticString = #file,
     testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
 }
 
-func testWrite<T: Writable>(file: StaticString = #file,
+func testWrite<T: Writable>(file: StaticString = #filePath,
                             line: UInt = #line,
                             from path: Path,
                             initModel: (Path) -> T?,

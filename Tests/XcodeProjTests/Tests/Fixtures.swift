@@ -3,7 +3,7 @@ import PathKit
 @testable import XcodeProj
 
 func fixturesPath() -> Path {
-    Path(#file).parent().parent().parent().parent() + "Fixtures"
+    Path(#filePath).parent().parent().parent().parent() + "Fixtures"
 }
 
 func synchronizedRootGroupsFixture() throws -> Data {
