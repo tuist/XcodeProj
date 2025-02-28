@@ -1,6 +1,7 @@
-public enum ProjectAttribute: Sendable, Equatable {
+public enum ProjectAttribute: Equatable {
     case string(String)
     case array([String])
+    case targetReference(PBXObject)
     case attributeDictionary([String: [String: ProjectAttribute]])
 
     public var stringValue: String? {
@@ -20,7 +21,7 @@ public enum ProjectAttribute: Sendable, Equatable {
     }
 }
 
-extension ProjectAttribute: Codable {
+extension ProjectAttribute: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
@@ -31,18 +32,6 @@ extension ProjectAttribute: Codable {
         } else {
             let targetAttributes = try container.decode([String: [String: ProjectAttribute]].self)
             self = .attributeDictionary(targetAttributes)
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case let .string(string):
-            try container.encode(string)
-        case let .array(array):
-            try container.encode(array)
-        case let .attributeDictionary(attributes):
-            try container.encode(attributes)
         }
     }
 }
@@ -56,5 +45,11 @@ extension ProjectAttribute: ExpressibleByArrayLiteral {
 extension ProjectAttribute: ExpressibleByStringInterpolation {
     public init(stringLiteral value: StringLiteralType) {
         self = .string(value)
+    }
+}
+
+extension ProjectAttribute: ExpressibleByDictionaryLiteral {
+    public init(dictionaryLiteral elements: (String, [String: ProjectAttribute])...) {
+        self = .attributeDictionary(Dictionary(uniqueKeysWithValues: elements))
     }
 }

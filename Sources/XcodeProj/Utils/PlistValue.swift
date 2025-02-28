@@ -126,6 +126,8 @@ extension [String: ProjectAttribute] {
                 dictionary[CommentedString(key)] = arrayValue.plist()
             case let .attributeDictionary(attributes):
                 dictionary[CommentedString(key)] = attributes.mapValues { $0.plist() }.plist()
+            case let .targetReference(object):
+                dictionary[CommentedString(key)] = .string(CommentedString(object.reference.value))
             }
         }
         return .dictionary(dictionary)
@@ -142,8 +144,8 @@ extension Dictionary where Key == String {
                 dictionary[CommentedString(key)] = subDictionary.plist()
             } else if let string = value as? CustomStringConvertible {
                 dictionary[CommentedString(key)] = .string(CommentedString(string.description))
-            } else if let c = value as? PlistValue {
-                dictionary[CommentedString(key)] = c
+            } else if let plistValue = value as? PlistValue {
+                dictionary[CommentedString(key)] = plistValue
             }
         }
         return .dictionary(dictionary)

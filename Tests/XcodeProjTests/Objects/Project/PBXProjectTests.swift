@@ -18,7 +18,7 @@ final class PBXProjectTests: XCTestCase {
                                  attributes: ["LastUpgradeCheck": "0940"],
                                  targetAttributes: [target: ["TestTargetID": "123"]])
 
-        project.setTargetAttributes(["custom": "abc", "TestTargetID": .string(testTarget.reference.value)], target: target)
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": .targetReference(testTarget)], target: target)
 
         let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
         let attributes = plist.value.dictionary?["attributes"]?.dictionary ?? [:]
@@ -33,6 +33,40 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(attributes, expectedAttributes)
     }
 
+    func test_attributes_writes_fixed_value_correctly() throws {
+        let target = PBXTarget(name: "")
+        target.reference.fix("app")
+
+        let testTarget = PBXTarget(name: "")
+
+        let project = PBXProject(name: "",
+                                 buildConfigurationList: XCConfigurationList(),
+                                 compatibilityVersion: "",
+                                 preferredProjectObjectVersion: nil,
+                                 minimizedProjectReferenceProxies: nil,
+                                 mainGroup: PBXGroup(),
+                                 attributes: ["LastUpgradeCheck": "0940"],
+                                 targetAttributes: [target: ["TestTargetID": "123"]])
+
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": .targetReference(testTarget)], target: target)
+
+        //When writing the project we need to account for any mutation of the object that may have occurred after being added to the project.
+        testTarget.reference.fix("test")
+        
+        let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
+        let attributes = plist.value.dictionary?["attributes"]?.dictionary ?? [:]
+
+        let expectedAttributes: [CommentedString: PlistValue] = [
+            "LastUpgradeCheck": "0940",
+            "TargetAttributes": ["app": [
+                "custom": "abc",
+                "TestTargetID": "test",
+            ]],
+        ]
+        XCTAssertEqual(attributes, expectedAttributes)
+    }
+    
+    
     func test_plistKeyAndValue_doesntReturnTargetAttributes_when_itsEmpty() throws {
         // Given
         let target = PBXTarget(name: "")
@@ -48,7 +82,7 @@ final class PBXProjectTests: XCTestCase {
                                  minimizedProjectReferenceProxies: nil,
                                  mainGroup: PBXGroup())
 
-        project.setTargetAttributes(["custom": "abc", "TestTargetID": .string(testTarget.reference.value)], target: target)
+        project.setTargetAttributes(["custom": "abc", "TestTargetID": .targetReference(testTarget)], target: target)
 
         // When
         let plist = try project.plistKeyAndValue(proj: PBXProj(), reference: "")
