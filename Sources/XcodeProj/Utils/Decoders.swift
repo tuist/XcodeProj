@@ -46,7 +46,7 @@ extension CodingUserInfoKey {
 }
 
 /// Xcodeproj JSON decoder.
-class XcodeprojJSONDecoder: JSONDecoder {
+final class XcodeprojJSONDecoder: JSONDecoder, @unchecked Sendable {
     /// Default init.
     init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()
@@ -55,7 +55,7 @@ class XcodeprojJSONDecoder: JSONDecoder {
 }
 
 /// Xcodeproj property list decoder.
-class XcodeprojPropertyListDecoder: PropertyListDecoder {
+final class XcodeprojPropertyListDecoder: PropertyListDecoder, @unchecked Sendable {
     /// Default init.
     init(context: ProjectDecodingContext = ProjectDecodingContext()) {
         super.init()

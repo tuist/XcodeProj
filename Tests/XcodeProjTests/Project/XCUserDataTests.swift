@@ -9,17 +9,17 @@ final class XCUserDataTests: XCTestCase {
         assert(userData: subject, userName: "username1")
     }
 
-    func test_write_userData() {
-        testWrite(from: userDataPath,
-                  initModel: { try? XCUserData(path: $0) },
-                  modify: { userData in
-                      // XCScheme's that are already in place (the removed element) should not be removed by a write
-                      userData.schemes = userData.schemes.filter { $0.name != "iOS-other" }
-                      return userData
-                  },
-                  assertion: {
-                      assert(userData: $1, userName: "copy")
-                  })
+    func test_write_userData() throws {
+        try testWrite(from: userDataPath,
+                      initModel: { try? XCUserData(path: $0) },
+                      modify: { userData in
+                          // XCScheme's that are already in place (the removed element) should not be removed by a write
+                          userData.schemes = userData.schemes.filter { $0.name != "iOS-other" }
+                          return userData
+                      },
+                      assertion: {
+                          assert(userData: $1, userName: "copy")
+                      })
     }
 
     func test_read_write_produces_no_diff() throws {
