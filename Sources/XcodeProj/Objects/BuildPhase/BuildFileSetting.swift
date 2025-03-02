@@ -1,4 +1,4 @@
-public enum BuildFileSetting: Sendable, Equatable {
+public enum BuildFileSetting: Sendable, Equatable, Hashable {
     case string(String)
     case array([String])
 
@@ -39,5 +39,18 @@ extension BuildFileSetting: Codable {
         case let .array(array):
             try container.encode(array)
         }
+    }
+}
+
+
+extension BuildFileSetting: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: String...) {
+        self = .array(elements)
+    }
+}
+
+extension BuildFileSetting: ExpressibleByStringInterpolation {
+    public init(stringLiteral value: StringLiteralType) {
+        self = .string(value)
     }
 }
