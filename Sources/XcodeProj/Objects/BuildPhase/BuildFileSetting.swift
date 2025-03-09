@@ -42,7 +42,6 @@ extension BuildFileSetting: Codable {
     }
 }
 
-
 extension BuildFileSetting: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: String...) {
         self = .array(elements)
