@@ -17,11 +17,11 @@ final class XCBreakpointListIntegrationTests: XCTestCase {
         }
     }
 
-    func test_write() {
-        testWrite(from: fixturePath(),
-                  initModel: { try? XCBreakpointList(path: $0) },
-                  modify: { $0 },
-                  assertion: { assert(breakpointList: $1) })
+    func test_write() throws {
+        try testWrite(from: fixturePath(),
+                      initModel: { try? XCBreakpointList(path: $0) },
+                      modify: { $0 },
+                      assertion: { assert(breakpointList: $1) })
     }
 
     // MARK: - Private

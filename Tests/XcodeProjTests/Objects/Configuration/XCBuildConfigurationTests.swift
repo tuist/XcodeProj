@@ -28,7 +28,7 @@ final class XCBuildConfigurationTests: XCTestCase {
         subject.append(setting: "PRODUCT_NAME", value: "$(TARGET_NAME:c99extidentifier)")
 
         // Then
-        XCTAssertEqual(subject.buildSettings["PRODUCT_NAME"] as? String, "$(inherited) $(TARGET_NAME:c99extidentifier)")
+        XCTAssertEqual(subject.buildSettings["PRODUCT_NAME"], "$(inherited) $(TARGET_NAME:c99extidentifier)")
     }
 
     func test_append_when_theSettingExists() {
@@ -41,7 +41,7 @@ final class XCBuildConfigurationTests: XCTestCase {
         subject.append(setting: "OTHER_LDFLAGS", value: "flag2")
 
         // Then
-        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? String, "flag1 flag2")
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"], "flag1 flag2")
     }
 
     func test_append_when_duplicateSettingExists() {
@@ -54,7 +54,7 @@ final class XCBuildConfigurationTests: XCTestCase {
         subject.append(setting: "OTHER_LDFLAGS", value: "flag1")
 
         // Then
-        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? String, "flag1")
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"], "flag1")
     }
 
     func test_append_removesDuplicates_when_theSettingIsAnArray() {
@@ -69,7 +69,7 @@ final class XCBuildConfigurationTests: XCTestCase {
         subject.append(setting: "OTHER_LDFLAGS", value: "flag1")
 
         // Then
-        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? [String], ["flag1", "flag2"])
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"], ["flag1", "flag2"])
     }
 
     func test_append_when_theSettingExistsAsAnArray() {
@@ -82,7 +82,7 @@ final class XCBuildConfigurationTests: XCTestCase {
         subject.append(setting: "OTHER_LDFLAGS", value: "flag3")
 
         // Then
-        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"] as? [String], ["flag1", "flag2", "flag3"])
+        XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"], ["flag1", "flag2", "flag3"])
     }
 
     private func testDictionary() -> [String: Any] {

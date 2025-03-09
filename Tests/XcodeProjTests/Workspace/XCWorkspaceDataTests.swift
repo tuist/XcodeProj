@@ -39,8 +39,8 @@ final class XCWorkspaceDataIntegrationTests: XCTestCase {
         } catch {}
     }
 
-    func test_write() {
-        testWrite(
+    func test_write() throws {
+        try testWrite(
             from: fixturePath(),
             initModel: { try? XCWorkspaceData(path: $0) },
             modify: {
