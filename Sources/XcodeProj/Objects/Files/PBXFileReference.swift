@@ -15,6 +15,9 @@ public final class PBXFileReference: PBXFileElement {
     /// Derived file type. For a file named "foo.swift" this value would be "sourcecode.swift"
     public var lastKnownFileType: String?
 
+    /// The XCFramework's expected code signature. `nil` if not an XCFramework reference or if the XCFramework is not signed.
+    public var expectedSignature: String?
+
     /// Line ending type for the file
     public var lineEnding: UInt?
 
@@ -44,6 +47,7 @@ public final class PBXFileReference: PBXFileElement {
     ///   - indentWidth: the number of positions to indent blocks of code
     ///   - tabWidth: the visual width of tab characters
     ///   - lineEnding: the line ending type for the file.
+    ///   - expectedSignature: code signature for signed XCFrameworks, `nil` otherwise.
     ///   - languageSpecificationIdentifier: legacy programming language identifier.
     ///   - xcLanguageSpecificationIdentifier: the programming language identifier.
     ///   - plistStructureDefinitionIdentifier: the plist organizational family identifier.
@@ -59,6 +63,7 @@ public final class PBXFileReference: PBXFileElement {
                 indentWidth: UInt? = nil,
                 tabWidth: UInt? = nil,
                 lineEnding: UInt? = nil,
+                expectedSignature: String? = nil,
                 languageSpecificationIdentifier: String? = nil,
                 xcLanguageSpecificationIdentifier: String? = nil,
                 plistStructureDefinitionIdentifier: String? = nil) {
@@ -66,6 +71,7 @@ public final class PBXFileReference: PBXFileElement {
         self.explicitFileType = explicitFileType
         self.lastKnownFileType = lastKnownFileType
         self.lineEnding = lineEnding
+        self.expectedSignature = expectedSignature
         self.languageSpecificationIdentifier = languageSpecificationIdentifier
         self.xcLanguageSpecificationIdentifier = xcLanguageSpecificationIdentifier
         self.plistStructureDefinitionIdentifier = plistStructureDefinitionIdentifier
@@ -86,6 +92,7 @@ public final class PBXFileReference: PBXFileElement {
         case explicitFileType
         case lastKnownFileType
         case lineEnding
+        case expectedSignature
         case languageSpecificationIdentifier
         case xcLanguageSpecificationIdentifier
         case plistStructureDefinitionIdentifier
@@ -97,6 +104,7 @@ public final class PBXFileReference: PBXFileElement {
         explicitFileType = try container.decodeIfPresent(.explicitFileType)
         lastKnownFileType = try container.decodeIfPresent(.lastKnownFileType)
         lineEnding = try container.decodeIntIfPresent(.lineEnding)
+        expectedSignature = try container.decodeIfPresent(.expectedSignature)
         languageSpecificationIdentifier = try container.decodeIfPresent(.languageSpecificationIdentifier)
         xcLanguageSpecificationIdentifier = try container.decodeIfPresent(.xcLanguageSpecificationIdentifier)
         plistStructureDefinitionIdentifier = try container.decodeIfPresent(.plistStructureDefinitionIdentifier)
@@ -121,6 +129,9 @@ public final class PBXFileReference: PBXFileElement {
         }
         if let lineEnding {
             dictionary["lineEnding"] = .string(CommentedString("\(lineEnding)"))
+        }
+        if let expectedSignature {
+            dictionary["expectedSignature"] = .string(CommentedString(expectedSignature))
         }
         if let languageSpecificationIdentifier {
             dictionary["languageSpecificationIdentifier"] = .string(CommentedString(languageSpecificationIdentifier))
