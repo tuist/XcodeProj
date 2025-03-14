@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.27.7] - 2025-03-14
+### Details
+#### Chore
+- Update dependency tadija/aexml to from: "4.7.0" by @renovate[bot] in [#912](https://github.com/tuist/XcodeProj/pull/912)
+
 ## [8.27.6] - 2025-03-14
 ### Details
 #### Miscellaneous Tasks
@@ -121,6 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[8.27.7]: https://github.com/tuist/XcodeProj/compare/8.27.6..8.27.7
 [8.27.6]: https://github.com/tuist/XcodeProj/compare/8.27.5..8.27.6
 [8.27.0]: https://github.com/tuist/XcodeProj/compare/8.26.8..8.27.0
 [8.26.8]: https://github.com/tuist/XcodeProj/compare/8.26.7..8.26.8
