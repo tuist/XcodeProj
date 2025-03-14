@@ -10,7 +10,12 @@
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "auto"
+      "automergeStrategy": "auto",
+      "semanticCommitScope": "deps"
+    },
+    {
+      "matchManagers": ["swift"],
+      "semanticCommitScope": "spm"
     }
   ],
   "lockFileMaintenance": {
