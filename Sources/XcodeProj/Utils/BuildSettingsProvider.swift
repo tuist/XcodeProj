@@ -46,7 +46,7 @@ public class BuildSettingsProvider {
     ///   - swift: true if the target contains Swift code.
     /// - Returns: build settings.
     public static func targetDefault(variant: Variant? = nil, platform: Platform?, product: Product?, swift: Bool? = nil) -> BuildSettings {
-        var buildSettings: [String: Any] = [:]
+        var buildSettings: BuildSettings = [:]
 
         if let platform {
             buildSettings.merge(targetSettings(platform: platform), uniquingKeysWith: { $1 })
@@ -370,17 +370,6 @@ public class BuildSettingsProvider {
         case .framework:
             [
                 "DEFINES_MODULE": "YES",
-            ]
-        default:
-            [:]
-        }
-    }
-
-    private static func targetSwiftSettings(platform: Platform, product: Product) -> BuildSettings {
-        switch (platform, product) {
-        case (.watchOS, .application):
-            [
-                "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
             ]
         default:
             [:]
