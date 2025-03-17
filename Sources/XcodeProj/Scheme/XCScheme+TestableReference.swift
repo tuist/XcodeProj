@@ -6,12 +6,6 @@ public extension XCScheme {
         // MARK: - Attributes
 
         public var skipped: Bool
-        @available(*, deprecated, message: "Please use parallelization property instead")
-        public var parallelizable: Bool {
-            get { parallelization == .swiftTestingOnly }
-            set { parallelization = newValue ? .swiftTestingOnly : .none }
-        }
-
         public var parallelization: TestParallelization
         public var randomExecutionOrdering: Bool
         public var useTestSelectionWhitelist: Bool?
@@ -32,25 +26,6 @@ public extension XCScheme {
                     useTestSelectionWhitelist: Bool? = nil) {
             self.skipped = skipped
             self.parallelization = parallelization
-            self.randomExecutionOrdering = randomExecutionOrdering
-            self.buildableReference = buildableReference
-            self.locationScenarioReference = locationScenarioReference
-            self.useTestSelectionWhitelist = useTestSelectionWhitelist
-            self.selectedTests = selectedTests
-            self.skippedTests = skippedTests
-        }
-
-        @available(*, deprecated, message: "Use init with Parallelization argument instead")
-        public init(skipped: Bool,
-                    parallelizable: Bool = false,
-                    randomExecutionOrdering: Bool = false,
-                    buildableReference: BuildableReference,
-                    locationScenarioReference: LocationScenarioReference? = nil,
-                    skippedTests: [TestItem] = [],
-                    selectedTests: [TestItem] = [],
-                    useTestSelectionWhitelist: Bool? = nil) {
-            self.skipped = skipped
-            parallelization = parallelizable ? .swiftTestingOnly : .none
             self.randomExecutionOrdering = randomExecutionOrdering
             self.buildableReference = buildableReference
             self.locationScenarioReference = locationScenarioReference
@@ -139,7 +114,7 @@ public extension XCScheme {
 
         public static func == (lhs: TestableReference, rhs: TestableReference) -> Bool {
             lhs.skipped == rhs.skipped &&
-                lhs.parallelizable == rhs.parallelizable &&
+                lhs.parallelization == rhs.parallelization &&
                 lhs.randomExecutionOrdering == rhs.randomExecutionOrdering &&
                 lhs.buildableReference == rhs.buildableReference &&
                 lhs.locationScenarioReference == rhs.locationScenarioReference &&

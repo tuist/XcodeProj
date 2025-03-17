@@ -14,7 +14,8 @@ public final class PBXProj: Decodable {
     public var objectVersion: UInt
 
     /// Project classes.
-    public var classes: [String: Any]
+    /// This appears to always be empty as defined here: http://www.monobjc.net/xcode-project-file-format.html
+    public var classes: [String: [String]]
 
     /// Project root object.
     var rootObjectReference: PBXObjectReference?
@@ -40,7 +41,7 @@ public final class PBXProj: Decodable {
     public init(rootObject: PBXProject? = nil,
                 objectVersion: UInt = Xcode.LastKnown.objectVersion,
                 archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
-                classes: [String: Any] = [:],
+                classes: [String: [String]] = [:],
                 objects: [PBXObject] = []) {
         self.archiveVersion = archiveVersion
         self.objectVersion = objectVersion
@@ -88,7 +89,7 @@ public final class PBXProj: Decodable {
         rootObject: PBXProject? = nil,
         objectVersion: UInt = Xcode.LastKnown.objectVersion,
         archiveVersion: UInt = Xcode.LastKnown.archiveVersion,
-        classes: [String: Any] = [:],
+        classes: [String: [String]] = [:],
         objects: PBXObjects
     ) {
         self.archiveVersion = archiveVersion
@@ -116,7 +117,7 @@ public final class PBXProj: Decodable {
         self.rootObjectReference = objectReferenceRepository.getOrCreate(reference: rootObjectReference, objects: objects)
         objectVersion = try container.decodeIntIfPresent(.objectVersion) ?? 0
         archiveVersion = try container.decodeIntIfPresent(.archiveVersion) ?? 1
-        classes = try container.decodeIfPresent([String: Any].self, forKey: .classes) ?? [:]
+        classes = try container.decodeIfPresent([String: [String]].self, forKey: .classes) ?? [:]
         let objectsDictionary: [String: PBXObjectDictionaryEntry] = try container.decodeIfPresent([String: PBXObjectDictionaryEntry].self, forKey: .objects) ?? [:]
 
         for entry in objectsDictionary {
@@ -261,10 +262,9 @@ extension PBXProj {
 
 extension PBXProj: Equatable {
     public static func == (lhs: PBXProj, rhs: PBXProj) -> Bool {
-        let equalClasses = NSDictionary(dictionary: lhs.classes).isEqual(to: rhs.classes)
-        return lhs.archiveVersion == rhs.archiveVersion &&
+        lhs.archiveVersion == rhs.archiveVersion &&
             lhs.objectVersion == rhs.objectVersion &&
-            equalClasses &&
+            lhs.classes == rhs.classes &&
             lhs.objects == rhs.objects
     }
 }

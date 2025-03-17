@@ -9,11 +9,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
         assert(scheme: subject)
     }
 
-    func test_write_iosScheme() {
-        testWrite(from: iosSchemePath,
-                  initModel: { try? XCScheme(path: $0) },
-                  modify: { $0 },
-                  assertion: { assert(scheme: $1) })
+    func test_write_iosScheme() throws {
+        try testWrite(from: iosSchemePath,
+                      initModel: { try? XCScheme(path: $0) },
+                      modify: { $0 },
+                      assertion: { assert(scheme: $1) })
     }
 
     func test_read_write_produces_no_diff() throws {
@@ -42,11 +42,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(remoteRunnable.remotePath, "/var/containers/Bundle/Application/018F0933-05E8-4359-9955-39E0523C4246/Ava.app")
     }
 
-    func test_write_runnableWithoutBuildableReferenceScheme() {
-        testWrite(from: runnableWithoutBuildableReferenceSchemePath,
-                  initModel: { try? XCScheme(path: $0) },
-                  modify: { $0 },
-                  assertion: { assert(runnableWithoutBuildableReferenceScheme: $1) })
+    func test_write_runnableWithoutBuildableReferenceScheme() throws {
+        try testWrite(from: runnableWithoutBuildableReferenceSchemePath,
+                      initModel: { try? XCScheme(path: $0) },
+                      modify: { $0 },
+                      assertion: { assert(runnableWithoutBuildableReferenceScheme: $1) })
     }
 
     func test_read_minimalScheme() {
@@ -58,11 +58,11 @@ final class XCSchemeIntegrationTests: XCTestCase {
         }
     }
 
-    func test_write_minimalScheme() {
-        testWrite(from: minimalSchemePath,
-                  initModel: { try? XCScheme(path: $0) },
-                  modify: { $0 },
-                  assertion: { assert(minimalScheme: $1) })
+    func test_write_minimalScheme() throws {
+        try testWrite(from: minimalSchemePath,
+                      initModel: { try? XCScheme(path: $0) },
+                      modify: { $0 },
+                      assertion: { assert(minimalScheme: $1) })
     }
 
     func test_write_testableReferenceDefaultAttributesValuesAreOmitted() {
@@ -85,7 +85,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNil(subject.attributes["useTestSelectionWhitelist"])
     }
 
-    func test_write_testableReferenceAttributesValues_allParallelizable() {
+    func test_write_testableReferenceAttributesValues_allParallelization() {
         let reference = XCScheme.TestableReference(
             skipped: false,
             parallelization: .all,
@@ -107,7 +107,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
-    func test_write_testableReferenceAttributesValues_noneParallelizable() {
+    func test_write_testableReferenceAttributesValues_noneParallelization() {
         let reference = XCScheme.TestableReference(
             skipped: false,
             parallelization: .none,
@@ -129,10 +129,10 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
-    func test_write_testableReferenceAttributesValues_trueParallelizable() {
+    func test_write_testableReferenceAttributesValues_swiftTestingOnlyParallelization() {
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelizable: true,
+            parallelization: .swiftTestingOnly,
             randomExecutionOrdering: true,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -151,32 +151,10 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
     }
 
-    func test_write_testableReferenceAttributesValues_falseParallelizable() {
+    func test_computed_parallelization_testableReference_none() {
         let reference = XCScheme.TestableReference(
             skipped: false,
-            parallelizable: false,
-            randomExecutionOrdering: true,
-            buildableReference: XCScheme.BuildableReference(
-                referencedContainer: "",
-                blueprint: PBXObject(),
-                buildableName: "",
-                blueprintName: ""
-            ),
-            skippedTests: [],
-            selectedTests: [],
-            useTestSelectionWhitelist: true
-        )
-        let subject = reference.xmlElement()
-        XCTAssertEqual(subject.attributes["skipped"], "NO")
-        XCTAssertEqual(subject.attributes["parallelizable"], "NO")
-        XCTAssertEqual(subject.attributes["useTestSelectionWhitelist"], "YES")
-        XCTAssertEqual(subject.attributes["testExecutionOrdering"], "random")
-    }
-
-    func test_computed_parallelizable_testableReference_false() {
-        let reference = XCScheme.TestableReference(
-            skipped: false,
-            parallelizable: false,
+            parallelization: .none,
             randomExecutionOrdering: true,
             buildableReference: XCScheme.BuildableReference(
                 referencedContainer: "",
@@ -189,28 +167,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
             useTestSelectionWhitelist: true
         )
 
-        XCTAssertEqual(reference.parallelizable, false)
         XCTAssertEqual(reference.parallelization, .none)
-    }
-
-    func test_computed_parallelizable_testableReference_true() {
-        let reference = XCScheme.TestableReference(
-            skipped: false,
-            parallelizable: true,
-            randomExecutionOrdering: true,
-            buildableReference: XCScheme.BuildableReference(
-                referencedContainer: "",
-                blueprint: PBXObject(),
-                buildableName: "",
-                blueprintName: ""
-            ),
-            skippedTests: [],
-            selectedTests: [],
-            useTestSelectionWhitelist: true
-        )
-
-        XCTAssertEqual(reference.parallelizable, true)
-        XCTAssertEqual(reference.parallelization, .swiftTestingOnly)
     }
 
     func test_write_testableReferenceSelectedTests() {
@@ -503,7 +460,6 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.codeCoverageEnabled, true)
         XCTAssertEqual(scheme.testAction?.onlyGenerateCoverageForSpecifiedTargets, true)
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
-        XCTAssertEqual(scheme.testAction?.testables.first?.parallelizable, true)
         XCTAssertEqual(scheme.testAction?.testables.first?.parallelization, .swiftTestingOnly)
         XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.useTestSelectionWhitelist, false)

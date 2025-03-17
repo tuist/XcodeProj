@@ -6,29 +6,29 @@ import XCTest
 func testWrite<T: Writable & Equatable>(file _: StaticString = #file,
                                         line _: UInt = #line,
                                         from path: Path,
-                                        initModel: (Path) -> T?,
-                                        modify: (T) -> T)
+                                        initModel: (Path) throws -> T?,
+                                        modify: (T) -> T) throws
 {
-    testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
+    try testWrite(from: path, initModel: initModel, modify: modify, assertion: { XCTAssertEqual($0, $1) })
 }
 
-func testWrite<T: Writable>(file: StaticString = #file,
+func testWrite<T: Writable>(file: StaticString = #filePath,
                             line: UInt = #line,
                             from path: Path,
-                            initModel: (Path) -> T?,
+                            initModel: (Path) throws -> T?,
                             modify: (T) -> T,
-                            assertion: (_ before: T, _ after: T) -> Void)
+                            assertion: (_ before: T, _ after: T) -> Void) throws
 {
     let copyPath = path.parent() + "copy.\(path.extension!)"
     try? copyPath.delete()
     try? path.copy(copyPath)
-    let got = initModel(copyPath)
+    let got = try initModel(copyPath)
     XCTAssertNotNil(got, file: file, line: line)
     if let got {
         let modified = modify(got)
         do {
             try modified.write(path: copyPath, override: true)
-            let gotAfterWriting = initModel(copyPath)
+            let gotAfterWriting = try initModel(copyPath)
             XCTAssertNotNil(gotAfterWriting, file: file, line: line)
             if let gotAfterWriting {
                 assertion(got, gotAfterWriting)

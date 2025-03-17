@@ -31,7 +31,25 @@ public final class PBXBuildFile: PBXObject {
     }
 
     /// Element settings
-    public var settings: [String: Any]?
+    public var settings: [String: BuildFileSetting]?
+
+    /// Potentially present for `PBXHeadersBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
+    public var attributes: [String]? {
+        if case let .array(attributes) = settings?["ATTRIBUTES"] {
+            attributes
+        } else {
+            nil
+        }
+    }
+
+    /// Potentially present for `PBXSourcesBuildPhase` : https://buck.build/javadoc/com/facebook/buck/apple/xcode/xcodeproj/PBXBuildFile.html
+    public var compilerFlags: String? {
+        if case let .string(compilerFlags) = settings?["COMPILER_FLAGS"] {
+            compilerFlags
+        } else {
+            nil
+        }
+    }
 
     /// Platform filter attribute.
     /// Introduced in: Xcode 11
@@ -53,7 +71,7 @@ public final class PBXBuildFile: PBXObject {
     ///   - settings: build file settings.
     public init(file: PBXFileElement? = nil,
                 product: XCSwiftPackageProductDependency? = nil,
-                settings: [String: Any]? = nil,
+                settings: [String: BuildFileSetting]? = nil,
                 platformFilter: String? = nil,
                 platformFilters: [String]? = nil) {
         fileReference = file?.reference
@@ -84,7 +102,7 @@ public final class PBXBuildFile: PBXObject {
         if let productRefString: String = try container.decodeIfPresent(.productRef) {
             productReference = objectReferenceRepository.getOrCreate(reference: productRefString, objects: objects)
         }
-        settings = try container.decodeIfPresent([String: Any].self, forKey: .settings)
+        settings = try container.decodeIfPresent([String: BuildFileSetting].self, forKey: .settings)
         platformFilter = try container.decodeIfPresent(.platformFilter)
         platformFilters = try container.decodeIfPresent([String].self, forKey: .platformFilters)
         try super.init(from: decoder)
