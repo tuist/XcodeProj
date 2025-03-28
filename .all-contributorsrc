@@ -400,6 +400,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "bryansum",
+      "name": "Bryan Summersett",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49369?v=4",
+      "profile": "https://github.com/bryansum",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
