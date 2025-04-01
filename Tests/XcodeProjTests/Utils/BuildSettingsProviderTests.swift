@@ -11,6 +11,7 @@ class BuildSettingProviderTests: XCTestCase {
                                                           swift: true)
         let expected: BuildSettings = [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
             "ENABLE_PREVIEWS": "YES",
             "CODE_SIGN_IDENTITY": "iPhone Developer",
             "LD_RUNPATH_SEARCH_PATHS": [
@@ -91,6 +92,7 @@ class BuildSettingProviderTests: XCTestCase {
 
         let expected: BuildSettings = [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
             "ENABLE_PREVIEWS": "YES",
             "CODE_SIGN_IDENTITY": "-",
             "COMBINE_HIDPI_IMAGES": "YES",
@@ -115,6 +117,7 @@ class BuildSettingProviderTests: XCTestCase {
 
         let expected: BuildSettings = [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "App Icon & Top Shelf Image",
+            "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
             "ENABLE_PREVIEWS": "YES",
             "ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME": "LaunchImage",
             "LD_RUNPATH_SEARCH_PATHS": [
@@ -140,6 +143,7 @@ class BuildSettingProviderTests: XCTestCase {
 
         let expected: BuildSettings = [
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
             "ENABLE_PREVIEWS": "YES",
             "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
             "SDKROOT": "watchos",
@@ -222,6 +226,7 @@ class BuildSettingProviderTests: XCTestCase {
         let expected: BuildSettings = [
             "CODE_SIGN_IDENTITY": "iPhone Developer",
             "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+            "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
             "ENABLE_PREVIEWS": "YES",
             "LD_RUNPATH_SEARCH_PATHS": [
                 "$(inherited)",

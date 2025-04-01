@@ -199,6 +199,7 @@ public class BuildSettingsProvider {
         case .application:
             [
                 "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                "ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME": "AccentColor",
                 "ENABLE_PREVIEWS": "YES",
             ]
         case .framework:
