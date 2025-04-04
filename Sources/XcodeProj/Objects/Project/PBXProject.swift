@@ -572,9 +572,7 @@ extension PBXProject: PlistSerializable {
             plistTargetAttributes[reference.value] = value
         }
 
-        if !plistTargetAttributes.isEmpty {
-            plistAttributes[PBXProject.targetAttributesKey] = .attributeDictionary(plistTargetAttributes)
-        }
+        plistAttributes[PBXProject.targetAttributesKey] = .attributeDictionary(plistTargetAttributes)
 
         dictionary["attributes"] = plistAttributes.plist()
 
