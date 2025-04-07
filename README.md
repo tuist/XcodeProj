@@ -1,7 +1,7 @@
 # XcodeProj
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-44-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-45-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
@@ -190,6 +190,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/georgenavarro"><img src="https://avatars.githubusercontent.com/u/2748028?v=4?s=100" width="100px;" alt="George Navarro"/><br /><sub><b>George Navarro</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=georgenavarro" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Speakus"><img src="https://avatars.githubusercontent.com/u/849294?v=4?s=100" width="100px;" alt="Maxim"/><br /><sub><b>Maxim</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=Speakus" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bryansum"><img src="https://avatars.githubusercontent.com/u/49369?v=4?s=100" width="100px;" alt="Bryan Summersett"/><br /><sub><b>Bryan Summersett</b></sub></a><br /><a href="https://github.com/tuist/XcodeProj/commits?author=bryansum" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
