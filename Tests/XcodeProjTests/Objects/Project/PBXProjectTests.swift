@@ -66,7 +66,7 @@ final class PBXProjectTests: XCTestCase {
         XCTAssertEqual(attributes, expectedAttributes)
     }
 
-    func test_plistKeyAndValue_doesntReturnTargetAttributes_when_itsEmpty() throws {
+    func test_plistKeyAndValue_returnsEmptyTargetAttributes_when_itsEmpty() throws {
         // Given
         let target = PBXTarget(name: "")
         target.reference.fix("app")
