@@ -21,6 +21,14 @@ final class XCSchemeIntegrationTests: XCTestCase {
                                         initModel: XCScheme.init(path:))
     }
 
+    func test_read_appClipScheme() {
+        let subject = try? XCScheme(path: appClipScheme)
+        XCTAssertNotNil(subject)
+        if let subject {
+            assert(appClip: subject)
+        }
+    }
+
     func test_read_runnableWithoutBuildableReferenceScheme() {
         let subject = try? XCScheme(path: runnableWithoutBuildableReferenceSchemePath)
 
@@ -586,6 +594,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
+        XCTAssertEqual(scheme.launchAction?.appClipInvocationURLString, nil)
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
         XCTAssertEqual(launchEnvironmentVariables.count, 1)
@@ -679,6 +688,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.macroExpansion?.blueprintName, "core-ava")
         XCTAssertEqual(scheme.launchAction?.macroExpansion?.referencedContainer, "container:core-ava.xcodeproj")
         XCTAssertNil(scheme.launchAction?.environmentVariables)
+        XCTAssertNil(scheme.launchAction?.appClipInvocationURLString)
 
         // Profile action
         XCTAssertEqual(scheme.profileAction?.runnable?.runnableDebuggingMode, "0")
@@ -769,6 +779,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
         XCTAssertNil(scheme.launchAction?.storeKitConfigurationFileReference)
+        XCTAssertNil(scheme.launchAction?.appClipInvocationURLString)
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
         XCTAssertEqual(launchEnvironmentVariables.count, 1)
@@ -789,6 +800,95 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertNil(scheme.profileAction?.environmentVariables)
 
         // Analzye action
+        XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
+
+        // Archive action
+        XCTAssertEqual(scheme.archiveAction?.buildConfiguration, "Release")
+        XCTAssertTrue(scheme.archiveAction?.revealArchiveInOrganizer == true)
+        XCTAssertNil(scheme.archiveAction?.customArchiveName)
+    }
+
+    private func assert(appClip scheme: XCScheme) {
+        XCTAssertEqual(scheme.version, "1.7")
+        XCTAssertEqual(scheme.lastUpgradeVersion, "1600", "\(scheme.lastUpgradeVersion!) not equals 1600")
+
+        // Build action
+        XCTAssertTrue(scheme.buildAction?.parallelizeBuild == true)
+        XCTAssertTrue(scheme.buildAction?.buildImplicitDependencies == true)
+        XCTAssertNil(scheme.buildAction?.runPostActionsOnFailure)
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.count, 1)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries[0].buildFor.contains(.testing) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries[0].buildFor.contains(.running) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries[0].buildFor.contains(.profiling) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries[0].buildFor.contains(.archiving) == true)
+        XCTAssertTrue(scheme.buildAction?.buildActionEntries[0].buildFor.contains(.analyzing) == true)
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries[0].buildableReference.buildableIdentifier, "primary")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries[0].buildableReference.blueprintIdentifier, "5CC725022DA91FB6004D43D4")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries[0].buildableReference.buildableName, "app_clip.app")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries[0].buildableReference.blueprintName, "app_clip")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries[0].buildableReference.referencedContainer, "container:example.xcodeproj")
+
+        // Test action
+        XCTAssertEqual(scheme.testAction?.buildConfiguration, "Debug")
+        XCTAssertEqual(scheme.testAction?.selectedDebuggerIdentifier, "Xcode.DebuggerFoundation.Debugger.LLDB")
+        XCTAssertEqual(scheme.testAction?.selectedLauncherIdentifier, "Xcode.DebuggerFoundation.Launcher.LLDB")
+        XCTAssertTrue(scheme.testAction?.shouldUseLaunchSchemeArgsEnv == true)
+        XCTAssertTrue(scheme.testAction?.codeCoverageEnabled == false)
+        XCTAssertEqual(scheme.testAction?.onlyGenerateCoverageForSpecifiedTargets, nil)
+        XCTAssertNil(scheme.testAction?.macroExpansion)
+        XCTAssertEqual(scheme.testAction?.enableAddressSanitizer, false)
+        XCTAssertEqual(scheme.testAction?.enableASanStackUseAfterReturn, false)
+        XCTAssertEqual(scheme.testAction?.enableThreadSanitizer, false)
+        XCTAssertEqual(scheme.testAction?.enableUBSanitizer, false)
+        XCTAssertEqual(scheme.testAction?.disableMainThreadChecker, false)
+        XCTAssertEqual(scheme.testAction?.additionalOptions.isEmpty, true)
+        XCTAssertNil(scheme.testAction?.commandlineArguments)
+        XCTAssertNil(scheme.testAction?.environmentVariables)
+
+        // Launch action
+        XCTAssertEqual(scheme.launchAction?.selectedDebuggerIdentifier, XCScheme.defaultDebugger)
+        XCTAssertEqual(scheme.launchAction?.selectedLauncherIdentifier, XCScheme.defaultLauncher)
+        XCTAssertEqual(scheme.launchAction?.buildConfiguration, "Debug")
+        XCTAssertEqual(scheme.launchAction?.launchStyle, XCScheme.LaunchAction.Style.auto)
+        XCTAssertNil(scheme.launchAction?.askForAppToLaunch)
+        XCTAssertNil(scheme.launchAction?.customWorkingDirectory)
+        XCTAssertTrue(scheme.launchAction?.useCustomWorkingDirectory == false)
+        XCTAssertTrue(scheme.launchAction?.ignoresPersistentStateOnLaunch == false)
+        XCTAssertTrue(scheme.launchAction?.debugDocumentVersioning == true)
+        XCTAssertEqual(scheme.launchAction?.debugServiceExtension, XCScheme.LaunchAction.defaultDebugServiceExtension)
+        XCTAssertTrue(scheme.launchAction?.allowLocationSimulation == true)
+        XCTAssertNil(scheme.launchAction?.locationScenarioReference)
+        XCTAssertNil(scheme.launchAction?.commandlineArguments)
+        XCTAssertEqual(scheme.launchAction?.enableAddressSanitizer, false)
+        XCTAssertEqual(scheme.launchAction?.enableASanStackUseAfterReturn, false)
+        XCTAssertEqual(scheme.launchAction?.enableThreadSanitizer, false)
+        XCTAssertEqual(scheme.launchAction?.stopOnEveryThreadSanitizerIssue, false)
+        XCTAssertEqual(scheme.launchAction?.enableUBSanitizer, false)
+        XCTAssertEqual(scheme.launchAction?.stopOnEveryUBSanitizerIssue, false)
+        XCTAssertEqual(scheme.launchAction?.disableMainThreadChecker, false)
+        XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
+        XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
+        XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
+        XCTAssertNil(scheme.launchAction?.storeKitConfigurationFileReference)
+        XCTAssertNil(scheme.launchAction?.macroExpansion?.referencedContainer)
+        XCTAssertNil(scheme.launchAction?.environmentVariables)
+        XCTAssertEqual(scheme.launchAction?.appClipInvocationURLString, "https://example.com/")
+
+        // Profile action
+        XCTAssertEqual(scheme.profileAction?.runnable?.runnableDebuggingMode, "0")
+        XCTAssertEqual(scheme.profileAction?.runnable?.buildableReference?.referencedContainer, "container:example.xcodeproj")
+        XCTAssertEqual(scheme.profileAction?.buildConfiguration, "Release")
+        XCTAssertTrue(scheme.profileAction?.shouldUseLaunchSchemeArgsEnv == true)
+        XCTAssertEqual(scheme.profileAction?.savedToolIdentifier, "")
+        XCTAssertNil(scheme.profileAction?.customWorkingDirectory)
+        XCTAssertTrue(scheme.profileAction?.useCustomWorkingDirectory == false)
+        XCTAssertTrue(scheme.profileAction?.debugDocumentVersioning == true)
+        XCTAssertNil(scheme.profileAction?.askForAppToLaunch)
+        XCTAssertNil(scheme.profileAction?.commandlineArguments)
+        XCTAssertNil(scheme.profileAction?.environmentVariables)
+        XCTAssertNil(scheme.profileAction?.launchAutomaticallySubstyle)
+
+        // Analyze action
         XCTAssertEqual(scheme.analyzeAction?.buildConfiguration, "Debug")
 
         // Archive action
@@ -841,5 +941,9 @@ final class XCSchemeIntegrationTests: XCTestCase {
     /// A scheme that `buildArchitectures` is specified "Automatic".
     private var buildArchitecturesSchemePath: Path {
         fixturesPath() + "Schemes/BuildArchitectures.xcscheme"
+    }
+
+    private var appClipScheme: Path {
+        fixturesPath() + "Schemes/AppClip.xcscheme"
     }
 }
