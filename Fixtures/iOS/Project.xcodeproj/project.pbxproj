@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,7 @@
 		3CD1EADD205763E400DAEECB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1EADB205763E400DAEECB /* Model.xcdatamodeld */; };
 		42AA1A1A22AAF48100428760 /* MyLocalPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 42AA1A1922AAF48100428760 /* MyLocalPackage */; };
 		42AA1A1C22AAF48100428760 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 42AA1A1B22AAF48100428760 /* RxSwift */; };
+		C0D9EBC32DBB9D06009A64FA /* AppClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = C0D9EBB72DBB9D05009A64FA /* AppClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -46,6 +47,13 @@
 			remoteGlobalIDString = 23766C111EAA3484007A9026;
 			remoteInfo = iOS;
 		};
+		C0D9EBC12DBB9D06009A64FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23766C0A1EAA3484007A9026 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0D9EBB62DBB9D05009A64FA;
+			remoteInfo = AppClip;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,7 +61,20 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 0;
 			dstSubfolderSpec = 0;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C0D9EBC42DBB9D06009A64FA /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				C0D9EBC32DBB9D06009A64FA /* AppClip.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -75,7 +96,22 @@
 		23C1E0AF23657FB500B8D1EF /* iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = iOS.xctestplan; sourceTree = "<group>"; };
 		3CD1EADC205763E400DAEECB /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42AA1A1822AAF41000428760 /* MyLocalPackage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyLocalPackage; sourceTree = "<group>"; };
+		C0D9EBB72DBB9D05009A64FA /* AppClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C0D9EBC72DBB9D06009A64FA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C0D9EBB62DBB9D05009A64FA /* AppClip */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C0D9EBB82DBB9D05009A64FA /* AppClip */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C0D9EBC72DBB9D06009A64FA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AppClip; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		23766C0F1EAA3484007A9026 /* Frameworks */ = {
@@ -89,6 +125,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		23766C231EAA3484007A9026 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D9EBB42DBB9D05009A64FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -113,6 +156,7 @@
 				42AA1A1822AAF41000428760 /* MyLocalPackage */,
 				23766C141EAA3484007A9026 /* iOS */,
 				23766C291EAA3484007A9026 /* iOSTests */,
+				C0D9EBB82DBB9D05009A64FA /* AppClip */,
 				23766C131EAA3484007A9026 /* Products */,
 				04D5C09D1F153824008A2F98 /* Frameworks */,
 			);
@@ -123,6 +167,7 @@
 			children = (
 				23766C121EAA3484007A9026 /* iOS.app */,
 				23766C261EAA3484007A9026 /* iOSTests.xctest */,
+				C0D9EBB72DBB9D05009A64FA /* AppClip.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -187,11 +232,13 @@
 				239688B71EBCD3B10014B321 /* CopyFiles */,
 				23BB67521EE325E600BE9E79 /* Run Script */,
 				23BB67531EE326A800BE9E79 /* Headers */,
+				C0D9EBC42DBB9D06009A64FA /* Embed App Clips */,
 			);
 			buildRules = (
 				6B7542351FE9CEDE003DFC29 /* PBXBuildRule */,
 			);
 			dependencies = (
+				C0D9EBC22DBB9D06009A64FA /* PBXTargetDependency */,
 			);
 			name = iOS;
 			packageProductDependencies = (
@@ -220,13 +267,35 @@
 			productReference = 23766C261EAA3484007A9026 /* iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C0D9EBB62DBB9D05009A64FA /* AppClip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D9EBC82DBB9D06009A64FA /* Build configuration list for PBXNativeTarget "AppClip" */;
+			buildPhases = (
+				C0D9EBB32DBB9D05009A64FA /* Sources */,
+				C0D9EBB42DBB9D05009A64FA /* Frameworks */,
+				C0D9EBB52DBB9D05009A64FA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C0D9EBB82DBB9D05009A64FA /* AppClip */,
+			);
+			name = AppClip;
+			packageProductDependencies = (
+			);
+			productName = AppClip;
+			productReference = C0D9EBB72DBB9D05009A64FA /* AppClip.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		23766C0A1EAA3484007A9026 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = es.ppinera;
 				TargetAttributes = {
@@ -239,6 +308,9 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 23766C111EAA3484007A9026;
 					};
+					C0D9EBB62DBB9D05009A64FA = {
+						CreatedOnToolsVersion = 16.3;
+					};
 				};
 			};
 			buildConfigurationList = 23766C0D1EAA3484007A9026 /* Build configuration list for PBXProject "Project" */;
@@ -246,6 +318,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -259,6 +332,7 @@
 			targets = (
 				23766C111EAA3484007A9026 /* iOS */,
 				23766C251EAA3484007A9026 /* iOSTests */,
+				C0D9EBB62DBB9D05009A64FA /* AppClip */,
 			);
 		};
 /* End PBXProject section */
@@ -275,6 +349,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		23766C241EAA3484007A9026 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0D9EBB52DBB9D05009A64FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,6 +402,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0D9EBB32DBB9D05009A64FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -328,6 +416,11 @@
 			isa = PBXTargetDependency;
 			target = 23766C111EAA3484007A9026 /* iOS */;
 			targetProxy = 23766C271EAA3484007A9026 /* PBXContainerItemProxy */;
+		};
+		C0D9EBC22DBB9D06009A64FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0D9EBB62DBB9D05009A64FA /* AppClip */;
+			targetProxy = C0D9EBC12DBB9D06009A64FA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -510,6 +603,105 @@
 			};
 			name = Release;
 		};
+		C0D9EBC52DBB9D06009A64FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = AppClip/AppClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AppClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = iOS;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C0D9EBC62DBB9D06009A64FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = AppClip/AppClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AppClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = iOS;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = es.ppinera.iOS.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -536,6 +728,15 @@
 			buildConfigurations = (
 				23766C331EAA3484007A9026 /* Debug */,
 				23766C341EAA3484007A9026 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D9EBC82DBB9D06009A64FA /* Build configuration list for PBXNativeTarget "AppClip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D9EBC52DBB9D06009A64FA /* Debug */,
+				C0D9EBC62DBB9D06009A64FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

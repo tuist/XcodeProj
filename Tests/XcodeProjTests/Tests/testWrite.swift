@@ -40,7 +40,7 @@ func testWrite<T: Writable>(file: StaticString = #filePath,
     try? copyPath.delete()
 }
 
-func testReadWriteProducesNoDiff(file _: StaticString = #file,
+func testReadWriteProducesNoDiff(file: StaticString = #file,
                                  line _: UInt = #line,
                                  from path: Path,
                                  initModel: (Path) throws -> some Writable) throws
@@ -67,6 +67,8 @@ func testReadWriteProducesNoDiff(file _: StaticString = #file,
         try object.write(path: tmpPath, override: true)
 
         let diff = try XCTUnwrap(checkedOutput("git", ["diff"]))
+        print(file)
+      print(diff)
         XCTAssertEqual(diff, "")
     }
 }

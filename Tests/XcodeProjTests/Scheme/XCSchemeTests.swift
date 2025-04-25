@@ -6,18 +6,35 @@ import XCTest
 final class XCSchemeIntegrationTests: XCTestCase {
     func test_read_iosScheme() throws {
         let subject = try XCScheme(path: iosSchemePath)
-        assert(scheme: subject)
+        assert(scheme: subject, isAppClipScheme: false)
+    }
+  
+    func test_read_appClipScheme() throws {
+        let subject = try XCScheme(path: appClipSchemePath)
+        assert(scheme: subject, isAppClipScheme: true)
     }
 
     func test_write_iosScheme() throws {
         try testWrite(from: iosSchemePath,
                       initModel: { try? XCScheme(path: $0) },
                       modify: { $0 },
-                      assertion: { assert(scheme: $1) })
+                      assertion: { assert(scheme: $1, isAppClipScheme: false) })
+    }
+  
+    func test_write_appClipScheme() throws {
+        try testWrite(from: appClipSchemePath,
+                      initModel: { try? XCScheme(path: $0) },
+                      modify: { $0 },
+                      assertion: { assert(scheme: $1, isAppClipScheme: true) })
     }
 
-    func test_read_write_produces_no_diff() throws {
+    func test_read_write_produces_no_diff_iosScheme() throws {
         try testReadWriteProducesNoDiff(from: iosSchemePath,
+                                        initModel: XCScheme.init(path:))
+    }
+  
+    func test_read_write_produces_no_diff_appClipScheme() throws {
+        try testReadWriteProducesNoDiff(from: appClipSchemePath,
                                         initModel: XCScheme.init(path:))
     }
 
@@ -428,7 +445,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
 
     // MARK: - Private
 
-    private func assert(scheme: XCScheme) {
+  private func assert(scheme: XCScheme, isAppClipScheme: Bool) {
         XCTAssertEqual(scheme.version, "2.0")
         XCTAssertEqual(scheme.lastUpgradeVersion, "0830")
         // Build action
@@ -441,9 +458,9 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.archiving) == true)
         XCTAssertTrue(scheme.buildAction?.buildActionEntries.first?.buildFor.contains(.analyzing) == true)
         XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.buildableIdentifier, "primary")
-        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintIdentifier, "23766C111EAA3484007A9026")
-        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.buildableName, "iOS.app")
-        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintName, "iOS")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintIdentifier, isAppClipScheme ? "C0D9EBB62DBB9D05009A64FA" : "23766C111EAA3484007A9026")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.buildableName, isAppClipScheme ? "AppClip.app" : "iOS.app")
+        XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.blueprintName, isAppClipScheme ? "AppClip" : "iOS")
         XCTAssertEqual(scheme.buildAction?.buildActionEntries.first?.buildableReference.referencedContainer, "container:Project.xcodeproj")
         XCTAssertEqual(scheme.buildAction?.preActions.first?.title, "Build Pre-action")
         XCTAssertEqual(scheme.buildAction?.preActions.first?.scriptText, "echo prebuild")
@@ -586,6 +603,9 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.launchAction?.disablePerformanceAntipatternChecker, false)
         XCTAssertEqual(scheme.launchAction?.stopOnEveryMainThreadCheckerIssue, false)
         XCTAssertEqual(scheme.launchAction?.additionalOptions.isEmpty, true)
+        if isAppClipScheme {
+          XCTAssertEqual(scheme.launchAction?.appClipInvocationURLString, "https://example-invocation-url.com")
+        }
 
         let launchEnvironmentVariables = XCTAssertNotNilAndUnwrap(scheme.launchAction?.environmentVariables)
         XCTAssertEqual(launchEnvironmentVariables.count, 1)
@@ -812,6 +832,10 @@ final class XCSchemeIntegrationTests: XCTestCase {
 
     private var iosSchemePath: Path {
         fixturesPath() + "iOS/Project.xcodeproj/xcshareddata/xcschemes/iOS.xcscheme"
+    }
+
+    private var appClipSchemePath: Path {
+        fixturesPath() + "iOS/Project.xcodeproj/xcshareddata/xcschemes/AppClip.xcscheme"
     }
 
     private var minimalSchemePath: Path {

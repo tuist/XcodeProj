@@ -84,6 +84,7 @@ public extension XCScheme {
         // To enable the option in Xcode: defaults write com.apple.dt.Xcode IDEDebuggerFeatureSetting 12
         public var customLaunchCommand: String?
         public var customLLDBInitFile: String?
+        public var appClipInvocationURLString: String?
 
         // MARK: - Init
 
@@ -126,7 +127,8 @@ public extension XCScheme {
                     launchAutomaticallySubstyle: String? = nil,
                     storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
                     customLaunchCommand: String? = nil,
-                    customLLDBInitFile: String? = nil) {
+                    customLLDBInitFile: String? = nil,
+                    appClipInvocationURLString: String? = nil) {
             self.runnable = runnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
@@ -165,6 +167,7 @@ public extension XCScheme {
             self.storeKitConfigurationFileReference = storeKitConfigurationFileReference
             self.customLaunchCommand = customLaunchCommand
             self.customLLDBInitFile = customLLDBInitFile
+            self.appClipInvocationURLString = appClipInvocationURLString
             super.init(preActions, postActions)
         }
 
@@ -210,7 +213,8 @@ public extension XCScheme {
             launchAutomaticallySubstyle: String? = nil,
             storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
             customLaunchCommand: String? = nil,
-            customLLDBInitFile: String? = nil
+            customLLDBInitFile: String? = nil,
+            appClipInvocationURLString: String? = nil
         ) {
             self.init(
                 runnable: pathRunnable,
@@ -252,7 +256,8 @@ public extension XCScheme {
                 launchAutomaticallySubstyle: launchAutomaticallySubstyle,
                 storeKitConfigurationFileReference: storeKitConfigurationFileReference,
                 customLaunchCommand: customLaunchCommand,
-                customLLDBInitFile: customLLDBInitFile
+                customLLDBInitFile: customLLDBInitFile,
+                appClipInvocationURLString: appClipInvocationURLString
             )
         }
 
@@ -337,6 +342,7 @@ public extension XCScheme {
             if let elementCustomWorkingDirectory: String = element.attributes["customWorkingDirectory"] {
                 customWorkingDirectory = elementCustomWorkingDirectory
             }
+            appClipInvocationURLString = element.attributes["appClipInvocationURLString"]
 
             try super.init(element: element)
         }
@@ -403,6 +409,9 @@ public extension XCScheme {
             }
             if let customWorkingDirectory {
                 attributes["customWorkingDirectory"] = customWorkingDirectory
+            }
+            if let appClipInvocationURLString {
+                attributes["appClipInvocationURLString"] = appClipInvocationURLString
             }
 
             return attributes
@@ -513,7 +522,8 @@ public extension XCScheme {
                 launchAutomaticallySubstyle == rhs.launchAutomaticallySubstyle &&
                 storeKitConfigurationFileReference == rhs.storeKitConfigurationFileReference &&
                 customLaunchCommand == rhs.customLaunchCommand &&
-                customLLDBInitFile == rhs.customLLDBInitFile
+                customLLDBInitFile == rhs.customLLDBInitFile &&
+                appClipInvocationURLString == rhs.appClipInvocationURLString
         }
     }
 }
