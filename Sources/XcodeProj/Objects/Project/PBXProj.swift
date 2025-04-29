@@ -178,8 +178,13 @@ public extension PBXProj {
     var carbonResourcesBuildPhases: [PBXRezBuildPhase] { Array(objects.carbonResourcesBuildPhases.values) }
     var buildPhases: [PBXBuildPhase] { Array(objects.buildPhases.values) }
     var fileSystemSynchronizedRootGroups: [PBXFileSystemSynchronizedRootGroup] { Array(objects.fileSystemSynchronizedRootGroups.values) }
-    var fileSystemSynchronizedBuildFileExceptionSets: [PBXFileSystemSynchronizedBuildFileExceptionSet] { Array(objects.fileSystemSynchronizedBuildFileExceptionSets.values) }
-    var fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] { Array(objects.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.values) }
+    var fileSystemSynchronizedBuildFileExceptionSets: [PBXFileSystemSynchronizedBuildFileExceptionSet] {
+        Array(objects.fileSystemSynchronizedBuildFileExceptionSets.values)
+    }
+
+    var fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: [PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet] {
+        Array(objects.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet.values)
+    }
 
     /// Returns root project.
     func rootProject() throws -> PBXProject? {
