@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.3.0] - 2025-04-30
+### Details
+#### Features
+- Add expectedSignature property by @TamarMilchtaich in [#913](https://github.com/tuist/XcodeProj/pull/913)
+
+## New Contributors
+* @TamarMilchtaich made their first contribution in [#913](https://github.com/tuist/XcodeProj/pull/913)
 ## [9.2.0] - 2025-04-29
 ### Details
 #### Features
@@ -162,6 +169,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.3.0]: https://github.com/tuist/XcodeProj/compare/9.2.0..9.3.0
 [9.2.0]: https://github.com/tuist/XcodeProj/compare/9.1.0..9.2.0
 [9.1.0]: https://github.com/tuist/XcodeProj/compare/9.0.2..9.1.0
 [9.0.2]: https://github.com/tuist/XcodeProj/compare/9.0.1..9.0.2
