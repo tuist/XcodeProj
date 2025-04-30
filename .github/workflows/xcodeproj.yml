@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - uses: swift-actions/setup-swift@v3
+      - uses: swift-actions/setup-swift@7d6348b84c07b33515ee21ebc40bbf974cc19d40
         with:
           swift-version: "6.0.2"
       - name: Build
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: jdx/mise-action@v2
-      - uses: swift-actions/setup-swift@v3
+      - uses: swift-actions/setup-swift@7d6348b84c07b33515ee21ebc40bbf974cc19d40
         with:
           swift-version: "6.0.2"
       - run: |
