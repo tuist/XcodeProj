@@ -60,7 +60,7 @@ public enum Xcode {
     public static let inheritedKeywords = ["${inherited}", "$(inherited)"]
 
     /// Header files extensions.
-    public static let headersExtensions = [".h", ".hh", ".hpp", ".ipp", ".tpp", ".hxx", ".def", ".inl", ".inc", ".pch"]
+    public static let headersExtensions = [".h", ".hh", ".hpp", ".ipp", ".tpp", ".hxx", ".def", ".inl", ".inc", ".pch", ".apinotes"]
 
     /// Supported values.
     public enum Supported {
