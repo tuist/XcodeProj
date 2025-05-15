@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.4.0] - 2025-05-15
+### Details
+#### Features
+- Add .apinotes support by @rw-garmin in [#931](https://github.com/tuist/XcodeProj/pull/931)
+
+## New Contributors
+* @rw-garmin made their first contribution in [#931](https://github.com/tuist/XcodeProj/pull/931)
 ## [9.3.0] - 2025-04-30
 ### Details
 #### Features
@@ -169,6 +176,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.4.0]: https://github.com/tuist/XcodeProj/compare/9.3.0..9.4.0
 [9.3.0]: https://github.com/tuist/XcodeProj/compare/9.2.0..9.3.0
 [9.2.0]: https://github.com/tuist/XcodeProj/compare/9.1.0..9.2.0
 [9.1.0]: https://github.com/tuist/XcodeProj/compare/9.0.2..9.1.0
