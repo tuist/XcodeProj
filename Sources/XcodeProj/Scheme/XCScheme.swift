@@ -144,12 +144,12 @@ public final class XCScheme: Writable, Equatable {
     }
 }
 
-extension XCScheme {
+public extension XCScheme {
     /// Returns schemes folder path relative to the given path.
     ///
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Returns: schemes folder path relative to the given path.
-    public static func schemesPath(_ path: Path) -> Path {
+    static func schemesPath(_ path: Path) -> Path {
         path + "xcschemes"
     }
 
@@ -158,7 +158,7 @@ extension XCScheme {
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
-    public static func path(_ path: Path, schemeName: String) -> Path {
+    static func path(_ path: Path, schemeName: String) -> Path {
         XCScheme.schemesPath(path) + "\(schemeName).xcscheme"
     }
 }
