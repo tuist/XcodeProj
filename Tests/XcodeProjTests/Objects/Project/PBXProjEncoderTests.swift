@@ -342,16 +342,17 @@
         }
 
         // MARK: - Projects
+
         func test_ProjectReferenceOrder() throws {
-          try loadProjectWithWrongProjectReferencesOrder()
+            try loadProjectWithWrongProjectReferencesOrder()
 
-          let lines = lines(fromFile: encodeProject())
+            let lines = lines(fromFile: encodeProject())
 
-          let beginGroup = lines.findLine("/* Begin PBXProject section */")
-          let beginReferences = lines.findLine("projectReferences = (", after: beginGroup)
-          let endReferences = lines.findLine(");", after: beginReferences)
-          let firstReferenceLine = lines.validate(line: "ProjectRef = 87A3E8A0727A99EE88ED4E64 /* Framework1.xcodeproj */;", betweenLine: beginReferences, andLine: endReferences)
-          lines.validate(line: "ProjectRef = 08931D1475E84509040F7FEA /* Framework2.xcodeproj */;", betweenLine: firstReferenceLine, andLine: endReferences)
+            let beginGroup = lines.findLine("/* Begin PBXProject section */")
+            let beginReferences = lines.findLine("projectReferences = (", after: beginGroup)
+            let endReferences = lines.findLine(");", after: beginReferences)
+            let firstReferenceLine = lines.validate(line: "ProjectRef = 87A3E8A0727A99EE88ED4E64 /* Framework1.xcodeproj */;", betweenLine: beginReferences, andLine: endReferences)
+            lines.validate(line: "ProjectRef = 08931D1475E84509040F7FEA /* Framework2.xcodeproj */;", betweenLine: firstReferenceLine, andLine: endReferences)
         }
 
         // MARK: - Build phases
