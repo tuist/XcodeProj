@@ -144,7 +144,7 @@ public final class XCScheme: Writable, Equatable {
     }
 }
 
-extension XCScheme {
+public extension XCScheme {
     /// Returns schemes folder path relative to the given path.
     ///
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
