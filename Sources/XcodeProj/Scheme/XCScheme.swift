@@ -149,7 +149,7 @@ extension XCScheme {
     ///
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Returns: schemes folder path relative to the given path.
-    static func schemesPath(_ path: Path) -> Path {
+    public static func schemesPath(_ path: Path) -> Path {
         path + "xcschemes"
     }
 
@@ -158,7 +158,7 @@ extension XCScheme {
     /// - Parameter path: parent folder of schemes folder (xcshareddata or xcuserdata)
     /// - Parameter schemeName: scheme name
     /// - Returns: scheme file path relative to the given path.
-    static func path(_ path: Path, schemeName: String) -> Path {
+    public static func path(_ path: Path, schemeName: String) -> Path {
         XCScheme.schemesPath(path) + "\(schemeName).xcscheme"
     }
 }
