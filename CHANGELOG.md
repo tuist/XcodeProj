@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.4.1] - 2025-05-19
+### Details
+#### Documentation
+- Add mikhailmulyar as a contributor for code by @allcontributors[bot] in [#938](https://github.com/tuist/XcodeProj/pull/938)
+
+#### Refactor
+- Make XCScheme static path functions public by @trentguillory-gc in [#940](https://github.com/tuist/XcodeProj/pull/940)
+
+## New Contributors
+* @trentguillory-gc made their first contribution in [#940](https://github.com/tuist/XcodeProj/pull/940)
 ## [9.4.0] - 2025-05-15
 ### Details
 #### Features
@@ -176,6 +186,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.4.1]: https://github.com/tuist/XcodeProj/compare/9.4.0..9.4.1
 [9.4.0]: https://github.com/tuist/XcodeProj/compare/9.3.0..9.4.0
 [9.3.0]: https://github.com/tuist/XcodeProj/compare/9.2.0..9.3.0
 [9.2.0]: https://github.com/tuist/XcodeProj/compare/9.1.0..9.2.0
