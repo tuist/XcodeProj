@@ -54,6 +54,7 @@ final class PBXProjEncoder {
         sort(buildPhases: proj.objects.resourcesBuildPhases, outputSettings: outputSettings)
         sort(buildPhases: proj.objects.sourcesBuildPhases, outputSettings: outputSettings)
         sort(navigatorGroups: proj.objects.groups, outputSettings: outputSettings)
+        sortProjectReferences(for: proj.projects, outputSettings: outputSettings)
 
         var output = [String]()
         var stateHolder = StateHolder()
@@ -472,6 +473,25 @@ final class PBXProjEncoder {
     private func sort(navigatorGroups: [PBXObjectReference: PBXGroup], outputSettings: PBXOutputSettings) {
         if let sort = outputSettings.projNavigatorFileOrder.sort {
             navigatorGroups.values.forEach { $0.children = $0.children.sorted(by: sort) }
+        }
+    }
+
+    private func sortProjectReferences(for projects: [PBXProject], outputSettings: PBXOutputSettings) {
+        guard outputSettings.projReferenceFormat == .xcode else {
+            return
+        }
+
+        for project in projects {
+            /// The project references are sorted alphabetically based on the name of the project it's being referenced.
+            project.projectReferences = project.projectReferences.sorted(by: { lhs, rhs in
+                let lProjectRef = lhs["ProjectRef"]!
+                let lFile: PBXFileElement = lProjectRef.getObject()!
+                let rProjectRef = rhs["ProjectRef"]!
+                let rFile: PBXFileElement = rProjectRef.getObject()!
+                let lName = lFile.name!
+                let rName = rFile.name!
+                return lName.compare(rName, options: .caseInsensitive) == .orderedAscending
+            })
         }
     }
 }

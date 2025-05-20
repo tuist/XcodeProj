@@ -40,3 +40,8 @@ func iosProjectWithXCLocalSwiftPackageReferences() throws -> Data {
     let iosProjectWithXCLocalSwiftPackageReference = fixturesPath() + "iOS/ProjectWithXCLocalSwiftPackageReferences.xcodeproj/project.pbxproj"
     return try Data(contentsOf: iosProjectWithXCLocalSwiftPackageReference.url)
 }
+
+func projectWithWrongProjectReferencesOrder() throws -> Data {
+    let iosProjectWithProjectReferences = fixturesPath() + "Xcode16ProjectReferenceOrder/Wrong.xcodeproj/project.pbxproj"
+    return try Data(contentsOf: iosProjectWithProjectReferences.url)
+}
