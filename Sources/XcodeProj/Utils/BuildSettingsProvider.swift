@@ -358,7 +358,7 @@ public class BuildSettingsProvider {
             ]
         case .release:
             [
-                "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                "SWIFT_OPTIMIZATION_LEVEL": "-O",
                 "SWIFT_COMPILATION_MODE": "wholemodule",
             ]
         default:
