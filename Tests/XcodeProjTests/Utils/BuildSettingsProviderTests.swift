@@ -21,7 +21,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "iphoneos",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2",
                 ]
             ),
@@ -45,7 +45,7 @@ struct BuildSettingProviderTests {
                     "SDKROOT": "iphoneos",
                     "SKIP_INSTALL": "YES",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2",
                     "VERSIONING_SYSTEM": "apple-generic",
                     "VERSION_INFO_PREFIX": "",
@@ -63,7 +63,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "iphoneos",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2",
                 ]
             ),
@@ -82,7 +82,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "macosx",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                 ]
             ),
             TestParameters(
@@ -99,7 +99,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "appletvos",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "3",
                 ]
             ),
@@ -117,7 +117,7 @@ struct BuildSettingProviderTests {
                     "SDKROOT": "watchos",
                     "SKIP_INSTALL": "YES",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "4",
                 ]
             ),
@@ -142,7 +142,7 @@ struct BuildSettingProviderTests {
                     "SDKROOT": "watchos",
                     "SKIP_INSTALL": "YES",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "4",
                     "VERSIONING_SYSTEM": "apple-generic",
                     "VERSION_INFO_PREFIX": "",
@@ -160,7 +160,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "watchos",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "4",
                 ]
             ),
@@ -178,7 +178,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "xros",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2,7",
                 ]
             ),
@@ -202,7 +202,7 @@ struct BuildSettingProviderTests {
                     "SDKROOT": "xros",
                     "SKIP_INSTALL": "YES",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2,7",
                     "VERSIONING_SYSTEM": "apple-generic",
                     "VERSION_INFO_PREFIX": "",
@@ -220,7 +220,7 @@ struct BuildSettingProviderTests {
                     ],
                     "SDKROOT": "xros",
                     "SWIFT_COMPILATION_MODE": "wholemodule",
-                    "SWIFT_OPTIMIZATION_LEVEL": "-Owholemodule",
+                    "SWIFT_OPTIMIZATION_LEVEL": "-O",
                     "TARGETED_DEVICE_FAMILY": "1,2,7",
                 ]
             ),

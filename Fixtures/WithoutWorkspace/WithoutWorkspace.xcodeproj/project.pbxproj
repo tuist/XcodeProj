@@ -359,7 +359,7 @@
                "watchsimulator",
             );
             SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE";
-            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+            SWIFT_OPTIMIZATION_LEVEL = "-O";
             USE_HEADERMAP = "NO";
          };
          name = "Release";
