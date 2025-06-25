@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.4.3] - 2025-06-25
+### Details
+#### Bug Fixes
+- SWIFT_OPTIMIZATION_LEVEL -O not -Owholemodule by @stefanfessler in [#954](https://github.com/tuist/XcodeProj/pull/954)
+
+## New Contributors
+* @stefanfessler made their first contribution in [#954](https://github.com/tuist/XcodeProj/pull/954)
 ## [9.4.2] - 2025-05-20
 ### Details
 #### Bug Fixes
@@ -193,6 +200,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.4.3]: https://github.com/tuist/XcodeProj/compare/9.4.2..9.4.3
 [9.4.2]: https://github.com/tuist/XcodeProj/compare/9.4.1..9.4.2
 [9.4.1]: https://github.com/tuist/XcodeProj/compare/9.4.0..9.4.1
 [9.4.0]: https://github.com/tuist/XcodeProj/compare/9.3.0..9.4.0
