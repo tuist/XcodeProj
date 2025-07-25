@@ -116,15 +116,15 @@ public extension PBXGroup {
             .first(where: { $0.name == name })
     }
 
-  /// Returns group with the given path contained in the given parent group.
-  ///
-  /// - Parameter path: path name.
-  /// - Returns: group with the given path contained in the given parent group.
-  func group(with path: String) -> PBXGroup? {
-    childrenReferences
-      .objects()
-      .first(where: { ($0 as? PBXFileElement)?.path == path }) as? PBXGroup
-  }
+    /// Returns group with the given path contained in the given parent group.
+    ///
+    /// - Parameter path: path name.
+    /// - Returns: group with the given path contained in the given parent group.
+    func group(with path: String) -> PBXGroup? {
+        childrenReferences
+          .objects()
+          .first(where: { ($0 as? PBXFileElement)?.path == path }) as? PBXGroup
+    }
 
     /// Returns the synchronized root group with the given name contained in the given parent group.
     ///
