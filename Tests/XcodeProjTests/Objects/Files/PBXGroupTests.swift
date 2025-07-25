@@ -28,6 +28,27 @@ final class PBXGroupTests: XCTestCase {
         let file = try? group.addFile(at: filePath, sourceRoot: sourceRoot)
         XCTAssertNotNil(file?.parent)
     }
+  
+    func test_takingGroupWithSpecificPath() throws {
+        let proj = try PBXProj(data: iosProjectWithExtensionsData())
+        let mainGroup = proj.rootObject?.mainGroup
+        XCTAssertNotNil(mainGroup)
+      
+        let mainAppGroup = mainGroup?.group(with: "AppWithExtensions")
+        XCTAssertNotNil(mainAppGroup)
+      
+        let nilGroup = mainGroup?.group(with: "Not_Existing")
+        XCTAssertNil(nilGroup)
+    }
+  
+    func test_takingCreatedGroupWithSpecificPath() throws {
+        let proj = try PBXProj(data: iosProjectData())
+        let mainGroup = proj.rootObject?.mainGroup
+        XCTAssertNil(mainGroup?.group(with: "group"))
+
+        try mainGroup?.addGroup(named: "group")
+        XCTAssertNotNil(mainGroup?.group(with: "group"))
+    }
 
     func test_addGroup_assignParent() {
         let project = makeEmptyPBXProj()
