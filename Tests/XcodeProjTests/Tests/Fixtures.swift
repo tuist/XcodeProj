@@ -16,6 +16,11 @@ func iosProjectData() throws -> Data {
     return try Data(contentsOf: iosProject.url)
 }
 
+func iosProjectWithExtensionsData() throws -> Data {
+    let iosProjectWithExtensions = fixturesPath() + "iOS/AppWithExtensions/AppWithExtensions.xcodeproj/project.pbxproj"
+    return try Data(contentsOf: iosProjectWithExtensions.url)
+}
+
 func fileSharedAcrossTargetsData() throws -> Data {
     let fileSharedAcrossTargetsProject = fixturesPath() + "FileSharedAcrossTargets/FileSharedAcrossTargets.xcodeproj/project.pbxproj"
     return try Data(contentsOf: fileSharedAcrossTargetsProject.url)
