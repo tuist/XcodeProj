@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.6.0] - 2025-10-06
+### Details
+#### Features
+- Speed up object parsing by @karlpuusepp in [#980](https://github.com/tuist/XcodeProj/pull/980)
+
+## New Contributors
+* @karlpuusepp made their first contribution in [#980](https://github.com/tuist/XcodeProj/pull/980)
 ## [9.5.0] - 2025-08-08
 ### Details
 #### Features
@@ -207,6 +214,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.6.0]: https://github.com/tuist/XcodeProj/compare/9.5.0..9.6.0
 [9.5.0]: https://github.com/tuist/XcodeProj/compare/9.4.3..9.5.0
 [9.4.3]: https://github.com/tuist/XcodeProj/compare/9.4.2..9.4.3
 [9.4.2]: https://github.com/tuist/XcodeProj/compare/9.4.1..9.4.2
