@@ -20,7 +20,7 @@ jobs:
     name: Build (macOS)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
       - name: Build
         run: mise run build
@@ -28,7 +28,7 @@ jobs:
     name: Build (Linux)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
       - run: mise use swift@6.0.2
       - name: Build
@@ -37,7 +37,7 @@ jobs:
     name: Test (macOS / Xcode)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
       - name: Run tests
         run: mise run test
@@ -46,7 +46,7 @@ jobs:
     name: Test (Linux)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
       - run: mise use swift@6.0.2
       - run: |
@@ -60,6 +60,6 @@ jobs:
     name: Lint
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
       - run: mise run lint
