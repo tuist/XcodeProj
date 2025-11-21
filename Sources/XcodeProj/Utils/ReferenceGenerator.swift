@@ -176,6 +176,35 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         fixReference(for: synchronizedRootGroup, identifiers: identifiers)
+        
+        // Generate references for exception sets
+        if let exceptions = synchronizedRootGroup.exceptions {
+            try exceptions.forEach { exception in
+                try generateExceptionSetReferences(exception, identifiers: identifiers)
+            }
+        }
+    }
+    
+    /// Generates the reference for an exception set object.
+    ///
+    /// - Parameters:
+    ///   - exceptionSet: exception set instance.
+    ///   - identifiers: list of identifiers.
+    private func generateExceptionSetReferences(_ exceptionSet: PBXFileSystemSynchronizedExceptionSet,
+                                                identifiers: [String]) throws {
+        var identifiers = identifiers
+        
+        if let buildFileException = exceptionSet as? PBXFileSystemSynchronizedBuildFileExceptionSet {
+            if let target = buildFileException.target {
+                identifiers.append(target.reference.value)
+            }
+            fixReference(for: buildFileException, identifiers: identifiers)
+        } else if let buildPhaseException = exceptionSet as? PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet {
+            if let buildPhase = buildPhaseException.buildPhase {
+                identifiers.append(buildPhase.reference.value)
+            }
+            fixReference(for: buildPhaseException, identifiers: identifiers)
+        }
     }
 
     /// Generates the reference for a configuration list object.
