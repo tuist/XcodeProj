@@ -31,7 +31,7 @@ extension String {
             return self
         }
         #if canImport(CryptoKit)
-            if #available(OSX 10.15, *) {
+            if #available(OSX 10.15, iOS 13.0, *) {
                 return Insecure.MD5.hash(data: data)
                     .withUnsafeBytes { Array($0) }.hexString
             } else {
