@@ -122,7 +122,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         }
         dictionary["outputPaths"] = .array(outputPaths.map { .string(CommentedString($0)) })
         if let shellScript {
-          dictionary["shellScript"] = .string(CommentedString(shellScript.toString()))
+            dictionary["shellScript"] = .string(CommentedString(shellScript.toString()))
         }
         if let dependencyFile {
             dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))
