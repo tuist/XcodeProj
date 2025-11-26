@@ -73,14 +73,4 @@ final class PBXShellScriptBuildPhaseTests: XCTestCase {
 
         XCTAssertNotEqual(noDiscovery, discovery)
     }
-
-    private func testDictionary() -> [String: Any] {
-        [
-            "files": ["files"],
-            "inputPaths": ["input"],
-            "outputPaths": ["output"],
-            "shellPath": "shellPath",
-            "shellScript": "shellScript",
-        ]
-    }
 }

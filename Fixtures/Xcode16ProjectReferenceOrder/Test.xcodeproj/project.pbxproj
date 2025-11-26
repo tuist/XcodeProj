@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,15 +48,13 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		BF31C3A479ECD7CBA0640A2F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				C2317A164A6A4F635FE4CCD7 /* Framework1.framework in Embed Frameworks */,
 				3108C05C7B0C4FD6AC077294 /* Framework2.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -67,18 +65,15 @@
 		6D728BF5C49E97251DA378AE /* Framework2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Framework2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		87A3E8A0727A99EE88ED4E64 /* Framework1.xcodeproj */ = {isa = PBXFileReference; explicitFileType = "wrapper.pb-project"; includeInIndex = 0; name = Framework1.xcodeproj; path = ../Framework1/Framework1.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E203E65EDD1A90FCBAA42C9E /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F09268C492FF78A6C82868C6 /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "App-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B27C7CF4B617049554976EFD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				5D8C48ABB7D5D013DDBD67AA /* Framework1.framework in Frameworks */,
 				C57CB036110A3D5DCC9E437A /* Framework2.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -98,14 +93,6 @@
 				BBE8CAF8BA821ED44E58C6F5 /* Framework2.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		20C83B4860AC239B5E5FDF3C /* InfoPlists */ = {
-			isa = PBXGroup;
-			children = (
-				F09268C492FF78A6C82868C6 /* App-Info.plist */,
-			);
-			path = InfoPlists;
 			sourceTree = "<group>";
 		};
 		30CD57449DD0BAD1F51809C3 /* Products */ = {
@@ -160,6 +147,7 @@
 				F1BC716AD69EACCBD2A2DDBC /* Resources */,
 				BF31C3A479ECD7CBA0640A2F /* Embed Frameworks */,
 				B27C7CF4B617049554976EFD /* Frameworks */,
+				0579081E2ED74460006A6AFB /* custom script */,
 			);
 			buildRules = (
 			);
@@ -168,8 +156,6 @@
 				CD591349E38A6A3EB5AA81DD /* PBXTargetDependency */,
 			);
 			name = App;
-			packageProductDependencies = (
-			);
 			productName = App;
 			productReference = E203E65EDD1A90FCBAA42C9E /* App.app */;
 			productType = "com.apple.product-type.application";
@@ -181,9 +167,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1640;
 			};
 			buildConfigurationList = C94346B8B75719D8319921C2 /* Build configuration list for PBXProject "Test" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -191,6 +177,7 @@
 				en,
 			);
 			mainGroup = 0767F0D2E9F7C0B23673A1B1;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 73B13978C93862E5AD69BCC8 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -230,21 +217,31 @@
 /* Begin PBXResourcesBuildPhase section */
 		F1BC716AD69EACCBD2A2DDBC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0579081E2ED74460006A6AFB /* custom script */ = {
+			isa = PBXShellScriptBuildPhase;
+			name = "custom script";
+			shellPath = /bin/sh;
+			shellScript = (
+				"# comment",
+				"ls -la",
+				"ls -la",
+				"",
+			);
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2053EE4C6238D6C3AEB2ADB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D2AE54DED6608D5B956A5E45 /* AppDelegate.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -262,7 +259,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0B98A64D6F621FDCEEA0CE44 /* Debug */ = {
+		0B98A64D6F621FDCEEA0CE44 /* Debug configuration for PBXNativeTarget "App" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -287,7 +284,7 @@
 			};
 			name = Debug;
 		};
-		58BAFCCFAE3AD62113BBEDEF /* Debug */ = {
+		58BAFCCFAE3AD62113BBEDEF /* Debug configuration for PBXProject "Test" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -326,6 +323,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -346,7 +344,7 @@
 			};
 			name = Debug;
 		};
-		5904C1CCA86A83838723C772 /* Release */ = {
+		5904C1CCA86A83838723C772 /* Release configuration for PBXProject "Test" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -385,6 +383,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -399,7 +398,7 @@
 			};
 			name = Release;
 		};
-		5E15950A8DD3B82ED1ED7849 /* Release */ = {
+		5E15950A8DD3B82ED1ED7849 /* Release configuration for PBXNativeTarget "App" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -429,19 +428,17 @@
 		BAA38452720711B406475F28 /* Build configuration list for PBXNativeTarget "App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0B98A64D6F621FDCEEA0CE44 /* Debug */,
-				5E15950A8DD3B82ED1ED7849 /* Release */,
+				0B98A64D6F621FDCEEA0CE44 /* Debug configuration for PBXNativeTarget "App" */,
+				5E15950A8DD3B82ED1ED7849 /* Release configuration for PBXNativeTarget "App" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		C94346B8B75719D8319921C2 /* Build configuration list for PBXProject "Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				58BAFCCFAE3AD62113BBEDEF /* Debug */,
-				5904C1CCA86A83838723C772 /* Release */,
+				58BAFCCFAE3AD62113BBEDEF /* Debug configuration for PBXProject "Test" */,
+				5904C1CCA86A83838723C772 /* Release configuration for PBXProject "Test" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

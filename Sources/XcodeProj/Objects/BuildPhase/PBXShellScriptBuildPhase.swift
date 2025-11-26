@@ -17,7 +17,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellPath: String?
 
     /// Shell script.
-    public var shellScript: String?
+    public var shellScript: Either<String, [String]>?
 
     /// Show environment variables in the logs.
     public var showEnvVarsInLog: Bool
@@ -54,7 +54,7 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
                 inputFileListPaths: [String]? = nil,
                 outputFileListPaths: [String]? = nil,
                 shellPath: String = "/bin/sh",
-                shellScript: String? = nil,
+                shellScript: Either<String, [String]>? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 runOnlyForDeploymentPostprocessing: Bool = false,
                 showEnvVarsInLog: Bool = true,
@@ -122,7 +122,7 @@ extension PBXShellScriptBuildPhase: PlistSerializable {
         }
         dictionary["outputPaths"] = .array(outputPaths.map { .string(CommentedString($0)) })
         if let shellScript {
-            dictionary["shellScript"] = .string(CommentedString(shellScript))
+          dictionary["shellScript"] = .string(CommentedString(shellScript.toString()))
         }
         if let dependencyFile {
             dictionary["dependencyFile"] = .string(CommentedString(dependencyFile))

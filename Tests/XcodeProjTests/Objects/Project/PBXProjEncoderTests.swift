@@ -554,6 +554,10 @@
         private func loadProjectWithWrongProjectReferencesOrder() throws {
             proj = try PBXProj(data: projectWithWrongProjectReferencesOrder())
         }
+
+        private func loadProjectWithShellScriptBuildPhase() throws {
+            proj = try PBXProj(data: projectWithCustomShellScript())
+      }
     }
 
     // MARK: - Line validations
