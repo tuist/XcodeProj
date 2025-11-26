@@ -557,7 +557,7 @@
 
         private func loadProjectWithShellScriptBuildPhase() throws {
             proj = try PBXProj(data: projectWithCustomShellScript())
-      }
+        }
     }
 
     // MARK: - Line validations
