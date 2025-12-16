@@ -98,14 +98,14 @@ class ReferenceGeneratorTests: XCTestCase {
 
         XCTAssert(!syncedGroup.reference.temporary)
     }
-    
+
     func test_projectWithFilesystemSynchronizedRootGroupWithExceptions_convertsReferencesToPermanent() throws {
         let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
         let pbxProject = project.makeProject()
 
         let target = project.makeTarget()
         pbxProject.targets.append(target)
-        
+
         let buildFileException = PBXFileSystemSynchronizedBuildFileExceptionSet(
             target: target,
             membershipExceptions: ["Info.plist"],
@@ -115,7 +115,7 @@ class ReferenceGeneratorTests: XCTestCase {
             attributesByRelativePath: nil
         )
         project.add(object: buildFileException)
-        
+
         let syncedGroup = project.makeSynchronizedRootGroup(exceptions: [buildFileException])
         target.fileSystemSynchronizedGroups = [syncedGroup]
 
@@ -126,25 +126,25 @@ class ReferenceGeneratorTests: XCTestCase {
         XCTAssert(!buildFileException.reference.temporary, "Build file exception reference should not be temporary")
         XCTAssertFalse(buildFileException.reference.value.hasPrefix("TEMP_"), "Build file exception reference should not have TEMP_ prefix")
     }
-    
+
     func test_projectWithFilesystemSynchronizedRootGroupWithBuildPhaseException_convertsReferencesToPermanent() throws {
         let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
         let pbxProject = project.makeProject()
 
         let target = project.makeTarget()
         pbxProject.targets.append(target)
-        
+
         let buildPhase = PBXSourcesBuildPhase()
         project.add(object: buildPhase)
         target.buildPhases.append(buildPhase)
-        
+
         let buildPhaseException = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet(
             buildPhase: buildPhase,
             membershipExceptions: ["ExcludedFile.swift"],
             attributesByRelativePath: nil
         )
         project.add(object: buildPhaseException)
-        
+
         let syncedGroup = project.makeSynchronizedRootGroup(exceptions: [buildPhaseException])
         target.fileSystemSynchronizedGroups = [syncedGroup]
 
