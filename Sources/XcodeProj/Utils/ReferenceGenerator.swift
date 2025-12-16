@@ -176,7 +176,7 @@ final class ReferenceGenerator: ReferenceGenerating {
         }
 
         fixReference(for: synchronizedRootGroup, identifiers: identifiers)
-        
+
         // Generate references for exception sets
         if let exceptions = synchronizedRootGroup.exceptions {
             try exceptions.forEach { exception in
@@ -184,7 +184,7 @@ final class ReferenceGenerator: ReferenceGenerating {
             }
         }
     }
-    
+
     /// Generates the reference for an exception set object.
     ///
     /// - Parameters:
@@ -193,7 +193,7 @@ final class ReferenceGenerator: ReferenceGenerating {
     private func generateExceptionSetReferences(_ exceptionSet: PBXFileSystemSynchronizedExceptionSet,
                                                 identifiers: [String]) throws {
         var identifiers = identifiers
-        
+
         if let buildFileException = exceptionSet as? PBXFileSystemSynchronizedBuildFileExceptionSet {
             if let target = buildFileException.target {
                 identifiers.append(target.reference.value)
