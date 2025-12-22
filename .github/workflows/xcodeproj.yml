@@ -21,7 +21,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v3
       - name: Build
         run: mise run build
   build-linux:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v3
       - run: mise use swift@6.0.2
       - name: Build
         run: swift build --configuration release
@@ -38,7 +38,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v3
       - name: Run tests
         run: mise run test
 
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v3
       - run: mise use swift@6.0.2
       - run: |
           git config --global user.email 'xcodeproj@tuist.dev'
@@ -61,5 +61,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: jdx/mise-action@v2
+      - uses: jdx/mise-action@v3
       - run: mise run lint
