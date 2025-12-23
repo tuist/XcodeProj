@@ -144,7 +144,7 @@ extension XCBuildConfiguration: PlistSerializable {
            let baseConfigurationReferenceRelativePath
         {
             let synchronizedGroup: PBXFileSystemSynchronizedRootGroup? = baseConfigurationReferenceAnchor.getObject()
-            dictionary["baseConfigurationReferenceAnchor"] = .string(CommentedString(baseConfigurationReferenceAnchor.value, comment: synchronizedGroup?.name))
+            dictionary["baseConfigurationReferenceAnchor"] = .string(CommentedString(baseConfigurationReferenceAnchor.value, comment: synchronizedGroup?.path))
             dictionary["baseConfigurationReferenceRelativePath"] = .string(CommentedString(baseConfigurationReferenceRelativePath))
         } else if let baseConfigurationReference {
             let fileElement: PBXFileElement? = baseConfigurationReference.getObject()

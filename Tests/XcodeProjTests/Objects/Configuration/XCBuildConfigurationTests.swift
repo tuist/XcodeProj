@@ -85,6 +85,21 @@ final class XCBuildConfigurationTests: XCTestCase {
         XCTAssertEqual(subject.buildSettings["OTHER_LDFLAGS"], ["flag1", "flag2", "flag3"])
     }
 
+    func test_configuration_files_in_synchronized_group() {
+        let synchronizedGroup = PBXFileSystemSynchronizedRootGroup.fixture(sourceTree: .group,
+                                                                           path: "Xcode16BuildConfigurations",
+                                                                           explicitFileTypes: [:],
+                                                                           exceptions: [],
+                                                                           explicitFolders: [])
+        let subject = XCBuildConfiguration(name: "Debug",
+                                           baseConfigurationAnchor: synchronizedGroup,
+                                           baseConfigurationRelativePath: "Configs/DevConfig.xcconfig",
+                                           buildSettings: [:])
+        XCTAssertNil(subject.baseConfigurationReference)
+        XCTAssertNotNil(subject.baseConfigurationReferenceAnchor)
+        XCTAssertNotNil(subject.baseConfigurationReferenceRelativePath)
+    }
+
     private func testDictionary() -> [String: Any] {
         [
             "baseConfigurationReference": "baseConfigurationReference",
