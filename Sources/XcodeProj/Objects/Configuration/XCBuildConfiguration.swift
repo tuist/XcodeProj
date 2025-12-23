@@ -4,10 +4,10 @@ import Foundation
 public final class XCBuildConfiguration: PBXObject {
     // MARK: - Attributes
 
-    /// Base xcconfig file reference.
+    /// Base xcconfig file reference if the file belongs to a ``PBXGroup``.
     var baseConfigurationReference: PBXObjectReference?
 
-    /// Base xcconfig file reference.
+    /// Base xcconfig file reference if the file belongs to a ``PBXGroup``.
     public var baseConfiguration: PBXFileReference? {
         get {
             baseConfigurationReference?.getObject()
@@ -15,6 +15,24 @@ public final class XCBuildConfiguration: PBXObject {
         set {
             if let newValue {
                 baseConfigurationReference = newValue.reference
+            }
+        }
+    }
+
+    /// Reference to a ``PBXFileSystemSynchronizedRootGroup`` containing the base xcconfig file.
+    var baseConfigurationReferenceAnchor: PBXObjectReference?
+
+    /// Base xcconfig file path relative to the `baseConfigurationAnchor`.
+    public var baseConfigurationReferenceRelativePath: String?
+
+    /// ``PBXFileSystemSynchronizedRootGroup`` containing the base xcconfig file.
+    public var baseConfigurationAnchor: PBXFileSystemSynchronizedRootGroup? {
+        get {
+            baseConfigurationReferenceAnchor?.getObject()
+        }
+        set {
+            if let newValue {
+                baseConfigurationReferenceAnchor = newValue.reference
             }
         }
     }
@@ -31,12 +49,23 @@ public final class XCBuildConfiguration: PBXObject {
     ///
     /// - Parameters:
     ///   - name: build configuration name.
-    ///   - baseConfiguration: base configuration.
+    ///   - baseConfiguration: base configuration reference belonging to a group.
+    ///   - baseConfigurationAnchor: the leaf file system synchronized group that contains the base xcconfig file as a descendant.
+    ///   - baseConfigurationRelativePath: relative path from `baseConfigurationAnchor` to the base xcconfig file.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
+    ///
+    /// - Important:
+    ///     The `baseConfiguration` parameter should be used if the configuration file belongs to a``PBXGroup``.
+    ///     If the configuration file belongs to a ``PBXFileSystemSynchronizedRootGroup``, use the `baseConfigurationAnchor`
+    ///     and `baseConfigurationRelativePath` parameters to address the file instead.
     public init(name: String,
                 baseConfiguration: PBXFileReference? = nil,
+                baseConfigurationAnchor: PBXFileSystemSynchronizedRootGroup? = nil,
+                baseConfigurationRelativePath: String? = nil,
                 buildSettings: BuildSettings = [:]) {
         baseConfigurationReference = baseConfiguration?.reference
+        baseConfigurationReferenceAnchor = baseConfigurationAnchor?.reference
+        baseConfigurationReferenceRelativePath = baseConfigurationRelativePath
         self.buildSettings = buildSettings
         self.name = name
         super.init()
@@ -46,6 +75,8 @@ public final class XCBuildConfiguration: PBXObject {
 
     fileprivate enum CodingKeys: String, CodingKey {
         case baseConfigurationReference
+        case baseConfigurationReferenceAnchor
+        case baseConfigurationReferenceRelativePath
         case buildSettings
         case name
     }
@@ -54,10 +85,15 @@ public final class XCBuildConfiguration: PBXObject {
         let objects = decoder.context.objects
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+        // configuration files may be reference by either a pair of PBXFileSystemSynchronizedRootGroup and relative path (Xcode 16)
+        // or a PBXFileReference if the file belongs to a PBXGroup
+        if let baseConfigurationReferenceAnchor: String = try container.decodeIfPresent(.baseConfigurationReferenceAnchor),
+           let baseConfigurationReferenceRelativePath: String = try container.decodeIfPresent(.baseConfigurationReferenceRelativePath)
+        {
+            self.baseConfigurationReferenceAnchor = objectReferenceRepository.getOrCreate(reference: baseConfigurationReferenceAnchor, objects: objects)
+            self.baseConfigurationReferenceRelativePath = baseConfigurationReferenceRelativePath
+        } else if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
             self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
-        } else {
-            baseConfigurationReference = nil
         }
         buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
         name = try container.decode(.name)
@@ -104,7 +140,13 @@ extension XCBuildConfiguration: PlistSerializable {
         dictionary["isa"] = .string(CommentedString(XCBuildConfiguration.isa))
         dictionary["name"] = .string(CommentedString(name))
         dictionary["buildSettings"] = buildSettings.plist()
-        if let baseConfigurationReference {
+        if let baseConfigurationReferenceAnchor,
+           let baseConfigurationReferenceRelativePath
+        {
+            let synchronizedGroup: PBXFileSystemSynchronizedRootGroup? = baseConfigurationReferenceAnchor.getObject()
+            dictionary["baseConfigurationReferenceAnchor"] = .string(CommentedString(baseConfigurationReferenceAnchor.value, comment: synchronizedGroup?.name))
+            dictionary["baseConfigurationReferenceRelativePath"] = .string(CommentedString(baseConfigurationReferenceRelativePath))
+        } else if let baseConfigurationReference {
             let fileElement: PBXFileElement? = baseConfigurationReference.getObject()
             dictionary["baseConfigurationReference"] = .string(CommentedString(baseConfigurationReference.value, comment: fileElement?.fileName()))
         }
