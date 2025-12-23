@@ -1,10 +1,3 @@
-//
-//  Xcode16BuildConfigurationsApp.swift
-//  Xcode16BuildConfigurations
-//
-//  Created by John Bent on 12/23/25.
-//
-
 import SwiftUI
 
 @main
