@@ -94,7 +94,12 @@ public final class PBXShellScriptBuildPhase: PBXBuildPhase {
         inputPaths = try (container.decodeIfPresent(.inputPaths)) ?? []
         outputPaths = try (container.decodeIfPresent(.outputPaths)) ?? []
         shellPath = try container.decodeIfPresent(.shellPath)
-        shellScript = try container.decodeIfPresent(.shellScript)
+        // Xcode 16.0 introduced a new format for shellScript, so we need to handle both cases.
+        if let scriptArray = try? container.decodeIfPresent([String].self, forKey: .shellScript) {
+            shellScript = scriptArray.joined(separator: "\n")
+        } else {
+            shellScript = try container.decodeIfPresent(.shellScript)
+        }
         showEnvVarsInLog = try container.decodeIntBoolIfPresent(.showEnvVarsInLog) ?? true
         alwaysOutOfDate = try container.decodeIntBoolIfPresent(.alwaysOutOfDate) ?? false
         dependencyFile = try container.decodeIfPresent(.dependencyFile)
