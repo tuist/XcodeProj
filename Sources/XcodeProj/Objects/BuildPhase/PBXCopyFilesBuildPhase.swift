@@ -2,7 +2,9 @@ import Foundation
 
 /// This is the element for the copy file build phase.
 public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
-    public enum SubFolder: UInt, Decodable {
+    
+    @available(*, deprecated, renamed: "SubFolder", message: "May become obsolete in the future in favor of dstSubfolder")
+    public enum SubFolderSpec: UInt, Decodable {
         case absolutePath = 0
         case productsDirectory = 16
         case wrapper = 1
@@ -15,6 +17,22 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
         case plugins = 13
         case other
     }
+  
+    public enum SubFolder: String, Decodable {
+        case absolutePath = "AbsolutePath"
+        case productsDirectory = "ProductsDirectory"
+        case wrapper = "Wrapper"
+        case executables = "Executables"
+        case resources = "Resources"
+        case javaResources = "JavaResources"
+        case frameworks = "Frameworks"
+        case sharedFrameworks = "SharedFrameworks"
+        case sharedSupport = "SharedSupport"
+        case plugins = "PlugIns"
+        case other = "Other"
+        case product = "Product"
+        case none = "None"
+    }
 
     // MARK: - Attributes
 
@@ -22,7 +40,9 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public var dstPath: String?
 
     /// Element destination subfolder spec
-    public var dstSubfolderSpec: SubFolder?
+    public var dstSubfolderSpec: SubFolderSpec?
+  
+    public var dstSubfolder: SubFolder?
 
     /// Copy files build phase name
     public var name: String?
@@ -42,13 +62,15 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     ///   - files: Build files to copy.
     ///   - runOnlyForDeploymentPostprocessing: Run only for deployment post processing.
     public init(dstPath: String? = nil,
-                dstSubfolderSpec: SubFolder? = nil,
+                dstSubfolderSpec: SubFolderSpec? = nil,
+                dstSubfolder: SubFolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 files: [PBXBuildFile] = [],
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
+        self.dstSubfolder = dstSubfolder
         self.name = name
         super.init(files: files,
                    buildActionMask: buildActionMask,
@@ -61,13 +83,15 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     fileprivate enum CodingKeys: String, CodingKey {
         case dstPath
         case dstSubfolderSpec
+        case dstSubfolder
         case name
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dstPath = try container.decodeIfPresent(.dstPath)
-        dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolder.init)
+        dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolderSpec.init)
+        dstSubfolder = try container.decodeIfPresent(.dstSubfolder)
         name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
@@ -92,6 +116,9 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         }
         if let dstSubfolderSpec {
             dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
+        }
+        if let dstSubfolder {
+            dictionary["dstSubfolder"] = .string(CommentedString("\(dstSubfolder.rawValue)"))
         }
         return (key: CommentedString(reference, comment: name ?? "CopyFiles"), value: .dictionary(dictionary))
     }
