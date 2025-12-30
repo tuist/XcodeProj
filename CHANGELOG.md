@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.7.2] - 2025-12-30
+### Details
+#### Documentation
+- Add michaelversus as a contributor for code by @allcontributors[bot] in [#1036](https://github.com/tuist/XcodeProj/pull/1036)
+
 ## [9.7.1] - 2025-12-26
 ### Details
 #### Bug Fixes
@@ -228,6 +233,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.7.2]: https://github.com/tuist/XcodeProj/compare/9.7.1..9.7.2
 [9.7.1]: https://github.com/tuist/XcodeProj/compare/9.7.0..9.7.1
 [9.7.0]: https://github.com/tuist/XcodeProj/compare/9.6.0..9.7.0
 [9.6.0]: https://github.com/tuist/XcodeProj/compare/9.5.0..9.6.0
