@@ -102,6 +102,34 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         XCTAssertEqual(PBXCopyFilesBuildPhase.isa, "PBXCopyFilesBuildPhase")
     }
 
+    // MARK: - dstSubfolder String Format Tests (Xcode 16+)
+
+    func test_subFolder_stringValue_frameworks() {
+        XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.frameworks.stringValue, "Frameworks")
+    }
+
+    func test_subFolder_stringValue_resources() {
+        XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder.resources.stringValue, "Resources")
+    }
+
+    func test_subFolder_initFromString_frameworks() {
+        XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder(string: "Frameworks"), .frameworks)
+    }
+
+    func test_subFolder_initFromString_resources() {
+        XCTAssertEqual(PBXCopyFilesBuildPhase.SubFolder(string: "Resources"), .resources)
+    }
+
+    func test_subFolder_initFromString_invalidValue() {
+        XCTAssertNil(PBXCopyFilesBuildPhase.SubFolder(string: "InvalidValue"))
+    }
+
+    func test_decode_dstSubfolder_stringFormat() {
+        // Test that SubFolder can be initialized from string
+        let subFolder = PBXCopyFilesBuildPhase.SubFolder(string: "Frameworks")
+        XCTAssertEqual(subFolder, .frameworks, "Expected dstSubfolder to be .frameworks")
+    }
+
     func testDictionary() -> [String: Any] {
         [
             "dstPath": "dstPath",
@@ -112,4 +140,5 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
             "reference": "reference",
         ]
     }
+
 }
