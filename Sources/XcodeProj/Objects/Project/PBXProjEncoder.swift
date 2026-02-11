@@ -484,13 +484,16 @@ final class PBXProjEncoder {
         for project in projects {
             /// The project references are sorted alphabetically based on the name of the project it's being referenced.
             project.projectReferences = project.projectReferences.sorted(by: { lhs, rhs in
-                let lProjectRef = lhs["ProjectRef"]!
-                let lFile: PBXFileElement = lProjectRef.getObject()!
-                let rProjectRef = rhs["ProjectRef"]!
-                let rFile: PBXFileElement = rProjectRef.getObject()!
-                let lName = lFile.name!
-                let rName = rFile.name!
-                return lName.compare(rName, options: .caseInsensitive) == .orderedAscending
+                guard
+                  let lRef = lhs["ProjectRef"],
+                  let rRef = rhs["ProjectRef"],
+                  let lFile: PBXFileElement = lRef.getObject(),
+                  let rFile: PBXFileElement = rRef.getObject()
+                else { return false }
+
+                let lDisplay = lFile.name ?? lFile.path ?? ""
+                let rDisplay = rFile.name ?? rFile.path ?? ""
+                return lDisplay.localizedCaseInsensitiveCompare(rDisplay) == .orderedAscending
             })
         }
     }
