@@ -298,6 +298,8 @@ class PBXObjects: Equatable {
             return _buildRules.remove(at: index).value
         } else if let index = remoteSwiftPackageReferences.index(forKey: reference) {
             return _remoteSwiftPackageReferences.remove(at: index).value
+        } else if let index = localSwiftPackageReferences.index(forKey: reference) {
+            return _localSwiftPackageReferences.remove(at: index).value
         } else if let index = swiftPackageProductDependencies.index(forKey: reference) {
             return _swiftPackageProductDependencies.remove(at: index).value
         } else if let index = fileSystemSynchronizedRootGroups.index(forKey: reference) {
