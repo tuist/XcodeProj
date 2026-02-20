@@ -6,12 +6,14 @@ extension PBXFileSystemSynchronizedBuildFileExceptionSet {
                         publicHeaders: [String]? = [],
                         privateHeaders: [String]? = [],
                         additionalCompilerFlagsByRelativePath: [String: String]? = nil,
-                        attributesByRelativePath: [String: [String]]? = nil) -> PBXFileSystemSynchronizedBuildFileExceptionSet {
+                        attributesByRelativePath: [String: [String]]? = nil,
+                        platformFiltersByRelativePath: [String: [String]]? = nil) -> PBXFileSystemSynchronizedBuildFileExceptionSet {
         PBXFileSystemSynchronizedBuildFileExceptionSet(target: target,
                                                        membershipExceptions: membershipExceptions,
                                                        publicHeaders: publicHeaders,
                                                        privateHeaders: privateHeaders,
                                                        additionalCompilerFlagsByRelativePath: additionalCompilerFlagsByRelativePath,
-                                                       attributesByRelativePath: attributesByRelativePath)
+                                                       attributesByRelativePath: attributesByRelativePath,
+                                                       platformFiltersByRelativePath: platformFiltersByRelativePath)
     }
 }
