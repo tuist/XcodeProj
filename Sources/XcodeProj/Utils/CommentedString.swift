@@ -54,35 +54,28 @@ struct CommentedString {
         }
 
         var str = string
-        return str.withUTF8 { buf -> String in
-            let containsInvalidCharacters = buf.containsInvalidCharacters
+        return str.withUTF8 { buffer -> String in
+            let containsInvalidCharacters = buffer.containsInvalidCharacters
 
-            if !containsInvalidCharacters {
-                let containsSpecialCheckCharacters = buf.containsSpecialCheckCharacters
+            if !containsInvalidCharacters() {
+                let containsSpecialCheckCharacters = buffer.containsSpecialCheckCharacters()
 
                 if !containsSpecialCheckCharacters {
                     return string
-                } else if !buf.containsCString(ContiguousArray.slashesUTF8CString),
-                          !buf.containsCString(ContiguousArray.threeUnderscoresUTF8CString) {
+                } else if !buffer.containsCString(ContiguousArray.slashesUTF8CString),
+                          !buffer.containsCString(ContiguousArray.threeUnderscoresUTF8CString) {
                     return string
                 }
             }
 
             // calculate exact size
-            let escapedCapacity = buf.escapedCommentCapacity
+            let escapedCapacity = buffer.escapedCommentCapacity()
 
-            if #available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, visionOS 1.0, *) {
-                // write directly into String storage
-                return String(unsafeUninitializedCapacity: escapedCapacity) { dst in
-                    dst.fillValidString(from: buf)
+            // write directly into String storage
+            return String(unsafeUninitializedCapacity: escapedCapacity) { stringBuffer in
+                stringBuffer.fillValidString(from: buffer)
 
-                    return escapedCapacity
-                }
-            } else {
-                let validStringBuffer = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: escapedCapacity)
-                validStringBuffer.fillValidString(from: buf)
-
-                return String(decoding: validStringBuffer, as: UTF8.self)
+                return escapedCapacity
             }
         }
     }
@@ -120,14 +113,14 @@ extension CommentedString: ExpressibleByStringLiteral {
 
 private extension UnsafeMutableBufferPointer<UInt8> {
     /// Fills preallocated `UnsafeBufferPointer<UInt8>`
-    func fillValidString(from buf: UnsafeBufferPointer<UInt8>) {
+    func fillValidString(from buffer: UnsafeBufferPointer<UInt8>) {
         var outIndex = 0
         
         self[outIndex] = .doubleQuotes
         outIndex += 1
         
-        for ch in buf {
-            switch ch {
+        for character in buffer {
+            switch character {
             case .backslash:
                 self[outIndex] = .backslash
                 self[outIndex + 1] = .backslash
@@ -149,7 +142,7 @@ private extension UnsafeMutableBufferPointer<UInt8> {
                 outIndex += 2
                 
             default:
-                self[outIndex] = ch
+                self[outIndex] = character
                 outIndex += 1
             }
         }
@@ -164,22 +157,22 @@ private extension UnsafeBufferPointer<UInt8> {
     /// 2. `.`...`9`
     /// 3. `A`...`Z`
     /// 4. `a`...`z`
-    var containsInvalidCharacters: Bool {
-        for ch in self {
-            // ch == '_' || ch == '$'
-            if ch == .underscore || ch == .dollar {
+    func containsInvalidCharacters() -> Bool {
+        for character in self {
+            // character == '_' || character == '$'
+            if character == .underscore || character == .dollar {
                 continue
             }
-            // ch >= '.' && ch <= '9'
-            if ch >= .dot && ch <= .nine {
+            // character >= '.' && character <= '9'
+            if character >= .dot && character <= .nine {
                 continue
             }
-            // ch >= 'A' && ch <= 'Z'
-            if ch >= .capitalA && ch <= .capitalZ {
+            // character >= 'A' && character <= 'Z'
+            if character >= .capitalA && character <= .capitalZ {
                 continue
             }
-            // ch >= 'a' && ch <= 'z'
-            if ch >= .smallA && ch <= .smallZ {
+            // character >= 'a' && character <= 'z'
+            if character >= .smallA && character <= .smallZ {
                 continue
             }
 
@@ -190,9 +183,9 @@ private extension UnsafeBufferPointer<UInt8> {
     }
 
     /// Special check characters are `_` and `/`
-    var containsSpecialCheckCharacters: Bool {
-        for ch in self {
-            if ch == .underscore || ch == .slash {
+    func containsSpecialCheckCharacters() -> Bool {
+        for character in self {
+            if character == .underscore || character == .slash {
                 return true
             }
         }
@@ -202,11 +195,11 @@ private extension UnsafeBufferPointer<UInt8> {
 
     /// Calculates escaped string size
     /// Basically, `count + count(where: { [.backslash, .doubleQuotes, .tab, .newline].contains($0) }`
-    var escapedCommentCapacity: Int {
+    func escapedCommentCapacity() -> Int {
         var escapeCount = 0
 
-        for ch in self {
-            switch ch {
+        for character in self {
+            switch character {
             case .backslash, .doubleQuotes, .tab, .newline:
                 escapeCount += 1   // each adds one extra byte
             default:
