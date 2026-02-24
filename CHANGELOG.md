@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.9.0] - 2026-02-24
+### Details
+#### Features
+- Add delete support for XCLocalSwiftPackageReference by @Kosikowski in [#1044](https://github.com/tuist/XcodeProj/pull/1044)
+
+## New Contributors
+* @Kosikowski made their first contribution in [#1044](https://github.com/tuist/XcodeProj/pull/1044)
 ## [9.8.0] - 2026-02-20
 ### Details
 #### Features
@@ -238,6 +245,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+[9.9.0]: https://github.com/tuist/XcodeProj/compare/9.8.0..9.9.0
 [9.8.0]: https://github.com/tuist/XcodeProj/compare/9.7.2..9.8.0
 [9.7.2]: https://github.com/tuist/XcodeProj/compare/9.7.1..9.7.2
 [9.7.1]: https://github.com/tuist/XcodeProj/compare/9.7.0..9.7.1
