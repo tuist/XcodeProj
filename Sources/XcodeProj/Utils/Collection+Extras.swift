@@ -1,5 +1,4 @@
 extension Collection where Element: BinaryInteger, Index == Int {
-
     @inlinable
     @inline(__always)
     func containsCString<T: BidirectionalCollection>(_ cString: T) -> Bool where T.Element: BinaryInteger, T.Index == Int {

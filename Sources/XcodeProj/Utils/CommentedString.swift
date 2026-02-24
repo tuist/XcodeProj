@@ -115,38 +115,38 @@ private extension UnsafeMutableBufferPointer<UInt8> {
     /// Fills preallocated `UnsafeBufferPointer<UInt8>`
     func fillValidString(from buffer: UnsafeBufferPointer<UInt8>) {
         var outIndex = 0
-        
+
         self[outIndex] = .doubleQuotes
         outIndex += 1
-        
+
         for character in buffer {
             switch character {
             case .backslash:
                 self[outIndex] = .backslash
                 self[outIndex + 1] = .backslash
                 outIndex += 2
-                
+
             case .doubleQuotes:
                 self[outIndex] = .backslash
                 self[outIndex + 1] = .doubleQuotes
                 outIndex += 2
-                
+
             case .tab:
                 self[outIndex] = .backslash
                 self[outIndex + 1] = .smallT
                 outIndex += 2
-                
+
             case .newline:
                 self[outIndex] = .backslash
                 self[outIndex + 1] = .smallN
                 outIndex += 2
-                
+
             default:
                 self[outIndex] = character
                 outIndex += 1
             }
         }
-        
+
         self[outIndex] = .doubleQuotes
     }
 }
@@ -164,15 +164,15 @@ private extension UnsafeBufferPointer<UInt8> {
                 continue
             }
             // character >= '.' && character <= '9'
-            if character >= .dot && character <= .nine {
+            if character >= .dot, character <= .nine {
                 continue
             }
             // character >= 'A' && character <= 'Z'
-            if character >= .capitalA && character <= .capitalZ {
+            if character >= .capitalA, character <= .capitalZ {
                 continue
             }
             // character >= 'a' && character <= 'z'
-            if character >= .smallA && character <= .smallZ {
+            if character >= .smallA, character <= .smallZ {
                 continue
             }
 
@@ -201,14 +201,14 @@ private extension UnsafeBufferPointer<UInt8> {
         for character in self {
             switch character {
             case .backslash, .doubleQuotes, .tab, .newline:
-                escapeCount += 1   // each adds one extra byte
+                escapeCount += 1 // each adds one extra byte
             default:
                 break
             }
         }
 
-        return count        // original bytes
-             + escapeCount  // extra escape bytes
-             + 2            // surrounding quotes
+        return count // original bytes
+            + escapeCount // extra escape bytes
+            + 2 // surrounding quotes
     }
 }
