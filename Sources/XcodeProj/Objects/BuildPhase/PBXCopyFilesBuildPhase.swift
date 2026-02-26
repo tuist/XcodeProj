@@ -16,6 +16,67 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
         case other
     }
 
+    public enum DstSubfolder: Equatable, Decodable {
+        case absolutePath
+        case productsDirectory
+        case wrapper
+        case executables
+        case resources
+        case javaResources
+        case frameworks
+        case sharedFrameworks
+        case sharedSupport
+        case plugins
+        case other
+        case product
+        case none
+        case unknown(String)
+
+        public init(rawValue: String) {
+            switch rawValue {
+            case "AbsolutePath": self = .absolutePath
+            case "ProductsDirectory": self = .productsDirectory
+            case "Wrapper": self = .wrapper
+            case "Executables": self = .executables
+            case "Resources": self = .resources
+            case "JavaResources": self = .javaResources
+            case "Frameworks": self = .frameworks
+            case "SharedFrameworks": self = .sharedFrameworks
+            case "SharedSupport": self = .sharedSupport
+            case "PlugIns": self = .plugins
+            case "Other": self = .other
+            case "Product": self = .product
+            case "None": self = .none
+            default: self = .unknown(rawValue)
+            }
+        }
+
+        public var rawValue: String {
+            switch self {
+            case .absolutePath: "AbsolutePath"
+            case .productsDirectory: "ProductsDirectory"
+            case .wrapper: "Wrapper"
+            case .executables: "Executables"
+            case .resources: "Resources"
+            case .javaResources: "JavaResources"
+            case .frameworks: "Frameworks"
+            case .sharedFrameworks: "SharedFrameworks"
+            case .sharedSupport: "SharedSupport"
+            case .plugins: "PlugIns"
+            case .other: "Other"
+            case .product: "Product"
+            case .none: "None"
+            case let .unknown(rawValue): rawValue
+            }
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            let rawValue = try container.decode(String.self)
+            self = .init(rawValue: rawValue)
+        }
+    }
+
     // MARK: - Attributes
 
     /// Element destination path
@@ -23,6 +84,8 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
 
     /// Element destination subfolder spec
     public var dstSubfolderSpec: SubFolder?
+
+    public var dstSubfolder: DstSubfolder?
 
     /// Copy files build phase name
     public var name: String?
@@ -38,17 +101,20 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     /// - Parameters:
     ///   - dstPath: Destination path.
     ///   - dstSubfolderSpec: Destination subfolder spec.
+    ///   - dstSubfolder: Destination subfolder.
     ///   - buildActionMask: Build action mask.
     ///   - files: Build files to copy.
     ///   - runOnlyForDeploymentPostprocessing: Run only for deployment post processing.
     public init(dstPath: String? = nil,
                 dstSubfolderSpec: SubFolder? = nil,
+                dstSubfolder: DstSubfolder? = nil,
                 name: String? = nil,
                 buildActionMask: UInt = defaultBuildActionMask,
                 files: [PBXBuildFile] = [],
                 runOnlyForDeploymentPostprocessing: Bool = false) {
         self.dstPath = dstPath
         self.dstSubfolderSpec = dstSubfolderSpec
+        self.dstSubfolder = dstSubfolder
         self.name = name
         super.init(files: files,
                    buildActionMask: buildActionMask,
@@ -61,6 +127,7 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
     fileprivate enum CodingKeys: String, CodingKey {
         case dstPath
         case dstSubfolderSpec
+        case dstSubfolder
         case name
     }
 
@@ -68,6 +135,7 @@ public final class PBXCopyFilesBuildPhase: PBXBuildPhase {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         dstPath = try container.decodeIfPresent(.dstPath)
         dstSubfolderSpec = try container.decodeIntIfPresent(.dstSubfolderSpec).flatMap(SubFolder.init)
+        dstSubfolder = try container.decodeIfPresent(.dstSubfolder)
         name = try container.decodeIfPresent(.name)
         try super.init(from: decoder)
     }
@@ -92,6 +160,9 @@ extension PBXCopyFilesBuildPhase: PlistSerializable {
         }
         if let dstSubfolderSpec {
             dictionary["dstSubfolderSpec"] = .string(CommentedString("\(dstSubfolderSpec.rawValue)"))
+        }
+        if let dstSubfolder {
+            dictionary["dstSubfolder"] = .string(CommentedString("\(dstSubfolder.rawValue)"))
         }
         return (key: CommentedString(reference, comment: name ?? "CopyFiles"), value: .dictionary(dictionary))
     }

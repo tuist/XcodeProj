@@ -76,6 +76,29 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
         } catch {}
     }
 
+    func test_init_decodesDstSubfolder() {
+        var dictionary = testDictionary()
+        dictionary["dstSubfolder"] = "Frameworks"
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = XcodeprojJSONDecoder()
+        do {
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertEqual(phase.dstSubfolder, .frameworks)
+        } catch {}
+    }
+
+    func test_init_decodesUnknownDstSubfolder() {
+        var dictionary = testDictionary()
+        dictionary["dstSubfolder"] = "InvalidSubfolder"
+        let data = try! JSONSerialization.data(withJSONObject: dictionary, options: [])
+        let decoder = XcodeprojJSONDecoder()
+        do {
+            let phase = try decoder.decode(PBXCopyFilesBuildPhase.self, from: data)
+            XCTAssertEqual(phase.dstSubfolder, .unknown("InvalidSubfolder"))
+            XCTAssertEqual(phase.dstSubfolder?.rawValue, "InvalidSubfolder")
+        } catch {}
+    }
+
     func test_init_fails_whenFilesIsMissing() {
         var dictionary = testDictionary()
         dictionary.removeValue(forKey: "files")
@@ -100,6 +123,26 @@ final class PBXCopyFilesBuildPhaseTests: XCTestCase {
 
     func test_isa_returnsTheRightValue() {
         XCTAssertEqual(PBXCopyFilesBuildPhase.isa, "PBXCopyFilesBuildPhase")
+    }
+
+    func test_equal_whenDstSubfolderIsDifferent_returnsFalse() {
+        let lhs = PBXCopyFilesBuildPhase(dstPath: "dstPath",
+                                         dstSubfolderSpec: .frameworks,
+                                         dstSubfolder: .frameworks,
+                                         name: "Copy")
+        let rhs = PBXCopyFilesBuildPhase(dstPath: "dstPath",
+                                         dstSubfolderSpec: .frameworks,
+                                         dstSubfolder: .resources,
+                                         name: "Copy")
+        XCTAssertNotEqual(lhs, rhs)
+    }
+
+    func test_write_preservesUnknownDstSubfolderRawValue() throws {
+        let subject = PBXCopyFilesBuildPhase(dstSubfolder: .unknown("InvalidSubfolder"))
+        let proj = PBXProj.fixture()
+        let (_, plistValue) = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        XCTAssertEqual(plistValue.dictionary?["dstSubfolder"]?.string, "InvalidSubfolder")
     }
 
     func testDictionary() -> [String: Any] {
