@@ -75,6 +75,7 @@ extension PBXCopyFilesBuildPhase {
     func isEqual(to rhs: PBXCopyFilesBuildPhase) -> Bool {
         if dstPath != rhs.dstPath { return false }
         if dstSubfolderSpec != rhs.dstSubfolderSpec { return false }
+        if dstSubfolder != rhs.dstSubfolder { return false }
         if name != rhs.name { return false }
         return super.isEqual(to: rhs)
     }
