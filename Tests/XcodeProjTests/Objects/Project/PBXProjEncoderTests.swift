@@ -341,6 +341,35 @@
             line = lines.validate(line: "/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */", after: line)
         }
 
+        // MARK: File system synchronized build configuration files
+
+        func test_fileSystemSynchronizedBuildConfigurationFiles() throws {
+            try loadProjectWithConfigurationFilesInSynchronizedGroup()
+            let settings = PBXOutputSettings(projNavigatorFileOrder: .byFilenameGroupsFirst)
+            let lines = lines(fromFile: encodeProject(settings: settings))
+
+            let beginGroup = lines.findLine("/* Begin XCBuildConfiguration section */")
+            var line = lines.validate(line: "9183098E2EFB16F800EE08DF /* Debug */ = {", after: beginGroup)
+            line = lines.validate(line: "isa = XCBuildConfiguration;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceAnchor = 918309872EFB16F800EE08DF /* Xcode16BuildConfigurations */;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceRelativePath = Configs/DevConfig.xcconfig;", after: line)
+
+            line = lines.validate(line: "9183098F2EFB16F800EE08DF /* Release */ = {", after: line)
+            line = lines.validate(line: "isa = XCBuildConfiguration;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceAnchor = 918309872EFB16F800EE08DF /* Xcode16BuildConfigurations */;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceRelativePath = Configs/ReleaseConfig.xcconfig;", after: line)
+
+            line = lines.validate(line: "918309912EFB16F800EE08DF /* Debug */ = {", after: line)
+            line = lines.validate(line: "isa = XCBuildConfiguration;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceAnchor = 918309872EFB16F800EE08DF /* Xcode16BuildConfigurations */;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceRelativePath = Configs/TargetConfig.xcconfig;", after: line)
+
+            line = lines.validate(line: "918309922EFB16F800EE08DF /* Release */ = {", after: line)
+            line = lines.validate(line: "isa = XCBuildConfiguration;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceAnchor = 918309872EFB16F800EE08DF /* Xcode16BuildConfigurations */;", after: line)
+            line = lines.validate(line: "baseConfigurationReferenceRelativePath = Configs/TargetConfig.xcconfig;", after: line)
+        }
+
         // MARK: - Projects
 
         func test_ProjectReferenceOrder() throws {
@@ -557,6 +586,10 @@
 
         private func loadProjectWithShellScriptBuildPhase() throws {
             proj = try PBXProj(data: projectWithCustomShellScript())
+        }
+
+        private func loadProjectWithConfigurationFilesInSynchronizedGroup() throws {
+            proj = try PBXProj(data: projectWithConfigurationFilesInSynchronizedGroup())
         }
     }
 
