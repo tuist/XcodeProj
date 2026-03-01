@@ -45,6 +45,9 @@ final class XCSchemeManagementTests: XCTestCase {
     }
 
     func test_write_produces_no_diff() throws {
+        #if os(iOS)
+        throw XCTSkip("'Process' API is unavailable on iOS platform")
+        #else
         let tmpDir = try Path.uniqueTemporary()
         defer {
             try? tmpDir.delete()
@@ -77,6 +80,7 @@ final class XCSchemeManagementTests: XCTestCase {
             let got = try checkedOutput("git", ["status"])
             XCTAssertTrue(got?.contains("nothing to commit") ?? false)
         }
+        #endif
     }
 
     private var xcschememanagementPath: Path {

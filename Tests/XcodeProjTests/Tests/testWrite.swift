@@ -45,6 +45,9 @@ func testReadWriteProducesNoDiff(file _: StaticString = #file,
                                  from path: Path,
                                  initModel: (Path) throws -> some Writable) throws
 {
+    #if os(iOS)
+    throw XCTSkip("'Process' API is unavailable on iOS platform")
+    #else
     let tmpDir = try Path.uniqueTemporary()
     defer {
         try? tmpDir.delete()
@@ -69,4 +72,5 @@ func testReadWriteProducesNoDiff(file _: StaticString = #file,
         let diff = try XCTUnwrap(checkedOutput("git", ["diff"]))
         XCTAssertEqual(diff, "")
     }
+    #endif
 }
