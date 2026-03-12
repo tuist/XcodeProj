@@ -96,6 +96,11 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXFileSystemSynchr
 
     // MARK: - PlistSerializable
 
+    override var plistComment: String {
+        let folder = synchronizedRootGroup?.fileName() ?? ""
+        return "Exceptions for \"\(folder)\" folder in \"\(target.name)\" target"
+    }
+
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(PBXFileSystemSynchronizedBuildFileExceptionSet.isa))
@@ -124,6 +129,6 @@ public class PBXFileSystemSynchronizedBuildFileExceptionSet: PBXFileSystemSynchr
             }))
         }
         dictionary["target"] = .string(CommentedString(target.reference.value, comment: target.name))
-        return (key: CommentedString(reference, comment: "PBXFileSystemSynchronizedBuildFileExceptionSet"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: plistComment), value: .dictionary(dictionary))
     }
 }
