@@ -93,13 +93,16 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
                 .string(CommentedString(exception.reference.value, comment: type(of: exception).isa))
             })
         }
-        if let explicitFileTypes {
+        if let explicitFileTypes, !explicitFileTypes.isEmpty {
             dictionary["explicitFileTypes"] = .dictionary(Dictionary(uniqueKeysWithValues: explicitFileTypes.map { relativePath, fileType in
                 (CommentedString(relativePath), .string(CommentedString(fileType)))
             }))
         }
-        if let explicitFolders {
+        if let explicitFolders, !explicitFolders.isEmpty {
             dictionary["explicitFolders"] = .array(explicitFolders.map { .string(CommentedString($0)) })
+        }
+        if name == path {
+            dictionary["name"] = nil
         }
         return (key: CommentedString(reference,
                                      comment: name ?? path),
