@@ -85,12 +85,17 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
 
     override var multiline: Bool { (exceptions?.count ?? 0) < 2 }
 
+    override func assignParentToChildren() {
+        super.assignParentToChildren()
+        exceptions?.forEach { $0.synchronizedRootGroup = self }
+    }
+
     override func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = try super.plistKeyAndValue(proj: proj, reference: reference).value.dictionary ?? [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
         if let exceptions, !exceptions.isEmpty {
             dictionary["exceptions"] = .array(exceptions.map { exception in
-                .string(CommentedString(exception.reference.value, comment: type(of: exception).isa))
+                .string(CommentedString(exception.reference.value, comment: exception.plistComment))
             })
         }
         if let explicitFileTypes, !explicitFileTypes.isEmpty {
