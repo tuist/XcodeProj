@@ -83,8 +83,6 @@ public class PBXFileSystemSynchronizedRootGroup: PBXFileElement {
 
     // MARK: - PlistSerializable
 
-    override var multiline: Bool { (exceptions?.count ?? 0) < 2 }
-
     override func assignParentToChildren() {
         super.assignParentToChildren()
         exceptions?.forEach { $0.synchronizedRootGroup = self }
