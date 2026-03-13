@@ -427,6 +427,14 @@ public extension XCScheme {
                 element.addChild(runnable.xmlElement())
             }
 
+            if let commandlineArguments, !commandlineArguments.arguments.isEmpty {
+                element.addChild(commandlineArguments.xmlElement())
+            }
+
+            if let environmentVariables {
+                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
+            }
+
             if let locationScenarioReference {
                 element.addChild(locationScenarioReference.xmlElement())
             }
@@ -434,14 +442,6 @@ public extension XCScheme {
             if let macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
-            }
-
-            if let commandlineArguments {
-                element.addChild(commandlineArguments.xmlElement())
-            }
-
-            if let environmentVariables {
-                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
             }
 
             if let language {

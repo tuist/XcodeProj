@@ -328,6 +328,7 @@ public enum Xcode {
         "xcsynspec": "text.plist.xcsynspec",
         "xctarget": "wrapper.pb-target",
         "xctest": "wrapper.cfbundle",
+        "xctestplan": "text",
         "xctxtmacro": "text.plist.xctxtmacro",
         "xcworkspace": "wrapper.workspace",
         "xhtml": "text.xml",
