@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
-      - uses: jdx/mise-action@v3
+      - uses: jdx/mise-action@v4
         with:
           experimental: true
       - name: Check if there are releasable changes
