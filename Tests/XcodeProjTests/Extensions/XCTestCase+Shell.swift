@@ -3,6 +3,7 @@ import Foundation
 /// Returns the output of running `executable` with `args`. Throws an error if the process exits indicating failure.
 @discardableResult
 func checkedOutput(_ executable: String, _ args: [String]) throws -> String? {
+    #if os(macOS)
     let process = Process()
     let output = Pipe()
 
@@ -22,4 +23,7 @@ func checkedOutput(_ executable: String, _ args: [String]) throws -> String? {
     }
 
     return String(data: output.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)
+    #else
+    return nil
+    #endif
 }
