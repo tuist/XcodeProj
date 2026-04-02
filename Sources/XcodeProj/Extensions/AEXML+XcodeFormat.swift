@@ -58,6 +58,7 @@ let attributesOrder: [String: [String]] = [
         "customWorkingDirectory",
         "ignoresPersistentStateOnLaunch",
         "debugDocumentVersioning",
+        "customLaunchCommand",
         "debugServiceExtension",
         "enableGPUFrameCaptureMode",
         "enableGPUValidationMode",
@@ -89,6 +90,10 @@ let attributesOrder: [String: [String]] = [
         "skipped",
         "parallelizable",
         "testExecutionOrdering",
+    ],
+    "TestPlanReference": [
+        "reference",
+        "default",
     ],
     "BreakpointContent": [
         "shouldBeEnabled",
