@@ -73,6 +73,27 @@ final class XCSchemeIntegrationTests: XCTestCase {
                       assertion: { assert(minimalScheme: $1) })
     }
 
+    func test_read_debugAsRootScheme() throws {
+        let subject = try XCScheme(path: debugAsRootSchemePath)
+        
+        XCTAssertNotNil(subject.launchAction)
+        XCTAssertEqual(subject.launchAction?.debugAsWhichUser, "root")
+    }
+
+    func test_write_debugAsRootScheme() throws {
+        try testWrite(from: debugAsRootSchemePath,
+                      initModel: { try? XCScheme(path: $0) },
+                      modify: { $0 },
+                      assertion: { _, scheme in
+                          XCTAssertEqual(scheme.launchAction?.debugAsWhichUser, "root")
+                      })
+    }
+
+    func test_read_write_debugAsRootScheme_produces_no_diff() throws {
+        try testReadWriteProducesNoDiff(from: debugAsRootSchemePath,
+                                        initModel: XCScheme.init(path:))
+    }
+
     func test_write_testableReferenceDefaultAttributesValuesAreOmitted() {
         let reference = XCScheme.TestableReference(
             skipped: false,
@@ -945,5 +966,9 @@ final class XCSchemeIntegrationTests: XCTestCase {
 
     private var appClipScheme: Path {
         fixturesPath() + "Schemes/AppClip.xcscheme"
+    }
+
+    private var debugAsRootSchemePath: Path {
+        fixturesPath() + "Schemes/DebugAsRoot.xcscheme"
     }
 }
