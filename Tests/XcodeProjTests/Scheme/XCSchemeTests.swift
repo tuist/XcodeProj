@@ -470,7 +470,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(scheme.testAction?.testables.first?.skipped, false)
         XCTAssertEqual(scheme.testAction?.testables.first?.parallelization, .swiftTestingOnly)
         XCTAssertEqual(scheme.testAction?.testables.first?.randomExecutionOrdering, false)
-        XCTAssertEqual(scheme.testAction?.testables.first?.useTestSelectionWhitelist, false)
+        XCTAssertNil(scheme.testAction?.testables.first?.useTestSelectionWhitelist)
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableIdentifier, "primary")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.blueprintIdentifier, "23766C251EAA3484007A9026")
         XCTAssertEqual(scheme.testAction?.testables.first?.buildableReference.buildableName, "iOSTests.xctest")

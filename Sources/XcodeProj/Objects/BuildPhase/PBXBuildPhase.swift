@@ -144,6 +144,29 @@ public extension PBXBuildPhase {
         buildPhase
     }
 
+    /// Returns the target this build phase belongs to, if any.
+    ///
+    /// - Returns: the owning target, or nil if not found.
+    func target() -> PBXTarget? {
+        guard let projectObjects = try? objects() else { return nil }
+        let allTargets: [PBXTarget] = Array(projectObjects.nativeTargets.values)
+            + Array(projectObjects.legacyTargets.values)
+            + Array(projectObjects.aggregateTargets.values)
+        return allTargets.first { $0.buildPhaseReferences.map(\.value).contains(reference.value) }
+    }
+
+    /// Human-readable display name, used in descriptive comment strings.
+    ///
+    /// - Returns: display name matching Xcode's comment format.
+    func displayName() -> String? {
+        if let phase = self as? PBXCopyFilesBuildPhase {
+            return phase.name ?? "Copy Files"
+        } else if let phase = self as? PBXShellScriptBuildPhase {
+            return phase.name ?? "Run Script"
+        }
+        return name()
+    }
+
     /// Build phase name.
     ///
     /// - Returns: build phase name.
