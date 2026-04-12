@@ -85,6 +85,7 @@ public extension XCScheme {
         public var customLaunchCommand: String?
         public var customLLDBInitFile: String?
         public var appClipInvocationURLString: String?
+        public var debugAsWhichUser: String?
 
         // MARK: - Init
 
@@ -128,7 +129,8 @@ public extension XCScheme {
                     storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
                     customLaunchCommand: String? = nil,
                     customLLDBInitFile: String? = nil,
-                    appClipInvocationURLString: String? = nil) {
+                    appClipInvocationURLString: String? = nil,
+                    debugAsWhichUser: String? = nil) {
             self.runnable = runnable
             self.macroExpansion = macroExpansion
             self.buildConfiguration = buildConfiguration
@@ -168,6 +170,7 @@ public extension XCScheme {
             self.customLaunchCommand = customLaunchCommand
             self.customLLDBInitFile = customLLDBInitFile
             self.appClipInvocationURLString = appClipInvocationURLString
+            self.debugAsWhichUser = debugAsWhichUser
             super.init(preActions, postActions)
         }
 
@@ -214,7 +217,8 @@ public extension XCScheme {
             storeKitConfigurationFileReference: StoreKitConfigurationFileReference? = nil,
             customLaunchCommand: String? = nil,
             customLLDBInitFile: String? = nil,
-            appClipInvocationURLString: String? = nil
+            appClipInvocationURLString: String? = nil,
+            debugAsWhichUser: String? = nil
         ) {
             self.init(
                 runnable: pathRunnable,
@@ -257,7 +261,8 @@ public extension XCScheme {
                 storeKitConfigurationFileReference: storeKitConfigurationFileReference,
                 customLaunchCommand: customLaunchCommand,
                 customLLDBInitFile: customLLDBInitFile,
-                appClipInvocationURLString: appClipInvocationURLString
+                appClipInvocationURLString: appClipInvocationURLString,
+                debugAsWhichUser: debugAsWhichUser
             )
         }
 
@@ -344,6 +349,7 @@ public extension XCScheme {
             }
 
             appClipInvocationURLString = element.attributes["appClipInvocationURLString"]
+            debugAsWhichUser = element.attributes["debugAsWhichUser"]
 
             try super.init(element: element)
         }
@@ -413,6 +419,9 @@ public extension XCScheme {
             }
             if let appClipInvocationURLString {
                 attributes["appClipInvocationURLString"] = appClipInvocationURLString
+            }
+            if let debugAsWhichUser {
+                attributes["debugAsWhichUser"] = debugAsWhichUser
             }
 
             return attributes
@@ -524,7 +533,8 @@ public extension XCScheme {
                 storeKitConfigurationFileReference == rhs.storeKitConfigurationFileReference &&
                 customLaunchCommand == rhs.customLaunchCommand &&
                 customLLDBInitFile == rhs.customLLDBInitFile &&
-                appClipInvocationURLString == rhs.appClipInvocationURLString
+                appClipInvocationURLString == rhs.appClipInvocationURLString &&
+                debugAsWhichUser == rhs.debugAsWhichUser
         }
     }
 }
