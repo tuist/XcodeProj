@@ -75,7 +75,7 @@ final class XCSchemeIntegrationTests: XCTestCase {
 
     func test_read_debugAsRootScheme() throws {
         let subject = try XCScheme(path: debugAsRootSchemePath)
-        
+
         XCTAssertNotNil(subject.launchAction)
         XCTAssertEqual(subject.launchAction?.debugAsWhichUser, "root")
     }
