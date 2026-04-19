@@ -289,6 +289,7 @@ extension XCRemoteSwiftPackageReference {
     func isEqual(to rhs: XCRemoteSwiftPackageReference) -> Bool {
         if repositoryURL != rhs.repositoryURL { return false }
         if versionRequirement != rhs.versionRequirement { return false }
+        if traits != rhs.traits { return false }
         return super.isEqual(to: rhs)
     }
 }
