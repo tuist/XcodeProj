@@ -52,6 +52,98 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         XCTAssertEqual(subject.name, "tuist/xcodeproj")
     }
 
+    // MARK: - Traits
+
+    func test_init_decodesTraits() throws {
+        // Given
+        let decoder = XcodeprojPropertyListDecoder()
+        let plist: [String: [String: Any]] = ["ref": [
+            "relativePath": "path",
+            "traits": ["Foo", "Bar"],
+        ]]
+        let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+
+        // When
+        let decoded = try decoder.decode([String: XCLocalSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
+
+        // Then
+        XCTAssertEqual(got.traits, ["Foo", "Bar"])
+    }
+
+    func test_init_decodesEmptyTraits() throws {
+        // Given
+        let decoder = XcodeprojPropertyListDecoder()
+        let plist: [String: [String: Any]] = ["ref": [
+            "relativePath": "path",
+            "traits": [String](),
+        ]]
+        let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+
+        // When
+        let decoded = try decoder.decode([String: XCLocalSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
+
+        // Then
+        XCTAssertEqual(got.traits, [])
+    }
+
+    func test_plistValues_writesTraits_whenPresent() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCLocalSwiftPackageReference(relativePath: "repository", traits: ["Foo", "Bar"])
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCLocalSwiftPackageReference",
+            "relativePath": "repository",
+            "traits": .array(["Foo", "Bar"]),
+        ]))
+    }
+
+    func test_plistValues_writesEmptyArray_whenEmpty() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCLocalSwiftPackageReference(relativePath: "repository", traits: [])
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCLocalSwiftPackageReference",
+            "relativePath": "repository",
+            "traits": .array([]),
+        ]))
+    }
+
+    func test_plistValues_omitsTraitsKey_whenNil() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCLocalSwiftPackageReference(relativePath: "repository", traits: nil)
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCLocalSwiftPackageReference",
+            "relativePath": "repository",
+        ]))
+    }
+
+    func test_equal_whenTraitsDiffer_returnsFalse() {
+        // When
+        let first = XCLocalSwiftPackageReference(relativePath: "repository", traits: ["Foo"])
+        let second = XCLocalSwiftPackageReference(relativePath: "repository", traits: ["Bar"])
+
+        // Then
+        XCTAssertNotEqual(first, second)
+    }
+
     // MARK: - Add/Delete Tests
 
     func test_add_addsObjectToPBXProj() {

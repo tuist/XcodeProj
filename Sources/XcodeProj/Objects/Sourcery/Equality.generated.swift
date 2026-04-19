@@ -280,6 +280,7 @@ extension XCLocalSwiftPackageReference {
     /// :nodoc:
     func isEqual(to rhs: XCLocalSwiftPackageReference) -> Bool {
         if relativePath != rhs.relativePath { return false }
+        if traits != rhs.traits { return false }
         return super.isEqual(to: rhs)
     }
 }
