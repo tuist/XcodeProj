@@ -75,4 +75,18 @@ final class PBXFileSystemSynchronizedBuildFileExceptionSetTests: XCTestCase {
 
         XCTAssertNil(plistValue.dictionary?[CommentedString("platformFiltersByRelativePath")])
     }
+
+    func test_plistComment_withSynchronizedRootGroup_returnsDescriptiveComment() {
+        let group = PBXFileSystemSynchronizedRootGroup(sourceTree: .group, path: "Sources", exceptions: [subject])
+        XCTAssertEqual(subject.plistComment, "Exceptions for \"Sources\" folder in \"Test\" target")
+        withExtendedLifetime(group) {}
+    }
+
+    func test_plistKeyAndValue_keyComment_matchesPlistComment() throws {
+        let proj = PBXProj()
+        let group = PBXFileSystemSynchronizedRootGroup(sourceTree: .group, path: "Sources", exceptions: [subject])
+        let (key, _) = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+        XCTAssertEqual(key.comment, subject.plistComment)
+        withExtendedLifetime(group) {}
+    }
 }
