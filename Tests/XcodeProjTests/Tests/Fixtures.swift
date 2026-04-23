@@ -55,3 +55,8 @@ func projectWithCustomShellScript() throws -> Data {
     let iosProjectWithShellScript = fixturesPath() + "Xcode16ProjectReferenceOrder/Test.xcodeproj/project.pbxproj"
     return try Data(contentsOf: iosProjectWithShellScript.url)
 }
+
+func projectWithConfigurationFilesInSynchronizedGroup() throws -> Data {
+    let projectWithConfigurationFilesInSynchronizedGroup = fixturesPath() + "Xcode16BuildConfigurations/Xcode16BuildConfigurations.xcodeproj/project.pbxproj"
+    return try Data(contentsOf: projectWithConfigurationFilesInSynchronizedGroup.url)
+}
