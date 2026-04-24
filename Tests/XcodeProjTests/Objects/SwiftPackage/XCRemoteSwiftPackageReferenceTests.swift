@@ -148,4 +148,124 @@ final class XCRemoteSwiftPackageReferenceTests: XCTestCase {
         // Then
         XCTAssertEqual(subject.name, "xcodeproj")
     }
+
+    func test_init_decodesTraits() throws {
+        // Given
+        let decoder = XcodeprojPropertyListDecoder()
+        let plist: [String: [String: Any]] = ["ref": [
+            "repositoryURL": "url",
+            "requirement": [
+                "kind": "exactVersion",
+                "version": "1.2.3",
+            ],
+            "traits": ["Foo", "Bar"],
+        ]]
+        let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+
+        // When
+        let decoded = try decoder.decode([String: XCRemoteSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
+
+        // Then
+        XCTAssertEqual(got.traits, ["Foo", "Bar"])
+    }
+
+    func test_init_decodesEmptyTraits() throws {
+        // Given
+        let decoder = XcodeprojPropertyListDecoder()
+        let plist: [String: [String: Any]] = ["ref": [
+            "repositoryURL": "url",
+            "requirement": [
+                "kind": "exactVersion",
+                "version": "1.2.3",
+            ],
+            "traits": [String](),
+        ]]
+        let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+
+        // When
+        let decoded = try decoder.decode([String: XCRemoteSwiftPackageReference].self, from: data)
+        let got = try XCTUnwrap(decoded["ref"])
+
+        // Then
+        XCTAssertEqual(got.traits, [])
+    }
+
+    func test_plistValues_writesTraits_whenPresent() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCRemoteSwiftPackageReference(repositoryURL: "repository",
+                                                    versionRequirement: .exact("1.2.3"),
+                                                    traits: ["Foo", "Bar"])
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCRemoteSwiftPackageReference",
+            "repositoryURL": "repository",
+            "requirement": .dictionary([
+                "kind": "exactVersion",
+                "version": "1.2.3",
+            ]),
+            "traits": .array(["Foo", "Bar"]),
+        ]))
+    }
+
+    func test_plistValues_writesEmptyArray_whenEmpty() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCRemoteSwiftPackageReference(repositoryURL: "repository",
+                                                    versionRequirement: .exact("1.2.3"),
+                                                    traits: [])
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCRemoteSwiftPackageReference",
+            "repositoryURL": "repository",
+            "requirement": .dictionary([
+                "kind": "exactVersion",
+                "version": "1.2.3",
+            ]),
+            "traits": .array([]),
+        ]))
+    }
+
+    func test_plistValues_omitsTraitsKey_whenNil() throws {
+        // When
+        let proj = PBXProj()
+        let subject = XCRemoteSwiftPackageReference(repositoryURL: "repository",
+                                                    versionRequirement: .exact("1.2.3"),
+                                                    traits: nil)
+
+        // Given
+        let got = try subject.plistKeyAndValue(proj: proj, reference: "ref")
+
+        // Then
+        XCTAssertEqual(got.value, .dictionary([
+            "isa": "XCRemoteSwiftPackageReference",
+            "repositoryURL": "repository",
+            "requirement": .dictionary([
+                "kind": "exactVersion",
+                "version": "1.2.3",
+            ]),
+        ]))
+    }
+
+    func test_equal_whenTraitsDiffer_returnsFalse() {
+        // When
+        let first = XCRemoteSwiftPackageReference(repositoryURL: "repository",
+                                                  versionRequirement: .exact("1.2.3"),
+                                                  traits: ["Foo"])
+        let second = XCRemoteSwiftPackageReference(repositoryURL: "repository",
+                                                   versionRequirement: .exact("1.2.3"),
+                                                   traits: ["Bar"])
+
+        // Then
+        XCTAssertNotEqual(first, second)
+    }
 }
