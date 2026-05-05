@@ -100,6 +100,40 @@ final class XCBuildConfigurationTests: XCTestCase {
         XCTAssertNotNil(subject.baseConfigurationReferenceRelativePath)
     }
 
+    func test_decoding_fails_whenAnchorPresentWithoutRelativePath() throws {
+        let dictionary: [String: Any] = [
+            "baseConfigurationReferenceAnchor": "anchorRef",
+            "buildSettings": [:],
+            "name": "Debug",
+            "reference": "reference",
+        ]
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+
+        XCTAssertThrowsError(try XcodeprojJSONDecoder().decode(XCBuildConfiguration.self, from: data)) { error in
+            guard case let DecodingError.dataCorrupted(context) = error else {
+                return XCTFail("Expected DecodingError.dataCorrupted, got \(error).")
+            }
+            XCTAssertEqual(context.codingPath.last?.stringValue, "baseConfigurationReferenceRelativePath")
+        }
+    }
+
+    func test_decoding_fails_whenRelativePathPresentWithoutAnchor() throws {
+        let dictionary: [String: Any] = [
+            "baseConfigurationReferenceRelativePath": "Configs/DevConfig.xcconfig",
+            "buildSettings": [:],
+            "name": "Debug",
+            "reference": "reference",
+        ]
+        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+
+        XCTAssertThrowsError(try XcodeprojJSONDecoder().decode(XCBuildConfiguration.self, from: data)) { error in
+            guard case let DecodingError.dataCorrupted(context) = error else {
+                return XCTFail("Expected DecodingError.dataCorrupted, got \(error).")
+            }
+            XCTAssertEqual(context.codingPath.last?.stringValue, "baseConfigurationReferenceAnchor")
+        }
+    }
+
     private func testDictionary() -> [String: Any] {
         [
             "baseConfigurationReference": "baseConfigurationReference",

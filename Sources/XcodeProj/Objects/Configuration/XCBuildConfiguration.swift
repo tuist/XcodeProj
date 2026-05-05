@@ -45,26 +45,45 @@ public final class XCBuildConfiguration: PBXObject {
 
     // MARK: - Init
 
-    /// Initializes a build configuration.
+    /// Initializes a build configuration whose base xcconfig (if any) lives in a ``PBXGroup``.
     ///
     /// - Parameters:
     ///   - name: build configuration name.
-    ///   - baseConfiguration: base configuration reference belonging to a group.
-    ///   - baseConfigurationAnchor: the leaf file system synchronized group that contains the base xcconfig file as a descendant.
+    ///   - baseConfiguration: base xcconfig file reference belonging to a ``PBXGroup``.
+    ///   - buildSettings: dictionary that contains the build settings for this configuration.
+    ///
+    /// - Important:
+    ///     If the base xcconfig file lives inside a ``PBXFileSystemSynchronizedRootGroup`` (Xcode 16+), use
+    ///     ``init(name:baseConfigurationAnchor:baseConfigurationRelativePath:buildSettings:)`` instead. The two
+    ///     reference styles are mutually exclusive: a single configuration cannot use both `baseConfiguration` and
+    ///     the anchor/relative-path pair.
+    public init(name: String,
+                baseConfiguration: PBXFileReference? = nil,
+                buildSettings: BuildSettings = [:]) {
+        baseConfigurationReference = baseConfiguration?.reference
+        self.buildSettings = buildSettings
+        self.name = name
+        super.init()
+    }
+
+    /// Initializes a build configuration whose base xcconfig lives inside a ``PBXFileSystemSynchronizedRootGroup``.
+    ///
+    /// - Parameters:
+    ///   - name: build configuration name.
+    ///   - baseConfigurationAnchor: the file system synchronized root group that contains the base xcconfig file as a descendant.
     ///   - baseConfigurationRelativePath: relative path from `baseConfigurationAnchor` to the base xcconfig file.
     ///   - buildSettings: dictionary that contains the build settings for this configuration.
     ///
     /// - Important:
-    ///     The `baseConfiguration` parameter should be used if the configuration file belongs to a``PBXGroup``.
-    ///     If the configuration file belongs to a ``PBXFileSystemSynchronizedRootGroup``, use the `baseConfigurationAnchor`
-    ///     and `baseConfigurationRelativePath` parameters to address the file instead.
+    ///     This initializer is for the Xcode 16+ representation, where xcconfig files inside a synchronized root
+    ///     group are referenced by an anchor + relative path pair. If the base xcconfig file belongs to a regular
+    ///     ``PBXGroup``, use ``init(name:baseConfiguration:buildSettings:)`` instead. The two reference styles are
+    ///     mutually exclusive: a single configuration cannot use both `baseConfiguration` and the anchor/relative-path pair.
     public init(name: String,
-                baseConfiguration: PBXFileReference? = nil,
-                baseConfigurationAnchor: PBXFileSystemSynchronizedRootGroup? = nil,
-                baseConfigurationRelativePath: String? = nil,
+                baseConfigurationAnchor: PBXFileSystemSynchronizedRootGroup,
+                baseConfigurationRelativePath: String,
                 buildSettings: BuildSettings = [:]) {
-        baseConfigurationReference = baseConfiguration?.reference
-        baseConfigurationReferenceAnchor = baseConfigurationAnchor?.reference
+        baseConfigurationReferenceAnchor = baseConfigurationAnchor.reference
         baseConfigurationReferenceRelativePath = baseConfigurationRelativePath
         self.buildSettings = buildSettings
         self.name = name
@@ -85,15 +104,32 @@ public final class XCBuildConfiguration: PBXObject {
         let objects = decoder.context.objects
         let objectReferenceRepository = decoder.context.objectReferenceRepository
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        // configuration files may be reference by either a pair of PBXFileSystemSynchronizedRootGroup and relative path (Xcode 16)
-        // or a PBXFileReference if the file belongs to a PBXGroup
-        if let baseConfigurationReferenceAnchor: String = try container.decodeIfPresent(.baseConfigurationReferenceAnchor),
-           let baseConfigurationReferenceRelativePath: String = try container.decodeIfPresent(.baseConfigurationReferenceRelativePath)
-        {
-            self.baseConfigurationReferenceAnchor = objectReferenceRepository.getOrCreate(reference: baseConfigurationReferenceAnchor, objects: objects)
-            self.baseConfigurationReferenceRelativePath = baseConfigurationReferenceRelativePath
-        } else if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
-            self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
+        // Configuration files may be referenced either by a pair of (PBXFileSystemSynchronizedRootGroup, relative path)
+        // when the xcconfig lives inside a synchronized root group (Xcode 16+), or by a PBXFileReference when it
+        // belongs to a regular PBXGroup. The anchor and relative-path keys are emitted together by Xcode; treat one
+        // without the other as a corrupt pbxproj rather than silently dropping the field.
+        let anchorReference: String? = try container.decodeIfPresent(.baseConfigurationReferenceAnchor)
+        let anchorRelativePath: String? = try container.decodeIfPresent(.baseConfigurationReferenceRelativePath)
+        switch (anchorReference, anchorRelativePath) {
+        case let (anchorReference?, anchorRelativePath?):
+            baseConfigurationReferenceAnchor = objectReferenceRepository.getOrCreate(reference: anchorReference, objects: objects)
+            baseConfigurationReferenceRelativePath = anchorRelativePath
+        case (nil, nil):
+            if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+                self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
+            }
+        case (_?, nil):
+            throw DecodingError.dataCorruptedError(
+                forKey: .baseConfigurationReferenceRelativePath,
+                in: container,
+                debugDescription: "baseConfigurationReferenceAnchor is present but baseConfigurationReferenceRelativePath is missing."
+            )
+        case (nil, _?):
+            throw DecodingError.dataCorruptedError(
+                forKey: .baseConfigurationReferenceAnchor,
+                in: container,
+                debugDescription: "baseConfigurationReferenceRelativePath is present but baseConfigurationReferenceAnchor is missing."
+            )
         }
         buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
         name = try container.decode(.name)
