@@ -106,30 +106,14 @@ public final class XCBuildConfiguration: PBXObject {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         // Configuration files may be referenced either by a pair of (PBXFileSystemSynchronizedRootGroup, relative path)
         // when the xcconfig lives inside a synchronized root group (Xcode 16+), or by a PBXFileReference when it
-        // belongs to a regular PBXGroup. The anchor and relative-path keys are emitted together by Xcode; treat one
-        // without the other as a corrupt pbxproj rather than silently dropping the field.
-        let anchorReference: String? = try container.decodeIfPresent(.baseConfigurationReferenceAnchor)
-        let anchorRelativePath: String? = try container.decodeIfPresent(.baseConfigurationReferenceRelativePath)
-        switch (anchorReference, anchorRelativePath) {
-        case let (anchorReference?, anchorRelativePath?):
-            baseConfigurationReferenceAnchor = objectReferenceRepository.getOrCreate(reference: anchorReference, objects: objects)
-            baseConfigurationReferenceRelativePath = anchorRelativePath
-        case (nil, nil):
-            if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
-                self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
-            }
-        case (_?, nil):
-            throw DecodingError.dataCorruptedError(
-                forKey: .baseConfigurationReferenceRelativePath,
-                in: container,
-                debugDescription: "baseConfigurationReferenceAnchor is present but baseConfigurationReferenceRelativePath is missing."
-            )
-        case (nil, _?):
-            throw DecodingError.dataCorruptedError(
-                forKey: .baseConfigurationReferenceAnchor,
-                in: container,
-                debugDescription: "baseConfigurationReferenceRelativePath is present but baseConfigurationReferenceAnchor is missing."
-            )
+        // belongs to a regular PBXGroup.
+        if let baseConfigurationReferenceAnchor: String = try container.decodeIfPresent(.baseConfigurationReferenceAnchor),
+           let baseConfigurationReferenceRelativePath: String = try container.decodeIfPresent(.baseConfigurationReferenceRelativePath)
+        {
+            self.baseConfigurationReferenceAnchor = objectReferenceRepository.getOrCreate(reference: baseConfigurationReferenceAnchor, objects: objects)
+            self.baseConfigurationReferenceRelativePath = baseConfigurationReferenceRelativePath
+        } else if let baseConfigurationReference: String = try container.decodeIfPresent(.baseConfigurationReference) {
+            self.baseConfigurationReference = objectReferenceRepository.getOrCreate(reference: baseConfigurationReference, objects: objects)
         }
         buildSettings = try container.decode(BuildSettings.self, forKey: .buildSettings)
         name = try container.decode(.name)
