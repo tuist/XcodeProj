@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.12.0] - 2026-05-05
+### Details
+#### Features
+- Support new Xcode 16 XCBuildConfiguration format by @johnrbent in [#1037](https://github.com/tuist/XcodeProj/pull/1037)
+
+## New Contributors
+* @johnrbent made their first contribution in [#1037](https://github.com/tuist/XcodeProj/pull/1037)
 ## [9.11.0] - 2026-04-12
 ### Details
 #### Features
@@ -57,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @mirkokg made their first contribution in [#1014](https://github.com/tuist/XcodeProj/pull/1014)
+* @wojciech-kulik made their first contribution in [#1009](https://github.com/tuist/XcodeProj/pull/1009)
 ## [9.6.0] - 2025-10-06
 ### Details
 #### Features
@@ -208,6 +216,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Refactor
 - Update PathRunnable so that it subclasses Runnable by @georgenavarro in [#883](https://github.com/tuist/XcodeProj/pull/883)
 
+## New Contributors
+* @georgenavarro made their first contribution in [#883](https://github.com/tuist/XcodeProj/pull/883)
 ## [8.24.12] - 2024-12-03
 ### Details
 #### Bug Fixes
@@ -246,6 +256,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Bug Fixes
 - Order for `XCLocalSwiftPackageReference` and `XCRemoteSwiftPackageReference` by @kimdv in [#855](https://github.com/tuist/XcodeProj/pull/855)
 
+## New Contributors
+* @kimdv made their first contribution in [#855](https://github.com/tuist/XcodeProj/pull/855)
 ## [8.23.8] - 2024-09-26
 ### Details
 #### Bug Fixes
@@ -266,6 +278,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable the renovatebot dashboard by @pepicrft in [#840](https://github.com/tuist/XcodeProj/pull/840)
 - Set up SwiftLint and SwiftFormat, run them against the project, and run them as part of the CI workflows by @pepicrft in [#836](https://github.com/tuist/XcodeProj/pull/836)
 
+## New Contributors
+* @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.12.0]: https://github.com/tuist/XcodeProj/compare/9.11.0..9.12.0
 [9.11.0]: https://github.com/tuist/XcodeProj/compare/9.10.1..9.11.0
 [9.10.1]: https://github.com/tuist/XcodeProj/compare/9.10.0..9.10.1
 [9.10.0]: https://github.com/tuist/XcodeProj/compare/9.9.0..9.10.0
