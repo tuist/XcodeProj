@@ -5,23 +5,31 @@ public class XCLocalSwiftPackageReference: PBXContainerItem, PlistSerializable {
     /// Repository url.
     public var relativePath: String
 
+    /// Enabled package traits. Requires Xcode 26.4+.
+    public var traits: [String]?
+
     /// Initializes the local swift package reference with its attributes.
     ///
     /// - Parameters:
-    ///   - repositoryPath: Package repository path.
-    public init(relativePath: String) {
+    ///   - relativePath: Package relative path.
+    ///   - traits: Enabled package traits.
+    public init(relativePath: String,
+                traits: [String]? = nil) {
         self.relativePath = relativePath
+        self.traits = traits
         super.init()
     }
 
     enum CodingKeys: String, CodingKey {
         case relativePath
+        case traits
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         relativePath = try container.decode(String.self, forKey: .relativePath)
+        traits = try container.decodeIfPresent([String].self, forKey: .traits)
 
         try super.init(from: decoder)
     }
@@ -35,6 +43,9 @@ public class XCLocalSwiftPackageReference: PBXContainerItem, PlistSerializable {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(XCLocalSwiftPackageReference.isa))
         dictionary["relativePath"] = .string(.init(relativePath))
+        if let traits {
+            dictionary["traits"] = .array(traits.map { .string(.init($0)) })
+        }
         return (key: CommentedString(reference, comment: "XCLocalSwiftPackageReference \"\(name ?? "")\""),
                 value: .dictionary(dictionary))
     }
