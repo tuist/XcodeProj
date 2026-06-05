@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.13.0] - 2026-06-05
+### Details
+#### Features
+- Compatibility with the iOS platform by @nmcc24 in [#1016](https://github.com/tuist/XcodeProj/pull/1016)
+
+## New Contributors
+* @nmcc24 made their first contribution in [#1016](https://github.com/tuist/XcodeProj/pull/1016)
 ## [9.12.0] - 2026-05-05
 ### Details
 #### Features
@@ -280,6 +287,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.13.0]: https://github.com/tuist/XcodeProj/compare/9.12.0..9.13.0
 [9.12.0]: https://github.com/tuist/XcodeProj/compare/9.11.0..9.12.0
 [9.11.0]: https://github.com/tuist/XcodeProj/compare/9.10.1..9.11.0
 [9.10.1]: https://github.com/tuist/XcodeProj/compare/9.10.0..9.10.1
