@@ -46,31 +46,31 @@ func testReadWriteProducesNoDiff(file _: StaticString = #file,
                                  initModel: (Path) throws -> some Writable) throws
 {
     #if os(iOS)
-    throw XCTSkip("'Process' API is unavailable on iOS platform")
+        throw XCTSkip("'Process' API is unavailable on iOS platform")
     #else
-    let tmpDir = try Path.uniqueTemporary()
-    defer {
-        try? tmpDir.delete()
-    }
+        let tmpDir = try Path.uniqueTemporary()
+        defer {
+            try? tmpDir.delete()
+        }
 
-    let fileName = path.lastComponent
-    let tmpPath = tmpDir + fileName
-    try path.copy(tmpPath)
+        let fileName = path.lastComponent
+        let tmpPath = tmpDir + fileName
+        try path.copy(tmpPath)
 
-    try tmpDir.chdir {
-        // Create a commit
-        try checkedOutput("git", ["init"])
-        try checkedOutput("git", ["add", "."])
-        try checkedOutput("git", [
-            "-c", "user.email=test@example.com", "-c", "user.name=Test User",
-            "commit", "-m", "test",
-        ])
+        try tmpDir.chdir {
+            // Create a commit
+            try checkedOutput("git", ["init"])
+            try checkedOutput("git", ["add", "."])
+            try checkedOutput("git", [
+                "-c", "user.email=test@example.com", "-c", "user.name=Test User",
+                "commit", "-m", "test",
+            ])
 
-        let object = try initModel(tmpPath)
-        try object.write(path: tmpPath, override: true)
+            let object = try initModel(tmpPath)
+            try object.write(path: tmpPath, override: true)
 
-        let diff = try XCTUnwrap(checkedOutput("git", ["diff"]))
-        XCTAssertEqual(diff, "")
-    }
+            let diff = try XCTUnwrap(checkedOutput("git", ["diff"]))
+            XCTAssertEqual(diff, "")
+        }
     #endif
 }
