@@ -65,7 +65,7 @@ jobs:
     name: Test (iOS / Xcode)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Select iOS Simulator
         run: |
           simulator_id="$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ { print $2; exit }')"
