@@ -33,6 +33,13 @@ jobs:
       - run: mise use swift@6.0.2
       - name: Build
         run: swift build --configuration release
+  build-ios:
+    name: Build (iOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build for iOS Simulator
+        run: xcodebuild build -scheme XcodeProj -destination 'generic/platform=iOS Simulator'
   test:
     name: Test (macOS / Xcode)
     runs-on: macos-latest
@@ -41,7 +48,6 @@ jobs:
       - uses: jdx/mise-action@v3
       - name: Run tests
         run: mise run test
-
   test-linux:
     name: Test (Linux)
     runs-on: ubuntu-latest
@@ -55,6 +61,22 @@ jobs:
           git config --global init.defaultBranch main
       - name: Test
         run: swift test
+  test-ios:
+    name: Test (iOS / Xcode)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Select iOS Simulator
+        run: |
+          simulator_id="$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ { print $2; exit }')"
+          if [ -z "$simulator_id" ]; then
+            echo "No available iPhone simulator found"
+            xcrun simctl list devices available
+            exit 1
+          fi
+          echo "IOS_SIMULATOR_ID=$simulator_id" >> "$GITHUB_ENV"
+      - name: Run tests on iOS Simulator
+        run: xcodebuild test -scheme XcodeProj -destination "platform=iOS Simulator,id=$IOS_SIMULATOR_ID"
 
   lint:
     name: Lint

@@ -45,38 +45,42 @@ final class XCSchemeManagementTests: XCTestCase {
     }
 
     func test_write_produces_no_diff() throws {
-        let tmpDir = try Path.uniqueTemporary()
-        defer {
-            try? tmpDir.delete()
-        }
+        #if os(iOS)
+            throw XCTSkip("'Process' API is unavailable on iOS platform")
+        #else
+            let tmpDir = try Path.uniqueTemporary()
+            defer {
+                try? tmpDir.delete()
+            }
 
-        try tmpDir.chdir {
-            // Write
-            let plistPath = tmpDir + "xcschememanagement.plist"
-            let subject = XCSchemeManagement(
-                schemeUserState: [
-                    .init(name: "Test 0.xcscheme", shared: true, orderHint: 0, isShown: true),
-                    .init(name: "Test 1.xcscheme", shared: true, orderHint: 1, isShown: true),
-                    .init(name: "Test 2.xcscheme", shared: true, orderHint: 2, isShown: false),
-                    .init(name: "Test 3.xcscheme", shared: true, orderHint: 3, isShown: true),
-                ],
-                suppressBuildableAutocreation: [
-                    "E525238B16245A900012E2BA": .init(primary: true),
-                ]
-            )
-            try subject.write(path: plistPath, override: true)
+            try tmpDir.chdir {
+                // Write
+                let plistPath = tmpDir + "xcschememanagement.plist"
+                let subject = XCSchemeManagement(
+                    schemeUserState: [
+                        .init(name: "Test 0.xcscheme", shared: true, orderHint: 0, isShown: true),
+                        .init(name: "Test 1.xcscheme", shared: true, orderHint: 1, isShown: true),
+                        .init(name: "Test 2.xcscheme", shared: true, orderHint: 2, isShown: false),
+                        .init(name: "Test 3.xcscheme", shared: true, orderHint: 3, isShown: true),
+                    ],
+                    suppressBuildableAutocreation: [
+                        "E525238B16245A900012E2BA": .init(primary: true),
+                    ]
+                )
+                try subject.write(path: plistPath, override: true)
 
-            // Create a commit
-            try checkedOutput("git", ["init"])
-            try checkedOutput("git", ["add", "."])
-            try checkedOutput("git", ["commit", "-m", "test"])
+                // Create a commit
+                try checkedOutput("git", ["init"])
+                try checkedOutput("git", ["add", "."])
+                try checkedOutput("git", ["commit", "-m", "test"])
 
-            // Write again
-            try subject.write(path: plistPath, override: true)
+                // Write again
+                try subject.write(path: plistPath, override: true)
 
-            let got = try checkedOutput("git", ["status"])
-            XCTAssertTrue(got?.contains("nothing to commit") ?? false)
-        }
+                let got = try checkedOutput("git", ["status"])
+                XCTAssertTrue(got?.contains("nothing to commit") ?? false)
+            }
+        #endif
     }
 
     private var xcschememanagementPath: Path {
