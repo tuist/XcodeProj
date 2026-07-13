@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.14.0] - 2026-07-13
+### Details
+#### Features
+- Add `traits` to `XCRemoteSwiftPackageReference` and `XCLocalSwiftPackageReference` by @chigichan24 in [#1114](https://github.com/tuist/XcodeProj/pull/1114)
+
+## New Contributors
+* @chigichan24 made their first contribution in [#1114](https://github.com/tuist/XcodeProj/pull/1114)
 ## [9.13.0] - 2026-06-05
 ### Details
 #### Features
@@ -287,6 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.14.0]: https://github.com/tuist/XcodeProj/compare/9.13.0..9.14.0
 [9.13.0]: https://github.com/tuist/XcodeProj/compare/9.12.0..9.13.0
 [9.12.0]: https://github.com/tuist/XcodeProj/compare/9.11.0..9.12.0
 [9.11.0]: https://github.com/tuist/XcodeProj/compare/9.10.1..9.11.0
