@@ -72,11 +72,22 @@ struct CommentedString {
             let escapedCapacity = buffer.escapedCommentCapacity()
 
             // write directly into String storage
-            return String(unsafeUninitializedCapacity: escapedCapacity) { stringBuffer in
-                stringBuffer.fillValidString(from: buffer)
+            if #available(macOS 11.0, iOS 14.0, macCatalyst 14.0, tvOS 14.0, watchOS 7.0, *) {
+                return String(unsafeUninitializedCapacity: escapedCapacity) { stringBuffer in
+                    stringBuffer.fillValidString(from: buffer)
 
-                return escapedCapacity
+                    return escapedCapacity
+                }
             }
+
+            var escapedBytes = [UInt8](repeating: 0, count: escapedCapacity)
+            escapedBytes.withUnsafeMutableBufferPointer { stringBuffer in
+                stringBuffer.fillValidString(from: buffer)
+            }
+            guard let escapedString = String(bytes: escapedBytes, encoding: .utf8) else {
+                preconditionFailure("Escaped bytes must remain valid UTF-8")
+            }
+            return escapedString
         }
     }
 }
