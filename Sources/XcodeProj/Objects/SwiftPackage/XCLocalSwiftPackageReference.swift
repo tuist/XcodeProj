@@ -2,7 +2,7 @@ import Foundation
 
 /// This element is an abstract parent for specialized targets.
 public class XCLocalSwiftPackageReference: PBXContainerItem, PlistSerializable {
-    /// Repository url.
+    /// Package relative path.
     public var relativePath: String
 
     /// Enabled package traits. Requires Xcode 26.4+.

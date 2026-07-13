@@ -44,6 +44,15 @@ final class XCLocalSwiftPackageReferenceTests: XCTestCase {
         XCTAssertEqual(first, second)
     }
 
+    func test_notEqual_whenRelativePathsDiffer() {
+        // When
+        let first = XCLocalSwiftPackageReference(relativePath: "first")
+        let second = XCLocalSwiftPackageReference(relativePath: "second")
+
+        // Then
+        XCTAssertNotEqual(first, second)
+    }
+
     func test_name() {
         // When
         let subject = XCLocalSwiftPackageReference(relativePath: "tuist/xcodeproj")
