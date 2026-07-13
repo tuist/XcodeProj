@@ -276,11 +276,21 @@ extension XCConfigurationList {
     }
 }
 
+extension XCLocalSwiftPackageReference {
+    /// :nodoc:
+    func isEqual(to rhs: XCLocalSwiftPackageReference) -> Bool {
+        if relativePath != rhs.relativePath { return false }
+        if traits != rhs.traits { return false }
+        return super.isEqual(to: rhs)
+    }
+}
+
 extension XCRemoteSwiftPackageReference {
     /// :nodoc:
     func isEqual(to rhs: XCRemoteSwiftPackageReference) -> Bool {
         if repositoryURL != rhs.repositoryURL { return false }
         if versionRequirement != rhs.versionRequirement { return false }
+        if traits != rhs.traits { return false }
         return super.isEqual(to: rhs)
     }
 }

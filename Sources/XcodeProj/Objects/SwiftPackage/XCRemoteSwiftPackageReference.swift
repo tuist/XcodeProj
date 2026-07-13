@@ -97,21 +97,28 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
     /// Version rules.
     public var versionRequirement: VersionRequirement?
 
+    /// Enabled package traits. Requires Xcode 26.4+.
+    public var traits: [String]?
+
     /// Initializes the remote swift package reference with its attributes.
     ///
     /// - Parameters:
     ///   - repositoryURL: Package repository url.
     ///   - versionRequirement: Package version rules.
+    ///   - traits: Enabled package traits.
     public init(repositoryURL: String,
-                versionRequirement: VersionRequirement? = nil) {
+                versionRequirement: VersionRequirement? = nil,
+                traits: [String]? = nil) {
         self.repositoryURL = repositoryURL
         self.versionRequirement = versionRequirement
+        self.traits = traits
         super.init()
     }
 
     enum CodingKeys: String, CodingKey {
         case requirement
         case repositoryURL
+        case traits
     }
 
     public required init(from decoder: Decoder) throws {
@@ -119,6 +126,7 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
 
         repositoryURL = try container.decodeIfPresent(String.self, forKey: .repositoryURL)
         versionRequirement = try container.decodeIfPresent(VersionRequirement.self, forKey: .requirement)
+        traits = try container.decodeIfPresent([String].self, forKey: .traits)
 
         try super.init(from: decoder)
     }
@@ -136,6 +144,9 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         }
         if let versionRequirement {
             dictionary["requirement"] = PlistValue.dictionary(versionRequirement.plistValues())
+        }
+        if let traits {
+            dictionary["traits"] = .array(traits.map { .string(.init($0)) })
         }
         return (key: CommentedString(reference, comment: "XCRemoteSwiftPackageReference \"\(name ?? "")\""),
                 value: .dictionary(dictionary))

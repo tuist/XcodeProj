@@ -36,6 +36,11 @@
                                             initModel: XcodeProj.init(path:))
         }
 
+        func test_read_write_produces_no_diff_when_swiftPackageTraits() throws {
+            try testReadWriteProducesNoDiff(from: swiftPackageTraitsFixturePath,
+                                            initModel: XcodeProj.init(path:))
+        }
+
         func test_initialize_PBXProj_with_data() throws {
             // Given
             let pbxprojPath = iosProjectPath + "project.pbxproj"
@@ -108,6 +113,10 @@
 
         private var synchronizedRootGroupsFixturePath: Path {
             fixturesPath() + "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj"
+        }
+
+        private var swiftPackageTraitsFixturePath: Path {
+            fixturesPath() + "iOS/ProjectWithSwiftPackageTraits.xcodeproj"
         }
     }
 
