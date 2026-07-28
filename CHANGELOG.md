@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.15.0] - 2026-07-28
+### Details
+#### Features
+- Support for FileSystemSynchronizedGroup parsing by @iorecicSA in [#1147](https://github.com/tuist/XcodeProj/pull/1147)
+
+## New Contributors
+* @iorecicSA made their first contribution in [#1147](https://github.com/tuist/XcodeProj/pull/1147)
 ## [9.14.0] - 2026-07-13
 ### Details
 #### Features
@@ -294,6 +301,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.15.0]: https://github.com/tuist/XcodeProj/compare/9.14.0..9.15.0
 [9.14.0]: https://github.com/tuist/XcodeProj/compare/9.13.0..9.14.0
 [9.13.0]: https://github.com/tuist/XcodeProj/compare/9.12.0..9.13.0
 [9.12.0]: https://github.com/tuist/XcodeProj/compare/9.11.0..9.12.0
