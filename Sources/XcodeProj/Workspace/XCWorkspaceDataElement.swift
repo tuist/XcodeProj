@@ -7,6 +7,7 @@ public enum XCWorkspaceDataElement: Equatable {
 
     case file(XCWorkspaceDataFileRef)
     case group(XCWorkspaceDataGroup)
+    case fileSystemSynchronizedGroup(XCWorkspaceDataGroup)
 
     /// Returns the location to the workspace data element.
     public var location: XCWorkspaceDataElementLocationType {
@@ -14,6 +15,8 @@ public enum XCWorkspaceDataElement: Equatable {
         case let .file(ref):
             ref.location
         case let .group(ref):
+            ref.location
+        case let .fileSystemSynchronizedGroup(ref):
             ref.location
         }
     }
@@ -25,6 +28,8 @@ public enum XCWorkspaceDataElement: Equatable {
         case let (.file(lhs), .file(rhs)):
             lhs == rhs
         case let (.group(lhs), .group(rhs)):
+            lhs == rhs
+        case let (.fileSystemSynchronizedGroup(lhs), .fileSystemSynchronizedGroup(rhs)):
             lhs == rhs
         default:
             false

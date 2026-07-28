@@ -70,6 +70,8 @@ private extension XCWorkspaceDataElement {
             self = try .file(XCWorkspaceDataFileRef(element: element))
         case "Group":
             self = try .group(XCWorkspaceDataGroup(element: element))
+        case "FileSystemSynchronizedGroup":
+            self = try .fileSystemSynchronizedGroup(XCWorkspaceDataGroup(element: element, elementName: "FileSystemSynchronizedGroup"))
         default:
             throw Error.unknownName(element.name)
         }
@@ -81,6 +83,8 @@ private extension XCWorkspaceDataElement {
             fileRef.xmlElement()
         case let .group(group):
             group.xmlElement()
+        case let .fileSystemSynchronizedGroup(group):
+            group.xmlElement(name: "FileSystemSynchronizedGroup")
         }
     }
 }
@@ -93,8 +97,8 @@ private extension XCWorkspaceDataGroup {
         case missingLocationAttribute
     }
 
-    convenience init(element: AEXMLElement) throws {
-        guard element.name == "Group" else {
+    convenience init(element: AEXMLElement, elementName: String = "Group") throws {
+        guard element.name == elementName else {
             throw Error.wrongElementName
         }
         guard let location = element.attributes["location"] else {
@@ -106,10 +110,10 @@ private extension XCWorkspaceDataGroup {
         self.init(location: locationType, name: name, children: children)
     }
 
-    func xmlElement() -> AEXMLElement {
+    func xmlElement(name: String = "Group") -> AEXMLElement {
         var attributes = ["location": location.description]
-        attributes["name"] = name
-        let element = AEXMLElement(name: "Group", value: nil, attributes: attributes)
+        attributes["name"] = self.name
+        let element = AEXMLElement(name: name, value: nil, attributes: attributes)
 
         _ = children
             .map { $0.xmlElement() }
