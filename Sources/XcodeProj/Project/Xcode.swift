@@ -175,6 +175,7 @@ public enum Xcode {
         "i": "sourcecode.c.c.preprocessed",
         "icns": "image.icns",
         "ico": "image.ico",
+        "icon": "folder.iconcomposer.icon",
         "iconset": "folder.iconset",
         "ii": "sourcecode.cpp.cpp.preprocessed",
         "iig": "sourcecode.iig",
