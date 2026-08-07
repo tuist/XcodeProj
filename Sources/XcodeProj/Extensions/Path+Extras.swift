@@ -8,6 +8,8 @@ import PathKit
 func systemGlob(_ pattern: UnsafePointer<CChar>!, _ flags: Int32, _ errfunc: (@convention(c) (UnsafePointer<CChar>?, Int32) -> Int32)!, _ vector_ptr: UnsafeMutablePointer<glob_t>!) -> Int32 {
     #if os(macOS) || os(iOS)
         return Darwin.glob(pattern, flags, errfunc, vector_ptr)
+    #elseif os(Linux) && canImport(Musl)
+        return Musl.glob(pattern, flags, errfunc, vector_ptr)
     #else
         return Glibc.glob(pattern, flags, errfunc, vector_ptr)
     #endif
@@ -35,7 +37,12 @@ extension Path {
             free(cPattern)
         }
 
+        #if os(Linux) && canImport(Musl)
+        // musl's glob() doesn't support brace expansion (GLOB_BRACE is a GNU extension)
+        let flags = GLOB_TILDE | GLOB_MARK
+        #else
         let flags = GLOB_TILDE | GLOB_BRACE | GLOB_MARK
+        #endif
         if systemGlob(cPattern, flags, nil, &gt) == 0 {
             #if os(macOS)
                 let matchc = gt.gl_matchc
