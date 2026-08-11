@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.15.1] - 2026-08-11
+### Details
+#### Bug Fixes
+- Recognize Icon Composer .icon file type by @jsj in [#1162](https://github.com/tuist/XcodeProj/pull/1162)
+
+## New Contributors
+* @jsj made their first contribution in [#1162](https://github.com/tuist/XcodeProj/pull/1162)
 ## [9.15.0] - 2026-07-28
 ### Details
 #### Features
@@ -301,6 +308,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.15.1]: https://github.com/tuist/XcodeProj/compare/9.15.0..9.15.1
 [9.15.0]: https://github.com/tuist/XcodeProj/compare/9.14.0..9.15.0
 [9.14.0]: https://github.com/tuist/XcodeProj/compare/9.13.0..9.14.0
 [9.13.0]: https://github.com/tuist/XcodeProj/compare/9.12.0..9.13.0
