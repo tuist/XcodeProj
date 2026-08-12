@@ -38,10 +38,10 @@ extension Path {
         }
 
         #if os(Linux) && canImport(Musl)
-        // musl's glob() doesn't support brace expansion (GLOB_BRACE is a GNU extension)
-        let flags = GLOB_TILDE | GLOB_MARK
+            // musl's glob() doesn't support brace expansion (GLOB_BRACE is a GNU extension)
+            let flags = GLOB_TILDE | GLOB_MARK
         #else
-        let flags = GLOB_TILDE | GLOB_BRACE | GLOB_MARK
+            let flags = GLOB_TILDE | GLOB_BRACE | GLOB_MARK
         #endif
         if systemGlob(cPattern, flags, nil, &gt) == 0 {
             #if os(macOS)
