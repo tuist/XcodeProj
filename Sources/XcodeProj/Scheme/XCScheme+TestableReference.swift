@@ -43,7 +43,7 @@ public extension XCScheme {
                 parallelization = .swiftTestingOnly
             }
 
-            useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"] == "YES"
+            useTestSelectionWhitelist = element.attributes["useTestSelectionWhitelist"].map { $0 == "YES" }
             randomExecutionOrdering = element.attributes["testExecutionOrdering"] == "random"
             buildableReference = try BuildableReference(element: element["BuildableReference"])
 
@@ -79,8 +79,8 @@ public extension XCScheme {
                 break // SwiftTesting is inferred by the lack of a value
             }
 
-            if let useTestSelectionWhitelist {
-                attributes["useTestSelectionWhitelist"] = useTestSelectionWhitelist.xmlString
+            if useTestSelectionWhitelist == true {
+                attributes["useTestSelectionWhitelist"] = "YES"
             }
             attributes["testExecutionOrdering"] = randomExecutionOrdering ? "random" : nil
             let element = AEXMLElement(name: "TestableReference",
