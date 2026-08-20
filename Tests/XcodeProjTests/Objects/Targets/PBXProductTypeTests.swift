@@ -47,6 +47,11 @@ final class PBXProductTypeTests: XCTestCase {
         XCTAssertEqual(PBXProductType.commandLineTool.rawValue, "com.apple.product-type.tool")
     }
 
+    func test_hostBuildTool_hasTheRightValue() {
+        XCTAssertEqual(PBXProductType.hostBuildTool.rawValue, "com.apple.product-type.tool.host-build")
+        XCTAssertNil(PBXProductType.hostBuildTool.fileExtension)
+    }
+
     func test_watchApp_hasTheRightValue() {
         XCTAssertEqual(PBXProductType.watchApp.rawValue, "com.apple.product-type.application.watchapp")
     }
