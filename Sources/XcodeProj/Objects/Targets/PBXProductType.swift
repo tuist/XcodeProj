@@ -14,6 +14,7 @@ public enum PBXProductType: String, Decodable {
     case appExtension = "com.apple.product-type.app-extension"
     case extensionKitExtension = "com.apple.product-type.extensionkit-extension"
     case commandLineTool = "com.apple.product-type.tool"
+    case hostBuildTool = "com.apple.product-type.tool.host-build"
     case watchApp = "com.apple.product-type.application.watchapp"
     case watch2App = "com.apple.product-type.application.watchapp2"
     case watch2AppContainer = "com.apple.product-type.application.watchapp2-container"
@@ -51,7 +52,7 @@ public enum PBXProductType: String, Decodable {
         case .appExtension, .extensionKitExtension, .tvExtension, .watchExtension, .watch2Extension, .messagesExtension, .stickerPack, .xcodeExtension,
              .intentsServiceExtension:
             "appex"
-        case .commandLineTool:
+        case .commandLineTool, .hostBuildTool:
             nil
         case .xpcService:
             "xpc"
