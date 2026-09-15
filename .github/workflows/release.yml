@@ -79,7 +79,7 @@ jobs:
           skip_dirty_check: true
           commit_message: "[Release] XcodeProj ${{ steps.next-version.outputs.NEXT_VERSION }}"
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: env.should-release == 'true'
         with:
           draft: false
