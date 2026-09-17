@@ -941,6 +941,7 @@ extension XCProjDecoder {
                 throw XCProjError.unresolvedTarget(content.target.targetName)
             }
             let common = content.commonProperties
+            try rejectUnrepresentable(common, allowsPlatformFilters: true)
             let compilerFlags: [String: String]? = content.additionalCompilerFlags.isEmpty
                 ? nil
                 : content.additionalCompilerFlags.reduce(into: [:]) { $0[$1.key.value] = $1.value }
@@ -959,6 +960,7 @@ extension XCProjDecoder {
         case let .buildPhase(content):
             let phase = try resolvePhase(content.buildPhase)
             let common = content.commonProperties
+            try rejectUnrepresentable(common, allowsPlatformFilters: false)
             let set = try PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet(
                 buildPhase: phase,
                 membershipExceptions: common.membershipExceptions.isEmpty ? nil : common.membershipExceptions.map(\.value).sorted(),
@@ -966,6 +968,20 @@ extension XCProjDecoder {
             )
             add(set)
             return set
+        }
+    }
+
+    /// The property list exception sets carry less than the schema ones: neither has a place for
+    /// asset tags, and the build phase variant has none for platform filters either.
+    private func rejectUnrepresentable(
+        _ common: XCSchema.CommonExceptionSetProperties,
+        allowsPlatformFilters: Bool
+    ) throws {
+        if !common.assetTagsByFolderMemberID.isEmpty {
+            throw XCProjError.unsupportedBuildFileAttribute("asset-tags in a folder exception set")
+        }
+        if !allowsPlatformFilters, !common.platformFiltersByFolderMemberID.isEmpty {
+            throw XCProjError.unsupportedBuildFileAttribute("platforms in a build phase exception set")
         }
     }
 

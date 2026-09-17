@@ -370,7 +370,7 @@ extension XCProjEncoder {
             objectID: needsObjectID(element) ? XCSchema.ObjectID(element.uuid) : nil,
             path: path,
             targets: Set(targetsByFolder[element.reference] ?? []),
-            membershipExceptions: (element.exceptions ?? []).map { try makeFolderException($0) },
+            membershipExceptions: (element.exceptions ?? []).map { try makeFolderException($0, of: element) },
             explicitFileTypes: explicitFileTypes,
             explicitOpaqueFolders: Set((element.explicitFolders ?? []).map(XCSchema.FolderMemberID.init(value:))),
             includeInIndex: element.includeInIndex
@@ -378,20 +378,25 @@ extension XCProjEncoder {
     }
 
     private func makeFolderException(
-        _ exception: PBXFileSystemSynchronizedExceptionSet
+        _ exception: PBXFileSystemSynchronizedExceptionSet,
+        of folder: PBXFileSystemSynchronizedRootGroup
     ) throws -> XCSchema.FolderExceptionSet {
         switch exception {
         case let exception as PBXFileSystemSynchronizedBuildFileExceptionSet:
+            let target = XCSchema.LocalTargetReference(targetName: exception.target?.name ?? "")
+            // `membershipExceptions` lists the files that differ from the folder's default. When the
+            // folder already belongs to the target those files are excluded from it; for any other
+            // target they are the files that were added. `PBXProj` keeps one list for both, so the
+            // sense is recovered from the folder's own target list.
+            let folderOwnsTarget = (targetsByFolder[folder.reference] ?? []).contains(target)
             return try .target(XCSchema.TargetExceptionSet(
-                target: XCSchema.LocalTargetReference(targetName: exception.target?.name ?? ""),
+                target: target,
                 publicHeaders: Set((exception.publicHeaders ?? []).map(XCSchema.FolderMemberID.init(value:))),
                 privateHeaders: Set((exception.privateHeaders ?? []).map(XCSchema.FolderMemberID.init(value:))),
                 additionalCompilerFlags: (exception.additionalCompilerFlagsByRelativePath ?? [:])
                     .reduce(into: [:]) { $0[XCSchema.FolderMemberID(value: $1.key)] = $1.value },
                 commonProperties: commonExceptionProperties(
-                    // `PBXFileSystemSynchronizedBuildFileExceptionSet` only models exclusions, which
-                    // is what Xcode writes for a folder that is already a member of the target.
-                    sense: .exclusions,
+                    sense: folderOwnsTarget ? .exclusions : .inclusions,
                     membershipExceptions: exception.membershipExceptions,
                     attributesByRelativePath: exception.attributesByRelativePath,
                     platformFiltersByRelativePath: exception.platformFiltersByRelativePath
@@ -659,20 +664,34 @@ extension XCProjEncoder {
         guard let proxy = dependency.targetProxy else {
             throw XCProjError.unresolvedTarget(dependency.name ?? "an unnamed target dependency")
         }
-        guard case let .fileReference(projectFile) = proxy.containerPortal else {
-            throw XCProjError.unresolvedReference(dependency.name ?? "an unnamed target dependency")
-        }
         guard let remoteGlobalID = proxy.remoteGlobalID else {
             throw XCProjError.missingObjectID("The remote target '\(proxy.remoteInfo ?? "")'")
         }
-        return try .remoteTarget(
-            XCSchema.RemoteTarget(
-                project: groupTreeReference(to: projectFile),
-                target: proxy.remoteInfo ?? dependency.name ?? "",
-                targetID: XCSchema.ObjectID(remoteGlobalID.uuid)
-            ),
-            filters
-        )
+        switch proxy.containerPortal {
+        case .project:
+            // Some projects express a dependency on their own target through the proxy alone,
+            // without the `target` shortcut, so the target is looked up through the proxy.
+            let localTarget: PBXTarget? = if case let .object(object) = remoteGlobalID {
+                object as? PBXTarget
+            } else {
+                proj.rootObject?.targets.first { $0.uuid == remoteGlobalID.uuid }
+            }
+            guard let localTarget else {
+                throw XCProjError.unresolvedTarget(proxy.remoteInfo ?? dependency.name ?? remoteGlobalID.uuid)
+            }
+            return .localTarget(XCSchema.LocalTargetReference(targetName: localTarget.name), filters)
+        case let .fileReference(projectFile):
+            return .remoteTarget(
+                XCSchema.RemoteTarget(
+                    project: groupTreeReference(to: projectFile),
+                    target: proxy.remoteInfo ?? dependency.name ?? "",
+                    targetID: XCSchema.ObjectID(remoteGlobalID.uuid)
+                ),
+                filters
+            )
+        case .unknownObject:
+            throw XCProjError.unresolvedReference(dependency.name ?? "an unnamed target dependency")
+        }
     }
 
     private func packageProductReference(
@@ -725,7 +744,7 @@ extension XCProjEncoder {
                 scope: phase.runOnlyForDeploymentPostprocessing ? .install : .always
             ))
         case let phase as PBXShellScriptBuildPhase:
-            return .script(XCSchema.ScriptBuildPhaseProperties(
+            var properties = XCSchema.ScriptBuildPhaseProperties(
                 objectID: base.objectID,
                 name: base.name ?? "",
                 shellPath: phase.shellPath ?? "/bin/sh",
@@ -738,7 +757,11 @@ extension XCProjEncoder {
                 dependencyFile: phase.dependencyFile,
                 runOnEveryBuild: phase.alwaysOutOfDate,
                 scope: phase.runOnlyForDeploymentPostprocessing ? .install : .always
-            ))
+            )
+            // The initializer insists on a name, but the stored property is optional and a phase
+            // without one has to stay that way, or `"name": ""` would appear on every round trip.
+            properties.baseProperties = base
+            return .script(properties)
         default:
             switch phase.buildPhase {
             case .sources: return .sources(base)

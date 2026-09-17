@@ -83,8 +83,8 @@ import XcodeProjectFormat
             project.mainGroup.children.first { $0 is PBXFileSystemSynchronizedRootGroup } as? PBXFileSystemSynchronizedRootGroup
         )
         #expect(folder.path == "Sources")
-        #expect(folder.explicitFileTypes == ["Sources/Blob.dat": "file"])
-        #expect(folder.explicitFolders == ["Sources/Bundle"])
+        #expect(folder.explicitFileTypes == ["Blob.dat": "file"])
+        #expect(folder.explicitFolders == ["Bundle"])
 
         let app = try #require(project.targets.first { $0.name == "App" })
         #expect(app.fileSystemSynchronizedGroups?.count == 1)
@@ -93,14 +93,14 @@ import XcodeProjectFormat
         #expect(exceptions.count == 2)
         let targetException = try #require(exceptions.compactMap { $0 as? PBXFileSystemSynchronizedBuildFileExceptionSet }.first)
         #expect(targetException.target?.name == "App")
-        #expect(targetException.membershipExceptions == ["Sources/Excluded.swift"])
-        #expect(targetException.publicHeaders == ["Sources/Exposed.h"])
-        #expect(targetException.additionalCompilerFlagsByRelativePath == ["Sources/Special.m": "-fno-objc-arc"])
+        #expect(targetException.membershipExceptions == ["Excluded.swift"])
+        #expect(targetException.publicHeaders == ["Exposed.h"])
+        #expect(targetException.additionalCompilerFlagsByRelativePath == ["Special.m": "-fno-objc-arc"])
 
         let phaseException = try #require(
             exceptions.compactMap { $0 as? PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet }.first
         )
-        #expect(phaseException.membershipExceptions == ["Sources/Extra.framework"])
+        #expect(phaseException.membershipExceptions == ["Extra.framework"])
         #expect(phaseException.buildPhase is PBXCopyFilesBuildPhase)
     }
 

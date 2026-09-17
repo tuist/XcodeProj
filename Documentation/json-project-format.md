@@ -115,9 +115,13 @@ JSON schema has no place for. Converting a `project.pbxproj` to `project.xcproj`
   even `.preserveAll` regenerates them. The identifiers they *point at*, such as a remote target or
   an imported product, are kept.
 
-Converting in the other direction loses nothing, except that a `required-capabilities` entry this
-version of Apple's library does not recognise stops the read with an error telling you which Xcode
-feature the project needs.
+Converting in the other direction keeps everything the property list can hold, with two caveats.
+
+- `required-capabilities` has no place in `PBXProj`, so a project written back to `project.xcproj`
+  loses the entries it arrived with. A capability this version of Apple's library does not
+  recognise stops the read instead, with an error telling you which Xcode feature the project needs.
+- A single `platformFilter` on a build file or dependency comes back as the plural
+  `platformFilters` list Xcode uses today. The meaning is the same.
 
 ## What raises an error
 
@@ -132,6 +136,8 @@ XcodeProj raises `XCProjError` so the gap is visible.
 - Copy files destinations outside the ten Xcode offers in its build phase editor, such as the
   headers directories and the Info.plist file.
 - The `preserve` line ending style.
+- Asset tags in a synchronized folder's exception sets, and platform filters in its build phase
+  exception sets, which the property list exception set types have no field for.
 - A name based reference that matches no element, or more than one.
 
 ## Requirements

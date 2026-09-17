@@ -90,10 +90,10 @@
       "kind": "folder",
       "path": "Sources",
       "file-types": {
-        "Sources/Blob.dat": "file",
+        "Blob.dat": "file",
       },
       "opaque-folders": [
-        "Sources/Bundle",
+        "Bundle",
       ],
       "target-membership": [
         "App",
@@ -102,18 +102,18 @@
         {
           "target": "App",
           "public-headers": [
-            "Sources/Exposed.h",
+            "Exposed.h",
           ],
           "compiler-flags": {
-            "Sources/Special.m": "-fno-objc-arc",
+            "Special.m": "-fno-objc-arc",
           },
           "exclusions": [
-            "Sources/Excluded.swift",
+            "Excluded.swift",
           ],
         }, {
           "build-phase": "App/copy/Embed Frameworks",
           "inclusions": [
-            "Sources/Extra.framework",
+            "Extra.framework",
           ],
         },
       ],

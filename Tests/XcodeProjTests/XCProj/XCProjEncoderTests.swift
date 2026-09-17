@@ -110,18 +110,16 @@ import XcodeProjectFormat
         let productA = PBXFileReference(sourceTree: .buildProductsDir, path: "App.app")
         let productB = PBXFileReference(sourceTree: .buildProductsDir, path: "App.app")
 
-        let targetList = XCConfigurationList(
-            buildConfigurations: [XCBuildConfiguration(name: "Release")],
-            defaultConfigurationName: "Release"
-        )
+        let configuration = XCBuildConfiguration(name: "Release")
+        let targetList = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
         let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList, product: productA, productType: .application)
         let products = PBXGroup(children: [productA, productB], sourceTree: .group, name: "Products")
         let mainGroup = PBXGroup(children: [products], sourceTree: .group)
-        let proj = try makeProj(
+        let proj = try Self.makeProj(
             mainGroup: mainGroup,
             target: target,
             productsGroup: products,
-            extraObjects: [productA, productB, products]
+            extraObjects: [productA, productB, products, configuration]
         )
 
         let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
@@ -151,16 +149,14 @@ import XcodeProjectFormat
         let buildFile = PBXBuildFile(file: fileA)
         sources.files = [buildFile]
 
-        let targetList = XCConfigurationList(
-            buildConfigurations: [XCBuildConfiguration(name: "Release")],
-            defaultConfigurationName: "Release"
-        )
+        let configuration = XCBuildConfiguration(name: "Release")
+        let targetList = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
         let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList, buildPhases: [sources])
         let mainGroup = PBXGroup(children: [fileA, fileB], sourceTree: .group)
-        let proj = try makeProj(
+        let proj = try Self.makeProj(
             mainGroup: mainGroup,
             target: target,
-            extraObjects: [fileA, fileB, sources, buildFile]
+            extraObjects: [fileA, fileB, sources, buildFile, configuration]
         )
 
         let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
@@ -184,16 +180,14 @@ import XcodeProjectFormat
         let buildFile = PBXBuildFile(file: file)
         first.files = [buildFile]
 
-        let targetList = XCConfigurationList(
-            buildConfigurations: [XCBuildConfiguration(name: "Release")],
-            defaultConfigurationName: "Release"
-        )
+        let configuration = XCBuildConfiguration(name: "Release")
+        let targetList = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
         let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList, buildPhases: [first, second])
         let mainGroup = PBXGroup(children: [file], sourceTree: .group)
-        let proj = try makeProj(
+        let proj = try Self.makeProj(
             mainGroup: mainGroup,
             target: target,
-            extraObjects: [first, second, file, buildFile]
+            extraObjects: [first, second, file, buildFile, configuration]
         )
 
         let decoded = try PBXProj(xcprojData: proj.xcprojData(), projectName: "App")
@@ -207,7 +201,7 @@ import XcodeProjectFormat
 
     /// Builds a minimal project around one target, so the ambiguity tests only have to describe
     /// what they are actually testing.
-    private func makeProj(
+    static func makeProj(
         mainGroup: PBXGroup,
         target: PBXTarget,
         productsGroup: PBXGroup? = nil,
@@ -235,7 +229,7 @@ import XcodeProjectFormat
             projectList,
             mainGroup,
             project,
-        ].compactMap { $0 } + (target.buildConfigurationList?.buildConfigurations ?? []))
+        ].compactMap { $0 })
         try ReferenceGenerator(outputSettings: PBXOutputSettings()).generateReferences(proj: proj)
         return proj
     }
@@ -305,5 +299,117 @@ import XcodeProjectFormat
             describe(original.rootObject?.mainGroup.children ?? []) == describe(converted.rootObject?.mainGroup.children ?? []),
             sourceLocation: sourceLocation
         )
+    }
+}
+
+/// The places where the two models say the same thing in different words, checked against Apple's
+/// schema rather than against what looked reasonable.
+@Suite struct XCProjSchemaAgreementTests {
+    @Test func aScriptPhaseWithoutANameStaysNameless() throws {
+        // The schema initializer insists on a name, so a nameless phase would otherwise come back
+        // as `"name": ""` and stop matching the file Xcode wrote.
+        let phase = PBXShellScriptBuildPhase(shellScript: "echo hi")
+        let file = PBXFileReference(sourceTree: .group, path: "Main.swift")
+        let configuration = XCBuildConfiguration(name: "Release")
+        let list = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
+        let target = PBXNativeTarget(name: "App", buildConfigurationList: list, buildPhases: [phase])
+        let mainGroup = PBXGroup(children: [file], sourceTree: .group)
+        let proj = try XCProjEncoderTests.makeProj(mainGroup: mainGroup, target: target, extraObjects: [phase, file, configuration])
+
+        let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
+        guard case let .script(properties) = encoded.targets.first?.commonProperties.buildPhases.first else {
+            Issue.record("Expected a script phase")
+            return
+        }
+        #expect(properties.baseProperties.name == nil)
+
+        let decoded = try PBXProj(xcprojData: proj.xcprojData(), projectName: "App")
+        #expect((decoded.rootObject?.targets.first?.buildPhases.first as? PBXShellScriptBuildPhase)?.name == nil)
+    }
+
+    @Test func exceptionSetSenseFollowsFolderMembership() throws {
+        // `membershipExceptions` excludes files from a target the folder belongs to, and includes
+        // them in one it does not. The property list keeps a single list; the JSON names the sense.
+        let folder = PBXFileSystemSynchronizedRootGroup(sourceTree: .group, path: "Sources")
+        let configuration = XCBuildConfiguration(name: "Release")
+        let list = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
+        let owner = PBXNativeTarget(name: "App", buildConfigurationList: list)
+        owner.fileSystemSynchronizedGroups = [folder]
+        let otherConfiguration = XCBuildConfiguration(name: "Release")
+        let otherList = XCConfigurationList(buildConfigurations: [otherConfiguration], defaultConfigurationName: "Release")
+        let other = PBXNativeTarget(name: "Tests", buildConfigurationList: otherList)
+        let excluded = PBXFileSystemSynchronizedBuildFileExceptionSet(
+            target: owner, membershipExceptions: ["Excluded.swift"], publicHeaders: nil, privateHeaders: nil,
+            additionalCompilerFlagsByRelativePath: nil, attributesByRelativePath: nil
+        )
+        let included = PBXFileSystemSynchronizedBuildFileExceptionSet(
+            target: other, membershipExceptions: ["Shared.swift"], publicHeaders: nil, privateHeaders: nil,
+            additionalCompilerFlagsByRelativePath: nil, attributesByRelativePath: nil
+        )
+        folder.exceptions = [excluded, included]
+        let mainGroup = PBXGroup(children: [folder], sourceTree: .group)
+        let proj = try XCProjEncoderTests.makeProj(
+            mainGroup: mainGroup, target: owner,
+            extraObjects: [folder, excluded, included, configuration, other, otherList, otherConfiguration]
+        )
+        proj.rootObject?.targets.append(other)
+
+        let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
+        guard case let .folder(schemaFolder) = encoded.topLevelReferences.first else {
+            Issue.record("Expected a folder")
+            return
+        }
+        var senses: [String: XCSchema.ExceptionSetSense] = [:]
+        for case let .target(set) in schemaFolder.membershipExceptions {
+            senses[set.target.targetName] = set.commonProperties.sense
+        }
+        #expect(senses["App"] == .exclusions)
+        #expect(senses["Tests"] == .inclusions)
+
+        // Both come back as the one list the property list has.
+        let decoded = try PBXProj(xcprojData: proj.xcprojData(), projectName: "App")
+        let decodedFolder = decoded.rootObject?.mainGroup.children.first as? PBXFileSystemSynchronizedRootGroup
+        let sets = decodedFolder?.exceptions?.compactMap { $0 as? PBXFileSystemSynchronizedBuildFileExceptionSet } ?? []
+        #expect(sets.first { $0.target?.name == "App" }?.membershipExceptions == ["Excluded.swift"])
+        #expect(sets.first { $0.target?.name == "Tests" }?.membershipExceptions == ["Shared.swift"])
+    }
+
+    @Test func aLocalDependencyExpressedThroughAProxyAloneIsLocal() throws {
+        // Some property lists point at a target of the same project through the proxy only, with
+        // the project as its portal and no `target` shortcut.
+        let configuration = XCBuildConfiguration(name: "Release")
+        let list = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
+        let toolConfiguration = XCBuildConfiguration(name: "Release")
+        let toolList = XCConfigurationList(buildConfigurations: [toolConfiguration], defaultConfigurationName: "Release")
+        let tool = PBXNativeTarget(name: "Tool", buildConfigurationList: toolList)
+        let app = PBXNativeTarget(name: "App", buildConfigurationList: list)
+        let mainGroup = PBXGroup(children: [], sourceTree: .group)
+        let proj = try XCProjEncoderTests.makeProj(
+            mainGroup: mainGroup, target: app,
+            extraObjects: [configuration, tool, toolList, toolConfiguration]
+        )
+        let project = try #require(proj.rootObject)
+        project.targets.append(tool)
+        let proxy = PBXContainerItemProxy(containerPortal: .project(project), remoteGlobalID: .object(tool), proxyType: .nativeTarget, remoteInfo: "Tool")
+        let dependency = PBXTargetDependency(name: "Tool", targetProxy: proxy)
+        proj.objects.add(object: proxy)
+        proj.objects.add(object: dependency)
+        app.dependencies = [dependency]
+
+        let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
+        #expect(encoded.targets.first?.commonProperties.dependencies == [.localTarget(XCSchema.LocalTargetReference(targetName: "Tool"), [])])
+    }
+
+    @Test func exceptionSetDataThePropertyListCannotHoldIsRejected() throws {
+        // Asset tags in an exception set have no field on either property list exception set type.
+        var text = try String(contentsOf: everythingXCProjPath.url, encoding: .utf8)
+        text = text.replacingOccurrences(
+            of: "\"exclusions\": [\n            \"Excluded.swift\",\n          ],",
+            with: "\"exclusions\": [\n            \"Excluded.swift\",\n          ],\n          \"asset-tags\": { \"Excluded.swift\": [ \"Tag\" ] },"
+        )
+        #expect(text.contains("asset-tags"), "The fixture edit did not apply")
+        #expect(throws: XCProjError.unsupportedBuildFileAttribute("asset-tags in a folder exception set")) {
+            try PBXProj(xcprojData: Data(text.utf8), projectName: "Everything")
+        }
     }
 }
