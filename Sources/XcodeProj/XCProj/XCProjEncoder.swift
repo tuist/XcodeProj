@@ -79,13 +79,35 @@ final class XCProjEncoder {
         }
 
         targetAttributes = project.targetAttributes
+
+        // Apple's JSON schema has no root path field, so a main group with a non-empty `path`
+        // (used by tuist-derived SPM wrappers, for example) is preserved by wrapping the tree
+        // in one synthetic group carrying that path. Name path lookups climb through it too.
+        let mainGroupWrapperName: String? = if let p = mainGroup.path, !p.isEmpty {
+            mainGroup.name ?? XCProjNaming.lastComponent(of: p)
+        } else {
+            nil
+        }
+        let indexPrefix: [XCSchema.NamePathComponent] = mainGroupWrapperName.map { [.child($0)] } ?? []
+
         indexBuildPhases(project: project)
         indexBuildFiles(project: project)
-        indexNamePaths(of: mainGroup.children, prefix: [])
+        indexNamePaths(of: mainGroup.children, prefix: indexPrefix)
         indexReferencedObjects(project: project)
 
         let configurationNames = (project.buildConfigurationList?.buildConfigurations ?? []).map(\.name)
-        let topLevelReferences = try mainGroup.children.map { try makeReference($0) }
+        var topLevelReferences = try mainGroup.children.map { try makeReference($0) }
+        if let wrapperName = mainGroupWrapperName, let wrapperPath = mainGroup.path {
+            let wrapperFilePath = try XCSchema.FilePath.make(sourceTree: mainGroup.sourceTree, path: wrapperPath)
+            let wrapper = XCSchema.Group(
+                objectID: nil,
+                name: wrapperName,
+                path: wrapperFilePath,
+                includeInIndex: mainGroup.includeInIndex,
+                children: topLevelReferences
+            )
+            topLevelReferences = [.group(wrapper)]
+        }
         let targets = try project.targets.map { try makeTarget($0, configurationNames: configurationNames) }
 
         return try XCSchema.Project(
@@ -272,6 +294,16 @@ extension XCProjEncoder {
         }
         return .namePath(namePath)
     }
+
+    /// A reference to a version group's current version, expressed relative to the version group
+    /// itself. Xcode resolves `current-version` against the version group's children, not from the
+    /// project root, so a single-component name path is what it accepts.
+    private func versionGroupChildReference(to child: PBXFileReference) -> XCSchema.GroupTreeReference {
+        if settings.objectIDPolicy == .preserveAll {
+            return .objectID(XCSchema.ObjectID(child.uuid))
+        }
+        return .namePath(XCSchema.NamePath(components: [.child(Self.name(of: child))]))
+    }
 }
 
 extension XCProjEncoder {
@@ -344,7 +376,7 @@ extension XCProjEncoder {
             objectID: needsObjectID(element) ? XCSchema.ObjectID(element.uuid) : nil,
             name: element.name ?? path.lastPathComponent,
             path: path,
-            currentVersion: element.currentVersion.map { groupTreeReference(to: $0) },
+            currentVersion: element.currentVersion.map { versionGroupChildReference(to: $0) },
             versionedFileType: element.versionGroupType.map(XCSchema.FileTypeID.init(fileTypeID:)),
             includeInIndex: element.includeInIndex,
             buildFiles: buildFiles(for: element),

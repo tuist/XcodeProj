@@ -295,10 +295,40 @@ extension XCProjDecoder {
 
     private func resolveCurrentVersions() throws {
         for pending in pendingCurrentVersions {
-            guard let file = try resolveElement(pending.reference) as? PBXFileReference else {
-                throw XCProjError.unresolvedReference(pending.reference.description)
-            }
+            let file = try resolveVersionGroupChild(pending.reference, in: pending.group)
             pending.group.currentVersion = file
+        }
+    }
+
+    /// A version group's `current-version` is resolved against the version group's own children.
+    /// A full tree path from the project root is still accepted for compatibility with projects
+    /// authored before this was the emitted form.
+    private func resolveVersionGroupChild(
+        _ reference: XCSchema.GroupTreeReference,
+        in group: XCVersionGroup
+    ) throws -> PBXFileReference {
+        switch reference {
+        case let .objectID(objectID):
+            guard let element = elementsByID[objectID.rawValue] as? PBXFileReference else {
+                throw XCProjError.unresolvedReference(reference.description)
+            }
+            return element
+        case let .namePath(namePath):
+            if namePath.components.count == 1,
+               case let .child(name) = namePath.components[0] {
+                let matches = group.children.compactMap { $0 as? PBXFileReference }
+                    .filter { XCProjNaming.name(of: $0) == name }
+                if matches.count == 1 {
+                    return matches[0]
+                }
+                if matches.count > 1 {
+                    throw XCProjError.ambiguousReference(reference.description)
+                }
+            }
+            guard let file = try resolveElement(reference) as? PBXFileReference else {
+                throw XCProjError.unresolvedReference(reference.description)
+            }
+            return file
         }
     }
 

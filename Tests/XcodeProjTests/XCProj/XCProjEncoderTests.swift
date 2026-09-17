@@ -101,6 +101,52 @@ import XcodeProjectFormat
         }
     }
 
+    /// Xcode resolves a version group's `current-version` against the version group's own children,
+    /// not from the project root. A full tree path like `App/Model.xcdatamodeld/Model.xcdatamodel`
+    /// is a valid `GroupTreeReference` and passes Apple's schema validator, but Xcode itself rejects
+    /// it with "Invalid reference" and refuses to open the project. The encoder emits a single
+    /// component name path relative to the version group instead.
+    @Test func versionGroupCurrentVersionIsRelativeToTheGroup() throws {
+        let model = PBXFileReference(sourceTree: .group, path: "Model.xcdatamodel")
+        let versionGroup = XCVersionGroup(
+            currentVersion: model,
+            path: "Model.xcdatamodeld",
+            sourceTree: .group,
+            versionGroupType: "wrapper.xcdatamodel",
+            children: [model]
+        )
+        let nested = PBXGroup(children: [versionGroup], sourceTree: .group, name: "App")
+        let mainGroup = PBXGroup(children: [nested], sourceTree: .group)
+        let targetList = XCConfigurationList(
+            buildConfigurations: [XCBuildConfiguration(name: "Release")],
+            defaultConfigurationName: "Release"
+        )
+        let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList)
+        let proj = try Self.makeProj(
+            mainGroup: mainGroup,
+            target: target,
+            extraObjects: [model, versionGroup, nested]
+        )
+
+        let encoded = try XCProjEncoder(proj: proj, settings: .default).encode()
+        guard case let .group(appGroup) = encoded.topLevelReferences[0],
+              case let .versionGroup(encodedVersionGroup) = appGroup.children[0]
+        else {
+            Issue.record("Expected a nested version group in the encoded project")
+            return
+        }
+
+        guard case let .namePath(namePath) = try #require(encodedVersionGroup.currentVersion) else {
+            Issue.record("current-version was not emitted as a name path")
+            return
+        }
+        let expected: [XCSchema.NamePathComponent] = [.child("Model.xcdatamodel")]
+        #expect(
+            namePath.components == expected,
+            "current-version must be a single component relative to the version group, not a full tree path"
+        )
+    }
+
     // MARK: - Ambiguity
 
     @Test func usesIdentifiersForAmbiguousNames() throws {

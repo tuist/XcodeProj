@@ -6,9 +6,8 @@ import XcodeProjectFormat
 enum BuildFileAttributesMapping {
     /// The `ATTRIBUTES` token Xcode writes for each attribute this mapping understands.
     ///
-    /// `codeGenerationVisibility` and `decompress` are part of the schema but have no token here,
-    /// because their `project.pbxproj` spelling is not established. Converting a file that uses
-    /// them raises `XCProjError.unsupportedBuildFileAttribute`.
+    /// `decompress` is part of the schema but has no established `project.pbxproj` spelling;
+    /// converting a file that uses it raises `XCProjError.unsupportedBuildFileAttribute`.
     private enum Token {
         static let `public` = "Public"
         static let `private` = "Private"
@@ -18,9 +17,20 @@ enum BuildFileAttributesMapping {
         static let client = "Client"
         static let server = "Server"
         static let noCodeGeneration = "no_codegen"
+        // Intent definition codegen visibility. `codegen` with no visibility qualifier is the
+        // Xcode default and carries no information beyond "not no_codegen"; it is accepted on
+        // decode and dropped on encode.
+        static let codegen = "codegen"
+        static let publicCodegen = "public_codegen"
+        static let privateCodegen = "private_codegen"
+        static let projectCodegen = "project_codegen"
+        // `Required` is the default linkage; Xcode sometimes writes it out explicitly, and the JSON
+        // schema only has `is-weak`, so the token is accepted on decode and dropped on encode.
+        static let required = "Required"
 
         static let all: Set<String> = [
             `public`, `private`, weak, codeSignOnCopy, removeHeadersOnCopy, client, server, noCodeGeneration,
+            codegen, publicCodegen, privateCodegen, projectCodegen, required,
         ]
     }
 
@@ -45,6 +55,16 @@ enum BuildFileAttributesMapping {
             case (false, false): nil
             }
 
+        let codeGenerationVisibility: XCSchema.BuildFileAttributes.CodeGenerationVisibility? = if tokens.contains(Token.publicCodegen) {
+            .public
+        } else if tokens.contains(Token.privateCodegen) {
+            .private
+        } else if tokens.contains(Token.projectCodegen) {
+            .project
+        } else {
+            nil
+        }
+
         return XCSchema.BuildFileAttributes(
             headerRole: headerRole,
             machInterfaceGeneration: machInterfaceGeneration,
@@ -53,7 +73,7 @@ enum BuildFileAttributesMapping {
             codeGeneration: tokens.contains(Token.noCodeGeneration) ? .skip : .default,
             headerPreservation: tokens.contains(Token.removeHeadersOnCopy) ? .removeOnCopy : .keep,
             decompress: false,
-            codeGenerationVisibility: nil
+            codeGenerationVisibility: codeGenerationVisibility
         )
     }
 
@@ -62,9 +82,6 @@ enum BuildFileAttributesMapping {
     /// The tokens come back in the order Xcode writes them so that converted projects keep stable
     /// diffs.
     static func tokens(from attributes: XCSchema.BuildFileAttributes) throws -> [String] {
-        if let visibility = attributes.codeGenerationVisibility {
-            throw XCProjError.unsupportedBuildFileAttribute("code-generation-visibility: \(visibility.rawValue)")
-        }
         if attributes.decompress {
             throw XCProjError.unsupportedBuildFileAttribute("decompress")
         }
@@ -85,6 +102,12 @@ enum BuildFileAttributesMapping {
         if attributes.codeSignOnCopy { tokens.append(Token.codeSignOnCopy) }
         if attributes.headerPreservation == .removeOnCopy { tokens.append(Token.removeHeadersOnCopy) }
         if attributes.codeGeneration == .skip { tokens.append(Token.noCodeGeneration) }
+        switch attributes.codeGenerationVisibility {
+        case .public: tokens.append(Token.publicCodegen)
+        case .private: tokens.append(Token.privateCodegen)
+        case .project: tokens.append(Token.projectCodegen)
+        case nil: break
+        }
         return tokens
     }
 }
