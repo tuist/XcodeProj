@@ -12,6 +12,8 @@
 
 XcodeProj is a library written in Swift for parsing and working with Xcode projects. It's heavily inspired by [CocoaPods XcodeProj](https://github.com/CocoaPods/Xcodeproj) and [xcode](https://www.npmjs.com/package/xcode).
 
+It reads and writes both the property list format in `project.pbxproj` and, experimentally, the JSON format in `project.xcproj` that Xcode 27.2 introduced, through the same API. See [the JSON project format](Documentation/json-project-format.md).
+
 ---
 
 - [XcodeProj](#xcodeproj)
@@ -19,6 +21,7 @@ XcodeProj is a library written in Swift for parsing and working with Xcode proje
   - [Installation](#installation)
     - [Swift Package Manager](#swift-package-manager)
     - [Scripting](#scripting)
+  - [The JSON project format (experimental)](#the-json-project-format-experimental)
   - [References 📚](#references-)
   - [Contributing](#contributing)
   - [License](#license)
@@ -105,6 +108,31 @@ automatically. If so, we recommend using a library that provides a `Version`
 object.
 
 [`swift-sh`]: https://github.com/mxcl/swift-sh
+
+## The JSON project format (experimental)
+
+> [!WARNING]
+> This support is experimental. Xcode 27.2 is the first release that writes the format, so the
+> mapping has only been verified against Apple's own library and hand written projects. Expect the
+> details to move, and check a converted project before committing it.
+
+Xcode 27.2 can store a project as JSON in `project.xcproj` rather than as a property list in
+`project.pbxproj`. XcodeProj reads and writes both through the same `PBXProj` object graph, so
+existing code keeps working.
+
+```swift
+let project = try XcodeProj(path: "MyApp.xcodeproj")
+print(project.projectFormat)  // .pbxproj or .xcproj
+
+// Writing keeps the format the project was read in.
+try project.write(path: "MyApp.xcodeproj")
+
+// Converting is one argument.
+try project.write(path: "MyApp.xcodeproj", format: .xcproj)
+```
+
+[The JSON project format](Documentation/json-project-format.md) covers object identifiers, how build
+settings map between the two shapes, and what a conversion does not carry over.
 
 ## References 📚
 
