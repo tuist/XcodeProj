@@ -200,11 +200,16 @@ public extension PBXFileElement {
     /// - Throws: an error if the path cannot be obtained.
     private func baseVariantGroupPath() throws -> String? {
         guard let variantGroup: PBXVariantGroup = reference.getObject() else { return nil }
-        guard let baseReference = try variantGroup
+        let children = try variantGroup
             .childrenReferences
-            .compactMap({ try $0.getThrowingObject() as PBXFileElement })
-            .first(where: { $0.name == "Base" }) else { return nil }
-        return baseReference.path
+            .compactMap { try $0.getThrowingObject() as PBXFileElement }
+        // JSON file references have no name, so identify their Base localization by its path.
+        // Prefer an explicit name to preserve the behavior of existing property list projects.
+        let baseReference = children.first(where: { $0.name == "Base" }) ?? children.first(where: {
+            guard $0.name == nil, let path = $0.path else { return false }
+            return (path as NSString).pathComponents.dropLast().contains("Base.lproj")
+        })
+        return baseReference?.path
     }
 
     // This method is needed to recursively set the parent to all elements.
