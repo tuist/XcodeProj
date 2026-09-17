@@ -60,3 +60,21 @@ func projectWithConfigurationFilesInSynchronizedGroup() throws -> Data {
     let projectWithConfigurationFilesInSynchronizedGroup = fixturesPath() + "Xcode16BuildConfigurations/Xcode16BuildConfigurations.xcodeproj/project.pbxproj"
     return try Data(contentsOf: projectWithConfigurationFilesInSynchronizedGroup.url)
 }
+
+// MARK: - project.xcproj fixtures
+
+var everythingProjectPath: Path {
+    fixturesPath() + "XCProj/Everything.xcodeproj"
+}
+
+var everythingXCProjPath: Path {
+    everythingProjectPath + "project.xcproj"
+}
+
+var xcodeGeneratedProjectPath: Path {
+    fixturesPath() + "XCProj/XcodeGenerated.xcodeproj"
+}
+
+var xcodeGeneratedXCProjPath: Path {
+    xcodeGeneratedProjectPath + "project.xcproj"
+}

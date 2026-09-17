@@ -20,6 +20,10 @@ public final class XcodeProj: Equatable {
     /// User data.
     public var userData: [XCUserData]
 
+    /// The on-disk format the project was read from, and the one it is written back to unless
+    /// another format is requested explicitly.
+    public var projectFormat: ProjectFormat
+
     // MARK: - Init
 
     public init(path: Path) throws {
@@ -27,12 +31,20 @@ public final class XcodeProj: Equatable {
         var workspace: XCWorkspace!
         var sharedData: XCSharedData?
         var userData: [XCUserData]
+        let projectFormat: ProjectFormat
 
         if !path.exists { throw XCodeProjError.notFound(path: path) }
-        guard let pbxprojPath = path.glob("*.pbxproj").first else {
+        // Xcode 27 and later can store the project as JSON in `project.xcproj` instead of the
+        // property list in `project.pbxproj`. Only one of the two is present.
+        if let pbxprojPath = path.glob("*.pbxproj").first {
+            pbxproj = try PBXProj(path: pbxprojPath)
+            projectFormat = .pbxproj
+        } else if let xcprojPath = path.glob("*.xcproj").first {
+            pbxproj = try PBXProj(xcprojPath: xcprojPath)
+            projectFormat = .xcproj
+        } else {
             throw XCodeProjError.pbxprojNotFound(path: path)
         }
-        pbxproj = try PBXProj(path: pbxprojPath)
         let xcworkspacePaths = path.glob("*.xcworkspace")
         if xcworkspacePaths.isEmpty {
             workspace = XCWorkspace()
@@ -51,6 +63,7 @@ public final class XcodeProj: Equatable {
         self.workspace = workspace
         self.sharedData = sharedData
         self.userData = userData
+        self.projectFormat = projectFormat
     }
 
     public convenience init(pathString: String) throws {
@@ -64,16 +77,19 @@ public final class XcodeProj: Equatable {
     ///   - pbxproj: project .pbxproj.
     ///   - sharedData: shared data
     ///   - userData: user data
+    ///   - projectFormat: the format the project is written in. Defaults to `.pbxproj`.
     public init(workspace: XCWorkspace,
                 pbxproj: PBXProj,
                 sharedData: XCSharedData? = nil,
                 userData: [XCUserData] = [],
-                path: Path? = nil) {
+                path: Path? = nil,
+                projectFormat: ProjectFormat = .pbxproj) {
         self.workspace = workspace
         self.pbxproj = pbxproj
         self.sharedData = sharedData
         self.userData = userData
         self.path = path
+        self.projectFormat = projectFormat
     }
 
     // MARK: - Equatable
@@ -106,9 +122,34 @@ extension XcodeProj: Writable {
     /// - Parameter outputSettings: Controls the writing of various files.
     ///   If false will throw error if project already exists at the given path.
     public func write(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
+        try write(path: path, override: override, outputSettings: outputSettings, format: projectFormat)
+    }
+
+    /// Writes project to the given path in the requested on-disk format.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls the writing of the `project.pbxproj` file. Ignored when
+    ///   the format is `.xcproj`.
+    /// - Parameter format: the format to store the project in. Only the file for that format is
+    ///   written, so converting an existing project in place leaves the other one behind, and
+    ///   `init(path:)` would still prefer `project.pbxproj`. Remove it yourself, or write to a
+    ///   fresh directory.
+    /// - Parameter xcprojOutputSettings: Controls the writing of the `project.xcproj` file. Ignored
+    ///   when the format is `.pbxproj`.
+    public func write(path: Path,
+                      override: Bool = true,
+                      outputSettings: PBXOutputSettings = PBXOutputSettings(),
+                      format: ProjectFormat,
+                      xcprojOutputSettings: XCProjOutputSettings = .default) throws {
         try path.mkpath()
         try writeWorkspace(path: path, override: override)
-        try writePBXProj(path: path, override: override, outputSettings: outputSettings)
+        switch format {
+        case .pbxproj:
+            try writePBXProj(path: path, override: override, outputSettings: outputSettings)
+        case .xcproj:
+            try writeXCProj(path: path, override: override, outputSettings: xcprojOutputSettings)
+        }
         try writeSharedData(path: path, override: override)
         try writeUserData(path: path, override: override)
     }
@@ -146,6 +187,25 @@ extension XcodeProj: Writable {
     ///   If false will throw error if project already exists at the given path.
     public func writePBXProj(path: Path, override: Bool = true, outputSettings: PBXOutputSettings) throws {
         try pbxproj.write(path: XcodeProj.pbxprojPath(path), override: override, outputSettings: outputSettings)
+    }
+
+    /// Returns the `project.xcproj` file path relative to the given path.
+    ///
+    /// - Parameter path: `.xcodeproj` file path
+    /// - Returns: `project.xcproj` file path relative to the given path.
+    public static func xcprojPath(_ path: Path) -> Path {
+        path + ProjectFormat.xcproj.fileName
+    }
+
+    /// Writes the project to the given path as a `project.xcproj` file.
+    ///
+    /// - Parameter path: path to `.xcodeproj` file.
+    /// - Parameter override: if project should be overridden. Default is true.
+    /// - Parameter outputSettings: Controls how many object identifiers end up in the output.
+    public func writeXCProj(path: Path,
+                            override: Bool = true,
+                            outputSettings: XCProjOutputSettings = .default) throws {
+        try pbxproj.writeXCProj(path: XcodeProj.xcprojPath(path), override: override, settings: outputSettings)
     }
 
     /// Returns shared data path relative to the given path.

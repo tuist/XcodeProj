@@ -1,0 +1,236 @@
+{
+  "organization": "example.com",
+  "class-prefix": "EX",
+  "build-independent-targets-in-parallel": false,
+  "default-configuration": "Release",
+  "configurations": [
+    "Debug",
+    { "name": "Release", "file": "App/Release.xcconfig" },
+  ],
+  "localizations": {
+    "development": "en",
+    "supported": [
+      "Base",
+      "ja",
+    ],
+  },
+  "imported-products": [
+    {
+      "name": "Remote.framework",
+      "project": "Remote.xcodeproj",
+      "target": "Remote",
+      "product-id": "REMOTEPRODUCT0000000001",
+      "type": "wrapper.framework",
+      "target-membership": [
+        "App/frameworks",
+      ],
+    },
+  ],
+  "packages": [
+    {
+      "kind": "remote",
+      "repository": "https://github.com/apple/swift-argument-parser",
+      "version": {
+        "up-to-next-major-version": "1.0.0",
+      },
+    }, {
+      "kind": "remote",
+      "repository": "https://github.com/apple/swift-log",
+      "version": {
+        "version-range": "1.0.0..<2.0.0",
+      },
+      "traits": [
+        "Logging",
+      ],
+    }, {
+      "kind": "local",
+      "path": "Packages/Local",
+    },
+  ],
+  "files": [
+    {
+      "kind": "group",
+      "path": "App",
+      "children": [
+        { "path": "AppDelegate.swift", "target-membership": [ "App/compile-sources" ] },
+        { "path": "Legacy.m", "target-membership": [ { "build-phase": "App/compile-sources", "platforms": [ "ios" ], "arguments": "-fno-objc-arc" } ] },
+        { "path": "Public.h", "target-membership": [ { "build-phase": "App/headers", "header-role": "public" } ] },
+        { "path": "Release.xcconfig" },
+        { "path": "Vendor.framework", "target-membership": [ { "build-phase": "App/frameworks", "is-weak": true } ] },
+        { "path": "Signed.framework", "target-membership": [ { "build-phase": "App/copy/Embed Frameworks", "code-sign-on-copy": true } ] },
+        {
+          "kind": "variant-group",
+          "path": "Localizable.strings",
+          "target-membership": [
+            "App/resources",
+          ],
+          "children": [
+            {
+              "path": "en.lproj/Localizable.strings",
+            }, {
+              "path": "ja.lproj/Localizable.strings",
+            },
+          ],
+        }, {
+          "kind": "version-group",
+          "path": "Model.xcdatamodeld",
+          "current-version": "Model.xcdatamodel",
+          "type": "wrapper.xcdatamodel",
+          "target-membership": [
+            "App/compile-sources",
+          ],
+          "children": [
+            {
+              "path": "Model.xcdatamodel",
+            },
+          ],
+        },
+      ],
+    }, {
+      "kind": "folder",
+      "path": "Sources",
+      "file-types": {
+        "Blob.dat": "file",
+      },
+      "opaque-folders": [
+        "Bundle",
+      ],
+      "target-membership": [
+        "App",
+      ],
+      "membership-exceptions": [
+        {
+          "target": "App",
+          "public-headers": [
+            "Exposed.h",
+          ],
+          "compiler-flags": {
+            "Special.m": "-fno-objc-arc",
+          },
+          "exclusions": [
+            "Excluded.swift",
+          ],
+        }, {
+          "build-phase": "App/copy/Embed Frameworks",
+          "inclusions": [
+            "Extra.framework",
+          ],
+        },
+      ],
+    },
+    { "path": "Remote.xcodeproj", "type": "wrapper.pb-project" },
+    {
+      "kind": "group",
+      "path": "Products",
+      "children": [
+        { "path": "App.app", "id": "APPPRODUCT0000000000001", "type": "wrapper.application" },
+        { "path": "Tool", "id": "TOOLPRODUCT000000000001", "type": "compiled.mach-o.executable" },
+      ],
+    },
+  ],
+  "targets": [
+    {
+      "name": "App",
+      "id": "APPTARGET000000000000001",
+      "product": "Products/App.app",
+      "product-type": "application",
+      "last-swift-migration": "27.2",
+      "legacy-provisioning-style": "manual",
+      "legacy-team-id": "ABCDE12345",
+      "specialized-configurations": [
+        { "name": "Release", "file": "App/Release.xcconfig" },
+      ],
+      "dependencies": [
+        "Tool",
+        { "kind": "remoteTarget", "project": "Remote.xcodeproj", "target": "Remote", "target-id": "REMOTETARGET00000000001" },
+        { "kind": "package", "package": "swift-argument-parser", "product-name": "ArgumentParser" },
+      ],
+      "build-phases": [
+        "compile-sources",
+        "headers",
+        "frameworks",
+        "resources",
+        {
+          "kind": "copy",
+          "name": "Embed Frameworks",
+          "bundle-base-path": "frameworks-directory",
+        }, {
+          "kind": "script",
+          "name": "Lint",
+          "input-paths": [
+            "$(SRCROOT)/App",
+          ],
+          "output-paths": [
+            "$(DERIVED_FILE_DIR)/lint.txt",
+          ],
+          "run-on-every-build": true,
+          "scope": "install",
+          "shell": "/bin/sh",
+          "script": [
+            "set -euo pipefail",
+            "swiftlint",
+          ],
+        },
+      ],
+      "build-rules": [
+        {
+          "name": "Compress assets",
+          "processor": "com.apple.compilers.proxy.script",
+          "file-patterns": "*.raw",
+          "output-files": [
+            "$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).png",
+          ],
+          "run-once-per-architecture": false,
+          "script": "compress \"$INPUT_FILE_PATH\"",
+        },
+      ],
+      "package-product-members": [
+        {
+          "package": "swift-log",
+          "product-name": "Logging",
+          "build-phase": { "build-phase": "frameworks" },
+        },
+      ],
+      "build-settings": {
+        "OTHER_SWIFT_FLAGS[config=Debug]": "-DDEBUG",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.example.App",
+        "SWIFT_ACTIVE_COMPILATION_CONDITIONS": [
+          "$(inherited)",
+          "APP",
+        ],
+      },
+    }, {
+      "name": "Tool",
+      "id": "TOOLTARGET00000000000001",
+      "product": "Products/Tool",
+      "product-type": "tool",
+      "build-phases": [
+        "compile-sources",
+      ],
+      "build-settings": {
+        "PRODUCT_NAME": "Tool",
+      },
+    }, {
+      "name": "All",
+      "id": "AGGTARGET0000000000000001",
+      "kind": "aggregate",
+      "dependencies": [
+        "App",
+        "Tool",
+      ],
+    }, {
+      "name": "Make",
+      "id": "EXTTARGET0000000000000001",
+      "kind": "external-build-system",
+      "build-tool-path": "/usr/bin/make",
+      "build-tool-arguments": "all",
+      "build-tool-working-directory": "$(SRCROOT)",
+      "pass-build-settings-in-environment": false,
+    },
+  ],
+  "build-settings": {
+    "ONLY_ACTIVE_ARCH[config=Debug]": "YES",
+    "SDKROOT": "iphoneos",
+    "SWIFT_VERSION": "6.0",
+  },
+}

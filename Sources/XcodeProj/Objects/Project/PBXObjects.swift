@@ -189,6 +189,7 @@ class PBXObjects: Equatable {
             lhs.buildRules == rhs.buildRules &&
             lhs.swiftPackageProductDependencies == rhs._swiftPackageProductDependencies &&
             lhs.remoteSwiftPackageReferences == rhs.remoteSwiftPackageReferences &&
+            lhs.localSwiftPackageReferences == rhs.localSwiftPackageReferences &&
             lhs.fileSystemSynchronizedRootGroups == rhs.fileSystemSynchronizedRootGroups &&
             lhs.fileSystemSynchronizedBuildFileExceptionSets == rhs.fileSystemSynchronizedBuildFileExceptionSets &&
             lhs.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet == rhs.fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet
@@ -369,6 +370,8 @@ class PBXObjects: Equatable {
             object
         } else if let object = remoteSwiftPackageReferences[reference] {
             object
+        } else if let object = localSwiftPackageReferences[reference] {
+            object
         } else if let object = swiftPackageProductDependencies[reference] {
             object
         } else if let object = fileSystemSynchronizedRootGroups[reference] {
@@ -467,6 +470,7 @@ extension PBXObjects {
         sourcesBuildPhases.values.forEach(closure)
         carbonResourcesBuildPhases.values.forEach(closure)
         remoteSwiftPackageReferences.values.forEach(closure)
+        localSwiftPackageReferences.values.forEach(closure)
         swiftPackageProductDependencies.values.forEach(closure)
         fileSystemSynchronizedRootGroups.values.forEach(closure)
         fileSystemSynchronizedBuildFileExceptionSets.values.forEach(closure)
