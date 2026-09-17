@@ -100,7 +100,15 @@ enum BuildSettingsMapping {
         }
         let known = Set(configurationNames)
 
-        for (rawKey, value) in settings {
+        // Defaults and configuration overrides can map to the same output key. Apply
+        // defaults first so dictionary iteration order cannot overwrite an override.
+        let orderedSettings = settings.sorted { lhs, rhs in
+            let lhsSpecific = BuildSettingKey(rawValue: lhs.key).configurationName.map { known.contains($0) } ?? false
+            let rhsSpecific = BuildSettingKey(rawValue: rhs.key).configurationName.map { known.contains($0) } ?? false
+            if lhsSpecific != rhsSpecific { return !lhsSpecific }
+            return lhs.key < rhs.key
+        }
+        for (rawKey, value) in orderedSettings {
             let key = BuildSettingKey(rawValue: rawKey)
             let setting = BuildSetting(value)
             if let configuration = key.configurationName, known.contains(configuration) {

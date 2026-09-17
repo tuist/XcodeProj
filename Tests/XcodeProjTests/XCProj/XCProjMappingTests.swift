@@ -48,6 +48,25 @@ import XcodeProjectFormat
         #expect(split["Release"] == [:])
     }
 
+    @Test(arguments: ["", "[sdk=iphoneos*][arch=arm64]"])
+    func splitConfigurationOverridesWinOverDefaults(conditions: String) {
+        // Multiple keys exercise both dictionary iteration orders for default/override pairs.
+        var settings: [String: XCSchema.BuildSetting] = [:]
+        for index in 0 ..< 64 {
+            settings["PLIST_\(index)\(conditions)"] = .string("Base.plist")
+            settings["PLIST_\(index)[config=Debug]\(conditions)"] = .string("Debug.plist")
+            settings["FLAGS_\(index)\(conditions)"] = .array(["-base"])
+            settings["FLAGS_\(index)[config=Debug]\(conditions)"] = .array(["-debug"])
+        }
+        let split = BuildSettingsMapping.split(settings, configurationNames: ["Debug", "Release"])
+        for index in 0 ..< 64 {
+            #expect(split["Debug"]?["PLIST_\(index)\(conditions)"] == .string("Debug.plist"))
+            #expect(split["Release"]?["PLIST_\(index)\(conditions)"] == .string("Base.plist"))
+            #expect(split["Debug"]?["FLAGS_\(index)\(conditions)"] == .array(["-debug"]))
+            #expect(split["Release"]?["FLAGS_\(index)\(conditions)"] == .array(["-base"]))
+        }
+    }
+
     @Test func splitKeepsConditionsThatNameNoConfiguration() {
         // A wildcard has no single configuration to move to, so the key is left intact.
         let split = BuildSettingsMapping.split(

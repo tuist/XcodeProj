@@ -1,0 +1,36 @@
+{
+  "default-configuration": "Release",
+  "configurations": [
+    "Debug",
+    "Release",
+    "Profile",
+  ],
+  "localizations": {
+    "development": "en",
+  },
+  "files": [],
+  "targets": [
+    {
+      "name": "App",
+      "id": "000000000000000100000000",
+      "product-type": "application",
+      "build-phases": [
+        "compile-sources",
+        "resources",
+      ],
+      "build-settings": {
+        "INFOPLIST_FILE": "Config/Base.plist",
+        "INFOPLIST_FILE[config=Debug]": "Config/Debug.plist",
+        "INFOPLIST_FILE[config=Profile]": "Config/Profile.plist",
+        "OTHER_SWIFT_FLAGS[sdk=iphoneos*][arch=arm64]": [ "-DDEFAULT" ],
+        "OTHER_SWIFT_FLAGS[sdk=iphoneos*][config=Debug][arch=arm64]": [ "-DDEBUG", "-DTRACE" ],
+      },
+    },
+  ],
+  "build-settings": {
+    "GCC_PREPROCESSOR_DEFINITIONS[config=Debug][sdk=iphoneos*][arch=arm64]": [ "DEBUG=1", "TRACE=1" ],
+    "GCC_PREPROCESSOR_DEFINITIONS[sdk=iphoneos*][arch=arm64]": [ "DEFAULT=1" ],
+    "SWIFT_OPTIMIZATION_LEVEL": "-O",
+    "SWIFT_OPTIMIZATION_LEVEL[config=Debug]": "-Onone",
+  },
+}
