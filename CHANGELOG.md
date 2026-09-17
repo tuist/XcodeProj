@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.17.1] - 2026-09-17
+### Details
+#### Bug Fixes
+- Preserve JSON build setting configuration overrides by @ileitch in [#1178](https://github.com/tuist/XcodeProj/pull/1178)
+
 ## [9.17.0] - 2026-09-17
 ### Details
 #### Features
@@ -325,6 +330,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.17.1]: https://github.com/tuist/XcodeProj/compare/9.17.0..9.17.1
 [9.17.0]: https://github.com/tuist/XcodeProj/compare/9.16.1..9.17.0
 [9.16.1]: https://github.com/tuist/XcodeProj/compare/9.16.0..9.16.1
 [9.16.0]: https://github.com/tuist/XcodeProj/compare/9.15.1..9.16.0
