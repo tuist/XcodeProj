@@ -131,7 +131,10 @@ extension XcodeProj: Writable {
     /// - Parameter override: if project should be overridden. Default is true.
     /// - Parameter outputSettings: Controls the writing of the `project.pbxproj` file. Ignored when
     ///   the format is `.xcproj`.
-    /// - Parameter format: the format to store the project in.
+    /// - Parameter format: the format to store the project in. Only the file for that format is
+    ///   written, so converting an existing project in place leaves the other one behind, and
+    ///   `init(path:)` would still prefer `project.pbxproj`. Remove it yourself, or write to a
+    ///   fresh directory.
     /// - Parameter xcprojOutputSettings: Controls the writing of the `project.xcproj` file. Ignored
     ///   when the format is `.pbxproj`.
     public func write(path: Path,
@@ -146,14 +149,6 @@ extension XcodeProj: Writable {
             try writePBXProj(path: path, override: override, outputSettings: outputSettings)
         case .xcproj:
             try writeXCProj(path: path, override: override, outputSettings: xcprojOutputSettings)
-        }
-        // An `.xcodeproj` holds the project in one format only, and `init(path:)` prefers
-        // `project.pbxproj`, so a leftover file from the other format would win the next read.
-        if override {
-            for other in ProjectFormat.allCases where other != format {
-                let otherPath = path + other.fileName
-                if otherPath.exists { try otherPath.delete() }
-            }
         }
         try writeSharedData(path: path, override: override)
         try writeUserData(path: path, override: override)
