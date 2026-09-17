@@ -71,6 +71,10 @@ final class XCProjEncoder {
     // MARK: - Entry point
 
     func encode() throws -> XCSchema.Project {
+        // Objects assembled in memory still hold a temporary reference, which would be written out
+        // as a fresh `TEMP_<UUID>` on every run. `PBXProjEncoder` settles them the same way.
+        try ReferenceGenerator(outputSettings: PBXOutputSettings()).generateReferences(proj: proj)
+
         guard let project = proj.rootObject else {
             throw XCProjError.missingRootObject
         }

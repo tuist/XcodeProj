@@ -243,6 +243,60 @@ import XcodeProjectFormat
         #expect(phases[1].files?.count == 0)
     }
 
+    @Test func settlesTheIdentifiersOfAProjectAssembledInMemory() throws {
+        // Not `makeProj`, which settles the references itself. The encoder has to be reached the
+        // way a generator hands a project over, with every object still on a temporary reference.
+        func makeProject() -> PBXProj {
+            let product = PBXFileReference(
+                sourceTree: .buildProductsDir,
+                explicitFileType: "wrapper.application",
+                path: "App.app",
+                includeInIndex: false
+            )
+            let productsGroup = PBXGroup(children: [product], sourceTree: .group, name: "Products")
+            let mainGroup = PBXGroup(children: [productsGroup], sourceTree: .group)
+
+            let targetConfiguration = XCBuildConfiguration(name: "Release")
+            let targetList = XCConfigurationList(
+                buildConfigurations: [targetConfiguration],
+                defaultConfigurationName: "Release"
+            )
+            let target = PBXNativeTarget(
+                name: "App",
+                buildConfigurationList: targetList,
+                product: product,
+                productType: .application
+            )
+
+            let projectConfiguration = XCBuildConfiguration(name: "Release")
+            let projectList = XCConfigurationList(
+                buildConfigurations: [projectConfiguration],
+                defaultConfigurationName: "Release"
+            )
+            let project = PBXProject(
+                name: "App",
+                buildConfigurationList: projectList,
+                compatibilityVersion: nil,
+                preferredProjectObjectVersion: nil,
+                minimizedProjectReferenceProxies: nil,
+                mainGroup: mainGroup,
+                productsGroup: productsGroup,
+                targets: [target]
+            )
+            return PBXProj(rootObject: project, objects: [
+                product, productsGroup, mainGroup,
+                targetConfiguration, targetList, target,
+                projectConfiguration, projectList, project,
+            ])
+        }
+
+        let first = try makeProject().xcprojData()
+        let second = try makeProject().xcprojData()
+
+        #expect(first == second)
+        #expect(first.range(of: Data("TEMP_".utf8)) == nil)
+    }
+
     // MARK: - Helpers
 
     /// Builds a minimal project around one target, so the ambiguity tests only have to describe
