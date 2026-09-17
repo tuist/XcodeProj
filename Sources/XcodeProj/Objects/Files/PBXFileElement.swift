@@ -207,7 +207,7 @@ public extension PBXFileElement {
         // Prefer an explicit name to preserve the behavior of existing property list projects.
         let baseReference = children.first(where: { $0.name == "Base" }) ?? children.first(where: {
             guard $0.name == nil, let path = $0.path else { return false }
-            return path.split(separator: "/").dropLast().contains("Base.lproj")
+            return Path(path).parent().components.contains("Base.lproj")
         })
         return baseReference?.path
     }
