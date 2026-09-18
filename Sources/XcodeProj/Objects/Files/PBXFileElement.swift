@@ -139,6 +139,16 @@ public class PBXFileElement: PBXContainerItem, PlistSerializable {
         guard let rhs = object as? PBXFileElement else { return false }
         return isEqual(to: rhs)
     }
+
+    // This method is needed to recursively set the parent to all elements.
+    // This allows us to more quickly find the full path to the elements.
+    func assignParentToChildren() {
+        guard let group = self as? PBXGroup else { return }
+        for child in group.children {
+            child.parent = self
+            child.assignParentToChildren()
+        }
+    }
 }
 
 // MARK: - Helpers
@@ -205,15 +215,5 @@ public extension PBXFileElement {
             .compactMap({ try $0.getThrowingObject() as PBXFileElement })
             .first(where: { $0.name == "Base" }) else { return nil }
         return baseReference.path
-    }
-
-    // This method is needed to recursively set the parent to all elements.
-    // This allows us to more quickly find the full path to the elements.
-    func assignParentToChildren() {
-        guard let group = self as? PBXGroup else { return }
-        for child in group.children {
-            child.parent = self
-            child.assignParentToChildren()
-        }
     }
 }
