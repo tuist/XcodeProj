@@ -244,10 +244,10 @@ extension XCProjEncoder {
     private func indexNamePaths(of elements: [PBXFileElement], prefix: [XCSchema.NamePathComponent]) {
         var counts: [String: Int] = [:]
         for element in elements {
-            counts[Self.name(of: element), default: 0] += 1
+            counts[Self.addressableName(of: element), default: 0] += 1
         }
         for element in elements {
-            let name = Self.name(of: element)
+            let name = Self.addressableName(of: element)
             let components = prefix + [.child(name)]
             namePathsByElement[element.reference] = XCSchema.NamePath(components: components)
             if counts[name, default: 0] > 1 {
@@ -265,6 +265,17 @@ extension XCProjEncoder {
     /// The name an element is known by inside the groups and files tree.
     static func name(of element: PBXFileElement) -> String {
         XCProjNaming.name(of: element)
+    }
+
+    /// The name an element goes by in the written file. The schema has no place for the name of a
+    /// file reference or a synchronized folder, so those go by the last component of their path.
+    private static func addressableName(of element: PBXFileElement) -> String {
+        switch element {
+        case is PBXFileReference, is PBXFileSystemSynchronizedRootGroup:
+            element.path.map(XCProjNaming.lastComponent(of:)) ?? name(of: element)
+        default:
+            name(of: element)
+        }
     }
 
     private static func name(of phase: PBXBuildPhase) -> String? {
