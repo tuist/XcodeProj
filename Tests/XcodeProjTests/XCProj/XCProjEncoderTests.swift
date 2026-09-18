@@ -147,6 +147,32 @@ import XcodeProjectFormat
         )
     }
 
+    /// A file reference's `name` is not written, so a name path built from it points at nothing and
+    /// Xcode rejects the project with "Invalid reference".
+    @Test func namePathOfAFileReferenceFollowsItsPath() throws {
+        let xcconfig = PBXFileReference(sourceTree: .group, name: "Shared", path: "Configs/Debug.xcconfig")
+        let configuration = XCBuildConfiguration(name: "Release", baseConfiguration: xcconfig)
+        let targetList = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
+        let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList)
+        let mainGroup = PBXGroup(children: [xcconfig], sourceTree: .group)
+        let proj = try Self.makeProj(
+            mainGroup: mainGroup,
+            target: target,
+            extraObjects: [xcconfig, configuration]
+        )
+
+        let text = try String(decoding: proj.xcprojData(), as: UTF8.self)
+
+        #expect(
+            text.contains("\"Debug.xcconfig\""),
+            "the xcconfig has to be referenced as the file spells it"
+        )
+        #expect(
+            !text.contains("\"Shared\""),
+            "PBXFileReference.name is not written, so nothing can be referenced by it"
+        )
+    }
+
     // MARK: - Ambiguity
 
     @Test func usesIdentifiersForAmbiguousNames() throws {
