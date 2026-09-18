@@ -98,9 +98,36 @@ final class XCProjEncoder {
         indexBuildFiles(project: project)
         indexNamePaths(of: mainGroup.children, prefix: indexPrefix)
         indexReferencedObjects(project: project)
+        let recovered = recoverableElements(project: project)
+        // The recovered group is synthesized rather than held by the tree, so the sibling collision
+        // count in `indexNamePaths` never sees it. A group of the same name already at the top level
+        // would make both unaddressable, so in that case everything under either falls back to
+        // identifiers, the same as any other pair of siblings spelled alike.
+        let recoveredNameIsTaken = mainGroup.children
+            .contains { Self.addressableName(of: $0) == Self.recoveredReferencesGroupName }
+        if recoveredNameIsTaken {
+            for child in mainGroup.children
+                where Self.addressableName(of: child) == Self.recoveredReferencesGroupName {
+                markSubtreeAmbiguous(child)
+            }
+        }
+        indexNamePaths(
+            of: recovered,
+            prefix: indexPrefix + [.child(Self.recoveredReferencesGroupName)],
+            insideAmbiguousGroup: recoveredNameIsTaken
+        )
 
         let configurationNames = (project.buildConfigurationList?.buildConfigurations ?? []).map(\.name)
         var topLevelReferences = try mainGroup.children.map { try makeReference($0) }
+        if !recovered.isEmpty {
+            try topLevelReferences.append(.group(XCSchema.Group(
+                objectID: nil,
+                name: Self.recoveredReferencesGroupName,
+                path: XCSchema.FilePath.make(sourceTree: .group, path: nil),
+                includeInIndex: nil,
+                children: recovered.map { try makeReference($0) }
+            )))
+        }
         if let wrapperName = mainGroupWrapperName, let wrapperPath = mainGroup.path {
             let wrapperFilePath = try XCSchema.FilePath.make(sourceTree: mainGroup.sourceTree, path: wrapperPath)
             let wrapper = XCSchema.Group(
@@ -245,7 +272,44 @@ extension XCProjEncoder {
         }
     }
 
-    private func indexNamePaths(of elements: [PBXFileElement], prefix: [XCSchema.NamePathComponent]) {
+    /// The name Xcode gives the group it puts recovered references in when it opens a project
+    /// whose `project.pbxproj` points at an element no group holds.
+    static let recoveredReferencesGroupName = "Recovered References"
+
+    /// Marks an element and everything below it as unaddressable by name.
+    private func markSubtreeAmbiguous(_ element: PBXFileElement) {
+        ambiguousElements.insert(element.reference)
+        guard let group = element as? PBXGroup else { return }
+        for child in group.children {
+            markSubtreeAmbiguous(child)
+        }
+    }
+
+    /// Elements something points at that no group in the tree holds.
+    ///
+    /// A subproject's file reference is the usual one: `projectReferences` and a dependency's
+    /// `containerPortal` name it, but nothing lists it as a child. Written as it stands, the file
+    /// refers to an identifier it never defines and Xcode refuses to open it with "A reference to
+    /// an object with identifier ... couldn't be resolved". Xcode's own converter collects these
+    /// into a group, so this does the same and they stay addressable by name.
+    private func recoverableElements(project: PBXProject) -> [PBXFileElement] {
+        var seen: Set<PBXObjectReference> = []
+        var recovered: [PBXFileElement] = []
+        for reference in project.projectReferences {
+            guard let projectFile: PBXFileReference = reference[Xcode.ProjectReference.projectReferenceKey]?.getObject(),
+                  namePathsByElement[projectFile.reference] == nil,
+                  seen.insert(projectFile.reference).inserted
+            else { continue }
+            recovered.append(projectFile)
+        }
+        return recovered
+    }
+
+    private func indexNamePaths(
+        of elements: [PBXFileElement],
+        prefix: [XCSchema.NamePathComponent],
+        insideAmbiguousGroup: Bool = false
+    ) {
         var counts: [String: Int] = [:]
         for element in elements {
             counts[Self.addressableName(of: element), default: 0] += 1
@@ -254,14 +318,18 @@ extension XCProjEncoder {
             let name = Self.addressableName(of: element)
             let components = prefix + [.child(name)]
             namePathsByElement[element.reference] = XCSchema.NamePath(components: components)
-            if counts[name, default: 0] > 1 {
+            // A name path is only as good as every component in it. Once a group cannot be picked
+            // out from its siblings, nothing below it can either, so the ambiguity travels down and
+            // the descendants fall back to identifiers the same way their ancestor does.
+            let isAmbiguous = insideAmbiguousGroup || counts[name, default: 0] > 1
+            if isAmbiguous {
                 ambiguousElements.insert(element.reference)
             }
             if let versionGroup = element as? XCVersionGroup, let currentVersion = versionGroup.currentVersion {
                 referencedElements.insert(currentVersion.reference)
             }
             if let group = element as? PBXGroup {
-                indexNamePaths(of: group.children, prefix: components)
+                indexNamePaths(of: group.children, prefix: components, insideAmbiguousGroup: isAmbiguous)
             }
         }
     }
@@ -869,7 +937,14 @@ extension XCProjEncoder {
     // MARK: - Imported products
 
     private func productsGroupReference(project: PBXProject) -> XCSchema.GroupTreeReference? {
-        project.productsGroup.map { groupTreeReference(to: $0) }
+        guard let productsGroup = project.productsGroup else { return nil }
+        // A project whose `productRefGroup` is the main group has no separate products group. The
+        // main group is the root of the files tree rather than an entry in it, so it carries no
+        // identifier to point at; the empty name path is how Xcode spells the root itself.
+        if productsGroup.reference == project.mainGroup?.reference {
+            return .namePath(XCSchema.NamePath(components: []))
+        }
+        return groupTreeReference(to: productsGroup)
     }
 
     private func makeImportedProducts(project: PBXProject) throws -> [XCSchema.RemoteProduct] {
