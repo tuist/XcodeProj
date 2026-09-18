@@ -128,6 +128,8 @@ import XcodeProjectFormat
         "SynchronizedRootGroups/SynchronizedRootGroups.xcodeproj",
         "Xcode16BuildConfigurations/Xcode16BuildConfigurations.xcodeproj",
         "iOS/Project.xcodeproj",
+        // `productRefGroup` is the main group here, which the tree addresses by the empty name path.
+        "iOS/ProjectWithoutProductsGroup.xcodeproj",
     ]
 
     @Test(arguments: fixtures)

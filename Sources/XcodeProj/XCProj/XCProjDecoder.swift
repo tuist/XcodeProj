@@ -541,7 +541,9 @@ extension XCProjDecoder {
     ) throws -> PBXFileElement? {
         guard let rootGroup else { return nil }
         var level = childrenByElement[ObjectIdentifier(rootGroup)] ?? []
-        var current: PBXFileElement?
+        // The walk starts at the root, so a name path with no components addresses the root group
+        // itself. That is how a project whose products group is the main group spells it.
+        var current: PBXFileElement? = rootGroup
 
         for component in namePath.components {
             switch component {
