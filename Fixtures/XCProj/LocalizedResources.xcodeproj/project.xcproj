@@ -1,0 +1,47 @@
+{
+  "configurations": [ "Debug", "Release" ],
+  "default-configuration": "Release",
+  "localizations": { "development": "en", "supported": [ "Base", "en", "fr" ] },
+  "files": [
+    {
+      "kind": "group",
+      "path": "Resources",
+      "children": [
+        {
+          "kind": "variant-group",
+          "name": "LaunchScreen.storyboard",
+          "target-membership": [ "App/resources" ],
+          "children": [
+            { "path": "fr.lproj/LaunchScreen.strings" },
+            { "path": "Base.lproj/LaunchScreen.storyboard" },
+          ],
+        },
+        {
+          "kind": "variant-group",
+          "name": "Panel.xib",
+          "target-membership": [ "App/resources" ],
+          "children": [
+            { "path": "Base.lproj/Views/Panel.xib" },
+          ],
+        },
+        {
+          "kind": "variant-group",
+          "name": "Localizable.strings",
+          "target-membership": [ "App/resources" ],
+          "children": [
+            { "path": "en.lproj/Localizable.strings" },
+            { "path": "NotBase.lproj/Localizable.strings" },
+          ],
+        },
+      ],
+    },
+  ],
+  "targets": [
+    {
+      "name": "App",
+      "id": "000000000000000100000000",
+      "product-type": "application",
+      "build-phases": [ "resources" ],
+    },
+  ],
+}
