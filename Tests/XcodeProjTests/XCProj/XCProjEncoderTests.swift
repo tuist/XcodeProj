@@ -173,6 +173,56 @@ import XcodeProjectFormat
         )
     }
 
+    /// Xcode rejects `"App/copy"` and `"App/script"` with "Could not uniquely resolve the build
+    /// phase name" even when the target holds one, because it can hold many. Apple's schema
+    /// validator accepts both spellings, so only an identifier makes such a phase addressable.
+    @Test(arguments: ["CopyFiles", "Run Script", "Sources", "Frameworks", "Resources", "Headers"])
+    func namelessRepeatablePhasesCarryAnIdentifier(rawKind: String) throws {
+        let kind = try #require(BuildPhase(rawValue: rawKind))
+        let phase: PBXBuildPhase = switch kind {
+        case .copyFiles: PBXCopyFilesBuildPhase(dstPath: "include", dstSubfolderSpec: .productsDirectory)
+        case .runScript: PBXShellScriptBuildPhase(shellScript: "echo hi")
+        case .sources: PBXSourcesBuildPhase()
+        case .frameworks: PBXFrameworksBuildPhase()
+        case .resources: PBXResourcesBuildPhase()
+        default: PBXHeadersBuildPhase()
+        }
+        let file = PBXFileReference(sourceTree: .group, path: "Main.swift")
+        let buildFile = PBXBuildFile(file: file)
+        phase.files = [buildFile]
+
+        let configuration = XCBuildConfiguration(name: "Release")
+        let targetList = XCConfigurationList(buildConfigurations: [configuration], defaultConfigurationName: "Release")
+        let target = PBXNativeTarget(name: "App", buildConfigurationList: targetList, buildPhases: [phase])
+        let mainGroup = PBXGroup(children: [file], sourceTree: .group)
+        let proj = try Self.makeProj(
+            mainGroup: mainGroup,
+            target: target,
+            extraObjects: [phase, file, buildFile, configuration]
+        )
+
+        let schemaKind = switch kind {
+        case .copyFiles: "copy"
+        case .runScript: "script"
+        case .sources: "compile-sources"
+        default: rawKind.lowercased()
+        }
+        let data = try proj.xcprojData()
+        let emittedByName = String(decoding: data, as: UTF8.self).contains("\"App/\(schemaKind)\"")
+        let repeatable = kind == .copyFiles || kind == .runScript
+
+        #expect(
+            emittedByName == !repeatable,
+            repeatable
+                ? "a nameless \(schemaKind) phase is not addressable by name and needs an identifier"
+                : "a target holds one \(schemaKind) phase, so the name is enough"
+        )
+
+        // Whichever spelling it is, the membership has to survive the trip back.
+        let decoded = try PBXProj(xcprojData: data, projectName: "App")
+        #expect(decoded.rootObject?.targets.first?.buildPhases.first?.files?.count == 1)
+    }
+
     // MARK: - Ambiguity
 
     @Test func usesIdentifiersForAmbiguousNames() throws {

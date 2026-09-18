@@ -33,8 +33,8 @@ final class XCProjEncoder {
     /// dictionary on every access.
     private var targetAttributes: [PBXTarget: [String: ProjectAttribute]] = [:]
 
-    /// Build phases that can only be referred to by identifier, because their target has more than
-    /// one phase of the same kind and name.
+    /// Build phases that can only be referred to by identifier, because a name based reference
+    /// would not pick them out.
     private var ambiguousPhases: Set<PBXObjectReference> = []
 
     /// The target that owns each build phase.
@@ -180,6 +180,20 @@ extension XCProjEncoder {
             for (phase, key) in keyed where counts[key, default: 0] > 1 {
                 ambiguousPhases.insert(phase.reference)
             }
+            for (phase, key) in keyed where key.name == nil && Self.isRepeatableKind(key.kind) {
+                ambiguousPhases.insert(phase.reference)
+            }
+        }
+    }
+
+    /// Whether a target can hold more than one build phase of this kind.
+    ///
+    /// Xcode resolves `"App/resources"` against the single phase of that kind, but rejects
+    /// `"App/copy"` and `"App/script"` even when the target holds one, so those need an identifier.
+    private static func isRepeatableKind(_ kind: BuildPhase) -> Bool {
+        switch kind {
+        case .copyFiles, .runScript: true
+        case .sources, .frameworks, .resources, .headers, .carbonResources: false
         }
     }
 
