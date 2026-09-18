@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.17.2] - 2026-09-18
+### Details
+#### Bug Fixes
+- Reference file elements by the name project.xcproj writes by @antigluten in [#1182](https://github.com/tuist/XcodeProj/pull/1182)
+- Resolve base-localized resource paths in JSON projects by @ileitch in [#1179](https://github.com/tuist/XcodeProj/pull/1179)
+
+## New Contributors
+* @antigluten made their first contribution in [#1182](https://github.com/tuist/XcodeProj/pull/1182)
 ## [9.17.1] - 2026-09-17
 ### Details
 #### Bug Fixes
@@ -330,6 +338,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.17.2]: https://github.com/tuist/XcodeProj/compare/9.17.1..9.17.2
 [9.17.1]: https://github.com/tuist/XcodeProj/compare/9.17.0..9.17.1
 [9.17.0]: https://github.com/tuist/XcodeProj/compare/9.16.1..9.17.0
 [9.16.1]: https://github.com/tuist/XcodeProj/compare/9.16.0..9.16.1
