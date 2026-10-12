@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tadija/AEXML.git",
       "state" : {
-        "revision" : "db806756c989760b35108146381535aec231092b",
-        "version" : "4.7.0"
+        "revision" : "ae166cefbac3443299c205a1fbc63215263fadf5",
+        "version" : "4.7.2"
       }
     },
     {
