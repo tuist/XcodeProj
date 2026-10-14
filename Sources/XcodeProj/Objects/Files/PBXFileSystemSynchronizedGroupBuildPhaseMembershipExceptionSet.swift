@@ -66,6 +66,14 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
 
     // MARK: - PlistSerializable
 
+    override var plistComment: String {
+        guard let group = synchronizedRootGroup else { return type(of: self).isa }
+        let folder = group.fileName() ?? ""
+        let phase = buildPhase.displayName() ?? ""
+        let target = buildPhase.target()?.name ?? ""
+        return "Exceptions for \"\(folder)\" folder in \"\(phase)\" phase from \"\(target)\" target"
+    }
+
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary: [CommentedString: PlistValue] = [:]
         dictionary["isa"] = .string(CommentedString(type(of: self).isa))
@@ -78,6 +86,6 @@ public class PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet: PBX
             }))
         }
         dictionary["buildPhase"] = .string(CommentedString(buildPhase.reference.value, comment: buildPhase.name() ?? "CopyFiles"))
-        return (key: CommentedString(reference, comment: "PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet"), value: .dictionary(dictionary))
+        return (key: CommentedString(reference, comment: plistComment), value: .dictionary(dictionary))
     }
 }

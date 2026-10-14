@@ -167,8 +167,8 @@ public extension XCScheme {
             if codeCoverageEnabled {
                 attributes["codeCoverageEnabled"] = codeCoverageEnabled.xmlString
             }
-            if let onlyGenerateCoverageForSpecifiedTargets {
-                attributes["onlyGenerateCoverageForSpecifiedTargets"] = onlyGenerateCoverageForSpecifiedTargets.xmlString
+            if onlyGenerateCoverageForSpecifiedTargets == true {
+                attributes["onlyGenerateCoverageForSpecifiedTargets"] = "YES"
             }
             if enableAddressSanitizer {
                 attributes["enableAddressSanitizer"] = enableAddressSanitizer.xmlString
@@ -204,6 +204,19 @@ public extension XCScheme {
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             super.writeXML(parent: element)
 
+            if let macroExpansion {
+                let macro = element.addChild(name: "MacroExpansion")
+                macro.addChild(macroExpansion.xmlElement())
+            }
+
+            if let commandlineArguments, !commandlineArguments.arguments.isEmpty {
+                element.addChild(commandlineArguments.xmlElement())
+            }
+
+            if let environmentVariables {
+                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
+            }
+
             if let testPlans {
                 let testPlansElement = element.addChild(name: "TestPlans")
                 for testPlan in testPlans {
@@ -211,22 +224,11 @@ public extension XCScheme {
                 }
             }
 
-            if let macroExpansion {
-                let macro = element.addChild(name: "MacroExpansion")
-                macro.addChild(macroExpansion.xmlElement())
-            }
-
-            let testablesElement = element.addChild(name: "Testables")
-            for testable in testables {
-                testablesElement.addChild(testable.xmlElement())
-            }
-
-            if let commandlineArguments {
-                element.addChild(commandlineArguments.xmlElement())
-            }
-
-            if let environmentVariables {
-                element.addChild(EnvironmentVariable.xmlElement(from: environmentVariables))
+            if !testables.isEmpty {
+                let testablesElement = element.addChild(name: "Testables")
+                for testable in testables {
+                    testablesElement.addChild(testable.xmlElement())
+                }
             }
 
             if !additionalOptions.isEmpty {
