@@ -204,24 +204,20 @@ public extension XCScheme {
             let element = AEXMLElement(name: "TestAction", value: nil, attributes: attributes)
             super.writeXML(parent: element)
 
-            if let testPlans {
-                let testPlansElement = element.addChild(name: "TestPlans")
-                for testPlan in testPlans {
-                    testPlansElement.addChild(testPlan.xmlElement())
-                }
-            }
-
             if let macroExpansion {
                 let macro = element.addChild(name: "MacroExpansion")
                 macro.addChild(macroExpansion.xmlElement())
             }
 
-            let testablesElement = element.addChild(name: "Testables")
-            for testable in testables {
-                testablesElement.addChild(testable.xmlElement())
+            // Xcode omits empty testables when the scheme uses test plans.
+            if !testables.isEmpty || testPlans == nil {
+                let testablesElement = element.addChild(name: "Testables")
+                for testable in testables {
+                    testablesElement.addChild(testable.xmlElement())
+                }
             }
 
-            if let commandlineArguments {
+            if let commandlineArguments, !commandlineArguments.arguments.isEmpty {
                 element.addChild(commandlineArguments.xmlElement())
             }
 
@@ -240,6 +236,13 @@ public extension XCScheme {
                 let codeCoverageTargetsElement = element.addChild(AEXMLElement(name: "CodeCoverageTargets"))
                 for target in codeCoverageTargets {
                     codeCoverageTargetsElement.addChild(target.xmlElement())
+                }
+            }
+
+            if let testPlans {
+                let testPlansElement = element.addChild(name: "TestPlans")
+                for testPlan in testPlans {
+                    testPlansElement.addChild(testPlan.xmlElement())
                 }
             }
 
