@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.17.6] - 2026-10-15
+### Details
+#### Chore
+- Update dependency tadija/aexml to from: "4.7.3" by @renovate[bot] in [#1194](https://github.com/tuist/XcodeProj/pull/1194)
+- Update dependency tadija/aexml to from: "4.7.2" by @renovate[bot] in [#1192](https://github.com/tuist/XcodeProj/pull/1192)
+
 ## [9.17.5] - 2026-09-18
 ### Details
 #### Bug Fixes
@@ -353,6 +359,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.17.6]: https://github.com/tuist/XcodeProj/compare/9.17.5..9.17.6
 [9.17.5]: https://github.com/tuist/XcodeProj/compare/9.17.4..9.17.5
 [9.17.4]: https://github.com/tuist/XcodeProj/compare/9.17.3..9.17.4
 [9.17.3]: https://github.com/tuist/XcodeProj/compare/9.17.2..9.17.3
