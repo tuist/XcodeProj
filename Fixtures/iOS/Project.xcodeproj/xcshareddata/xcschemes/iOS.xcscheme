@@ -81,12 +81,6 @@
             </ActionContent>
          </ExecutionAction>
       </PostActions>
-      <TestPlans>
-         <TestPlanReference
-            default = "YES"
-            reference = "container:iOS.xctestplan">
-         </TestPlanReference>
-      </TestPlans>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -122,6 +116,12 @@
             isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:iOS.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

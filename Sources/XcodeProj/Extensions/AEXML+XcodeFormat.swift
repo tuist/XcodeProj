@@ -86,6 +86,10 @@ let attributesOrder: [String: [String]] = [
         "value",
         "isEnabled",
     ],
+    "TestPlanReference": [
+        "reference",
+        "default",
+    ],
     "TestableReference": [
         "skipped",
         "parallelizable",

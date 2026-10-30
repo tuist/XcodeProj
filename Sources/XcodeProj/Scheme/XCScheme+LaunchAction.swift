@@ -445,7 +445,7 @@ public extension XCScheme {
                 macro.addChild(macroExpansion.xmlElement())
             }
 
-            if let commandlineArguments {
+            if let commandlineArguments, !commandlineArguments.arguments.isEmpty {
                 element.addChild(commandlineArguments.xmlElement())
             }
 
