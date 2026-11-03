@@ -299,6 +299,37 @@ final class XCSchemeIntegrationTests: XCTestCase {
         XCTAssertEqual(subject, reconstructedSubject)
     }
 
+    func test_testAction_withTestPlans_serializesLikeXcode() throws {
+        // Given
+        let subject = try XCScheme.TestAction(buildConfiguration: "Debug",
+                                              macroExpansion: nil,
+                                              testPlans: [.init(reference: "container:App.xctestplan", default: true)],
+                                              codeCoverageTargets: [buildableReferenceWithStringBluePrint()],
+                                              commandlineArguments: .init(arguments: []))
+
+        // When
+        let element = subject.xmlElement()
+
+        // Then
+        XCTAssertEqual(element.children.map(\.name), ["CodeCoverageTargets", "TestPlans"])
+    }
+
+    func test_testAction_withoutTestPlans_keepsEmptyTestables() {
+        // Given
+        let subject = XCScheme.TestAction(buildConfiguration: "Debug", macroExpansion: nil)
+
+        // When
+        let element = subject.xmlElement()
+
+        // Then
+        XCTAssertEqual(element.children.map(\.name), ["Testables"])
+    }
+
+    func test_buildAction_runPostActionsOnFailure_onlySerializedWhenEnabled() {
+        XCTAssertNil(XCScheme.BuildAction(runPostActionsOnFailure: false).xmlElement().attributes["runPostActionsOnFailure"])
+        XCTAssertEqual(XCScheme.BuildAction(runPostActionsOnFailure: true).xmlElement().attributes["runPostActionsOnFailure"], "YES")
+    }
+
     func test_scheme_remoteRunnable() throws {
         // Given / When
         let subject = try XCScheme(path: watchAppSchemePath)

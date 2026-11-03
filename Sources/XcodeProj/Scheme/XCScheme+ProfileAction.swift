@@ -169,7 +169,7 @@ public extension XCScheme {
             if !enableTestabilityWhenProfilingTests {
                 element.attributes["enableTestabilityWhenProfilingTests"] = "No"
             }
-            if let commandlineArguments {
+            if let commandlineArguments, !commandlineArguments.arguments.isEmpty {
                 element.addChild(commandlineArguments.xmlElement())
             }
             if let environmentVariables {

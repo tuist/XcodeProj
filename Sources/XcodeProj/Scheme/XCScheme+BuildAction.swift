@@ -158,8 +158,9 @@ public extension XCScheme {
                 attributes["buildArchitectures"] = buildArchitecturesXMLString
             }
 
-            if let runPostActionsOnFailure {
-                attributes["runPostActionsOnFailure"] = runPostActionsOnFailure.xmlString
+            // Xcode omits the attribute unless it is enabled.
+            if runPostActionsOnFailure == true {
+                attributes["runPostActionsOnFailure"] = true.xmlString
             }
 
             let element = AEXMLElement(name: "BuildAction",
