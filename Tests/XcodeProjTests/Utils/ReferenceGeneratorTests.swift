@@ -155,6 +155,41 @@ class ReferenceGeneratorTests: XCTestCase {
         XCTAssert(!buildPhaseException.reference.temporary, "Build phase exception reference should not be temporary")
         XCTAssertFalse(buildPhaseException.reference.value.hasPrefix("TEMP_"), "Build phase exception reference should not have TEMP_ prefix")
     }
+
+    func test_projectWithFilesystemSynchronizedRootGroupWithBuildPhaseException_generatesDeterministicIdentifiers() throws {
+        // The build phase starts with a temporary reference, as it does in a project created in code.
+        func generateProject() throws -> [String] {
+            let project = PBXProj(rootObject: nil, objectVersion: 0, archiveVersion: 0, classes: [:], objects: [])
+            let pbxProject = project.makeProject()
+
+            let target = project.makeTarget()
+            pbxProject.targets.append(target)
+
+            let buildPhase = PBXSourcesBuildPhase()
+            project.add(object: buildPhase)
+            target.buildPhases.append(buildPhase)
+
+            let buildPhaseException = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet(
+                buildPhase: buildPhase,
+                membershipExceptions: ["ExcludedFile.swift"],
+                attributesByRelativePath: nil
+            )
+            project.add(object: buildPhaseException)
+
+            let syncedGroup = project.makeSynchronizedRootGroup(exceptions: [buildPhaseException])
+            target.fileSystemSynchronizedGroups = [syncedGroup]
+
+            let referenceGenerator = ReferenceGenerator(outputSettings: PBXOutputSettings())
+            try referenceGenerator.generateReferences(proj: project)
+
+            return [buildPhase, buildPhaseException, syncedGroup].map(\.reference.value)
+        }
+
+        let firstReferences = try generateProject()
+        let secondReferences = try generateProject()
+
+        XCTAssertEqual(firstReferences, secondReferences)
+    }
 }
 
 private extension PBXProj {

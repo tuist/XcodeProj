@@ -18,6 +18,11 @@ final class ReferenceGenerator: ReferenceGenerating {
     var references: Set<String> = []
     /// The type name and reference acronym of each object type, which only depend on the type.
     private var typeNamesAndAcronyms: [ObjectIdentifier: (typeName: String, acronym: String)] = [:]
+    /// Build phase membership exception sets waiting for their build phases' references, with their identifiers.
+    private var buildPhaseMembershipExceptionSets: [(
+        exceptionSet: PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet,
+        identifiers: [String]
+    )] = []
 
     init(outputSettings: PBXOutputSettings) {
         self.outputSettings = outputSettings
@@ -64,6 +69,17 @@ final class ReferenceGenerator: ReferenceGenerating {
         // Targets
         let targets: [PBXTarget] = project.targets
         try targets.forEach { try generateTargetReferences($0, identifiers: identifiers) }
+
+        // Build phase membership exception sets, whose references derive from their build phases' references, which
+        // the targets have just generated.
+        for (exceptionSet, identifiers) in buildPhaseMembershipExceptionSets {
+            var identifiers = identifiers
+            if let buildPhase = exceptionSet.buildPhase {
+                identifiers.append(buildPhase.reference.value)
+            }
+            fixReference(for: exceptionSet, identifiers: identifiers)
+        }
+        buildPhaseMembershipExceptionSets = []
 
         /// Configuration list
         if let configurationList: XCConfigurationList = project.buildConfigurationListReference.getObject() {
@@ -202,10 +218,8 @@ final class ReferenceGenerator: ReferenceGenerating {
             }
             fixReference(for: buildFileException, identifiers: identifiers)
         } else if let buildPhaseException = exceptionSet as? PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet {
-            if let buildPhase = buildPhaseException.buildPhase {
-                identifiers.append(buildPhase.reference.value)
-            }
-            fixReference(for: buildPhaseException, identifiers: identifiers)
+            // Its build phase may not have a permanent reference yet, so it's generated after the targets.
+            buildPhaseMembershipExceptionSets.append((buildPhaseException, identifiers))
         }
     }
 
