@@ -57,7 +57,8 @@ public class PBXObject: Hashable, Decodable, Equatable, AutoEquatable {
 
     /// Object isa (type id)
     public static var isa: String {
-        String(describing: self)
+        // What `String(describing: self)` prints for a class, without the reflection it goes through first.
+        _typeName(self, qualified: false)
     }
 
     public static func == (lhs: PBXObject,

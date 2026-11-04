@@ -16,6 +16,8 @@ protocol ReferenceGenerating: AnyObject {
 final class ReferenceGenerator: ReferenceGenerating {
     let outputSettings: PBXOutputSettings
     var references: Set<String> = []
+    /// The type name and reference acronym of each object type, which only depend on the type.
+    private var typeNamesAndAcronyms: [ObjectIdentifier: (typeName: String, acronym: String)] = [:]
 
     init(outputSettings: PBXOutputSettings) {
         self.outputSettings = outputSettings
@@ -386,14 +388,7 @@ extension ReferenceGenerator {
             if let context = object.context {
                 identifiers.append(context)
             }
-            let typeName = String(describing: type(of: object))
-
-            // Get acronym to be used as prefix for the reference.
-            // PBXFileReference is turned to FR.
-            let acronym = typeName
-                .replacingOccurrences(of: "PBX", with: "")
-                .replacingOccurrences(of: "XC", with: "")
-                .filter { String($0).lowercased() != String($0) }
+            let (typeName, acronym) = typeNameAndAcronym(of: object)
 
             var reference = ""
             var counter = 0
@@ -408,6 +403,21 @@ extension ReferenceGenerator {
             references.insert(reference)
             object.reference.fix(reference)
         }
+    }
+
+    private func typeNameAndAcronym(of object: some PBXObject) -> (typeName: String, acronym: String) {
+        let objectType = type(of: object)
+        if let cached = typeNamesAndAcronyms[ObjectIdentifier(objectType)] { return cached }
+        let typeName = String(describing: objectType)
+
+        // Get acronym to be used as prefix for the reference.
+        // PBXFileReference is turned to FR.
+        let acronym = typeName
+            .replacingOccurrences(of: "PBX", with: "")
+            .replacingOccurrences(of: "XC", with: "")
+            .filter { String($0).lowercased() != String($0) }
+        typeNamesAndAcronyms[ObjectIdentifier(objectType)] = (typeName, acronym)
+        return (typeName, acronym)
     }
 
     private func generateReferenceFrom(acronym: String,

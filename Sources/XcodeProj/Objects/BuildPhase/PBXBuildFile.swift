@@ -186,7 +186,8 @@ final class PBXBuildPhaseFile: PlistSerializable, Equatable {
     }
 
     func plistKeyAndValue(proj _: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
-        var dictionary: [CommentedString: PlistValue] = [:]
+        // Room for every key below, so the dictionary isn't regrown while it's filled.
+        var dictionary = [CommentedString: PlistValue](minimumCapacity: 6)
         dictionary["isa"] = .string(CommentedString(PBXBuildFile.isa))
         if let fileReference = buildFile.fileReference {
             let fileElement: PBXFileElement? = fileReference.getObject()

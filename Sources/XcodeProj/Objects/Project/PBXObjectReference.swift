@@ -7,7 +7,12 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     private(set) var temporary: Bool
 
     /// String reference.
-    private(set) var value: String
+    private(set) var value: String {
+        didSet { valueHash = value.hashValue }
+    }
+
+    /// The hash of `value`, which dictionaries keyed by references ask for again every time they move an entry.
+    private var valueHash: Int
 
     /// Weak reference to the objects instance that contains the project objects.
     weak var objects: PBXObjects?
@@ -20,6 +25,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Parameter reference: reference.
     init(_ reference: String, objects: PBXObjects) {
         value = reference
+        valueHash = reference.hashValue
         temporary = false
         self.objects = objects
     }
@@ -27,6 +33,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// Initializes a temporary reference
     init(objects: PBXObjects? = nil) {
         value = "TEMP_\(UUID().uuidString)"
+        valueHash = value.hashValue
         temporary = true
         self.objects = objects
     }
@@ -36,6 +43,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Parameter reference: reference.
     init(_ reference: String) {
         value = reference
+        valueHash = reference.hashValue
         temporary = false
     }
 
@@ -44,6 +52,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     /// - Parameter objectReference: object reference to be initialized from.
     required init(_ objectReference: PBXObjectReference) {
         value = objectReference.value
+        valueHash = objectReference.valueHash
         temporary = objectReference.temporary
     }
 
@@ -51,7 +60,8 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
     ///
     /// - Parameter value: value.
     func fix(_ value: String) {
-        let object = objects?.delete(reference: self)
+        // The referenced object's type says which collection holds it, which saves probing every collection.
+        let object = object.flatMap { objects?.remove(reference: self, typeOf: $0) } ?? objects?.delete(reference: self)
         self.value = value
         temporary = false
         if let object {
@@ -71,7 +81,7 @@ class PBXObjectReference: NSObject, Comparable, NSCopying {
 
     /// Hash value.
     override var hash: Int {
-        value.hashValue
+        valueHash
     }
 
     func copy(with _: NSZone? = nil) -> Any {

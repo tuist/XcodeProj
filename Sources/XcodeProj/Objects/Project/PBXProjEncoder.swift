@@ -374,9 +374,11 @@ final class PBXProjEncoder {
             }
         }
 
-        let joinedArray: [String] = resultArray.flatMap { $0 }
         // should check multiline
-        output.append(contentsOf: joinedArray)
+        // Appended element by element, which saves flattening them into a temporary array first.
+        for lines in resultArray {
+            output.append(contentsOf: lines)
+        }
         write(string: "/* End \(section) section */", to: &output)
         writeNewLine(stateHolder: &stateHolder, to: &output)
     }
