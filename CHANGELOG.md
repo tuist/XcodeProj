@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.17.8] - 2026-11-04
+### Details
+#### Bug Fixes
+- Generate deterministic references for build phase membership exception sets by @pepicrft in [#1201](https://github.com/tuist/XcodeProj/pull/1201)
+
 ## [9.17.7] - 2026-11-04
 ### Details
 #### Performance
@@ -364,6 +369,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## New Contributors
 * @filipracki made their first contribution in [#834](https://github.com/tuist/XcodeProj/pull/834)
+[9.17.8]: https://github.com/tuist/XcodeProj/compare/9.17.7..9.17.8
 [9.17.7]: https://github.com/tuist/XcodeProj/compare/9.17.6..9.17.7
 [9.17.6]: https://github.com/tuist/XcodeProj/compare/9.17.5..9.17.6
 [9.17.5]: https://github.com/tuist/XcodeProj/compare/9.17.4..9.17.5
