@@ -208,40 +208,70 @@ class PBXObjects: Equatable {
         }
         let objectReference: PBXObjectReference = object.reference
         objectReference.objects = self
+        update(object, reference: objectReference, inserting: true)
+    }
+
+    /// Removes the object stored under `reference` from the collection that objects of `object`'s type belong to.
+    /// Unlike `delete(reference:)`, it doesn't probe every collection.
+    ///
+    /// - Returns: the removed object, or nil when that collection has nothing under `reference`.
+    func remove(reference: PBXObjectReference, typeOf object: PBXObject) -> PBXObject? {
+        lock.lock()
+        defer { lock.unlock() }
+        return update(object, reference: reference, inserting: false)
+    }
+
+    /// Inserts `object` under `reference` into the collection its type belongs to, or removes what that collection
+    /// stores under `reference`, so `add` and `remove` always agree on the collection.
+    @discardableResult private func update(
+        _ object: PBXObject,
+        reference: PBXObjectReference,
+        inserting: Bool
+    ) -> PBXObject? {
+        func update<T: PBXObject>(_ objects: inout [PBXObjectReference: T], _ object: T) -> PBXObject? {
+            if inserting {
+                objects[reference] = object
+                return object
+            }
+            return objects.removeValue(forKey: reference)
+        }
 
         switch object {
         // subclasses of PBXGroup; must be tested before PBXGroup
-        case let object as PBXVariantGroup: _variantGroups[objectReference] = object
-        case let object as XCVersionGroup: _versionGroups[objectReference] = object
+        case let object as PBXVariantGroup: return update(&_variantGroups, object)
+        case let object as XCVersionGroup: return update(&_versionGroups, object)
         // everything else
-        case let object as PBXBuildFile: _buildFiles[objectReference] = object
-        case let object as PBXAggregateTarget: _aggregateTargets[objectReference] = object
-        case let object as PBXLegacyTarget: _legacyTargets[objectReference] = object
-        case let object as PBXContainerItemProxy: _containerItemProxies[objectReference] = object
-        case let object as PBXCopyFilesBuildPhase: _copyFilesBuildPhases[objectReference] = object
-        case let object as PBXGroup: _groups[objectReference] = object
-        case let object as XCConfigurationList: _configurationLists[objectReference] = object
-        case let object as XCBuildConfiguration: _buildConfigurations[objectReference] = object
-        case let object as PBXTargetDependency: _targetDependencies[objectReference] = object
-        case let object as PBXSourcesBuildPhase: _sourcesBuildPhases[objectReference] = object
-        case let object as PBXShellScriptBuildPhase: _shellScriptBuildPhases[objectReference] = object
-        case let object as PBXResourcesBuildPhase: _resourcesBuildPhases[objectReference] = object
-        case let object as PBXFrameworksBuildPhase: _frameworksBuildPhases[objectReference] = object
-        case let object as PBXHeadersBuildPhase: _headersBuildPhases[objectReference] = object
-        case let object as PBXNativeTarget: _nativeTargets[objectReference] = object
-        case let object as PBXFileReference: _fileReferences[objectReference] = object
-        case let object as PBXProject: _projects[objectReference] = object
-        case let object as PBXReferenceProxy: _referenceProxies[objectReference] = object
-        case let object as PBXRezBuildPhase: _carbonResourcesBuildPhases[objectReference] = object
-        case let object as PBXBuildRule: _buildRules[objectReference] = object
-        case let object as XCRemoteSwiftPackageReference: _remoteSwiftPackageReferences[objectReference] = object
-        case let object as XCLocalSwiftPackageReference: _localSwiftPackageReferences[objectReference] = object
-        case let object as XCSwiftPackageProductDependency: _swiftPackageProductDependencies[objectReference] = object
-        case let object as PBXFileSystemSynchronizedRootGroup: _fileSystemSynchronizedRootGroups[objectReference] = object
-        case let object as PBXFileSystemSynchronizedBuildFileExceptionSet: _fileSystemSynchronizedBuildFileExceptionSets[objectReference] = object
+        case let object as PBXBuildFile: return update(&_buildFiles, object)
+        case let object as PBXAggregateTarget: return update(&_aggregateTargets, object)
+        case let object as PBXLegacyTarget: return update(&_legacyTargets, object)
+        case let object as PBXContainerItemProxy: return update(&_containerItemProxies, object)
+        case let object as PBXCopyFilesBuildPhase: return update(&_copyFilesBuildPhases, object)
+        case let object as PBXGroup: return update(&_groups, object)
+        case let object as XCConfigurationList: return update(&_configurationLists, object)
+        case let object as XCBuildConfiguration: return update(&_buildConfigurations, object)
+        case let object as PBXTargetDependency: return update(&_targetDependencies, object)
+        case let object as PBXSourcesBuildPhase: return update(&_sourcesBuildPhases, object)
+        case let object as PBXShellScriptBuildPhase: return update(&_shellScriptBuildPhases, object)
+        case let object as PBXResourcesBuildPhase: return update(&_resourcesBuildPhases, object)
+        case let object as PBXFrameworksBuildPhase: return update(&_frameworksBuildPhases, object)
+        case let object as PBXHeadersBuildPhase: return update(&_headersBuildPhases, object)
+        case let object as PBXNativeTarget: return update(&_nativeTargets, object)
+        case let object as PBXFileReference: return update(&_fileReferences, object)
+        case let object as PBXProject: return update(&_projects, object)
+        case let object as PBXReferenceProxy: return update(&_referenceProxies, object)
+        case let object as PBXRezBuildPhase: return update(&_carbonResourcesBuildPhases, object)
+        case let object as PBXBuildRule: return update(&_buildRules, object)
+        case let object as XCRemoteSwiftPackageReference: return update(&_remoteSwiftPackageReferences, object)
+        case let object as XCLocalSwiftPackageReference: return update(&_localSwiftPackageReferences, object)
+        case let object as XCSwiftPackageProductDependency: return update(&_swiftPackageProductDependencies, object)
+        case let object as PBXFileSystemSynchronizedRootGroup: return update(&_fileSystemSynchronizedRootGroups, object)
+        case let object as PBXFileSystemSynchronizedBuildFileExceptionSet: return update(&_fileSystemSynchronizedBuildFileExceptionSets, object)
         case let object as PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet:
-            _fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet[objectReference] = object
-        default: fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
+            return update(&_fileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet, object)
+        default:
+            // Objects of these types are never added, so there is nothing to remove.
+            guard inserting else { return nil }
+            fatalError("Unhandled PBXObject type for \(object), this is likely a bug / todo")
         }
     }
 
@@ -430,17 +460,15 @@ extension PBXObjects {
     // This is used to decode build files. (we need the name of the build phase)
     // Otherwise, we would have to go through all the build phases for each file.
     var buildPhaseFile: [PBXObjectReference: PBXBuildPhaseFile] {
-        let values: [[PBXBuildPhaseFile]] = buildPhases.values.map { buildPhase in
-            let files = buildPhase.files
-            let buildPhaseFile: [PBXBuildPhaseFile] = files?.compactMap { (file: PBXBuildFile) -> PBXBuildPhaseFile in
-                PBXBuildPhaseFile(
-                    buildFile: file,
-                    buildPhase: buildPhase
-                )
-            } ?? []
-            return buildPhaseFile
+        // A build file listed by several phases maps to the first of them. Visiting the phases and files backwards lets
+        // each entry be overwritten without checking it first, so the first occurrence is the one that stays.
+        var buildPhaseFile = [PBXObjectReference: PBXBuildPhaseFile](minimumCapacity: buildFiles.count)
+        for buildPhase in buildPhases.values.reversed() {
+            for file in (buildPhase.files ?? []).reversed() {
+                buildPhaseFile[file.reference] = PBXBuildPhaseFile(buildFile: file, buildPhase: buildPhase)
+            }
         }
-        return Dictionary(values.flatMap { $0 }.map { ($0.buildFile.reference, $0) }, uniquingKeysWith: { first, _ in first })
+        return buildPhaseFile
     }
 
     /// Runs the given closure for each of the objects that are part of the project.

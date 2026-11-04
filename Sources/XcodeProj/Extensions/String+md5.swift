@@ -27,20 +27,32 @@ import Foundation
 
 extension String {
     var md5: String {
+        #if canImport(CryptoKit)
+            if #available(OSX 10.15, iOS 13.0, *) {
+                // Hashes the UTF-8 bytes in place and writes the hex digits straight into the result, without the
+                // intermediate `Data`, byte array, and hex buffer.
+                var string = self
+                let digest = string.withUTF8 { Insecure.MD5.hash(data: UnsafeRawBufferPointer($0)) }
+                return digest.withUnsafeBytes { bytes in
+                    String(unsafeUninitializedCapacity: bytes.count * 2) { hex in
+                        for (offset, byte) in bytes.enumerated() {
+                            hex[offset * 2] = hexDigit(byte >> 4)
+                            hex[offset * 2 + 1] = hexDigit(byte & 0xF)
+                        }
+                        return bytes.count * 2
+                    }
+                }
+            }
+        #endif
         guard let data = data(using: .utf8, allowLossyConversion: true) else {
             return self
         }
-        #if canImport(CryptoKit)
-            if #available(OSX 10.15, iOS 13.0, *) {
-                return Insecure.MD5.hash(data: data)
-                    .withUnsafeBytes { Array($0) }.hexString
-            } else {
-                return data.slowMD5
-            }
-        #else
-            return data.slowMD5
-        #endif
+        return data.slowMD5
     }
+}
+
+private func hexDigit(_ value: UInt8) -> UInt8 {
+    (value > 9) ? (charA + value - 10) : (char0 + value)
 }
 
 private let charA = UInt8(UnicodeScalar("a").value)
@@ -54,17 +66,13 @@ private extension DataProtocol {
 
         for _ in regions {
             for i in self {
-                hexChars[Int(offset * 2)] = itoh((i >> 4) & 0xF)
-                hexChars[Int(offset * 2 + 1)] = itoh(i & 0xF)
+                hexChars[Int(offset * 2)] = hexDigit((i >> 4) & 0xF)
+                hexChars[Int(offset * 2 + 1)] = hexDigit(i & 0xF)
                 offset += 1
             }
         }
 
         return String(bytes: hexChars, encoding: .utf8)!
-    }
-
-    func itoh(_ value: UInt8) -> UInt8 {
-        (value > 9) ? (charA + value - 10) : (char0 + value)
     }
 }
 
