@@ -33,7 +33,8 @@ struct ReferenceFixingTests {
     }
 
     #if os(macOS) || (os(Linux) && compiler(>=6.1))
-        /// Writing a project whose references are all temporary moves every object it decodes to a permanent reference.
+        /// Writing a project whose references are all temporary moves every object it decodes to a permanent reference,
+        /// and gives each the same reference every time.
         @Test(arguments: [
             "iOS/Project.xcodeproj",
             "iOS/AppWithExtensions/AppWithExtensions.xcodeproj",
@@ -43,15 +44,19 @@ struct ReferenceFixingTests {
             "Xcode16ProjectReferenceOrder/Test.xcodeproj",
         ])
         func writingAProjectWithTemporaryReferences_keepsEveryObject(fixture: String) throws {
-            let pbxproj = try PBXProj(path: fixturesPath() + fixture + "project.pbxproj")
-            let objects = objectCountsByType(pbxproj.objects)
-            pbxproj.objects.invalidateReferences()
+            func write() throws -> (objects: [String: Int], data: Data) {
+                let pbxproj = try PBXProj(path: fixturesPath() + fixture + "project.pbxproj")
+                let objects = objectCountsByType(pbxproj.objects)
+                pbxproj.objects.invalidateReferences()
+                return try (objects, #require(try pbxproj.dataRepresentation()))
+            }
 
-            let data = try #require(try pbxproj.dataRepresentation())
+            let (objects, data) = try write()
             let written = try PBXProj(data: data)
 
             #expect(objectCountsByType(written.objects) == objects)
             #expect(!String(decoding: data, as: UTF8.self).contains("TEMP_"))
+            #expect(try write().data == data)
         }
     #endif
 
