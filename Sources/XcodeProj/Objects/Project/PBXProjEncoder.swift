@@ -303,6 +303,8 @@ final class PBXProjEncoder {
     }
 
     private func write(comment: String, to output: inout [String]) {
+        // Xcode writes */ inside a comment as (*)/, so the comment does not end early.
+        let comment = comment.contains("*/") ? comment.replacingOccurrences(of: "*/", with: "(*)/") : comment
         output.append("/* \(comment) */")
     }
 
