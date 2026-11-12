@@ -203,6 +203,17 @@
             lines.validate(line: "23766C2C1EAA3484007A9026 /* Info.plist */,", betweenLine: iosTestsChildrenStart, andLine: iosTestsChildrenEnd)
         }
 
+        func test_navigator_group_name_containing_comment_end_when_iOSProject() throws {
+            try loadiOSProject()
+            let group = try XCTUnwrap(proj.groups.first { $0.name == "GroupWithoutFolder" })
+            group.name = "Group */ Name"
+
+            let encoded = encodeProject()
+            lines(fromFile: encoded).validate(line: "3CD1EAD92057638200DAEECB /* Group (*)/ Name */ = {")
+            let reread = try PBXProj(data: XCTUnwrap(encoded.data(using: .utf8)))
+            XCTAssertNotNil(reread.groups.first { $0.name == "Group */ Name" })
+        }
+
         func test_navigator_groups_in_filename_order_when_iOSProject() throws {
             try loadiOSProject()
 
