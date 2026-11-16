@@ -136,6 +136,14 @@ public class XCRemoteSwiftPackageReference: PBXContainerItem, PlistSerializable 
         repositoryURL?.split(separator: "/").last?.replacingOccurrences(of: ".git", with: "")
     }
 
+    /// The name `project.xcproj` uses to refer to the package: the last component of the repository URL
+    /// without its path extension (`.git`, but also e.g. the `.ios_sdk` of `ometria.ios_sdk`).
+    var xcprojName: String? {
+        guard let last = repositoryURL?.split(separator: "/").last else { return nil }
+        guard let dot = last.lastIndex(of: "."), dot != last.startIndex else { return String(last) }
+        return String(last[..<dot])
+    }
+
     func plistKeyAndValue(proj: PBXProj, reference: String) throws -> (key: CommentedString, value: PlistValue) {
         var dictionary = try super.plistValues(proj: proj, reference: reference)
         dictionary["isa"] = .string(CommentedString(XCRemoteSwiftPackageReference.isa))

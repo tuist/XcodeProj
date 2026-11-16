@@ -221,6 +221,22 @@ import XcodeProjectFormat
         #expect(frameworks.files?.compactMap { $0.product?.productName } == ["Logging"])
     }
 
+    @Test func packageNamedWithoutItsPathExtension() throws {
+        // Xcode refers to `https://github.com/example/argument.parser` as `argument`.
+        let text = try String(contentsOf: everythingXCProjPath.url, encoding: .utf8)
+            .replacingOccurrences(
+                of: "https://github.com/apple/swift-argument-parser",
+                with: "https://github.com/example/argument.parser"
+            )
+            .replacingOccurrences(of: "\"package\": \"swift-argument-parser\"", with: "\"package\": \"argument\"")
+        let proj = try PBXProj(xcprojData: Data(text.utf8), projectName: "Everything")
+        let app = try #require(proj.nativeTargets.first { $0.name == "App" })
+        #expect(app.dependencies[2].product?.package?.repositoryURL == "https://github.com/example/argument.parser")
+
+        let encoded = String(decoding: try proj.xcprojData(), as: UTF8.self)
+        #expect(encoded.contains("\"package\": \"argument\""))
+    }
+
     // MARK: - Build rules
 
     @Test func buildRules() throws {
