@@ -596,7 +596,9 @@ extension XCProjDecoder {
                 )
                 add(reference)
                 references.append(reference)
+                // Older versions of this library wrote `name`, which only drops `.git`.
                 packagesByName[reference.name ?? ""] = reference
+                packagesByName[reference.xcprojName ?? ""] = reference
             }
         }
         return references

@@ -828,7 +828,7 @@ extension XCProjEncoder {
     ) -> XCSchema.SwiftPackageProductReference {
         XCSchema.SwiftPackageProductReference(
             objectID: objectID(for: product, required: false),
-            package: product.package?.name.map(XCSchema.SwiftPackageName.init(packageName:)),
+            package: product.package?.xcprojName.map(XCSchema.SwiftPackageName.init(packageName:)),
             productName: product.productName,
             productType: product.isPlugin ? .buildToolPlugin : .other
         )
